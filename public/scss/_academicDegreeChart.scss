@@ -1,0 +1,11 @@
+@use "variables";
+@use "mixins";
+
+#academicDegreeDonutChart {
+  margin: 0 auto !important;
+}
+
+.academicChart__title {
+  @include mixins.card-title;
+  margin-bottom: 20px;
+}

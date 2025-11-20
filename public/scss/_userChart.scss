@@ -1,0 +1,65 @@
+@use "variables";
+@use "mixins";
+
+.stat {
+  &__userChart {
+    @include mixins.card-style;
+  }
+}
+
+.userChart {
+  &__title {
+    font-family: variables.$font-family;
+    font-size: variables.$font-size-base;
+    color: variables.$text-primary;
+    font-weight: variables.$font-weight-semibold;
+    margin-bottom: 20px;
+  }
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+#userDonutChart {
+  margin: 0 auto !important;
+}
+
+.user-chart__legend {
+  margin-top: 16px;
+}
+.user-legend-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+  gap: 10px;
+}
+.user-legend-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 8px;
+}
+.user-legend-label {
+  min-width: 100px;
+  color: variables.$text-secondary2;
+  font-family: variables.$font-family;
+  font-size: variables.$font-size-sm;
+  font-weight: variables.$font-weight-semibold;
+}
+.user-legend-value {
+  margin-left: auto;
+  color: variables.$text-primary;
+  font-family: variables.$font-family;
+  font-size: variables.$font-size-sm;
+  font-weight: variables.$font-weight-semibold;
+}
+
+.apexcharts-datalabels-group text {
+  color: variables.$text-primary !important;
+  font-family: variables.$font-family !important;
+  font-size: variables.$font-size-base !important;
+  font-weight: variables.$font-weight-semibold !important;
+}

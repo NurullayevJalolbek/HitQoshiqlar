@@ -1,0 +1,23 @@
+@use "variables";
+
+// card style
+@mixin card-style {
+  border-radius: 12px;
+  background: variables.$white;
+  padding: 20px;
+}
+
+@mixin card-title {
+  font-family: variables.$font-family;
+  font-size: variables.$font-size-base;
+
+  span:first-child {
+    color: variables.$text-primary;
+    font-weight: variables.$font-weight-semibold;
+  }
+
+  span:last-child {
+    color: variables.$text-secondary2;
+    font-weight: variables.$font-weight-medium;
+  }
+}
