@@ -110,12 +110,30 @@
             z-index: 1; /* login kartadan orqada bo‘lsin */
             width: 1000px; /* xohlashcha kenglik */
             height: 570px; /* xohlashcha bo‘y */
+            animation:
+                waveSideRight 18s ease-in-out infinite alternate,
+                waveUpDown 6s ease-in-out infinite alternate;
         }
 
         .envast-wave-right {
             right: -95px;
             justify-content: flex-end;
-            /*animation: waveSideRight 18s ease-in-out infinite alternate;*/
+            animation:
+                waveSideRight 18s ease-in-out infinite alternate,
+                waveUpDown 6s ease-in-out infinite alternate;
+        }
+
+
+        /* O‘ng–chap animatsiya (senda bor edi) */
+        @keyframes waveSideRight {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(40px); }
+        }
+
+        /* Tepaga–pastga tebranish (yangi) */
+        @keyframes waveUpDown {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(20px); }
         }
 
         .envast-wave {
