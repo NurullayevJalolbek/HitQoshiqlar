@@ -5,12 +5,13 @@
         <ul class="nav flex-column pt-3 pt-md-0" style="padding-top: 50px !important;">
 
             <!-- Logo -->
-            <li class="nav-item" id="project-logo" style="list-style: none;">
+            <li class="nav-item" id="project-logo" style="list-style: none; margin-top: 20px;">
                 <a href="{{ route('admin.dashboard') }}" class="d-flex align-items-center gap-2">
                     <img src="{{ asset('assets/img/envast_logo.svg') }}" height="40" width="40">
                     <img src="{{ asset('assets/img/envast_text.svg') }}" height="35" width="140">
                 </a>
             </li>
+
 
             <!-- Divider -->
             <li role="separator" class="dropdown-divider border-gray-700 my-3"></li>

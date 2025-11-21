@@ -15,6 +15,17 @@
 
 
     <style>
+        /* Sidebar yig‘ilganda matn yo‘qoladi */
+        .sidebar.contracted #project-logo img:last-child {
+            display: none;
+        }
+
+        /* Sidebar ochilganda matn yana chiqadi */
+        .sidebar:not(.contracted) #project-logo img:last-child {
+            display: inline-block;
+        }
+
+
         #form-control-search::placeholder {
             color: #adb5bd;
             /* Bu och kulrang rang */
