@@ -252,8 +252,8 @@
                     <div class="login-card p-4 p-lg-5 w-100 wave-overlap">
 
                         <div class="text-center mb-4">
-                            <img src="{{ asset('assets/img/envast_logo.svg') }}" alt="Envast"
-                                 style="height: 90px;" class="mb-2">
+                            <img src="{{ asset('assets/img/envast_logo_1.svg') }}" alt="Envast"
+                                 style="height: 55px;" class="mb-2">
                         </div>
 
                         <form id="formAuthentication" action="{{ route('login.post') }}" method="POST" class="mt-4">

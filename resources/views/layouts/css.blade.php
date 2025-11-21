@@ -5,6 +5,9 @@
     <link rel="apple-touch-icon" sizes="120x120" href="{{ asset('assets/img/bicon.png') }}">
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('assets/img/bicon.png') }}">
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/img/bicon.png') }}">
+    <!-- Font Awesome 6 Free -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <link rel="mask-icon" href="{{ asset('assets/img/bicon.png') }}">
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="theme-color" content="#ffffff">
