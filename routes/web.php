@@ -2,20 +2,13 @@
 
 use Illuminate\Support\Facades\Route;
 
+include __DIR__ . '/auth.php';
+include __DIR__ . '/admin.php';
+
+
 Route::get('/', function () {
-    return view('welcome');
+    if (auth()->check()) {
+        return redirect()->route('admin.dashboard');
+    }
+    return redirect()->route('login');
 });
-Route::get('/dashboard', function () {
-    return view('pages.dashboard.index');
-});
-
-
-
-    include __DIR__ . '/auth.php';
-
-
-
-//Route::group(['middleware' => ['locale']], function () {
-//    include __DIR__ . '/auth.php';
-//    include __DIR__ . '/admin.php';
-//});
