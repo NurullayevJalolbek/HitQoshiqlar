@@ -29,6 +29,7 @@ class User extends Authenticatable
         'birthdate',
         'passport',
         'pinfl',
+        'locale',
         'registered_by',
         'status',
         'email_verified_at',

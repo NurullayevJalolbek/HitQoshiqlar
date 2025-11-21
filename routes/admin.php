@@ -18,7 +18,7 @@ use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\NotificationController;
 
 
-Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth'], function () {
+Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'lang']], function () {
 
     // Dashboard route – faqat index
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');

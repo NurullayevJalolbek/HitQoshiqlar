@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\LanguageController;
 use Illuminate\Support\Facades\Route;
 
 include __DIR__ . '/auth.php';
+
 include __DIR__ . '/admin.php';
 
 
@@ -12,3 +14,8 @@ Route::get('/', function () {
     }
     return redirect()->route('login');
 });
+
+Route::post('/language-change', [LanguageController::class, 'change'])->name('language.change');
+
+
+

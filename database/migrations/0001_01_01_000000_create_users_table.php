@@ -31,6 +31,10 @@ return new class extends Migration
             $table->string('registered_by')->nullable();
             // $table->boolean('one_id')->default(false);
             // $table->boolean('e_imzo')->default(false);
+
+            $table->string('locale')->nullable()->default('uz');
+
+
             $table->string('status')->default('inactive');
             $table->timestamp('email_verified_at')->nullable();
 

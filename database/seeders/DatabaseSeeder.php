@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             UserSeeder::class,
+            LanguagesTableSeeder::class,
         ]);
 //        User::factory()->create([
 //            'name' => 'Test User',

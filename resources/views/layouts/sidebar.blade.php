@@ -20,7 +20,7 @@
             <li class="nav-item {{ isActiveRoute('admin.dashboard') }}">
                 <a href="{{ route('admin.dashboard') }}" class="nav-link d-flex align-items-center gap-2">
                     <i class="bi bi-speedometer2"></i>
-                    <span class="sidebar-text ms-2">Dashboard</span>
+                    <span class="sidebar-text ms-2">{{__('admin.dashboard')}}</span>
                 </a>
             </li>
 
