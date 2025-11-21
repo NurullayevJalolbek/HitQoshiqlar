@@ -256,15 +256,23 @@
                                  style="height: 90px;" class="mb-2">
                         </div>
 
-                        <form id="formAuthentication" action="#" method="POST" class="mt-4">
+                        <form id="formAuthentication" action="{{ route('login.post') }}" method="POST" class="mt-4">
+                            @csrf
+                            @error('login')
+                            <div class="alert alert-danger mt-2">{{ $message }}</div>
+                            @enderror
+
                             <div class="mb-3">
                                 <label for="username" class="envast-label mb-1">Login</label>
                                 <div class="input-group">
                                         <span class="input-group-text bg-gray-100 border-end-0">
                                             <i class="bi bi-person" style="color: #BF9B63;"></i>
                                         </span>
-                                    <input type="text" id="username" name="username" class="form-control border-start-0"
+                                    <input type="text" id="username" name="username"  class="form-control border-start-0 @error('username') is-invalid @enderror""
                                            placeholder="Loginni kiriting" autofocus required>
+                                    @error('username')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
 
@@ -275,12 +283,15 @@
                                             <i class="bi bi-lock" style="color: #BF9B63;"></i>
                                         </span>
                                     <input type="password" id="password" name="password"
-                                           class="form-control border-start-0" placeholder="Parolni kiriting" required>
+                                           class="form-control border-start-0 @error('password') is-invalid @enderror" placeholder="Parolni kiriting" required>
                                     <button type="button" class="input-group-text bg-white border-start-0"
                                             id="togglePassword" style="cursor: pointer;">
                                         <i id="togglePasswordIcon" class="bi bi-eye"
                                            style="font-size: 18px; color: #BF9B63;"></i>
                                     </button>
+                                    @error('password')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
 
