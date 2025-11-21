@@ -2,6 +2,6 @@
 
 @section('content')
 
-    <h1>Dashboard</h1>
+    <h1>Islamic Finance</h1>
 
 @endsection
