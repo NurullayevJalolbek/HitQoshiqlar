@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\ProjectController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\UserController;
@@ -34,6 +35,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'l
 
     // Investitsion loyihalar
     Route::resource('investment-projects', InvestmentProjectController::class);
+
+    //Projects
+    Route::resource('projects', ProjectController::class);
 
     // Tushumlar
     Route::resource('revenues', RevenueController::class);

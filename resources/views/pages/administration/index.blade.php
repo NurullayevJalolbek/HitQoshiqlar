@@ -1,7 +1,33 @@
 @extends('layouts.app')
 
-@section('content')
+@push('customCss')
+    {{--    CSS Ko'dlari--}}
+@endpush
 
-    <h1>Administration</h1>
+@section('breadcrumb')
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4 breadcrumb-block">
+        <div class="d-block mb-4 mb-md-0">
+            <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
+                <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
+                    <li class="breadcrumb-item">
+                        <a href="#">
+                            <img src="{{ asset('svg/home-2.svg') }}" alt="Home">
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">{{__('admin.administration')}}</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+@endsection
+
+@section('content')
+    {{--    Content--}}
 
 @endsection
+
+@push('customJs')
+    <script>
+        // JS Ko'dlar'
+    </script>
+@endpush

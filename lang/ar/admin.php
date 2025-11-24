@@ -30,7 +30,8 @@ return [
     'islamic-finance' => "الرقابة المالية الإسلامية",
     'settings' => "الإعدادات",
     'administration' => "الإدارة",
-    'notifications' => "الإشعارات"
+    'notifications' => "الإشعارات",
+    'projects' => "المشاريع"
 
 
 

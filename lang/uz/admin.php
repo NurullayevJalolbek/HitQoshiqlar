@@ -29,7 +29,8 @@ return [
     'islamic-finance' => "Islom moliyasi nazorati",
     'settings' => "Sozlamalar",
     'administration' => "Mamuriyat",
-    'notifications' => "Bildirishnomalar"
+    'notifications' => "Bildirishnomalar",
+    'projects' => "Loyihalar"
 
 
 

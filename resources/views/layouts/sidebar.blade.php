@@ -47,6 +47,14 @@
                     <span class="sidebar-text ms-2 text-break flex-fill">{{__('admin.revenues')}}</span>
                 </a>
             </li>
+            <!-- Projects -->
+            <li class="nav-item {{ isActiveRoute('admin.projects.*') }}">
+                <a href="{{ route('admin.projects.index') }}" class="nav-link d-flex align-items-center gap-2">
+                    <i class="bi bi-building"></i>
+                    <span class="sidebar-text ms-2 text-break flex-fill">{{__('admin.projects')}}</span>
+                </a>
+            </li>
+
 
             <!-- Daromadlar -->
             <li class="nav-item {{ isActiveRoute('admin.incomes.*') }}">

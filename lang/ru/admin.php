@@ -30,7 +30,8 @@ return [
     'islamic-finance' => "Контроль исламских финансов",
     'settings' => "Настройки",
     'administration' => "Администрация",
-    'notifications' => "Уведомления"
+    'notifications' => "Уведомления",
+    'projects' => "Проекты"
 
 
 
