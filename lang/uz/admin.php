@@ -1,7 +1,6 @@
 <?php
 
 return [
-    'dashboard' => 'Dashboard',
     'Edit' => "Tahrirlash",
     'Photo' => "Rasm",
     'Fullname' => "To'liq ism",
@@ -16,7 +15,21 @@ return [
     'Profile' => "Profil",
     'Personal information' => "Shaxsiy ma'lumotlar",
     'Logout' => "Chiqish",
-    'no_role' => "Rol yo'q"
+    'no_role' => "Rol yo'q",
+    'dashboard' => "Boshqaruv paneli",
+    'users' => "Foydalanuvchilar",
+    'investment-projects' => "Investitsion loyihalar",
+    'revenues' => "Tushumlar",
+    'incomes' => "Daromadlar",
+    'investors' => "Investorlar",
+    'expenses' => "Xarajatlar",
+    'distributions' => "Taqsimot",
+    'investment-contracts' => "Investitsiya shartnomalar",
+    'reports' => "Xisobotlar",
+    'islamic-finance' => "Islom moliyasi nazorati",
+    'settings' => "Sozlamalar",
+    'administration' => "Mamuriyat",
+    'notifications' => "Bildirishnomalar"
 
 
 

@@ -16,7 +16,21 @@ return [
     'Profile' => "الملف الشخصي",
     'Personal information' => "المعلومات الشخصية",
     'Logout' => "تسجيل الخروج",
-    'no_role' => "لا يوجد دور"
+    'no_role' => "لا يوجد دور",
+    'dashboard' => "لوحة التحكم",
+    'users' => "المستخدمين",
+    'investment-projects' => "المشاريع الاستثمارية",
+    'revenues' => "الإيرادات",
+    'incomes' => "الدخل",
+    'investors' => "المستثمرين",
+    'expenses' => "المصروفات",
+    'distributions' => "التوزيع",
+    'investment-contracts' => "عقود الاستثمار",
+    'reports' => "التقارير",
+    'islamic-finance' => "الرقابة المالية الإسلامية",
+    'settings' => "الإعدادات",
+    'administration' => "الإدارة",
+    'notifications' => "الإشعارات"
 
 
 

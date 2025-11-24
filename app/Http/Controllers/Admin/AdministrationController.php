@@ -9,6 +9,6 @@ class AdministrationController extends Controller
 {
     public function index(Request $request)
     {
-        return view('pages.administrations.index');
+        return view('pages.administration.index');
     }
 }

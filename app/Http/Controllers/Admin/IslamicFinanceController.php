@@ -9,6 +9,6 @@ class IslamicFinanceController extends Controller
 {
     public function index(Request $request)
     {
-        return view('pages.islamic-finances.index');
+        return view('pages.islamic-finance.index');
     }
 }
