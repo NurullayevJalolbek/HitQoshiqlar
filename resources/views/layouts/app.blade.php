@@ -12,7 +12,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
 
-    <title>{{ $title ?? __('admin.Dashboard') }}</title>
+    <title>{{ __('admin.dashboard') }}</title>
 
     @stack('customCss')
 
