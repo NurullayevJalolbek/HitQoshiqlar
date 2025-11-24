@@ -26,7 +26,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'l
     Route::resource('profile', ProfileController::class)->except(['show']);
 
 
-
     // Dashboard route – faqat index
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
 
