@@ -13,21 +13,22 @@
 
             <!-- Navbar links -->
             <ul class="navbar-nav align-items-center">
-
-               @include('layouts.language')
-
                 <li class="nav-item dropdown">
-                     <a class="nav-link text-dark notification-bell unread dropdown-toggle"
-                        data-unread-notifications="true" href="#" role="button" data-bs-toggle="dropdown"
-                        data-bs-display="static" aria-expanded="false">
+                    <a class="nav-link text-dark notification-bell unread dropdown-toggle"
+                       data-unread-notifications="true" href="#" role="button" data-bs-toggle="dropdown"
+                       data-bs-display="static" aria-expanded="false">
                         <svg class="icon icon-sm text-gray-900" fill="currentColor" viewBox="0 0 20 20"
-                            xmlns="http://www.w3.org/2000/svg">
+                             xmlns="http://www.w3.org/2000/svg">
                             <path
                                 d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z">
                             </path>
                         </svg>
                     </a>
                 </li>
+
+               @include('layouts.language')
+
+
 
                 <li class="nav-item dropdown ms-lg-3">
                     <a class="nav-link dropdown-toggle py-0 px-0" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -46,11 +47,11 @@
                     </a>
 
                     <div class="dropdown-menu dashboard-dropdown dropdown-menu-end mt-2 py-1">
-                        <a class="dropdown-item d-flex align-items-center" href="#">
+                        <a class="dropdown-item d-flex align-items-center" href="{{ route('admin.profile.index', ['user_id'=>auth()->user()->id]) }}">
                             <svg class="dropdown-icon text-gray-400 me-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clip-rule="evenodd"></path>
                             </svg>
-                            {{ __('locale.My profile') }}
+                            {{ __('admin.Profile') }}
                         </a>
 
                         <div role="separator" class="dropdown-divider my-1"></div>

@@ -20,6 +20,12 @@ use App\Http\Controllers\Admin\NotificationController;
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'lang']], function () {
 
+
+    //Profile
+    Route::resource('profile', ProfileController::class)->except(['show']);
+
+
+
     // Dashboard route – faqat index
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
 

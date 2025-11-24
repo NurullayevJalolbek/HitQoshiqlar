@@ -17,7 +17,7 @@ class LanguagesTableSeeder extends Seeder
             [
                 'name' => 'O\'zbek',
                 'url' => 'uz',
-                'icon' => 'https://flagcdn.com/uz.svg',
+                'icon' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Flag_of_Uzbekistan.svg/960px-Flag_of_Uzbekistan.svg.png?20250418015555',
                 'default' => true,
                 'status' => 'active',
             ],
