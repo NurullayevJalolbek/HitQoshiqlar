@@ -40,7 +40,10 @@ return [
     'documents' => "Documents",
     'general_settings' => "General settings",
     'integration_settings' => "Integration settings",
-    'user_interface' => "User interface"
+    'user_interface' => "User interface",
+    'roles' => "Roles",
+    'login_history' => "Login history",
+    'system_logs' => "System logs"
 
 
 

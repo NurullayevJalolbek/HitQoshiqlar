@@ -40,7 +40,10 @@ return [
     'documents' => "Документы",
     'general_settings' => "Общие настройки",
     'integration_settings' => "Настройки интеграции",
-    'user_interface' => "Пользовательский интерфейс"
+    'user_interface' => "Пользовательский интерфейс",
+    'roles' => "Роли",
+    'login_history' => "История входов",
+    'system_logs' => "Системные логи"
 
 
 

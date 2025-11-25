@@ -39,7 +39,10 @@ return [
     'documents' => "Ma'lumotnomalar",
     'general_settings' => "Umumiy sozlamalar",
     'integration_settings' => "Integratsiya sozlamalar",
-    'user_interface' => "Foydalanuvchi interfeysi"
+    'user_interface' => "Foydalanuvchi interfeysi",
+    'roles' => "Rollar",
+    'login_history' => "Kirish tarixlari",
+    'system_logs' => "Tizim tarixlari"
 
 
 

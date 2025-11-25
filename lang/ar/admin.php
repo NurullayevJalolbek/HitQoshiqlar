@@ -40,7 +40,10 @@ return [
     'documents' => "المستندات",
     'general_settings' => "الإعدادات العامة",
     'integration_settings' => "إعدادات التكامل",
-    'user_interface' => "واجهة المستخدم"
+    'user_interface' => "واجهة المستخدم",
+    'roles' => "الأدوار",
+    'login_history' => "سجل الدخول",
+    'system_logs' => "سجلات النظام"
 
 
 

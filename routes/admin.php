@@ -3,12 +3,16 @@
 use App\Http\Controllers\Admin\CompanyDetailController;
 use App\Http\Controllers\Admin\GeneralSettingController;
 use App\Http\Controllers\Admin\IntegrationSettingController;
+use App\Http\Controllers\Admin\LoginHistoryController;
+use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\ProjectBuyerController;
 use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\Admin\ProjectEntryRequestController;
 use App\Http\Controllers\Admin\ProjectExitRequestController;
 use App\Http\Controllers\Admin\ProjectInvestorController;
 use App\Http\Controllers\Admin\ReferenceController;
+use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\SystemLogController;
 use App\Http\Controllers\Admin\UserInterfaceController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminDashboardController;
@@ -37,10 +41,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'l
 
     // Dashboard route – faqat index
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
-
-    // Foydalanuvchilar – resource
-    Route::resource('users', UserController::class);
-
 
 
     /*
@@ -72,8 +72,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'l
     // Daromadlar
     Route::resource('incomes', IncomeController::class);
 
-    // Investorlar
-    Route::resource('investors', InvestorController::class);
+
 
     // Xarajatlar
     Route::resource('expenses', ExpenseController::class);
@@ -107,6 +106,33 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'l
 
     //Foydalanuvchi interfeysi
     Route::resource('user-interface', UserInterfaceController::class);
+
+
+    /*
+     *
+     * Mamuriyat bo'limi
+     */
+
+    //Foydalanuvchilar
+    Route::resource('users', UserController::class);
+
+    // Investorlar
+    Route::resource('investors', InvestorController::class);
+
+    //Rollar
+    Route::resource('roles', RoleController::class);
+
+    //Permissions
+    Route::resource('permissions', PermissionController::class);
+
+    //Login histori
+    Route::resource('login-histories', LoginHistoryController::class);
+
+    //System logs
+    Route::resource('system-logs', SystemLogController::class);
+
+
+
 
 
 
