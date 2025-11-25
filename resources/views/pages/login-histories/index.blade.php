@@ -11,7 +11,7 @@
                 <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
                     <li class="breadcrumb-item">
                         <a href="#">
-                            <img src="{{ asset('svg/home-2.svg') }}" alt="Home">
+                            <i class="fas fa-home"></i>
                         </a>
                     </li>
                     <li class="breadcrumb-item active" aria-current="page">Kirish tarixi</li>
