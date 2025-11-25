@@ -36,6 +36,31 @@
         }
 
 
+        /*Sidebar uchun scroll*/
+        #sidebar-menu-wrapper {
+            overflow-y: auto;
+            max-height: calc(100vh - 100px); /* logotip + divider balandligini hisobga olamiz */
+            padding-right: 5px; /* optional, scroll bar uchun */
+        }
+
+        /* Scroll bar uchun chiroyli style (optional) */
+        #sidebar-menu-wrapper::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        #sidebar-menu-wrapper::-webkit-scrollbar-thumb {
+            background-color: rgba(255, 255, 255, 0.3);
+            border-radius: 3px;
+        }
+
+        #sidebar-menu-wrapper::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+
+
+
+
 
         .swal2-actions {
             gap: 16px;
