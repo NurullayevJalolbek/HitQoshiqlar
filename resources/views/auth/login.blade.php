@@ -5,9 +5,10 @@
     <title>Envast | Login</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link rel="apple-touch-icon" sizes="120x120" href="{{asset('assets/img/bicon.png')}}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{{asset('assets/img/bicon.png')}}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{{asset('assets/img/bicon.png')}}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('assets/img/favicon.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/img/favicon-16.png') }}">
+    <link rel="icon" type="image/svg+xml" href="{{ asset('assets/img/envast_logo.svg') }}">
+
     <link rel="manifest" href="{{ asset('assets/img/favicon/site.webmanifest') }}">
     <link rel="mask-icon" href="{{ asset('assets/img/favicon/safari-pinned-tab.svg') }}" color="#ffffff">
     <meta name="msapplication-TileColor" content="#ffffff">
