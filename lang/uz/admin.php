@@ -35,7 +35,11 @@ return [
     'project_buyers' => "Loyiha sotib olganlar",
     'share_join_requests' => "Ulushga kirish so'rovlari",
     'share_exit_requests' => "Ulushdan chiqish so'rovlari",
-    'company_details' => "Korxona rekvizitlari"
+    'company_details' => "Korxona rekvizitlari",
+    'documents' => "Ma'lumotnomalar",
+    'general_settings' => "Umumiy sozlamalar",
+    'integration_settings' => "Integratsiya sozlamalar",
+    'user_interface' => "Foydalanuvchi interfeysi"
 
 
 

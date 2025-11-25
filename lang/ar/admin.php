@@ -36,7 +36,11 @@ return [
     'project_buyers' => "مشترو المشروع",
     'share_join_requests' => "طلبات الانضمام للحصص",
     'share_exit_requests' => "طلبات الخروج من الحصص",
-    'company_details' => "تفاصيل الشركة"
+    'company_details' => "تفاصيل الشركة",
+    'documents' => "المستندات",
+    'general_settings' => "الإعدادات العامة",
+    'integration_settings' => "إعدادات التكامل",
+    'user_interface' => "واجهة المستخدم"
 
 
 

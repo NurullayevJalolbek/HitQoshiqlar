@@ -36,7 +36,11 @@ return [
     'project_buyers' => "Project buyers",
     'share_join_requests' => "Share join requests",
     'share_exit_requests' => "Share exit requests",
-    'company_details' => "Company details"
+    'company_details' => "Company details",
+    'documents' => "Documents",
+    'general_settings' => "General settings",
+    'integration_settings' => "Integration settings",
+    'user_interface' => "User interface"
 
 
 

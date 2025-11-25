@@ -173,12 +173,73 @@
             </li>
 
             <!-- Sozlamalar -->
-            <li class="nav-item {{ isActiveRoute('admin.settings.*') }}">
-                <a href="{{ route('admin.settings.index') }}" class="nav-link d-flex align-items-center gap-2">
-                    <i class="bi bi-gear"></i>
-                    <span class="sidebar-text ms-2 text-break flex-fill">{{__('admin.settings')}}</span>
-                </a>
+            {{--            <li class="nav-item {{ isActiveRoute('admin.settings.*') }}">--}}
+            {{--                <a href="{{ route('admin.settings.index') }}" class="nav-link d-flex align-items-center gap-2">--}}
+            {{--                    <i class="bi bi-gear"></i>--}}
+            {{--                    <span class="sidebar-text ms-2 text-break flex-fill">{{__('admin.settings')}}</span>--}}
+            {{--                </a>--}}
+            {{--            </li>--}}
+
+            <li class="nav-item">
+                @php
+                    $isOpen = isActiveCollapseArray([
+                    'admin.references.*',
+                    'admin.general-settings.*',
+                    'admin.integration-settings.*',
+                    'admin.user-interface.*'
+                    ], 'show');
+                @endphp
+
+                <span class="nav-link collapsed d-flex justify-content-between align-items-center"
+                      data-bs-toggle="collapse" data-bs-target="#submenu-settings"
+                      aria-expanded="{{ $isOpen ? 'true' : 'false' }}">
+                    <span>
+                            <i class="bi bi-gear"></i>
+                        <span class="sidebar-text ms-2">{{ __('admin.settings') }}</span>
+                    </span>
+                    <span class="link-arrow">
+                        <svg class="icon icon-sm" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd"
+                                  d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                                  clip-rule="evenodd"></path>
+                        </svg>
+                    </span>
+                </span>
+
+
+                <div class="multi-level collapse {{ $isOpen }}" id="submenu-settings">
+                    <ul class="flex-column nav">
+
+                        <li class="nav-item {{ isActiveRoute('admin.references.*') }}">
+                            <a class="nav-link" href="{{ route('admin.references.index') }}">
+                                <span class="sidebar-text">{{__('admin.documents')}}</span>
+                            </a>
+                        </li>
+
+
+                        <li class="nav-item {{ isActiveRoute('admin.general-settings.*') }}">
+                            <a class="nav-link" href="{{ route('admin.general-settings.index') }}"
+                               class="nav-link d-flex align-items-center">
+                                <span class="sidebar-text">{{__('admin.general_settings')}}</span>
+                            </a>
+                        </li>
+
+                        <li class="nav-item {{ isActiveRoute('admin.integration-settings.*') }} ">
+                            <a class="nav-link" href="{{ route('admin.integration-settings.index') }}"
+                               class="nav-link d-flex align-items-center">
+                                <span class="sidebar-text">{{__('admin.integration_settings')}}</span>
+                            </a>
+                        </li>
+                        <li class="nav-item {{ isActiveRoute('admin.user-interface.*') }} ">
+                            <a class=" nav-link" href="{{ route('admin.user-interface.index') }}"
+                               class="nav-link d-flex align-items-center">
+                                <span class="sidebar-text">{{__('admin.user_interface')}}</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </li>
+
 
             <!-- Mamuriyat bolimi -->
             <li class="nav-item {{ isActiveRoute('admin.administration.*') }}">

@@ -14,7 +14,7 @@
                             <img src="{{ asset('svg/home-2.svg') }}" alt="Home">
                         </a>
                     </li>
-                    <li class="breadcrumb-item active" aria-current="page">{{__('admin.settings')}}</li>
+                    <li class="breadcrumb-item active" aria-current="page">Foydalanuvchi interfeysi</li>
                 </ol>
             </nav>
         </div>

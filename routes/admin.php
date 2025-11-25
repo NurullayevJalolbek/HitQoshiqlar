@@ -1,11 +1,15 @@
 <?php
 
 use App\Http\Controllers\Admin\CompanyDetailController;
+use App\Http\Controllers\Admin\GeneralSettingController;
+use App\Http\Controllers\Admin\IntegrationSettingController;
 use App\Http\Controllers\Admin\ProjectBuyerController;
 use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\Admin\ProjectEntryRequestController;
 use App\Http\Controllers\Admin\ProjectExitRequestController;
 use App\Http\Controllers\Admin\ProjectInvestorController;
+use App\Http\Controllers\Admin\ReferenceController;
+use App\Http\Controllers\Admin\UserInterfaceController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\UserController;
@@ -39,7 +43,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'l
 
 
 
-
+    /*
+     * Investitsiyon loyihalar
+     */
     //Projects
     Route::resource('projects', ProjectController::class);
 
@@ -84,8 +90,27 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'l
     // Islom moliyasi nazorati
     Route::resource('islamic-finance', IslamicFinanceController::class);
 
-    // Sozlamalar
-    Route::resource('settings', SettingsController::class);
+
+    /*
+     *
+     * Sozlamalar
+     */
+
+    //Malumotnomalar
+    Route::resource('references', ReferenceController::class);
+
+    //Umumiy sozlamalar
+    Route::resource('general-settings', GeneralSettingController::class);
+
+    //Integratsya sozlamalari
+    Route::resource('integration-settings', IntegrationSettingController::class);
+
+    //Foydalanuvchi interfeysi
+    Route::resource('user-interface', UserInterfaceController::class);
+
+
+
+
 
     // Mamuriyat bolimi
     Route::resource('administration', AdministrationController::class);

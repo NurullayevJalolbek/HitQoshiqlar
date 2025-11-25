@@ -36,7 +36,11 @@ return [
     'project_buyers' => "Покупатели проекта",
     'share_join_requests' => "Запросы на вступление в долю",
     'share_exit_requests' => "Запросы на выход из доли",
-    'company_details' => "Реквизиты компании"
+    'company_details' => "Реквизиты компании",
+    'documents' => "Документы",
+    'general_settings' => "Общие настройки",
+    'integration_settings' => "Настройки интеграции",
+    'user_interface' => "Пользовательский интерфейс"
 
 
 
