@@ -30,7 +30,12 @@ return [
     'settings' => "Sozlamalar",
     'administration' => "Mamuriyat",
     'notifications' => "Bildirishnomalar",
-    'projects' => "Loyihalar"
+    'projects' => "Loyihalar",
+    'project_investors' => "Loyiha investorlar",
+    'project_buyers' => "Loyiha sotib olganlar",
+    'share_join_requests' => "Ulushga kirish so'rovlari",
+    'share_exit_requests' => "Ulushdan chiqish so'rovlari",
+    'company_details' => "Korxona rekvizitlari"
 
 
 

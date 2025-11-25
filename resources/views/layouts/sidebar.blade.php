@@ -31,13 +31,81 @@
                 </a>
             </li>
 
-            <!-- Investitsion loyihalar -->
-            <li class="nav-item {{ isActiveRoute('admin.investment-projects.*') }}">
-                <a href="{{ route('admin.investment-projects.index') }}"
-                   class="nav-link d-flex align-items-center gap-2">
-                    <i class="bi bi-building"></i>
-                    <span class="sidebar-text ms-2 text-break flex-fill">{{__('admin.investment-projects')}}</span>
-                </a>
+            <li class="nav-item">
+                @php
+                    $isOpen = isActiveCollapseArray([
+                    'admin.projects.*',
+                    'admin.project-investors.*',
+                    'admin.project-buyers.*',
+                    'admin.project-entry-requests.*',
+                    'admin.project-exit-requests.*',
+                    'admin.company-details.*'
+                    ], 'show');
+                @endphp
+
+                <span class="nav-link collapsed d-flex justify-content-between align-items-center"
+                      data-bs-toggle="collapse" data-bs-target="#submenu-projects"
+                      aria-expanded="{{ $isOpen ? 'true' : 'false' }}">
+                    <span>
+                        <i class="bi bi-building"></i>
+                        <span class="sidebar-text ms-2">{{ __('admin.investment-projects') }}</span>
+                    </span>
+                    <span class="link-arrow">
+                        <svg class="icon icon-sm" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd"
+                                  d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                                  clip-rule="evenodd"></path>
+                        </svg>
+                    </span>
+                </span>
+
+
+                <div class="multi-level collapse {{ $isOpen }}" id="submenu-projects">
+                    <ul class="flex-column nav">
+
+                        <li class="nav-item {{ isActiveRoute('admin.projects.*') }}">
+                            <a class="nav-link" href="{{ route('admin.projects.index') }}">
+                                <span class="sidebar-text">{{ __('admin.projects') }}</span>
+                            </a>
+                        </li>
+
+
+                        <li class="nav-item {{ isActiveRoute('admin.project-investors.*') }}">
+                            <a class="nav-link" href="{{ route('admin.project-investors.index') }}"
+                               class="nav-link d-flex align-items-center">
+                                <span class="sidebar-text">{{ __('admin.project_investors') }}</span>
+                            </a>
+                        </li>
+
+                        <li class="nav-item {{ isActiveRoute('admin.project-buyers.*') }} ">
+                            <a class="nav-link" href="{{ route('admin.project-buyers.index') }}"
+                               class="nav-link d-flex align-items-center">
+                                <span class="sidebar-text">{{ __('admin.project_buyers') }}</span>
+                            </a>
+                        </li>
+                        <li class="nav-item {{ isActiveRoute('admin.project-entry-requests.*') }} ">
+                            <a class=" nav-link" href="{{ route('admin.project-entry-requests.index') }}"
+                               class="nav-link d-flex align-items-center">
+                                <span class="sidebar-text">{{ __('admin.share_join_requests') }} </span>
+                            </a>
+                        </li>
+
+                        <li class="nav-item {{ isActiveRoute('admin.project-exit-requests.*') }} ">
+                            <a class=" nav-link" href="{{ route('admin.project-exit-requests.index') }}"
+                               class="nav-link d-flex align-items-center">
+                                <span class="sidebar-text">{{ __('admin.share_exit_requests') }} </span>
+                            </a>
+
+                        <li class="nav-item {{ isActiveRoute('admin.company-details.*') }} ">
+                            <a class=" nav-link" href="{{ route('admin.company-details.index') }}"
+                               class="nav-link d-flex align-items-center">
+                                <span class="sidebar-text">{{ __('admin.company_details') }} </span>
+                            </a>
+                        </li>
+
+
+                    </ul>
+                </div>
             </li>
 
             <!-- Tushumlar -->
@@ -47,15 +115,6 @@
                     <span class="sidebar-text ms-2 text-break flex-fill">{{__('admin.revenues')}}</span>
                 </a>
             </li>
-            <!-- Projects -->
-            <li class="nav-item {{ isActiveRoute('admin.projects.*') }}">
-                <a href="{{ route('admin.projects.index') }}" class="nav-link d-flex align-items-center gap-2">
-                    <i class="bi bi-building"></i>
-                    <span class="sidebar-text ms-2 text-break flex-fill">{{__('admin.projects')}}</span>
-                </a>
-            </li>
-
-
             <!-- Daromadlar -->
             <li class="nav-item {{ isActiveRoute('admin.incomes.*') }}">
                 <a href="{{ route('admin.incomes.index') }}" class="nav-link d-flex align-items-center gap-2">
@@ -138,8 +197,6 @@
             </li>
 
         </ul>
-
-
         <figure id="sidebar-close-figure" class="sidebar-close-figure">
             <img class="sidebar-close-icon" src="{{ asset('svg/close.svg') }}" height="40" width="40" alt="Close icon">
         </figure>

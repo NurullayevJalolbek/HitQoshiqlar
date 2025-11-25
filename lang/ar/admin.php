@@ -31,7 +31,12 @@ return [
     'settings' => "الإعدادات",
     'administration' => "الإدارة",
     'notifications' => "الإشعارات",
-    'projects' => "المشاريع"
+    'projects' => "المشاريع",
+    'project_investors' => "مستثمري المشروع",
+    'project_buyers' => "مشترو المشروع",
+    'share_join_requests' => "طلبات الانضمام للحصص",
+    'share_exit_requests' => "طلبات الخروج من الحصص",
+    'company_details' => "تفاصيل الشركة"
 
 
 

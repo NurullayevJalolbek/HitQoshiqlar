@@ -31,7 +31,12 @@ return [
     'settings' => "Settings",
     'administration' => "Administration",
     'notifications' => "Notifications",
-    'projects' => "Projects"
+    'projects' => "Projects",
+    'project_investors' => "Project investors",
+    'project_buyers' => "Project buyers",
+    'share_join_requests' => "Share join requests",
+    'share_exit_requests' => "Share exit requests",
+    'company_details' => "Company details"
 
 
 

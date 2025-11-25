@@ -14,7 +14,7 @@
                             <img src="{{ asset('svg/home-2.svg') }}" alt="Home">
                         </a>
                     </li>
-                    <li class="breadcrumb-item active" aria-current="page">{{__('admin.investment-projects')}}</li>
+                    <li class="breadcrumb-item active" aria-current="page">Ulushdan chiqish so‘rovlari</li>
                 </ol>
             </nav>
         </div>

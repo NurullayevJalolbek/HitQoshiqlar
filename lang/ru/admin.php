@@ -31,7 +31,12 @@ return [
     'settings' => "Настройки",
     'administration' => "Администрация",
     'notifications' => "Уведомления",
-    'projects' => "Проекты"
+    'projects' => "Проекты",
+    'project_investors' => "Инвесторы проекта",
+    'project_buyers' => "Покупатели проекта",
+    'share_join_requests' => "Запросы на вступление в долю",
+    'share_exit_requests' => "Запросы на выход из доли",
+    'company_details' => "Реквизиты компании"
 
 
 
