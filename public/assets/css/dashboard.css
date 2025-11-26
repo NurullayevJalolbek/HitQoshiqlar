@@ -1,0 +1,402 @@
+/**
+ * Dashboard Custom Styles
+ * Investitsiya Dashboard uchun maxsus CSS
+ */
+
+/* ===== Umumiy Styles ===== */
+/* Breadcrumb wrapper - oddiy */
+.breadcrumb-wrapper {
+    margin-bottom: 1.5rem;
+}
+
+.breadcrumb {
+    background: transparent;
+    padding: 0.5rem 0;
+    margin-bottom: 0;
+}
+
+/* Dashboard header - gradient bilan */
+.dashboard-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 2rem 1.5rem;
+    border-radius: 12px;
+    margin-bottom: 2rem;
+    color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.header-content {
+    flex: 1;
+}
+
+.page-title {
+    font-size: 1.75rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: white;
+}
+
+.page-subtitle {
+    margin-bottom: 0;
+    opacity: 0.9;
+    font-size: 0.95rem;
+}
+
+.header-actions .btn-group {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.export-btn {
+    color: white;
+    border-color: rgba(255, 255, 255, 0.5);
+    transition: all 0.3s ease;
+}
+
+.export-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: white;
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .dashboard-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .header-actions {
+        width: 100%;
+    }
+    
+    .header-actions .btn-group {
+        width: 100%;
+        flex-wrap: wrap;
+    }
+    
+    .export-btn {
+        flex: 1;
+    }
+}
+
+.breadcrumb-block .breadcrumb {
+    margin-bottom: 0.5rem;
+}
+
+.breadcrumb-block .breadcrumb-item a {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+}
+
+.breadcrumb-block .breadcrumb-item.active {
+    color: white;
+}
+
+.page-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+    color: white;
+}
+
+.page-subtitle {
+    font-size: 0.95rem;
+    opacity: 0.9;
+    margin-bottom: 0;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* ===== Filtrlash Bo'limi ===== */
+.filter-section {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e5e7eb;
+}
+
+.filter-section h6 {
+    color: #1f2937;
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+}
+
+.filter-section .form-label {
+    font-weight: 600;
+    color: #374151;
+    font-size: 0.875rem;
+    margin-bottom: 0.5rem;
+}
+
+.filter-section .form-control,
+.filter-section .form-select {
+    border-radius: 8px;
+    border: 1px solid #d1d5db;
+    padding: 0.625rem 0.875rem;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+}
+
+.filter-section .form-control:focus,
+.filter-section .form-select:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+/* ===== KPI Cards ===== */
+.metric-card {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    overflow: hidden;
+    background: white;
+}
+
+.metric-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+}
+
+.metric-card .card-body {
+    padding: 1.5rem;
+}
+
+.metric-card h3 {
+    font-size: 1.75rem;
+    color: #1f2937;
+    font-weight: 700;
+}
+
+.metric-card .text-muted {
+    color: #6b7280 !important;
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.metric-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+}
+
+.trend-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.25rem 0.625rem;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+.bg-success-subtle {
+    background-color: #d1fae5 !important;
+}
+
+.text-success {
+    color: #10b981 !important;
+}
+
+.bg-warning-subtle {
+    background-color: #fef3c7 !important;
+}
+
+.text-warning {
+    color: #f59e0b !important;
+}
+
+.bg-danger-subtle {
+    background-color: #fee2e2 !important;
+}
+
+.text-danger {
+    color: #ef4444 !important;
+}
+
+.bg-primary-subtle {
+    background-color: #dbeafe !important;
+}
+
+.text-primary {
+    color: #3b82f6 !important;
+}
+
+.bg-info-subtle {
+    background-color: #cffafe !important;
+}
+
+.text-info {
+    color: #06b6d4 !important;
+}
+
+/* Border colors for secondary cards */
+.border-start {
+    border-left-width: 4px !important;
+}
+
+.border-primary {
+    border-left-color: #3b82f6 !important;
+}
+
+.border-warning {
+    border-left-color: #f59e0b !important;
+}
+
+.border-success {
+    border-left-color: #10b981 !important;
+}
+
+.border-info {
+    border-left-color: #06b6d4 !important;
+}
+
+/* ===== Chart Containers ===== */
+.chart-container {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e5e7eb;
+    height: 100%;
+}
+
+.chart-container h5 {
+    color: #1f2937;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+}
+
+.chart-container .btn-group-sm .btn {
+    padding: 0.375rem 0.875rem;
+    font-size: 0.8125rem;
+    border-radius: 6px;
+}
+
+.chart-container .text-muted {
+    color: #6b7280 !important;
+    font-size: 0.875rem;
+}
+
+/* ===== Export Buttons ===== */
+.export-btn {
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    font-weight: 600;
+    transition: all 0.2s;
+    font-size: 0.875rem;
+}
+
+.export-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.export-btn i {
+    margin-right: 0.375rem;
+}
+
+/* ===== Loading Overlay ===== */
+#dashboard-loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(2px);
+}
+
+#dashboard-loader .spinner-border {
+    width: 3rem;
+    height: 3rem;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+    .breadcrumb-block {
+        padding: 1.5rem 1rem;
+    }
+    
+    .page-title {
+        font-size: 1.5rem;
+    }
+    
+    .metric-card h3 {
+        font-size: 1.5rem;
+    }
+    
+    .metric-icon {
+        width: 48px;
+        height: 48px;
+        font-size: 1.25rem;
+    }
+    
+    .chart-container {
+        padding: 1rem;
+    }
+    
+    .filter-section {
+        padding: 1rem;
+    }
+}
+
+/* ===== Additional Utility Classes ===== */
+.text-purple {
+    color: #8b5cf6 !important;
+}
+
+.bg-purple-subtle {
+    background-color: #ede9fe !important;
+}
+
+.fw-bold {
+    font-weight: 700 !important;
+}
+
+.small {
+    font-size: 0.875rem;
+}
+
+/* ===== Animation ===== */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.metric-card,
+.chart-container,
+.filter-section {
+    animation: fadeIn 0.4s ease-out;
+}
+
+/* Stagger animation for cards */
+.metric-card:nth-child(1) { animation-delay: 0.1s; }
+.metric-card:nth-child(2) { animation-delay: 0.2s; }
+.metric-card:nth-child(3) { animation-delay: 0.3s; }
+.metric-card:nth-child(4) { animation-delay: 0.4s; }
