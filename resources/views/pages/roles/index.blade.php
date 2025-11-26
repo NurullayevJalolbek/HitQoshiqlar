@@ -17,7 +17,11 @@
 
         /* Jadval konteyneri */
         .table-wrapper {
-            overflow: hidden;
+            overflow: visible !important; /* table ichidagi dropdown’ni ko‘rsatish uchun */
+        }
+
+        .table-responsive {
+            overflow: visible !important; /* horizontal scroll bilan ham ishlashi uchun */
         }
 
         /* Modal tepa rangini #1F2937 rangga o'zgartirish */
@@ -28,13 +32,19 @@
 
         /* Actions ustunidagi dropdown menu uchun yuqori z-index (umid qilamizki stacking-context'tan tashqarida) */
         .dropdown-menu {
-            z-index: 1200;
+            z-index: 2000 !important; /* modal va boshqa elementlardan ustun turishi uchun */
         }
+
+        .dropdown {
+            position: static !important; /* stacking-contextdan chiqish uchun */
+        }
+
 
         /* Agar kerak bo'lsa, actions ustuni uchun hizalash */
         .text-end .dropdown {
             display: inline-block;
         }
+
     </style>
 @endpush
 
@@ -88,7 +98,6 @@
             </tr>
             </thead>
             <tbody>
-            {{-- Misol satrlar: har bir td ichida .lift-inner, actions td esa tashqarida --}}
             <tr class="hover-lift">
                 <td class="text-start">
                     <div class="lift-inner">1</div>
@@ -109,13 +118,18 @@
                     <div class="lift-inner">Tizimni to‘liq boshqarish</div>
                 </td>
                 <td class="text-end">
-                    {{-- Actions ustuni ichida .lift-inner bo'lmasa, dropdown transform tashqarisida qoladi --}}
                     <div class="dropdown">
-                        <button class="btn btn-sm dropdown-toggle delete-role-btn" type="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">
+                        <button class="btn btn-sm dropdown-toggle"
+                                type="button"
+                                data-bs-toggle="dropdown"
+                                data-bs-display="static"
+                                data-bs-boundary="window"
+                                aria-expanded="false">
                             <i class="fas fa-ellipsis-v"></i>
                         </button>
+
                         <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-key me-2"></i> Ruxsatlar</a></li>
                             <li><a class="dropdown-item" href="#"><i class="fas fa-edit me-2"></i> Tahrirlash</a></li>
                             <li><a class="dropdown-item delete-role" href="#"><i class="fas fa-trash me-2"></i>
                                     O‘chirish</a></li>
@@ -123,7 +137,6 @@
                     </div>
                 </td>
             </tr>
-
             <tr class="hover-lift">
                 <td class="text-start">
                     <div class="lift-inner">2</div>
@@ -145,11 +158,16 @@
                 </td>
                 <td class="text-end">
                     <div class="dropdown">
-                        <button class="btn btn-sm dropdown-toggle delete-role-btn" type="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">
+                        <button class="btn btn-sm dropdown-toggle"
+                                type="button"
+                                data-bs-toggle="dropdown"
+                                data-bs-display="static"
+                                data-bs-boundary="window"
+                                aria-expanded="false">
                             <i class="fas fa-ellipsis-v"></i>
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-key me-2"></i> Ruxsatlar</a></li>
                             <li><a class="dropdown-item" href="#"><i class="fas fa-edit me-2"></i> Tahrirlash</a></li>
                             <li><a class="dropdown-item delete-role" href="#"><i class="fas fa-trash me-2"></i>
                                     O‘chirish</a></li>
@@ -179,11 +197,16 @@
                 </td>
                 <td class="text-end">
                     <div class="dropdown">
-                        <button class="btn btn-sm dropdown-toggle delete-role-btn" type="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">
+                        <button class="btn btn-sm dropdown-toggle"
+                                type="button"
+                                data-bs-toggle="dropdown"
+                                data-bs-display="static"
+                                data-bs-boundary="window"
+                                aria-expanded="false">
                             <i class="fas fa-ellipsis-v"></i>
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-key me-2"></i> Ruxsatlar</a></li>
                             <li><a class="dropdown-item" href="#"><i class="fas fa-edit me-2"></i> Tahrirlash</a></li>
                             <li><a class="dropdown-item delete-role" href="#"><i class="fas fa-trash me-2"></i>
                                     O‘chirish</a></li>
@@ -191,6 +214,7 @@
                     </div>
                 </td>
             </tr>
+
 
             <tr class="hover-lift">
                 <td class="text-start">
@@ -213,11 +237,16 @@
                 </td>
                 <td class="text-end">
                     <div class="dropdown">
-                        <button class="btn btn-sm dropdown-toggle delete-role-btn" type="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">
+                        <button class="btn btn-sm dropdown-toggle"
+                                type="button"
+                                data-bs-toggle="dropdown"
+                                data-bs-display="static"
+                                data-bs-boundary="window"
+                                aria-expanded="false">
                             <i class="fas fa-ellipsis-v"></i>
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-key me-2"></i> Ruxsatlar</a></li>
                             <li><a class="dropdown-item" href="#"><i class="fas fa-edit me-2"></i> Tahrirlash</a></li>
                             <li><a class="dropdown-item delete-role" href="#"><i class="fas fa-trash me-2"></i>
                                     O‘chirish</a></li>
@@ -227,6 +256,7 @@
             </tr>
 
             </tbody>
+
         </table>
     </div>
 
