@@ -150,6 +150,10 @@
             max-height: 100% !important;
         }
 
+        .sidebar .nav-link{
+            width: 250px;
+        }
+
         .sidebar-close-figure {
             position: fixed;
             top: 0;

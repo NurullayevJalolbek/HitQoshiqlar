@@ -1,6 +1,6 @@
 <nav id="sidebarMenu" class="sidebar d-lg-block bg-gray-800 text-white collapse">
     <script src="{{ asset('js/sidebar.js') }}"></script>
-    <div class="sidebar-inner px-4 pt-3">
+    <div class="sidebar-inner px-2 pt-3">
         <ul class="nav flex-column pt-3 pt-md-0" style="padding-top: 50px !important;">
 
             <!-- Logo -->
@@ -20,14 +20,6 @@
                 <a href="{{ route('admin.dashboard') }}" class="nav-link d-flex align-items-center gap-2">
                     <i class="bi bi-speedometer2"></i>
                     <span class="sidebar-text ms-2">{{__('admin.dashboard')}}</span>
-                </a>
-            </li>
-
-            <!-- Foydalanuvchilar -->
-            <li class="nav-item {{ isActiveRoute('admin.users.*') }}">
-                <a href="{{ route('admin.users.index') }}" class="nav-link d-flex align-items-center gap-2">
-                    <i class="bi bi-people"></i>
-                    <span class="sidebar-text ms-2 text-break flex-fill">{{__('admin.users')}}</span>
                 </a>
             </li>
 
