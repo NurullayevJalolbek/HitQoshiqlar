@@ -60,7 +60,20 @@ return [
     'permission_name' => "Ruxsat nomi",
     'module' => "Modul",
     'select_all' => "Barchasini belgilash",
-    'save' => "Saqlash"
+    'save' => "Saqlash",
+
+    'by_role' => "Roli bo'yicha",
+    'all' => "Barchasi",
+    'by_status' => "Holati bo'yicha",
+
+    'full_name' => "F.I.O",
+    'login' => "Login",
+    'phone' => "Telefon",
+    'email' => "Email",
+    'role' => "Roli",
+    'status' => "Holat",
+    'last_login' => "Oxirgi kirgan vaqt",
+    'add_new_user' => "Yangi user qo'shish"
 
 
 

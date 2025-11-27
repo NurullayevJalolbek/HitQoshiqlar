@@ -61,7 +61,20 @@ return [
     'permission_name' => "Permission name",
     'module' => "Module",
     'select_all' => "Select all",
-    'save' => "Save"
+    'save' => "Save",
+
+    'by_role' => "By role",
+    'all' => "All",
+    'by_status' => "By status",
+
+    'full_name' => "Full name",
+    'login' => "Login",
+    'phone' => "Phone",
+    'email' => "Email",
+    'role' => "Role",
+    'status' => "Status",
+    'last_login' => "Last login",
+    'add_new_user' => "Add new user"
 
 
 ];
