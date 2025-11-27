@@ -81,7 +81,8 @@ return [
     'date' => "Sana",
     'ip' => "IP",
     'result' => "Natija",
-    'user' => "Foydalanuvchi"
+    'user' => "Foydalanuvchi",
+    'login_histories' => "Kirish tarixlari"
 
 
 

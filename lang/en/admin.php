@@ -82,7 +82,8 @@ return [
     'date' => "Date",
     'ip' => "IP",
     'result' => "Result",
-    'user' => "User"
+    'user' => "User",
+    'login_histories' => "Login histories"
 
 
 ];
