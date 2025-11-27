@@ -43,23 +43,25 @@ return [
     'user_interface' => "User interface",
     'roles' => "Roles",
     'login_history' => "Login history",
-    'system_logs' => "System logs"
+    'system_logs' => "System logs",
+    'search' => "Search",
+    'clear' => "Clear",
+    'role_name' => "Role name",
+    'code' => "Code",
 
+    'create_new_role' => "Create new role",
+    'icon' => "Icon",
+    'name' => "Name",
+    'users_count' => "Users count",
+    'description' => "Description",
+    'actions' => "Actions",
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    'permissions' => "Permissions",
+    'select_role' => "Select role",
+    'permission_name' => "Permission name",
+    'module' => "Module",
+    'select_all' => "Select all",
+    'save' => "Save"
 
 
 ];

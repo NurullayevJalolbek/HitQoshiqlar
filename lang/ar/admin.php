@@ -43,7 +43,25 @@ return [
     'user_interface' => "واجهة المستخدم",
     'roles' => "الأدوار",
     'login_history' => "سجل الدخول",
-    'system_logs' => "سجلات النظام"
+    'system_logs' => "سجلات النظام",
+    'search' => "بحث",
+    'clear' => "مسح",
+    'role_name' => "اسم الدور",
+    'code' => "كود",
+
+    'create_new_role' => "إنشاء دور جديد",
+    'icon' => "الأيقونة",
+    'name' => "الاسم",
+    'users_count' => "عدد المستخدمين",
+    'description' => "الوصف",
+    'actions' => "الإجراءات",
+
+    'permissions' => "الأذونات",
+    'select_role' => "اختر الدور",
+    'permission_name' => "اسم الإذن",
+    'module' => "الوحدة",
+    'select_all' => "تحديد الكل",
+    'save' => "حفظ"
 
 
 

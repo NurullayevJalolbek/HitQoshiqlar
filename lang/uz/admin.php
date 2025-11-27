@@ -42,7 +42,25 @@ return [
     'user_interface' => "Foydalanuvchi interfeysi",
     'roles' => "Rollar",
     'login_history' => "Kirish tarixlari",
-    'system_logs' => "Tizim tarixlari"
+    'system_logs' => "Tizim tarixlari",
+    'search' => "Qidiruv",
+    'clear' => "Tozalash",
+    'role_name' => "Role nomi",
+    'code' => "Kod",
+
+    'create_new_role' => "Yangi role yaratish",
+    'icon' => "Ikonka",
+    'name' => "Nomi",
+    'users_count' => "Foydalanuvchilar soni",
+    'description' => "Tavsifi",
+    'actions' => "Amallar",
+
+    'permissions' => "Ruxsatlar",
+    'select_role' => "Rolni tanlang",
+    'permission_name' => "Ruxsat nomi",
+    'module' => "Modul",
+    'select_all' => "Barchasini belgilash",
+    'save' => "Saqlash"
 
 
 

@@ -43,7 +43,25 @@ return [
     'user_interface' => "Пользовательский интерфейс",
     'roles' => "Роли",
     'login_history' => "История входов",
-    'system_logs' => "Системные логи"
+    'system_logs' => "Системные логи",
+    'search' => "Поиск",
+    'clear' => "Очистить",
+    'role_name' => "Название роли",
+    'code' => "Код",
+
+    'create_new_role' => "Создать новую роль",
+    'icon' => "Иконка",
+    'name' => "Название",
+    'users_count' => "Количество пользователей",
+    'description' => "Описание",
+    'actions' => "Действия",
+
+    'permissions' => "Разрешения",
+    'select_role' => "Выберите роль",
+    'permission_name' => "Название разрешения",
+    'module' => "Модуль",
+    'select_all' => "Выбрать все",
+    'save' => "Сохранить"
 
 
 

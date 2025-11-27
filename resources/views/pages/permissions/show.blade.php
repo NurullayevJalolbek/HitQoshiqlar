@@ -74,7 +74,7 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
                     <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
-                    <li class="breadcrumb-item active">Ruxsatlar</li>
+                    <li class="breadcrumb-item active">{{__('admin.permissions')}}</li>
                 </ol>
             </nav>
         </div>
@@ -85,9 +85,9 @@
 
     {{-- 🔥 Rol tanlash qismi --}}
     <div class="filter-card mb-3">
-        <label for="roleSelect" class="fw-bold mb-1">Rolni tanlang</label>
+        <label for="roleSelect" class="fw-bold mb-1">{{__('admin.select_role')}}</label>
         <select id="roleSelect" class="form-control">
-            <option value="">— Rol tanlang —</option>
+            <option value="">— {{__('admin.select_role')}} —</option>
             <option value="admin">Admin</option>
             <option value="finance">Moliyaviy auditor</option>
             <option value="moderator">Moderator</option>
@@ -99,12 +99,12 @@
     <div class="filter-card p-3 mb-3" style="border: 1px solid #fff; border-radius: 0.5rem; background-color: #fff;">
         <div class="row g-3 align-items-end">
             <div class="col-md-9">
-                <label for="searchInput">Qidiruv</label>
-                <input type="text" id="searchInput" class="form-control" placeholder="Ruxsat nomi , module...">
+                <label for="searchInput">{{__('admin.search')}}</label>
+                <input type="text" id="searchInput" class="form-control" placeholder="{{__('admin.permission_name')}} , {{__('admin.module')}}...">
             </div>
             <div class="col-md-3 d-flex gap-2">
-                <button id="filterBtn" class="btn btn-primary w-50"><i class="fas fa-filter"></i> Filter</button>
-                <button id="clearBtn" class="btn btn-warning w-50">Tozalash</button>
+                <button id="filterBtn" class="btn btn-primary w-50"><i class="fas fa-filter"></i>{{__('admin.search')}}</button>
+                <button id="clearBtn" class="btn btn-warning w-50">{{__('admin.clear')}}</button>
             </div>
         </div>
     </div>
@@ -115,7 +115,7 @@
             <span><i class="fas fa-users me-2"></i>Foydalanuvchilarni boshqarish</span>
 
             <div class="d-flex align-items-center gap-2">
-                <label class="m-0 small" style="font-size: 0.85rem;">Barchasini belgilash</label>
+                <label class="m-0 small" style="font-size: 0.85rem;">{{__('admin.select_all')}}</label>
                 <input type="checkbox" class="select-all" data-target="users">
                 <i class="fas fa-chevron-down ms-3"></i>
             </div>
@@ -143,7 +143,7 @@
             <span><i class="fas fa-project-diagram me-2"></i>Loyihalar</span>
 
             <div class="d-flex align-items-center gap-2">
-                <label class="m-0 small">Barchasini belgilash</label>
+                <label class="m-0 small">{{__('admin.select_all')}}</label>
                 <input type="checkbox" class="select-all" data-target="projects">
                 <i class="fas fa-chevron-down ms-3"></i>
             </div>
@@ -171,7 +171,7 @@
             <span><i class="fas fa-file-alt me-2"></i>Hisobotlar</span>
 
             <div class="d-flex align-items-center gap-2">
-                <label class="m-0 small">Barchasini belgilash</label>
+                <label class="m-0 small">{{__('admin.select_all')}}</label>
                 <input type="checkbox" class="select-all" data-target="reports">
                 <i class="fas fa-chevron-down ms-3"></i>
             </div>
@@ -191,7 +191,7 @@
 
 
     <div class="text-end mt-3">
-        <button class="btn btn-success"><i class="fas fa-save me-2"></i>Saqlash</button>
+        <button class="btn btn-success"><i class="fas fa-save me-2"></i>{{__('admin.save')}}</button>
     </div>
 
 @endsection

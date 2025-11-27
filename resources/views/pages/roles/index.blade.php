@@ -54,7 +54,7 @@
             <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
                 <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
                     <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Rollar</li>
+                    <li class="breadcrumb-item active" aria-current="page">{{__('admin.roles')}}</li>
                 </ol>
             </nav>
         </div>
@@ -66,12 +66,13 @@
     <div class="filter-card p-3 mb-3" style="border: 1px solid #fff; border-radius: 0.5rem; background-color: #fff;">
         <div class="row g-3 align-items-end">
             <div class="col-md-9">
-                <label for="searchInput">Qidiruv</label>
-                <input type="text" id="searchInput" class="form-control" placeholder="Role nomi, kod...">
+                <label for="searchInput">{{__('admin.search')}}</label>
+                <input type="text" id="searchInput" class="form-control"
+                       placeholder="{{__('admin.role_name')}}, {{__('admin.code')}}...">
             </div>
             <div class="col-md-3 d-flex gap-2">
                 <button id="filterBtn" class="btn btn-primary w-50"><i class="fas fa-filter"></i> Filter</button>
-                <button id="clearBtn" class="btn btn-warning w-50">Tozalash</button>
+                <button id="clearBtn" class="btn btn-warning w-50">{{__('admin.clear')}}</button>
             </div>
         </div>
     </div>
@@ -79,9 +80,9 @@
     {{--Content--}}
     <div class="card card-body py-1 px-2 shadow border-0 table-wrapper table-responsive">
         <div class="d-flex justify-content-between align-items-center p-3">
-            <h5 class="mb-0">Rollar</h5>
+            <h5 class="mb-0">{{__('admin.roles')}}</h5>
             <a href="{{ route('admin.roles.create') }}" class="btn btn-primary" id="addProjectBtn">
-                <i class="fas fa-plus"></i> Yangi role yaratish
+                <i class="fas fa-plus"></i>{{__('admin.create_new_role')}}
             </a>
         </div>
 
@@ -89,12 +90,12 @@
             <thead class="table-dark">
             <tr>
                 <th class="border-bottom text-start">№</th>
-                <th class="border-bottom text-center">Ikonka</th>
-                <th class="border-bottom text-start">Nomi</th>
-                <th class="border-bottom text-start">Kodi</th>
-                <th class="border-bottom text-center">Foydalanuvchilar soni</th>
-                <th class="border-bottom text-start">Tavsifi</th>
-                <th class="border-bottom">Amallar</th>
+                <th class="border-bottom text-center">{{__('admin.icon')}}</th>
+                <th class="border-bottom text-start">{{__('admin.name')}}</th>
+                <th class="border-bottom text-start">{{__('admin.code')}}</th>
+                <th class="border-bottom text-center">{{__('admin.users_count')}}</th>
+                <th class="border-bottom text-start">{{__('admin.description')}}</th>
+                <th class="border-bottom">{{__('admin.actions')}}</th>
             </tr>
             </thead>
             <tbody>
