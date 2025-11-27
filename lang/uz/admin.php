@@ -73,7 +73,15 @@ return [
     'role' => "Roli",
     'status' => "Holat",
     'last_login' => "Oxirgi kirgan vaqt",
-    'add_new_user' => "Yangi user qo'shish"
+    'add_new_user' => "Yangi user qo'shish",
+
+    'start_date' => "Boshlanish sanasi",
+    'end_date' => "Tugash sanasi",
+    'result_type' => "Natija turi",
+    'date' => "Sana",
+    'ip' => "IP",
+    'result' => "Natija",
+    'user' => "Foydalanuvchi"
 
 
 

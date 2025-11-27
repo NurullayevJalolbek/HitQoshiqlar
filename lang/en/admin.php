@@ -74,7 +74,15 @@ return [
     'role' => "Role",
     'status' => "Status",
     'last_login' => "Last login",
-    'add_new_user' => "Add new user"
+    'add_new_user' => "Add new user",
+
+    'start_date' => "Start date",
+    'end_date' => "End date",
+    'result_type' => "Result type",
+    'date' => "Date",
+    'ip' => "IP",
+    'result' => "Result",
+    'user' => "User"
 
 
 ];

@@ -1,7 +1,16 @@
 @extends('layouts.app')
 
 @push('customCss')
-    {{--    CSS Ko'dlari--}}
+    <style>
+        .status-icon {
+            font-size: 18px;
+            margin-right: 5px;
+        }
+
+        .table td, .table th {
+            vertical-align: middle;
+        }
+    </style>
 @endpush
 
 @section('breadcrumb')
@@ -9,12 +18,8 @@
         <div class="d-block mb-4 mb-md-0">
             <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
                 <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
-                    <li class="breadcrumb-item">
-                        <a href="#">
-                            <i class="fas fa-home"></i>
-                        </a>
-                    </li>
-                    <li class="breadcrumb-item active" aria-current="page">Kirish tarixi</li>
+                    <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{__('admin.login_histories')}}</li>
                 </ol>
             </nav>
         </div>
@@ -22,12 +27,370 @@
 @endsection
 
 @section('content')
-    {{--    Content--}}
+
+    {{-- FILTER --}}
+    <div class="card p-3 mb-3">
+        <div class="row g-3 align-items-end">
+            <div class="col-md-4">
+                <label>{{__('admin.search')}}</label>
+                <input type="text" class="form-control" placeholder="Ism, Login...">
+            </div>
+
+            <div class="col-md-2">
+                <label>{{__('admin.start_date')}}</label>
+                <input type="date" class="form-control">
+            </div>
+
+            <div class="col-md-2">
+                <label>{{__('admin.end_date')}}</label>
+                <input type="date" class="form-control">
+            </div>
+
+            <div class="col-md-2">
+                <label>{{__('admin.result_type')}}</label>
+                <select class="form-select">
+                    <option>Barchasi</option>
+                    <option>Muvaffaqiyatli</option>
+                    <option>Muvaffaqiyatsiz</option>
+                </select>
+            </div>
+
+            <div class="col-auto d-flex gap-2 mt-3">
+                <button class="btn btn-primary">
+                    <i class="fas fa-filter"></i>{{__('admin.search')}}
+                </button>
+                <button class="btn btn-warning">
+                    {{__('admin.clear')}}
+                </button>
+            </div>
+        </div>
+    </div>
+
+    {{-- LOGIN HISTORIES TABLE --}}
+    <div class="card shadow border-0 table-wrapper table-responsive">
+        <div class="d-flex justify-content-between align-items-center p-3">
+            <h5 class="mb-0">{{__('admin.login_histories')}}</h5>
+            <button class="btn btn-info text-white"><i class="fas fa-file-csv"></i> CSV</button>
+        </div>
+
+        <table class="table table-hover align-middle text-center">
+            <thead class="table-dark">
+            <tr>
+                <th>#</th>
+                <th>{{__('admin.user')}}</th>
+                <th>{{__('admin.login')}}</th>
+                <th>{{__('admin.date')}}</th>
+                <th>{{__('admin.ip')}}</th>
+                <th>{{__('admin.result')}}</th>
+                <th>{{__('admin.actions')}}</th>
+            </tr>
+            </thead>
+
+            <tbody>
+
+            {{-- 10 ta malumot --}}
+            <tr>
+                <td>1</td>
+                <td>Ali Valiyev</td>
+                <td>ali</td>
+                <td>2025-01-02 08:20</td>
+                <td>192.168.1.10</td>
+                <td><i class="fas fa-check-circle text-success status-icon"></i> Muvaffaqiyatli</td>
+                <td>
+                    <i class="fas fa-eye text-primary me-2 showDetail"
+                       data-user="Ali Valiyev"
+                       data-login="ali"
+                       data-date="2025-01-02 08:20"
+                       data-ip="192.168.1.10"
+                       data-result="Muvaffaqiyatli"
+                       data-geo="Toshkent, Uzbekistan"
+                       data-agent="Chrome 120 / Windows 10"
+                       data-session="SID-001"
+                       data-duration="5 soniya"
+                       title="Ko‘rish"></i>
+                </td>
+            </tr>
+
+            <tr>
+                <td>2</td>
+                <td>Ali Valiyev</td>
+                <td>ali</td>
+                <td>2025-01-02 08:19</td>
+                <td>192.168.1.10</td>
+                <td><i class="fas fa-exclamation-triangle text-warning status-icon"></i> Ogohlantirish</td>
+                <td>
+                    <i class="fas fa-eye text-primary me-2 showDetail"
+                       data-user="Ali Valiyev"
+                       data-login="ali"
+                       data-date="2025-01-02 08:19"
+                       data-ip="192.168.1.10"
+                       data-result="Ogohlantirish"
+                       data-geo="Toshkent, Uzbekistan"
+                       data-agent="Chrome 120 / Windows 10"
+                       data-session="SID-002"
+                       data-duration="4 soniya"
+                       title="Ko‘rish"></i>
+                </td>
+            </tr>
+
+            <tr>
+                <td>3</td>
+                <td>Ali Valiyev</td>
+                <td>ali</td>
+                <td>2025-01-02 08:18</td>
+                <td>192.168.1.10</td>
+                <td><i class="fas fa-times-circle text-danger status-icon"></i> Xato</td>
+                <td>
+                    <i class="fas fa-eye text-primary me-2 showDetail"
+                       data-user="Ali Valiyev"
+                       data-login="ali"
+                       data-date="2025-01-02 08:18"
+                       data-ip="192.168.1.10"
+                       data-result="Xato"
+                       data-geo="Toshkent, Uzbekistan"
+                       data-agent="Chrome 120 / Windows 10"
+                       data-session="SID-003"
+                       data-duration="3 soniya"
+                       title="Ko‘rish"></i>
+                </td>
+            </tr>
+
+            <tr>
+                <td>4</td>
+                <td>Ali Valiyev</td>
+                <td>ali</td>
+                <td>2025-01-02 08:17</td>
+                <td>192.168.1.10</td>
+                <td><i class="fas fa-times-circle text-danger status-icon"></i> Xato</td>
+                <td>
+                    <i class="fas fa-eye text-primary me-2 showDetail"
+                       data-user="Ali Valiyev"
+                       data-login="ali"
+                       data-date="2025-01-02 08:17"
+                       data-ip="192.168.1.10"
+                       data-result="Xato"
+                       data-geo="Toshkent, Uzbekistan"
+                       data-agent="Chrome 120 / Windows 10"
+                       data-session="SID-004"
+                       data-duration="6 soniya"
+                       title="Ko‘rish"></i>
+                </td>
+            </tr>
+
+            <tr>
+                <td>5</td>
+                <td>Dilshod Karimov</td>
+                <td>dilshod</td>
+                <td>2025-01-02 08:15</td>
+                <td>192.168.1.20</td>
+                <td><i class="fas fa-check-circle text-success status-icon"></i> Muvaffaqiyatli</td>
+                <td>
+                    <i class="fas fa-eye text-primary me-2 showDetail"
+                       data-user="Dilshod Karimov"
+                       data-login="dilshod"
+                       data-date="2025-01-02 08:15"
+                       data-ip="192.168.1.20"
+                       data-result="Muvaffaqiyatli"
+                       data-geo="Samarqand, Uzbekistan"
+                       data-agent="Firefox 110 / Windows 11"
+                       data-session="SID-005"
+                       data-duration="7 soniya"
+                       title="Ko‘rish"></i>
+                </td>
+            </tr>
+
+            <tr>
+                <td>6</td>
+                <td>Sardor Olimov</td>
+                <td>sardor</td>
+                <td>2025-01-02 08:12</td>
+                <td>192.168.1.15</td>
+                <td><i class="fas fa-times-circle text-danger status-icon"></i> Xato</td>
+                <td>
+                    <i class="fas fa-eye text-primary me-2 showDetail"
+                       data-user="Sardor Olimov"
+                       data-login="sardor"
+                       data-date="2025-01-02 08:12"
+                       data-ip="192.168.1.15"
+                       data-result="Xato"
+                       data-geo="Buxoro, Uzbekistan"
+                       data-agent="Edge 101 / Windows 10"
+                       data-session="SID-006"
+                       data-duration="5 soniya"
+                       title="Ko‘rish"></i>
+                </td>
+            </tr>
+
+            <tr>
+                <td>7</td>
+                <td>Sardor Olimov</td>
+                <td>sardor</td>
+                <td>2025-01-02 08:10</td>
+                <td>192.168.1.15</td>
+                <td><i class="fas fa-check-circle text-success status-icon"></i> Muvaffaqiyatli</td>
+                <td>
+                    <i class="fas fa-eye text-primary me-2 showDetail"
+                       data-user="Sardor Olimov"
+                       data-login="sardor"
+                       data-date="2025-01-02 08:10"
+                       data-ip="192.168.1.15"
+                       data-result="Muvaffaqiyatli"
+                       data-geo="Buxoro, Uzbekistan"
+                       data-agent="Edge 101 / Windows 10"
+                       data-session="SID-007"
+                       data-duration="6 soniya"
+                       title="Ko‘rish"></i>
+                </td>
+            </tr>
+
+            <tr>
+                <td>8</td>
+                <td>Anna Petrova</td>
+                <td>anna</td>
+                <td>2025-01-01 09:50</td>
+                <td>192.168.1.18</td>
+                <td><i class="fas fa-check-circle text-success status-icon"></i> Muvaffaqiyatli</td>
+                <td>
+                    <i class="fas fa-eye text-primary me-2 showDetail"
+                       data-user="Anna Petrova"
+                       data-login="anna"
+                       data-date="2025-01-01 09:50"
+                       data-ip="192.168.1.18"
+                       data-result="Muvaffaqiyatli"
+                       data-geo="Moskva, Rossiya"
+                       data-agent="Safari 15 / macOS"
+                       data-session="SID-008"
+                       data-duration="8 soniya"
+                       title="Ko‘rish"></i>
+                </td>
+            </tr>
+
+            <tr>
+                <td>9</td>
+                <td>Bobur Qodirov</td>
+                <td>bobur</td>
+                <td>2025-01-01 09:45</td>
+                <td>192.168.1.14</td>
+                <td><i class="fas fa-times-circle text-danger status-icon"></i> Xato</td>
+                <td>
+                    <i class="fas fa-eye text-primary me-2 showDetail"
+                       data-user="Bobur Qodirov"
+                       data-login="bobur"
+                       data-date="2025-01-01 09:45"
+                       data-ip="192.168.1.14"
+                       data-result="Xato"
+                       data-geo="Toshkent, Uzbekistan"
+                       data-agent="Firefox 112 / Windows 11"
+                       data-session="SID-009"
+                       data-duration="4 soniya"
+                       title="Ko‘rish"></i>
+                </td>
+            </tr>
+
+            <tr>
+                <td>10</td>
+                <td>Bobur Qodirov</td>
+                <td>bobur</td>
+                <td>2025-01-01 09:40</td>
+                <td>192.168.1.14</td>
+                <td><i class="fas fa-exclamation-triangle text-warning status-icon"></i> Ogohlantirish</td>
+                <td>
+                    <i class="fas fa-eye text-primary me-2 showDetail"
+                       data-user="Bobur Qodirov"
+                       data-login="bobur"
+                       data-date="2025-01-01 09:40"
+                       data-ip="192.168.1.14"
+                       data-result="Ogohlantirish"
+                       data-geo="Toshkent, Uzbekistan"
+                       data-agent="Firefox 112 / Windows 11"
+                       data-session="SID-010"
+                       data-duration="5 soniya"
+                       title="Ko‘rish"></i>
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+    </div>
+
+    {{-- DETAIL MODAL --}}
+    <div class="modal fade" id="loginDetailModal" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Kirish tafsilotlari</h5>
+                    <button class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-bordered">
+                        <tbody>
+                        <tr>
+                            <th>Foydalanuvchi</th>
+                            <td id="d_user"></td>
+                        </tr>
+                        <tr>
+                            <th>Login</th>
+                            <td id="d_login"></td>
+                        </tr>
+                        <tr>
+                            <th>Sana</th>
+                            <td id="d_date"></td>
+                        </tr>
+                        <tr>
+                            <th>IP manzil</th>
+                            <td id="d_ip"></td>
+                        </tr>
+                        <tr>
+                            <th>Natija</th>
+                            <td id="d_result"></td>
+                        </tr>
+                        <tr>
+                            <th>GEO (Taxminiy manzil)</th>
+                            <td id="d_geo"></td>
+                        </tr>
+                        <tr>
+                            <th>User-Agent</th>
+                            <td id="d_agent"></td>
+                        </tr>
+                        <tr>
+                            <th>Session ID</th>
+                            <td id="d_session"></td>
+                        </tr>
+                        <tr>
+                            <th>Kirish davomiyligi</th>
+                            <td id="d_duration"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" data-bs-dismiss="modal">Yopish</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 @endsection
 
 @push('customJs')
     <script>
-        // JS Ko'dlar'
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelectorAll(".showDetail").forEach(item => {
+                item.addEventListener("click", function () {
+                    document.getElementById("d_user").innerText = this.dataset.user;
+                    document.getElementById("d_login").innerText = this.dataset.login;
+                    document.getElementById("d_date").innerText = this.dataset.date;
+                    document.getElementById("d_ip").innerText = this.dataset.ip;
+                    document.getElementById("d_result").innerText = this.dataset.result;
+                    document.getElementById("d_geo").innerText = this.dataset.geo;
+                    document.getElementById("d_agent").innerText = this.dataset.agent;
+                    document.getElementById("d_session").innerText = this.dataset.session;
+                    document.getElementById("d_duration").innerText = this.dataset.duration;
+
+                    let modal = new bootstrap.Modal(document.getElementById('loginDetailModal'));
+                    modal.show();
+                });
+            });
+        });
     </script>
 @endpush
