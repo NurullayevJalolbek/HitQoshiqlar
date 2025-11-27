@@ -11,4 +11,9 @@ class PermissionController extends Controller
     {
         return view('pages.permissions.index');
     }
+
+    public function show(Request $request)
+    {
+        return view('pages.permissions.show');
+    }
 }

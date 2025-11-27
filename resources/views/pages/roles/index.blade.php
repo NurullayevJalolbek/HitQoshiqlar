@@ -94,7 +94,7 @@
                 <th class="border-bottom text-start">Kodi</th>
                 <th class="border-bottom text-center">Foydalanuvchilar soni</th>
                 <th class="border-bottom text-start">Tavsifi</th>
-                <th class="border-bottom text-end">Amallar</th>
+                <th class="border-bottom">Amallar</th>
             </tr>
             </thead>
             <tbody>
@@ -118,24 +118,26 @@
                     <div class="lift-inner">Tizimni to‘liq boshqarish</div>
                 </td>
                 <td class="text-end">
-                    <div class="dropdown">
-                        <button class="btn btn-sm dropdown-toggle"
-                                type="button"
-                                data-bs-toggle="dropdown"
-                                data-bs-display="static"
-                                data-bs-boundary="window"
-                                aria-expanded="false">
-                            <i class="fas fa-ellipsis-v"></i>
-                        </button>
+                    <div class="action-buttons d-flex gap-2">
+                        <!-- Ruxsatlar (kalit) -->
+                        <a href="{{ route('admin.role-permissions.index') }}" class="btn btn-sm p-1 disabled"
+                           style="background: none; border: none; color: #1F2937;">
+                            <i class="fas fa-key"></i>
+                        </a>
 
-                        <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item" href="#"><i class="fas fa-key me-2"></i> Ruxsatlar</a></li>
-                            <li><a class="dropdown-item" href="#"><i class="fas fa-edit me-2"></i> Tahrirlash</a></li>
-                            <li><a class="dropdown-item delete-role" href="#"><i class="fas fa-trash me-2"></i>
-                                    O‘chirish</a></li>
-                        </ul>
+                        <!-- Tahrirlash (qalam) -->
+                        <a href="#" class="btn btn-sm p-1" style="background: none; border: none; color: #f0bc74;">
+                            <i class="bi bi-pencil-fill"></i> </a>
+
+                        <!-- O‘chirish (savatcha) -->
+                        <a href="#" class="btn btn-sm p-1 delete-role"
+                           style="background: none; border: none; color: #DC2626;">
+                            <i class="fas fa-trash"></i>
+                        </a>
                     </div>
                 </td>
+
+
             </tr>
             <tr class="hover-lift">
                 <td class="text-start">
@@ -157,23 +159,25 @@
                     <div class="lift-inner">Moliyaviy ma’lumotlarni tekshirish</div>
                 </td>
                 <td class="text-end">
-                    <div class="dropdown">
-                        <button class="btn btn-sm dropdown-toggle"
-                                type="button"
-                                data-bs-toggle="dropdown"
-                                data-bs-display="static"
-                                data-bs-boundary="window"
-                                aria-expanded="false">
-                            <i class="fas fa-ellipsis-v"></i>
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item" href="#"><i class="fas fa-key me-2"></i> Ruxsatlar</a></li>
-                            <li><a class="dropdown-item" href="#"><i class="fas fa-edit me-2"></i> Tahrirlash</a></li>
-                            <li><a class="dropdown-item delete-role" href="#"><i class="fas fa-trash me-2"></i>
-                                    O‘chirish</a></li>
-                        </ul>
+                    <div class="action-buttons d-flex gap-2">
+                        <!-- Ruxsatlar (kalit) -->
+                        <a href="{{ route('admin.role-permissions.index') }}" class="btn btn-sm p-1"
+                           style="background: none; border: none; color: #1F2937;">
+                            <i class="fas fa-key"></i>
+                        </a>
+
+                        <!-- Tahrirlash (qalam) -->
+                        <a href="#" class="btn btn-sm p-1" style="background: none; border: none; color: #f0bc74;">
+                            <i class="bi bi-pencil-fill"></i> </a>
+
+                        <!-- O‘chirish (savatcha) -->
+                        <a href="#" class="btn btn-sm p-1 delete-role"
+                           style="background: none; border: none; color: #DC2626;">
+                            <i class="fas fa-trash"></i>
+                        </a>
                     </div>
                 </td>
+
             </tr>
 
             <tr class="hover-lift">
@@ -196,23 +200,25 @@
                     <div class="lift-inner">Kontent va foydalanuvchilarni nazorat qilish</div>
                 </td>
                 <td class="text-end">
-                    <div class="dropdown">
-                        <button class="btn btn-sm dropdown-toggle"
-                                type="button"
-                                data-bs-toggle="dropdown"
-                                data-bs-display="static"
-                                data-bs-boundary="window"
-                                aria-expanded="false">
-                            <i class="fas fa-ellipsis-v"></i>
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item" href="#"><i class="fas fa-key me-2"></i> Ruxsatlar</a></li>
-                            <li><a class="dropdown-item" href="#"><i class="fas fa-edit me-2"></i> Tahrirlash</a></li>
-                            <li><a class="dropdown-item delete-role" href="#"><i class="fas fa-trash me-2"></i>
-                                    O‘chirish</a></li>
-                        </ul>
+                    <div class="action-buttons d-flex gap-2">
+                        <!-- Ruxsatlar (kalit) -->
+                        <a href="{{ route('admin.role-permissions.index') }}" class="btn btn-sm p-1"
+                           style="background: none; border: none; color: #1F2937;">
+                            <i class="fas fa-key"></i>
+                        </a>
+
+                        <!-- Tahrirlash (qalam) -->
+                        <a href="#" class="btn btn-sm p-1" style="background: none; border: none; color: #f0bc74;">
+                            <i class="bi bi-pencil-fill"></i> </a>
+
+                        <!-- O‘chirish (savatcha) -->
+                        <a href="#" class="btn btn-sm p-1 delete-role"
+                           style="background: none; border: none; color: #DC2626;">
+                            <i class="fas fa-trash"></i>
+                        </a>
                     </div>
                 </td>
+
             </tr>
 
 
@@ -236,23 +242,25 @@
                     <div class="lift-inner">Shariat asosida moliyaviy nazorat</div>
                 </td>
                 <td class="text-end">
-                    <div class="dropdown">
-                        <button class="btn btn-sm dropdown-toggle"
-                                type="button"
-                                data-bs-toggle="dropdown"
-                                data-bs-display="static"
-                                data-bs-boundary="window"
-                                aria-expanded="false">
-                            <i class="fas fa-ellipsis-v"></i>
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item" href="#"><i class="fas fa-key me-2"></i> Ruxsatlar</a></li>
-                            <li><a class="dropdown-item" href="#"><i class="fas fa-edit me-2"></i> Tahrirlash</a></li>
-                            <li><a class="dropdown-item delete-role" href="#"><i class="fas fa-trash me-2"></i>
-                                    O‘chirish</a></li>
-                        </ul>
+                    <div class="action-buttons d-flex gap-2">
+                        <!-- Ruxsatlar (kalit) -->
+                        <a href="{{ route('admin.role-permissions.index') }}" class="btn btn-sm p-1"
+                           style="background: none; border: none; color: #1F2937;">
+                            <i class="fas fa-key"></i>
+                        </a>
+
+                        <!-- Tahrirlash (qalam) -->
+                        <a href="#" class="btn btn-sm p-1" style="background: none; border: none; color: #f0bc74;">
+                            <i class="bi bi-pencil-fill"></i> </a>
+
+                        <!-- O‘chirish (savatcha) -->
+                        <a href="#" class="btn btn-sm p-1 delete-role"
+                           style="background: none; border: none; color: #DC2626;">
+                            <i class="fas fa-trash"></i>
+                        </a>
                     </div>
                 </td>
+
             </tr>
 
             </tbody>

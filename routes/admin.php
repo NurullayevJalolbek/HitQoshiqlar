@@ -123,10 +123,14 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'l
     Route::resource('roles', RoleController::class);
 
     //Permissions
-    Route::resource('permissions', PermissionController::class);
+    Route::get('role-permissions', function () {
+        return view('pages.permissions.show'); // statik ruxsatlar sahifasi
+    })->name('role-permissions.index');
+
 
     //Login histori
     Route::resource('login-histories', LoginHistoryController::class);
+
 
     //System logs
     Route::resource('system-logs', SystemLogController::class);
