@@ -1,5 +1,4 @@
 <?php
-
 return [
     // Asosiy
     'title' => 'Dashboard',
@@ -65,11 +64,11 @@ return [
         'realization_contracts' => 'Realizatsiya Shartnomalari',
         'documents_growth' => 'Hujjatlar O\'sish Dinamikasi',
         'revenue_by_project' => 'Loyihalar bo\'yicha Daromad',
-        
+
         // Davr
         'month' => 'Oy',
         'year' => 'Yil',
-        
+
         // Statistika
         'total_projects' => 'Jami loyihalar',
         'avg_income' => 'O\'rtacha tushum',
@@ -82,7 +81,7 @@ return [
         'avg_profit' => 'O\'rtacha foyda',
         'total_signed' => 'Jami imzolangan',
         'contracts' => 'shartnoma',
-        
+
         // Grafik labellar
         'active_investors' => 'Aktiv Investorlar',
         'passive_investors' => 'Passiv Investorlar',
@@ -118,5 +117,10 @@ return [
         'no_data' => 'Ma\'lumot topilmadi',
         'select_date' => 'Iltimos, sanalarni tanlang',
         'invalid_date_range' => 'Boshlanish sanasi tugash sanasidan katta bo\'lishi mumkin emas',
+    ],
+    'project_types' => [
+        'land' => 'Yer',
+        'rent' => 'Ijara',
+        'construction' => 'Qurilish',
     ],
 ];

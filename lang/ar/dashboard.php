@@ -1,122 +1,126 @@
 <?php
-
 return [
-    // Asosiy
-    'title' => 'Dashboard',
-    'page_title' => 'Investitsiya Dashboard',
-    'page_subtitle' => 'Barcha ko\'rsatkichlarni real vaqtda kuzatib boring',
-    'refresh' => 'Yangilash',
+    // الرئيسية
+    'title' => 'لوحة المعلومات',
+    'page_title' => 'لوحة المعلومات الاستثمارية',
+    'page_subtitle' => 'تتبع جميع المؤشرات في الوقت الفعلي',
+    'refresh' => 'تحديث',
 
-    // Export
+    // التصدير
     'export' => [
         'pdf' => 'PDF',
         'excel' => 'Excel',
         'csv' => 'CSV',
     ],
 
-    // Filtrlar
+    // الفلاتر
     'filters' => [
-        'title' => 'Filtrlar',
-        'start_date' => 'Boshlanish sanasi',
-        'end_date' => 'Tugash sanasi',
-        'project_type' => 'Loyiha turi',
-        'investor_type' => 'Investor turi',
-        'all' => 'Barchasi',
-        'apply' => 'Qo\'llash',
-        'reset' => 'Tozalash',
+        'title' => 'الفلاتر',
+        'start_date' => 'تاريخ البدء',
+        'end_date' => 'تاريخ الانتهاء',
+        'project_type' => 'نوع المشروع',
+        'investor_type' => 'نوع المستثمر',
+        'all' => 'الكل',
+        'apply' => 'تطبيق',
+        'reset' => 'إعادة تعيين',
     ],
 
-    // Loyiha turlari
+    // أنواع المشاريع
     'project_types' => [
-        'tech' => 'Texnologiya',
-        'real_estate' => 'Ko\'chmas mulk',
-        'agriculture' => 'Qishloq xo\'jaligi',
-        'manufacturing' => 'Ishlab chiqarish',
+        'tech' => 'التكنولوجيا',
+        'real_estate' => 'العقارات',
+        'agriculture' => 'الزراعة',
+        'manufacturing' => 'التصنيع',
     ],
 
-    // Investor turlari
+    // أنواع المستثمرين
     'investor_types' => [
-        'active' => 'Aktiv',
-        'passive' => 'Passiv',
+        'active' => 'نشط',
+        'passive' => 'سلبي',
     ],
 
-    // KPI Kartalar
+    // بطاقات KPI
     'kpi' => [
-        'total_investors' => 'Jami Investorlar',
-        'total_investment' => 'Umumiy Sarmoya',
-        'active_projects' => 'Faol Loyihalar',
-        'total_revenue' => 'Umumiy Daromad',
-        'active_investors' => 'Aktiv Investorlar',
-        'passive_investors' => 'Passiv Investorlar',
-        'total_dividends' => 'Jami Dividendlar',
-        'net_profit' => 'Sof Foyda',
-        'vs_last_month' => 'O\'tgan oyga nisbatan',
+        'total_investors' => 'إجمالي المستثمرين',
+        'total_investment' => 'إجمالي الاستثمار',
+        'active_projects' => 'المشاريع النشطة',
+        'total_revenue' => 'إجمالي الإيرادات',
+        'active_investors' => 'المستثمرون النشطون',
+        'passive_investors' => 'المستثمرون السلبيون',
+        'total_dividends' => 'إجمالي الأرباح',
+        'net_profit' => 'صافي الربح',
+        'vs_last_month' => 'مقارنة بالشهر الماضي',
     ],
 
-    // Grafiklar
+    // الرسوم البيانية
     'charts' => [
-        'investors_growth' => 'Investorlar O\'sish Dinamikasi',
-        'projects_distribution' => 'Loyihalar Taqsimoti',
-        'investor_income' => 'Investorlar Tushumlari',
-        'exit_payments' => 'Chiqish To\'lovlari',
-        'contract_revenue' => 'Shartnomalardan Daromad',
-        'dividends_distribution' => 'Dividendlar Taqsimoti',
-        'net_profit' => 'Sof Foyda Dinamikasi',
-        'realization_contracts' => 'Realizatsiya Shartnomalari',
-        'documents_growth' => 'Hujjatlar O\'sish Dinamikasi',
-        'revenue_by_project' => 'Loyihalar bo\'yicha Daromad',
-        
-        // Davr
-        'month' => 'Oy',
-        'year' => 'Yil',
-        
-        // Statistika
-        'total_projects' => 'Jami loyihalar',
-        'avg_income' => 'O\'rtacha tushum',
-        'avg_payment' => 'O\'rtacha to\'lov',
-        'total_contracts' => 'Jami shartnomalar',
-        'avg_revenue' => 'O\'rtacha daromad',
-        'growth' => 'O\'sish',
-        'paid' => 'To\'langan',
-        'pending' => 'Kutilmoqda',
-        'avg_profit' => 'O\'rtacha foyda',
-        'total_signed' => 'Jami imzolangan',
-        'contracts' => 'shartnoma',
-        
-        // Grafik labellar
-        'active_investors' => 'Aktiv Investorlar',
-        'passive_investors' => 'Passiv Investorlar',
-        'revenue_label' => 'Tushumlar',
-        'payments_label' => 'To\'lovlar',
-        'profit_label' => 'Foyda',
-        'contracts_label' => 'Shartnomalar',
+        'investors_growth' => 'ديناميكية نمو المستثمرين',
+        'projects_distribution' => 'توزيع المشاريع',
+        'investor_income' => 'دخل المستثمرين',
+        'exit_payments' => 'مدفوعات الخروج',
+        'contract_revenue' => 'إيرادات العقود',
+        'dividends_distribution' => 'توزيع الأرباح',
+        'net_profit' => 'ديناميكية صافي الربح',
+        'realization_contracts' => 'عقود التحقيق',
+        'documents_growth' => 'ديناميكية نمو المستندات',
+        'revenue_by_project' => 'الإيرادات حسب المشروع',
+
+        // الفترة
+        'month' => 'شهر',
+        'year' => 'سنة',
+
+        // الإحصائيات
+        'total_projects' => 'إجمالي المشاريع',
+        'avg_income' => 'متوسط الدخل',
+        'avg_payment' => 'متوسط الدفع',
+        'total_contracts' => 'إجمالي العقود',
+        'avg_revenue' => 'متوسط الإيرادات',
+        'growth' => 'النمو',
+        'paid' => 'مدفوع',
+        'pending' => 'معلق',
+        'avg_profit' => 'متوسط الربح',
+        'total_signed' => 'إجمالي الموقعة',
+        'contracts' => 'عقود',
+
+        // تسميات الرسم البياني
+        'active_investors' => 'المستثمرون النشطون',
+        'passive_investors' => 'المستثمرون السلبيون',
+        'revenue_label' => 'الإيرادات',
+        'payments_label' => 'المدفوعات',
+        'profit_label' => 'الربح',
+        'contracts_label' => 'العقود',
     ],
 
-    // Oylar
+    // الأشهر
     'months' => [
-        'jan' => 'Yan',
-        'feb' => 'Fev',
-        'mar' => 'Mar',
-        'apr' => 'Apr',
-        'may' => 'May',
-        'jun' => 'Iyun',
-        'jul' => 'Iyul',
-        'aug' => 'Avg',
-        'sep' => 'Sen',
-        'oct' => 'Okt',
-        'nov' => 'Noy',
-        'dec' => 'Dek',
+        'jan' => 'يناير',
+        'feb' => 'فبراير',
+        'mar' => 'مارس',
+        'apr' => 'أبريل',
+        'may' => 'مايو',
+        'jun' => 'يونيو',
+        'jul' => 'يوليو',
+        'aug' => 'أغسطس',
+        'sep' => 'سبتمبر',
+        'oct' => 'أكتوبر',
+        'nov' => 'نوفمبر',
+        'dec' => 'ديسمبر',
     ],
 
-    // Xabarlar
+    // الرسائل
     'messages' => [
-        'loading' => 'Yuklanmoqda...',
-        'success' => 'Muvaffaqiyatli!',
-        'error' => 'Xatolik yuz berdi!',
-        'filter_applied' => 'Filtrlar qo\'llanildi',
-        'export_success' => 'Fayl muvaffaqiyatli yuklandi',
-        'no_data' => 'Ma\'lumot topilmadi',
-        'select_date' => 'Iltimos, sanalarni tanlang',
-        'invalid_date_range' => 'Boshlanish sanasi tugash sanasidan katta bo\'lishi mumkin emas',
+        'loading' => 'جاري التحميل...',
+        'success' => 'نجح!',
+        'error' => 'حدث خطأ!',
+        'filter_applied' => 'تم تطبيق الفلاتر',
+        'export_success' => 'تم تنزيل الملف بنجاح',
+        'no_data' => 'لم يتم العثور على بيانات',
+        'select_date' => 'الرجاء تحديد التواريخ',
+        'invalid_date_range' => 'لا يمكن أن يكون تاريخ البدء أكبر من تاريخ الانتهاء',
+    ],
+    'project_types' => [
+        'land' => 'الأرض',
+        'rent' => 'الإيجار',
+        'construction' => 'البناء',
     ],
 ];

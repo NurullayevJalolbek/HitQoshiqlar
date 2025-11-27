@@ -1,15 +1,20 @@
 /**
- * Dashboard Charts Configuration - Dynamic Version
+ * Dashboard Charts Configuration - Multilingual Version
  * Grafiklarni render qilish va yangilash
  */
 
-// Umumiy kategoriyalar (oylar)
-const months = window.dashboardTranslations?.months || [
-    'Yan', 'Fev', 'Mar', 'Apr', 'May', 'Iyun', 'Iyul', 'Avg', 'Sen', 'Okt', 'Noy', 'Dek'
-];
+// Tarjimalarni olish va tekshirish
+const trans = window.dashboardTranslations || {};
 
-// Tarjimalar
-const trans = window.dashboardTranslations?.charts || {};
+// Oylarni to'g'ri formatda olish
+const months = (() => {
+    if (trans.months && typeof trans.months === 'object') {
+        // Agar object bo'lsa, array ga o'giramiz
+        return Object.values(trans.months);
+    }
+    // Default qiymat
+    return ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+})();
 
 // Chart instance'larini saqlash
 const chartInstances = {};
@@ -26,10 +31,10 @@ function renderInvestorsChart(activeData, passiveData) {
     
     const options = {
         series: [{
-            name: trans.active_investors || 'Aktiv Investorlar',
+            name: trans.charts?.active_investors || 'Active Investors',
             data: activeData || [320, 385, 412, 468, 521, 587, 642, 698, 745, 812, 878, 945]
         }, {
-            name: trans.passive_investors || 'Passiv Investorlar',
+            name: trans.charts?.passive_investors || 'Passive Investors',
             data: passiveData || [98, 112, 128, 145, 162, 178, 195, 210, 228, 245, 262, 280]
         }],
         chart: {
@@ -59,7 +64,7 @@ function renderInvestorsChart(activeData, passiveData) {
             width: 2 
         },
         xaxis: {
-            categories: months
+            categories: [...months] // Array nusxasini yaratamiz
         },
         colors: ['#3b82f6', '#f59e0b'],
         fill: {
@@ -85,7 +90,6 @@ function renderInvestorsChart(activeData, passiveData) {
     chartInstances.investors.render();
 }
 
-// 2. Loyihalar Donut Chart
 function renderProjectsDonutChart() {
     const chartElement = document.querySelector("#projectsDonutChart");
     if (!chartElement) return;
@@ -95,13 +99,17 @@ function renderProjectsDonutChart() {
     }
     
     const options = {
-        series: [28, 22, 18, 32],
+        series: [35, 32, 33], // 3 ta kategoriya uchun
         chart: {
             type: 'donut',
             height: 300
         },
-        labels: ['Texnologiya', 'Ko\'chmas mulk', 'Qishloq xo\'jaligi', 'Ishlab chiqarish'],
-        colors: ['#3b82f6', '#10b981', '#f59e0b', '#8b5cf6'],
+        labels: [
+            trans.projectTypes?.land || 'Land',
+            trans.projectTypes?.rent || 'Rent',
+            trans.projectTypes?.construction || 'Construction'
+        ],
+        colors: ['#10b981', '#f59e0b', '#3b82f6'], // 3 ta rang
         legend: { 
             position: 'bottom',
             fontSize: '14px'
@@ -120,7 +128,7 @@ function renderProjectsDonutChart() {
                         show: true,
                         total: {
                             show: true,
-                            label: 'Jami',
+                            label: trans.charts?.total_projects || 'Total',
                             formatter: function () {
                                 return '68'
                             }
@@ -146,7 +154,7 @@ function renderRevenueChart(data) {
     
     const options = {
         series: [{
-            name: trans.revenue_label || 'Tushumlar',
+            name: trans.charts?.revenue_label || 'Revenue',
             data: data || [1200, 1450, 1680, 1920, 2150, 2480, 2720, 2950, 3180, 3420, 3650, 3890]
         }],
         chart: {
@@ -167,11 +175,11 @@ function renderRevenueChart(data) {
             enabled: false
         },
         xaxis: {
-            categories: months
+            categories: [...months] // Array nusxasini yaratamiz
         },
         yaxis: {
             title: {
-                text: 'Tushumlar ($1000)'
+                text: (trans.charts?.revenue_label || 'Revenue') + ' ($1000)'
             }
         },
         tooltip: {
@@ -198,7 +206,7 @@ function renderPaymentsChart(data) {
     
     const options = {
         series: [{
-            name: trans.payments_label || 'To\'lovlar',
+            name: trans.charts?.payments_label || 'Payments',
             data: data || [280, 320, 360, 410, 450, 490, 530, 570, 610, 650, 690, 730]
         }],
         chart: {
@@ -218,11 +226,11 @@ function renderPaymentsChart(data) {
             }
         },
         xaxis: {
-            categories: months
+            categories: [...months] // Array nusxasini yaratamiz
         },
         yaxis: {
             title: {
-                text: 'To\'lovlar ($1000)'
+                text: (trans.charts?.payments_label || 'Payments') + ' ($1000)'
             }
         },
         tooltip: {
@@ -249,7 +257,7 @@ function renderContractRevenueChart(data) {
     
     const options = {
         series: [{
-            name: 'Daromad',
+            name: trans.charts?.avg_revenue || 'Revenue',
             data: data || [850, 920, 1050, 1180, 1320, 1450, 1580, 1720, 1850, 1980, 2110, 2250]
         }],
         chart: {
@@ -271,11 +279,11 @@ function renderContractRevenueChart(data) {
             width: 2
         },
         xaxis: {
-            categories: months
+            categories: [...months] // Array nusxasini yaratamiz
         },
         yaxis: {
             title: {
-                text: 'Daromad ($1000)'
+                text: (trans.charts?.avg_revenue || 'Revenue') + ' ($1000)'
             }
         },
         tooltip: {
@@ -306,7 +314,10 @@ function renderDividendsChart() {
             type: 'pie',
             height: 300
         },
-        labels: ['To\'langan', 'Kutilmoqda'],
+        labels: [
+            trans.charts?.paid || 'Paid',
+            trans.charts?.pending || 'Pending'
+        ],
         colors: ['#10b981', '#f59e0b'],
         legend: {
             position: 'bottom'
@@ -341,7 +352,7 @@ function renderProfitChart(data) {
     
     const options = {
         series: [{
-            name: trans.profit_label || 'Foyda',
+            name: trans.charts?.profit_label || 'Profit',
             data: data || [420, 480, 540, 610, 680, 750, 820, 890, 960, 1030, 1100, 1170]
         }],
         chart: {
@@ -360,11 +371,11 @@ function renderProfitChart(data) {
             enabled: false
         },
         xaxis: {
-            categories: months
+            categories: [...months] // Array nusxasini yaratamiz
         },
         yaxis: {
             title: {
-                text: 'Foyda ($1000)'
+                text: (trans.charts?.profit_label || 'Profit') + ' ($1000)'
             }
         },
         tooltip: {
@@ -391,7 +402,7 @@ function renderContractsChart(data) {
     
     const options = {
         series: [{
-            name: trans.contracts_label || 'Shartnomalar',
+            name: trans.charts?.contracts_label || 'Contracts',
             data: data || [12, 15, 18, 22, 25, 28, 32, 35, 38, 42, 45, 48]
         }],
         chart: {
@@ -411,17 +422,17 @@ function renderContractsChart(data) {
             }
         },
         xaxis: {
-            categories: months
+            categories: [...months] // Array nusxasini yaratamiz
         },
         yaxis: {
             title: {
-                text: 'Shartnomalar Soni'
+                text: trans.charts?.total_contracts || 'Contracts'
             }
         },
         tooltip: {
             y: {
                 formatter: function(val) {
-                    return val + " ta"
+                    return val + " " + (trans.charts?.contracts || 'contracts')
                 }
             }
         }
@@ -442,7 +453,7 @@ function renderDocumentsChart(data) {
     
     const options = {
         series: [{
-            name: 'Hujjatlar',
+            name: trans.messages?.documents || 'Documents',
             data: data || [45, 52, 58, 65, 72, 80, 88, 95, 103, 112, 120, 128]
         }],
         chart: {
@@ -464,17 +475,17 @@ function renderDocumentsChart(data) {
             width: 2
         },
         xaxis: {
-            categories: months
+            categories: [...months] // Array nusxasini yaratamiz
         },
         yaxis: {
             title: {
-                text: 'Hujjatlar Soni'
+                text: trans.messages?.documents || 'Documents'
             }
         },
         tooltip: {
             y: {
                 formatter: function(val) {
-                    return val + " ta"
+                    return val + " " + (trans.messages?.documents || 'documents')
                 }
             }
         }
@@ -484,7 +495,6 @@ function renderDocumentsChart(data) {
     chartInstances.documents.render();
 }
 
-// 10. Loyihalar bo'yicha Daromad Grafikasi
 function renderRevenueByProjectChart() {
     const chartElement = document.querySelector("#revenueByProjectChart");
     if (!chartElement) return;
@@ -495,8 +505,8 @@ function renderRevenueByProjectChart() {
     
     const options = {
         series: [{
-            name: 'Daromad',
-            data: [850, 720, 650, 580]
+            name: trans.charts?.revenue_label || 'Revenue',
+            data: [850, 720, 680] // 3 ta qiymat
         }],
         chart: {
             type: 'bar',
@@ -521,7 +531,11 @@ function renderRevenueByProjectChart() {
             offsetX: 30
         },
         xaxis: {
-            categories: ['Texnologiya', 'Ko\'chmas mulk', 'Qishloq xo\'jaligi', 'Ishlab chiqarish']
+            categories: [
+                trans.projectTypes?.land || 'Land',
+                trans.projectTypes?.rent || 'Rent',
+                trans.projectTypes?.construction || 'Construction'
+            ]
         },
         tooltip: {
             y: {
@@ -538,6 +552,14 @@ function renderRevenueByProjectChart() {
 
 // Barcha grafiklarni yuklash
 function initializeAllCharts() {
+    // Tarjimalar to'liq yuklanganini tekshiramiz
+    if (!window.dashboardTranslations) {
+        console.error('Dashboard translations not loaded!');
+        return;
+    }
+    
+    console.log('Initializing charts with translations:', window.dashboardTranslations);
+    
     renderInvestorsChart();
     renderProjectsDonutChart();
     renderRevenueChart();
@@ -583,13 +605,18 @@ window.updateCharts = function(data) {
     }
 };
 
-// Sahifa yuklanganda
+// Til o'zgarganda grafiklarni qayta yuklash
+window.reloadChartsWithLanguage = function() {
+    console.log('Grafiklar tili o\'zgardi, qayta yuklanmoqda...');
+    initializeAllCharts();
+};
+
+// DOM yuklangandan keyin chartlarni ishga tushirish
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('Dashboard charts yuklandi');
+    console.log('DOM loaded, initializing charts...');
     initializeAllCharts();
 });
 
-// Export
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = {
         renderInvestorsChart,
