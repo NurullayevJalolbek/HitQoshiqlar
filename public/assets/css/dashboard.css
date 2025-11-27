@@ -16,18 +16,51 @@
 }
 
 /* Dashboard header - gradient bilan */
-.dashboard-header {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    padding: 2rem 1.5rem;
-    border-radius: 12px;
-    margin-bottom: 2rem;
-    color: white;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 1rem;
+/* Ultra Simple Header - No border */
+.dashboard-header-card {
+    background: transparent;
+    padding: 0 0 1.5rem 0;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.dashboard-header-card .header-content h4 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 0.25rem;
+}
+
+.dashboard-header-card .header-content p {
+    font-size: 0.875rem;
+    color: #6b7280;
+}
+
+.dashboard-header-card .btn-group .btn {
+    font-size: 0.875rem;
+    padding: 0.5rem 1rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .dashboard-header-card .d-flex {
+        flex-direction: column;
+        align-items: flex-start !important;
+    }
+    
+    .dashboard-header-card .header-actions {
+        width: 100%;
+        margin-top: 1rem;
+    }
+    
+    .dashboard-header-card .btn-group {
+        width: 100%;
+        display: flex;
+    }
+    
+    .dashboard-header-card .btn-group .btn {
+        flex: 1;
+    }
 }
 
 .header-content {
