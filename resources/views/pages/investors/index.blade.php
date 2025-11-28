@@ -19,7 +19,7 @@
         }
 
         .label-verified {
-            background-color: #28a745;
+            background-color: #1e7e34;
             color: white;
             padding: 2px 6px;
             border-radius: 4px;
@@ -28,8 +28,8 @@
         }
 
         .label-unverified {
-            background-color: #ffc107;
-            color: black;
+            background-color: #d39e00;
+            color: white;
             padding: 2px 6px;
             border-radius: 4px;
             font-size: 0.75rem;
@@ -204,7 +204,7 @@
                 <td>2025-11-23 16:10</td>
                 <td class="action-btns">
                         <i class="bi bi-eye-fill me-2"></i>
-                    <i class="fas fa-shield-alt text-danger" title="Bloklash"></i>
+                    <i class="fas fa-shield-alt text-danger"   style="color: #DC2626;" title="Bloklash"></i>
                 </td>
             </tr>
             </tbody>
