@@ -43,9 +43,9 @@
 
         /* disabled icon */
         .disabled-icon {
-            pointer-events: none;  /* bosish mumkin emas */
-            opacity: 0.5;          /* rangni biroz o‘chiramiz */
-            cursor: default;       /* kursorni default qilamiz */
+            pointer-events: none; /* bosish mumkin emas */
+            opacity: 0.5; /* rangni biroz o‘chiramiz */
+            cursor: default; /* kursorni default qilamiz */
             color: #6c757d !important; /* kulrang rang (Bootstrap text-muted bilan mos) */
         }
 
@@ -99,16 +99,20 @@
     </div>
 
     {{-- Content --}}
-    <div class="card shadow border-0 table-wrapper table-responsive">
+    <div class="card card-body py-1 px-2 shadow border-0 table-wrapper table-responsive">
+
         <div class="d-flex justify-content-between align-items-center p-3">
-            <h5 class="mb-0">Investorlar</h5>
+            <h5 class="mb-0">
+                <i class="fas fa-user-tie me-2"></i> Investorlar
+            </h5>
             <div class="d-flex gap-2">
-                <button class="btn btn-success"><i class="fas fa-file-excel"></i> Excel</button>
-                <button class="btn btn-info text-white"><i class="fas fa-file-csv"></i> CSV</button>
+                <button class="btn btn-success"><i class="fas fa-file-excel me-1"></i> Excel</button>
+                <button class="btn btn-info text-white"><i class="fas fa-file-csv me-1"></i> CSV</button>
             </div>
         </div>
 
-        <table class="table table-hover table-striped align-middle text-center">
+
+        <table class="table user-table table-hover table-striped align-items-center">
             <thead class="table-dark">
             <tr>
                 <th>#</th>
@@ -147,7 +151,7 @@
                 <td class="status-pending">Kutilmoqda</td>
                 <td>2025-11-26 09:15</td>
                 <td class="action-btns">
-                        <i class="bi bi-eye-fill me-2"></i>
+                    <i class="bi bi-eye-fill me-2"></i>
                     <i class="fas fa-shield-alt text-danger" title="Bloklash"></i>
                 </td>
             </tr>
@@ -161,7 +165,7 @@
                 <td class="status-active">Faol</td>
                 <td>2025-11-27 08:50</td>
                 <td class="action-btns">
-                        <i class="bi bi-eye-fill me-2"></i>
+                    <i class="bi bi-eye-fill me-2"></i>
                     <i class="fas fa-shield-alt text-danger" title="Bloklash"></i>
                 </td>
             </tr>
@@ -175,7 +179,7 @@
                 <td class="status-blocked">Bloklangan</td>
                 <td>2025-11-24 18:20</td>
                 <td class="action-btns">
-                        <i class="bi bi-eye-fill me-2"></i>
+                    <i class="bi bi-eye-fill me-2"></i>
                     <i class="fas fa-shield-alt text-danger disabled-icon" title="Bloklash"></i>
                 </td>
             </tr>
@@ -203,8 +207,8 @@
                 <td class="status-pending">Kutilmoqda</td>
                 <td>2025-11-23 16:10</td>
                 <td class="action-btns">
-                        <i class="bi bi-eye-fill me-2"></i>
-                    <i class="fas fa-shield-alt text-danger"   style="color: #DC2626;" title="Bloklash"></i>
+                    <i class="bi bi-eye-fill me-2"></i>
+                    <i class="fas fa-shield-alt text-danger" style="color: #DC2626;" title="Bloklash"></i>
                 </td>
             </tr>
             </tbody>

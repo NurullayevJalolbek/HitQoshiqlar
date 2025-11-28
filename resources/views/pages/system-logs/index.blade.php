@@ -84,13 +84,20 @@
     </div>
 
     {{-- LOG TABLE --}}
-    <div class="card shadow border-0 table-wrapper table-responsive">
+    <div class="card card-body py-1 px-2 shadow border-0 table-wrapper table-responsive">
+
         <div class="d-flex justify-content-between align-items-center p-3">
-            <h5 class="mb-0">{{__('admin.system_logs')}}</h5>
-            <button class="btn btn-info text-white"><i class="fas fa-file-csv"></i> CSV</button>
+            <h5 class="mb-0">
+                <i class="fas fa-history me-2"></i> {{ __('admin.system_logs') }}
+            </h5>
+
+            <button class="btn btn-info text-white">
+                <i class="fas fa-file-csv"></i> CSV
+            </button>
         </div>
 
-        <table class="table table-hover align-middle text-center">
+
+        <table class="table user-table table-hover table-striped align-items-center">
             <thead class="table-dark">
             <tr>
                 <th>#</th>

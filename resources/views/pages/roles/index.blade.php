@@ -79,12 +79,17 @@
 
     {{--Content--}}
     <div class="card card-body py-1 px-2 shadow border-0 table-wrapper table-responsive">
+
         <div class="d-flex justify-content-between align-items-center p-3">
-            <h5 class="mb-0">{{__('admin.roles')}}</h5>
+            <h5 class="mb-0">
+                <i class="fas fa-user-shield me-2"></i> {{ __('admin.roles') }}
+            </h5>
+
             <a href="{{ route('admin.roles.create') }}" class="btn btn-primary" id="addProjectBtn">
-                <i class="fas fa-plus"></i>{{__('admin.create_new_role')}}
+                <i class="fas fa-plus me-1"></i>{{ __('admin.create_new_role') }}
             </a>
         </div>
+
 
         <table class="table user-table table-hover table-striped align-items-center">
             <thead class="table-dark">

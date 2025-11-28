@@ -97,27 +97,28 @@
     {{-- Content --}}
     <div class="card card-body py-1 px-2 shadow border-0 table-wrapper table-responsive">
         <div class="d-flex justify-content-between align-items-center p-3">
-            <h5 class="mb-0">{{__('admin.users')}}</h5>
+            <h5 class="mb-0">
+                <i class="fas fa-users me-2"></i> {{ __('admin.users') }}
+            </h5>
 
             <div class="d-flex gap-2">
                 <!-- Export Excel -->
                 <button class="btn btn-success" id="exportExcelBtn">
-                    <i class="fas fa-file-excel"></i> Excel
+                    <i class="fas fa-file-excel me-1"></i> Excel
                 </button>
 
                 <!-- Export CSV -->
                 <button class="btn btn-info text-white" id="exportCsvBtn">
-                    <i class="fas fa-file-csv"></i> CSV
+                    <i class="fas fa-file-csv me-1"></i> CSV
                 </button>
 
                 <!-- Yangi foydalanuvchi qo'shish -->
                 <a href="{{ route('admin.users.create') }}" class="btn btn-primary" id="addUserBtn">
-                    <i class="fas fa-plus"></i> {{__('admin.add_new_user')}}
+                    <i class="fas fa-plus me-1"></i> {{ __('admin.add_new_user') }}
                 </a>
-
-
             </div>
         </div>
+
 
 
         <table class="table user-table table-hover table-striped align-items-center">
