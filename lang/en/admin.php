@@ -83,7 +83,10 @@ return [
     'ip' => "IP",
     'result' => "Result",
     'user' => "User",
-    'login_histories' => "Login histories"
+    'login_histories' => "Login histories",
+
+    'log_type' => "Log type",
+    'type' => "Type"
 
 
 ];

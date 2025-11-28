@@ -83,7 +83,10 @@ return [
     'ip' => "IP",
     'result' => "Результат",
     'user' => "Пользователь",
-    'login_histories' => "Истории входов"
+    'login_histories' => "Истории входов",
+
+    'log_type' => "Тип лога",
+    'type' => "Тип"
 
 
 

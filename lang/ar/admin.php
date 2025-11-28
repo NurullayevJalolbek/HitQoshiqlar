@@ -83,7 +83,10 @@ return [
     'ip' => "IP",
     'result' => "النتيجة",
     'user' => "المستخدم",
-    'login_histories' => "سجلات الدخول"
+    'login_histories' => "سجلات الدخول",
+
+    'log_type' => "نوع السجل",
+    'type' => "النوع"
 
 
 

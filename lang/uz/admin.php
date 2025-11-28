@@ -82,7 +82,12 @@ return [
     'ip' => "IP",
     'result' => "Natija",
     'user' => "Foydalanuvchi",
-    'login_histories' => "Kirish tarixlari"
+    'login_histories' => "Kirish tarixlari",
+
+    'log_type' => "Log turi",
+    'type' => "Turi"
+
+
 
 
 
