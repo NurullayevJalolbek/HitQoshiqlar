@@ -158,7 +158,7 @@
 
                     <!-- Actions (ko'zcha) -->
                     <td>
-                        <i class="fas fa-eye view-icon" style="cursor:pointer;"></i>
+                        <i class="bi bi-eye-fill me-2"></i>
                     </td>
                 </tr>
             @endforeach

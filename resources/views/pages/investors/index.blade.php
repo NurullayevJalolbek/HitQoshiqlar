@@ -4,17 +4,17 @@
     <style>
         /* Status ranglari minimal CSS */
         .status-active {
-            color: #28a745;
+            color: #1e7e34;
             font-weight: bold;
         }
 
         .status-blocked {
-            color: #dc3545;
+            color: #bd2130;
             font-weight: bold;
         }
 
         .status-pending {
-            color: #ffc107;
+            color: #d39e00;
             font-weight: bold;
         }
 
@@ -133,7 +133,7 @@
                 <td class="status-active">Faol</td>
                 <td>2025-11-25 14:32</td>
                 <td class="action-btns">
-                    <i class="fas fa-eye text-primary me-2" title="Ko‘rish"></i>
+                    <i class="bi bi-eye-fill me-2"></i>
                     <i class="fas fa-shield-alt text-danger" title="Bloklash"></i>
                 </td>
             </tr>
@@ -147,7 +147,7 @@
                 <td class="status-pending">Kutilmoqda</td>
                 <td>2025-11-26 09:15</td>
                 <td class="action-btns">
-                    <i class="fas fa-eye text-primary me-2" title="Ko‘rish"></i>
+                        <i class="bi bi-eye-fill me-2"></i>
                     <i class="fas fa-shield-alt text-danger" title="Bloklash"></i>
                 </td>
             </tr>
@@ -161,7 +161,7 @@
                 <td class="status-active">Faol</td>
                 <td>2025-11-27 08:50</td>
                 <td class="action-btns">
-                    <i class="fas fa-eye text-primary me-2" title="Ko‘rish"></i>
+                        <i class="bi bi-eye-fill me-2"></i>
                     <i class="fas fa-shield-alt text-danger" title="Bloklash"></i>
                 </td>
             </tr>
@@ -175,7 +175,7 @@
                 <td class="status-blocked">Bloklangan</td>
                 <td>2025-11-24 18:20</td>
                 <td class="action-btns">
-                    <i class="fas fa-eye text-primary me-2" title="Ko‘rish"></i>
+                        <i class="bi bi-eye-fill me-2"></i>
                     <i class="fas fa-shield-alt text-danger disabled-icon" title="Bloklash"></i>
                 </td>
             </tr>
@@ -189,7 +189,7 @@
                 <td class="status-active">Faol</td>
                 <td>2025-11-26 12:45</td>
                 <td class="action-btns">
-                    <i class="fas fa-eye text-primary me-2" title="Ko‘rish"></i>
+                    <i class="bi bi-eye-fill me-2"></i>
                     <i class="fas fa-shield-alt text-danger" title="Bloklash"></i>
                 </td>
             </tr>
@@ -203,7 +203,7 @@
                 <td class="status-pending">Kutilmoqda</td>
                 <td>2025-11-23 16:10</td>
                 <td class="action-btns">
-                    <i class="fas fa-eye text-primary me-2" title="Ko‘rish"></i>
+                        <i class="bi bi-eye-fill me-2"></i>
                     <i class="fas fa-shield-alt text-danger" title="Bloklash"></i>
                 </td>
             </tr>
