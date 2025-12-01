@@ -143,7 +143,7 @@
         </div>
 
 
-        <table class="table user-table table-hover table-striped align-items-center">
+        <table class="table user-table  table-bordered  table-hover table-striped align-items-center">
             <thead class="table-dark">
             <tr>
                 <th>№</th>
