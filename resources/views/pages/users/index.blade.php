@@ -21,10 +21,6 @@
             font-size: 0.75rem;
         }
 
-        .hover-lift:hover {
-            background: #f7f7f7;
-            transform: translateY(-2px);
-        }
 
         .action-btn i {
             font-size: 18px;
