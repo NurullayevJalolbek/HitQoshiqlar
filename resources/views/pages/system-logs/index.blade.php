@@ -37,48 +37,72 @@
 @section('content')
 
     {{-- FILTER CARD --}}
-    <div class="card p-3 mb-3">
-        <div class="row g-3 align-items-end">
-            <div class="col-md-2">
-                <label>{{__('admin.search')}}</label>
-                <input type="text" id="searchInput" class="form-control" placeholder="Kalit so'z, foydalanuvchi...">
+    <div class="filter-card mb-3 border rounded"
+         style="border-color: rgba(0,0,0,0.1); border-radius: 0.5rem; background-color: #fff;">
+
+        <div class="d-flex justify-content-between align-items-center p-3">
+            <div class="d-flex align-items-center gap-2">
+                <i class="bi bi-search"></i>
+                <span>Filterlar</span>
             </div>
 
-            <div class="col-md-2">
-                <label>{{__('admin.log_type')}}</label>
-                <select id="logTypeFilter" class="form-select">
-                    <option value="all">{{__('admin.all')}}</option>
-                    <option value="INFO">INFO</option>
-                    <option value="WARNING">WARNING</option>
-                    <option value="ERROR">ERROR</option>
-                </select>
-            </div>
+            <button class="btn btn-sm rounded-pill px-3 py-2 d-flex align-items-center justify-content-center"
+                    type="button" data-bs-toggle="collapse"
+                    data-bs-target="#systemHistoryFilterContent"
+                    aria-controls="systemHistoryFilterContent"
+                    id="systemHistoryToggleFilterBtn"
+                    style="background-color:#1F2937;color:#fff;">
+                <i class="bi bi-caret-down-fill me-2" id="systemHistoryFilterIcon"></i>
+                <span id="systemHistoryFilterText">Yopish</span>
+            </button>
+        </div>
 
-            <div class="col-md-2">
-                <label>{{__('admin.module')}}</label>
-                <select id="moduleFilter" class="form-select">
-                    <option value="all">{{__('admin.all')}}</option>
-                    <option value="Loyihalar">Loyihalar</option>
-                    <option value="Investorlar">Investorlar</option>
-                    <option value="Ma'muriyat bo'limi">Ma'muriyat bo'limi</option>
-                </select>
-            </div>
+        <div class="collapse show" id="systemHistoryFilterContent">
+            <div class="row g-3 align-items-end p-3">
+                <div class="col-md-2">
+                    <label>{{__('admin.search')}}</label>
+                    <input type="text" id="searchInput" class="form-control" placeholder="Kalit so'z, foydalanuvchi...">
+                </div>
 
-            <div class="col-md-2">
-                <label>{{__('admin.start_date')}}</label>
-                <input type="date" id="startDate" class="form-control">
-            </div>
+                <div class="col-md-2">
+                    <label>{{__('admin.log_type')}}</label>
+                    <select id="logTypeFilter" class="form-select">
+                        <option value="all">{{__('admin.all')}}</option>
+                        <option value="INFO">INFO</option>
+                        <option value="WARNING">WARNING</option>
+                        <option value="ERROR">ERROR</option>
+                    </select>
+                </div>
 
-            <div class="col-md-2">
-                <label>{{__('admin.end_date')}}</label>
-                <input type="date" id="endDate" class="form-control">
-            </div>
+                <div class="col-md-2">
+                    <label>{{__('admin.module')}}</label>
+                    <select id="moduleFilter" class="form-select">
+                        <option value="all">{{__('admin.all')}}</option>
+                        <option value="Loyihalar">Loyihalar</option>
+                        <option value="Investorlar">Investorlar</option>
+                        <option value="Ma'muriyat bo'limi">Ma'muriyat bo'limi</option>
+                    </select>
+                </div>
 
-            <div class="col-auto d-flex gap-2">
-                <button id="filterBtn" class="btn btn-primary">
-                    <i class="fas fa-filter"></i> {{__('admin.search')}}
-                </button>
-                <button id="clearBtn" class="btn btn-warning">{{__('admin.clear')}}</button>
+                <div class="col-md-2">
+                    <label>{{__('admin.start_date')}}</label>
+                    <input type="date" id="startDate" class="form-control">
+                </div>
+
+                <div class="col-md-2">
+                    <label>{{__('admin.end_date')}}</label>
+                    <input type="date" id="endDate" class="form-control">
+                </div>
+
+                <div class="col-md-2 d-flex gap-2">
+                    <button id="filterBtn" class="btn btn-primary w-50">
+                        <i class="fas fa-filter"></i> Izlash
+                    </button>
+
+                    <button id="clearBtn" class="btn btn-warning w-50">
+                        Tozalash
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -176,4 +200,29 @@
 @endsection
 
 @push('customJs')
+    <script>
+        function initFilterToggle(buttonId, contentId, iconId, textId) {
+            const collapseEl = document.getElementById(contentId);
+            const button = document.getElementById(buttonId);
+            const icon = document.getElementById(iconId);
+            const text = document.getElementById(textId);
+
+            collapseEl.addEventListener('shown.bs.collapse', () => {
+
+                icon.classList.remove('bi-caret-up-fill');
+                icon.classList.add('bi-caret-down-fill');
+                text.textContent = 'Yopish';
+            });
+
+            collapseEl.addEventListener('hidden.bs.collapse', () => {
+                icon.classList.remove('bi-caret-down-fill');
+                icon.classList.add('bi-caret-up-fill');
+                text.textContent = 'Ochish';
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            initFilterToggle('systemHistoryToggleFilterBtn', 'systemHistoryFilterContent', 'systemHistoryFilterIcon', 'systemHistoryFilterText');
+        });
+    </script>
 @endpush
