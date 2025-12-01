@@ -492,6 +492,7 @@
 
     document.addEventListener('DOMContentLoaded', function () {
         initFilterToggle('userToggleFilterBtn', 'userFilterContent', 'userFilterIcon', 'userFilterText');
+        initFilterToggle('loginHistoryToggleFilterBtn', 'loginHistoryFilterContent', 'loginHistoryFilterIcon', 'loginHistoryFilterText');
     });
 </script>
 
