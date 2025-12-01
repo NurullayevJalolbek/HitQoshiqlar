@@ -1,4 +1,5 @@
 <script>
+
     const sidebarToggle = document.querySelector('#sidebar-toggle')
     const sidebarText = document.querySelector('#project-name')
     const sidebarMenu = document.querySelector('#sidebarMenu')
@@ -464,6 +465,32 @@
         }
     });
 </script>
+
+{{--Filter ochib yopish--}}
+<script>
+    function initFilterToggle(buttonId, contentId, iconId, textId) {
+        const collapseEl = document.getElementById(contentId);
+        const button = document.getElementById(buttonId);
+        const icon = document.getElementById(iconId);
+        const text = document.getElementById(textId);
+
+        collapseEl.addEventListener('shown.bs.collapse', () => {
+            icon.classList.remove('bi-caret-up-fill');
+            icon.classList.add('bi-caret-down-fill');
+            text.textContent = 'Yopish';
+        });
+
+        collapseEl.addEventListener('hidden.bs.collapse', () => {
+            icon.classList.remove('bi-caret-down-fill');
+            icon.classList.add('bi-caret-up-fill');
+            text.textContent = 'Ochish';
+        });
+    }
+
+    // FUNKSIYANI CHAQRISH
+    initFilterToggle('toggleFilterBtn', 'userFilterContent', 'filterIcon', 'filterText');
+</script>
+
 <!-- Core -->
 {{--<script src="{{ asset('vendor/@popperjs/core/dist/umd/popper.min.js') }}"></script>--}}
 {{--<script src="{{ asset('vendor/bootstrap/dist/js/bootstrap.min.js') }}"></script>--}}
