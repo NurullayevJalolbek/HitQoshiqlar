@@ -59,16 +59,15 @@
             <button class="btn btn-sm rounded-pill px-3 py-2 d-flex align-items-center justify-content-center"
                     type="button" data-bs-toggle="collapse"
                     data-bs-target="#userFilterContent" aria-expanded="true"
-                    aria-controls="userFilterContent" id="toggleFilterBtn"
+                    aria-controls="userFilterContent" id="userToggleFilterBtn"
                     style="background-color: #1F2937; color: #ffffff;">
-                <i class="bi bi-caret-down-fill me-2" id="filterIcon" style="color: #ffffff;">
-                    <span id="filterText">Ochish</span>
-                </i>
+                <i class="bi bi-caret-down-fill me-2" id="userFilterIcon" style="color: #ffffff;"> </i>
+                <span id="userFilterText">Yopish</span>
             </button>
         </div>
 
         <!-- Filter content -->
-        <div class="collapse hidden" id="userFilterContent">
+        <div class="collapse show" id="userFilterContent">
             <div class="row g-3 align-items-end p-3">
                 {{-- Qidiruv --}}
                 <div class="col-md-4">

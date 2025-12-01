@@ -475,20 +475,24 @@
         const text = document.getElementById(textId);
 
         collapseEl.addEventListener('shown.bs.collapse', () => {
+            console.log('ishladi yopish');
+
             icon.classList.remove('bi-caret-up-fill');
             icon.classList.add('bi-caret-down-fill');
             text.textContent = 'Yopish';
         });
 
         collapseEl.addEventListener('hidden.bs.collapse', () => {
+            console.log('ishladi ochish');
             icon.classList.remove('bi-caret-down-fill');
             icon.classList.add('bi-caret-up-fill');
             text.textContent = 'Ochish';
         });
     }
 
-    // FUNKSIYANI CHAQRISH
-    initFilterToggle('toggleFilterBtn', 'userFilterContent', 'filterIcon', 'filterText');
+    document.addEventListener('DOMContentLoaded', function () {
+        initFilterToggle('userToggleFilterBtn', 'userFilterContent', 'userFilterIcon', 'userFilterText');
+    });
 </script>
 
 <!-- Core -->

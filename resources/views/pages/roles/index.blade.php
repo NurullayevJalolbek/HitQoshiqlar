@@ -62,17 +62,45 @@
 @endsection
 
 @section('content')
+
     {{-- Filter--}}
-    <div class="filter-card p-3 mb-3" style="border: 1px solid #fff; border-radius: 0.5rem; background-color: #fff;">
-        <div class="row g-3 align-items-end">
-            <div class="col-md-9">
-                <label for="searchInput">{{__('admin.search')}}</label>
-                <input type="text" id="searchInput" class="form-control"
-                       placeholder="{{__('admin.role_name')}}, {{__('admin.code')}}...">
+    <div class="filter-card mb-3 border rounded"
+         style="border-color: rgba(0,0,0,0.1); border-radius: 0.5rem; background-color: #fff;">
+
+        <div class="d-flex justify-content-between align-items-center p-3">
+            <div class="d-flex align-items-center gap-2">
+                <i class="bi bi-search"></i>
+                <span>Filterlar</span>
             </div>
-            <div class="col-md-3 d-flex gap-2">
-                <button id="filterBtn" class="btn btn-primary w-50"><i class="fas fa-filter"></i> Filter</button>
-                <button id="clearBtn" class="btn btn-warning w-50">{{__('admin.clear')}}</button>
+
+            <button class="btn btn-sm rounded-pill px-3 py-2 d-flex align-items-center justify-content-center"
+                    type="button" data-bs-toggle="collapse"
+                    data-bs-target="#roleFilterContent"
+                    aria-controls="roleFilterContent"
+                    id="roleToggleFilterBtn"
+                    style="background-color:#1F2937;color:#fff;">
+                <i class="bi bi-caret-down-fill me-2" id="roleFilterIcon"></i>
+                    <span id="roleFilterText">Yopish</span>
+            </button>
+        </div>
+
+        <div class="collapse show" id="roleFilterContent">
+            <div class="row g-3 align-items-end p-3">
+                <div class="col-md-10">
+                    <label >{{__('admin.search')}}</label>
+                    <input type="text"  class="form-control"
+                           placeholder="{{__('admin.role_name')}}, {{__('admin.code')}}...">
+                </div>
+
+                <div class="col-md-2 d-flex gap-2">
+                    <button id="filterBtn" class="btn btn-primary w-50">
+                        <i class="fas fa-filter"></i> Izlash
+                    </button>
+
+                    <button id="clearBtn" class="btn btn-warning w-50">
+                        Tozalash
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -91,7 +119,7 @@
         </div>
 
 
-        <table class="table user-table table-hover table-striped align-items-center">
+        <table class="table user-table table-hover table-bordered  table-striped align-items-center">
             <thead class="table-dark">
             <tr>
                 <th class="border-bottom text-start">№</th>
@@ -293,6 +321,34 @@
 @endsection
 
 @push('customJs')
+    <script>
+        function initFilterToggle(buttonId, contentId, iconId, textId) {
+            const collapseEl = document.getElementById(contentId);
+            const button = document.getElementById(buttonId);
+            const icon = document.getElementById(iconId);
+            const text = document.getElementById(textId);
+
+            collapseEl.addEventListener('shown.bs.collapse', () => {
+                console.log('ishladi yopish');
+
+                icon.classList.remove('bi-caret-up-fill');
+                icon.classList.add('bi-caret-down-fill');
+                text.textContent = 'Yopish';
+            });
+
+            collapseEl.addEventListener('hidden.bs.collapse', () => {
+                console.log('ishladi ochish');
+                icon.classList.remove('bi-caret-down-fill');
+                icon.classList.add('bi-caret-up-fill');
+                text.textContent = 'Ochish';
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            initFilterToggle('roleToggleFilterBtn', 'roleFilterContent', 'roleFilterIcon', 'roleFilterText');
+        });
+    </script>
+
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const searchInput = document.getElementById('searchInput');

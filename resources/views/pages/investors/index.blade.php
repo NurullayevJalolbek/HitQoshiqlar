@@ -73,14 +73,14 @@
                     type="button" data-bs-toggle="collapse"
                     data-bs-target="#investorFilterContent"
                     aria-controls="investorFilterContent"
-                    id="toggleFilterBtn"
+                    id="investorToggleFilterBtn"
                     style="background-color:#1F2937;color:#fff;">
-                <i class="bi bi-caret-down-fill me-2" id="filterIcon"></i>
-                <span id="filterText">Ochish</span>
+                <i class="bi bi-caret-down-fill me-2" id="investorFilterIcon"></i>
+                <span id="investorFilterText">Ochish</span>
             </button>
         </div>
 
-        <div class="collapse" id="investorFilterContent">
+        <div class="collapse show" id="investorFilterContent">
             <div class="row g-3 align-items-end p-3">
                 <div class="col-md-6">
                     <label for="searchInput">Qidiruv</label>
@@ -158,6 +158,34 @@
 
 
 @push('customJs')
+    <script>
+        function initFilterToggle(buttonId, contentId, iconId, textId) {
+            const collapseEl = document.getElementById(contentId);
+            const button = document.getElementById(buttonId);
+            const icon = document.getElementById(iconId);
+            const text = document.getElementById(textId);
+
+            collapseEl.addEventListener('shown.bs.collapse', () => {
+                console.log('ishladi yopish');
+
+                icon.classList.remove('bi-caret-up-fill');
+                icon.classList.add('bi-caret-down-fill');
+                text.textContent = 'Yopish';
+            });
+
+            collapseEl.addEventListener('hidden.bs.collapse', () => {
+                console.log('ishladi ochish');
+                icon.classList.remove('bi-caret-down-fill');
+                icon.classList.add('bi-caret-up-fill');
+                text.textContent = 'Ochish';
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            initFilterToggle('investorToggleFilterBtn', 'investorFilterContent', 'investorFilterIcon', 'investorFilterText');
+        });
+    </script>
+
     <script>
 
         // 15 ta statik investorlar
