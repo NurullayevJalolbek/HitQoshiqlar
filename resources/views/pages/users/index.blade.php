@@ -146,112 +146,30 @@
         <table class="table user-table table-hover table-striped align-items-center">
             <thead class="table-dark">
             <tr>
-                <th class="border-bottom text-start">№</th>
-                <th class="border-bottom text-start">{{__('admin.full_name')}}</th>
-                <th class="border-bottom">{{__('admin.login')}}</th>
-                <th class="border-bottom">{{__('admin.phone')}}</th>
-                <th class="border-bottom">{{__('admin.email')}}</th>
-                <th class="border-bottom">{{__('admin.role')}}</th>
-                <th class="border-bottom">{{__('admin.status')}}</th>
-                <th class="border-bottom">{{__('admin.last_login')}}</th>
-                <th class="border-bottom text-center">{{__('admin.actions')}}</th>
+                <th>№</th>
+                <th>F.I.Sh</th>
+                <th>Login</th>
+                <th>Telefon</th>
+                <th>Email</th>
+                <th>Rol</th>
+                <th>Status</th>
+                <th>Oxirgi kirish</th>
+                <th class="text-center">Amallar</th>
             </tr>
             </thead>
-
-            <tbody>
-            {{-- 1-user --}}
-            <tr class="hover-lift">
-                <td>1</td>
-                <td class="text-start">Alisher Karimov</td>
-                <td>alisher_admin</td>
-                <td>+998 90 123 45 67</td>
-                <td>alisher@example.com</td>
-                <td><span class="role-badge">Admin</span></td>
-                <td><span class="status-active">Faol</span></td>
-                <td>2025-11-25 14:32</td>
-                <td class="text-center d-flex justify-content-center gap-2">
-                    <a href="#" class="btn btn-sm p-1" style="background:none;color:#1F2937;">
-                        <i class="bi bi-eye-fill"></i>
-                    </a>
-                    <a href="#" class="btn btn-sm p-1" style="background:none;color:#f0bc74;">
-                        <i class="bi bi-pencil-fill"></i>
-                    </a>
-                    <a href="#" class="btn btn-sm p-1 delete-role" style="background:none;color:#DC2626;">
-                        <i class="fas fa-trash"></i>
-                    </a>
-                </td>
-            </tr>
-
-            {{-- 2-user --}}
-            <tr class="hover-lift">
-                <td>2</td>
-                <td class="text-start">Dilshod Fayzullayev</td>
-                <td>dilshod_manager</td>
-                <td>+998 93 111 22 33</td>
-                <td>dilshod@example.com</td>
-                <td><span class="role-badge">Moderator</span></td>
-                <td><span class="status-active">Faol</span></td>
-                <td>2025-11-26 09:15</td>
-                <td class="text-center d-flex justify-content-center gap-2">
-                    <a href="#" class="btn btn-sm p-1" style="background:none;color:#1F2937;">
-                        <i class="bi bi-eye-fill"></i>
-                    </a>
-                    <a href="#" class="btn btn-sm p-1" style="background:none;color:#f0bc74;">
-                        <i class="bi bi-pencil-fill"></i>
-                    </a>
-                    <a href="#" class="btn btn-sm p-1 delete-role" style="background:none;color:#DC2626;">
-                        <i class="fas fa-trash"></i>
-                    </a>
-                </td>
-            </tr>
-
-            {{-- 3-user --}}
-            <tr class="hover-lift">
-                <td>3</td>
-                <td class="text-start">Muhammad Yusuf</td>
-                <td>yusuf_fin</td>
-                <td>+998 95 555 44 22</td>
-                <td>yusuf@example.com</td>
-                <td><span class="role-badge">Moliyaviy auditor</span></td>
-                <td><span class="status-blocked">Bloklangan</span></td>
-                <td>2025-11-20 18:20</td>
-                <td class="text-center d-flex justify-content-center gap-2">
-                    <a href="#" class="btn btn-sm p-1" style="background:none;color:#1F2937;">
-                        <i class="bi bi-eye-fill"></i>
-                    </a>
-                    <a href="#" class="btn btn-sm p-1" style="background:none;color:#f0bc74;">
-                        <i class="bi bi-pencil-fill"></i>
-                    </a>
-                    <a href="#" class="btn btn-sm p-1 delete-role" style="background:none;color:#DC2626;">
-                        <i class="fas fa-trash"></i>
-                    </a>
-                </td>
-            </tr>
-
-            {{-- 4-user --}}
-            <tr class="hover-lift">
-                <td>4</td>
-                <td class="text-start">Sarvar Beknazarov</td>
-                <td>sarvar_hr</td>
-                <td>+998 97 777 88 11</td>
-                <td>sarvar@example.com</td>
-                <td><span class="role-badge">Islom moliyasi nazorati</span></td>
-                <td><span class="status-active">Faol</span></td>
-                <td>2025-11-26 07:55</td>
-                <td class="text-center d-flex justify-content-center gap-2">
-                    <a href="#" class="btn btn-sm p-1" style="background:none;color:#1F2937;">
-                        <i class="bi bi-eye-fill"></i>
-                    </a>
-                    <a href="#" class="btn btn-sm p-1" style="background:none;color:#f0bc74;">
-                        <i class="bi bi-pencil-fill"></i>
-                    </a>
-                    <a href="#" class="btn btn-sm p-1 delete-role" style="background:none;color:#DC2626;">
-                        <i class="fas fa-trash"></i>
-                    </a>
-                </td>
-            </tr>
+            <tbody id="userTableBody">
+            {{-- JS orqali to‘ldiriladi --}}
             </tbody>
         </table>
+
+        <!-- Pagination -->
+        <div class="d-flex justify-content-start p-2">
+            <nav>
+                <ul class="pagination pagination-sm mb-0" id="pagination">
+                    {{-- JS orqali yaratiladi --}}
+                </ul>
+            </nav>
+        </div>
 
     </div>
 
@@ -259,6 +177,93 @@
 
 @push('customJs')
     <script>
-     //
+        // *** 8 TA STATIK USER ***
+        const users = [
+            [1, 'Olim Jo‘rayev', 'olim_admin', '+998 90 111 22 33', 'olim@example.com', 'Admin', 'Faol', '2025-11-25 14:32'],
+            [2, 'Javohir Tursunov', 'javohir_mod1', '+998 93 222 33 44', 'javohir@example.com', 'Moderator', 'Faol', '2025-11-26 09:15'],
+            [3, 'Rustam Abdurahmonov', 'rustam_mod2', '+998 95 333 44 55', 'rustam@example.com', 'Moderator', 'Faol', '2025-11-24 11:20'],
+            [4, 'Zoir Bekmurodov', 'zoir_mod3', '+998 97 444 55 66', 'zoir@example.com', 'Moderator', 'Bloklangan', '2025-11-20 18:20'],
+            [5, 'Nodir Qodirov', 'nodir_aud1', '+998 90 555 66 77', 'nodir@example.com', 'Moliyaviy auditor', 'Faol', '2025-11-23 15:52'],
+            [6, 'Umid Abdullayev', 'umid_aud2', '+998 93 666 77 88', 'umid@example.com', 'Moliyaviy auditor', 'Bloklangan', '2025-11-19 10:10'],
+            [7, 'Sirojiddin Madrahimov', 'siroj_islam1', '+998 97 777 88 99', 'siroj@example.com', 'Islom moliyasi nazorati', 'Faol', '2025-11-26 07:55'],
+            [8, 'Husan Sharipov', 'husan_islam2', '+998 95 888 99 00', 'husan@example.com', 'Islom moliyasi nazorati', 'Faol', '2025-11-22 12:40'],
+        ];
+
+        // PAGINATION SETTINGS
+        const perPage = 5;          // 1-sahifada 5 ta
+        const totalPages = 2;       // jami 2 sahifa (5 + 3)
+        let currentPage = 1;
+
+        // Table render
+        function renderTable() {
+            let tbody = document.getElementById('userTableBody');
+            tbody.innerHTML = "";
+
+            let start = (currentPage - 1) * perPage;
+            let end = start + perPage;
+
+            let pageUsers = users.slice(start, end);
+
+            pageUsers.forEach(u => {
+                tbody.innerHTML += `
+                <tr class="hover-lift">
+                    <td>${u[0]}</td>
+                    <td class="text-start">${u[1]}</td>
+                    <td>${u[2]}</td>
+                    <td>${u[3]}</td>
+                    <td>${u[4]}</td>
+                    <td><span class="role-badge">${u[5]}</span></td>
+                    <td>${u[6] === 'Faol'
+                    ? '<span class="status-active">Faol</span>'
+                    : '<span class="status-blocked">Bloklangan</span>'}
+                    </td>
+                    <td>${u[7]}</td>
+                    <td class="text-center d-flex justify-content-center gap-2">
+                        <a href="#" class="btn btn-sm p-1" style="background:none;color:#1F2937;"><i class="bi bi-eye-fill"></i></a>
+                        <a href="#" class="btn btn-sm p-1" style="background:none;color:#f0bc74;"><i class="bi bi-pencil-fill"></i></a>
+                        <a href="#" class="btn btn-sm p-1 delete-role" style="background:none;color:#DC2626;"><i class="fas fa-trash"></i></a>
+                    </td>
+                </tr>
+            `;
+            });
+
+            renderPagination();
+        }
+
+        // Pagination create
+        function renderPagination() {
+            let pagination = document.getElementById('pagination');
+            pagination.innerHTML = "";
+
+            pagination.innerHTML += `
+            <li class="page-item ${currentPage === 1 ? 'disabled' : ''}">
+                <a class="page-link" onclick="goPage(${currentPage - 1})">«</a>
+            </li>
+        `;
+
+            for (let i = 1; i <= totalPages; i++) {
+                pagination.innerHTML += `
+                <li class="page-item ${currentPage === i ? 'active' : ''}">
+                    <a class="page-link" onclick="goPage(${i})">${i}</a>
+                </li>
+            `;
+            }
+
+            pagination.innerHTML += `
+            <li class="page-item ${currentPage === totalPages ? 'disabled' : ''}">
+                <a class="page-link" onclick="goPage(${currentPage + 1})">»</a>
+            </li>
+        `;
+        }
+
+        // page switch
+        function goPage(page) {
+            if (page < 1 || page > totalPages) return;
+            currentPage = page;
+            renderTable();
+        }
+
+        // Init
+        renderTable();
     </script>
 @endpush
