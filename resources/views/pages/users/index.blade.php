@@ -183,10 +183,20 @@
             [6, 'Umid Abdullayev', 'umid_aud2', '+998 93 666 77 88', 'umid@example.com', 'Moliyaviy auditor', 'Bloklangan', '2025-11-19 10:10'],
             [7, 'Sirojiddin Madrahimov', 'siroj_islam1', '+998 97 777 88 99', 'siroj@example.com', 'Islom moliyasi nazorati', 'Faol', '2025-11-26 07:55'],
             [8, 'Husan Sharipov', 'husan_islam2', '+998 95 888 99 00', 'husan@example.com', 'Islom moliyasi nazorati', 'Faol', '2025-11-22 12:40'],
+
+            // Qo‘shimcha 7 ta yangi foydalanuvchi
+            [9, 'Sherzod Mamatov', 'sherzod_admin2', '+998 90 112 45 67', 'sherzod@example.com', 'Moderator', 'Faol', '2025-11-27 08:10'],
+            [10, 'Jasur Rahmonov', 'jasur_mod4', '+998 93 221 44 55', 'jasur@example.com', 'Moderator', 'Faol', '2025-11-25 19:44'],
+            [11, 'Dilshod Yusupov', 'dilshod_aud3', '+998 91 334 55 66', 'dilshod@example.com', 'Moliyaviy auditor', 'Bloklangan', '2025-11-18 11:05'],
+            [12, 'Farrux Karimov', 'farrux_islam3', '+998 94 445 66 77', 'farrux@example.com', 'Islom moliyasi nazorati', 'Faol', '2025-11-23 16:15'],
+            [13, 'Bekzod Soliyev', 'bekzod_mod5', '+998 99 556 77 88', 'bekzod@example.com', 'Moderator', 'Faol', '2025-11-26 10:40'],
+            [14, 'Bobur Xolmatov', 'bobur_aud4', '+998 90 667 88 99', 'bobur@example.com', 'Moliyaviy auditor', 'Faol', '2025-11-24 13:22'],
+            [15, 'Akmal Ortiqov', 'akmal_islam4', '+998 93 778 99 11', 'akmal@example.com', 'Islom moliyasi nazorati', 'Bloklangan', '2025-11-21 09:05'],
         ];
 
+
         // PAGINATION SETTINGS
-        const perPage = 5;          // 1-sahifada 5 ta
+        const perPage = 10;          // 1-sahifada 5 ta
         const totalPages = 2;       // jami 2 sahifa (5 + 3)
         let currentPage = 1;
 
