@@ -109,7 +109,6 @@
 
     {{-- LOGIN HISTORIES TABLE --}}
     <div class="card card-body py-1 px-2 shadow border-0 table-wrapper table-responsive">
-
         <div class="d-flex justify-content-between align-items-center p-3">
             <h5 class="mb-0">
                 <i class="fas fa-arrow-right-to-bracket"></i>
@@ -121,8 +120,7 @@
             </button>
         </div>
 
-
-        <table class="table user-table table-hover table-bordered  table-striped align-items-center">
+        <table class="table user-table table-hover table-bordered table-striped align-items-center">
             <thead class="table-dark">
             <tr>
                 <th>#</th>
@@ -135,241 +133,15 @@
             </tr>
             </thead>
 
-            <tbody>
-
-            {{-- 10 ta malumot --}}
-            <tr>
-                <td>1</td>
-                <td>Ali Valiyev</td>
-                <td>ali</td>
-                <td>2025-01-02 08:20</td>
-                <td>192.168.1.10</td>
-                <td><span class="log-level-success"><i class="fas fa-check-circle status-icon"
-                                                       style="color: #1e7e34;"></i> Muvaffaqiyatli</span></td>
-                <td>
-                    <i class="fas fa-eye text-primary me-2 showDetail"
-                       data-user="Ali Valiyev"
-                       data-login="ali"
-                       data-date="2025-01-02 08:20"
-                       data-ip="192.168.1.10"
-                       data-result="Muvaffaqiyatli"
-                       data-geo="Toshkent, Uzbekistan"
-                       data-agent="Chrome 120 / Windows 10"
-                       data-session="SID-001"
-                       data-duration="5 soniya"
-                       title="Ko‘rish"></i>
-                </td>
-            </tr>
-
-            <tr>
-                <td>2</td>
-                <td>Ali Valiyev</td>
-                <td>ali</td>
-                <td>2025-01-02 08:19</td>
-                <td>192.168.1.10</td>
-                <td><span class="log-level-warning"><i class="fas fa-exclamation-triangle  status-icon"
-                                                       style="color: #d39e00;"></i> Ogohlantirish</span></td>
-                <td>
-                    <i class="fas fa-eye text-primary me-2 showDetail"
-                       data-user="Ali Valiyev"
-                       data-login="ali"
-                       data-date="2025-01-02 08:19"
-                       data-ip="192.168.1.10"
-                       data-result="Ogohlantirish"
-                       data-geo="Toshkent, Uzbekistan"
-                       data-agent="Chrome 120 / Windows 10"
-                       data-session="SID-002"
-                       data-duration="4 soniya"
-                       title="Ko‘rish"></i>
-                </td>
-            </tr>
-
-            <tr>
-                <td>3</td>
-                <td>Ali Valiyev</td>
-                <td>ali</td>
-                <td>2025-01-02 08:18</td>
-                <td>192.168.1.10</td>
-                <td><span class="log-level-error"><i class="fas fa-times-circle status-icon"
-                                                     style="color: #bd2130;"></i> Xato</span></td>
-                <td>
-                    <i class="fas fa-eye text-primary me-2 showDetail"
-                       data-user="Ali Valiyev"
-                       data-login="ali"
-                       data-date="2025-01-02 08:18"
-                       data-ip="192.168.1.10"
-                       data-result="Xato"
-                       data-geo="Toshkent, Uzbekistan"
-                       data-agent="Chrome 120 / Windows 10"
-                       data-session="SID-003"
-                       data-duration="3 soniya"
-                       title="Ko‘rish"></i>
-                </td>
-            </tr>
-
-            <tr>
-                <td>4</td>
-                <td>Ali Valiyev</td>
-                <td>ali</td>
-                <td>2025-01-02 08:17</td>
-                <td>192.168.1.10</td>
-                <td><span class="log-level-error"><i class="fas fa-times-circle status-icon"
-                                                     style="color: #bd2130;"></i> Xato</span></td>
-                <td>
-                    <i class="fas fa-eye text-primary me-2 showDetail"
-                       data-user="Ali Valiyev"
-                       data-login="ali"
-                       data-date="2025-01-02 08:17"
-                       data-ip="192.168.1.10"
-                       data-result="Xato"
-                       data-geo="Toshkent, Uzbekistan"
-                       data-agent="Chrome 120 / Windows 10"
-                       data-session="SID-004"
-                       data-duration="6 soniya"
-                       title="Ko‘rish"></i>
-                </td>
-            </tr>
-
-            <tr>
-                <td>5</td>
-                <td>Dilshod Karimov</td>
-                <td>dilshod</td>
-                <td>2025-01-02 08:15</td>
-                <td>192.168.1.20</td>
-                <td><span class="log-level-success"><i class="fas fa-check-circle status-icon"
-                                                       style="color: #1e7e34;"></i> Muvaffaqiyatli</span></td>
-                <td>
-                    <i class="fas fa-eye text-primary me-2 showDetail"
-                       data-user="Dilshod Karimov"
-                       data-login="dilshod"
-                       data-date="2025-01-02 08:15"
-                       data-ip="192.168.1.20"
-                       data-result="Muvaffaqiyatli"
-                       data-geo="Samarqand, Uzbekistan"
-                       data-agent="Firefox 110 / Windows 11"
-                       data-session="SID-005"
-                       data-duration="7 soniya"
-                       title="Ko‘rish"></i>
-                </td>
-            </tr>
-
-            <tr>
-                <td>6</td>
-                <td>Sardor Olimov</td>
-                <td>sardor</td>
-                <td>2025-01-02 08:12</td>
-                <td>192.168.1.15</td>
-                <td><span class="log-level-error"><i class="fas fa-times-circle status-icon"
-                                                     style="color: #bd2130;"></i> Xato</span></td>
-                <td>
-                    <i class="fas fa-eye text-primary me-2 showDetail"
-                       data-user="Sardor Olimov"
-                       data-login="sardor"
-                       data-date="2025-01-02 08:12"
-                       data-ip="192.168.1.15"
-                       data-result="Xato"
-                       data-geo="Buxoro, Uzbekistan"
-                       data-agent="Edge 101 / Windows 10"
-                       data-session="SID-006"
-                       data-duration="5 soniya"
-                       title="Ko‘rish"></i>
-                </td>
-            </tr>
-
-            <tr>
-                <td>7</td>
-                <td>Sardor Olimov</td>
-                <td>sardor</td>
-                <td>2025-01-02 08:10</td>
-                <td>192.168.1.15</td>
-                <td><span class="log-level-success"><i class="fas fa-check-circle status-icon"
-                                                       style="color: #1e7e34;"></i> Muvaffaqiyatli</span></td>
-                <td>
-                    <i class="fas fa-eye text-primary me-2 showDetail"
-                       data-user="Sardor Olimov"
-                       data-login="sardor"
-                       data-date="2025-01-02 08:10"
-                       data-ip="192.168.1.15"
-                       data-result="Muvaffaqiyatli"
-                       data-geo="Buxoro, Uzbekistan"
-                       data-agent="Edge 101 / Windows 10"
-                       data-session="SID-007"
-                       data-duration="6 soniya"
-                       title="Ko‘rish"></i>
-                </td>
-            </tr>
-
-            <tr>
-                <td>8</td>
-                <td>Anna Petrova</td>
-                <td>anna</td>
-                <td>2025-01-01 09:50</td>
-                <td>192.168.1.18</td>
-                <td><span class="log-level-success"><i class="fas fa-check-circle status-icon"
-                                                       style="color: #1e7e34;"></i> Muvaffaqiyatli</span></td>
-                <td>
-                    <i class="fas fa-eye text-primary me-2 showDetail"
-                       data-user="Anna Petrova"
-                       data-login="anna"
-                       data-date="2025-01-01 09:50"
-                       data-ip="192.168.1.18"
-                       data-result="Muvaffaqiyatli"
-                       data-geo="Moskva, Rossiya"
-                       data-agent="Safari 15 / macOS"
-                       data-session="SID-008"
-                       data-duration="8 soniya"
-                       title="Ko‘rish"></i>
-                </td>
-            </tr>
-
-            <tr>
-                <td>9</td>
-                <td>Bobur Qodirov</td>
-                <td>bobur</td>
-                <td>2025-01-01 09:45</td>
-                <td>192.168.1.14</td>
-                <td><span class="log-level-error"><i class="fas fa-times-circle status-icon"
-                                                     style="color: #bd2130;"></i> Xato</span></td>
-                <td>
-                    <i class="fas fa-eye text-primary me-2 showDetail"
-                       data-user="Bobur Qodirov"
-                       data-login="bobur"
-                       data-date="2025-01-01 09:45"
-                       data-ip="192.168.1.14"
-                       data-result="Xato"
-                       data-geo="Toshkent, Uzbekistan"
-                       data-agent="Firefox 112 / Windows 11"
-                       data-session="SID-009"
-                       data-duration="4 soniya"
-                       title="Ko‘rish"></i>
-                </td>
-            </tr>
-
-            <tr>
-                <td>10</td>
-                <td>Bobur Qodirov</td>
-                <td>bobur</td>
-                <td>2025-01-01 09:40</td>
-                <td>192.168.1.14</td>
-                <td><span class="log-level-warning"><i class="fas fa-exclamation-triangle  status-icon"
-                                                       style="color: #d39e00;"></i> Ogohlantirish</span></td>
-                <td>
-                    <i class="fas fa-eye text-primary me-2 showDetail"
-                       data-user="Bobur Qodirov"
-                       data-login="bobur"
-                       data-date="2025-01-01 09:40"
-                       data-ip="192.168.1.14"
-                       data-result="Ogohlantirish"
-                       data-geo="Toshkent, Uzbekistan"
-                       data-agent="Firefox 112 / Windows 11"
-                       data-session="SID-010"
-                       data-duration="5 soniya"
-                       title="Ko‘rish"></i>
-                </td>
-            </tr>
-
-            </tbody>
+            <tbody id="loginHistoryBody"></tbody>
         </table>
+
+        {{-- Pagination --}}
+        <div class="d-flex justify-content-start p-2">
+            <nav>
+                <ul class="pagination pagination-sm mb-0" id="loginPagination"></ul>
+            </nav>
+        </div>
     </div>
 
     {{-- DETAIL MODAL --}}
@@ -383,42 +155,15 @@
                 <div class="modal-body">
                     <table class="table table-bordered">
                         <tbody>
-                        <tr>
-                            <th>Foydalanuvchi</th>
-                            <td id="d_user"></td>
-                        </tr>
-                        <tr>
-                            <th>Login</th>
-                            <td id="d_login"></td>
-                        </tr>
-                        <tr>
-                            <th>Sana</th>
-                            <td id="d_date"></td>
-                        </tr>
-                        <tr>
-                            <th>IP manzil</th>
-                            <td id="d_ip"></td>
-                        </tr>
-                        <tr>
-                            <th>Natija</th>
-                            <td id="d_result"></td>
-                        </tr>
-                        <tr>
-                            <th>GEO (Taxminiy manzil)</th>
-                            <td id="d_geo"></td>
-                        </tr>
-                        <tr>
-                            <th>User-Agent</th>
-                            <td id="d_agent"></td>
-                        </tr>
-                        <tr>
-                            <th>Session ID</th>
-                            <td id="d_session"></td>
-                        </tr>
-                        <tr>
-                            <th>Kirish davomiyligi</th>
-                            <td id="d_duration"></td>
-                        </tr>
+                        <tr><th>Foydalanuvchi</th><td id="d_user"></td></tr>
+                        <tr><th>Login</th><td id="d_login"></td></tr>
+                        <tr><th>Sana</th><td id="d_date"></td></tr>
+                        <tr><th>IP manzil</th><td id="d_ip"></td></tr>
+                        <tr><th>Natija</th><td id="d_result"></td></tr>
+                        <tr><th>GEO</th><td id="d_geo"></td></tr>
+                        <tr><th>User-Agent</th><td id="d_agent"></td></tr>
+                        <tr><th>Session ID</th><td id="d_session"></td></tr>
+                        <tr><th>Kirish davomiyligi</th><td id="d_duration"></td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -459,23 +204,147 @@
     </script>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            document.querySelectorAll(".showDetail").forEach(item => {
-                item.addEventListener("click", function () {
-                    document.getElementById("d_user").innerText = this.dataset.user;
-                    document.getElementById("d_login").innerText = this.dataset.login;
-                    document.getElementById("d_date").innerText = this.dataset.date;
-                    document.getElementById("d_ip").innerText = this.dataset.ip;
-                    document.getElementById("d_result").innerText = this.dataset.result;
-                    document.getElementById("d_geo").innerText = this.dataset.geo;
-                    document.getElementById("d_agent").innerText = this.dataset.agent;
-                    document.getElementById("d_session").innerText = this.dataset.session;
-                    document.getElementById("d_duration").innerText = this.dataset.duration;
+        document.addEventListener('DOMContentLoaded', function () {
+            const users = [
+                ['Olim Jo‘rayev','olim_admin','+998901112233','192.168.1.10','Toshkent'],
+                ['Javohir Tursunov','javohir_mod1','+998932223344','192.168.1.11','Toshkent'],
+                ['Rustam Abdurahmonov','rustam_mod2','+998953334455','192.168.1.12','Samarqand'],
+                ['Zoir Bekmurodov','zoir_mod3','+998974445566','192.168.1.13','Buxoro'],
+                ['Nodir Qodirov','nodir_aud1','+998905556677','192.168.1.14','Toshkent'],
+                ['Umid Abdullayev','umid_aud2','+99893667788','192.168.1.15','Samarqand'],
+                ['Sirojiddin Madrahimov','siroj_islam1','+998977778899','192.168.1.16','Toshkent'],
+                ['Husan Sharipov','husan_islam2','+998958889900','192.168.1.17','Buxoro'],
+                ['Sherzod Mamatov','sherzod_admin2','+998901124567','192.168.1.18','Samarqand'],
+                ['Jasur Rahmonov','jasur_mod4','+998932214455','192.168.1.19','Toshkent'],
+                ['Dilshod Yusupov','dilshod_aud3','+998913345566','192.168.1.20','Samarqand'],
+                ['Farrux Karimov','farrux_islam3','+99894456677','192.168.1.21','Buxoro'],
+                ['Bekzod Soliyev','bekzod_mod5','+998995567788','192.168.1.22','Toshkent'],
+                ['Bobur Xolmatov','bobur_aud4','+998906678899','192.168.1.23','Samarqand'],
+                ['Akmal Ortiqov','akmal_islam4','+998937789911','192.168.1.24','Buxoro']
+            ];
 
-                    let modal = new bootstrap.Modal(document.getElementById('loginDetailModal'));
-                    modal.show();
-                });
+            // Generate login history with Xato->Ogohlantirish rules
+            let history = [];
+            let idCounter = 1;
+
+            users.forEach(u => {
+                let errors = 0;
+                let loginsCount = Math.floor(Math.random()*3)+1; // 1-3 login
+                let baseDate = new Date('2025-01-02T08:00:00');
+
+                for(let i=0;i<loginsCount;i++){
+                    let result;
+                    if(errors===2){
+                        result='Ogohlantirish';
+                        errors=0;
+                    } else {
+                        result = Math.random()<0.5?'Muvaffaqiyatli':'Xato';
+                        if(result==='Xato') errors++; else errors=0;
+                    }
+
+                    baseDate.setMinutes(baseDate.getMinutes()+i*2);
+                    history.push({
+                        id: idCounter++,
+                        user:u[0],
+                        login:u[1],
+                        date:baseDate.toISOString().slice(0,16).replace('T',' '),
+                        ip:u[3],
+                        geo:u[4],
+                        result:result,
+                        agent:'Chrome / Windows 10',
+                        session:`SID-${idCounter}`,
+                        duration:`${Math.floor(Math.random()*10)+3} soniya`
+                    });
+                }
             });
+
+            // Pagination
+            const perPage=10;
+            let currentPage=1;
+
+            function renderTable(){
+                const tbody=document.getElementById('loginHistoryBody');
+                tbody.innerHTML='';
+
+                const start=(currentPage-1)*perPage;
+                const end=start+perPage;
+                const pageData=history.slice(start,end);
+
+                pageData.forEach(h=>{
+                    let cls='';
+                    if(h.result==='Muvaffaqiyatli') cls='log-level-success';
+                    else if(h.result==='Xato') cls='log-level-error';
+                    else cls='log-level-warning';
+
+                    tbody.innerHTML+=`
+                <tr>
+                    <td>${h.id}</td>
+                    <td>${h.user}</td>
+                    <td>${h.login}</td>
+                    <td>${h.date}</td>
+                    <td>${h.ip}</td>
+                    <td><span class="${cls}"><i class="fas ${h.result==='Muvaffaqiyatli'?'fa-check-circle':h.result==='Xato'?'fa-times-circle':'fa-exclamation-triangle'} status-icon"></i> ${h.result}</span></td>
+                    <td>
+                        <i class="fas fa-eye text-primary me-2 showDetail"
+                           data-user="${h.user}"
+                           data-login="${h.login}"
+                           data-date="${h.date}"
+                           data-ip="${h.ip}"
+                           data-result="${h.result}"
+                           data-geo="${h.geo}"
+                           data-agent="${h.agent}"
+                           data-session="${h.session}"
+                           data-duration="${h.duration}"
+                           title="Ko‘rish"></i>
+                    </td>
+                </tr>
+            `;
+                });
+
+                renderPagination();
+                initDetailModal();
+            }
+
+            function renderPagination(){
+                const pagination=document.getElementById('loginPagination');
+                pagination.innerHTML='';
+                const totalPages=Math.ceil(history.length/perPage);
+
+                pagination.innerHTML+=`<li class="page-item ${currentPage===1?'disabled':''}"><a class="page-link" onclick="goPage(${currentPage-1})">«</a></li>`;
+                for(let i=1;i<=totalPages;i++){
+                    pagination.innerHTML+=`<li class="page-item ${currentPage===i?'active':''}"><a class="page-link" onclick="goPage(${i})">${i}</a></li>`;
+                }
+                pagination.innerHTML+=`<li class="page-item ${currentPage===totalPages?'disabled':''}"><a class="page-link" onclick="goPage(${currentPage+1})">»</a></li>`;
+            }
+
+            window.goPage=function(page){
+                const totalPages=Math.ceil(history.length/perPage);
+                if(page<1 || page>totalPages) return;
+                currentPage=page;
+                renderTable();
+            }
+
+            function initDetailModal(){
+                document.querySelectorAll(".showDetail").forEach(item=>{
+                    item.addEventListener("click",function(){
+                        document.getElementById("d_user").innerText=this.dataset.user;
+                        document.getElementById("d_login").innerText=this.dataset.login;
+                        document.getElementById("d_date").innerText=this.dataset.date;
+                        document.getElementById("d_ip").innerText=this.dataset.ip;
+                        document.getElementById("d_result").innerText=this.dataset.result;
+                        document.getElementById("d_geo").innerText=this.dataset.geo;
+                        document.getElementById("d_agent").innerText=this.dataset.agent;
+                        document.getElementById("d_session").innerText=this.dataset.session;
+                        document.getElementById("d_duration").innerText=this.dataset.duration;
+
+                        let modal=new bootstrap.Modal(document.getElementById('loginDetailModal'));
+                        modal.show();
+                    });
+                });
+            }
+
+            renderTable();
+
         });
     </script>
 @endpush
