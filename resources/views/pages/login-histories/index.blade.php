@@ -16,10 +16,12 @@
             color: #1e7e34; /* yashil */
             font-weight: 600;
         }
+
         .log-level-warning {
             color: #d39e00; /* sariq */
             font-weight: 600;
         }
+
         .log-level-error {
             color: #bd2130; /* qizil */
             font-weight: 600;
@@ -67,7 +69,10 @@
             <div class="row g-3 align-items-end p-3">
                 <div class="col-md-4">
                     <label>{{__('admin.search')}}</label>
-                    <input type="text" class="form-control" placeholder="Ism, Login...">
+                    <div class="input-group">
+                        <span class="input-group-text bg-white"><i class="fas fa-search text-muted"></i></span>
+                        <input type="text" class="form-control" placeholder="Ism, Login...">
+                    </div>
                 </div>
 
                 <div class="col-md-2">
@@ -117,7 +122,7 @@
         </div>
 
 
-        <table class="table user-table table-hover table-striped align-items-center">
+        <table class="table user-table table-hover table-bordered  table-striped align-items-center">
             <thead class="table-dark">
             <tr>
                 <th>#</th>
@@ -139,7 +144,8 @@
                 <td>ali</td>
                 <td>2025-01-02 08:20</td>
                 <td>192.168.1.10</td>
-                <td><span class="log-level-success"><i class="fas fa-check-circle status-icon" style="color: #1e7e34;"></i> Muvaffaqiyatli</span></td>
+                <td><span class="log-level-success"><i class="fas fa-check-circle status-icon"
+                                                       style="color: #1e7e34;"></i> Muvaffaqiyatli</span></td>
                 <td>
                     <i class="fas fa-eye text-primary me-2 showDetail"
                        data-user="Ali Valiyev"
@@ -161,7 +167,8 @@
                 <td>ali</td>
                 <td>2025-01-02 08:19</td>
                 <td>192.168.1.10</td>
-                <td><span class="log-level-warning"><i class="fas fa-exclamation-triangle  status-icon" style="color: #d39e00;"></i> Ogohlantirish</span></td>
+                <td><span class="log-level-warning"><i class="fas fa-exclamation-triangle  status-icon"
+                                                       style="color: #d39e00;"></i> Ogohlantirish</span></td>
                 <td>
                     <i class="fas fa-eye text-primary me-2 showDetail"
                        data-user="Ali Valiyev"
@@ -183,7 +190,8 @@
                 <td>ali</td>
                 <td>2025-01-02 08:18</td>
                 <td>192.168.1.10</td>
-                <td><span class="log-level-error"><i class="fas fa-times-circle status-icon" style="color: #bd2130;"></i> Xato</span></td>
+                <td><span class="log-level-error"><i class="fas fa-times-circle status-icon"
+                                                     style="color: #bd2130;"></i> Xato</span></td>
                 <td>
                     <i class="fas fa-eye text-primary me-2 showDetail"
                        data-user="Ali Valiyev"
@@ -205,7 +213,8 @@
                 <td>ali</td>
                 <td>2025-01-02 08:17</td>
                 <td>192.168.1.10</td>
-                <td><span class="log-level-error"><i class="fas fa-times-circle status-icon" style="color: #bd2130;"></i> Xato</span></td>
+                <td><span class="log-level-error"><i class="fas fa-times-circle status-icon"
+                                                     style="color: #bd2130;"></i> Xato</span></td>
                 <td>
                     <i class="fas fa-eye text-primary me-2 showDetail"
                        data-user="Ali Valiyev"
@@ -227,7 +236,8 @@
                 <td>dilshod</td>
                 <td>2025-01-02 08:15</td>
                 <td>192.168.1.20</td>
-                <td><span class="log-level-success"><i class="fas fa-check-circle status-icon" style="color: #1e7e34;"></i> Muvaffaqiyatli</span></td>
+                <td><span class="log-level-success"><i class="fas fa-check-circle status-icon"
+                                                       style="color: #1e7e34;"></i> Muvaffaqiyatli</span></td>
                 <td>
                     <i class="fas fa-eye text-primary me-2 showDetail"
                        data-user="Dilshod Karimov"
@@ -249,7 +259,8 @@
                 <td>sardor</td>
                 <td>2025-01-02 08:12</td>
                 <td>192.168.1.15</td>
-                <td><span class="log-level-error"><i class="fas fa-times-circle status-icon" style="color: #bd2130;"></i> Xato</span></td>
+                <td><span class="log-level-error"><i class="fas fa-times-circle status-icon"
+                                                     style="color: #bd2130;"></i> Xato</span></td>
                 <td>
                     <i class="fas fa-eye text-primary me-2 showDetail"
                        data-user="Sardor Olimov"
@@ -271,7 +282,8 @@
                 <td>sardor</td>
                 <td>2025-01-02 08:10</td>
                 <td>192.168.1.15</td>
-                <td><span class="log-level-success"><i class="fas fa-check-circle status-icon" style="color: #1e7e34;"></i> Muvaffaqiyatli</span></td>
+                <td><span class="log-level-success"><i class="fas fa-check-circle status-icon"
+                                                       style="color: #1e7e34;"></i> Muvaffaqiyatli</span></td>
                 <td>
                     <i class="fas fa-eye text-primary me-2 showDetail"
                        data-user="Sardor Olimov"
@@ -293,7 +305,8 @@
                 <td>anna</td>
                 <td>2025-01-01 09:50</td>
                 <td>192.168.1.18</td>
-                <td><span class="log-level-success"><i class="fas fa-check-circle status-icon" style="color: #1e7e34;"></i> Muvaffaqiyatli</span></td>
+                <td><span class="log-level-success"><i class="fas fa-check-circle status-icon"
+                                                       style="color: #1e7e34;"></i> Muvaffaqiyatli</span></td>
                 <td>
                     <i class="fas fa-eye text-primary me-2 showDetail"
                        data-user="Anna Petrova"
@@ -315,7 +328,8 @@
                 <td>bobur</td>
                 <td>2025-01-01 09:45</td>
                 <td>192.168.1.14</td>
-                <td><span class="log-level-error"><i class="fas fa-times-circle status-icon" style="color: #bd2130;"></i> Xato</span></td>
+                <td><span class="log-level-error"><i class="fas fa-times-circle status-icon"
+                                                     style="color: #bd2130;"></i> Xato</span></td>
                 <td>
                     <i class="fas fa-eye text-primary me-2 showDetail"
                        data-user="Bobur Qodirov"
@@ -337,7 +351,8 @@
                 <td>bobur</td>
                 <td>2025-01-01 09:40</td>
                 <td>192.168.1.14</td>
-                <td><span class="log-level-warning"><i class="fas fa-exclamation-triangle  status-icon" style="color: #d39e00;"></i> Ogohlantirish</span></td>
+                <td><span class="log-level-warning"><i class="fas fa-exclamation-triangle  status-icon"
+                                                       style="color: #d39e00;"></i> Ogohlantirish</span></td>
                 <td>
                     <i class="fas fa-eye text-primary me-2 showDetail"
                        data-user="Bobur Qodirov"

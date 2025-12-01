@@ -6,14 +6,17 @@
             color: #1e7e34; /* yashil */
             font-weight: 600;
         }
+
         .log-level-warning {
             color: #d39e00; /* sariq */
             font-weight: 600;
         }
+
         .log-level-error {
             color: #bd2130; /* qizil */
             font-weight: 600;
         }
+
         .view-icon {
             cursor: pointer;
             font-size: 18px;
@@ -61,7 +64,11 @@
             <div class="row g-3 align-items-end p-3">
                 <div class="col-md-2">
                     <label>{{__('admin.search')}}</label>
-                    <input type="text" id="searchInput" class="form-control" placeholder="Kalit so'z, foydalanuvchi...">
+                    <div class="input-group">
+                        <span class="input-group-text bg-white"><i class="fas fa-search text-muted"></i></span>
+                        <input type="text" id="searchInput" class="form-control"
+                               placeholder="Kalit so'z, foydalanuvchi...">
+                    </div>
                 </div>
 
                 <div class="col-md-2">
@@ -121,7 +128,7 @@
         </div>
 
 
-        <table class="table user-table table-hover table-striped align-items-center">
+        <table class="table user-table table-hover table-bordered  table-striped align-items-center">
             <thead class="table-dark">
             <tr>
                 <th>#</th>

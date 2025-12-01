@@ -80,16 +80,19 @@
                     id="roleToggleFilterBtn"
                     style="background-color:#1F2937;color:#fff;">
                 <i class="bi bi-caret-down-fill me-2" id="roleFilterIcon"></i>
-                    <span id="roleFilterText">Yopish</span>
+                <span id="roleFilterText">Yopish</span>
             </button>
         </div>
 
         <div class="collapse show" id="roleFilterContent">
             <div class="row g-3 align-items-end p-3">
                 <div class="col-md-10">
-                    <label >{{__('admin.search')}}</label>
-                    <input type="text"  class="form-control"
-                           placeholder="{{__('admin.role_name')}}, {{__('admin.code')}}...">
+                    <label>{{__('admin.search')}}</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-white"><i class="fas fa-search text-muted"></i></span>
+                        <input type="text" class="form-control"
+                               placeholder="{{__('admin.role_name')}}, {{__('admin.code')}}...">
+                    </div>
                 </div>
 
                 <div class="col-md-2 d-flex gap-2">

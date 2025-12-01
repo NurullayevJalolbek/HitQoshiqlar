@@ -84,8 +84,11 @@
             <div class="row g-3 align-items-end p-3">
                 <div class="col-md-6">
                     <label for="searchInput">Qidiruv</label>
-                    <input type="text" id="searchInput" class="form-control"
-                           placeholder="Ism, Login, Telefon...">
+                    <div class="input-group">
+                        <span class="input-group-text bg-white"><i class="fas fa-search text-muted"></i></span>
+                        <input type="text" id="searchInput" class="form-control"
+                               placeholder="Ism, Login, Telefon...">
+                    </div>
                 </div>
 
                 <div class="col-md-4">

@@ -72,8 +72,11 @@
                 {{-- Qidiruv --}}
                 <div class="col-md-4">
                     <label for="searchInput">{{__('admin.search')}}</label>
-                    <input type="text" id="searchInput" class="form-control"
-                           placeholder="{{__('admin.full_name')}}, {{__('admin.login')}}, {{__('admin.email')}}...">
+                    <div class="input-group">
+                        <span class="input-group-text bg-white"><i class="fas fa-search text-muted"></i></span>
+                        <input type="text" id="searchInput" class="form-control"
+                               placeholder="{{__('admin.full_name')}}, {{__('admin.login')}}, {{__('admin.email')}}...">
+                    </div>
                 </div>
 
                 {{-- Rol bo‘yicha filter --}}

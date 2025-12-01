@@ -97,48 +97,73 @@
 @section('content')
 
     {{-- FILTER PANEL --}}
-    <div class="card border-0 shadow-sm p-3 mb-4">
-        <div class="row g-3">
-            <div class="col-md-4">
-                <label class="form-label text-muted small">Qidiruv</label>
-                <div class="input-group">
-                    <span class="input-group-text bg-white"><i class="fas fa-search text-muted"></i></span>
-                    <input type="text" id="searchInput" class="form-control" placeholder="Kalit so‘z...">
+    <div class="filter-card mb-3 border rounded"
+         style="border-color: rgba(0,0,0,0.1); border-radius: 0.5rem; background-color: #fff;">
+
+
+        <!-- Filter header -->
+        <div class="d-flex justify-content-between align-items-center p-3">
+            <div class="d-flex align-items-center gap-2">
+                <i class="bi bi-search"></i>
+                <span>Filterlar</span>
+            </div>
+
+            <button class="btn btn-sm rounded-pill px-3 py-2 d-flex align-items-center justify-content-center"
+                    type="button" data-bs-toggle="collapse"
+                    data-bs-target="#notificationFilterContent" aria-expanded="true"
+                    aria-controls="notificationFilterContent" id="userToggleFilterBtn"
+                    style="background-color: #1F2937; color: #ffffff;">
+                <i class="bi bi-caret-down-fill me-2" id="notificationFilterIcon" style="color: #ffffff;"> </i>
+                <span id="notificationFilterText">Yopish</span>
+            </button>
+        </div>
+
+        <!-- Filter content -->
+        <div class="collapse show" id="notificationFilterContent">
+            <div class="row g-3 align-items-end p-3">
+                {{-- Qidiruv --}}
+                <div class="col-md-4">
+                    <label class="form-label text-muted small">Qidiruv</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-white"><i class="fas fa-search text-muted"></i></span>
+                        <input type="text" id="searchInput" class="form-control" placeholder="Kalit so‘z...">
+                    </div>
                 </div>
-            </div>
 
-            <div class="col-md-2">
-                <label class="form-label text-muted small">Turi</label>
-                <select id="typeFilter" class="form-select">
-                    <option value="">Barchasi</option>
-                    <option value="technical">Texnik</option>
-                    <option value="request">So‘rov</option>
-                    <option value="error">Xato</option>
-                </select>
-            </div>
+                <div class="col-md-2">
+                    <label class="form-label text-muted small">Turi</label>
+                    <select id="typeFilter" class="form-select">
+                        <option value="">Barchasi</option>
+                        <option value="technical">Texnik</option>
+                        <option value="request">So‘rov</option>
+                        <option value="error">Xato</option>
+                    </select>
+                </div>
 
-            <div class="col-md-2">
-                <label class="form-label text-muted small">Holati</label>
-                <select id="statusFilter" class="form-select">
-                    <option value="">Barchasi</option>
-                    <option value="unread">O‘qilmagan</option>
-                    <option value="read">O‘qilgan</option>
-                </select>
-            </div>
+                <div class="col-md-2">
+                    <label class="form-label text-muted small">Holati</label>
+                    <select id="statusFilter" class="form-select">
+                        <option value="">Barchasi</option>
+                        <option value="unread">O‘qilmagan</option>
+                        <option value="read">O‘qilgan</option>
+                    </select>
+                </div>
 
-            <div class="col-md-2">
-                <label class="form-label text-muted small">Dan (Sana)</label>
-                <input type="date" id="startDate" class="form-control">
-            </div>
+                <div class="col-md-2">
+                    <label class="form-label text-muted small">Dan (Sana)</label>
+                    <input type="date" id="startDate" class="form-control">
+                </div>
 
-            <div class="col-md-2 d-flex gap-2">
-                <button id="filterBtn" class="btn btn-primary w-50">
-                    <i class="fas fa-filter"></i> Qidirish
-                </button>
+                {{-- Tugmalar --}}
+                <div class="col-md-2 d-flex gap-2">
+                    <button id="filterBtn" class="btn btn-primary w-50">
+                        <i class="fas fa-filter"></i> {{__('admin.search')}}
+                    </button>
 
-                <button id="clearBtn" class="btn btn-warning w-50">
-                    Tozalash
-                </button>
+                    <button id="clearBtn" class="btn btn-warning w-50">
+                        {{__('admin.clear')}}
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -150,7 +175,7 @@
             <h5 class="mb-0 text-primary"><i class="fas fa-bell me-2"></i>Bildirishnomalar ro‘yxati</h5>
         </div>
 
-            <table class="table user-table table-hover table-striped align-items-center">
+            <table class="table user-table table-hover table-bordered  table-striped align-items-center">
                 <thead class="table-dark">
                 <tr>
                     <th style="width: 40px;">
@@ -169,6 +194,33 @@
 @endsection
 
 @push('customJs')
+    <script>
+        function initFilterToggle(buttonId, contentId, iconId, textId) {
+            const collapseEl = document.getElementById(contentId);
+            const button = document.getElementById(buttonId);
+            const icon = document.getElementById(iconId);
+            const text = document.getElementById(textId);
+
+            collapseEl.addEventListener('shown.bs.collapse', () => {
+                console.log('ishladi yopish');
+
+                icon.classList.remove('bi-caret-up-fill');
+                icon.classList.add('bi-caret-down-fill');
+                text.textContent = 'Yopish';
+            });
+
+            collapseEl.addEventListener('hidden.bs.collapse', () => {
+                console.log('ishladi ochish');
+                icon.classList.remove('bi-caret-down-fill');
+                icon.classList.add('bi-caret-up-fill');
+                text.textContent = 'Ochish';
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            initFilterToggle('notificationToggleFilterBtn', 'notificationFilterContent', 'notificationFilterIcon', 'notificationFilterText');
+        });
+    </script>
     <script>
 
         let notifications = [
