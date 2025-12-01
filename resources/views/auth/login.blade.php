@@ -282,9 +282,11 @@
                             <div class="d-flex justify-content-between align-items-center mb-4 mt-2">
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" id="remember" name="remember">
-                                    <label class="form-check-label" for="remember" style="font-size: 0.85rem;">Meni
-                                        eslab qol</label>
+                                    <label class="form-check-label" for="remember" style="font-size: 0.85rem;">
+                                        Loginni eslab qolish
+                                    </label>
                                 </div>
+
                                 <a href="#" class="envast-link" style="font-size: 0.85rem;">Parolni unutdingizmi?</a>
                             </div>
 
@@ -300,7 +302,7 @@
 
         <div class="envast-wave-wrapper envast-wave-left">
             <div class="envast-wave"
-                 style="width: 920px !important; height: 400px !important; position:absolute; top: 220px !important;">
+                 style="width: 920px !important; height: 400px !important; position:absolute; top: 230px !important;">
                 {!! file_get_contents(public_path('assets/img/newanimation.svg')) !!}
             </div>
         </div>
