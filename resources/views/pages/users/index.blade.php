@@ -6,6 +6,7 @@
             color: #1e7e34;
             font-weight: bold;
         }
+
         .status-blocked {
             color: #bd2130;
             font-weight: bold;
@@ -47,52 +48,74 @@
 
 @section('content')
 
-    {{-- Filter --}}
-    <div class="filter-card p-3 mb-3" style="border: 1px solid #fff; border-radius: 0.5rem; background-color: #fff;">
-        <div class="row g-3 align-items-end">
+    <!-- Filter card -->
+    <div class="filter-card mb-3 border rounded"
+         style="border-color: rgba(0,0,0,0.1); border-radius: 0.5rem; background-color: #fff;">
 
-            {{-- Qidiruv --}}
-            <div class="col-md-4">
-                <label for="searchInput">{{__('admin.search')}}</label>
-                <input type="text" id="searchInput" class="form-control"
-                       placeholder="{{__('admin.full_name')}}, {{__('admin.login')}}, {{__('admin.email')}}...">
+
+        <!-- Filter header -->
+        <div class="d-flex justify-content-between align-items-center p-3">
+            <div class="d-flex align-items-center gap-2">
+                <i class="bi bi-search"></i>
+                <span>Filterlar</span>
             </div>
 
-            {{-- Rol bo‘yicha filter --}}
-            <div class="col-md-3">
-                <label for="roleFilter">{{__('admin.by_role')}}</label>
-                <select id="roleFilter" class="form-select">
-                    <option value="">{{__('admin.all')}}</option>
-                    <option value="Admin">Admin</option>
-                    <option value="Moliyaviy auditor">Moliyaviy auditor</option>
-                    <option value="Moderator">Moderator</option>
-                    <option value="Islom moliyasi nazorati">Islom moliyasi nazorati</option>
-                </select>
-            </div>
+            <button class="btn btn-sm rounded-pill px-3 py-2 d-flex align-items-center justify-content-center"
+                    type="button" data-bs-toggle="collapse"
+                    data-bs-target="#filterContent" aria-expanded="true"
+                    aria-controls="filterContent" id="toggleFilterBtn"
+                    style="background-color: #1F2937; color: #ffffff;">
+                <i class="bi bi-caret-down-fill me-2" id="filterIcon" style="color: #ffffff;">
+                    <span id="filterText">Ochish</span>
+                </i>
+            </button>
+        </div>
 
-            {{-- Holat bo‘yicha filter --}}
-            <div class="col-md-3">
-                <label for="statusFilter">{{__('admin.by_status')}}</label>
-                <select id="statusFilter" class="form-select">
-                    <option value="">{{__('admin.all')}}</option>
-                    <option value="Faol">Faol</option>
-                    <option value="Bloklangan">Bloklangan</option>
-                </select>
-            </div>
+        <!-- Filter content -->
+        <div class="collapse hidden" id="filterContent">
+            <div class="row g-3 align-items-end p-3">
+                {{-- Qidiruv --}}
+                <div class="col-md-4">
+                    <label for="searchInput">{{__('admin.search')}}</label>
+                    <input type="text" id="searchInput" class="form-control"
+                           placeholder="{{__('admin.full_name')}}, {{__('admin.login')}}, {{__('admin.email')}}...">
+                </div>
 
-            {{-- Tugmalar --}}
-            <div class="col-md-2 d-flex gap-2">
-                <button id="filterBtn" class="btn btn-primary w-50">
-                    <i class="fas fa-filter"></i>{{__('admin.search')}}
-                </button>
+                {{-- Rol bo‘yicha filter --}}
+                <div class="col-md-3">
+                    <label for="roleFilter">{{__('admin.by_role')}}</label>
+                    <select id="roleFilter" class="form-select">
+                        <option value="">{{__('admin.all')}}</option>
+                        <option value="Admin">Admin</option>
+                        <option value="Moliyaviy auditor">Moliyaviy auditor</option>
+                        <option value="Moderator">Moderator</option>
+                        <option value="Islom moliyasi nazorati">Islom moliyasi nazorati</option>
+                    </select>
+                </div>
 
-                <button id="clearBtn" class="btn btn-warning w-50">
-                    {{__('admin.clear')}}
-                </button>
+                {{-- Holat bo‘yicha filter --}}
+                <div class="col-md-3">
+                    <label for="statusFilter">{{__('admin.by_status')}}</label>
+                    <select id="statusFilter" class="form-select">
+                        <option value="">{{__('admin.all')}}</option>
+                        <option value="Faol">Faol</option>
+                        <option value="Bloklangan">Bloklangan</option>
+                    </select>
+                </div>
+
+                {{-- Tugmalar --}}
+                <div class="col-md-2 d-flex gap-2">
+                    <button id="filterBtn" class="btn btn-primary w-50">
+                        <i class="fas fa-filter"></i> {{__('admin.search')}}
+                    </button>
+
+                    <button id="clearBtn" class="btn btn-warning w-50">
+                        {{__('admin.clear')}}
+                    </button>
+                </div>
             </div>
         </div>
     </div>
-
 
     {{-- Content --}}
     <div class="card card-body py-1 px-2 shadow border-0 table-wrapper table-responsive">
@@ -118,7 +141,6 @@
                 </a>
             </div>
         </div>
-
 
 
         <table class="table user-table table-hover table-striped align-items-center">
@@ -236,4 +258,42 @@
 @endsection
 
 @push('customJs')
+    <script>
+        const filterCollapse = document.getElementById('filterContent');
+        const toggleBtn = document.getElementById('toggleFilterBtn');
+        const filterIcon = document.getElementById('filterIcon');
+        const filterText = document.getElementById('filterText');
+
+        // Default holat: yopiq
+        filterCollapse.classList.remove('show');
+        filterIcon.classList.remove('bi-caret-down-fill');
+        filterIcon.classList.add('bi-caret-up-fill');
+        filterText.textContent = 'Ochish';
+
+        // Collapse ochilganda
+        filterCollapse.addEventListener('shown.bs.collapse', () => {
+            filterIcon.classList.remove('bi-caret-up-fill');
+            filterIcon.classList.add('bi-caret-down-fill');
+            filterText.textContent = 'Yopish';
+        });
+
+        // Collapse yopilganda
+        filterCollapse.addEventListener('hidden.bs.collapse', () => {
+            filterIcon.classList.remove('bi-caret-down-fill');
+            filterIcon.classList.add('bi-caret-up-fill');
+            filterText.textContent = 'Ochish';
+        });
+
+        filterCollapse.addEventListener('shown.bs.collapse', () => {
+            filterIcon.classList.remove('bi-caret-up-fill');
+            filterIcon.classList.add('bi-caret-down-fill');
+        });
+
+        filterCollapse.addEventListener('hidden.bs.collapse', () => {
+            filterIcon.classList.remove('bi-caret-down-fill');
+            filterIcon.classList.add('bi-caret-up-fill');
+        });
+
+
+    </script>
 @endpush
