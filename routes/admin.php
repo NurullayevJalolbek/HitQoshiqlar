@@ -30,7 +30,7 @@ use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\AdministrationController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\NotificationController;
-
+use App\Http\Controllers\Admin\ProjectCardController;
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'lang']], function () {
 
@@ -48,9 +48,27 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'l
      */
     //Projects
     Route::resource('projects', ProjectController::class);
+    Route::resource('project-cards', ProjectCardController::class)->names([
+        'index'   => 'project-cards.index',
+        'create'  => 'project-cards.create',
+        'store'   => 'project-cards.store',
+        'show'    => 'project-cards.show',
+        'edit'    => 'project-cards.edit',
+        'update'  => 'project-cards.update',
+        'destroy' => 'project-cards.destroy',
+    ]);
+
 
     //  Loyiha investorlar
-    Route::resource('project-investors', ProjectInvestorController::class);
+    Route::resource('project-investors', ProjectInvestorController::class)->names([
+        'index'   => 'project-investors.index',
+        'create'  => 'project-investors.create',
+        'store'   => 'project-investors.store',
+        'show'    => 'project-investors.show',
+        'edit'    => 'project-investors.edit',
+        'update'  => 'project-investors.update',
+        'destroy' => 'project-investors.destroy',
+    ]);;
 
     //  Loyiha sotib olganlar (buyers)
     Route::resource('project-buyers', ProjectBuyerController::class);

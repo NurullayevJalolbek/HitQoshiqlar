@@ -85,7 +85,7 @@ return [
     'login_histories' => "Kirish tarixlari",
 
     'log_type' => "Log turi",
-    'type' => "Turi"
+    'type' => "Turi",
 
 
 
@@ -95,11 +95,89 @@ return [
 
 
 
+    
+    // Navigatsiya
+    'projects' => 'Loyihalar',
+    'project_details' => 'Loyiha tafsilotlari',
+    'project' => 'Loyiha',
+    'add_project' => 'Loyiha qo\'shish',
+    'search' => 'Qidirish',
+    'filter' => 'Filtrlash',
+    'previous' => 'Oldingi',
+    'next' => 'Keyingi',
+    'view_details' => 'Tafsilotlarni ko\'rish',
+    'learn_more' => 'Batafsil',
 
+    // Loyiha asosiy ma'lumotlari
+    'start_investment' => 'Investitsiyani boshlash',
+    'about_project' => 'Loyiha haqida',
+    'location' => 'Manzil',
+    'purpose' => 'Maqsadi',
+    'commercial_construction' => 'Tijorat qurilishi',
+    'construction_company' => 'Qurilish kompaniyasi',
+    'llc' => 'MChJ',
+    'project_manager' => 'Loyiha menejeri',
+    'license_number' => 'Litsenziya raqami',
+    'start_date' => 'Boshlanish sanasi',
+    'end_date' => 'Tugash sanasi',
+    'additional_info' => 'Qo\'shimcha ma\'lumot',
 
+    // Moliya
+    'min_investment' => 'Min. investitsiya',
+    'sum' => 'so\'m',
+    'financial_info' => 'Moliyaviy ma\'lumotlar',
+    'investment_duration' => 'Investitsiya muddati',
+    'duration' => 'Muddat',
+    'months' => 'oy',
+    'annual_profit' => 'Yillik daromad',
+    'annual_return' => 'Yillik foyda',
+    'dividend_distribution' => 'Dividend taqsimoti',
+    'quarterly' => 'Har chorakda',
+    'profit_calculator' => 'Foyda kalkulyatori',
+    'enter_investment_amount' => 'Summani kiriting',
+    'expected_profit' => 'Kutilayotgan foyda',
+    'total_value' => 'Umumiy qiymat',
+    'invest_via_mobile_app' => 'Ilova orqali investitsiya',
 
+    // Status va Risk
+    'risk_level' => 'Xavf darajasi',
+    'low' => 'Past',
+    'medium' => 'O\'rta',
+    'high' => 'Yuqori',
+    'low_risk' => 'Past xavf',
+    'medium_risk' => 'O\'rta xavf',
+    'high_risk' => 'Yuqori xavf',
+    'status' => 'Holati',
+    'active' => 'Faol',
+    'inactive' => 'Nofaol',
+    'planned' => 'Rejalashtirilgan',
+    'completed' => 'Yakunlangan',
 
+    // Hujjat va Qurilish
+    'documents' => 'Hujjatlar',
+    'investment_contract' => 'Investitsiya shartnomasi',
+    'sharia_fatwa' => 'Shariyat fatvosi',
+    'land_documents' => 'Yer hujjatlari',
+    'construction_status' => 'Qurilish holati',
+    'foundation_work' => 'Poydevor ishlari',
+    'foundation_completed' => 'Poydevor quyildi',
+    'construction_started' => 'Qurilish boshlandi',
+    'frame_construction_progress' => 'Karkas ishlari ketmoqda',
+    'interior_finishing' => 'Ichki pardozlash',
+    'interior_finishing_start' => 'Pardozlash ishlarini boshlash',
+    'project_completion' => 'Loyihani yakunlash',
+    'commissioning' => 'Foydalanishga topshirish',
+    'photo_video_gallery' => 'Foto/Video Galereya',
+    'construction_photo' => 'Qurilish jarayoni surati',
 
+    // Filtrlar
+    'project_name_or_id' => 'Loyiha nomi yoki ID',
+    'category' => 'Toifa',
+    'all' => 'Barchasi',
+    'land' => 'Yer',
+    'construction' => 'Qurilish',
+    'rent' => 'Ijara',
+    'project-cards' => 'Loyiha kartalari',
 
 
 ];

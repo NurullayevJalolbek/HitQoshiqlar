@@ -86,7 +86,7 @@ return [
     'login_histories' => "Истории входов",
 
     'log_type' => "Тип лога",
-    'type' => "Тип"
+    'type' => "Тип",
 
 
 
@@ -95,9 +95,85 @@ return [
 
 
 
+    'projects' => 'Проекты',
+    'project_details' => 'Детали проекта',
+    'project' => 'Проект',
+    'add_project' => 'Добавить проект',
+    'search' => 'Поиск',
+    'filter' => 'Фильтр',
+    'previous' => 'Назад',
+    'next' => 'Далее',
+    'view_details' => 'Посмотреть детали',
+    'learn_more' => 'Узнать больше',
 
+    // Основная информация о проекте
+    'start_investment' => 'Начать инвестировать',
+    'about_project' => 'О проекте',
+    'location' => 'Расположение',
+    'purpose' => 'Назначение',
+    'commercial_construction' => 'Коммерческое строительство',
+    'construction_company' => 'Строительная компания',
+    'llc' => 'ООО',
+    'project_manager' => 'Менеджер проекта',
+    'license_number' => 'Номер лицензии',
+    'start_date' => 'Дата начала',
+    'end_date' => 'Дата окончания',
+    'additional_info' => 'Дополнительная информация',
 
+    // Финансы
+    'min_investment' => 'Мин. инвестиция',
+    'sum' => 'сум',
+    'financial_info' => 'Финансовая информация',
+    'investment_duration' => 'Срок инвестирования',
+    'duration' => 'Срок',
+    'months' => 'месяцев',
+    'annual_profit' => 'Годовая прибыль',
+    'annual_return' => 'Годовая доходность',
+    'dividend_distribution' => 'Распределение дивидендов',
+    'quarterly' => 'Ежеквартально',
+    'profit_calculator' => 'Калькулятор прибыли',
+    'enter_investment_amount' => 'Введите сумму инвестиций',
+    'expected_profit' => 'Ожидаемая прибыль',
+    'total_value' => 'Общая стоимость',
+    'invest_via_mobile_app' => 'Инвестировать через моб. приложение',
 
+    // Статус и Риски
+    'risk_level' => 'Уровень риска',
+    'low' => 'Низкий',
+    'medium' => 'Средний',
+    'high' => 'Высокий',
+    'low_risk' => 'Низкий риск',
+    'medium_risk' => 'Средний риск',
+    'high_risk' => 'Высокий риск',
+    'status' => 'Статус',
+    'active' => 'Активный',
+    'inactive' => 'Неактивный',
+    'planned' => 'Запланированный',
+    'completed' => 'Завершенный',
 
+    // Документы и Строительство
+    'documents' => 'Документы',
+    'investment_contract' => 'Инвестиционный договор',
+    'sharia_fatwa' => 'Фетва шариата',
+    'land_documents' => 'Земельные документы',
+    'construction_status' => 'Статус строительства',
+    'foundation_work' => 'Фундаментные работы',
+    'foundation_completed' => 'Фундамент завершен',
+    'construction_started' => 'Строительство началось',
+    'frame_construction_progress' => 'Идет строительство каркаса',
+    'interior_finishing' => 'Внутренняя отделка',
+    'interior_finishing_start' => 'Начало внутренних работ',
+    'project_completion' => 'Завершение проекта',
+    'commissioning' => 'Ввод в эксплуатацию',
+    'photo_video_gallery' => 'Фото/Видео галерея',
+    'construction_photo' => 'Фото строительства',
 
+    // Фильтры
+    'project_name_or_id' => 'Название или ID проекта',
+    'category' => 'Категория',
+    'all' => 'Все',
+    'land' => 'Земля',
+    'construction' => 'Строительство',
+    'rent' => 'Аренда',
+    'project-cards' => 'Карточки проектов',
 ];

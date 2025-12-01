@@ -19,25 +19,29 @@
             <li class="nav-item {{ isActiveRoute('admin.dashboard') }}">
                 <a href="{{ route('admin.dashboard') }}" class="nav-link d-flex align-items-center gap-2">
                     <i class="bi bi-speedometer2"></i>
-                    <span class="sidebar-text ms-2">{{__('admin.dashboard')}}</span>
+                    <span class="sidebar-text ms-2">{{ __('admin.dashboard') }}</span>
                 </a>
             </li>
 
             <li class="nav-item">
                 @php
-                    $isOpen = isActiveCollapseArray([
-                    'admin.projects.*',
-                    'admin.project-investors.*',
-                    'admin.project-buyers.*',
-                    'admin.project-entry-requests.*',
-                    'admin.project-exit-requests.*',
-                    'admin.company-details.*'
-                    ], 'show');
+                    $isOpen = isActiveCollapseArray(
+                        [
+                            'admin.projects.*',
+                            'admin.project-cards.*',
+                            'admin.project-investors.*',
+                            'admin.project-buyers.*',
+                            'admin.project-entry-requests.*',
+                            'admin.project-exit-requests.*',
+                            'admin.company-details.*',
+                        ],
+                        'show',
+                    );
                 @endphp
 
                 <span class="nav-link collapsed d-flex justify-content-between align-items-center"
-                      data-bs-toggle="collapse" data-bs-target="#submenu-projects"
-                      aria-expanded="{{ $isOpen ? 'true' : 'false' }}">
+                    data-bs-toggle="collapse" data-bs-target="#submenu-projects"
+                    aria-expanded="{{ $isOpen ? 'true' : 'false' }}">
                     <span>
                         <i class="bi bi-building"></i>
                         <span class="sidebar-text ms-2">{{ __('admin.investment-projects') }}</span>
@@ -45,8 +49,8 @@
                     <span class="link-arrow">
                         <svg class="icon icon-sm" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd"
-                                  d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                                  clip-rule="evenodd"></path>
+                                d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                                clip-rule="evenodd"></path>
                         </svg>
                     </span>
                 </span>
@@ -61,36 +65,42 @@
                             </a>
                         </li>
 
+                        <li class="nav-item {{ isActiveRoute('admin.project-cards.*') }}">
+                            <a class="nav-link" href="{{ route('admin.project-cards.index') }}">
+                                <span class="sidebar-text">{{ __('admin.project-cards') }}</span>
+                            </a>
+                        </li>
+
 
                         <li class="nav-item {{ isActiveRoute('admin.project-investors.*') }}">
                             <a class="nav-link" href="{{ route('admin.project-investors.index') }}"
-                               class="nav-link d-flex align-items-center">
+                                class="nav-link d-flex align-items-center">
                                 <span class="sidebar-text">{{ __('admin.project_investors') }}</span>
                             </a>
                         </li>
 
                         <li class="nav-item {{ isActiveRoute('admin.project-buyers.*') }} ">
                             <a class="nav-link" href="{{ route('admin.project-buyers.index') }}"
-                               class="nav-link d-flex align-items-center">
+                                class="nav-link d-flex align-items-center">
                                 <span class="sidebar-text">{{ __('admin.project_buyers') }}</span>
                             </a>
                         </li>
                         <li class="nav-item {{ isActiveRoute('admin.project-entry-requests.*') }} ">
                             <a class=" nav-link" href="{{ route('admin.project-entry-requests.index') }}"
-                               class="nav-link d-flex align-items-center">
+                                class="nav-link d-flex align-items-center">
                                 <span class="sidebar-text">{{ __('admin.share_join_requests') }} </span>
                             </a>
                         </li>
 
                         <li class="nav-item {{ isActiveRoute('admin.project-exit-requests.*') }} ">
                             <a class=" nav-link" href="{{ route('admin.project-exit-requests.index') }}"
-                               class="nav-link d-flex align-items-center">
+                                class="nav-link d-flex align-items-center">
                                 <span class="sidebar-text">{{ __('admin.share_exit_requests') }} </span>
                             </a>
 
                         <li class="nav-item {{ isActiveRoute('admin.company-details.*') }} ">
                             <a class=" nav-link" href="{{ route('admin.company-details.index') }}"
-                               class="nav-link d-flex align-items-center">
+                                class="nav-link d-flex align-items-center">
                                 <span class="sidebar-text">{{ __('admin.company_details') }} </span>
                             </a>
                         </li>
@@ -104,21 +114,21 @@
             <li class="nav-item {{ isActiveRoute('admin.revenues.*') }}">
                 <a href="{{ route('admin.revenues.index') }}" class="nav-link d-flex align-items-center gap-2">
                     <i class="bi bi-currency-dollar"></i>
-                    <span class="sidebar-text ms-2 text-break flex-fill">{{__('admin.revenues')}}</span>
+                    <span class="sidebar-text ms-2 text-break flex-fill">{{ __('admin.revenues') }}</span>
                 </a>
             </li>
             <!-- Daromadlar -->
             <li class="nav-item {{ isActiveRoute('admin.incomes.*') }}">
                 <a href="{{ route('admin.incomes.index') }}" class="nav-link d-flex align-items-center gap-2">
                     <i class="bi bi-wallet2"></i>
-                    <span class="sidebar-text ms-2 text-break flex-fill">{{__('admin.incomes')}}</span>
+                    <span class="sidebar-text ms-2 text-break flex-fill">{{ __('admin.incomes') }}</span>
                 </a>
             </li>
             <!-- Xarajatlar -->
             <li class="nav-item {{ isActiveRoute('admin.expenses.*') }}">
                 <a href="{{ route('admin.expenses.index') }}" class="nav-link d-flex align-items-center gap-2">
                     <i class="bi bi-cash-stack"></i>
-                    <span class="sidebar-text ms-2 text-break flex-fill">{{__('admin.expenses')}}</span>
+                    <span class="sidebar-text ms-2 text-break flex-fill">{{ __('admin.expenses') }}</span>
                 </a>
             </li>
 
@@ -126,16 +136,16 @@
             <li class="nav-item {{ isActiveRoute('admin.distributions.*') }}">
                 <a href="{{ route('admin.distributions.index') }}" class="nav-link d-flex align-items-center gap-2">
                     <i class="bi bi-diagram-3"></i>
-                    <span class="sidebar-text ms-2 text-break flex-fill">{{__('admin.distributions')}}</span>
+                    <span class="sidebar-text ms-2 text-break flex-fill">{{ __('admin.distributions') }}</span>
                 </a>
             </li>
 
             <!-- Investitsiya shartnomalar -->
             <li class="nav-item {{ isActiveRoute('admin.investment-contracts.*') }}">
                 <a href="{{ route('admin.investment-contracts.index') }}"
-                   class="nav-link d-flex align-items-center gap-2">
+                    class="nav-link d-flex align-items-center gap-2">
                     <i class="bi bi-file-earmark-text"></i>
-                    <span class="sidebar-text ms-2 text-break flex-fill">{{__('admin.investment-contracts')}}</span>
+                    <span class="sidebar-text ms-2 text-break flex-fill">{{ __('admin.investment-contracts') }}</span>
                 </a>
             </li>
 
@@ -143,41 +153,45 @@
             <li class="nav-item {{ isActiveRoute('admin.reports.*') }}">
                 <a href="{{ route('admin.reports.index') }}" class="nav-link d-flex align-items-center gap-2">
                     <i class="bi bi-bar-chart-line"></i>
-                    <span class="sidebar-text ms-2 text-break flex-fill">{{__('admin.reports')}}</span>
+                    <span class="sidebar-text ms-2 text-break flex-fill">{{ __('admin.reports') }}</span>
                 </a>
             </li>
 
             <!-- Islom moliyasi nazorati -->
             <li class="nav-item {{ isActiveRoute('admin.islamic-finance.*') }}">
-                <a href="{{ route('admin.islamic-finance.index') }}" class="nav-link d-flex align-items-center gap-2">
+                <a href="{{ route('admin.islamic-finance.index') }}"
+                    class="nav-link d-flex align-items-center gap-2">
                     <i class="bi bi-shield-check"></i>
-                    <span class="sidebar-text ms-2 text-break flex-fill">{{__('admin.islamic-finance')}}</span>
+                    <span class="sidebar-text ms-2 text-break flex-fill">{{ __('admin.islamic-finance') }}</span>
                 </a>
             </li>
 
 
             <li class="nav-item">
                 @php
-                    $isOpen = isActiveCollapseArray([
-                    'admin.references.*',
-                    'admin.general-settings.*',
-                    'admin.integration-settings.*',
-                    'admin.user-interface.*'
-                    ], 'show');
+                    $isOpen = isActiveCollapseArray(
+                        [
+                            'admin.references.*',
+                            'admin.general-settings.*',
+                            'admin.integration-settings.*',
+                            'admin.user-interface.*',
+                        ],
+                        'show',
+                    );
                 @endphp
 
                 <span class="nav-link collapsed d-flex justify-content-between align-items-center"
-                      data-bs-toggle="collapse" data-bs-target="#submenu-settings"
-                      aria-expanded="{{ $isOpen ? 'true' : 'false' }}">
+                    data-bs-toggle="collapse" data-bs-target="#submenu-settings"
+                    aria-expanded="{{ $isOpen ? 'true' : 'false' }}">
                     <span>
-                            <i class="bi bi-gear"></i>
+                        <i class="bi bi-gear"></i>
                         <span class="sidebar-text ms-2">{{ __('admin.settings') }}</span>
                     </span>
                     <span class="link-arrow">
                         <svg class="icon icon-sm" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd"
-                                  d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                                  clip-rule="evenodd"></path>
+                                d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                                clip-rule="evenodd"></path>
                         </svg>
                     </span>
                 </span>
@@ -188,28 +202,28 @@
 
                         <li class="nav-item {{ isActiveRoute('admin.references.*') }}">
                             <a class="nav-link" href="{{ route('admin.references.index') }}">
-                                <span class="sidebar-text">{{__('admin.documents')}}</span>
+                                <span class="sidebar-text">{{ __('admin.documents') }}</span>
                             </a>
                         </li>
 
 
                         <li class="nav-item {{ isActiveRoute('admin.general-settings.*') }}">
                             <a class="nav-link" href="{{ route('admin.general-settings.index') }}"
-                               class="nav-link d-flex align-items-center">
-                                <span class="sidebar-text">{{__('admin.general_settings')}}</span>
+                                class="nav-link d-flex align-items-center">
+                                <span class="sidebar-text">{{ __('admin.general_settings') }}</span>
                             </a>
                         </li>
 
                         <li class="nav-item {{ isActiveRoute('admin.integration-settings.*') }} ">
                             <a class="nav-link" href="{{ route('admin.integration-settings.index') }}"
-                               class="nav-link d-flex align-items-center">
-                                <span class="sidebar-text">{{__('admin.integration_settings')}}</span>
+                                class="nav-link d-flex align-items-center">
+                                <span class="sidebar-text">{{ __('admin.integration_settings') }}</span>
                             </a>
                         </li>
                         <li class="nav-item {{ isActiveRoute('admin.user-interface.*') }} ">
                             <a class=" nav-link" href="{{ route('admin.user-interface.index') }}"
-                               class="nav-link d-flex align-items-center">
-                                <span class="sidebar-text">{{__('admin.user_interface')}}</span>
+                                class="nav-link d-flex align-items-center">
+                                <span class="sidebar-text">{{ __('admin.user_interface') }}</span>
                             </a>
                         </li>
                     </ul>
@@ -218,19 +232,22 @@
 
             <li class="nav-item">
                 @php
-                    $isOpen = isActiveCollapseArray([
-                    'admin.users.*',
-                    'admin.investors.*',
-                    'admin.roles.*',
-                    'admin.permissions.*',
-                    'admin.login-histories.*',
-                    'admin.system-logs.*'
-                    ], 'show');
+                    $isOpen = isActiveCollapseArray(
+                        [
+                            'admin.users.*',
+                            'admin.investors.*',
+                            'admin.roles.*',
+                            'admin.permissions.*',
+                            'admin.login-histories.*',
+                            'admin.system-logs.*',
+                        ],
+                        'show',
+                    );
                 @endphp
 
                 <span class="nav-link collapsed d-flex justify-content-between align-items-center"
-                      data-bs-toggle="collapse" data-bs-target="#submenu-administration"
-                      aria-expanded="{{ $isOpen ? 'true' : 'false' }}">
+                    data-bs-toggle="collapse" data-bs-target="#submenu-administration"
+                    aria-expanded="{{ $isOpen ? 'true' : 'false' }}">
                     <span>
                         <i class="bi bi-grid-3x3-gap"></i>
                         <span class="sidebar-text ms-2">{{ __('admin.administration') }}</span>
@@ -238,8 +255,8 @@
                     <span class="link-arrow">
                         <svg class="icon icon-sm" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd"
-                                  d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                                  clip-rule="evenodd"></path>
+                                d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                                clip-rule="evenodd"></path>
                         </svg>
                     </span>
                 </span>
@@ -250,34 +267,34 @@
 
                         <li class="nav-item {{ isActiveRoute('admin.users.*') }}">
                             <a class="nav-link" href="{{ route('admin.users.index') }}">
-                                <span class="sidebar-text">{{__('admin.users')}}</span>
+                                <span class="sidebar-text">{{ __('admin.users') }}</span>
                             </a>
                         </li>
 
 
                         <li class="nav-item {{ isActiveRoute('admin.investors.*') }}">
                             <a class="nav-link" href="{{ route('admin.investors.index') }}"
-                               class="nav-link d-flex align-items-center">
-                                <span class="sidebar-text">{{__('admin.investors')}}</span>
+                                class="nav-link d-flex align-items-center">
+                                <span class="sidebar-text">{{ __('admin.investors') }}</span>
                             </a>
                         </li>
 
                         <li class="nav-item {{ isActiveRoute('admin.roles.*') }} ">
                             <a class="nav-link" href="{{ route('admin.roles.index') }}"
-                               class="nav-link d-flex align-items-center">
-                                <span class="sidebar-text">{{__('admin.roles')}}</span>
+                                class="nav-link d-flex align-items-center">
+                                <span class="sidebar-text">{{ __('admin.roles') }}</span>
                             </a>
                         </li>
                         <li class="nav-item {{ isActiveRoute('admin.login-histories.*') }} ">
                             <a class=" nav-link" href="{{ route('admin.login-histories.index') }}"
-                               class="nav-link d-flex align-items-center">
-                                <span class="sidebar-text">{{__('admin.login_history')}}</span>
+                                class="nav-link d-flex align-items-center">
+                                <span class="sidebar-text">{{ __('admin.login_history') }}</span>
                             </a>
                         </li>
                         <li class="nav-item {{ isActiveRoute('admin.system-logs.*') }} ">
                             <a class=" nav-link" href="{{ route('admin.system-logs.index') }}"
-                               class="nav-link d-flex align-items-center">
-                                <span class="sidebar-text">{{__('admin.system_logs')}}</span>
+                                class="nav-link d-flex align-items-center">
+                                <span class="sidebar-text">{{ __('admin.system_logs') }}</span>
                             </a>
                         </li>
                     </ul>
@@ -288,13 +305,14 @@
             <li class="nav-item {{ isActiveRoute('admin.notifications.*') }}">
                 <a href="{{ route('admin.notifications.index') }}" class="nav-link d-flex align-items-center gap-2">
                     <i class="bi bi-bell"></i>
-                    <span class="sidebar-text ms-2 text-break flex-fill">{{__('admin.notifications')}}</span>
+                    <span class="sidebar-text ms-2 text-break flex-fill">{{ __('admin.notifications') }}</span>
                 </a>
             </li>
 
         </ul>
         <figure id="sidebar-close-figure" class="sidebar-close-figure">
-            <img class="sidebar-close-icon" src="{{ asset('svg/close.svg') }}" height="40" width="40" alt="Close icon">
+            <img class="sidebar-close-icon" src="{{ asset('svg/close.svg') }}" height="40" width="40"
+                alt="Close icon">
         </figure>
     </div>
 </nav>
