@@ -124,7 +124,7 @@
         <table class="table user-table table-bordered table-hover table-striped align-items-center">
             <thead class="table-dark">
             <tr>
-                <th>#</th>
+                <th>№</th>
                 <th>{{__('admin.user')}}</th>
                 <th>{{__('admin.type')}}</th>
                 <th>{{__('admin.status')}}</th>

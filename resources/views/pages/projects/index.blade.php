@@ -93,7 +93,7 @@
         <table class="table project-table table-bordered table-hover table-striped align-items-center">
             <thead class="table-dark">
             <tr>
-                <th>ID</th>
+                <th>№</th>
                 <th>Rasm</th>
                 <th>Loyiha nomi</th>
                 <th>Kategoriya</th>
