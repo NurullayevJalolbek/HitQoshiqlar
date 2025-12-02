@@ -2,28 +2,6 @@
 
 @push('customCss')
     <style>
-        /* Umumiy */
-        .hover-lift {
-            position: relative; /* hover effekti uchun kerak, lekin transform yo'q */
-        }
-
-        /* Ichki elementlar transform bo'ladi — bu holatda stacking-context tr ga qo'llanmaydi */
-        .hover-lift .lift-inner {
-            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.3s;
-            will-change: transform;
-            background-color: transparent;
-            display: block;
-        }
-
-        /* Jadval konteyneri */
-        .table-wrapper {
-            overflow: visible !important; /* table ichidagi dropdown’ni ko‘rsatish uchun */
-        }
-
-        .table-responsive {
-            overflow: visible !important; /* horizontal scroll bilan ham ishlashi uchun */
-        }
-
         /* Modal tepa rangini #1F2937 rangga o'zgartirish */
         .modal-header.custom-dark {
             background-color: #1F2937;
@@ -38,25 +16,39 @@
         .dropdown {
             position: static !important; /* stacking-contextdan chiqish uchun */
         }
-
-
-        /* Agar kerak bo'lsa, actions ustuni uchun hizalash */
-        .text-end .dropdown {
-            display: inline-block;
-        }
-
     </style>
 @endpush
 
+
 @section('breadcrumb')
-    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4 breadcrumb-block">
-        <div class="d-block mb-4 mb-md-0">
+    <div
+        class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-3 breadcrumb-block px-3 mt-3"
+        style="border: 1px solid rgba(0,0,0,0.05); border-radius: 0.5rem; background-color: #ffffff; height: 60px">
+        <!-- Breadcrumb -->
+        <div class="d-block mb-2 mb-md-0">
             <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
-                <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
+                <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent mb-0">
                     <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
-                    <li class="breadcrumb-item active" aria-current="page">{{__('admin.roles')}}</li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ __('admin.users') }}</li>
                 </ol>
             </nav>
+        </div>
+
+        <!-- Tugmalar guruhi -->
+        <div class="d-flex gap-2 align-items-center flex-wrap">
+            <!-- Yangi foydalanuvchi qo'shish -->
+            <a href="{{ route('admin.users.create') }}" class="btn btn-primary btn-sm px-3 py-1" id="addUserBtn"
+               style="min-width: 90px;">
+                <i class="fas fa-plus me-1" style="font-size: 0.85rem;"></i> {{ __('admin.create') }}
+            </a>
+
+
+            <button class="btn btn-sm p-2 d-flex align-items-center justify-content-center"
+                    type="button" data-bs-toggle="collapse"
+                    data-bs-target="#roleFilterContent" aria-expanded="true"
+                    aria-controls="roleFilterContent">
+                <i class="bi bi-sliders2" style="font-size: 1.3rem;"></i>
+            </button>
         </div>
     </div>
 @endsection
@@ -64,28 +56,9 @@
 @section('content')
 
     {{-- Filter--}}
-    <div class="filter-card mb-3 border rounded"
-         style="border-color: rgba(0,0,0,0.1); border-radius: 0.5rem; background-color: #fff;">
-
-        <div class="d-flex justify-content-between align-items-center p-3">
-            <div class="d-flex align-items-center gap-2">
-                <i class="bi bi-search"></i>
-                <span>Filterlar</span>
-            </div>
-
-            <button class="btn btn-sm rounded-pill px-3 py-2 d-flex align-items-center justify-content-center"
-                    type="button" data-bs-toggle="collapse"
-                    data-bs-target="#roleFilterContent"
-                    aria-controls="roleFilterContent"
-                    id="roleToggleFilterBtn"
-                    style="background-color:#1F2937;color:#fff;">
-                <i class="bi bi-caret-down-fill me-2" id="roleFilterIcon"></i>
-                <span id="roleFilterText">Yopish</span>
-            </button>
-        </div>
-
-        <div class="collapse show" id="roleFilterContent">
-            <div class="row g-3 align-items-end p-3">
+    <div class="filter-card mb-3 mt-2 collapse show" id="roleFilterContent" style="transition: all 0.3s ease;">
+        <div class="border rounded p-3" style="border-color: rgba(0,0,0,0.05); background-color: #fff;">
+            <div class="row g-3 align-items-end">
                 <div class="col-md-10">
                     <label>{{__('admin.search')}}</label>
                     <div class="input-group">
@@ -97,11 +70,11 @@
 
                 <div class="col-md-2 d-flex gap-2">
                     <button id="filterBtn" class="btn btn-primary w-50">
-                        <i class="fas fa-filter"></i> Izlash
+                        <i class="fas fa-filter"></i> {{__('admin.search')}}
                     </button>
 
                     <button id="clearBtn" class="btn btn-warning w-50">
-                        Tozalash
+                        {{__('admin.clear')}}
                     </button>
                 </div>
             </div>
@@ -109,20 +82,8 @@
     </div>
 
     {{--Content--}}
-    <div class="card card-body py-1 px-2 shadow border-0 table-wrapper table-responsive">
-
-        <div class="d-flex justify-content-between align-items-center p-3">
-            <h5 class="mb-0">
-                <i class="fas fa-user-shield me-2"></i> {{ __('admin.roles') }}
-            </h5>
-
-            <a href="{{ route('admin.roles.create') }}" class="btn btn-primary" id="addProjectBtn">
-                <i class="fas fa-plus me-1"></i>{{ __('admin.create_new_role') }}
-            </a>
-        </div>
-
-
-        <table class="table user-table table-hover table-bordered  table-striped align-items-center">
+    <div class="card card-body py-3 px-3 shadow border-0 table-wrapper table-responsive mt-3">
+        <table class="table user-table table-bordered table-hover table-striped align-items-center">
             <thead class="table-dark">
             <tr>
                 <th class="border-bottom text-start">№</th>

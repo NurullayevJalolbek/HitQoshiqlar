@@ -108,11 +108,11 @@
 
                 <div class="col-md-2 d-flex gap-2">
                     <button id="filterBtn" class="btn btn-primary w-50">
-                        <i class="fas fa-filter"></i> Izlash
+                        <i class="fas fa-filter"></i> {{__('admin.search')}}
                     </button>
 
                     <button id="clearBtn" class="btn btn-warning w-50">
-                        Tozalash
+                        {{__('admin.clear')}}
                     </button>
                 </div>
             </div>
