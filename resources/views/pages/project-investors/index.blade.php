@@ -9,7 +9,7 @@
             <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
                 <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent mb-0">
                     <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
-                    <li class="breadcrumb-item active" aria-current="page">{{ __('admin.users') }}</li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ __('admin.project_investors') }}</li>
                 </ol>
             </nav>
         </div>
@@ -25,8 +25,8 @@
 
             <button class="btn btn-sm p-2 d-flex align-items-center justify-content-center"
                     type="button" data-bs-toggle="collapse"
-                    data-bs-target="#userFilterContent" aria-expanded="true"
-                    aria-controls="userFilterContent">
+                    data-bs-target="#projectInvestorFilterContent" aria-expanded="true"
+                    aria-controls="projectInvestorFilterContent">
                 <i class="bi bi-sliders2" style="font-size: 1.3rem;"></i>
             </button>
         </div>
@@ -35,7 +35,7 @@
 
 @section('content')
 
-    <div class="filter-card mb-3 mt-2 collapse show" id="userFilterContent" style="transition: all 0.3s ease;">
+    <div class="filter-card mb-3 mt-2 collapse show" id="projectInvestorFilterContent" style="transition: all 0.3s ease;">
         <div class="border rounded p-3" style="border-color: rgba(0,0,0,0.05); background-color: #fff;">
             <div class="row g-3 align-items-end">
                 <!-- Qidiruv -->
