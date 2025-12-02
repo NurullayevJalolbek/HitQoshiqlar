@@ -1,5 +1,5 @@
-<table class="table table-hover table-striped align-items-center" id="investor-table">
-    <thead class="thead-dark">
+<table class="table user-table table-bordered table-hover table-striped align-items-center">
+    <thead class="table-dark">
         <tr>
             <th>№</th>
             <th>F.I.O</th>

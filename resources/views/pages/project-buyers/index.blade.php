@@ -85,7 +85,7 @@
                 <!-- JavaScript bilan to'ldiriladi -->
             </tbody>
         </table>
-        
+
         <div id="emptyState" class="empty-state text-center" style="display: none;">
             <i class="fas fa-inbox fa-3x text-muted mb-3"></i>
             <p class="text-muted">{{ __('Маълумотлар топилмади') }}</p>

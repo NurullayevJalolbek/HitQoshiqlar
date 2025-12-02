@@ -181,4 +181,7 @@ return [
     'create' => "Yaratish"
 
 
+
+
+
 ];

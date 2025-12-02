@@ -1,53 +1,82 @@
 @extends('layouts.app')
 
 @section('breadcrumb')
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
-    <div class="d-block mb-4 mb-md-0">
-        <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
-            <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
-                <li class="breadcrumb-item">
-                    <a href="#"><img src="{{ asset('svg/home-2.svg') }}" alt="Home"></a>
-                </li>
-                <li class="breadcrumb-item active" aria-current="page">{{ __('admin.Investors') }}</li>
-            </ol>
-        </nav>
+    <div
+        class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-3 breadcrumb-block px-3 mt-3"
+        style="border: 1px solid rgba(0,0,0,0.05); border-radius: 0.5rem; background-color: #ffffff; height: 60px">
+        <!-- Breadcrumb -->
+        <div class="d-block mb-2 mb-md-0">
+            <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
+                <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent mb-0">
+                    <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ __('admin.users') }}</li>
+                </ol>
+            </nav>
+        </div>
+
+        <!-- Tugmalar guruhi -->
+        <div class="d-flex gap-2 align-items-center flex-wrap">
+
+            <!-- Yangi foydalanuvchi qo'shish -->
+            <a href="{{ route('admin.users.create') }}" class="btn btn-primary btn-sm px-3 py-1" id="addUserBtn"
+               style="min-width: 90px;">
+                <i class="fas fa-plus me-1" style="font-size: 0.85rem;"></i> {{ __('admin.create') }}
+            </a>
+
+            <button class="btn btn-sm p-2 d-flex align-items-center justify-content-center"
+                    type="button" data-bs-toggle="collapse"
+                    data-bs-target="#userFilterContent" aria-expanded="true"
+                    aria-controls="userFilterContent">
+                <i class="bi bi-sliders2" style="font-size: 1.3rem;"></i>
+            </button>
+        </div>
     </div>
-</div>
 @endsection
 
 @section('content')
 
-<div class="table-settings mb-4">
-    <div class="row align-items-center g-3">
+    <div class="filter-card mb-3 mt-2 collapse show" id="userFilterContent" style="transition: all 0.3s ease;">
+        <div class="border rounded p-3" style="border-color: rgba(0,0,0,0.05); background-color: #fff;">
+            <div class="row g-3 align-items-end">
+                <!-- Qidiruv -->
+                <div class="col-md-4">
+                    <label for="searchInput">{{__('admin.search')}}</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-white"><i class="fas fa-search text-muted"></i></span>
+                        <input type="text" id="searchInput" class="form-control"
+                               placeholder="{{__('admin.full_name')}}, {{__('admin.login')}}, {{__('admin.email')}}...">
+                    </div>
+                </div>
 
-        {{-- SEARCH + FILTERS --}}
-        <div class="col-12 col-md-9 col-lg-8">
-            @include('pages.project-investors.filters')
-        </div>
+                <!-- Holat bo‘yicha filter -->
+                <div class="col-md-3">
+                    <label for="statusFilter">{{__('admin.by_status')}}</label>
+                    <select id="statusFilter" class="form-select">
+                        <option value="">{{__('admin.all')}}</option>
+                        <option value="Faol">Faol</option>
+                        <option value="Bloklangan">Bloklangan</option>
+                    </select>
+                </div>
 
-        {{-- CREATE BUTTON --}}
-        <div class="col-12 col-md-3 col-lg-4">
-            <div class="d-flex justify-content-md-end flex-wrap gap-2">
-                <a href="{{ route('admin.investors.create') }}"
-                   class="btn btn-sm btn-gray-800 d-inline-flex align-items-center">
-                    <svg class="icon icon-xs me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                              d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-                    </svg>
-                    {{ __('admin.Add') }}
-                </a>
+                <!-- Filter tugmalari -->
+                <div class="col-md-2 d-flex gap-2">
+                    <button id="filterBtn" class="btn btn-primary w-50">
+                        <i class="fas fa-filter"></i> {{__('admin.search')}}
+                    </button>
+                    <button id="clearBtn" class="btn btn-warning w-50">
+                        {{__('admin.clear')}}
+                    </button>
+                </div>
             </div>
         </div>
-
     </div>
-</div>
 
-<div class="card card-body shadow border-0 table-wrapper table-responsive">
-    @include('pages.project-investors._columns')
-</div>
+    <div class="card card-body py-3 px-3 shadow border-0 table-wrapper table-responsive mt-3">
+        @include('pages.project-investors._columns')
+    </div>
 
 @endsection
 
 @push('customJs')
-@include('pages.project-investors._scripts')
+    @include('pages.project-investors._scripts')
 @endpush
