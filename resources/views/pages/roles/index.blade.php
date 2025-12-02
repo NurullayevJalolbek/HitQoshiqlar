@@ -29,7 +29,7 @@
             <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
                 <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent mb-0">
                     <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
-                    <li class="breadcrumb-item active" aria-current="page">{{ __('admin.users') }}</li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ __('admin.roles') }}</li>
                 </ol>
             </nav>
         </div>
@@ -285,33 +285,7 @@
 @endsection
 
 @push('customJs')
-    <script>
-        function initFilterToggle(buttonId, contentId, iconId, textId) {
-            const collapseEl = document.getElementById(contentId);
-            const button = document.getElementById(buttonId);
-            const icon = document.getElementById(iconId);
-            const text = document.getElementById(textId);
 
-            collapseEl.addEventListener('shown.bs.collapse', () => {
-                console.log('ishladi yopish');
-
-                icon.classList.remove('bi-caret-up-fill');
-                icon.classList.add('bi-caret-down-fill');
-                text.textContent = 'Yopish';
-            });
-
-            collapseEl.addEventListener('hidden.bs.collapse', () => {
-                console.log('ishladi ochish');
-                icon.classList.remove('bi-caret-down-fill');
-                icon.classList.add('bi-caret-up-fill');
-                text.textContent = 'Ochish';
-            });
-        }
-
-        document.addEventListener('DOMContentLoaded', function () {
-            initFilterToggle('roleToggleFilterBtn', 'roleFilterContent', 'roleFilterIcon', 'roleFilterText');
-        });
-    </script>
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
