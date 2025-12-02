@@ -29,14 +29,33 @@
 @endpush
 
 @section('breadcrumb')
-    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4 breadcrumb-block">
-        <div class="d-block mb-4 mb-md-0">
+    <div
+        class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-3 breadcrumb-block px-3 mt-3"
+        style="border: 1px solid rgba(0,0,0,0.05); border-radius: 0.5rem; background-color: #ffffff; height: 60px">
+        <!-- Breadcrumb -->
+        <div class="d-block mb-2 mb-md-0">
             <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
-                <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
+                <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent mb-0">
                     <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
-                    <li class="breadcrumb-item active" aria-current="page">{{__('admin.system_logs')}}</li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ __('admin.system_logs') }}</li>
                 </ol>
             </nav>
+        </div>
+
+        <!-- Tugmalar guruhi -->
+        <div class="d-flex gap-2 align-items-center flex-wrap">
+
+            <!-- Export CSV -->
+            <button class="btn btn-info btn-sm text-white px-2 py-1" id="exportCsvBtn">
+                <i class="fas fa-file-csv me-1" style="font-size: 0.85rem;"></i> CSV
+            </button>
+
+            <button class="btn btn-sm p-2 d-flex align-items-center justify-content-center"
+                    type="button" data-bs-toggle="collapse"
+                    data-bs-target="#systemHistoryFilterContent" aria-expanded="true"
+                    aria-controls="systemHistoryFilterContent">
+                <i class="bi bi-sliders2" style="font-size: 1.3rem;"></i>
+            </button>
         </div>
     </div>
 @endsection
@@ -44,28 +63,9 @@
 @section('content')
 
     {{-- FILTER CARD --}}
-    <div class="filter-card mb-3 border rounded"
-         style="border-color: rgba(0,0,0,0.1); border-radius: 0.5rem; background-color: #fff;">
-
-        <div class="d-flex justify-content-between align-items-center p-3">
-            <div class="d-flex align-items-center gap-2">
-                <i class="bi bi-search"></i>
-                <span>Filterlar</span>
-            </div>
-
-            <button class="btn btn-sm rounded-pill px-3 py-2 d-flex align-items-center justify-content-center"
-                    type="button" data-bs-toggle="collapse"
-                    data-bs-target="#systemHistoryFilterContent"
-                    aria-controls="systemHistoryFilterContent"
-                    id="systemHistoryToggleFilterBtn"
-                    style="background-color:#1F2937;color:#fff;">
-                <i class="bi bi-caret-down-fill me-2" id="systemHistoryFilterIcon"></i>
-                <span id="systemHistoryFilterText">Yopish</span>
-            </button>
-        </div>
-
-        <div class="collapse show" id="systemHistoryFilterContent">
-            <div class="row g-3 align-items-end p-3">
+    <div class="filter-card mb-3 mt-2 collapse show" id="systemHistoryFilterContent" style="transition: all 0.3s ease;">
+        <div class="border rounded p-3" style="border-color: rgba(0,0,0,0.05); background-color: #fff;">
+            <div class="row g-3 align-items-end">
                 <div class="col-md-2">
                     <label>{{__('admin.search')}}</label>
                     <div class="input-group">
@@ -109,11 +109,10 @@
 
                 <div class="col-md-2 d-flex gap-2">
                     <button id="filterBtn" class="btn btn-primary w-50">
-                        <i class="fas fa-filter"></i> Izlash
+                        <i class="fas fa-filter"></i> {{__('admin.search')}}
                     </button>
-
                     <button id="clearBtn" class="btn btn-warning w-50">
-                        Tozalash
+                        {{__('admin.clear')}}
                     </button>
                 </div>
             </div>
@@ -121,20 +120,8 @@
     </div>
 
     {{-- LOG TABLE --}}
-    <div class="card card-body py-1 px-2 shadow border-0 table-wrapper table-responsive">
-
-        <div class="d-flex justify-content-between align-items-center p-3">
-            <h5 class="mb-0">
-                <i class="fas fa-history me-2"></i> {{ __('admin.system_logs') }}
-            </h5>
-
-            <button class="btn btn-info text-white">
-                <i class="fas fa-file-csv"></i> CSV
-            </button>
-        </div>
-
-
-        <table class="table user-table table-hover table-bordered  table-striped align-items-center">
+    <div class="card card-body py-3 px-3 shadow border-0 table-wrapper table-responsive mt-3">
+        <table class="table user-table table-bordered table-hover table-striped align-items-center">
             <thead class="table-dark">
             <tr>
                 <th>#</th>
@@ -173,14 +160,38 @@
                 <div class="modal-body">
                     <table class="table table-bordered">
                         <tbody>
-                        <tr><th>Foydalanuvchi</th><td id="d_user"></td></tr>
-                        <tr><th>Turi (Action)</th><td id="d_action"></td></tr>
-                        <tr><th>Holati (Level)</th><td id="d_level"></td></tr>
-                        <tr><th>Modul</th><td id="d_module"></td></tr>
-                        <tr><th>Sana va Vaqt</th><td id="d_time"></td></tr>
-                        <tr><th>IP manzil</th><td id="d_ip"></td></tr>
-                        <tr><th>Tavsif</th><td id="d_desc"></td></tr>
-                        <tr><th>Qo'shimcha ma'lumot</th><td id="d_extra"></td></tr>
+                        <tr>
+                            <th>Foydalanuvchi</th>
+                            <td id="d_user"></td>
+                        </tr>
+                        <tr>
+                            <th>Turi (Action)</th>
+                            <td id="d_action"></td>
+                        </tr>
+                        <tr>
+                            <th>Holati (Level)</th>
+                            <td id="d_level"></td>
+                        </tr>
+                        <tr>
+                            <th>Modul</th>
+                            <td id="d_module"></td>
+                        </tr>
+                        <tr>
+                            <th>Sana va Vaqt</th>
+                            <td id="d_time"></td>
+                        </tr>
+                        <tr>
+                            <th>IP manzil</th>
+                            <td id="d_ip"></td>
+                        </tr>
+                        <tr>
+                            <th>Tavsif</th>
+                            <td id="d_desc"></td>
+                        </tr>
+                        <tr>
+                            <th>Qo'shimcha ma'lumot</th>
+                            <td id="d_extra"></td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>
@@ -216,21 +227,171 @@
 
         // Tizim loglari uchun statik ma'lumotlar massivi (15 ta)
         const allLogs = [
-            { id: 1, time:'2025-12-02 10:05:30', level:'INFO', action:'UPDATE', module:"Loyihalar", user:'admin', ip:'192.168.1.10', desc:"Loyiha 'Yangi Texno Park' ma'lumotlari yangilandi", extra:"O'zgartirilgan maydonlar: nomi, byudjet"},
-            { id: 2, time:'2025-12-02 10:01:15', level:'ERROR', action:'CREATE', module:"Loyihalar", user:'sardor', ip:'192.168.1.15', desc:"Loyiha yaratishda xatolik yuz berdi: Nomi takrorlanishi", extra:"Xatolik kodi: 409 CONFLICT"},
-            { id: 3, time:'2025-12-02 09:55:40', level:'INFO', action:'EXPORT', module:"Loyihalar", user:'ali', ip:'192.168.1.20', desc:"Loyihalar ro'yxatini CSV formatida export qilish amalga oshirildi", extra:"Fayl nomi: projects_20251202.csv"},
-            { id: 4, time:'2025-12-02 09:45:00', level:'WARNING', action:'DELETE', module:"Investorlar", user:'bobur', ip:'192.168.1.18', desc:"Investorni o'chirishda noaniqlik kuzatildi. Investitsiyalar hali mavjud", extra:"Investor ID: 105, Status: Pending Confirmation"},
-            { id: 5, time:'2025-12-02 09:40:22', level:'INFO', action:'CREATE', module:"Investorlar", user:'anna', ip:'192.168.1.14', desc:"Yangi investor 'Global Invest Corp' qo'shildi", extra:"Investor ID: 108"},
-            { id: 6, time:'2025-12-02 09:35:10', level:'ERROR', action:'UPDATE', module:"Ma'muriyat bo'limi", user:'admin', ip:'192.168.1.11', desc:"Admin foydalanuvchisi sozlamalarida xatolik: Ruxsatlar saqlanmadi", extra:"Database error: Timeout"},
-            { id: 7, time:'2025-12-02 09:30:55', level:'WARNING', action:'EXPORT', module:"Hisobotlar", user:'dilshod', ip:'192.168.1.21', desc:"Yillik hisobot eksportida vaqtinchalik kechikish (5 soniya)", extra:"Hisobot turi: Yillik daromad"},
-            { id: 8, time:'2025-12-02 09:25:00', level:'INFO', action:'CREATE', module:"Hisobotlar", user:'ali', ip:'192.168.1.22', desc:"Yangi 'Oylik Moliyaviy' hisobot generatsiya qilindi", extra:"Hisobot ID: 55"},
-            { id: 9, time:'2025-12-02 09:20:11', level:'ERROR', action:'DELETE', module:"Loyihalar", user:'sardor', ip:'192.168.1.19', desc:"Loyiha ID: 201 ni o'chirishda xatolik aniqlandi: Bog'liq resurslar topildi", extra:"Xatolik kodi: 403 Forbidden"},
-            { id: 10, time:'2025-12-02 09:15:30', level:'INFO', action:'UPDATE', module:"Investorlar", user:'bobur', ip:'192.168.1.16', desc:"Investor 'Azizov Group' aloqa ma'lumotlari yangilandi", extra:"O'zgartirilgan maydonlar: telefon, email"},
-            { id: 11, time:'2025-12-01 18:00:00', level:'INFO', action:'CREATE', module:"Foydalanuvchilar", user:'admin', ip:'192.168.1.10', desc:"Yangi foydalanuvchi 'Bekzod' qo'shildi", extra:"Roli: Moderator"},
-            { id: 12, time:'2025-12-01 17:45:00', level:'WARNING', action:'UPDATE', module:"Foydalanuvchilar", user:'ali', ip:'192.168.1.20', desc:"Foydalanuvchi 'Javohir' rolini o'zgartirishda ma'lumotlar to'liq emas", extra:"Status: Incomplete form data"},
-            { id: 13, time:'2025-12-01 17:30:10', level:'INFO', action:'LOGIN', module:"Ma'muriyat bo'limi", user:'rustam', ip:'192.168.1.25', desc:"Tizimga muvaffaqiyatli kirish", extra:"Platforma: Web, Browser: Firefox"},
-            { id: 14, time:'2025-12-01 17:28:40', level:'ERROR', action:'LOGIN', module:"Ma'muriyat bo'limi", user:'rustam', ip:'192.168.1.25', desc:"Kirish urinishi xatosi: noto'g'ri parol", extra:"Urinish soni: 3"},
-            { id: 15, time:'2025-12-01 17:20:00', level:'INFO', action:'VIEW', module:"Loyihalar", user:'anna', ip:'192.168.1.14', desc:"Loyiha ro'yxatini ko'rish", extra:"Filter: Active projects"},
+            {
+                id: 1,
+                time: '2025-12-02 10:05:30',
+                level: 'INFO',
+                action: 'UPDATE',
+                module: "Loyihalar",
+                user: 'admin',
+                ip: '192.168.1.10',
+                desc: "Loyiha 'Yangi Texno Park' ma'lumotlari yangilandi",
+                extra: "O'zgartirilgan maydonlar: nomi, byudjet"
+            },
+            {
+                id: 2,
+                time: '2025-12-02 10:01:15',
+                level: 'ERROR',
+                action: 'CREATE',
+                module: "Loyihalar",
+                user: 'sardor',
+                ip: '192.168.1.15',
+                desc: "Loyiha yaratishda xatolik yuz berdi: Nomi takrorlanishi",
+                extra: "Xatolik kodi: 409 CONFLICT"
+            },
+            {
+                id: 3,
+                time: '2025-12-02 09:55:40',
+                level: 'INFO',
+                action: 'EXPORT',
+                module: "Loyihalar",
+                user: 'ali',
+                ip: '192.168.1.20',
+                desc: "Loyihalar ro'yxatini CSV formatida export qilish amalga oshirildi",
+                extra: "Fayl nomi: projects_20251202.csv"
+            },
+            {
+                id: 4,
+                time: '2025-12-02 09:45:00',
+                level: 'WARNING',
+                action: 'DELETE',
+                module: "Investorlar",
+                user: 'bobur',
+                ip: '192.168.1.18',
+                desc: "Investorni o'chirishda noaniqlik kuzatildi. Investitsiyalar hali mavjud",
+                extra: "Investor ID: 105, Status: Pending Confirmation"
+            },
+            {
+                id: 5,
+                time: '2025-12-02 09:40:22',
+                level: 'INFO',
+                action: 'CREATE',
+                module: "Investorlar",
+                user: 'anna',
+                ip: '192.168.1.14',
+                desc: "Yangi investor 'Global Invest Corp' qo'shildi",
+                extra: "Investor ID: 108"
+            },
+            {
+                id: 6,
+                time: '2025-12-02 09:35:10',
+                level: 'ERROR',
+                action: 'UPDATE',
+                module: "Ma'muriyat bo'limi",
+                user: 'admin',
+                ip: '192.168.1.11',
+                desc: "Admin foydalanuvchisi sozlamalarida xatolik: Ruxsatlar saqlanmadi",
+                extra: "Database error: Timeout"
+            },
+            {
+                id: 7,
+                time: '2025-12-02 09:30:55',
+                level: 'WARNING',
+                action: 'EXPORT',
+                module: "Hisobotlar",
+                user: 'dilshod',
+                ip: '192.168.1.21',
+                desc: "Yillik hisobot eksportida vaqtinchalik kechikish (5 soniya)",
+                extra: "Hisobot turi: Yillik daromad"
+            },
+            {
+                id: 8,
+                time: '2025-12-02 09:25:00',
+                level: 'INFO',
+                action: 'CREATE',
+                module: "Hisobotlar",
+                user: 'ali',
+                ip: '192.168.1.22',
+                desc: "Yangi 'Oylik Moliyaviy' hisobot generatsiya qilindi",
+                extra: "Hisobot ID: 55"
+            },
+            {
+                id: 9,
+                time: '2025-12-02 09:20:11',
+                level: 'ERROR',
+                action: 'DELETE',
+                module: "Loyihalar",
+                user: 'sardor',
+                ip: '192.168.1.19',
+                desc: "Loyiha ID: 201 ni o'chirishda xatolik aniqlandi: Bog'liq resurslar topildi",
+                extra: "Xatolik kodi: 403 Forbidden"
+            },
+            {
+                id: 10,
+                time: '2025-12-02 09:15:30',
+                level: 'INFO',
+                action: 'UPDATE',
+                module: "Investorlar",
+                user: 'bobur',
+                ip: '192.168.1.16',
+                desc: "Investor 'Azizov Group' aloqa ma'lumotlari yangilandi",
+                extra: "O'zgartirilgan maydonlar: telefon, email"
+            },
+            {
+                id: 11,
+                time: '2025-12-01 18:00:00',
+                level: 'INFO',
+                action: 'CREATE',
+                module: "Foydalanuvchilar",
+                user: 'admin',
+                ip: '192.168.1.10',
+                desc: "Yangi foydalanuvchi 'Bekzod' qo'shildi",
+                extra: "Roli: Moderator"
+            },
+            {
+                id: 12,
+                time: '2025-12-01 17:45:00',
+                level: 'WARNING',
+                action: 'UPDATE',
+                module: "Foydalanuvchilar",
+                user: 'ali',
+                ip: '192.168.1.20',
+                desc: "Foydalanuvchi 'Javohir' rolini o'zgartirishda ma'lumotlar to'liq emas",
+                extra: "Status: Incomplete form data"
+            },
+            {
+                id: 13,
+                time: '2025-12-01 17:30:10',
+                level: 'INFO',
+                action: 'LOGIN',
+                module: "Ma'muriyat bo'limi",
+                user: 'rustam',
+                ip: '192.168.1.25',
+                desc: "Tizimga muvaffaqiyatli kirish",
+                extra: "Platforma: Web, Browser: Firefox"
+            },
+            {
+                id: 14,
+                time: '2025-12-01 17:28:40',
+                level: 'ERROR',
+                action: 'LOGIN',
+                module: "Ma'muriyat bo'limi",
+                user: 'rustam',
+                ip: '192.168.1.25',
+                desc: "Kirish urinishi xatosi: noto'g'ri parol",
+                extra: "Urinish soni: 3"
+            },
+            {
+                id: 15,
+                time: '2025-12-01 17:20:00',
+                level: 'INFO',
+                action: 'VIEW',
+                module: "Loyihalar",
+                user: 'anna',
+                ip: '192.168.1.14',
+                desc: "Loyiha ro'yxatini ko'rish",
+                extra: "Filter: Active projects"
+            },
         ];
 
         let currentLogs = [...allLogs]; // Filtrlanganda shu massiv o'zgaradi
@@ -314,7 +475,7 @@
             pagination.innerHTML += `<li class="page-item ${currentPage === totalPages ? 'disabled' : ''}"><a class="page-link" onclick="window.goSystemPage(${currentPage + 1})">»</a></li>`;
         }
 
-        window.goSystemPage = function(page) {
+        window.goSystemPage = function (page) {
             const totalPages = Math.ceil(currentLogs.length / perPage);
             if (page < 1 || page > totalPages) return;
             currentPage = page;
@@ -323,7 +484,7 @@
 
         function initLogDetailModal() {
             document.querySelectorAll(".showLogDetail").forEach(item => {
-                item.addEventListener("click", function() {
+                item.addEventListener("click", function () {
                     const log = allLogs.find(l => l.id == this.dataset.id);
                     if (!log) return;
 
@@ -351,13 +512,13 @@
             renderSystemTable();
 
             // Filtr tugmasi funksiyasi (Hozircha statik ma'lumotlar bilan ishlaydi, amalda backendga so'rov yuborilishi kerak)
-            document.getElementById('filterBtn').addEventListener('click', function() {
+            document.getElementById('filterBtn').addEventListener('click', function () {
                 // Hozirda filtr funksiyasi qo'shilmagan, lekin u yerga filtrlash mantiqi qo'shiladi
                 alert("Filtr funksiyasi hali to'liq ishga tushirilmagan. Statik ma'lumotlar ko'rsatilmoqda.");
             });
 
             // Tozalash tugmasi funksiyasi
-            document.getElementById('clearBtn').addEventListener('click', function() {
+            document.getElementById('clearBtn').addEventListener('click', function () {
                 document.getElementById('searchInput').value = '';
                 document.getElementById('logTypeFilter').value = 'all';
                 document.getElementById('moduleFilter').value = 'all';
