@@ -18,31 +18,36 @@ return [
     'no_role' => "Rol yo'q",
     'dashboard' => "Boshqaruv paneli",
     'users' => "Foydalanuvchilar",
-    'investment-projects' => "Investitsion loyihalar",
+
+    // Qisqartirilgan sidebar nomlari
+    'investment-projects' => "Loyihalar",
     'revenues' => "Tushumlar",
     'incomes' => "Daromadlar",
     'investors' => "Investorlar",
     'expenses' => "Xarajatlar",
     'distributions' => "Taqsimot",
-    'investment-contracts' => "Investitsiya shartnomalar",
-    'reports' => "Xisobotlar",
-    'islamic-finance' => "Islom moliyasi nazorati",
+    'investment-contracts' => "Shartnomalar",
+    'reports' => "Hisobotlar",
+    'islamic-finance' => "Islom moliyasi",
     'settings' => "Sozlamalar",
-    'administration' => "Mamuriyat",
+    'administration' => "Ma'muriyat",
     'notifications' => "Bildirishnomalar",
     'projects' => "Loyihalar",
-    'project_investors' => "Loyiha investorlar",
-    'project_buyers' => "Loyiha sotib olganlar",
-    'share_join_requests' => "Ulushga kirish so'rovlari",
-    'share_exit_requests' => "Ulushdan chiqish so'rovlari",
-    'company_details' => "Korxona rekvizitlari",
+
+    // Qisqartirilgan sidebar bo'limlari
+    'project_investors' => "Investorlar",
+    'project_buyers' => "Xaridorlar",
+    'share_join_requests' => "Kirish so'rovlari",
+    'share_exit_requests' => "Chiqish so'rovlari",
+    'company_details' => "Rekvizitlar",
     'documents' => "Ma'lumotnomalar",
     'general_settings' => "Umumiy sozlamalar",
-    'integration_settings' => "Integratsiya sozlamalar",
-    'user_interface' => "Foydalanuvchi interfeysi",
+    'integration_settings' => "Integratsiya",
+    'user_interface' => "Interfeys",
     'roles' => "Rollar",
-    'login_history' => "Kirish tarixlari",
-    'system_logs' => "Tizim tarixlari",
+    'login_history' => "Kirish tarixi",
+    'system_logs' => "Tizim loglari",
+
     'search' => "Qidiruv",
     'clear' => "Tozalash",
     'role_name' => "Role nomi",
@@ -89,19 +94,10 @@ return [
 
 
 
-
-
-
-
-
-
-
     // Navigatsiya
-    'projects' => 'Loyihalar',
     'project_details' => 'Loyiha tafsilotlari',
     'project' => 'Loyiha',
     'add_project' => 'Loyiha qo\'shish',
-    'search' => 'Qidirish',
     'filter' => 'Filtrlash',
     'previous' => 'Oldingi',
     'next' => 'Keyingi',
@@ -118,8 +114,6 @@ return [
     'llc' => 'MChJ',
     'project_manager' => 'Loyiha menejeri',
     'license_number' => 'Litsenziya raqami',
-    'start_date' => 'Boshlanish sanasi',
-    'end_date' => 'Tugash sanasi',
     'additional_info' => 'Qo\'shimcha ma\'lumot',
 
     // Moliya
@@ -147,14 +141,12 @@ return [
     'low_risk' => 'Past xavf',
     'medium_risk' => 'O\'rta xavf',
     'high_risk' => 'Yuqori xavf',
-    'status' => 'Holati',
     'active' => 'Faol',
     'inactive' => 'Nofaol',
     'planned' => 'Rejalashtirilgan',
     'completed' => 'Yakunlangan',
 
     // Hujjat va Qurilish
-    'documents' => 'Hujjatlar',
     'investment_contract' => 'Investitsiya shartnomasi',
     'sharia_fatwa' => 'Shariyat fatvosi',
     'land_documents' => 'Yer hujjatlari',
@@ -162,26 +154,117 @@ return [
     'foundation_work' => 'Poydevor ishlari',
     'foundation_completed' => 'Poydevor quyildi',
     'construction_started' => 'Qurilish boshlandi',
-    'frame_construction_progress' => 'Karkas ishlari ketmoqda',
+    'frame_construction_progress' => 'Karkas ishlari',
     'interior_finishing' => 'Ichki pardozlash',
-    'interior_finishing_start' => 'Pardozlash ishlarini boshlash',
+    'interior_finishing_start' => 'Pardozlash boshlash',
     'project_completion' => 'Loyihani yakunlash',
     'commissioning' => 'Foydalanishga topshirish',
-    'photo_video_gallery' => 'Foto/Video Galereya',
-    'construction_photo' => 'Qurilish jarayoni surati',
+    'photo_video_gallery' => 'Galereya',
+    'construction_photo' => 'Qurilish surati',
 
     // Filtrlar
     'project_name_or_id' => 'Loyiha nomi yoki ID',
     'category' => 'Toifa',
-    'all' => 'Barchasi',
     'land' => 'Yer',
     'construction' => 'Qurilish',
     'rent' => 'Ijara',
-    'project-cards' => 'Loyiha kartalari',
-    'create' => "Yaratish"
+    'project-cards' => 'Kartalar',
+    'create' => "Yaratish",
 
+    'title' => 'Dashboard',
+    'page_title' => 'Investitsiya Dashboard',
+    'page_subtitle' => 'Ko\'rsatkichlarni real vaqtda kuzatib boring',
+    'refresh' => 'Yangilash',
 
+    // Export
+    'export' => [
+        'pdf' => 'PDF',
+        'excel' => 'Excel',
+        'csv' => 'CSV',
+    ],
 
+    // Filtrlar
+    'filters' => [
+        'title' => 'Filtrlar',
+        'start_date' => 'Boshlanish sanasi',
+        'end_date' => 'Tugash sanasi',
+        'project_type' => 'Loyiha turi',
+        'investor_type' => 'Investor turi',
+        'all' => 'Barchasi',
+        'apply' => 'Qo\'llash',
+        'reset' => 'Tozalash',
+    ],
 
+    // Loyiha turlari
+    'project_types' => [
+        'tech' => 'Texnologiya',
+        'real_estate' => 'Ko\'chmas mulk',
+        'agriculture' => 'Qishloq xo\'jaligi',
+        'manufacturing' => 'Ishlab chiqarish',
+        'land' => 'Yer',
+        'rent' => 'Ijara',
+        'construction' => 'Qurilish',
+    ],
 
+    // Investor turlari
+    'investor_types' => [
+        'active' => 'Aktiv',
+        'passive' => 'Passiv',
+    ],
+
+    // KPI
+    'kpi' => [
+        'total_investors' => 'Jami Investorlar',
+        'total_investment' => 'Umumiy Sarmoya',
+        'active_projects' => 'Faol Loyihalar',
+        'total_revenue' => 'Umumiy Daromad',
+        'active_investors' => 'Aktiv Investorlar',
+        'passive_investors' => 'Passiv Investorlar',
+        'total_dividends' => 'Jami Dividendlar',
+        'net_profit' => 'Sof Foyda',
+        'vs_last_month' => 'O\'tgan oyga nisbatan',
+    ],
+
+    // Grafiklar
+    'charts' => [
+        'investors_growth' => 'Investorlar O\'sishi',
+        'projects_distribution' => 'Loyihalar taqsimoti',
+        'investor_income' => 'Investor daromadlari',
+        'exit_payments' => 'Chiqish to\'lovlari',
+        'contract_revenue' => 'Shartnoma daromadi',
+        'dividends_distribution' => 'Dividendlar taqsimoti',
+        'net_profit' => 'Sof Foyda',
+        'realization_contracts' => 'Realizatsiya shartnomalari',
+        'documents_growth' => 'Hujjatlar o\'sishi',
+        'revenue_by_project' => 'Loyihalar bo\'yicha daromad',
+
+        'month' => 'Oy',
+        'year' => 'Yil',
+    ],
+
+    'months' => [
+        'jan' => 'Yan',
+        'feb' => 'Fev',
+        'mar' => 'Mar',
+        'apr' => 'Apr',
+        'may' => 'May',
+        'jun' => 'Iyun',
+        'jul' => 'Iyul',
+        'aug' => 'Avg',
+        'sep' => 'Sen',
+        'oct' => 'Okt',
+        'nov' => 'Noy',
+        'dec' => 'Dek',
+    ],
+
+    'messages' => [
+        'loading' => 'Yuklanmoqda...',
+        'success' => 'Muvaffaqiyatli!',
+        'error' => 'Xatolik yuz berdi!',
+        'filter_applied' => 'Filtr qo\'llandi',
+        'export_success' => 'Fayl yuklandi',
+        'no_data' => 'Ma\'lumot yo\'q',
+        'select_date' => 'Sanani tanlang',
+        'invalid_date_range' => 'Sanalar noto‘g‘ri',
+    ],
 ];

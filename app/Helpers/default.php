@@ -17,3 +17,15 @@ function isActiveCollapseArray($routeNames, $class = 'active'): string
 
     return '';
 }
+
+
+function formatCurrency($number, $decimal = 0)
+{
+    if (is_null($number)) {
+        return 0;
+    }
+
+    $decimal = strlen(explode('.', (string) $number)[1] ?? '');
+
+    return number_format($number, $decimal, '.', ' ');
+}

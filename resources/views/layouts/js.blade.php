@@ -463,63 +463,10 @@
             $(readSelect).on('change', toggleButtons);
         }
     });
-
-    document.addEventListener('DOMContentLoaded', function() {
-        console.log('DOM yuklandi');
-
-        const collapseEl = document.getElementById('userFilterContent');
-        const buttonEl = document.getElementById('userToggleFilterBtn');
-        const iconEl = document.getElementById('userFilterIcon');
-        const textEl = document.getElementById('userFilterText');
-
-        if (!collapseEl || !buttonEl || !iconEl || !textEl) {
-            console.error('Filter elementlari topilmadi:', {
-                collapseEl: !!collapseEl,
-                buttonEl: !!buttonEl,
-                iconEl: !!iconEl,
-                textEl: !!textEl
-            });
-            return;
-        }
-
-        console.log('Barcha elementlar topildi');
-
-        function updateFilterUI(isOpen) {
-            if (isOpen) {
-                iconEl.className = 'bi bi-caret-up-fill me-2';
-                iconEl.style.color = '#ffffff';
-                textEl.textContent = 'Yopish';
-            } else {
-                iconEl.className = 'bi bi-caret-down-fill me-2';
-                iconEl.style.color = '#ffffff';
-                textEl.textContent = 'Ochish';
-            }
-        }
-
-        updateFilterUI(collapseEl.classList.contains('show'));
-
-        collapseEl.addEventListener('show.bs.collapse', function() {
-            console.log('Ochilmoqda...');
-        });
-
-        collapseEl.addEventListener('shown.bs.collapse', function() {
-            console.log('Ochildi');
-            updateFilterUI(true);
-        });
-
-        collapseEl.addEventListener('hide.bs.collapse', function() {
-            console.log('Yopilmoqda...');
-        });
-
-        collapseEl.addEventListener('hidden.bs.collapse', function() {
-            console.log('Yopildi');
-            updateFilterUI(false);
-        });
-    });
 </script>
 
 <!-- Core -->
-{{-- <script src="{{ asset('vendor/@popperjs/core/dist/umd/popper.min.js') }}"></script> --}}
+<script src="{{ asset('vendor/@popperjs/core/dist/umd/popper.min.js') }}"></script>
 {{-- <script src="{{ asset('vendor/bootstrap/dist/js/bootstrap.min.js') }}"></script> --}}
 
 <script src="{{ asset('vendor/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>

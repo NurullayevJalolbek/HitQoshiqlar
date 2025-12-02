@@ -25,7 +25,6 @@
                     @php
                         $isOpen = isActiveCollapseArray([
                             'admin.projects.*',
-                            'admin.project-cards.*',
                             'admin.project-investors.*',
                             'admin.project-buyers.*',
                             'admin.project-entry-requests.*',
@@ -55,11 +54,6 @@
                             <li class="nav-item {{ isActiveRoute('admin.projects.*') }}">
                                 <a class="nav-link" href="{{ route('admin.projects.index') }}">
                                     <span class="sidebar-text">{{ __('admin.projects') }}</span>
-                                </a>
-                            </li>
-                            <li class="nav-item {{ isActiveRoute('admin.project-cards.*') }}">
-                                <a class="nav-link" href="{{ route('admin.project-cards.index') }}">
-                                    <span class="sidebar-text">{{ __('admin.project-cards') }}</span>
                                 </a>
                             </li>
                             <li class="nav-item {{ isActiveRoute('admin.project-investors.*') }}">

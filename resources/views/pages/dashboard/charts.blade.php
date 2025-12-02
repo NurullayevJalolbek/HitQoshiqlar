@@ -8,14 +8,14 @@
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <h5 class="mb-0 fw-bold">
                     <i class="fas fa-chart-area text-primary me-2"></i>
-                    {{ __('dashboard.charts.investors_growth') }}
+                    {{ __('admin.charts.investors_growth') }}
                 </h5>
                 <div class="btn-group btn-group-sm" role="group">
                     <button type="button" class="btn btn-outline-secondary active" data-period="month">
-                        {{ __('dashboard.charts.month') }}
+                        {{ __('admin.charts.month') }}
                     </button>
                     <button type="button" class="btn btn-outline-secondary" data-period="year">
-                        {{ __('dashboard.charts.year') }}
+                        {{ __('admin.charts.year') }}
                     </button>
                 </div>
             </div>
@@ -28,11 +28,11 @@
         <div class="chart-container">
             <h5 class="mb-3 fw-bold">
                 <i class="fas fa-project-diagram text-success me-2"></i>
-                {{ __('dashboard.charts.projects_distribution') }}
+                {{ __('admin.charts.projects_distribution') }}
             </h5>
             <div id="projectsDonutChart"></div>
             <div class="mt-3">
-                <small class="text-muted">{{ __('dashboard.charts.total_projects') }}: <strong>68</strong></small>
+                <small class="text-muted">{{ __('admin.charts.total_projects') }}: <strong>68</strong></small>
             </div>
         </div>
     </div>
@@ -45,11 +45,11 @@
         <div class="chart-container">
             <h5 class="mb-3 fw-bold">
                 <i class="fas fa-arrow-down text-success me-2"></i>
-                {{ __('dashboard.charts.investor_income') }}
+                {{ __('admin.charts.investor_income') }}
             </h5>
             <div id="revenueChart"></div>
             <div class="mt-3 d-flex justify-content-between">
-                <small class="text-muted">{{ __('dashboard.charts.avg_income') }}: <strong>$2,850K</strong></small>
+                <small class="text-muted">{{ __('admin.charts.avg_income') }}: <strong>2,850,000 UZS</strong></small>
                 <small class="text-success"><i class="fas fa-arrow-up"></i> 18.5%</small>
             </div>
         </div>
@@ -60,11 +60,11 @@
         <div class="chart-container">
             <h5 class="mb-3 fw-bold">
                 <i class="fas fa-arrow-up text-danger me-2"></i>
-                {{ __('dashboard.charts.exit_payments') }}
+                {{ __('admin.charts.exit_payments') }}
             </h5>
             <div id="paymentsChart"></div>
             <div class="mt-3 d-flex justify-content-between">
-                <small class="text-muted">{{ __('dashboard.charts.avg_payment') }}: <strong>$530K</strong></small>
+                <small class="text-muted">{{ __('admin.charts.avg_payment') }}: <strong>530,000 UZS</strong></small>
                 <small class="text-danger"><i class="fas fa-arrow-up"></i> 12.3%</small>
             </div>
         </div>
@@ -78,21 +78,21 @@
         <div class="chart-container">
             <h5 class="mb-3 fw-bold">
                 <i class="fas fa-file-contract text-purple me-2"></i>
-                {{ __('dashboard.charts.contract_revenue') }}
+                {{ __('admin.charts.contract_revenue') }}
             </h5>
             <div id="contractRevenueChart"></div>
             <div class="mt-3">
                 <div class="row text-center">
                     <div class="col-4">
-                        <small class="text-muted d-block">{{ __('dashboard.charts.total_contracts') }}</small>
+                        <small class="text-muted d-block">{{ __('admin.charts.total_contracts') }}</small>
                         <strong>284</strong>
                     </div>
                     <div class="col-4">
-                        <small class="text-muted d-block">{{ __('dashboard.charts.avg_revenue') }}</small>
-                        <strong>$1,580K</strong>
+                        <small class="text-muted d-block">{{ __('admin.charts.avg_revenue') }}</small>
+                        <strong>1,580,000 UZS</strong>
                     </div>
                     <div class="col-4">
-                        <small class="text-muted d-block">{{ __('dashboard.charts.growth') }}</small>
+                        <small class="text-muted d-block">{{ __('admin.charts.growth') }}</small>
                         <strong class="text-success">+22.4%</strong>
                     </div>
                 </div>
@@ -105,19 +105,19 @@
         <div class="chart-container">
             <h5 class="mb-3 fw-bold">
                 <i class="fas fa-coins text-warning me-2"></i>
-                {{ __('dashboard.charts.dividends_distribution') }}
+                {{ __('admin.charts.dividends_distribution') }}
             </h5>
             <div id="dividendsChart"></div>
             <div class="mt-3 text-center">
                 <div class="row">
                     <div class="col-6">
                         <div class="border-end">
-                            <small class="text-muted d-block">{{ __('dashboard.charts.paid') }}</small>
+                            <small class="text-muted d-block">{{ __('admin.charts.paid') }}</small>
                             <strong class="text-success">65%</strong>
                         </div>
                     </div>
                     <div class="col-6">
-                        <small class="text-muted d-block">{{ __('dashboard.charts.pending') }}</small>
+                        <small class="text-muted d-block">{{ __('admin.charts.pending') }}</small>
                         <strong class="text-warning">35%</strong>
                     </div>
                 </div>
@@ -133,11 +133,11 @@
         <div class="chart-container">
             <h5 class="mb-3 fw-bold">
                 <i class="fas fa-hand-holding-usd text-info me-2"></i>
-                {{ __('dashboard.charts.net_profit') }}
+                {{ __('admin.charts.net_profit') }}
             </h5>
             <div id="profitChart"></div>
             <div class="mt-3 d-flex justify-content-between">
-                <small class="text-muted">{{ __('dashboard.charts.avg_profit') }}: <strong>$820K</strong></small>
+                <small class="text-muted">{{ __('admin.charts.avg_profit') }}: <strong>820,000 UZS</strong></small>
                 <small class="text-success"><i class="fas fa-arrow-up"></i> 25.6%</small>
             </div>
         </div>
@@ -148,11 +148,11 @@
         <div class="chart-container">
             <h5 class="mb-3 fw-bold">
                 <i class="fas fa-file-signature text-warning me-2"></i>
-                {{ __('dashboard.charts.realization_contracts') }}
+                {{ __('admin.charts.realization_contracts') }}
             </h5>
             <div id="contractsChart"></div>
             <div class="mt-3 d-flex justify-content-between">
-                <small class="text-muted">{{ __('dashboard.charts.total_signed') }}: <strong>312 {{ __('dashboard.charts.contracts') }}</strong></small>
+                <small class="text-muted">{{ __('admin.charts.total_signed') }}: <strong>312 {{ __('admin.charts.contracts') }}</strong></small>
                 <small class="text-success"><i class="fas fa-arrow-up"></i> 16.8%</small>
             </div>
         </div>
@@ -166,7 +166,7 @@
         <div class="chart-container">
             <h5 class="mb-3 fw-bold">
                 <i class="fas fa-file-alt text-secondary me-2"></i>
-                {{ __('dashboard.charts.documents_growth') }}
+                {{ __('admin.charts.documents_growth') }}
             </h5>
             <div id="documentsChart"></div>
         </div>
@@ -177,7 +177,7 @@
         <div class="chart-container">
             <h5 class="mb-3 fw-bold">
                 <i class="fas fa-chart-bar text-primary me-2"></i>
-                {{ __('dashboard.charts.revenue_by_project') }}
+                {{ __('admin.charts.revenue_by_project') }}
             </h5>
             <div id="revenueByProjectChart"></div>
         </div>

@@ -6,9 +6,8 @@
 @endpush
 
 @section('breadcrumb')
-    <div
-        class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-3 breadcrumb-block px-3 mt-3"
-        style="border: 1px solid rgba(0,0,0,0.05); border-radius: 0.5rem; background-color: #ffffff; height: 60px">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-3 breadcrumb-block px-3 mt-3"
+        style="border: 1px solid rgba(0,0,0,0.05); border-radius: 0.5rem; background-color: #ffffff; height: 60px collapse mb-4">
         <!-- Breadcrumb -->
         <div class="d-block mb-2 mb-md-0">
             <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
@@ -30,10 +29,9 @@
                 <i class="fas fa-file-csv me-1" style="font-size: 0.85rem;"></i> CSV
             </button>
 
-            <button class="btn btn-sm p-2 d-flex align-items-center justify-content-center"
-                    type="button" data-bs-toggle="collapse"
-                    data-bs-target="#dashboardFilterContent" aria-expanded="true"
-                    aria-controls="dashboardFilterContent">
+            <button class="btn btn-sm p-2 d-flex align-items-center justify-content-center" type="button"
+                data-bs-toggle="collapse" data-bs-target="#dashboardFilterContent" aria-expanded="true"
+                aria-controls="dashboardFilterContent">
                 <i class="bi bi-sliders2" style="font-size: 1.3rem;"></i>
             </button>
         </div>
@@ -41,10 +39,10 @@
 @endsection
 
 @section('content')
-    @include('pages.dashboard.partials.filters')
-    @include('pages.dashboard.partials.kpi-cards')
-    @include('pages.dashboard.partials.charts')
-    @include('pages.dashboard.partials._scripts')
+    @include('pages.dashboard.filters')
+    @include('pages.dashboard.kpi-cards')
+    @include('pages.dashboard.charts')
+    @include('pages.dashboard._scripts')
 @endsection
 
 @push('customJs')
@@ -58,13 +56,12 @@
 
     <script>
         window.dashboardTranslations = {
-            months: @json(__('dashboard.months')),
-            charts: @json(__('dashboard.charts')),
-            messages: @json(__('dashboard.messages')),
-            projectTypes: @json(__('dashboard.project_types')),
-            investorTypes: @json(__('dashboard.investor_types')),
+            months: @json(__('admin.months')),
+            charts: @json(__('admin.charts')),
+            messages: @json(__('admin.messages')),
+            projectTypes: @json(__('admin.project_types')),
+            investorTypes: @json(__('admin.investor_types')),
             currentLang: '{{ app()->getLocale() }}'
         };
     </script>
-
 @endpush
