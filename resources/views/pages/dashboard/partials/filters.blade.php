@@ -1,27 +1,6 @@
-<div class="filter-card mb-3 border rounded"
-         style="border-color: rgba(0,0,0,0.1); border-radius: 0.5rem; background-color: #fff;">
-
-
-        <!-- Filter header -->
-        <div class="d-flex justify-content-between align-items-center p-3">
-            <div class="d-flex align-items-center gap-2">
-                <i class="bi bi-search"></i>
-                <span>Filterlar</span>
-            </div>
-
-            <button class="btn btn-sm rounded-pill px-3 py-2 d-flex align-items-center justify-content-center"
-                    type="button" data-bs-toggle="collapse"
-                    data-bs-target="#userFilterContent" aria-expanded="true"
-                    aria-controls="userFilterContent" id="userToggleFilterBtn"
-                    style="background-color: #1F2937; color: #ffffff;">
-                <i class="bi bi-caret-down-fill me-2" id="userFilterIcon" style="color: #ffffff;"> </i>
-                <span id="userFilterText">Yopish</span>
-            </button>
-        </div>
-
-        <!-- Filter content -->
-        <div class="collapse show" id="userFilterContent">
-            <div class="row g-3 align-items-end p-3">
+<div class="filter-card mb-3 mt-2 collapse show" id="dashboardFilterContent" style="transition: all 0.3s ease;">
+    <div class="border rounded p-3" style="border-color: rgba(0,0,0,0.05); background-color: #fff;">
+        <div class="row g-3 align-items-end">
                 {{-- Qidiruv --}}
                 <div class="col-md-4">
                     <label for="searchInput">{{__('admin.search')}}</label>
