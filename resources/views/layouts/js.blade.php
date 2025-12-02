@@ -1,5 +1,4 @@
 <script>
-
     const sidebarToggle = document.querySelector('#sidebar-toggle')
     const sidebarText = document.querySelector('#project-name')
     const sidebarMenu = document.querySelector('#sidebarMenu')
@@ -464,40 +463,64 @@
             $(readSelect).on('change', toggleButtons);
         }
     });
-</script>
 
-{{--Filter ochib yopish--}}
-<script>
-    function initFilterToggle(buttonId, contentId, iconId, textId) {
-        const collapseEl = document.getElementById(contentId);
-        const button = document.getElementById(buttonId);
-        const icon = document.getElementById(iconId);
-        const text = document.getElementById(textId);
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('DOM yuklandi');
 
-        collapseEl.addEventListener('shown.bs.collapse', () => {
-            console.log('ishladi yopish');
+        const collapseEl = document.getElementById('userFilterContent');
+        const buttonEl = document.getElementById('userToggleFilterBtn');
+        const iconEl = document.getElementById('userFilterIcon');
+        const textEl = document.getElementById('userFilterText');
 
-            icon.classList.remove('bi-caret-up-fill');
-            icon.classList.add('bi-caret-down-fill');
-            text.textContent = 'Yopish';
+        if (!collapseEl || !buttonEl || !iconEl || !textEl) {
+            console.error('Filter elementlari topilmadi:', {
+                collapseEl: !!collapseEl,
+                buttonEl: !!buttonEl,
+                iconEl: !!iconEl,
+                textEl: !!textEl
+            });
+            return;
+        }
+
+        console.log('Barcha elementlar topildi');
+
+        function updateFilterUI(isOpen) {
+            if (isOpen) {
+                iconEl.className = 'bi bi-caret-up-fill me-2';
+                iconEl.style.color = '#ffffff';
+                textEl.textContent = 'Yopish';
+            } else {
+                iconEl.className = 'bi bi-caret-down-fill me-2';
+                iconEl.style.color = '#ffffff';
+                textEl.textContent = 'Ochish';
+            }
+        }
+
+        updateFilterUI(collapseEl.classList.contains('show'));
+
+        collapseEl.addEventListener('show.bs.collapse', function() {
+            console.log('Ochilmoqda...');
         });
 
-        collapseEl.addEventListener('hidden.bs.collapse', () => {
-            console.log('ishladi ochish');
-            icon.classList.remove('bi-caret-down-fill');
-            icon.classList.add('bi-caret-up-fill');
-            text.textContent = 'Ochish';
+        collapseEl.addEventListener('shown.bs.collapse', function() {
+            console.log('Ochildi');
+            updateFilterUI(true);
         });
-    }
 
-    document.addEventListener('DOMContentLoaded', function () {
-        initFilterToggle('userToggleFilterBtn', 'userFilterContent', 'userFilterIcon', 'userFilterText');
+        collapseEl.addEventListener('hide.bs.collapse', function() {
+            console.log('Yopilmoqda...');
+        });
+
+        collapseEl.addEventListener('hidden.bs.collapse', function() {
+            console.log('Yopildi');
+            updateFilterUI(false);
+        });
     });
 </script>
 
 <!-- Core -->
-{{--<script src="{{ asset('vendor/@popperjs/core/dist/umd/popper.min.js') }}"></script>--}}
-{{--<script src="{{ asset('vendor/bootstrap/dist/js/bootstrap.min.js') }}"></script>--}}
+{{-- <script src="{{ asset('vendor/@popperjs/core/dist/umd/popper.min.js') }}"></script> --}}
+{{-- <script src="{{ asset('vendor/bootstrap/dist/js/bootstrap.min.js') }}"></script> --}}
 
 <script src="{{ asset('vendor/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
 

@@ -44,6 +44,7 @@
 @include('pages.dashboard.partials.filters')
 @include('pages.dashboard.partials.kpi-cards')
 @include('pages.dashboard.partials.charts')
+@include('pages.dashboard.partials._scripts')
 @endsection
 
 @push('customJs')
@@ -66,6 +67,4 @@
     };
 </script>
 
-<script src="{{ asset('assets/js/dashboard-functions.js') }}"></script>
-<script src="{{ asset('assets/js/dashboard-charts.js') }}"></script>
 @endpush
