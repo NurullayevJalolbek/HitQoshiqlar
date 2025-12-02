@@ -25,13 +25,13 @@
         </div>
         <div class="header-actions">
             <div class="btn-group">
-                <button type="button" class="btn btn-sm btn-outline-primary" onclick="exportData('pdf')">
+                <button type="button" class="btn btn-sm btn-outline-light" onclick="exportData('pdf')">
                     <i class="fas fa-file-pdf"></i> {{ __('dashboard.export.pdf') }}
                 </button>
-                <button type="button" class="btn btn-sm btn-outline-success" onclick="exportData('excel')">
+                <button type="button" class="btn btn-sm btn-outline-light" onclick="exportData('excel')">
                     <i class="fas fa-file-excel"></i> {{ __('dashboard.export.excel') }}
                 </button>
-                <button type="button" class="btn btn-sm btn-outline-info" onclick="exportData('csv')">
+                <button type="button" class="btn btn-sm btn-outline-light" onclick="exportData('csv')">
                     <i class="fas fa-file-csv"></i> {{ __('dashboard.export.csv') }}
                 </button>
             </div>
@@ -49,7 +49,7 @@
 
 @push('customJs')
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+{{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script> --}}
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/apexcharts@3.45.1/dist/apexcharts.min.js"></script>

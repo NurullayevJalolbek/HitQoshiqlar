@@ -17,51 +17,6 @@
 
 
     <style>
-        /* Sidebar yig‘ilganda matn yo‘qoladi */
-        .sidebar.contracted #project-logo img:last-child {
-            display: none;
-        }
-
-        /* Sidebar ochilganda matn yana chiqadi */
-        .sidebar:not(.contracted) #project-logo img:last-child {
-            display: inline-block;
-        }
-
-
-        #form-control-search::placeholder {
-            color: #adb5bd;
-            /* Bu och kulrang rang */
-            opacity: 1;
-            /* iOS uchun */
-        }
-
-
-        /*Sidebar uchun scroll*/
-        #sidebar-menu-wrapper {
-            overflow-y: auto;
-            max-height: calc(100vh - 100px); /* logotip + divider balandligini hisobga olamiz */
-            padding-right: 5px; /* optional, scroll bar uchun */
-        }
-
-        /* Scroll bar uchun chiroyli style (optional) */
-        #sidebar-menu-wrapper::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        #sidebar-menu-wrapper::-webkit-scrollbar-thumb {
-            background-color: rgba(255, 255, 255, 0.3);
-            border-radius: 3px;
-        }
-
-        #sidebar-menu-wrapper::-webkit-scrollbar-track {
-            background: transparent;
-        }
-
-
-
-
-
-
         .swal2-actions {
             gap: 16px;
         }
@@ -177,7 +132,7 @@
             max-height: 100% !important;
         }
 
-        .sidebar .nav-link{
+        .sidebar .nav-link {
             width: 250px;
         }
 

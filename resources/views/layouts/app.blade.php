@@ -3,6 +3,7 @@
 
 <head>
     @include('layouts.css')
+    @include('layouts.sidebarScroll')
 
     <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
