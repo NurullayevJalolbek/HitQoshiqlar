@@ -58,11 +58,11 @@
 
     <script>
         window.dashboardTranslations = {
-            months: @json(__('dashboard.months')),
-            charts: @json(__('dashboard.charts')),
-            messages: @json(__('dashboard.messages')),
-            projectTypes: @json(__('dashboard.project_types')),
-            investorTypes: @json(__('dashboard.investor_types')),
+            months: @json(__('admin.months')),
+            charts: @json(__('admin.charts')),
+            messages: @json(__('admin.messages')),
+            projectTypes: @json(__('admin.project_types')),
+            investorTypes: @json(__('admin.investor_types')),
             currentLang: '{{ app()->getLocale() }}'
         };
     </script>
