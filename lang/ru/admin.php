@@ -176,4 +176,5 @@ return [
     'construction' => 'Строительство',
     'rent' => 'Аренда',
     'project-cards' => 'Карточки проектов',
+    'create' => "Создать"
 ];

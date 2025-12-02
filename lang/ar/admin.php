@@ -183,5 +183,6 @@ return [
     'construction' => 'الإنشاء',
     'rent' => 'الإيجار',
     'project-cards' => 'بطاقات المشاريع',
+    'create' => "إنشاء"
 
 ];

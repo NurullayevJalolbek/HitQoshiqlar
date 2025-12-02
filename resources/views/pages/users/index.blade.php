@@ -28,16 +28,44 @@
     </style>
 @endpush
 
-
 @section('breadcrumb')
-    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4 breadcrumb-block">
-        <div class="d-block mb-4 mb-md-0">
+    <div
+        class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-3 breadcrumb-block px-3 mt-3"
+        style="border: 1px solid rgba(0,0,0,0.05); border-radius: 0.5rem; background-color: #ffffff; height: 60px">
+        <!-- Breadcrumb -->
+        <div class="d-block mb-2 mb-md-0">
             <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
-                <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
+                <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent mb-0">
                     <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
-                    <li class="breadcrumb-item active" aria-current="page">{{__('admin.users')}}</li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ __('admin.users') }}</li>
                 </ol>
             </nav>
+        </div>
+
+        <!-- Tugmalar guruhi -->
+        <div class="d-flex gap-2 align-items-center flex-wrap">
+            <button class="btn btn-success btn-sm px-2 py-1" id="exportExcelBtn">
+                <i class="fas fa-file-excel me-1" style="font-size: 0.85rem;"></i> Excel
+            </button>
+
+            <!-- Export CSV -->
+            <button class="btn btn-info btn-sm text-white px-2 py-1" id="exportCsvBtn">
+                <i class="fas fa-file-csv me-1" style="font-size: 0.85rem;"></i> CSV
+            </button>
+
+            <!-- Yangi foydalanuvchi qo'shish -->
+            <a href="{{ route('admin.users.create') }}" class="btn btn-primary btn-sm px-3 py-1" id="addUserBtn"
+               style="min-width: 90px;">
+                <i class="fas fa-plus me-1" style="font-size: 0.85rem;"></i> {{ __('admin.create') }}
+            </a>
+
+
+            <button class="btn btn-sm p-2 d-flex align-items-center justify-content-center"
+                    type="button" data-bs-toggle="collapse"
+                    data-bs-target="#userFilterContent" aria-expanded="true"
+                    aria-controls="userFilterContent">
+                <i class="bi bi-sliders2" style="font-size: 1.3rem;"></i>
+            </button>
         </div>
     </div>
 @endsection
@@ -45,31 +73,10 @@
 @section('content')
 
     <!-- Filter card -->
-    <div class="filter-card mb-3 border rounded"
-         style="border-color: rgba(0,0,0,0.1); border-radius: 0.5rem; background-color: #fff;">
-
-
-        <!-- Filter header -->
-        <div class="d-flex justify-content-between align-items-center p-3">
-            <div class="d-flex align-items-center gap-2">
-                <i class="bi bi-search"></i>
-                <span>Filterlar</span>
-            </div>
-
-            <button class="btn btn-sm rounded-pill px-3 py-2 d-flex align-items-center justify-content-center"
-                    type="button" data-bs-toggle="collapse"
-                    data-bs-target="#userFilterContent" aria-expanded="true"
-                    aria-controls="userFilterContent" id="userToggleFilterBtn"
-                    style="background-color: #1F2937; color: #ffffff;">
-                <i class="bi bi-caret-down-fill me-2" id="userFilterIcon" style="color: #ffffff;"> </i>
-                <span id="userFilterText">Yopish</span>
-            </button>
-        </div>
-
-        <!-- Filter content -->
-        <div class="collapse show" id="userFilterContent">
-            <div class="row g-3 align-items-end p-3">
-                {{-- Qidiruv --}}
+    <div class="filter-card mb-3 mt-2 collapse show" id="userFilterContent" style="transition: all 0.3s ease;">
+        <div class="border rounded p-3" style="border-color: rgba(0,0,0,0.05); background-color: #fff;">
+            <div class="row g-3 align-items-end">
+                <!-- Qidiruv -->
                 <div class="col-md-4">
                     <label for="searchInput">{{__('admin.search')}}</label>
                     <div class="input-group">
@@ -79,7 +86,7 @@
                     </div>
                 </div>
 
-                {{-- Rol bo‘yicha filter --}}
+                <!-- Rol bo‘yicha filter -->
                 <div class="col-md-3">
                     <label for="roleFilter">{{__('admin.by_role')}}</label>
                     <select id="roleFilter" class="form-select">
@@ -91,7 +98,7 @@
                     </select>
                 </div>
 
-                {{-- Holat bo‘yicha filter --}}
+                <!-- Holat bo‘yicha filter -->
                 <div class="col-md-3">
                     <label for="statusFilter">{{__('admin.by_status')}}</label>
                     <select id="statusFilter" class="form-select">
@@ -101,12 +108,11 @@
                     </select>
                 </div>
 
-                {{-- Tugmalar --}}
+                <!-- Filter tugmalari -->
                 <div class="col-md-2 d-flex gap-2">
                     <button id="filterBtn" class="btn btn-primary w-50">
                         <i class="fas fa-filter"></i> {{__('admin.search')}}
                     </button>
-
                     <button id="clearBtn" class="btn btn-warning w-50">
                         {{__('admin.clear')}}
                     </button>
@@ -115,33 +121,10 @@
         </div>
     </div>
 
-    {{-- Content --}}
-    <div class="card card-body py-1 px-2 shadow border-0 table-wrapper table-responsive">
-        <div class="d-flex justify-content-between align-items-center p-3">
-            <h5 class="mb-0">
-                <i class="fas fa-users me-2"></i> {{ __('admin.users') }}
-            </h5>
 
-            <div class="d-flex gap-2">
-                <!-- Export Excel -->
-                <button class="btn btn-success" id="exportExcelBtn">
-                    <i class="fas fa-file-excel me-1"></i> Excel
-                </button>
-
-                <!-- Export CSV -->
-                <button class="btn btn-info text-white" id="exportCsvBtn">
-                    <i class="fas fa-file-csv me-1"></i> CSV
-                </button>
-
-                <!-- Yangi foydalanuvchi qo'shish -->
-                <a href="{{ route('admin.users.create') }}" class="btn btn-primary" id="addUserBtn">
-                    <i class="fas fa-plus me-1"></i> {{ __('admin.add_new_user') }}
-                </a>
-            </div>
-        </div>
-
-
-        <table class="table user-table  table-bordered  table-hover table-striped align-items-center">
+    <!-- Table -->
+    <div class="card card-body py-3 px-3 shadow border-0 table-wrapper table-responsive mt-3">
+        <table class="table user-table table-bordered table-hover table-striped align-items-center">
             <thead class="table-dark">
             <tr>
                 <th>№</th>
@@ -168,7 +151,6 @@
                 </ul>
             </nav>
         </div>
-
     </div>
 
 @endsection

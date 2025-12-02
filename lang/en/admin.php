@@ -169,4 +169,5 @@ return [
     'construction' => 'Construction',
     'rent' => 'Rent',
     'project-cards' => 'Project Cards',
+    'create' => "Create"
 ];

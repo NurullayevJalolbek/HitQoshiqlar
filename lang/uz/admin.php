@@ -95,7 +95,7 @@ return [
 
 
 
-    
+
     // Navigatsiya
     'projects' => 'Loyihalar',
     'project_details' => 'Loyiha tafsilotlari',
@@ -178,6 +178,7 @@ return [
     'construction' => 'Qurilish',
     'rent' => 'Ijara',
     'project-cards' => 'Loyiha kartalari',
+    'create' => "Yaratish"
 
 
 ];
