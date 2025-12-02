@@ -82,14 +82,26 @@
 @endpush
 
 @section('breadcrumb')
-    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4 breadcrumb-block">
-        <div class="d-block mb-4 mb-md-0">
+    <div
+        class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-3 breadcrumb-block px-3 mt-3"
+        style="border: 1px solid rgba(0,0,0,0.05); border-radius: 0.5rem; background-color: #ffffff; height: 60px">
+        <!-- Breadcrumb -->
+        <div class="d-block mb-2 mb-md-0">
             <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
-                <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
+                <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent mb-0">
                     <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
-                    <li class="breadcrumb-item active" aria-current="page">{{__('admin.notifications')}}</li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ __('admin.notifications') }}</li>
                 </ol>
             </nav>
+        </div>
+
+        <div class="d-flex gap-2 align-items-center flex-wrap">
+            <button class="btn btn-sm p-2 d-flex align-items-center justify-content-center"
+                    type="button" data-bs-toggle="collapse"
+                    data-bs-target="#notificationFilterContent" aria-expanded="true"
+                    aria-controls="notificationFilterContent">
+                <i class="bi bi-sliders2" style="font-size: 1.3rem;"></i>
+            </button>
         </div>
     </div>
 @endsection
@@ -97,30 +109,9 @@
 @section('content')
 
     {{-- FILTER PANEL --}}
-    <div class="filter-card mb-3 border rounded"
-         style="border-color: rgba(0,0,0,0.1); border-radius: 0.5rem; background-color: #fff;">
-
-
-        <!-- Filter header -->
-        <div class="d-flex justify-content-between align-items-center p-3">
-            <div class="d-flex align-items-center gap-2">
-                <i class="bi bi-search"></i>
-                <span>Filterlar</span>
-            </div>
-
-            <button class="btn btn-sm rounded-pill px-3 py-2 d-flex align-items-center justify-content-center"
-                    type="button" data-bs-toggle="collapse"
-                    data-bs-target="#notificationFilterContent" aria-expanded="true"
-                    aria-controls="notificationFilterContent" id="userToggleFilterBtn"
-                    style="background-color: #1F2937; color: #ffffff;">
-                <i class="bi bi-caret-down-fill me-2" id="notificationFilterIcon" style="color: #ffffff;"> </i>
-                <span id="notificationFilterText">Yopish</span>
-            </button>
-        </div>
-
-        <!-- Filter content -->
-        <div class="collapse show" id="notificationFilterContent">
-            <div class="row g-3 align-items-end p-3">
+    <div class="filter-card mb-3 mt-2 collapse show" id="notificationFilterContent" style="transition: all 0.3s ease;">
+        <div class="border rounded p-3" style="border-color: rgba(0,0,0,0.05); background-color: #fff;">
+            <div class="row g-3 align-items-end">
                 {{-- Qidiruv --}}
                 <div class="col-md-4">
                     <label class="form-label text-muted small">Qidiruv</label>
@@ -170,25 +161,21 @@
 
 
     {{-- TABLE --}}
-    <div class="card card-body py-1 px-2 shadow border-0 table-wrapper table-responsive">
-        <div class="card-header bg-white py-3">
-            <h5 class="mb-0 text-primary"><i class="fas fa-bell me-2"></i>Bildirishnomalar ro‘yxati</h5>
-        </div>
-
-            <table class="table user-table table-hover table-bordered  table-striped align-items-center">
-                <thead class="table-dark">
-                <tr>
-                    <th style="width: 40px;">
-                        <input type="checkbox" class="form-check-input" id="checkAll">
-                    </th>
-                    <th>Vaqt</th>
-                    <th>Turi</th>
-                    <th>Xabar Matni</th>
-                    <th class="text-center">Holati</th>
-                </tr>
-                </thead>
-                <tbody id="notifBody"></tbody>
-            </table>
+    <div class="card card-body py-3 px-3 shadow border-0 table-wrapper table-responsive mt-3">
+        <table class="table user-table table-bordered table-hover table-striped align-items-center">
+            <thead class="table-dark">
+            <tr>
+                <th style="width: 40px;">
+                    <input type="checkbox" class="form-check-input" id="checkAll">
+                </th>
+                <th>Vaqt</th>
+                <th>Turi</th>
+                <th>Xabar Matni</th>
+                <th class="text-center">Holati</th>
+            </tr>
+            </thead>
+            <tbody id="notifBody"></tbody>
+        </table>
     </div>
 
 @endsection
