@@ -1,36 +1,32 @@
 <?php
 
-use App\Http\Controllers\Admin\CompanyDetailController;
-use App\Http\Controllers\Admin\GeneralSettingController;
-use App\Http\Controllers\Admin\IntegrationSettingController;
-use App\Http\Controllers\Admin\LoginHistoryController;
-use App\Http\Controllers\Admin\PermissionController;
-use App\Http\Controllers\Admin\ProjectBuyerController;
-use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\Admin\ProjectEntryRequestController;
+use App\Http\Controllers\Admin\IntegrationSettingController;
 use App\Http\Controllers\Admin\ProjectExitRequestController;
-use App\Http\Controllers\Admin\ProjectInvestorController;
-use App\Http\Controllers\Admin\ReferenceController;
-use App\Http\Controllers\Admin\RoleController;
-use App\Http\Controllers\Admin\SystemLogController;
-use App\Http\Controllers\Admin\UserInterfaceController;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\AdminDashboardController;
-use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\Admin\InvestmentProjectController;
-use App\Http\Controllers\Admin\RevenueController;
-use App\Http\Controllers\Admin\IncomeController;
-use App\Http\Controllers\Admin\InvestorController;
-use App\Http\Controllers\Admin\ExpenseController;
-use App\Http\Controllers\Admin\DistributionController;
 use App\Http\Controllers\Admin\InvestmentContractController;
-use App\Http\Controllers\Admin\ReportController;
+use App\Http\Controllers\Admin\ProjectInvestorController;
+use App\Http\Controllers\Admin\GeneralSettingController;
 use App\Http\Controllers\Admin\IslamicFinanceController;
-use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\AdministrationController;
-use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Admin\CompanyDetailController;
+use App\Http\Controllers\Admin\UserInterfaceController;
+use App\Http\Controllers\Admin\LoginHistoryController;
+use App\Http\Controllers\Admin\ProjectBuyerController;
 use App\Http\Controllers\Admin\NotificationController;
-use App\Http\Controllers\Admin\ProjectCardController;
+use App\Http\Controllers\Admin\DistributionController;
+use App\Http\Controllers\Admin\SystemLogController;
+use App\Http\Controllers\Admin\ReferenceController;
+use App\Http\Controllers\Admin\InvestorController;
+use App\Http\Controllers\Admin\ProjectController;
+use App\Http\Controllers\Admin\RevenueController;
+use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\Admin\ExpenseController;
+use App\Http\Controllers\Admin\ReportController;
+use App\Http\Controllers\Admin\IncomeController;
+use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\UserController;
+use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'lang']], function () {
 
@@ -48,16 +44,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'l
      */
     //Projects
     Route::resource('projects', ProjectController::class);
-    Route::resource('project-cards', ProjectCardController::class)->names([
-        'index'   => 'project-cards.index',
-        'create'  => 'project-cards.create',
-        'store'   => 'project-cards.store',
-        'show'    => 'project-cards.show',
-        'edit'    => 'project-cards.edit',
-        'update'  => 'project-cards.update',
-        'destroy' => 'project-cards.destroy',
-    ]);
-
 
     //  Loyiha investorlar
     Route::resource('project-investors', ProjectInvestorController::class)->names([

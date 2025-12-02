@@ -49,7 +49,7 @@
             </h5>
             <div id="revenueChart"></div>
             <div class="mt-3 d-flex justify-content-between">
-                <small class="text-muted">{{ __('admin.charts.avg_income') }}: <strong>$2,850K</strong></small>
+                <small class="text-muted">{{ __('admin.charts.avg_income') }}: <strong>2,850,000 UZS</strong></small>
                 <small class="text-success"><i class="fas fa-arrow-up"></i> 18.5%</small>
             </div>
         </div>
@@ -64,7 +64,7 @@
             </h5>
             <div id="paymentsChart"></div>
             <div class="mt-3 d-flex justify-content-between">
-                <small class="text-muted">{{ __('admin.charts.avg_payment') }}: <strong>$530K</strong></small>
+                <small class="text-muted">{{ __('admin.charts.avg_payment') }}: <strong>530,000 UZS</strong></small>
                 <small class="text-danger"><i class="fas fa-arrow-up"></i> 12.3%</small>
             </div>
         </div>
@@ -89,7 +89,7 @@
                     </div>
                     <div class="col-4">
                         <small class="text-muted d-block">{{ __('admin.charts.avg_revenue') }}</small>
-                        <strong>$1,580K</strong>
+                        <strong>1,580,000 UZS</strong>
                     </div>
                     <div class="col-4">
                         <small class="text-muted d-block">{{ __('admin.charts.growth') }}</small>
@@ -137,7 +137,7 @@
             </h5>
             <div id="profitChart"></div>
             <div class="mt-3 d-flex justify-content-between">
-                <small class="text-muted">{{ __('admin.charts.avg_profit') }}: <strong>$820K</strong></small>
+                <small class="text-muted">{{ __('admin.charts.avg_profit') }}: <strong>820,000 UZS</strong></small>
                 <small class="text-success"><i class="fas fa-arrow-up"></i> 25.6%</small>
             </div>
         </div>
