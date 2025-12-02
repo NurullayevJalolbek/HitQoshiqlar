@@ -6,7 +6,7 @@
        TRANSLATION CONSTANTS
     ============================ */
     const TRANSLATIONS = {
-        id: "{{ __('ID') }}",
+        id: "№",
         period: "{{ __('Харажат даври') }}",
         account: "{{ __('Ҳисоб рақами') }}",
         amount: "{{ __('Умумий харажат қиймати') }}",
@@ -73,41 +73,41 @@
     ];
 
     let expenses = [
-        { 
-            id: 1, 
-            period: "2025-11", 
-            account: "HR-ACC-12", 
-            amount: 120000000, 
-            found: 35, 
-            not_found: 12, 
-            need_check: 4, 
-            currency: "UZS", 
-            user: "Jasur R.", 
-            updated_at: "2025-11-15" 
+        {
+            id: 1,
+            period: "2025-11",
+            account: "HR-ACC-12",
+            amount: 120000000,
+            found: 35,
+            not_found: 12,
+            need_check: 4,
+            currency: "UZS",
+            user: "Jasur R.",
+            updated_at: "2025-11-15"
         },
-        { 
-            id: 2, 
-            period: "2025-12", 
-            account: "ACC-304", 
-            amount: 85000, 
-            found: 9, 
-            not_found: 2, 
-            need_check: 1, 
-            currency: "USD", 
-            user: "Olim X.", 
-            updated_at: "2025-12-01" 
+        {
+            id: 2,
+            period: "2025-12",
+            account: "ACC-304",
+            amount: 85000,
+            found: 9,
+            not_found: 2,
+            need_check: 1,
+            currency: "USD",
+            user: "Olim X.",
+            updated_at: "2025-12-01"
         },
-        { 
-            id: 3, 
-            period: "2026-01", 
-            account: "FIN-77", 
-            amount: 300000000, 
-            found: 88, 
-            not_found: 21, 
-            need_check: 7, 
-            currency: "UZS", 
-            user: "Madina I.", 
-            updated_at: "2026-01-10" 
+        {
+            id: 3,
+            period: "2026-01",
+            account: "FIN-77",
+            amount: 300000000,
+            found: 88,
+            not_found: 21,
+            need_check: 7,
+            currency: "UZS",
+            user: "Madina I.",
+            updated_at: "2026-01-10"
         },
     ];
 
@@ -184,7 +184,7 @@
         const header = document.getElementById("table-header");
         if (!header) return;
 
-        header.innerHTML = expenseColumns.map(col => 
+        header.innerHTML = expenseColumns.map(col =>
             `<th class="p-3 text-start">${col.label}</th>`
         ).join("");
     }
@@ -198,7 +198,7 @@
 
         const body = document.getElementById("table-body");
         const emptyState = document.getElementById("emptyState");
-        
+
         if (!body) return;
 
         const filteredByTab = list.filter(x => {
@@ -220,7 +220,7 @@
         filteredByTab.forEach(item => {
             const row = document.createElement('tr');
             row.onclick = () => openCard(item.id);
-            
+
             row.innerHTML = `
                 <td class="p-3">${escapeHtml(item.id)}</td>
                 <td class="p-3">${escapeHtml(item.period)}</td>
@@ -233,12 +233,12 @@
                 <td class="p-3">${escapeHtml(item.user)}</td>
                 <td class="p-3">${formatDate(item.updated_at)}</td>
                 <td class="p-3">
-                    <button class="btn btn-sm btn-outline-warning" 
+                    <button class="btn btn-sm btn-outline-warning"
                             onclick="event.stopPropagation(); moveToNeedCheck(${item.id})"
                             title="${TRANSLATIONS.move_to_need_check}">
                         <i class="fas fa-arrow-right"></i>
                     </button>
-                    <button class="btn btn-sm btn-outline-primary" 
+                    <button class="btn btn-sm btn-outline-primary"
                             onclick="event.stopPropagation(); openCard(${item.id})"
                             title="{{ __('Кўриш') }}">
                         <i class="fas fa-eye"></i>
@@ -461,11 +461,11 @@
                 <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
             </div>
         `;
-        
+
         const container = document.querySelector('.breadcrumb-block');
         if (container) {
             container.insertAdjacentHTML('afterend', alertHtml);
-            
+
             setTimeout(() => {
                 const alert = document.querySelector('.alert');
                 if (alert) {
