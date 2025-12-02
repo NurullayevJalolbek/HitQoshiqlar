@@ -1,5 +1,5 @@
 <tr>
-    <th style="width: 90px">ID</th>
+    <th>№</th>
     <th>Loyiha nomi</th>
     <th>Kategoriya</th>
     <th>Tushum summasi</th>
