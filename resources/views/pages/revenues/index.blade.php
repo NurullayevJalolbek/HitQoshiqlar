@@ -1,72 +1,134 @@
 @extends('layouts.app')
 
 @push('customCss')
-<style>
-    .badge-identified { background-color: #16a34a; color: #fff; }
-    .badge-unidentified { background-color: #f59e0b; color: #fff; }
-    .badge-needs-clarify { background-color: #ef4444; color: #fff; }
-    .small-muted { font-size: 12px; color: #6b7280; }
-    .table tbody tr:hover { background: rgba(0,0,0,0.02); }
-    .cursor-pointer { cursor: pointer; }
-    .mono { font-family: monospace; }
-    .card-actions button { margin-right: 6px; }
-    .summary-card {
-        border-left: 4px solid #3b82f6;
-        transition: transform 0.2s, box-shadow 0.2s;
-    }
-    .summary-card:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    }
-    .summary-card.identified { border-left-color: #16a34a; }
-    .summary-card.unidentified { border-left-color: #f59e0b; }
-    .summary-card.needs-clarify { border-left-color: #ef4444; }
-    .action-btn {
-        transition: all 0.2s;
-    }
-    .action-btn:hover {
-        transform: scale(1.05);
-    }
-    .loading-overlay {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0,0,0,0.5);
-        z-index: 9999;
-        align-items: center;
-        justify-content: center;
-    }
-    .loading-overlay.active {
-        display: flex;
-    }
-    .empty-state {
-        padding: 3rem 0;
-        text-align: center;
-    }
-</style>
+    <style>
+        .badge-identified {
+            background-color: #16a34a;
+            color: #fff;
+        }
+
+        .badge-unidentified {
+            background-color: #f59e0b;
+            color: #fff;
+        }
+
+        .badge-needs-clarify {
+            background-color: #ef4444;
+            color: #fff;
+        }
+
+        .small-muted {
+            font-size: 12px;
+            color: #6b7280;
+        }
+
+        .table tbody tr:hover {
+            background: rgba(0, 0, 0, 0.02);
+        }
+
+        .cursor-pointer {
+            cursor: pointer;
+        }
+
+        .mono {
+            font-family: monospace;
+        }
+
+        .card-actions button {
+            margin-right: 6px;
+        }
+
+        .summary-card {
+            border-left: 4px solid #3b82f6;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .summary-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .summary-card.identified {
+            border-left-color: #16a34a;
+        }
+
+        .summary-card.unidentified {
+            border-left-color: #f59e0b;
+        }
+
+        .summary-card.needs-clarify {
+            border-left-color: #ef4444;
+        }
+
+        .action-btn {
+            transition: all 0.2s;
+        }
+
+        .action-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .loading-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .loading-overlay.active {
+            display: flex;
+        }
+
+        .empty-state {
+            padding: 3rem 0;
+            text-align: center;
+        }
+    </style>
 @endpush
 
 @section('breadcrumb')
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4 breadcrumb-block">
-    <div class="d-block mb-4 mb-md-0">
-        <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
-            <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
-                <li class="breadcrumb-item">
-                    <a href="{{ route('admin.dashboard') }}">
-                        <i class="fas fa-home"></i>
-                    </a>
-                </li>
-                <li class="breadcrumb-item active" aria-current="page">
-                    {{ __('Тушумлар') }}
-                </li>
-            </ol>
-        </nav>
-        <h2 class="h4">{{ __('Тушумлар (Revenues)') }}</h2>
+    <div
+        class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-3 breadcrumb-block px-3 mt-3"
+        style="border: 1px solid rgba(0,0,0,0.05); border-radius: 0.5rem; background-color: #ffffff; height: 60px">
+        <!-- Breadcrumb -->
+        <div class="d-block mb-2 mb-md-0">
+            <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
+                <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent mb-0">
+                    <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ __('admin.revenues') }}</li>
+                </ol>
+            </nav>
+        </div>
+
+        <!-- Tugmalar guruhi -->
+        <div class="d-flex gap-2 align-items-center flex-wrap">
+            <button class="btn btn-success btn-sm px-2 py-1" id="exportExcelBtn">
+                <i class="fas fa-file-excel me-1" style="font-size: 0.85rem;"></i> Excel
+            </button>
+
+            <button class="btn btn-info btn-sm text-white px-2 py-1" id="exportCsvBtn">
+                <i class="fas fa-file-csv me-1" style="font-size: 0.85rem;"></i> CSV
+            </button>
+
+            <button class="btn btn-warning btn-sm text-dark px-2 py-1" id="importBtn">
+                <i class="fas fa-file-import me-1" style="font-size: 0.85rem;"></i> Import
+            </button>
+
+            <button class="btn btn-sm p-2 d-flex align-items-center justify-content-center"
+                    type="button" data-bs-toggle="collapse"
+                    data-bs-target="#revenueFilterContent" aria-expanded="true"
+                    aria-controls="revenueFilterContent">
+                <i class="bi bi-sliders2" style="font-size: 1.3rem;"></i>
+            </button>
+        </div>
+
     </div>
-</div>
 @endsection
 
 @section('content')
@@ -92,30 +154,37 @@
     @endif
 
     <!-- Controls -->
-    <div class="d-flex flex-wrap gap-2 mb-3">
-        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#importModal">
-            <i class="fas fa-upload"></i> {{ __('Import (CSV)') }}
-        </button>
-        <a href="#" id="downloadTemplate" class="btn btn-outline-secondary">
-            <i class="fas fa-download"></i> {{ __('Шаблон юклаб олиш') }}
-        </a>
-        <button class="btn btn-success" id="exportBtn">
-            <i class="fas fa-file-export"></i> {{ __('Export CSV') }}
-        </button>
+    <div class="filter-card mb-3 mt-2 collapse show" id="revenueFilterContent" style="transition: all 0.3s ease;">
+        <div class="border rounded p-3" style="border-color: rgba(0,0,0,0.05); background-color: #fff;">
+            <div class="row g-3 align-items-end">
+                <!-- Qidiruv -->
+                <div class="col-md-4">
+                    <label for="searchInput">{{__('admin.search')}}</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-white"><i class="fas fa-search text-muted"></i></span>
+                        <input type="text" id="searchInput" class="form-control"
+                               placeholder="{{__('admin.full_name')}}, {{__('admin.login')}}, {{__('admin.email')}}...">
+                    </div>
+                </div>
 
-        <div class="ms-auto d-flex flex-wrap gap-2">
-            <input type="text" id="searchInput" class="form-control" 
-                   placeholder="{{ __('Қидириш: ID, ҳисоб, сумма, изоҳ') }}" 
-                   style="min-width: 250px;">
-            <select id="filterType" class="form-control" style="min-width: 180px;">
-                <option value="">{{ __('Барчаси') }}</option>
-                <option value="identified">{{ __('Аниқланган') }}</option>
-                <option value="unidentified">{{ __('Аниқланмаган') }}</option>
-                <option value="needs_clarify">{{ __('Аниқлик киритиладиган') }}</option>
-            </select>
-            <button class="btn btn-primary" id="applyFilter">
-                <i class="fas fa-search"></i> {{ __('Қидириш') }}
-            </button>
+                <div class="col-md-3">
+                    <label for="roleFilter"></label>
+                    <select id="filterType" class="form-control" style="min-width: 180px;">
+                        <option value="">{{ __('Барчаси') }}</option>
+                        <option value="identified">{{ __('Аниқланган') }}</option>
+                        <option value="unidentified">{{ __('Аниқланмаган') }}</option>
+                        <option value="needs_clarify">{{ __('Аниқлик киритиладиган') }}</option>
+                    </select>
+                </div>
+                <div class="col-md-2 d-flex gap-2">
+                    <button id="filterBtn" class="btn btn-primary w-50">
+                        <i class="fas fa-filter"></i> {{__('admin.search')}}
+                    </button>
+                    <button id="clearBtn" class="btn btn-warning w-50">
+                        {{__('admin.clear')}}
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -125,38 +194,34 @@
     </div>
 
     <!-- Table -->
-    <div class="card shadow border-0">
-        <div class="card-body p-0">
-            <div class="table-responsive">
-                <table class="table table-hover m-0">
-                    <thead class="table-light">
-                        <tr>
-                            <th>#</th>
-                            <th>{{ __('ID') }}</th>
-                            <th>{{ __('Давр') }}</th>
-                            <th>{{ __('Ҳисоб рақами') }}</th>
-                            <th>{{ __('Умумий сумма') }}</th>
-                            <th>{{ __('Аниқланган') }}</th>
-                            <th>{{ __('Аниқланмаган') }}</th>
-                            <th>{{ __('Аниқлик киритиш') }}</th>
-                            <th>{{ __('Валюта') }}</th>
-                            <th>{{ __('Юклаган') }}</th>
-                            <th>{{ __('Охирги янгиланиш') }}</th>
-                            <th>{{ __('Ҳолат') }}</th>
-                            <th>{{ __('Амаллар') }}</th>
-                        </tr>
-                    </thead>
-                    <tbody id="revenuesTableBody">
-                        <!-- JavaScript bilan to'ldiriladi -->
-                    </tbody>
-                </table>
-            </div>
-            
-            <div id="emptyState" class="empty-state" style="display: none;">
-                <i class="fas fa-inbox fa-3x text-muted mb-3"></i>
-                <p class="text-muted">{{ __('Маълумотлар топилмади') }}</p>
-            </div>
-        </div>
+    <div class="card card-body py-3 px-3 shadow border-0 table-wrapper table-responsive mt-3">
+        <table class="table revenue-table table-bordered table-hover table-striped align-items-center">
+            <thead class="table-dark">
+            <tr>
+                <th>№</th>
+                <th>{{ __('ID') }}</th>
+                <th>{{ __('Давр') }}</th>
+                <th>{{ __('Ҳисоб рақами') }}</th>
+                <th>{{ __('Умумий сумма') }}</th>
+                <th>{{ __('Аниқланган') }}</th>
+                <th>{{ __('Аниқланмаган') }}</th>
+                <th>{{ __('Аниқлик киритиш') }}</th>
+                <th>{{ __('Валюта') }}</th>
+                <th>{{ __('Юклаган') }}</th>
+                <th>{{ __('Охирги янгиланиш') }}</th>
+                <th>{{ __('Ҳолат') }}</th>
+                <th>{{ __('Амаллар') }}</th>
+            </tr>
+            </thead>
+            <tbody id="revenuesTableBody">
+            <!-- JavaScript bilan to'ldiriladi -->
+            </tbody>
+        </table>
+    </div>
+
+    <div id="emptyState" class="empty-state" style="display: none;">
+        <i class="fas fa-inbox fa-3x text-muted mb-3"></i>
+        <p class="text-muted">{{ __('Маълумотлар топилмади') }}</p>
     </div>
 
     <!-- Import Modal -->
@@ -214,7 +279,8 @@
                     <!-- tabs -->
                     <ul class="nav nav-tabs" id="detailTabs" role="tablist">
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link active" id="info-tab" data-bs-toggle="tab" data-bs-target="#infoTab">
+                            <button class="nav-link active" id="info-tab" data-bs-toggle="tab"
+                                    data-bs-target="#infoTab">
                                 {{ __('Маълумот') }}
                             </button>
                         </li>
