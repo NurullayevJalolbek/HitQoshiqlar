@@ -35,13 +35,13 @@
 
         @include('layouts.navbar')
 
-        <div class="main-content" style="padding-bottom: 80px;">
+        <div class="main-content" style="padding-bottom: 80px; min-height: calc(100vh - 250px)">
             @yield('breadcrumb')
 
             @yield('content')
         </div>
 
-         @include('layouts.footer')
+{{--         @include('layouts.footer')--}}
     </main>
 
     @include('layouts.js')
