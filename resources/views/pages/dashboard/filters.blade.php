@@ -1,4 +1,4 @@
-<div class="filter-card mb-3 mt-2 collapse show" id="dashboardFilterContent" style="transition: all 0.3s ease;">
+<div class="filter-card mb-3 mt-2 collapse show content-wrapper" id="dashboardFilterContent" style="transition: all 0.3s ease;">
     <div class="border rounded p-3" style="border-color: rgba(0,0,0,0.05); background-color: #fff;">
         <div class="row g-3 align-items-end">
                 {{-- Qidiruv --}}
