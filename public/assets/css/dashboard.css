@@ -6,14 +6,14 @@
 /* ===== Umumiy Styles ===== */
 /* Breadcrumb wrapper - oddiy */
 .breadcrumb-wrapper {
-    margin-bottom: 1.5rem;
+    padding: 0.75rem 1rem; /* tepaga-pastga biroz joy */
+    margin-bottom: 1rem;
 }
-
 .breadcrumb {
-    background: transparent;
-    padding: 0.5rem 0;
+    padding: 0.25rem 0; /* ichki padding minimal */
     margin-bottom: 0;
 }
+
 
 /* Dashboard header - gradient bilan */
 /* Ultra Simple Header - No border */
@@ -47,17 +47,17 @@
         flex-direction: column;
         align-items: flex-start !important;
     }
-    
+
     .dashboard-header-card .header-actions {
         width: 100%;
         margin-top: 1rem;
     }
-    
+
     .dashboard-header-card .btn-group {
         width: 100%;
         display: flex;
     }
-    
+
     .dashboard-header-card .btn-group .btn {
         flex: 1;
     }
@@ -104,16 +104,16 @@
         flex-direction: column;
         align-items: flex-start;
     }
-    
+
     .header-actions {
         width: 100%;
     }
-    
+
     .header-actions .btn-group {
         width: 100%;
         flex-wrap: wrap;
     }
-    
+
     .export-btn {
         flex: 1;
     }
@@ -369,25 +369,25 @@
     .breadcrumb-block {
         padding: 1.5rem 1rem;
     }
-    
+
     .page-title {
         font-size: 1.5rem;
     }
-    
+
     .metric-card h3 {
         font-size: 1.5rem;
     }
-    
+
     .metric-icon {
         width: 48px;
         height: 48px;
         font-size: 1.25rem;
     }
-    
+
     .chart-container {
         padding: 1rem;
     }
-    
+
     .filter-section {
         padding: 1rem;
     }
@@ -416,6 +416,7 @@
         opacity: 0;
         transform: translateY(10px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -429,7 +430,18 @@
 }
 
 /* Stagger animation for cards */
-.metric-card:nth-child(1) { animation-delay: 0.1s; }
-.metric-card:nth-child(2) { animation-delay: 0.2s; }
-.metric-card:nth-child(3) { animation-delay: 0.3s; }
-.metric-card:nth-child(4) { animation-delay: 0.4s; }
+.metric-card:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.metric-card:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.metric-card:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+.metric-card:nth-child(4) {
+    animation-delay: 0.4s;
+}

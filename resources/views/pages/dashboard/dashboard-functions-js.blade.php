@@ -1,6 +1,6 @@
 <script>
     /**
-     * Dashboard Functions - Clean Version
+     * Dashboard Functions - With Filter Integration
      * File: public/assets/js/dashboard-functions.js
      */
 
@@ -37,20 +37,15 @@
             invalidDate: "Boshlanish sanasi tugash sanasidan katta bo'lishi mumkin emas!",
             filterSuccess: "Filtrlar muvaffaqiyatli qo'llanildi!",
             projectTypes: {
-                tech: "Texnologiya",
-                real_estate: "Ko'chmas mulk",
-                agriculture: "Qishloq xo'jaligi",
-                manufacturing: "Ishlab chiqarish",
+                all: "Barchasi",
+                land: "Yer",
+                rent: "Ijara",
+                construction: "Qurilish",
             },
             investorTypes: {
                 active: "Faol",
                 passive: "Passiv",
                 all: "Barchasi",
-            },
-            projectTypes: {
-                land: "Yer",
-                rent: "Ijara",
-                construction: "Qurilish",
             },
         },
         ru: {
@@ -75,20 +70,15 @@
             invalidDate: "Дата начала не может быть больше даты окончания!",
             filterSuccess: "Фильтры успешно применены!",
             projectTypes: {
-                tech: "Технологии",
-                real_estate: "Недвижимость",
-                agriculture: "Сельское хозяйство",
-                manufacturing: "Производство",
+                all: "Все",
+                land: "Земля",
+                rent: "Аренда",
+                construction: "Строительство",
             },
             investorTypes: {
                 active: "Активный",
                 passive: "Пассивный",
                 all: "Все",
-            },
-            projectTypes: {
-                land: "Земля",
-                rent: "Аренда",
-                construction: "Строительство",
             },
         },
         en: {
@@ -113,20 +103,15 @@
             invalidDate: "Start date cannot be greater than end date!",
             filterSuccess: "Filters applied successfully!",
             projectTypes: {
-                tech: "Technology",
-                real_estate: "Real Estate",
-                agriculture: "Agriculture",
-                manufacturing: "Manufacturing",
+                all: "All",
+                land: "Land",
+                rent: "Rent",
+                construction: "Construction",
             },
             investorTypes: {
                 active: "Active",
                 passive: "Passive",
                 all: "All",
-            },
-            projectTypes: {
-                land: "Land",
-                rent: "Rent",
-                construction: "Construction",
             },
         },
         ar: {
@@ -151,20 +136,15 @@
             invalidDate: "لا يمكن أن يكون تاريخ البدء أكبر من تاريخ الانتهاء!",
             filterSuccess: "تم تطبيق الفلاتر بنجاح!",
             projectTypes: {
-                tech: "التكنولوجيا",
-                real_estate: "العقارات",
-                agriculture: "الزراعة",
-                manufacturing: "التصنيع",
+                all: "الكل",
+                land: "الأرض",
+                rent: "الإيجار",
+                construction: "البناء",
             },
             investorTypes: {
                 active: "نشط",
                 passive: "سلبي",
                 all: "الكل",
-            },
-            projectTypes: {
-                land: "الأرض",
-                rent: "الإيجار",
-                construction: "البناء",
             },
         },
     };
@@ -179,6 +159,83 @@
         }
 
         return value || key;
+    }
+
+    /**
+     * Filtrlarni qo'llash
+     */
+    function applyFilters() {
+        const startDate = document.getElementById("startDate")?.value;
+        const endDate = document.getElementById("endDate")?.value;
+        const projectType = document.getElementById("projectType")?.value;
+        const investorType = document.getElementById("investorType")?.value;
+
+        // Sana validatsiyasi
+        if (startDate && endDate) {
+            const start = new Date(startDate);
+            const end = new Date(endDate);
+
+            if (start > end) {
+                Swal.fire({
+                    icon: "error",
+                    title: t("error", currentFilters.language),
+                    text: t("invalidDate", currentFilters.language),
+                });
+                return;
+            }
+        }
+
+        // Filtrlarni saqlash
+        currentFilters = {
+            ...currentFilters,
+            startDate,
+            endDate,
+            projectType: projectType || 'all',
+            investorType: investorType || 'all'
+        };
+
+        // Grafiklarni yangilash
+        if (typeof window.applyChartFilters === 'function') {
+            window.applyChartFilters(currentFilters);
+        }
+
+        // Success xabari
+        Swal.fire({
+            icon: "success",
+            title: t("filterSuccess", currentFilters.language),
+            timer: 1500,
+            showConfirmButton: false,
+        });
+    }
+
+    /**
+     * Filtrlarni tozalash
+     */
+    function clearFilters() {
+        // Form elementlarini tozalash
+        const startDateEl = document.getElementById("startDate");
+        const endDateEl = document.getElementById("endDate");
+        const projectTypeEl = document.getElementById("projectType");
+        const investorTypeEl = document.getElementById("investorType");
+
+        if (startDateEl) startDateEl.value = "";
+        if (endDateEl) endDateEl.value = "";
+        if (projectTypeEl) projectTypeEl.value = "";
+        if (investorTypeEl) investorTypeEl.value = "";
+
+        // Filtrlarni reset qilish
+        currentFilters = {
+            startDate: null,
+            endDate: null,
+            projectType: "",
+            investorType: "",
+            language: currentFilters.language,
+        };
+
+        // Grafiklarni qayta yuklash
+        if (typeof window.reloadChartsWithLanguage === 'function') {
+            window.reloadChartsWithLanguage();
+        }
     }
 
     // Export Modal
@@ -306,8 +363,8 @@
             yPos += 7;
             doc.text(
                 `${t("period", lang)}: ${filters.startDate || "N/A"} - ${
-                filters.endDate || "N/A"
-            }`,
+            filters.endDate || "N/A"
+        }`,
                 20,
                 yPos
             );
@@ -316,9 +373,21 @@
                 yPos += 7;
                 doc.text(
                     `${t("projectType", lang)}: ${t(
-                    `projectTypes.${filters.projectType}`,
-                    lang
-                )}`,
+                `projectTypes.${filters.projectType}`,
+                lang
+            )}`,
+                    20,
+                    yPos
+                );
+            }
+
+            if (filters.investorType) {
+                yPos += 7;
+                doc.text(
+                    `${t("investorType", lang)}: ${t(
+                `investorTypes.${filters.investorType}`,
+                lang
+            )}`,
                     20,
                     yPos
                 );
@@ -421,6 +490,13 @@
                 data.push([
                     t("projectType", lang),
                     t(`projectTypes.${filters.projectType}`, lang),
+                ]);
+            }
+
+            if (filters.investorType) {
+                data.push([
+                    t("investorType", lang),
+                    t(`investorTypes.${filters.investorType}`, lang),
                 ]);
             }
 
@@ -547,4 +623,10 @@
         const el = document.getElementById(id);
         return el ? el.textContent.trim() : "N/A";
     }
+
+    // Global functions
+    window.applyFilters = applyFilters;
+    window.clearFilters = clearFilters;
+    window.exportData = exportData;
+    window.executeExport = executeExport;
 </script>
