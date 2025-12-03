@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\LanguageManagementController;
 use App\Http\Controllers\Admin\ProjectEntryRequestController;
 use App\Http\Controllers\Admin\IntegrationSettingController;
 use App\Http\Controllers\Admin\ProjectExitRequestController;
@@ -10,6 +11,8 @@ use App\Http\Controllers\Admin\IslamicFinanceController;
 use App\Http\Controllers\Admin\AdministrationController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\CompanyDetailController;
+use App\Http\Controllers\Admin\SystemTranslationController;
+use App\Http\Controllers\Admin\TemplateMessageController;
 use App\Http\Controllers\Admin\UserInterfaceController;
 use App\Http\Controllers\Admin\LoginHistoryController;
 use App\Http\Controllers\Admin\ProjectBuyerController;
@@ -109,8 +112,15 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'l
     Route::resource('integration-settings', IntegrationSettingController::class);
 
     //Foydalanuvchi interfeysi
-    Route::resource('user-interface', UserInterfaceController::class);
+    Route::prefix('user-interface')->name('user-interface.')->group(function () {
+        Route::get('/', [UserInterfaceController::class, 'index'])->name('index');
 
+        Route::get('/language-management', [LanguageManagementController::class, 'index'])->name('language-management.index');
+
+        Route::get('/system-translations', [SystemTranslationController::class, 'index'])->name('system-translations.index');
+
+        Route::get('/template-messages', [TemplateMessageController::class, 'index'])->name("template-messages.index");
+    });
 
     /*
      *
