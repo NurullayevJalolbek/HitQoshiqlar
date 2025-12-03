@@ -2,32 +2,48 @@
 
 @push('customCss')
     <style>
-        .card-section {
-            background-color: #ffffff; /* Kartaning fon rangi oq */
-            border: 2px solid #ffffff; /* Border rangi ham oq */
-            border-radius: 12px;
-            padding: 20px;
-            transition: transform 0.2s, box-shadow 0.2s;
-            text-align: center;
-            /* Ajralib turishi uchun shadow qo‘shish mumkin */
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+        /* Avvalgi kod bilan bir xil dizayn */
+        .directory-card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+            text-decoration: none !important;
+            height: 100%;
+            background-color: #fff;
+            display: block; /* Linklar uchun */
         }
 
-        .card-section:hover {
+        /* Hover effekti */
+        .directory-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
         }
 
-        .card-icon {
-            font-size: 2rem;
-            color: #374151; /* Icon rangi */
-            margin-bottom: 10px;
+        .directory-card .card-body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2.5rem 1rem; /* Ichki hoshiya kattalashtirildi */
+            min-height: 180px;    /* Eng kam balandlik belgilandi (bir xil turishi uchun) */
         }
 
-        .card-title {
-            font-weight: 600;
+        /* Iconlar stili */
+        .directory-icon {
+            font-size: 2.5rem;
+            color: #2e3e52;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Matn stili */
+        .directory-title {
             font-size: 1rem;
-            color: #374151; /* Text rangi */
+            font-weight: 600;
+            color: #2e3e52;
+            text-align: center;
+            margin: 0;
         }
     </style>
 @endpush
@@ -49,60 +65,64 @@
 @endsection
 
 @section('content')
-    <div class="row g-4 mt-2">
+    <div class="row mt-3">
 
-        <div class="col-md-4">
-            <a href="{{ route('admin.user-interface.language-management.index') }}" class="text-decoration-none">
-                <div class="card-section">
-                    <div class="card-icon">
-                        <i class="fas fa-language"></i>
-                    </div>
-                    <div class="card-title">Tillarni boshqarish</div>
+        {{-- 1. Tillarni boshqarish --}}
+        <div class="col-12 col-md-6 col-lg-4 mb-4">
+            <a href="{{ route('admin.user-interface.language-management.index') }}" class="card directory-card">
+                <div class="card-body">
+                    <i class="fas fa-language directory-icon"></i>
+                    <h5 class="directory-title">Tillarni boshqarish</h5>
                 </div>
             </a>
         </div>
 
-        <div class="col-md-4">
-            <a href="{{ route('admin.user-interface.system-translations.index') }}" class="text-decoration-none">
-                <div class="card-section">
-                    <div class="card-icon">
-                        <i class="fas fa-globe"></i>
-                    </div>
-                    <div class="card-title">Interfeys matnlarini tarjima qilish</div>
+        {{-- 2. Interfeys matnlarini tarjima qilish --}}
+        <div class="col-12 col-md-6 col-lg-4 mb-4">
+            <a href="{{ route('admin.user-interface.system-translations.index') }}" class="card directory-card">
+                <div class="card-body">
+                    <i class="fas fa-globe directory-icon"></i>
+                    <h5 class="directory-title">Interfeys matnlarini tarjima qilish</h5>
                 </div>
             </a>
         </div>
-        <div class="col-md-4">
-            <div class="card-section">
-                <div class="card-icon">
-                    <i class="fas fa-file-alt"></i>
-                </div>
-                <div class="card-title">Statik sahifalar va ma’lumotlar</div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card-section">
-                <div class="card-icon">
-                    <i class="fas fa-image"></i>
-                </div>
-                <div class="card-title">Multimedia va vizual elementlar</div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <a href="{{ route('admin.user-interface.template-messages.index') }}" class="text-decoration-none">
-                <div class="card-section">
-                    <div class="card-icon">
-                        <i class="fas fa-envelope"></i>
-                    </div>
-                    <div class="card-title">Shablon xabarlar matni</div>
+
+        {{-- 3. Statik sahifalar va ma'lumotlar --}}
+        <div class="col-12 col-md-6 col-lg-4 mb-4">
+            {{-- Agar link bo'lmasa href="#" qoldirildi, stil buzilmasligi uchun --}}
+            <a href="#" class="card directory-card">
+                <div class="card-body">
+                    <i class="fas fa-file-alt directory-icon"></i>
+                    <h5 class="directory-title">Statik sahifalar va ma’lumotlar</h5>
                 </div>
             </a>
         </div>
+
+        {{-- 4. Multimedia va vizual elementlar --}}
+        <div class="col-12 col-md-6 col-lg-4 mb-4">
+            <a href="#" class="card directory-card">
+                <div class="card-body">
+                    <i class="fas fa-image directory-icon"></i>
+                    <h5 class="directory-title">Multimedia va vizual elementlar</h5>
+                </div>
+            </a>
+        </div>
+
+        {{-- 5. Shablon xabarlar matni --}}
+        <div class="col-12 col-md-6 col-lg-4 mb-4">
+            <a href="{{ route('admin.user-interface.template-messages.index') }}" class="card directory-card">
+                <div class="card-body">
+                    <i class="fas fa-envelope directory-icon"></i>
+                    <h5 class="directory-title">Shablon xabarlar matni</h5>
+                </div>
+            </a>
+        </div>
+
     </div>
 @endsection
 
 @push('customJs')
     <script>
-        // JS Kodlar (agar kerak bo'lsa)
+        // JS Kodlar
     </script>
 @endpush
