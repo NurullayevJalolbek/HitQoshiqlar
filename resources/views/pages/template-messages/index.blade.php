@@ -66,9 +66,6 @@
 @section('content')
     <div class="card card-body shadow-sm mb-4 mt-3">
 
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <div class="section-title"><i class="fas fa-envelope me-1"></i> Shablon xabarlar</div>
-        </div>
 
         <!-- Tabs -->
         <div class="collapse show" id="messageTabsContent">
@@ -103,6 +100,7 @@
 
                 <!-- SMS Tab -->
                 <div class="tab-pane fade show active" id="sms" role="tabpanel">
+
                     <div class="d-flex justify-content-end mb-3">
                         <button class="btn btn-sm text-white" style="background-color: #1F2937; border: none;">
                             <i class="fas fa-plus me-1"></i> Yaratish
@@ -116,51 +114,39 @@
                             <th>SMS turi</th>
                             <th>SMS shablon</th>
                             <th>Yuborilishi sharti</th>
-                            <th>Yuborilishi kuni</th>
-                            <th>Yuborilishi soati</th>
                             <th>Izoh</th>
-                            <th>Holati</th>
                             <th>Amallar</th>
                         </tr>
                         </thead>
+
                         <tbody>
                         <tr>
                             <td>1</td>
                             <td>Tasdiqlash kodi</td>
-                            <td>✔️</td>
+                            <td>✔Hurmatli {FISH}, tizimga kirish uchun tasdiqlash kodingiz: {kod}. Ushbu kod 5 daqiqa davomida amal qiladi.
+                            </td>
                             <td>Ro‘yxatdan o‘tishda</td>
                             <td>Har doim</td>
-                            <td>Tezkor</td>
-                            <td>Asosiy SMS</td>
                             <td>
-                                <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" checked>
-                                </div>
-                            </td>
-                            <td>
-                                <button class="btn btn-sm btn-warning">Tahrirlash</button>
+                                                       <a href="#" class="btn btn-sm p-1" style="background:none;color:#f0bc74;"><i class="bi bi-pencil-fill"></i></a>
+
                             </td>
                         </tr>
+
                         <tr>
                             <td>2</td>
                             <td>Parol tiklash</td>
-                            <td>✔️</td>
+                            <td>Hurmatli {FISH}, parolingizni tiklash uchun kod: {kod}. Agar ushbu so‘rovni siz bajarmagan bo‘lsangiz, iltimos, e’tibor bermang.
+                            </td>
                             <td>Parol unutganda</td>
                             <td>Har doim</td>
-                            <td>Tezkor</td>
-                            <td>Foydalanuvchi xavfsizligi</td>
                             <td>
-                                <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox">
-                                </div>
-                            </td>
-                            <td>
-                                <button class="btn btn-sm btn-warning">Tahrirlash</button>
+                                                       <a href="#" class="btn btn-sm p-1" style="background:none;color:#f0bc74;"><i class="bi bi-pencil-fill"></i></a>
+
                             </td>
                         </tr>
                         </tbody>
                     </table>
-
                 </div>
 
                 <!-- Email Tab -->
@@ -177,46 +163,25 @@
                             <th>Email turi</th>
                             <th>Email shablon</th>
                             <th>Yuborilishi sharti</th>
-                            <th>Yuborilishi kuni</th>
-                            <th>Yuborilishi soati</th>
                             <th>Izoh</th>
-                            <th>Holati</th>
                             <th>Amallar</th>
                         </tr>
                         </thead>
+
                         <tbody>
                         <tr>
                             <td>1</td>
                             <td>Ro‘yxatdan o‘tish</td>
-                            <td>✔️</td>
+                            <td style="white-space: normal; max-width: 300px;">
+                                Assalomu alaykum, {FISH}! <br><br>
+                                Sizning ro‘yxatdan o‘tish jarayoningiz muvaffaqiyatli yakunlandi.
+                                Profilingiz faollashtirildi. <br><br>
+                                Hurmat bilan, Administratsiya.
+                            </td>
                             <td>Ro‘yxatdan o‘tishda</td>
                             <td>Har doim</td>
-                            <td>Tezkor</td>
-                            <td>Asosiy Email</td>
                             <td>
-                                <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" checked>
-                                </div>
-                            </td>
-                            <td>
-                                <button class="btn btn-sm btn-warning">Tahrirlash</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Parol tiklash</td>
-                            <td>✔️</td>
-                            <td>Parol unutganda</td>
-                            <td>Har doim</td>
-                            <td>Tezkor</td>
-                            <td>Foydalanuvchi xavfsizligi</td>
-                            <td>
-                                <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox">
-                                </div>
-                            </td>
-                            <td>
-                                <button class="btn btn-sm btn-warning">Tahrirlash</button>
+                        <a href="#" class="btn btn-sm p-1" style="background:none;color:#f0bc74;"><i class="bi bi-pencil-fill"></i></a>
                             </td>
                         </tr>
                         </tbody>
@@ -231,6 +196,7 @@
                             <i class="fas fa-plus me-1"></i> Yaratish
                         </button>
                     </div>
+
                     <table class="table table-striped table-bordered">
                         <thead class="table-dark">
                         <tr>
@@ -238,54 +204,41 @@
                             <th>Push turi</th>
                             <th>Push shablon</th>
                             <th>Yuborilishi sharti</th>
-                            <th>Yuborilishi kuni</th>
-                            <th>Yuborilishi soati</th>
                             <th>Izoh</th>
-                            <th>Holati</th>
                             <th>Amallar</th>
                         </tr>
                         </thead>
+
                         <tbody>
                         <tr>
                             <td>1</td>
                             <td>Yangilik xabari</td>
-                            <td>✔️</td>
-                            <td>Yangilik e’lonida</td>
-                            <td>Har doim</td>
-                            <td>Tezkor</td>
+                            <td>{FISH}, siz uchun yangi yangilik mavjud! Batafsil ko‘ring.
+                            </td>
+                            <td>Yangilik e’loni</td>
                             <td>Push xabari</td>
                             <td>
-                                <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" checked>
-                                </div>
-                            </td>
-                            <td>
-                                <button class="btn btn-sm btn-warning">Tahrirlash</button>
+                        <a href="#" class="btn btn-sm p-1" style="background:none;color:#f0bc74;"><i class="bi bi-pencil-fill"></i></a>
                             </td>
                         </tr>
+
                         <tr>
                             <td>2</td>
                             <td>Reklama xabari</td>
-                            <td>✔️</td>
+                            <td>{FISH}, siz uchun maxsus aksiya boshlandi! Shoshiling!
+                            </td>
                             <td>Promo paytida</td>
-                            <td>Har doim</td>
-                            <td>Tezkor</td>
                             <td>Push xabari</td>
                             <td>
-                                <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox">
-                                </div>
-                            </td>
-                            <td>
-                                <button class="btn btn-sm btn-warning">Tahrirlash</button>
+                        <a href="#" class="btn btn-sm p-1" style="background:none;color:#f0bc74;"><i class="bi bi-pencil-fill"></i></a>
                             </td>
                         </tr>
                         </tbody>
                     </table>
-
                 </div>
 
             </div>
+
 
         </div>
     </div>
