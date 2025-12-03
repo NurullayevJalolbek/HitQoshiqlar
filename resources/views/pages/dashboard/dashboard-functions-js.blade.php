@@ -1,10 +1,4 @@
 <script>
-    /**
-     * Dashboard Functions - With Filter Integration
-     * File: public/assets/js/dashboard-functions.js
-     */
-
-    // Global variables
     let currentFilters = {
         startDate: null,
         endDate: null,
@@ -13,7 +7,6 @@
         language: "uz",
     };
 
-    // Translations
     const translations = {
         uz: {
             reportTitle: "Investitsiya Dashboard Hisoboti",
