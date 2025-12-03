@@ -1,465 +1,337 @@
-{
-  "land_projects": [
-    {
-      "code": "ENVST-2024-001",
-      "name": "Chirchiq yaqinidagi tijorat zonasi",
-      "category": "land",
-      "status": "active",
-      "region": "Toshkent viloyati",
-      "district": "Chirchiq shahri",
-      "address": "Chirchiq-Toshkent yo'li, 5-km",
-      
-      "total_value": 5000000000,
-      "company_share": 2500000000,
-      "investor_share": 2500000000,
-      "min_investment": 10000000,
-      "collected": 1850000000,
-      
-      "yearly_profit_percent": 35,
-      "duration_months": 24,
-      "profit_type": "end_of_project",
-      
-      "land_area_sqm": 15000,
-      "land_area_hectare": 1.5,
-      "land_type": "commercial",
-      "purpose": "Savdo markazi va ofis binolari qurish",
-      "buy_price_sqm": 3000000,
-      "sell_price_sqm": 5000000,
-      
-      "infrastructure": [
-        "Toshkent-Chirchiq magistrali 500m",
-        "Elektr podstansiya 1km",
-        "Gaz magistrali mavjud",
-        "Suv ta'minoti tarmog'i"
-      ],
-      
-      "risk_level": "medium",
-      "round": 1,
-      "start_date": "2024-01-15",
-      "end_date": "2024-06-30"
-    },
-    {
-      "code": "ENVST-2024-004",
-      "name": "Samarqand yo'li savdo maydoni",
-      "category": "land",
-      "status": "active",
-      "region": "Toshkent viloyati",
-      "district": "Qibray tumani",
-      "address": "Toshkent-Samarqand yo'li, 12-km",
-      
-      "total_value": 8000000000,
-      "company_share": 4000000000,
-      "investor_share": 4000000000,
-      "min_investment": 15000000,
-      "collected": 2800000000,
-      
-      "yearly_profit_percent": 40,
-      "duration_months": 30,
-      "profit_type": "end_of_project",
-      
-      "land_area_sqm": 25000,
-      "land_area_hectare": 2.5,
-      "land_type": "commercial",
-      "purpose": "Yirik savdo-ko'ngilochar markaz",
-      "buy_price_sqm": 2800000,
-      "sell_price_sqm": 5200000,
-      
-      "infrastructure": [
-        "Magistral yo'l 100m",
-        "Metro stantsiyasi 3km (rejalashtirilgan)",
-        "Elektr va gaz",
-        "Kanal tizimi"
-      ],
-      
-      "risk_level": "medium",
-      "round": 1,
-      "start_date": "2024-03-01",
-      "end_date": "2024-10-31"
-    },
-    {
-      "code": "ENVST-2024-007",
-      "name": "Namangan shahar markazidagi yer",
-      "category": "land",
-      "status": "active",
-      "region": "Namangan viloyati",
-      "district": "Namangan shahri",
-      "address": "Navoi ko'chasi, 45",
-      
-      "total_value": 3000000000,
-      "company_share": 1500000000,
-      "investor_share": 1500000000,
-      "min_investment": 5000000,
-      "collected": 950000000,
-      
-      "yearly_profit_percent": 28,
-      "duration_months": 18,
-      "profit_type": "end_of_project",
-      
-      "land_area_sqm": 8000,
-      "land_area_hectare": 0.8,
-      "land_type": "residential",
-      "purpose": "Ko'p qavatli turar-joy binosi",
-      "buy_price_sqm": 3500000,
-      "sell_price_sqm": 5500000,
-      
-      "infrastructure": [
-        "Shahar markazi 500m",
-        "Barcha kommunikatsiyalar mavjud",
-        "Maktab 200m",
-        "Poliklinika 300m"
-      ],
-      
-      "risk_level": "low",
-      "round": 2,
-      "start_date": "2024-04-01",
-      "end_date": "2024-09-30"
-    }
-  ],
-
-  "construction_projects": [
-    {
-      "code": "ENVST-2024-002",
-      "name": "Yangi Toshkent turar-joy majmuasi B-blok",
-      "category": "construction",
-      "status": "active",
-      "region": "Toshkent shahri",
-      "district": "Yakkasaroy tumani",
-      "address": "Amir Temur ko'chasi, 125",
-      
-      "total_value": 25000000000,
-      "company_share": 13000000000,
-      "investor_share": 12000000000,
-      "min_investment": 50000000,
-      "collected": 8500000000,
-      
-      "yearly_profit_percent": 42,
-      "duration_months": 36,
-      "profit_type": "end_of_project",
-      
-      "building_type": "residential",
-      "total_area": 12000,
-      "floors": 12,
-      "apartments": 96,
-      "construction_stage": "structure",
-      "construction_start": "2024-03-01",
-      "construction_end": "2027-03-01",
-      "builder": "Grand Construction MChJ",
-      
-      "materials": [
-        "Armirlangan beton",
-        "Energiya tejovchi oynalar",
-        "Turk keramikasi",
-        "Schindler liftlari"
-      ],
-      
-      "apartments_info": [
-        {"type": "1-xonali", "count": 24, "area": 45, "price_sqm": 25000000},
-        {"type": "2-xonali", "count": 48, "area": 65, "price_sqm": 27000000},
-        {"type": "3-xonali", "count": 24, "area": 95, "price_sqm": 30000000}
-      ],
-      
-      "amenities": [
-        "2 ta yuqori tezlikdagi lift",
-        "Yopiq parking 100 o'rin",
-        "24/7 xavfsizlik",
-        "Bolalar maydoni",
-        "Fitnes zal",
-        "Minimarket"
-      ],
-      
-      "risk_level": "medium",
-      "round": 2,
-      "start_date": "2024-02-01",
-      "end_date": "2024-08-31"
-    },
-    {
-      "code": "ENVST-2024-005",
-      "name": "Samarqand Premium Residence",
-      "category": "construction",
-      "status": "active",
-      "region": "Samarqand viloyati",
-      "district": "Samarqand shahri",
-      "address": "Registon ko'chasi, 88",
-      
-      "total_value": 15000000000,
-      "company_share": 8000000000,
-      "investor_share": 7000000000,
-      "min_investment": 30000000,
-      "collected": 4200000000,
-      
-      "yearly_profit_percent": 38,
-      "duration_months": 30,
-      "profit_type": "end_of_project",
-      
-      "building_type": "residential",
-      "total_area": 8500,
-      "floors": 9,
-      "apartments": 72,
-      "construction_stage": "foundation",
-      "construction_start": "2024-05-15",
-      "construction_end": "2026-11-15",
-      "builder": "Samarqand Qurilish MChJ",
-      
-      "materials": [
-        "Zamonaviy kompozit materiallar",
-        "Nemis oyna tizimlari",
-        "Italyan plitka",
-        "Yuqori sifatli izolyatsiya"
-      ],
-      
-      "apartments_info": [
-        {"type": "1-xonali", "count": 18, "area": 42, "price_sqm": 18000000},
-        {"type": "2-xonali", "count": 36, "area": 62, "price_sqm": 20000000},
-        {"type": "3-xonali", "count": 18, "area": 88, "price_sqm": 22000000}
-      ],
-      
-      "amenities": [
-        "Lift Otis kompaniyasi",
-        "Ochiq va yopiq parking",
-        "Xavfsizlik tizimi",
-        "Yashil hudud",
-        "Sportchilar maydonchasi"
-      ],
-      
-      "risk_level": "low",
-      "round": 1,
-      "start_date": "2024-04-10",
-      "end_date": "2024-12-20"
-    },
-    {
-      "code": "ENVST-2024-008",
-      "name": "Buxoro Business Plaza",
-      "category": "construction",
-      "status": "active",
-      "region": "Buxoro viloyati",
-      "district": "Buxoro shahri",
-      "address": "Alpomish ko'chasi, 12",
-      
-      "total_value": 12000000000,
-      "company_share": 6500000000,
-      "investor_share": 5500000000,
-      "min_investment": 25000000,
-      "collected": 3100000000,
-      
-      "yearly_profit_percent": 35,
-      "duration_months": 28,
-      "profit_type": "end_of_project",
-      
-      "building_type": "commercial",
-      "total_area": 6000,
-      "floors": 7,
-      "apartments": 48,
-      "construction_stage": "planning",
-      "construction_start": "2024-07-01",
-      "construction_end": "2026-11-01",
-      "builder": "Buxoro Construction Group",
-      
-      "materials": [
-        "Zamonaviy fasad tizimlari",
-        "Energiya tejovchi texnologiyalar",
-        "Premium sinf materiallar"
-      ],
-      
-      "apartments_info": [
-        {"type": "Kichik ofis", "count": 24, "area": 45, "price_sqm": 22000000},
-        {"type": "O'rta ofis", "count": 18, "area": 75, "price_sqm": 24000000},
-        {"type": "Katta ofis", "count": 6, "area": 150, "price_sqm": 26000000}
-      ],
-      
-      "amenities": [
-        "3 ta tezkor lift",
-        "Konferens zallar",
-        "Kafeteriya",
-        "Parking 60 o'rin",
-        "Generator"
-      ],
-      
-      "risk_level": "medium",
-      "round": 1,
-      "start_date": "2024-05-15",
-      "end_date": "2024-11-30"
-    }
-  ],
-
-  "rent_projects": [
-    {
-      "code": "ENVST-2024-003",
-      "name": "Toshkent City biznes-markazi",
-      "category": "rent",
-      "status": "active",
-      "region": "Toshkent shahri",
-      "district": "Shayxontohur tumani",
-      "address": "Amir Temur prospekti, 107B",
-      
-      "total_value": 15000000000,
-      "company_share": 7500000000,
-      "investor_share": 7500000000,
-      "min_investment": 25000000,
-      "collected": 5200000000,
-      
-      "yearly_profit_percent": 18,
-      "duration_months": 60,
-      "profit_type": "monthly",
-      
-      "property_type": "office",
-      "total_area": 3500,
-      "total_units": 42,
-      "rented_units": 38,
-      "vacant_units": 4,
-      
-      "purchase_price": 14000000000,
-      "monthly_rent_per_unit": 35000000,
-      "monthly_income": 1330000000,
-      "yearly_yield": 11.4,
-      "occupancy_rate": 90.5,
-      "lease_duration": 24,
-      
-      "tenant_type": "commercial",
-      "condition": "renovated",
-      "management": "Premium Property Management MChJ",
-      "monthly_maintenance": 180000000,
-      
-      "amenities": [
-        "Markaziy konditsioner",
-        "3 ta yuqori tezlikdagi lift",
-        "Generator",
-        "Yopiq parking 80 o'rin",
-        "24/7 qabulxona",
-        "4 ta konferens-xona",
-        "Restoran va kafeteriya",
-        "Bank filiali"
-      ],
-      
-      "tenants": [
-        {"type": "IT kompaniyalar", "percent": 45},
-        {"type": "Konsalting", "percent": 25},
-        {"type": "Moliya", "percent": 20},
-        {"type": "Boshqalar", "percent": 10}
-      ],
-      
-      "risk_level": "low",
-      "round": 1,
-      "start_date": "2024-01-10",
-      "end_date": "2024-12-31"
-    },
-    {
-      "code": "ENVST-2024-006",
-      "name": "Chilonzor Shopping Mall",
-      "category": "rent",
-      "status": "active",
-      "region": "Toshkent shahri",
-      "district": "Chilonzor tumani",
-      "address": "Chilonzor ko'chasi, 56",
-      
-      "total_value": 20000000000,
-      "company_share": 10000000000,
-      "investor_share": 10000000000,
-      "min_investment": 30000000,
-      "collected": 6800000000,
-      
-      "yearly_profit_percent": 16,
-      "duration_months": 60,
-      "profit_type": "monthly",
-      
-      "property_type": "retail",
-      "total_area": 5500,
-      "total_units": 68,
-      "rented_units": 64,
-      "vacant_units": 4,
-      
-      "purchase_price": 19000000000,
-      "monthly_rent_per_unit": 28000000,
-      "monthly_income": 1792000000,
-      "yearly_yield": 11.3,
-      "occupancy_rate": 94.1,
-      "lease_duration": 36,
-      
-      "tenant_type": "mixed",
-      "condition": "new",
-      "management": "Mall Management Uzbekistan",
-      "monthly_maintenance": 280000000,
-      
-      "amenities": [
-        "Markaziy ventilyatsiya",
-        "4 ta lift",
-        "Eskalatorlar",
-        "Parking 200 o'rin",
-        "Xavfsizlik tizimi",
-        "Kino teatr",
-        "Bolalar o'yin maydoni",
-        "Food court"
-      ],
-      
-      "tenants": [
-        {"type": "Kiyim do'konlari", "percent": 30},
-        {"type": "Ovqatlanish", "percent": 25},
-        {"type": "Elektronika", "percent": 20},
-        {"type": "Maishiy buyumlar", "percent": 15},
-        {"type": "Boshqalar", "percent": 10}
-      ],
-      
-      "risk_level": "low",
-      "round": 1,
-      "start_date": "2024-02-15",
-      "end_date": "2024-12-31"
-    },
-    {
-      "code": "ENVST-2024-009",
-      "name": "Farg'ona Logistics Center",
-      "category": "rent",
-      "status": "active",
-      "region": "Farg'ona viloyati",
-      "district": "Farg'ona shahri",
-      "address": "Toshkent yo'li, 5-km",
-      
-      "total_value": 10000000000,
-      "company_share": 5000000000,
-      "investor_share": 5000000000,
-      "min_investment": 20000000,
-      "collected": 2900000000,
-      
-      "yearly_profit_percent": 14,
-      "duration_months": 48,
-      "profit_type": "quarterly",
-      
-      "property_type": "warehouse",
-      "total_area": 8000,
-      "total_units": 16,
-      "rented_units": 14,
-      "vacant_units": 2,
-      
-      "purchase_price": 9500000000,
-      "monthly_rent_per_unit": 45000000,
-      "monthly_income": 630000000,
-      "yearly_yield": 7.9,
-      "occupancy_rate": 87.5,
-      "lease_duration": 48,
-      
-      "tenant_type": "commercial",
-      "condition": "good",
-      "management": "Logistics Property Management",
-      "monthly_maintenance": 120000000,
-      
-      "amenities": [
-        "Yuqori shift",
-        "Yuk liftlari",
-        "Rampa 8 ta",
-        "Ochiq maydon",
-        "Xavfsizlik 24/7",
-        "Ofis xonalari",
-        "Sanitariya qismi"
-      ],
-      
-      "tenants": [
-        {"type": "Yirik optoviklar", "percent": 50},
-        {"type": "Distribyutorlar", "percent": 35},
-        {"type": "Boshqalar", "percent": 15}
-      ],
-      
-      "risk_level": "low",
-      "round": 1,
-      "start_date": "2024-03-20",
-      "end_date": "2024-11-30"
-    }
-  ]
-}
+[
+    [
+        {
+            "id": 1,
+            "code": "ENVST-2024-001",
+            "name": "Chirchiq yaqinidagi tijorat zonasi",
+            "category": "land",
+            "status": "active",
+            "region": "Toshkent viloyati",
+            "district": "Chirchiq shahri",
+            "address": "Chirchiq-Toshkent yo'li, 5-km",
+            "total_value": 5000000000,
+            "company_share": 2500000000,
+            "investor_share": 2500000000,
+            "min_investment": 10000000,
+            "collected": 1850000000,
+            "yearly_profit_percent": 35,
+            "duration_months": 24,
+            "profit_type": "end_of_project",
+            "land_area_sqm": 15000,
+            "land_area_hectare": 1.5,
+            "land_type": "commercial",
+            "purpose": "Savdo markazi va ofis binolari qurish",
+            "buy_price_sqm": 3000000,
+            "sell_price_sqm": 5000000,
+            "infrastructure": [
+                "Toshkent-Chirchiq magistrali 500m",
+                "Elektr podstansiya 1km",
+                "Gaz magistrali mavjud",
+                "Suv ta'minoti tarmog'i"
+            ],
+            "risk_level": "medium",
+            "round": 1,
+            "start_date": "2024-01-15",
+            "end_date": "2024-06-30"
+        },
+        {
+            "id": 2,
+            "code": "ENVST-2024-004",
+            "name": "Samarqand yo'li savdo maydoni",
+            "category": "land",
+            "status": "active",
+            "region": "Toshkent viloyati",
+            "district": "Qibray tumani",
+            "address": "Toshkent-Samarqand yo'li, 12-km",
+            "total_value": 8000000000,
+            "company_share": 4000000000,
+            "investor_share": 4000000000,
+            "min_investment": 15000000,
+            "collected": 2800000000,
+            "yearly_profit_percent": 40,
+            "duration_months": 30,
+            "profit_type": "end_of_project",
+            "land_area_sqm": 25000,
+            "land_area_hectare": 2.5,
+            "land_type": "commercial",
+            "purpose": "Yirik savdo-ko'ngilochar markaz",
+            "buy_price_sqm": 2800000,
+            "sell_price_sqm": 5200000,
+            "infrastructure": [
+                "Magistral yo'l 100m",
+                "Metro stantsiyasi 3km (rejalashtirilgan)",
+                "Elektr va gaz",
+                "Kanal tizimi"
+            ],
+            "risk_level": "medium",
+            "round": 1,
+            "start_date": "2024-03-01",
+            "end_date": "2024-10-31"
+        }
+    ],
+    [
+        {
+            "id": 3,
+            "code": "ENVST-2024-002",
+            "name": "Yangi Toshkent turar-joy majmuasi B-blok",
+            "category": "construction",
+            "status": "active",
+            "region": "Toshkent shahri",
+            "district": "Yakkasaroy tumani",
+            "address": "Amir Temur ko'chasi, 125",
+            "total_value": 25000000000,
+            "company_share": 13000000000,
+            "investor_share": 12000000000,
+            "min_investment": 50000000,
+            "collected": 8500000000,
+            "yearly_profit_percent": 42,
+            "duration_months": 36,
+            "profit_type": "end_of_project",
+            "building_type": "residential",
+            "total_area": 12000,
+            "floors": 12,
+            "apartments": 96,
+            "construction_stage": "structure",
+            "construction_start": "2024-03-01",
+            "construction_end": "2027-03-01",
+            "builder": "Grand Construction MChJ",
+            "materials": [
+                "Armirlangan beton",
+                "Energiya tejovchi oynalar",
+                "Turk keramikasi",
+                "Schindler liftlari"
+            ],
+            "apartments_info": [
+                {
+                    "type": "1-xonali",
+                    "count": 24,
+                    "area": 45,
+                    "price_sqm": 25000000
+                },
+                {
+                    "type": "2-xonali",
+                    "count": 48,
+                    "area": 65,
+                    "price_sqm": 27000000
+                },
+                {
+                    "type": "3-xonali",
+                    "count": 24,
+                    "area": 95,
+                    "price_sqm": 30000000
+                }
+            ],
+            "amenities": [
+                "2 ta yuqori tezlikdagi lift",
+                "Yopiq parking 100 o'rin",
+                "24\/7 xavfsizlik",
+                "Bolalar maydoni",
+                "Fitnes zal",
+                "Minimarket"
+            ],
+            "risk_level": "medium",
+            "round": 2,
+            "start_date": "2024-02-01",
+            "end_date": "2024-08-31"
+        },
+        {
+            "id": 4,
+            "code": "ENVST-2024-005",
+            "name": "Samarqand Premium Residence",
+            "category": "construction",
+            "status": "active",
+            "region": "Samarqand viloyati",
+            "district": "Samarqand shahri",
+            "address": "Registon ko'chasi, 88",
+            "total_value": 15000000000,
+            "company_share": 8000000000,
+            "investor_share": 7000000000,
+            "min_investment": 30000000,
+            "collected": 4200000000,
+            "yearly_profit_percent": 38,
+            "duration_months": 30,
+            "profit_type": "end_of_project",
+            "building_type": "residential",
+            "total_area": 8500,
+            "floors": 9,
+            "apartments": 72,
+            "construction_stage": "foundation",
+            "construction_start": "2024-05-15",
+            "construction_end": "2026-11-15",
+            "builder": "Samarqand Qurilish MChJ",
+            "materials": [
+                "Zamonaviy kompozit materiallar",
+                "Nemis oyna tizimlari",
+                "Italyan plitka",
+                "Yuqori sifatli izolyatsiya"
+            ],
+            "apartments_info": [
+                {
+                    "type": "1-xonali",
+                    "count": 18,
+                    "area": 42,
+                    "price_sqm": 18000000
+                },
+                {
+                    "type": "2-xonali",
+                    "count": 36,
+                    "area": 62,
+                    "price_sqm": 20000000
+                },
+                {
+                    "type": "3-xonali",
+                    "count": 18,
+                    "area": 88,
+                    "price_sqm": 22000000
+                }
+            ],
+            "amenities": [
+                "Lift Otis kompaniyasi",
+                "Ochiq va yopiq parking",
+                "Xavfsizlik tizimi",
+                "Yashil hudud",
+                "Sportchilar maydonchasi"
+            ],
+            "risk_level": "low",
+            "round": 1,
+            "start_date": "2024-04-10",
+            "end_date": "2024-12-20"
+        }
+    ],
+    [
+        {
+            "id": 5,
+            "code": "ENVST-2024-003",
+            "name": "Toshkent City biznes-markazi",
+            "category": "rent",
+            "status": "active",
+            "region": "Toshkent shahri",
+            "district": "Shayxontohur tumani",
+            "address": "Amir Temur prospekti, 107B",
+            "total_value": 15000000000,
+            "company_share": 7500000000,
+            "investor_share": 7500000000,
+            "min_investment": 25000000,
+            "collected": 5200000000,
+            "yearly_profit_percent": 18,
+            "duration_months": 60,
+            "profit_type": "monthly",
+            "property_type": "office",
+            "total_area": 3500,
+            "total_units": 42,
+            "rented_units": 38,
+            "vacant_units": 4,
+            "purchase_price": 14000000000,
+            "monthly_rent_per_unit": 35000000,
+            "monthly_income": 1330000000,
+            "yearly_yield": 11.4,
+            "occupancy_rate": 90.5,
+            "lease_duration": 24,
+            "tenant_type": "commercial",
+            "condition": "renovated",
+            "management": "Premium Property Management MChJ",
+            "monthly_maintenance": 180000000,
+            "amenities": [
+                "Markaziy konditsioner",
+                "3 ta yuqori tezlikdagi lift",
+                "Generator",
+                "Yopiq parking 80 o'rin",
+                "24\/7 qabulxona",
+                "4 ta konferens-xona",
+                "Restoran va kafeteriya",
+                "Bank filiali"
+            ],
+            "tenants": [
+                {
+                    "type": "IT kompaniyalar",
+                    "percent": 45
+                },
+                {
+                    "type": "Konsalting",
+                    "percent": 25
+                },
+                {
+                    "type": "Moliya",
+                    "percent": 20
+                },
+                {
+                    "type": "Boshqalar",
+                    "percent": 10
+                }
+            ],
+            "risk_level": "low",
+            "round": 1,
+            "start_date": "2024-01-10",
+            "end_date": "2024-12-31"
+        },
+        {
+            "id": 6,
+            "code": "ENVST-2024-006",
+            "name": "Chilonzor Shopping Mall",
+            "category": "rent",
+            "status": "active",
+            "region": "Toshkent shahri",
+            "district": "Chilonzor tumani",
+            "address": "Chilonzor ko'chasi, 56",
+            "total_value": 20000000000,
+            "company_share": 10000000000,
+            "investor_share": 10000000000,
+            "min_investment": 30000000,
+            "collected": 6800000000,
+            "yearly_profit_percent": 16,
+            "duration_months": 60,
+            "profit_type": "monthly",
+            "property_type": "retail",
+            "total_area": 5500,
+            "total_units": 68,
+            "rented_units": 64,
+            "vacant_units": 4,
+            "purchase_price": 19000000000,
+            "monthly_rent_per_unit": 28000000,
+            "monthly_income": 1792000000,
+            "yearly_yield": 11.3,
+            "occupancy_rate": 94.1,
+            "lease_duration": 36,
+            "tenant_type": "mixed",
+            "condition": "new",
+            "management": "Mall Management Uzbekistan",
+            "monthly_maintenance": 280000000,
+            "amenities": [
+                "Markaziy ventilyatsiya",
+                "4 ta lift",
+                "Eskalatorlar",
+                "Parking 200 o'rin",
+                "Xavfsizlik tizimi",
+                "Kino teatr",
+                "Bolalar o'yin maydoni",
+                "Food court"
+            ],
+            "tenants": [
+                {
+                    "type": "Kiyim do'konlari",
+                    "percent": 30
+                },
+                {
+                    "type": "Ovqatlanish",
+                    "percent": 25
+                },
+                {
+                    "type": "Elektronika",
+                    "percent": 20
+                },
+                {
+                    "type": "Maishiy buyumlar",
+                    "percent": 15
+                },
+                {
+                    "type": "Boshqalar",
+                    "percent": 10
+                }
+            ],
+            "risk_level": "low",
+            "round": 1,
+            "start_date": "2024-02-15",
+            "end_date": "2024-12-31"
+        }
+    ]
+]

@@ -16,7 +16,7 @@ return [
     'Personal information' => "Shaxsiy ma'lumotlar",
     'Logout' => "Chiqish",
     'no_role' => "Rol yo'q",
-    'dashboard' => "Boshqaruv paneli",
+    'dashboard' => "Dashboard",
     'users' => "Foydalanuvchilar",
 
     // Qisqartirilgan sidebar nomlari
