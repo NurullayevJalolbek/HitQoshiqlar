@@ -36,22 +36,20 @@
 
             <div class="d-flex gap-4">
                 <button class="btn btn-primary btn-sm">
-                    + Yangi til qo‘shish
+                    {{__('admin.create')}}
                 </button>
 
-                <button class="btn btn-sm rounded-pill px-3 py-2 d-flex align-items-center justify-content-center"
+                <button class="btn btn-sm p-2 d-flex align-items-center justify-content-center"
                         type="button" data-bs-toggle="collapse"
                         data-bs-target="#languageManagementTableContent" aria-expanded="true"
-                        aria-controls="languageManagementTableContent" id="languageManagementTableBtn"
-                        style="background-color: #1F2937; color: #ffffff;">
-                    <i class="bi bi-caret-down-fill me-2" id="languageManagementTableIcon" style="color: #ffffff;"> </i>
-                    <span id="languageManagementTableText">Yopish</span>
+                        aria-controls="languageManagementTableContent">
+                    <i class="bi bi-sliders2" style="font-size: 1.3rem;"></i>
                 </button>
             </div>
         </div>
 
         <div class="collapse hidden" id="languageManagementTableContent">
-            <table class="table table-bordered">
+            <table class="table language-table table-bordered table-hover table-striped align-items-center">
                 <thead class="table-dark">
                 <tr>
                     <th style="width:50px;">#</th>
@@ -141,6 +139,42 @@
 
 
     {{-- 2. INTERFEYS TАRЖIMALARI --}}
+    @php
+        $data = [];
+
+
+        foreach ($languages as $lang) {
+
+            $code = $lang->url;
+            $file = base_path("lang/$code/admin.php");
+            $data[$code] = file_exists($file) ? include $file : [];
+        }
+        $baseKeys = array_keys($data['uz'] ?? []);
+
+
+
+
+
+
+
+
+         function renderValue($value, $prefix = '')
+            {
+                // Agar array bo‘lsa — har bir elementni alohida ko‘rsatamiz
+                if (is_array($value)) {
+                    $html = '';
+                    foreach ($value as $k => $v) {
+                        $html .= renderValue($v, $prefix . $k . '. ');
+                    }
+                    return $html;
+                }
+
+                // Agar string bo‘lsa — to‘g‘ridan-to‘g‘ri chiqaramiz
+                return "<div>{$prefix}{$value}</div>";
+            }
+    @endphp
+
+
     <div class="card card-body shadow-sm mb-4">
         <!-- Sarlavha va toggle tugma -->
         <div class="d-flex justify-content-between align-items-center mb-3">
@@ -149,20 +183,21 @@
             </div>
 
             <!-- Toggle tugma icon bilan -->
-            <button class="btn btn-sm rounded-pill px-3 py-2 d-flex align-items-center justify-content-center"
+            <button class="btn btn-sm p-2 d-flex align-items-center justify-content-center"
                     type="button" data-bs-toggle="collapse"
                     data-bs-target="#interfaceTextTableContent" aria-expanded="true"
-                    aria-controls="interfaceTextTableContent" id="interfaceTextTableBtn"
-                    style="background-color: #1F2937; color: #ffffff;">
-                <i class="bi bi-caret-down-fill me-2" id="languageManagementTableIcon" style="color: #ffffff;"> </i>
-                <span id="languageManagementTableText">Yopish</span>
+                    aria-controls="interfaceTextTableContent">
+                <i class="bi bi-sliders2" style="font-size: 1.3rem;"></i>
             </button>
         </div>
 
 
-        <!-- Jadval collapse ichida -->
-        <div class="collapse hidden " id="interfaceTextTableContent">
-            <table class="table table-striped">
+            <!-- Jadval collapse ichida -->
+
+
+        <div class="collapse hidden" id="interfaceTextTableContent">
+            <table class="table user-table table-bordered table-hover table-striped align-items-center"
+                   id="interfaceTable">
                 <thead class="table-dark">
                 <tr>
                     <th>#</th>
@@ -170,152 +205,46 @@
                     <th>UZ</th>
                     <th>RU</th>
                     <th>EN</th>
+                    <th>AR</th>
                     <th class="text-center">Amallar</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>login_button</td>
-                    <td>Kirish</td>
-                    <td>Войти</td>
-                    <td>Login</td>
-                    <td class="text-center d-flex justify-content-center gap-2">
-                        <a href="#" class="btn btn-sm p-1" style="background:none;color:#f0bc74;">
-                            <i class="bi bi-pencil-fill"></i>
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>register_button</td>
-                    <td>Ro‘yxatdan o‘tish</td>
-                    <td>Регистрация</td>
-                    <td>Register</td>
-                    <td class="text-center d-flex justify-content-center gap-2">
-                        <a href="#" class="btn btn-sm p-1" style="background:none;color:#f0bc74;">
-                            <i class="bi bi-pencil-fill"></i>
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>logout_button</td>
-                    <td>Chiqish</td>
-                    <td>Выйти</td>
-                    <td>Logout</td>
-                    <td class="text-center d-flex justify-content-center gap-2">
-                        <a href="#" class="btn btn-sm p-1" style="background:none;color:#f0bc74;">
-                            <i class="bi bi-pencil-fill"></i>
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>4</td>
-                    <td>dashboard_title</td>
-                    <td>Boshqaruv paneli</td>
-                    <td>Панель управления</td>
-                    <td>Dashboard</td>
-                    <td class="text-center d-flex justify-content-center gap-2">
-                        <a href="#" class="btn btn-sm p-1" style="background:none;color:#f0bc74;">
-                            <i class="bi bi-pencil-fill"></i>
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>5</td>
-                    <td>save_button</td>
-                    <td>Saqlash</td>
-                    <td>Сохранить</td>
-                    <td>Save</td>
-                    <td class="text-center d-flex justify-content-center gap-2">
-                        <a href="#" class="btn btn-sm p-1" style="background:none;color:#f0bc74;">
-                            <i class="bi bi-pencil-fill"></i>
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>6</td>
-                    <td>cancel_button</td>
-                    <td>Bekor qilish</td>
-                    <td>Отмена</td>
-                    <td>Cancel</td>
-                    <td class="text-center d-flex justify-content-center gap-2">
-                        <a href="#" class="btn btn-sm p-1" style="background:none;color:#f0bc74;">
-                            <i class="bi bi-pencil-fill"></i>
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>7</td>
-                    <td>delete_button</td>
-                    <td>O‘chirish</td>
-                    <td>Удалить</td>
-                    <td>Delete</td>
-                    <td class="text-center d-flex justify-content-center gap-2">
-                        <a href="#" class="btn btn-sm p-1" style="background:none;color:#f0bc74;">
+                @foreach ($baseKeys as $index => $key)
+                    <tr>
+                        <td>{{ $index + 1 }}</td>
+                        <td>
+                        <span class="badge rounded-pill text-white" style="background-color: #1F2937;">
+                            {{ $key }}
+                        </span>
+                        </td>
+                        <td>{!! renderValue($data['uz'][$key] ?? '') !!}</td>
+                        <td>{!! renderValue($data['ru'][$key] ?? '') !!}</td>
+                        <td>{!! renderValue($data['en'][$key] ?? '') !!}</td>
+                        <td>{!! renderValue($data['ar'][$key] ?? '') !!}</td>
 
-
-                            <i class="bi bi-pencil-fill"></i>
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>8</td>
-                    <td>edit_button</td>
-                    <td>Tahrirlash</td>
-                    <td>Редактировать</td>
-                    <td>Edit</td>
-                    <td class="text-center d-flex justify-content-center gap-2">
-                        <a href="#" class="btn btn-sm p-1" style="background:none;color:#f0bc74;">
-                            <i class="bi bi-pencil-fill"></i>
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>9</td>
-                    <td>search_placeholder</td>
-                    <td>Izlash...</td>
-                    <td>Поиск...</td>
-                    <td>Search...</td>
-                    <td class="text-center d-flex justify-content-center gap-2">
-                        <a href="#" class="btn btn-sm p-1" style="background:none;color:#f0bc74;">
-                            <i class="bi bi-pencil-fill"></i>
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>10</td>
-                    <td>notification_label</td>
-                    <td>Bildirishnomalar</td>
-                    <td>Уведомления</td>
-                    <td>Notifications</td>
-                    <td class="text-center d-flex justify-content-center gap-2">
-                        <a href="#" class="btn btn-sm p-1" style="background:none;color:#f0bc74;">
-                            <i class="bi bi-pencil-fill"></i>
-                        </a>
-                    </td>
-                </tr>
+                        <td class="text-center">
+                            <a href="#" class="btn btn-sm p-1" style="background:none;color:#f0bc74;">
+                                <i class="bi bi-pencil-fill"></i>
+                            </a>
+                        </td>
+                    </tr>
+                @endforeach
                 </tbody>
             </table>
+
+            <!-- Pagination -->
+            <div class="d-flex justify-content-start p-2">
+                <nav>
+                    <ul class="pagination pagination-sm mb-0" id="paginationNumbers">
+                        {{-- JS orqali yaratiladi --}}
+                    </ul>
+                </nav>
+            </div>
+
         </div>
     </div>
 
-    <!-- Iconni rotate qilish uchun kichik JS -->
-    <script>
-        const collapseElement = document.getElementById('translationTable');
-        const toggleIcon = document.getElementById('toggleIcon');
-
-        collapseElement.addEventListener('shown.bs.collapse', () => {
-            toggleIcon.classList.remove('bi-chevron-down');
-            toggleIcon.classList.add('bi-chevron-up');
-        });
-
-        collapseElement.addEventListener('hidden.bs.collapse', () => {
-            toggleIcon.classList.remove('bi-chevron-up');
-            toggleIcon.classList.add('bi-chevron-down');
-        });
-    </script>
 
 
 
@@ -444,33 +373,84 @@
 
 @endsection
 @push('customJs')
+    {{--    Tizim tillari uchun paginatsa--}}
     <script>
-        function initFilterToggle(buttonId, contentId, iconId, textId) {
-            const collapseEl = document.getElementById(contentId);
-            const button = document.getElementById(buttonId);
-            const icon = document.getElementById(iconId);
-            const text = document.getElementById(textId);
+        document.addEventListener("DOMContentLoaded", function () {
+            const rowsPerPage = 10;
+            const table = document.getElementById("interfaceTable");
+            const tbody = table.querySelector("tbody");
+            const rows = tbody.querySelectorAll("tr");
 
-            collapseEl.addEventListener('shown.bs.collapse', () => {
-                console.log('ishladi yopish');
+            let currentPage = 1;
+            const totalRows = rows.length;
+            const totalPages = Math.ceil(totalRows / rowsPerPage);
 
-                icon.classList.remove('bi-caret-up-fill');
-                icon.classList.add('bi-caret-down-fill');
-                text.textContent = 'Yopish';
-            });
+            const paginationNumbers = document.getElementById("paginationNumbers");
 
-            collapseEl.addEventListener('hidden.bs.collapse', () => {
-                console.log('ishladi ochish');
-                icon.classList.remove('bi-caret-down-fill');
-                icon.classList.add('bi-caret-up-fill');
-                text.textContent = 'Ochish';
-            });
-        }
 
-        document.addEventListener('DOMContentLoaded', function () {
-            initFilterToggle('languageManagementTableBtn', 'languageManagementTableContent', 'languageManagementTableIcon', 'languageManagementTableText')
+            /* ====================
+               SAHIFANI KO'RSATISH
+            ==================== */
+            function showPage(page) {
+                const start = (page - 1) * rowsPerPage;
+                const end = start + rowsPerPage;
+
+                rows.forEach((row, index) => {
+                    row.style.display = (index >= start && index < end) ? "" : "none";
+                });
+
+                renderPagination();
+            }
+
+
+            /* ============================
+               PAGINATION RAQAMLARINI CHIZISH
+            ============================ */
+            function renderPagination() {
+                paginationNumbers.innerHTML = "";
+
+                // OLDINGI
+                paginationNumbers.innerHTML += `
+            <li class="page-item ${currentPage === 1 ? 'disabled' : ''}">
+                <a class="page-link" style="cursor:pointer;" onclick="goPage(${currentPage - 1})">«</a>
+            </li>
+        `;
+
+                // RAQAMLAR
+                for (let i = 1; i <= totalPages; i++) {
+                    paginationNumbers.innerHTML += `
+                <li class="page-item ${currentPage === i ? 'active' : ''}">
+                    <a class="page-link" style="cursor:pointer;" onclick="goPage(${i})">${i}</a>
+                </li>
+            `;
+                }
+
+                // KEYINGI
+                paginationNumbers.innerHTML += `
+            <li class="page-item ${currentPage === totalPages ? 'disabled' : ''}">
+                <a class="page-link" style="cursor:pointer;" onclick="goPage(${currentPage + 1})">»</a>
+            </li>
+        `;
+            }
+
+
+            /* ============================
+               GLOBAL FUNKSIYA
+               (onclick uchun kerak)
+            ============================ */
+            window.goPage = function (page) {
+                if (page >= 1 && page <= totalPages) {
+                    currentPage = page;
+                    showPage(currentPage);
+                }
+            }
+
+
+            // INITIAL
+            showPage(currentPage);
         });
     </script>
+
 @endpush
 
 
