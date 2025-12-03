@@ -23,6 +23,15 @@
         .directory-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            background-color: #1F2937; /* Hover bo‘lganda fon rangi */
+        }
+
+        /* Hover bo‘lganda ichidagi icon va matnlarni oq rangga aylantirish */
+        .directory-card:hover .directory-icon,
+        .directory-card:hover .directory-title,
+        .directory-card:hover .directory-subtitle {
+            color: #ffffff;
+            transition: color 0.3s ease-in-out;
         }
 
         .directory-card .card-body {
@@ -33,24 +42,28 @@
         /* Iconlar stili */
         .directory-icon {
             font-size: 2.5rem;
-            color: #344767; /* To'q ko'k/kulrang tus (rasmdagidek) */
+            color: #2a3441; /* To'q ko'k/kulrang tus (rasmdagidek) */
             margin-bottom: 1rem;
+            transition: color 0.3s ease-in-out; /* Hoverga silliq o‘tish */
         }
 
         /* Matn stili */
         .directory-title {
             font-size: 1.1rem;
             font-weight: 600;
-            color: #344767;
+            color: #2a3441;
             margin-bottom: 0.5rem;
+            transition: color 0.3s ease-in-out; /* Hoverga silliq o‘tish */
         }
 
         /* Kichik tavsif matni (ixtiyoriy, agar kerak bo'lsa) */
         .directory-subtitle {
             font-size: 0.85rem;
             color: #7b809a;
+            transition: color 0.3s ease-in-out; /* Hoverga silliq o‘tish */
         }
     </style>
+
 @endpush
 
 @section('breadcrumb')

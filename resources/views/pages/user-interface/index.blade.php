@@ -19,6 +19,14 @@
         .directory-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+            background-color: #1F2937; /* Hover fon rangi */
+        }
+
+        /* Hover bo‘lganda ichidagi icon va matnlarni oq rangga aylantirish */
+        .directory-card:hover .directory-icon,
+        .directory-card:hover .directory-title {
+            color: #ffffff;
+            transition: color 0.3s ease-in-out;
         }
 
         .directory-card .card-body {
@@ -35,6 +43,7 @@
             font-size: 2.5rem;
             color: #2e3e52;
             margin-bottom: 1.5rem;
+            transition: color 0.3s ease-in-out;
         }
 
         /* Matn stili */
@@ -44,6 +53,7 @@
             color: #2e3e52;
             text-align: center;
             margin: 0;
+            transition: color 0.3s ease-in-out;
         }
     </style>
 @endpush
