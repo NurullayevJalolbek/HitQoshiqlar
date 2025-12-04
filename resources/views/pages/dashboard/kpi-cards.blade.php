@@ -1,3 +1,27 @@
+<!-- Chart Mode Switcher -->
+<div class="row">
+    <div class="col-12">
+        <div class="card chart-mode-card">
+            <div
+                class="card-body d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center gap-3">
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-primary btn-sm" id="monthlyBtn"
+                        onclick="switchChartMode('monthly')">
+                        <i class="fas fa-calendar-alt me-1"></i> {{ __('admin.charts.monthly') }}
+                    </button>
+                    <button type="button" class="btn btn-outline-primary btn-sm" id="dailyBtn"
+                        onclick="switchChartMode('daily')">
+                        <i class="fas fa-calendar-day me-1"></i> {{ __('admin.charts.daily') }}
+                    </button>
+                </div>
+                <small class="text-muted">
+                    <i class="fas fa-sync-alt me-1"></i>
+                    {{ __('admin.charts.last_update') }}: <span id="updateTimestamp" class="fw-semibold">--:--</span>
+                </small>
+            </div>
+        </div>
+    </div>
+</div>
 <!-- KPI Kartalar -->
 <div class="row g-4 mb-4">
     <!-- Jami Investorlar -->
@@ -9,6 +33,7 @@
                         <div id="chart-users"></div>
                     </div>
                     <div class="col-12 col-sm-6 col-xl-12 col-xxl-6 ps-xxl-4 pe-xxl-0">
+                        <h2 class="fs-5 fw-normal mb-1">{{ __('admin.kpi.active_investors') }}</h2>
                         <h3 class="fw-extrabold mb-1" data-kpi="totalInvestors">945</h3>
                         <span class="text-success fw-bolder me-1" data-trend="investorsTrend">20.5%</span>
                         <small class="d-flex align-items-center">
@@ -44,6 +69,7 @@
                         <div id="chart-revenue"></div>
                     </div>
                     <div class="col-12 col-xxl-6 ps-xxl-4 pe-xl-0">
+                        <h2 class="fs-5 fw-normal mb-1">{{ __('admin.kpi.total_investment') }}</h2>
                         <h3 class="fw-extrabold mb-1" data-kpi="totalInvestment">88,000,000 k</h3>
                         <span class="text-success fw-bolder me-1" data-trend="investmentTrend">18.5%</span>
                         <small class="d-flex align-items-center">
