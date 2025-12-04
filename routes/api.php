@@ -11,3 +11,5 @@ Route::put('/projects/{id}', [ProjectController::class, 'update']);
 Route::delete('/projects/{id}', [ProjectController::class, 'destroy']);
 Route::get('/projects/{id}', [ProjectController::class, 'show']);
 
+
+Route::get('dashboard', [DashboardController::class, 'index']);

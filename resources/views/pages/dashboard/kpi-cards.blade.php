@@ -9,8 +9,8 @@
                         <div id="chart-users"></div>
                     </div>
                     <div class="col-12 col-sm-6 col-xl-12 col-xxl-6 ps-xxl-4 pe-xxl-0">
-                        <h2 class="fs-5 fw-normal mb-1">Users</h2>
-                        <h3 class="fw-extrabold mb-1">15.3k</h3>
+                        <h3 class="fw-extrabold mb-1" data-kpi="totalInvestors">945</h3>
+                        <span class="text-success fw-bolder me-1" data-trend="investorsTrend">20.5%</span>
                         <small class="d-flex align-items-center">
                             <svg class="icon icon-xxs text-gray-400 me-1" fill="currentColor" viewBox="0 0 20 20"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -44,8 +44,8 @@
                         <div id="chart-revenue"></div>
                     </div>
                     <div class="col-12 col-xxl-6 ps-xxl-4 pe-xl-0">
-                        <h2 class="fs-5 fw-normal mb-1">{{ __('admin.kpi.total_investment') }}</h2>
-                        <h3 class="fw-extrabold mb-1">$253,594</h3>
+                        <h3 class="fw-extrabold mb-1" data-kpi="totalInvestment">88,000,000 k</h3>
+                        <span class="text-success fw-bolder me-1" data-trend="investmentTrend">18.5%</span>
                         <small class="d-flex align-items-center">
                             <svg class="icon icon-xxs text-gray-400 me-1" fill="currentColor" viewBox="0 0 20 20"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -75,7 +75,7 @@
         <div class="card metric-card">
             <div class="card-body">
                 <h2 class="fs-5 fw-normal">{{ __('admin.kpi.active_projects') }}</h2>
-                <h3 class="fs-1 fw-extrabold mb-1">6</h3>
+                <h3 class="fs-1 fw-extrabold mb-1" data-kpi="activeProjects">6</h3>
                 <div class="d-flex align-items-center">
                     <span class="me-3">Feb 1 - Apr 1</span>
                 </div>
@@ -89,6 +89,8 @@
             <div class="card border-0 shadow">
                 <div class="card-header border-bottom">
                     <h2 class="fs-5 fw-bold mb-1">{{ __('admin.kpi.total_revenue') }}</h2>
+                    <h3 class="display-3 fw-extrabold mb-0" data-kpi="totalRevenue">456,678 k</h3>
+                    <span class="fw-bolder" data-trend="revenueTrend">22.4%</span>
                     <small>28 Daily Avg.</small>
                 </div>
                 <div class="card-body text-center py-4 py-xl-5">

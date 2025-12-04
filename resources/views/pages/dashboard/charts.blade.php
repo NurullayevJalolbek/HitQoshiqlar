@@ -1,141 +1,165 @@
-<!-- Grafiklar Bo'limi -->
+<!-- Dashboard Charts Section -->
 
-<!-- Investorlar Dinamikasi -->
-<div class="row">
+<!-- Chart Mode Switcher -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card border-0 shadow-sm">
+            <div class="card-body d-flex justify-content-between align-items-center">
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-primary btn-sm" id="monthlyBtn" onclick="switchChartMode('monthly')">
+                        <i class="fas fa-calendar-alt me-1"></i> {{ __('admin.charts.monthly') }}
+                    </button>
+                    <button type="button" class="btn btn-outline-primary btn-sm" id="dailyBtn" onclick="switchChartMode('daily')">
+                        <i class="fas fa-calendar-day me-1"></i> {{ __('admin.charts.daily') }}
+                    </button>
+                </div>
+                <small class="text-muted">
+                    <i class="fas fa-sync-alt me-1"></i>
+                    {{ __('admin.charts.last_update') }}: <span id="updateTimestamp">--:--</span>
+                </small>
+            </div>
+        </div>
+    </div>
+</div>
 
-    <div class="col-12 col-xl-6 col-xxl-8 mb-4">
-        <div class="card border-0 shadow">
-            <div class="card-body d-flex flex-row align-items-center flex-0 border-bottom">
-                <div class="w-100 d-sm-flex justify-content-between align-items-start">
-                    <div>
-                        <div class="fs-5 fw-normal mb-2"> {{ __('admin.charts.investors_growth') }}
+<!-- Row 1: Investors Growth -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card border-0 shadow-sm">
+            <div class="card-header bg-white border-bottom py-3">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0 fw-bold">
+                        <i class="fas fa-users text-primary me-2"></i>
+                        {{ __('admin.charts.investors_growth') }}
+                    </h5>
+                    <div class="d-flex gap-3">
+                        <div class="d-flex align-items-center">
+                            <span class="dot rounded-circle bg-success me-2"></span>
+                            <span class="fw-normal small">{{ __('admin.charts.active_investors') }}:</span>
+                            <span class="fw-bold ms-1" data-investor-active>882</span>
                         </div>
-                        <h2 class="fs-3 fw-extrabold">{{ __('admin.charts.active_investors') }}</h2>
-                        {{-- <div class="small mt-2 d-flex">
-                            <div class="d-flex align-items-center me-2">
-                                <svg class="icon icon-xs text-success" fill="currentColor" viewBox="0 0 20 20"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd"
-                                        d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z"
-                                        clip-rule="evenodd"></path>
-                                </svg>
-                                <span class="text-success fw-bold">180k</span>
-                            </div>
-                            <div class="d-flex align-items-center">
-                                <svg class="icon icon-xxs text-gray-500 me-1" fill="currentColor" viewBox="0 0 20 20"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd"
-                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zM4.332 8.027a6.012 6.012 0 011.912-2.706C6.512 5.73 6.974 6 7.5 6A1.5 1.5 0 019 7.5V8a2 2 0 004 0 2 2 0 011.523-1.943A5.977 5.977 0 0116 10c0 .34-.028.675-.083 1H15a2 2 0 00-2 2v2.197A5.973 5.973 0 0110 16v-2a2 2 0 00-2-2 2 2 0 01-2-2 2 2 0 00-1.668-1.973z"
-                                        clip-rule="evenodd"></path>
-                                </svg>
-                                <span>WorldWide</span>
-                            </div>
-                        </div> --}}
-                    </div>
-                    <div class="d-flex align-items-center mb-2 me-3 lh-130">
-                        <span class="dot rounded-circle bg-success me-2"></span>
-                        <span class="fw-normal small">{{ __('admin.charts.active_investors') }}</span>
-                        <span class="small fw-bold text-dark ms-1">45</span>
-                    </div>
-                    <div class="d-xxl-flex flex-wrap justify-content-end mt-4 mt-sm-0">
-                        <div class="d-flex align-items-center mb-2 me-3 lh-130">
+                        <div class="d-flex align-items-center">
                             <span class="dot rounded-circle bg-warning me-2"></span>
-                            <span class="fw-normal small">{{ __('admin.charts.passive_investors') }}</span>
-                            <span class="small fw-bold text-dark ms-1">51</span>
+                            <span class="fw-normal small">{{ __('admin.charts.passive_investors') }}:</span>
+                            <span class="fw-bold ms-1" data-investor-passive>263</span>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="card-body p-2 pb-4">
+            <div class="card-body p-3">
                 <div id="traffic-volumes-chart"></div>
             </div>
         </div>
     </div>
-
-
 </div>
 
-<!-- Ikkinchi Qator: Tushumlar va To'lovlar -->
-<div class="row">
-    <!-- Tushumlar Dinamikasi -->
-    <div class="col-xl-6 mb-4">
-        <div class="chart-container">
-            <h5 class="mb-3 fw-bold">
-                <i class="fas fa-arrow-down text-success me-2"></i>
-                {{ __('admin.charts.investor_income') }}
-            </h5>
-            <div id="revenueChart"></div>
-            <div class="mt-3 d-flex justify-content-between">
-                <small class="text-muted">{{ __('admin.charts.avg_income') }}: <strong>2,850,000 UZS</strong></small>
-                <small class="text-success"><i class="fas fa-arrow-up"></i> 18.5%</small>
+<!-- Row 2: Income & Payments -->
+<div class="row mb-4">
+    <!-- Investor Income -->
+    <div class="col-xl-6 mb-4 mb-xl-0">
+        <div class="card border-0 shadow-sm h-100">
+            <div class="card-header bg-white border-bottom py-3">
+                <h5 class="mb-0 fw-bold">
+                    <i class="fas fa-arrow-down text-success me-2"></i>
+                    {{ __('admin.charts.investor_income') }}
+                </h5>
             </div>
-        </div>
-    </div>
-
-    <!-- To'lovlar Dinamikasi -->
-    <div class="col-xl-6 mb-4">
-        <div class="chart-container">
-            <h5 class="mb-3 fw-bold">
-                <i class="fas fa-arrow-up text-danger me-2"></i>
-                {{ __('admin.charts.exit_payments') }}
-            </h5>
-            <div id="paymentsChart"></div>
-            <div class="mt-3 d-flex justify-content-between">
-                <small class="text-muted">{{ __('admin.charts.avg_payment') }}: <strong>530,000 UZS</strong></small>
-                <small class="text-danger"><i class="fas fa-arrow-up"></i> 12.3%</small>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Uchinchi Qator: Daromad va Dividendlar -->
-<div class="row">
-    <!-- Daromad Dinamikasi -->
-    <div class="col-xl-8 mb-4">
-        <div class="chart-container">
-            <h5 class="mb-3 fw-bold">
-                <i class="fas fa-file-contract text-purple me-2"></i>
-                {{ __('admin.charts.contract_revenue') }}
-            </h5>
-            <div id="contractRevenueChart"></div>
-            <div class="mt-3">
-                <div class="row text-center">
-                    <div class="col-4">
-                        <small class="text-muted d-block">{{ __('admin.charts.total_contracts') }}</small>
-                        <strong>284</strong>
-                    </div>
-                    <div class="col-4">
-                        <small class="text-muted d-block">{{ __('admin.charts.avg_revenue') }}</small>
-                        <strong>1,580,000 UZS</strong>
-                    </div>
-                    <div class="col-4">
-                        <small class="text-muted d-block">{{ __('admin.charts.growth') }}</small>
-                        <strong class="text-success">+22.4%</strong>
-                    </div>
+            <div class="card-body p-3">
+                <div id="revenueChart"></div>
+                <div class="mt-3 d-flex justify-content-between align-items-center">
+                    <small class="text-muted">
+                        {{ __('admin.charts.avg_income') }}: 
+                        <strong data-avg-income>2,850,000 UZS</strong>
+                    </small>
+                    <span class="badge bg-success-soft text-success">
+                        <i class="fas fa-arrow-up me-1"></i>
+                        <span data-trend-income>18.5%</span>
+                    </span>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Dividendlar -->
-    <div class="col-xl-4 mb-4">
-        <div class="chart-container">
-            <h5 class="mb-3 fw-bold">
-                <i class="fas fa-coins text-warning me-2"></i>
-                {{ __('admin.charts.dividends_distribution') }}
-            </h5>
-            <div id="dividendsChart"></div>
-            <div class="mt-3 text-center">
-                <div class="row">
-                    <div class="col-6">
-                        <div class="border-end">
-                            <small class="text-muted d-block">{{ __('admin.charts.paid') }}</small>
-                            <strong class="text-success">65%</strong>
+    <!-- Exit Payments -->
+    <div class="col-xl-6">
+        <div class="card border-0 shadow-sm h-100">
+            <div class="card-header bg-white border-bottom py-3">
+                <h5 class="mb-0 fw-bold">
+                    <i class="fas fa-arrow-up text-danger me-2"></i>
+                    {{ __('admin.charts.exit_payments') }}
+                </h5>
+            </div>
+            <div class="card-body p-3">
+                <div id="paymentsChart"></div>
+                <div class="mt-3 d-flex justify-content-between align-items-center">
+                    <small class="text-muted">
+                        {{ __('admin.charts.avg_payment') }}: 
+                        <strong data-avg-payment>530,000 UZS</strong>
+                    </small>
+                    <span class="badge bg-danger-soft text-danger">
+                        <i class="fas fa-arrow-up me-1"></i>
+                        <span data-trend-payment>12.3%</span>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Row 3: Contract Revenue & Dividends -->
+<div class="row mb-4">
+    <!-- Contract Revenue -->
+    <div class="col-xl-8 mb-4 mb-xl-0">
+        <div class="card border-0 shadow-sm h-100">
+            <div class="card-header bg-white border-bottom py-3">
+                <h5 class="mb-0 fw-bold">
+                    <i class="fas fa-file-contract text-purple me-2"></i>
+                    {{ __('admin.charts.contract_revenue') }}
+                </h5>
+            </div>
+            <div class="card-body p-3">
+                <div id="contractRevenueChart"></div>
+                <div class="mt-3">
+                    <div class="row text-center">
+                        <div class="col-4">
+                            <small class="text-muted d-block">{{ __('admin.charts.total_contracts') }}</small>
+                            <strong data-total-contracts>284</strong>
+                        </div>
+                        <div class="col-4">
+                            <small class="text-muted d-block">{{ __('admin.charts.avg_revenue') }}</small>
+                            <strong data-avg-contract-revenue>1,580,000 UZS</strong>
+                        </div>
+                        <div class="col-4">
+                            <small class="text-muted d-block">{{ __('admin.charts.growth') }}</small>
+                            <strong class="text-success" data-contract-growth>+22.4%</strong>
                         </div>
                     </div>
-                    <div class="col-6">
-                        <small class="text-muted d-block">{{ __('admin.charts.pending') }}</small>
-                        <strong class="text-warning">35%</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dividends Distribution -->
+    <div class="col-xl-4">
+        <div class="card border-0 shadow-sm h-100">
+            <div class="card-header bg-white border-bottom py-3">
+                <h5 class="mb-0 fw-bold">
+                    <i class="fas fa-coins text-warning me-2"></i>
+                    {{ __('admin.charts.dividends_distribution') }}
+                </h5>
+            </div>
+            <div class="card-body p-3">
+                <div id="dividendsChart"></div>
+                <div class="mt-3">
+                    <div class="row text-center">
+                        <div class="col-6 border-end">
+                            <small class="text-muted d-block">{{ __('admin.charts.paid') }}</small>
+                            <strong class="text-success" data-dividend-paid>65%</strong>
+                        </div>
+                        <div class="col-6">
+                            <small class="text-muted d-block">{{ __('admin.charts.pending') }}</small>
+                            <strong class="text-warning" data-dividend-pending>35%</strong>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -143,61 +167,142 @@
     </div>
 </div>
 
-<!-- To'rtinchi Qator: Sof Foyda va Shartnomalar -->
-<div class="row">
-    <!-- Sof Foyda -->
-    <div class="col-xl-6 mb-4">
-        <div class="chart-container">
-            <h5 class="mb-3 fw-bold">
-                <i class="fas fa-hand-holding-usd text-info me-2"></i>
-                {{ __('admin.charts.net_profit') }}
-            </h5>
-            <div id="profitChart"></div>
-            <div class="mt-3 d-flex justify-content-between">
-                <small class="text-muted">{{ __('admin.charts.avg_profit') }}: <strong>820,000 UZS</strong></small>
-                <small class="text-success"><i class="fas fa-arrow-up"></i> 25.6%</small>
+<!-- Row 4: Net Profit & Contracts -->
+<div class="row mb-4">
+    <!-- Net Profit -->
+    <div class="col-xl-6 mb-4 mb-xl-0">
+        <div class="card border-0 shadow-sm h-100">
+            <div class="card-header bg-white border-bottom py-3">
+                <h5 class="mb-0 fw-bold">
+                    <i class="fas fa-hand-holding-usd text-info me-2"></i>
+                    {{ __('admin.charts.net_profit') }}
+                </h5>
+            </div>
+            <div class="card-body p-3">
+                <div id="profitChart"></div>
+                <div class="mt-3 d-flex justify-content-between align-items-center">
+                    <small class="text-muted">
+                        {{ __('admin.charts.avg_profit') }}: 
+                        <strong data-avg-profit>820,000 UZS</strong>
+                    </small>
+                    <span class="badge bg-success-soft text-success">
+                        <i class="fas fa-arrow-up me-1"></i>
+                        <span data-trend-profit>25.6%</span>
+                    </span>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Shartnomalar -->
-    <div class="col-xl-6 mb-4">
-        <div class="chart-container">
-            <h5 class="mb-3 fw-bold">
-                <i class="fas fa-file-signature text-warning me-2"></i>
-                {{ __('admin.charts.realization_contracts') }}
-            </h5>
-            <div id="contractsChart"></div>
-            <div class="mt-3 d-flex justify-content-between">
-                <small class="text-muted">{{ __('admin.charts.total_signed') }}: <strong>312
-                        {{ __('admin.charts.contracts') }}</strong></small>
-                <small class="text-success"><i class="fas fa-arrow-up"></i> 16.8%</small>
+    <!-- Realization Contracts -->
+    <div class="col-xl-6">
+        <div class="card border-0 shadow-sm h-100">
+            <div class="card-header bg-white border-bottom py-3">
+                <h5 class="mb-0 fw-bold">
+                    <i class="fas fa-file-signature text-warning me-2"></i>
+                    {{ __('admin.charts.realization_contracts') }}
+                </h5>
+            </div>
+            <div class="card-body p-3">
+                <div id="contractsChart"></div>
+                <div class="mt-3 d-flex justify-content-between align-items-center">
+                    <small class="text-muted">
+                        {{ __('admin.charts.total_signed') }}: 
+                        <strong data-total-signed>312 {{ __('admin.charts.contracts') }}</strong>
+                    </small>
+                    <span class="badge bg-success-soft text-success">
+                        <i class="fas fa-arrow-up me-1"></i>
+                        <span data-trend-contracts>16.8%</span>
+                    </span>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Beshinchi Qator: Qo'shimcha Grafiklar -->
-<div class="row">
-    <!-- Hujjatlar Dinamikasi -->
-    <div class="col-xl-6 mb-4">
-        <div class="chart-container">
-            <h5 class="mb-3 fw-bold">
-                <i class="fas fa-file-alt text-secondary me-2"></i>
-                {{ __('admin.charts.documents_growth') }}
-            </h5>
-            <div id="documentsChart"></div>
+<!-- Row 5: Documents & Revenue by Project -->
+<div class="row mb-4">
+    <!-- Documents Growth -->
+    <div class="col-xl-6 mb-4 mb-xl-0">
+        <div class="card border-0 shadow-sm h-100">
+            <div class="card-header bg-white border-bottom py-3">
+                <h5 class="mb-0 fw-bold">
+                    <i class="fas fa-file-alt text-secondary me-2"></i>
+                    {{ __('admin.charts.documents_growth') }}
+                </h5>
+            </div>
+            <div class="card-body p-3">
+                <div id="documentsChart"></div>
+            </div>
         </div>
     </div>
 
-    <!-- Loyihalar bo'yicha Daromad -->
-    <div class="col-xl-6 mb-4">
-        <div class="chart-container">
-            <h5 class="mb-3 fw-bold">
-                <i class="fas fa-chart-bar text-primary me-2"></i>
-                {{ __('admin.charts.revenue_by_project') }}
-            </h5>
-            <div id="revenueByProjectChart"></div>
+    <!-- Revenue by Project -->
+    <div class="col-xl-6">
+        <div class="card border-0 shadow-sm h-100">
+            <div class="card-header bg-white border-bottom py-3">
+                <h5 class="mb-0 fw-bold">
+                    <i class="fas fa-chart-bar text-primary me-2"></i>
+                    {{ __('admin.charts.revenue_by_project') }}
+                </h5>
+            </div>
+            <div class="card-body p-3">
+                <div id="revenueByProjectChart"></div>
+            </div>
         </div>
     </div>
 </div>
+
+<!-- Loading Overlay -->
+<div id="chartLoadingOverlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 9999; justify-content: center; align-items: center;">
+    <div class="spinner-border text-light" role="status" style="width: 3rem; height: 3rem;">
+        <span class="visually-hidden">Yuklanmoqda...</span>
+    </div>
+</div>
+
+<style>
+/* Chart Container Styles */
+.dot {
+    width: 10px;
+    height: 10px;
+    display: inline-block;
+}
+
+.text-purple {
+    color: #8b5cf6;
+}
+
+.bg-success-soft {
+    background-color: rgba(16, 185, 129, 0.1);
+}
+
+.bg-danger-soft {
+    background-color: rgba(239, 68, 68, 0.1);
+}
+
+.card-header h5 i {
+    font-size: 1.1rem;
+}
+
+.card:hover {
+    box-shadow: 0 0.5rem 1.5rem rgba(0,0,0,0.1) !important;
+}
+</style>
+
+<script>
+// Update timestamp on load
+function updateTimestamp() {
+    const now = new Date();
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const timestampElement = document.getElementById('updateTimestamp');
+    if (timestampElement) {
+        timestampElement.textContent = `${hours}:${minutes}`;
+    }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    updateTimestamp();
+    setInterval(updateTimestamp, 60000); // Update every minute
+});
+</script>
