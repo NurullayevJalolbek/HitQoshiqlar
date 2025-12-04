@@ -83,6 +83,30 @@ class ProjectController extends Controller
         return success_response('Successfully updated');
     }
 
+    public function show($id)
+    {
+        $path = public_path('assets/data/projects.json');
+
+        if (!file_exists($path)) {
+            return error_response('Data file not found', 404);
+        }
+
+        $data = json_decode(file_get_contents($path), true);
+
+        foreach ($data as $item) {
+            if (($item['id'] ?? null) == $id) {
+                return success_response($item);
+            }
+        }
+
+        // DEBUG uchun ID-larni ko‘rsatamiz
+        return error_response(
+            "Project not found. Existing IDs: " . implode(', ', array_column($data, 'id')),
+            404
+        );
+    }
+
+
     public function destroy($id)
     {
         $path = public_path('assets/data/projects.json');
@@ -104,4 +128,6 @@ class ProjectController extends Controller
 
         return success_response('Successfully deleted');
     }
+
+
 }

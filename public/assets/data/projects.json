@@ -3,6 +3,7 @@
         {
             "id": 1,
             "code": "ENVST-2024-001",
+            "image": "https://storage.kun.uz/source/3/EnAqs3cdv0IjzYwWfPP4lFoa5duw136m.jpg",
             "name": "Chirchiq yaqinidagi tijorat zonasi",
             "category": "land",
             "status": "active",
@@ -36,6 +37,7 @@
         },
         {
             "id": 2,
+            "image": "https://cdn.uza.uz/2023/08/24/13/00/OBfT3Gh6n0jHW7okg9iSC78jTTOyVr4g_front.jpg",
             "code": "ENVST-2024-004",
             "name": "Samarqand yo'li savdo maydoni",
             "category": "land",
@@ -72,6 +74,7 @@
     [
         {
             "id": 3,
+            "image": "https://domtut.uz/resources/uploads/property/star-house-residence/main_0.jpg",
             "code": "ENVST-2024-002",
             "name": "Yangi Toshkent turar-joy majmuasi B-blok",
             "category": "construction",
@@ -136,6 +139,7 @@
         },
         {
             "id": 4,
+            "image": "https://static.tildacdn.com/tild3339-3538-4737-b165-616236326333/Samarkand_Regency_Am.JPG",
             "code": "ENVST-2024-005",
             "name": "Samarqand Premium Residence",
             "category": "construction",
@@ -201,6 +205,7 @@
     [
         {
             "id": 5,
+            "image": "https://avatars.mds.yandex.net/get-altay/938969/2a0000018dfefd547d0aa83700e2c7b9f09e/XXL_height",
             "code": "ENVST-2024-003",
             "name": "Toshkent City biznes-markazi",
             "category": "rent",
@@ -266,6 +271,7 @@
         },
         {
             "id": 6,
+            "image": "https://content-17.foto.my.mail.ru/community/rodina-tafa/4/h-42.jpg",
             "code": "ENVST-2024-006",
             "name": "Chilonzor Shopping Mall",
             "category": "rent",
