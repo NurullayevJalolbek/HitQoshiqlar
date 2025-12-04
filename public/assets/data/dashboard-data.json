@@ -1,26 +1,27 @@
 {
   "currency": "UZS",
   "currencyNote": "Barcha summalar ming so'mda (k) ko'rsatilgan",
+
   "kpi": {
     "totalInvestors": {
-      "value": 945,
-      "trend": 20.5,
-      "change": "increase",
-      "active": 882,
-      "passive": 263
+      "value": 931,
+      "trend": -2.3,
+      "change": "decrease",
+      "active": 861,
+      "passive": 270
     },
     "totalInvestment": {
-      "value": 88000000000,
-      "valueK": 88000000,
-      "formatted": "88 000 000",
-      "trend": 18.5,
-      "change": "increase",
+      "value": 87100000000,
+      "valueK": 87100000,
+      "formatted": "87 100 000",
+      "trend": -1.4,
+      "change": "decrease",
       "currency": "UZS"
     },
     "activeProjects": {
       "value": 6,
-      "trend": 16.8,
-      "change": "increase",
+      "trend": 0,
+      "change": "stable",
       "byCategory": {
         "land": 2,
         "construction": 2,
@@ -28,121 +29,97 @@
       }
     },
     "totalRevenue": {
-      "value": 456678000000,
-      "valueK": 456678000,
-      "formatted": "456 678 000",
-      "trend": 22.4,
-      "change": "increase",
+      "value": 432140000000,
+      "valueK": 432140000,
+      "formatted": "432 140 000",
+      "trend": -4.8,
+      "change": "decrease",
       "currency": "UZS",
-      "dailyAvg": 28
+      "dailyAvg": 25
     }
   },
+
   "charts": {
+
     "investorsGrowth": {
       "monthly": {
-        "categories": ["Yanvar", "Fevral", "Mart", "Aprel", "May", "Iyun", "Iyul", "Avgust", "Sentabr", "Oktabr", "Noyabr", "Dekabr"],
-        "active": [650, 685, 705, 730, 748, 770, 795, 820, 845, 862, 878, 895],
-        "passive": [180, 192, 198, 205, 215, 225, 235, 245, 250, 256, 260, 268]
-      },
-      "daily": {
-        "categories": ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30"],
-        "active": [878, 879, 880, 880, 881, 882, 883, 884, 885, 885, 886, 887, 888, 889, 889, 890, 891, 892, 892, 893, 894, 895, 895, 896, 897, 898, 898, 899, 900, 901],
-        "passive": [260, 260, 261, 261, 262, 262, 263, 263, 264, 264, 265, 265, 265, 266, 266, 267, 267, 268, 268, 268, 269, 269, 270, 270, 271, 271, 271, 272, 272, 273]
+        "categories": ["Yanvar","Fevral","Mart","Aprel","May","Iyun","Iyul","Avgust","Sentabr","Oktabr","Noyabr","Dekabr"],
+        "active":  [650, 675, 690, 680, 665, 640, 620, 635, 660, 690, 720, 740],
+        "passive": [180, 185, 190, 188, 182, 175, 170, 173, 178, 182, 188, 192]
       }
     },
+
     "investorIncome": {
       "monthly": {
-        "categories": ["Yanvar", "Fevral", "Mart", "Aprel", "May", "Iyun", "Iyul", "Avgust", "Sentabr", "Oktabr", "Noyabr", "Dekabr"],
-        "data": [1850000, 2120000, 2050000, 2380000, 2290000, 2650000, 2580000, 2920000, 2850000, 3180000, 3090000, 3420000]
-      },
-      "daily": {
-        "categories": ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30"],
-        "data": [98000, 102000, 105000, 98000, 110000, 108000, 115000, 112000, 118000, 120000, 116000, 125000, 122000, 128000, 130000, 126000, 132000, 135000, 128000, 138000, 140000, 136000, 142000, 145000, 138000, 148000, 150000, 146000, 152000, 155000]
+        "categories": ["Yanvar","Fevral","Mart","Aprel","May","Iyun","Iyul","Avgust","Sentabr","Oktabr","Noyabr","Dekabr"],
+        "data": [1850000, 1950000, 2020000, 1960000, 1850000, 1600000, 1420000, 1550000, 1780000, 2080000, 2260000, 2480000]
       }
     },
+
     "exitPayments": {
       "monthly": {
-        "categories": ["Yanvar", "Fevral", "Mart", "Aprel", "May", "Iyun", "Iyul", "Avgust", "Sentabr", "Oktabr", "Noyabr", "Dekabr"],
-        "data": [320000, 380000, 350000, 420000, 410000, 480000, 460000, 520000, 495000, 560000, 540000, 590000]
-      },
-      "daily": {
-        "categories": ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30"],
-        "data": [18000, 19000, 17500, 20000, 19500, 21000, 20500, 22000, 21500, 23000, 22500, 24000, 23000, 25000, 24500, 26000, 25000, 27000, 26500, 28000, 27000, 29000, 28500, 30000, 29000, 31000, 30500, 32000, 31000, 33000]
+        "categories": ["Yanvar","Fevral","Mart","Aprel","May","Iyun","Iyul","Avgust","Sentabr","Oktabr","Noyabr","Dekabr"],
+        "data": [320000, 340000, 370000, 395000, 430000, 480000, 520000, 610000, 590000, 550000, 510000, 470000]
       }
     },
+
     "contractRevenue": {
       "monthly": {
-        "categories": ["Yanvar", "Fevral", "Mart", "Aprel", "May", "Iyun", "Iyul", "Avgust", "Sentabr", "Oktabr", "Noyabr", "Dekabr"],
-        "data": [1280000, 1520000, 1450000, 1780000, 1650000, 2020000, 1920000, 2280000, 2150000, 2520000, 2380000, 2750000]
-      },
-      "daily": {
-        "categories": ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30"],
-        "data": [82000, 85000, 80000, 88000, 86000, 91000, 89000, 94000, 92000, 97000, 95000, 100000, 98000, 103000, 101000, 106000, 104000, 109000, 107000, 112000, 110000, 115000, 113000, 118000, 116000, 121000, 119000, 124000, 122000, 127000]
-      },
-      "stats": {
-        "totalContracts": 284,
-        "avgRevenue": 1850000,
-        "avgRevenueFormatted": "1 850 000",
-        "growth": 22.4
+        "categories": ["Yanvar","Fevral","Mart","Aprel","May","Iyun","Iyul","Avgust","Sentabr","Oktabr","Noyabr","Dekabr"],
+        "data": [1280000, 1420000, 1510000, 1480000, 1360000, 1220000, 1050000, 1180000, 1420000, 1760000, 2050000, 2340000]
       }
     },
+
     "dividendsDistribution": {
-      "paid": 68,
-      "pending": 32,
-      "totalAmount": 31250000000,
-      "totalAmountK": 31250000,
-      "totalAmountFormatted": "31 250 000"
+      "paid": 61,
+      "pending": 39,
+      "totalAmount": 28740000000,
+      "totalAmountK": 28740000,
+      "totalAmountFormatted": "28 740 000"
     },
+
     "netProfit": {
       "monthly": {
-        "categories": ["Yanvar", "Fevral", "Mart", "Aprel", "May", "Iyun", "Iyul", "Avgust", "Sentabr", "Oktabr", "Noyabr", "Dekabr"],
-        "data": [520000, 610000, 580000, 690000, 650000, 770000, 730000, 850000, 820000, 940000, 890000, 1020000]
-      },
-      "daily": {
-        "categories": ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30"],
-        "data": [28000, 30000, 29000, 32000, 31000, 34000, 33000, 36000, 35000, 38000, 37000, 40000, 39000, 42000, 41000, 44000, 43000, 46000, 45000, 48000, 47000, 50000, 49000, 52000, 51000, 54000, 53000, 56000, 55000, 58000]
-      },
-      "avgProfit": 745000,
-      "avgProfitFormatted": "745 000"
+        "categories": ["Yanvar","Fevral","Mart","Aprel","May","Iyun","Iyul","Avgust","Sentabr","Oktabr","Noyabr","Dekabr"],
+        "data": [520000, 560000, 590000, 565000, 510000, 435000, 360000, 410000, 495000, 610000, 710000, 860000]
+      }
     },
+
     "realizationContracts": {
       "monthly": {
-        "categories": ["Yanvar", "Fevral", "Mart", "Aprel", "May", "Iyun", "Iyul", "Avgust", "Sentabr", "Oktabr", "Noyabr", "Dekabr"],
-        "data": [18, 22, 20, 26, 24, 30, 28, 34, 32, 38, 36, 42]
+        "categories": ["Yanvar","Fevral","Mart","Aprel","May","Iyun","Iyul","Avgust","Sentabr","Oktabr","Noyabr","Dekabr"],
+        "data": [18, 21, 24, 22, 19, 15, 12, 14, 18, 25, 32, 38]
       },
-      "daily": {
-        "categories": ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30"],
-        "data": [36, 36, 36, 37, 37, 37, 38, 38, 38, 38, 39, 39, 39, 40, 40, 40, 40, 41, 41, 41, 42, 42, 42, 42, 43, 43, 43, 44, 44, 44]
-      },
-      "totalSigned": 312
+      "totalSigned": 258
     },
+
     "investorShareByProject": {
-      "categories": ["Yer", "Ijara", "Qurilish"],
-      "data": [33, 29, 38],
-      "values": [29040000, 25520000, 33440000],
-      "valuesFormatted": ["29 040 000", "25 520 000", "33 440 000"]
+      "categories": ["Yer","Ijara","Qurilish"],
+      "data": [31, 24, 45],
+      "values": [27100000, 20900000, 39200000],
+      "valuesFormatted": ["27 100 000", "20 900 000", "39 200 000"]
     },
+
     "revenueByProject": {
-      "categories": ["Yer", "Ijara", "Qurilish"],
-      "data": [142580000, 125360000, 188738000],
-      "dataK": [142580, 125360, 188738],
-      "dataFormatted": ["142 580 000", "125 360 000", "188 738 000"]
+      "categories": ["Yer","Ijara","Qurilish"],
+      "data": [128000000, 102000000, 194000000],
+      "dataK": [128000, 102000, 194000],
+      "dataFormatted": ["128 000 000", "102 000 000", "194 000 000"]
     },
+
     "documentsGrowth": {
       "monthly": {
-        "categories": ["Yanvar", "Fevral", "Mart", "Aprel", "May", "Iyun", "Iyul", "Avgust", "Sentabr", "Oktabr", "Noyabr", "Dekabr"],
-        "data": [38, 45, 42, 52, 48, 58, 55, 65, 62, 72, 68, 78]
-      },
-      "daily": {
-        "categories": ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30"],
-        "data": [68, 68, 69, 69, 70, 70, 71, 71, 72, 72, 72, 73, 73, 74, 74, 75, 75, 75, 76, 76, 77, 77, 78, 78, 78, 79, 79, 80, 80, 81]
+        "categories": ["Yanvar","Fevral","Mart","Aprel","May","Iyun","Iyul","Avgust","Sentabr","Oktabr","Noyabr","Dekabr"],
+        "data": [38, 42, 47, 45, 40, 36, 31, 35, 44, 58, 70, 83]
       }
     }
   },
+
   "projects": {
     "total": 6,
     "active": 6,
     "completed": 0,
+
     "byType": {
       "land": {
         "count": 2,
@@ -151,6 +128,7 @@
         "collected": 4290000000,
         "collectedK": 4290000
       },
+
       "construction": {
         "count": 2,
         "totalValue": 40000000000,
@@ -158,6 +136,7 @@
         "collected": 15200000000,
         "collectedK": 15200000
       },
+
       "rent": {
         "count": 2,
         "totalValue": 35000000000,
