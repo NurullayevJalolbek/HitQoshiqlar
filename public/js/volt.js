@@ -599,120 +599,120 @@ document.addEventListener("DOMContentLoaded", function () {
         }).render();
     })(); // 9.7. Traffic volumes – multi-line chart (#traffic-volumes-chart)
 
-    (function initTrafficVolumesChart() {
-        const el = doc.getElementById("traffic-volumes-chart");
-        if (!el) return;
+    // (function initTrafficVolumesChart() {
+    //     const el = doc.getElementById("traffic-volumes-chart");
+    //     if (!el) return;
 
-        const options = {
-            series: [
-                {
-                    name: "Organic",
-                    data: [7108, 9600, 10000, 8700, 12000, 15400, 19000],
-                },
-                {
-                    name: "Social",
-                    data: [4100, 6800, 7000, 6700, 7200, 14000, 12000],
-                },
-                {
-                    name: "Refferals",
-                    data: [1100, 3200, 4500, 3200, 3400, 5200, 4100],
-                },
-            ],
-            colors: ["#4D4AE8", "#FD8E7A", "#06A77D", "#f0bc74"],
-            chart: {
-                height: 420,
-                type: "line",
-                fontFamily: "Inter",
-                foreColor: "#4B5563",
-                toolbar: {
-                    show: true,
-                    offsetX: 0,
-                    offsetY: 0,
-                    tools: {
-                        download: false,
-                        selection: false,
-                        zoom: false,
-                        zoomin: true,
-                        zoomout: true,
-                        pan: false,
-                        reset: undefined,
-                        customIcons: [],
-                    },
-                    export: {
-                        csv: {
-                            filename: undefined,
-                            columnDelimiter: ",",
-                            headerCategory: "category",
-                            headerValue: "value",
-                            dateFormatter: (timestamp) =>
-                                new Date(timestamp).toDateString(),
-                        },
-                    },
-                    autoSelected: "zoom",
-                },
-            },
-            dataLabels: { enabled: false },
-            stroke: { curve: "smooth" },
-            grid: {
-                show: true,
-                borderColor: "#f2f2f2",
-                strokeDashArray: 1,
-            },
-            xaxis: {
-                categories: [
-                    "01 Feb",
-                    "02 Feb",
-                    "03 Feb",
-                    "04 Feb",
-                    "05 Feb",
-                    "06 Feb",
-                    "07 Feb",
-                ],
-                labels: {
-                    style: {
-                        fontSize: "12px",
-                        fontWeight: 500,
-                    },
-                },
-                axisBorder: { color: "#f3c78e" },
-                axisTicks: { color: "#f3c78e" },
-            },
-            yaxis: {
-                labels: {
-                    style: {
-                        colors: ["#4B5563"],
-                        fontSize: "12px",
-                        fontWeight: 500,
-                    },
-                },
-            },
-            legend: {
-                show: true,
-                fontSize: "14px",
-                fontFamily: "Inter",
-                fontWeight: 400,
-                height: 60,
-                offsetY: 20,
-                markers: {
-                    width: 14,
-                    height: 14,
-                    strokeWidth: 1,
-                    strokeColor: "#ffffff",
-                    radius: 50,
-                },
-            },
-            responsive: [
-                {
-                    breakpoint: 768,
-                    options: {
-                        yaxis: { show: false },
-                    },
-                },
-            ],
-        };
+    //     const options = {
+    //         series: [
+    //             {
+    //                 name: "Organic",
+    //                 data: [7108, 9600, 10000, 8700, 12000, 15400, 19000],
+    //             },
+    //             {
+    //                 name: "Social",
+    //                 data: [4100, 6800, 7000, 6700, 7200, 14000, 12000],
+    //             },
+    //             {
+    //                 name: "Refferals",
+    //                 data: [1100, 3200, 4500, 3200, 3400, 5200, 4100],
+    //             },
+    //         ],
+    //         colors: ["#4D4AE8", "#FD8E7A", "#06A77D", "#f0bc74"],
+    //         chart: {
+    //             height: 420,
+    //             type: "line",
+    //             fontFamily: "Inter",
+    //             foreColor: "#4B5563",
+    //             toolbar: {
+    //                 show: true,
+    //                 offsetX: 0,
+    //                 offsetY: 0,
+    //                 tools: {
+    //                     download: false,
+    //                     selection: false,
+    //                     zoom: false,
+    //                     zoomin: true,
+    //                     zoomout: true,
+    //                     pan: false,
+    //                     reset: undefined,
+    //                     customIcons: [],
+    //                 },
+    //                 export: {
+    //                     csv: {
+    //                         filename: undefined,
+    //                         columnDelimiter: ",",
+    //                         headerCategory: "category",
+    //                         headerValue: "value",
+    //                         dateFormatter: (timestamp) =>
+    //                             new Date(timestamp).toDateString(),
+    //                     },
+    //                 },
+    //                 autoSelected: "zoom",
+    //             },
+    //         },
+    //         dataLabels: { enabled: false },
+    //         stroke: { curve: "smooth" },
+    //         grid: {
+    //             show: true,
+    //             borderColor: "#f2f2f2",
+    //             strokeDashArray: 1,
+    //         },
+    //         xaxis: {
+    //             categories: [
+    //                 "01 Feb",
+    //                 "02 Feb",
+    //                 "03 Feb",
+    //                 "04 Feb",
+    //                 "05 Feb",
+    //                 "06 Feb",
+    //                 "07 Feb",
+    //             ],
+    //             labels: {
+    //                 style: {
+    //                     fontSize: "12px",
+    //                     fontWeight: 500,
+    //                 },
+    //             },
+    //             axisBorder: { color: "#f3c78e" },
+    //             axisTicks: { color: "#f3c78e" },
+    //         },
+    //         yaxis: {
+    //             labels: {
+    //                 style: {
+    //                     colors: ["#4B5563"],
+    //                     fontSize: "12px",
+    //                     fontWeight: 500,
+    //                 },
+    //             },
+    //         },
+    //         legend: {
+    //             show: true,
+    //             fontSize: "14px",
+    //             fontFamily: "Inter",
+    //             fontWeight: 400,
+    //             height: 60,
+    //             offsetY: 20,
+    //             markers: {
+    //                 width: 14,
+    //                 height: 14,
+    //                 strokeWidth: 1,
+    //                 strokeColor: "#ffffff",
+    //                 radius: 50,
+    //             },
+    //         },
+    //         responsive: [
+    //             {
+    //                 breakpoint: 768,
+    //                 options: {
+    //                     yaxis: { show: false },
+    //                 },
+    //             },
+    //         ],
+    //     };
 
-        new ApexCharts(el, options).render();
-    })(); // 9.8. Traffic share – gorizontal bar (#traffic-share-chart)
+    //     new ApexCharts(el, options).render();
+    // })(); // 9.8. Traffic share – gorizontal bar (#traffic-share-chart)
 
     (function initTrafficShareChart() {
         const el = doc.getElementById("traffic-share-chart");
