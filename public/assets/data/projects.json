@@ -3,25 +3,42 @@
         {
             "id": 1,
             "code": "ENVST-2024-001",
-            "image": "https://storage.kun.uz/source/3/EnAqs3cdv0IjzYwWfPP4lFoa5duw136m.jpg",
             "name": "Chirchiq yaqinidagi tijorat zonasi",
+            "image": "https://storage.kun.uz/source/3/EnAqs3cdv0IjzYwWfPP4lFoa5duw136m.jpg",
+            "main_images": [
+                "https://storage.kun.uz/source/3/EnAqs3cdv0IjzYwWfPP4lFoa5duw136m.jpg",
+                "https://example.com/project1_2.jpg"
+            ],
+            "videos": [],
+            "work_process_images": [],
             "category": "land",
             "status": "active",
+            "risk_level": "medium",
             "region": "Toshkent viloyati",
             "district": "Chirchiq shahri",
             "address": "Chirchiq-Toshkent yo'li, 5-km",
+            "location": {
+                "region": "Toshkent viloyati",
+                "district": "Chirchiq shahri",
+                "address": "Chirchiq-Toshkent yo'li, 5-km"
+            },
+            "short_description": "Savdo va ofis binolari uchun mo‘ljallangan yer maydoni.",
+            "purpose": "Savdo markazi va ofis binolari qurish",
             "total_value": 5000000000,
             "company_share": 2500000000,
             "investor_share": 2500000000,
             "min_investment": 10000000,
             "collected": 1850000000,
-            "yearly_profit_percent": 35,
+            "funding_status_percent": 74,
+            "last_dividend_percent": null,
+            "profitability_percent": 35,
             "duration_months": 24,
+            "investment_duration": "2 yil",
             "profit_type": "end_of_project",
+            "yearly_profit_percent": 35,
             "land_area_sqm": 15000,
             "land_area_hectare": 1.5,
             "land_type": "commercial",
-            "purpose": "Savdo markazi va ofis binolari qurish",
             "buy_price_sqm": 3000000,
             "sell_price_sqm": 5000000,
             "infrastructure": [
@@ -30,33 +47,76 @@
                 "Gaz magistrali mavjud",
                 "Suv ta'minoti tarmog'i"
             ],
-            "risk_level": "medium",
+            "progress": {
+                "percent": 37,
+                "timeline": [
+                    {
+                        "stage": "Yer tayyorlash",
+                        "status": "completed"
+                    },
+                    {
+                        "stage": "Infrastrukturani ulash",
+                        "status": "in_progress"
+                    },
+                    {
+                        "stage": "Sotuv",
+                        "status": "planned"
+                    }
+                ]
+            },
             "round": 1,
+            "rounds_status": [
+                {
+                    "round": 1,
+                    "status": "in_progress"
+                }
+            ],
             "start_date": "2024-01-15",
-            "end_date": "2024-06-30"
+            "end_date": "2024-06-30",
+            "project_manager": {
+                "name": "Akmal Raxmonov",
+                "phone": "+998901234567",
+                "experience_years": 9
+            },
+            "documents": []
         },
         {
             "id": 2,
-            "image": "https://cdn.uza.uz/2023/08/24/13/00/OBfT3Gh6n0jHW7okg9iSC78jTTOyVr4g_front.jpg",
             "code": "ENVST-2024-004",
             "name": "Samarqand yo'li savdo maydoni",
+            "image": "https://cdn.uza.uz/2023/08/24/13/00/OBfT3Gh6n0jHW7okg9iSC78jTTOyVr4g_front.jpg",
+            "main_images": [
+                "https://cdn.uza.uz/2023/08/24/13/00/OBfT3Gh6n0jHW7okg9iSC78jTTOyVr4g_front.jpg"
+            ],
+            "videos": [],
+            "work_process_images": [],
             "category": "land",
             "status": "active",
+            "risk_level": "medium",
             "region": "Toshkent viloyati",
             "district": "Qibray tumani",
             "address": "Toshkent-Samarqand yo'li, 12-km",
+            "location": {
+                "region": "Toshkent viloyati",
+                "district": "Qibray tumani",
+                "address": "Toshkent-Samarqand yo'li, 12-km"
+            },
+            "short_description": "Yirik savdo-ko‘ngilochar majmua uchun yer.",
+            "purpose": "Yirik savdo-ko‘ngilochar markaz",
             "total_value": 8000000000,
             "company_share": 4000000000,
             "investor_share": 4000000000,
             "min_investment": 15000000,
             "collected": 2800000000,
-            "yearly_profit_percent": 40,
+            "funding_status_percent": 70,
+            "profitability_percent": 40,
             "duration_months": 30,
+            "investment_duration": "2.5 yil",
             "profit_type": "end_of_project",
+            "yearly_profit_percent": 40,
             "land_area_sqm": 25000,
             "land_area_hectare": 2.5,
             "land_type": "commercial",
-            "purpose": "Yirik savdo-ko'ngilochar markaz",
             "buy_price_sqm": 2800000,
             "sell_price_sqm": 5200000,
             "infrastructure": [
@@ -65,30 +125,62 @@
                 "Elektr va gaz",
                 "Kanal tizimi"
             ],
-            "risk_level": "medium",
+            "progress": {
+                "percent": 35,
+                "timeline": [
+                    {
+                        "stage": "Hujjatlar",
+                        "status": "completed"
+                    },
+                    {
+                        "stage": "Infrastrukturani ulash",
+                        "status": "in_progress"
+                    }
+                ]
+            },
             "round": 1,
+            "rounds_status": [
+                {
+                    "round": 1,
+                    "status": "in_progress"
+                }
+            ],
             "start_date": "2024-03-01",
-            "end_date": "2024-10-31"
-        }
-    ],
-    [
+            "end_date": "2024-10-31",
+            "project_manager": {
+                "name": "Jasur Islomov",
+                "phone": "+998909876543",
+                "experience_years": 7
+            },
+            "documents": []
+        },
         {
             "id": 3,
-            "image": "https://domtut.uz/resources/uploads/property/star-house-residence/main_0.jpg",
             "code": "ENVST-2024-002",
             "name": "Yangi Toshkent turar-joy majmuasi B-blok",
+            "image": "https://domtut.uz/resources/uploads/property/star-house-residence/main_0.jpg",
+            "main_images": [
+                "https://domtut.uz/resources/uploads/property/star-house-residence/main_0.jpg"
+            ],
+            "videos": [],
+            "work_process_images": [],
             "category": "construction",
             "status": "active",
+            "risk_level": "medium",
             "region": "Toshkent shahri",
             "district": "Yakkasaroy tumani",
             "address": "Amir Temur ko'chasi, 125",
+            "short_description": "12 qavatli premium turar-joy majmuasi.",
+            "purpose": "Ko‘p qavatli turar-joy qurish",
             "total_value": 25000000000,
             "company_share": 13000000000,
             "investor_share": 12000000000,
             "min_investment": 50000000,
             "collected": 8500000000,
-            "yearly_profit_percent": 42,
+            "funding_status_percent": 71,
+            "profitability_percent": 42,
             "duration_months": 36,
+            "investment_duration": "3 yil",
             "profit_type": "end_of_project",
             "building_type": "residential",
             "total_area": 12000,
@@ -97,63 +189,78 @@
             "construction_stage": "structure",
             "construction_start": "2024-03-01",
             "construction_end": "2027-03-01",
-            "builder": "Grand Construction MChJ",
             "materials": [
                 "Armirlangan beton",
                 "Energiya tejovchi oynalar",
                 "Turk keramikasi",
                 "Schindler liftlari"
             ],
-            "apartments_info": [
-                {
-                    "type": "1-xonali",
-                    "count": 24,
-                    "area": 45,
-                    "price_sqm": 25000000
-                },
-                {
-                    "type": "2-xonali",
-                    "count": 48,
-                    "area": 65,
-                    "price_sqm": 27000000
-                },
-                {
-                    "type": "3-xonali",
-                    "count": 24,
-                    "area": 95,
-                    "price_sqm": 30000000
-                }
-            ],
             "amenities": [
                 "2 ta yuqori tezlikdagi lift",
-                "Yopiq parking 100 o'rin",
-                "24\/7 xavfsizlik",
-                "Bolalar maydoni",
-                "Fitnes zal",
-                "Minimarket"
+                "Yopiq parking",
+                "24/7 xavfsizlik",
+                "Bolalar maydoni"
             ],
-            "risk_level": "medium",
+            "progress": {
+                "percent": 42,
+                "timeline": [
+                    {
+                        "stage": "Fundament",
+                        "status": "completed"
+                    },
+                    {
+                        "stage": "Karkas",
+                        "status": "in_progress"
+                    }
+                ]
+            },
             "round": 2,
+            "rounds_status": [
+                {
+                    "round": 1,
+                    "status": "completed"
+                },
+                {
+                    "round": 2,
+                    "status": "in_progress"
+                }
+            ],
             "start_date": "2024-02-01",
-            "end_date": "2024-08-31"
+            "end_date": "2024-08-31",
+            "project_manager": {
+                "name": "Rustam Karimov",
+                "phone": "+998935551122",
+                "experience_years": 12
+            },
+            "documents": []
         },
         {
             "id": 4,
-            "image": "https://static.tildacdn.com/tild3339-3538-4737-b165-616236326333/Samarkand_Regency_Am.JPG",
             "code": "ENVST-2024-005",
             "name": "Samarqand Premium Residence",
+            "image": "https://static.tildacdn.com/tild3339-3538-4737-b165-616236326333/Samarkand_Regency_Am.JPG",
+            "main_images": [
+                "https://static.tildacdn.com/tild3339-3538-4737-b165-616236326333/Samarkand_Regency_Am.JPG"
+            ],
+            "videos": [],
+            "work_process_images": [],
             "category": "construction",
             "status": "active",
+            "risk_level": "low",
             "region": "Samarqand viloyati",
             "district": "Samarqand shahri",
             "address": "Registon ko'chasi, 88",
+            "short_description": "Premium turar-joy majmuasi.",
+            "purpose": "Premium turar-joy qurish",
             "total_value": 15000000000,
             "company_share": 8000000000,
             "investor_share": 7000000000,
             "min_investment": 30000000,
             "collected": 4200000000,
-            "yearly_profit_percent": 38,
+            "funding_status_percent": 60,
+            "profitability_percent": 38,
             "duration_months": 30,
+            "investment_duration": "2.5 yil",
             "profit_type": "end_of_project",
             "building_type": "residential",
             "total_area": 8500,
@@ -162,182 +269,145 @@
             "construction_stage": "foundation",
             "construction_start": "2024-05-15",
             "construction_end": "2026-11-15",
-            "builder": "Samarqand Qurilish MChJ",
-            "materials": [
-                "Zamonaviy kompozit materiallar",
-                "Nemis oyna tizimlari",
-                "Italyan plitka",
-                "Yuqori sifatli izolyatsiya"
+            "amenities": [
+                "Lift",
+                "Parking",
+                "Yashil hudud"
             ],
-            "apartments_info": [
+            "progress": {
+                "percent": 28,
+                "timeline": [
+                    {
+                        "stage": "Poydevor",
+                        "status": "in_progress"
+                    }
+                ]
+            },
+            "round": 1,
+            "rounds_status": [
                 {
-                    "type": "1-xonali",
-                    "count": 18,
-                    "area": 42,
-                    "price_sqm": 18000000
-                },
-                {
-                    "type": "2-xonali",
-                    "count": 36,
-                    "area": 62,
-                    "price_sqm": 20000000
-                },
-                {
-                    "type": "3-xonali",
-                    "count": 18,
-                    "area": 88,
-                    "price_sqm": 22000000
+                    "round": 1,
+                    "status": "in_progress"
                 }
             ],
-            "amenities": [
-                "Lift Otis kompaniyasi",
-                "Ochiq va yopiq parking",
-                "Xavfsizlik tizimi",
-                "Yashil hudud",
-                "Sportchilar maydonchasi"
-            ],
-            "risk_level": "low",
-            "round": 1,
             "start_date": "2024-04-10",
-            "end_date": "2024-12-20"
-        }
-    ],
-    [
+            "end_date": "2024-12-20",
+            "project_manager": {
+                "name": "Sardor Qodirov",
+                "phone": "+998901112233",
+                "experience_years": 10
+            },
+            "documents": []
+        },
         {
             "id": 5,
-            "image": "https://avatars.mds.yandex.net/get-altay/938969/2a0000018dfefd547d0aa83700e2c7b9f09e/XXL_height",
             "code": "ENVST-2024-003",
             "name": "Toshkent City biznes-markazi",
+            "image": "https://avatars.mds.yandex.net/get-altay/938969/2a0000018dfefd547d0aa83700e2c7b9f09e/XXL_height",
+            "main_images": [
+                "https://avatars.mds.yandex.net/get-altay/938969/2a0000018dfefd547d0aa83700e2c7b9f09e/XXL_height"
+            ],
+            "videos": [],
+            "work_process_images": [],
             "category": "rent",
             "status": "active",
+            "risk_level": "low",
             "region": "Toshkent shahri",
             "district": "Shayxontohur tumani",
             "address": "Amir Temur prospekti, 107B",
+            "short_description": "Markaziy ofis binosi, barqaror ijara daromadi.",
+            "purpose": "Ofislarni ijaraga berish",
             "total_value": 15000000000,
             "company_share": 7500000000,
             "investor_share": 7500000000,
             "min_investment": 25000000,
             "collected": 5200000000,
-            "yearly_profit_percent": 18,
+            "funding_status_percent": 69,
+            "profitability_percent": 18,
             "duration_months": 60,
+            "investment_duration": "5 yil",
             "profit_type": "monthly",
-            "property_type": "office",
-            "total_area": 3500,
-            "total_units": 42,
-            "rented_units": 38,
-            "vacant_units": 4,
-            "purchase_price": 14000000000,
-            "monthly_rent_per_unit": 35000000,
             "monthly_income": 1330000000,
-            "yearly_yield": 11.4,
             "occupancy_rate": 90.5,
-            "lease_duration": 24,
-            "tenant_type": "commercial",
-            "condition": "renovated",
-            "management": "Premium Property Management MChJ",
-            "monthly_maintenance": 180000000,
-            "amenities": [
-                "Markaziy konditsioner",
-                "3 ta yuqori tezlikdagi lift",
-                "Generator",
-                "Yopiq parking 80 o'rin",
-                "24\/7 qabulxona",
-                "4 ta konferens-xona",
-                "Restoran va kafeteriya",
-                "Bank filiali"
-            ],
-            "tenants": [
+            "progress": {
+                "percent": 90,
+                "timeline": [
+                    {
+                        "stage": "Ijaraga topshirilgan",
+                        "status": "completed"
+                    }
+                ]
+            },
+            "round": 1,
+            "rounds_status": [
                 {
-                    "type": "IT kompaniyalar",
-                    "percent": 45
-                },
-                {
-                    "type": "Konsalting",
-                    "percent": 25
-                },
-                {
-                    "type": "Moliya",
-                    "percent": 20
-                },
-                {
-                    "type": "Boshqalar",
-                    "percent": 10
+                    "round": 1,
+                    "status": "completed"
                 }
             ],
-            "risk_level": "low",
-            "round": 1,
             "start_date": "2024-01-10",
-            "end_date": "2024-12-31"
+            "end_date": "2024-12-31",
+            "project_manager": {
+                "name": "Dilshod Rasulov",
+                "phone": "+998907776655",
+                "experience_years": 8
+            },
+            "documents": []
         },
         {
             "id": 6,
-            "image": "https://content-17.foto.my.mail.ru/community/rodina-tafa/4/h-42.jpg",
             "code": "ENVST-2024-006",
             "name": "Chilonzor Shopping Mall",
+            "image": "https://content-17.foto.my.mail.ru/community/rodina-tafa/4/h-42.jpg",
+            "main_images": [
+                "https://content-17.foto.my.mail.ru/community/rodina-tafa/4/h-42.jpg"
+            ],
+            "videos": [],
+            "work_process_images": [],
             "category": "rent",
             "status": "active",
+            "risk_level": "low",
             "region": "Toshkent shahri",
             "district": "Chilonzor tumani",
             "address": "Chilonzor ko'chasi, 56",
+            "short_description": "Yirik savdo markazi, doimiy ijara daromadi.",
+            "purpose": "Savdo maydonlarini ijaraga berish",
             "total_value": 20000000000,
             "company_share": 10000000000,
             "investor_share": 10000000000,
             "min_investment": 30000000,
             "collected": 6800000000,
-            "yearly_profit_percent": 16,
+            "funding_status_percent": 68,
+            "profitability_percent": 16,
             "duration_months": 60,
+            "investment_duration": "5 yil",
             "profit_type": "monthly",
-            "property_type": "retail",
-            "total_area": 5500,
-            "total_units": 68,
-            "rented_units": 64,
-            "vacant_units": 4,
-            "purchase_price": 19000000000,
-            "monthly_rent_per_unit": 28000000,
             "monthly_income": 1792000000,
-            "yearly_yield": 11.3,
             "occupancy_rate": 94.1,
-            "lease_duration": 36,
-            "tenant_type": "mixed",
-            "condition": "new",
-            "management": "Mall Management Uzbekistan",
-            "monthly_maintenance": 280000000,
-            "amenities": [
-                "Markaziy ventilyatsiya",
-                "4 ta lift",
-                "Eskalatorlar",
-                "Parking 200 o'rin",
-                "Xavfsizlik tizimi",
-                "Kino teatr",
-                "Bolalar o'yin maydoni",
-                "Food court"
-            ],
-            "tenants": [
+            "progress": {
+                "percent": 94,
+                "timeline": [
+                    {
+                        "stage": "To‘liq ijarada",
+                        "status": "completed"
+                    }
+                ]
+            },
+            "round": 1,
+            "rounds_status": [
                 {
-                    "type": "Kiyim do'konlari",
-                    "percent": 30
-                },
-                {
-                    "type": "Ovqatlanish",
-                    "percent": 25
-                },
-                {
-                    "type": "Elektronika",
-                    "percent": 20
-                },
-                {
-                    "type": "Maishiy buyumlar",
-                    "percent": 15
-                },
-                {
-                    "type": "Boshqalar",
-                    "percent": 10
+                    "round": 1,
+                    "status": "completed"
                 }
             ],
-            "risk_level": "low",
-            "round": 1,
             "start_date": "2024-02-15",
-            "end_date": "2024-12-31"
+            "end_date": "2024-12-31",
+            "project_manager": {
+                "name": "Ulug‘bek Mamatov",
+                "phone": "+998909998877",
+                "experience_years": 11
+            },
+            "documents": []
         }
     ]
 ]

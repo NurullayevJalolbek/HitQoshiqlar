@@ -1,8 +1,9 @@
 <?php
 
 use App\Http\Controllers\Admin\ProjectController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 
 
 Route::get('/projects/list', [ProjectController::class, 'list']);

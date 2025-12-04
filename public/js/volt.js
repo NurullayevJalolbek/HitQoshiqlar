@@ -786,124 +786,124 @@ function a0_0x1ab6() {
                         },
                     },
                 })[_0x17eebe(0x23d)]();
-            // var _0x11131c = {
-            //         series: [
-            //             {
-            //                 name: _0x17eebe(0x226),
-            //                 data: [
-            //                     0x1bbc, 0x2580, 0x2710, 0x21fc, 0x2ee0, 0x3c28,
-            //                     0x4a38,
-            //                 ],
-            //             },
-            //             {
-            //                 name: _0x17eebe(0x1ce),
-            //                 data: [
-            //                     0x1004, 0x1a90, 0x1b58, 0x1a2c, 0x1c20, 0x36b0,
-            //                     0x2ee0,
-            //                 ],
-            //             },
-            //             {
-            //                 name: _0x17eebe(0x21a),
-            //                 data: [
-            //                     0x44c, 0xc80, 0x1194, 0xc80, 0xd48, 0x1450,
-            //                     0x1004,
-            //                 ],
-            //             },
-            //         ],
-            //         colors: [
-            //             _0x17eebe(0x1d7),
-            //             _0x17eebe(0x1fe),
-            //             _0x17eebe(0x169),
-            //             _0x17eebe(0x240),
-            //         ],
-            //         chart: {
-            //             height: 0x1a4,
-            //             type: _0x17eebe(0x247),
-            //             fontFamily: _0x17eebe(0x167),
-            //             foreColor: _0x17eebe(0x1f4),
-            //             toolbar: {
-            //                 show: !0x0,
-            //                 offsetX: 0x0,
-            //                 offsetY: 0x0,
-            //                 tools: {
-            //                     download: !0x1,
-            //                     selection: !0x1,
-            //                     zoom: !0x1,
-            //                     zoomin: !0x0,
-            //                     zoomout: !0x0,
-            //                     pan: !0x1,
-            //                     reset: 0x0,
-            //                     customIcons: [],
-            //                 },
-            //                 export: {
-            //                     csv: {
-            //                         filename: void 0x0,
-            //                         columnDelimiter: ",",
-            //                         headerCategory: "category",
-            //                         headerValue: _0x17eebe(0x1e7),
-            //                         dateFormatter: (_0x5ea161) =>
-            //                             new Date(_0x5ea161)["toDateString"](),
-            //                     },
-            //                 },
-            //                 autoSelected: "zoom",
-            //             },
-            //         },
-            //         dataLabels: { enabled: !0x1 },
-            //         stroke: { curve: _0x17eebe(0x170) },
-            //         grid: {
-            //             show: !0x0,
-            //             borderColor: "#f2f2f2",
-            //             strokeDashArray: 0x1,
-            //         },
-            //         xaxis: {
-            //             categories: [
-            //                 "01\x20Feb",
-            //                 "02\x20Feb",
-            //                 _0x17eebe(0x19f),
-            //                 _0x17eebe(0x1a1),
-            //                 _0x17eebe(0x22a),
-            //                 "06\x20Feb",
-            //                 _0x17eebe(0x19e),
-            //             ],
-            //             labels: {
-            //                 style: { fontSize: "12px", fontWeight: 0x1f4 },
-            //             },
-            //             axisBorder: { color: _0x17eebe(0x1c3) },
-            //             axisTicks: { color: _0x17eebe(0x1c3) },
-            //         },
-            //         yaxis: {
-            //             labels: {
-            //                 style: {
-            //                     colors: [_0x17eebe(0x1f4)],
-            //                     fontSize: _0x17eebe(0x168),
-            //                     fontWeight: 0x1f4,
-            //                 },
-            //             },
-            //         },
-            //         legend: {
-            //             show: !0x0,
-            //             fontSize: _0x17eebe(0x1bf),
-            //             fontFamily: _0x17eebe(0x167),
-            //             fontWeight: 0x190,
-            //             height: 0x3c,
-            //             tooltipHoverFormatter: void 0x0,
-            //             offsetY: 0x14,
-            //             markers: {
-            //                 width: 0xe,
-            //                 height: 0xe,
-            //                 strokeWidth: 0x1,
-            //                 strokeColor: _0x17eebe(0x19b),
-            //                 radius: 0x32,
-            //             },
-            //         },
-            //         responsive: [
-            //             {
-            //                 breakpoint: 0x300,
-            //                 options: { yaxis: { show: !0x1 } },
-            //             },
-            //         ],
-            //     },
-            //     _0x222c71 = document[_0x17eebe(0x234)]("traffic-volumes-chart");
+            var _0x11131c = {
+                    series: [
+                        {
+                            name: _0x17eebe(0x226),
+                            data: [
+                                0x1bbc, 0x2580, 0x2710, 0x21fc, 0x2ee0, 0x3c28,
+                                0x4a38,
+                            ],
+                        },
+                        {
+                            name: _0x17eebe(0x1ce),
+                            data: [
+                                0x1004, 0x1a90, 0x1b58, 0x1a2c, 0x1c20, 0x36b0,
+                                0x2ee0,
+                            ],
+                        },
+                        {
+                            name: _0x17eebe(0x21a),
+                            data: [
+                                0x44c, 0xc80, 0x1194, 0xc80, 0xd48, 0x1450,
+                                0x1004,
+                            ],
+                        },
+                    ],
+                    colors: [
+                        _0x17eebe(0x1d7),
+                        _0x17eebe(0x1fe),
+                        _0x17eebe(0x169),
+                        _0x17eebe(0x240),
+                    ],
+                    chart: {
+                        height: 0x1a4,
+                        type: _0x17eebe(0x247),
+                        fontFamily: _0x17eebe(0x167),
+                        foreColor: _0x17eebe(0x1f4),
+                        toolbar: {
+                            show: !0x0,
+                            offsetX: 0x0,
+                            offsetY: 0x0,
+                            tools: {
+                                download: !0x1,
+                                selection: !0x1,
+                                zoom: !0x1,
+                                zoomin: !0x0,
+                                zoomout: !0x0,
+                                pan: !0x1,
+                                reset: 0x0,
+                                customIcons: [],
+                            },
+                            export: {
+                                csv: {
+                                    filename: void 0x0,
+                                    columnDelimiter: ",",
+                                    headerCategory: "category",
+                                    headerValue: _0x17eebe(0x1e7),
+                                    dateFormatter: (_0x5ea161) =>
+                                        new Date(_0x5ea161)["toDateString"](),
+                                },
+                            },
+                            autoSelected: "zoom",
+                        },
+                    },
+                    dataLabels: { enabled: !0x1 },
+                    stroke: { curve: _0x17eebe(0x170) },
+                    grid: {
+                        show: !0x0,
+                        borderColor: "#f2f2f2",
+                        strokeDashArray: 0x1,
+                    },
+                    xaxis: {
+                        categories: [
+                            "01\x20Feb",
+                            "02\x20Feb",
+                            _0x17eebe(0x19f),
+                            _0x17eebe(0x1a1),
+                            _0x17eebe(0x22a),
+                            "06\x20Feb",
+                            _0x17eebe(0x19e),
+                        ],
+                        labels: {
+                            style: { fontSize: "12px", fontWeight: 0x1f4 },
+                        },
+                        axisBorder: { color: _0x17eebe(0x1c3) },
+                        axisTicks: { color: _0x17eebe(0x1c3) },
+                    },
+                    yaxis: {
+                        labels: {
+                            style: {
+                                colors: [_0x17eebe(0x1f4)],
+                                fontSize: _0x17eebe(0x168),
+                                fontWeight: 0x1f4,
+                            },
+                        },
+                    },
+                    legend: {
+                        show: !0x0,
+                        fontSize: _0x17eebe(0x1bf),
+                        fontFamily: _0x17eebe(0x167),
+                        fontWeight: 0x190,
+                        height: 0x3c,
+                        tooltipHoverFormatter: void 0x0,
+                        offsetY: 0x14,
+                        markers: {
+                            width: 0xe,
+                            height: 0xe,
+                            strokeWidth: 0x1,
+                            strokeColor: _0x17eebe(0x19b),
+                            radius: 0x32,
+                        },
+                    },
+                    responsive: [
+                        {
+                            breakpoint: 0x300,
+                            options: { yaxis: { show: !0x1 } },
+                        },
+                    ],
+                },
+                _0x222c71 = document[_0x17eebe(0x234)]("traffic-volumes-chart");
             _0x222c71 &&
                 new ApexCharts(_0x222c71, _0x11131c)[_0x17eebe(0x23d)]();
             var _0x782085 = document[_0x17eebe(0x234)]("traffic-share-chart");
