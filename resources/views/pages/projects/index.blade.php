@@ -77,8 +77,8 @@
             <thead class="table-dark">
             <tr>
                 <th>ID</th>
-                <th>Code</th>
                 <th>Rasm</th>
+                <th>Code</th>
                 <th>Loyiha nomi</th>
                 <th>Kategoriya</th>
                 <th>Holat</th>
