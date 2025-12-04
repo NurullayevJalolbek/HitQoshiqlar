@@ -16,9 +16,9 @@
             </nav>
         </div>
         <div class="d-flex gap-2 align-items-center flex-wrap">
-            <button class="btn btn-primary btn-sm px-3 py-1" id="addProjectBtn" style="min-width: 90px;">
+            <a href="{{ route('admin.projects.create') }}" class="btn btn-primary btn-sm px-3 py-1" id="addProjectBtn" style="min-width: 90px;">
                 <i class="fas fa-plus me-1" style="font-size: 0.85rem;"></i> Qo'shish
-            </button>
+            </a>
             <button class="btn btn-sm p-2 d-flex align-items-center justify-content-center"
                     type="button" data-bs-toggle="collapse"
                     data-bs-target="#projectsFilterContent" aria-expanded="true"

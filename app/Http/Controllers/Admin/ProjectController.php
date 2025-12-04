@@ -14,6 +14,11 @@ class ProjectController extends Controller
         return view('pages.projects.index');
     }
 
+    public function  create()
+    {
+        return view('pages.projects.create');
+    }
+
     public function list(Request $request)
     {
         $path = public_path('assets/data/projects.json');
