@@ -788,7 +788,7 @@
                     horizontal: true,
                     barHeight: "55%",
                     dataLabels: {
-                        position: "right"
+                        position: "center"
                     }
                 }
             },
@@ -800,7 +800,8 @@
                 },
                 style: {
                     fontSize: "12px",
-                    fontWeight: "600"
+                    fontWeight: "600",
+
                 },
                 offsetX: 12
             },
@@ -952,7 +953,8 @@
         console.log('🔄 Avtomatik yangilanish...');
         await fetchDashboardData();
         await initializeAllCharts(window.chartMode || 'monthly');
-    }, 300000); // 5 daqiqa
+        console.log('yangilandi harrom')
+    }, 1); // 5 daqiqa
 
     // Export funksiyalar (agar kerak bo'lsa)
     if (typeof module !== 'undefined' && module.exports) {

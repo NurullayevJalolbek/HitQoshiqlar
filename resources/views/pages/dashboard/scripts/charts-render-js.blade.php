@@ -558,7 +558,7 @@
                     borderRadius: 8,
                     horizontal: true,
                     dataLabels: {
-                        position: 'top'
+                        position: 'center'
                     }
                 }
             },
