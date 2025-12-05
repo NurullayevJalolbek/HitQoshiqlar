@@ -40,24 +40,35 @@
         }
     </style>
 @endpush
+@section('breadcrumb')
+    <div
+        class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-3 breadcrumb-block px-3 mt-3"
+        style="border: 1px solid rgba(0,0,0,0.05); border-radius: 0.5rem; background-color: #ffffff; height: 60px">
+        <!-- Breadcrumb -->
+        <div class="d-block mb-2 mb-md-0">
+            <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
+                <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
+                    <li class="breadcrumb-item">
+                        <a href="{{ route('admin.dashboard') }}">
+                            <i class="fas fa-home"></i>
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href="{{ route('admin.projects.index') }}">
+                            {{ __('admin.projects') }}
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">
+                        {{ __('admin.create') }}
+                    </li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+@endsection
 
 @section('content')
-    <div class="container-fluid">
-        <!-- Breadcrumb -->
-        <div class="page-header">
-            <div class="row align-items-center">
-                <div class="col">
-                    <h2 class="page-title">➕ Yangi Loyiha Qo'shish</h2>
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{ route('admin.projects.index') }}">Loyihalar</a></li>
-                            <li class="breadcrumb-item active">Yangi loyiha</li>
-                        </ol>
-                    </nav>
-                </div>
-            </div>
-        </div>
-
+    <div class="mb-4 mt-3">
         <div class="row">
             <div class="col-12">
                 <form id="createProjectForm" action="#" method="POST" enctype="multipart/form-data">
@@ -480,13 +491,14 @@
                     </div>
 
                     <!-- Submit buttons -->
-                    <div class="mt-4">
-                        <button type="submit" class="btn btn-primary btn-lg px-5">
-                            <i class="fas fa-save me-2"></i> Loyihani Saqlash
-                        </button>
+                    <div class="mt-4 d-flex justify-content-between">
                         <a href="{{ route('admin.projects.index') }}" class="btn btn-outline-secondary ms-2">
                             <i class="fas fa-times me-2"></i> Bekor qilish
                         </a>
+
+                        <button type="submit" class="btn btn-primary btn-lg px-5">
+                            <i class="fas fa-save me-2"></i>Saqlash
+                        </button>
                     </div>
                 </form>
             </div>

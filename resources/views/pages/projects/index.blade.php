@@ -376,9 +376,6 @@
                     applyFilter();
                 }
             });
-            addProjectBtn.addEventListener('click', function () {
-                alert('Yangi loyiha qo\'shish oynasi ochiladi (demo)');
-            });
         });
     </script>
 @endpush
