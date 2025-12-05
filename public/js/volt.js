@@ -2,7 +2,6 @@
 // Barcha logika DOM tayyor bo‘lganda ishga tushadi
 document.addEventListener("DOMContentLoaded", function () {
     const doc = document; // ============================== // 1. SweetAlert2 konfiguratsiyasi // ============================== // Kalendar eventlarini o‘chirishda ishlatiladi
-
     const swalWithBootstrapButtons = Swal.mixin({
         customClass: {
             confirmButton: "btn btn-primary me-3",
@@ -273,15 +272,33 @@ document.addEventListener("DOMContentLoaded", function () {
         chart.render();
     })(); // 9.2. Weekly sales – bar sparkline (#chart-weekly-sales)
 
-    (function initWeeklySalesChart() {
-        const el = doc.getElementById("chart-weekly-sales");
+    function initWeeklySalesChart() {
+        const el = document.getElementById("chart-weekly-sales");
         if (!el) return;
+
+        if (
+            !dashboardData ||
+            !dashboardData.data ||
+            !dashboardData.data.totalRevenue
+        ) {
+            console.error("totalRevenue API dan kelmadi!", dashboardData);
+            return;
+        }
+
+        const revenue = dashboardData.data.totalRevenue;
+
+        if (!revenue.dailyAvg) {
+            console.error("dailyAvg yo‘q!", revenue);
+            return;
+        }
+
+        const weeklyData = generateWeeklyRevenueFromDaily(revenue.dailyAvg);
 
         new ApexCharts(el, {
             series: [
                 {
-                    name: "Sales",
-                    data: [32, 44, 37, 47, 42, 55, 47, 65],
+                    name: "Revenue",
+                    data: weeklyData,
                 },
             ],
             chart: {
@@ -300,22 +317,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 bar: {
                     columnWidth: "20%",
                     borderRadius: 5,
-                    radiusOnLastStackedBar: true,
-                    horizontal: false,
-                    distributed: false,
                     endingShape: "rounded",
-                    colors: {
-                        backgroundBarColors: [
-                            "#F2F4F6",
-                            "#F8BD7A",
-                            "#F2F4F6",
-                            "#F8BD7A",
-                        ],
-                        backgroundBarRadius: 5,
-                    },
                 },
             },
-            labels: [1, 2, 3, 4, 5, 6, 7, 8],
             xaxis: {
                 categories: [
                     "Week 1",
@@ -327,24 +331,24 @@ document.addEventListener("DOMContentLoaded", function () {
                     "Week 7",
                     "Week 8",
                 ],
-                crosshairs: { width: 1 },
             },
             tooltip: {
-                fillSeriesColor: false,
-                onDatasetHover: { highlightDataSeries: false },
-                theme: "light",
-                style: {
-                    fontSize: "12px",
-                    fontFamily: "Inter",
-                },
                 y: {
                     formatter: function (val) {
-                        return "$ " + val + "k";
+                        return (
+                            new Intl.NumberFormat("uz-UZ").format(
+                                val * 1_000_000
+                            ) +
+                            " " +
+                            revenue.currency
+                        );
                     },
                 },
             },
         }).render();
-    })(); // 9.3. Users – area sparkline (#chart-users)
+    }
+
+    // 9.3. Users – area sparkline (#chart-users)
 
     (function initUsersChart() {
         const el = doc.getElementById("chart-users");
@@ -428,7 +432,101 @@ document.addEventListener("DOMContentLoaded", function () {
             theme: {
                 monochrome: {
                     enabled: true,
-                    color: "#4D4AE8",
+                    color: "#31316A",
+                },
+            },
+            tooltip: {
+                fillSeriesColor: false,
+                onDatasetHover: { highlightDataSeries: false },
+                theme: "light",
+                style: { fontSize: "12px", fontFamily: "Inter" },
+            },
+        }).render();
+    })();
+
+    (function initUsersChart() {
+        const el = doc.getElementById("chart-active-projects");
+        if (!el) return;
+
+        new ApexCharts(el, {
+            series: [
+                {
+                    name: "Users",
+                    data: [
+                        120, 160, 200, 470, 420, 150, 470, 750, 650, 190, 140,
+                    ],
+                },
+            ],
+            labels: [
+                "01 Feb",
+                "02 Feb",
+                "03 Feb",
+                "04 Feb",
+                "05 Feb",
+                "06 Feb",
+                "07 Feb",
+                "08 Feb",
+                "09 Feb",
+                "10 Feb",
+                "11 Feb",
+            ],
+            chart: {
+                type: "area",
+                width: "100%",
+                height: 140,
+                sparkline: { enabled: true },
+            },
+            theme: {
+                monochrome: {
+                    enabled: true,
+                    color: "#31316A",
+                },
+            },
+            tooltip: {
+                fillSeriesColor: false,
+                onDatasetHover: { highlightDataSeries: false },
+                theme: "light",
+                style: { fontSize: "12px", fontFamily: "Inter" },
+            },
+        }).render();
+    })(); // 9.4. Revenue – area sparkline (#chart-revenue)
+
+    (function initRevenueChart() {
+        const el = doc.getElementById("chart-investment");
+        if (!el) return;
+
+        new ApexCharts(el, {
+            series: [
+                {
+                    name: "Revenue",
+                    data: [
+                        520, 560, 500, 570, 520, 550, 570, 550, 550, 590, 540,
+                    ],
+                },
+            ],
+            labels: [
+                "01 Feb",
+                "02 Feb",
+                "03 Feb",
+                "04 Feb",
+                "05 Feb",
+                "06 Feb",
+                "07 Feb",
+                "08 Feb",
+                "09 Feb",
+                "10 Feb",
+                "11 Feb",
+            ],
+            chart: {
+                type: "area",
+                width: "100%",
+                height: 140,
+                sparkline: { enabled: true },
+            },
+            theme: {
+                monochrome: {
+                    enabled: true,
+                    color: "#31316A",
                 },
             },
             tooltip: {
@@ -1300,5 +1398,34 @@ document.addEventListener("DOMContentLoaded", function () {
                 pricePremiumCounter.reset();
             }
         });
+    }
+    async function loadDashboardData() {
+        try {
+            const res = await fetch("/api/dashboard");
+            const data = await res.json();
+
+            console.log("API RAW RESPONSE:", data); // <-- SHU MUHIM
+
+            dashboardData = data;
+
+            initWeeklySalesChart();
+        } catch (e) {
+            console.error("Dashboard API xatosi:", e);
+        }
+    }
+
+    function generateWeeklyRevenueFromDaily(dailyAvg) {
+        const weekValue = dailyAvg * 7;
+
+        return [
+            weekValue * 0.7,
+            weekValue * 0.85,
+            weekValue * 0.9,
+            weekValue,
+            weekValue * 1.1,
+            weekValue * 1.2,
+            weekValue * 1.25,
+            weekValue * 1.3,
+        ].map((v) => Math.round(v));
     }
 });

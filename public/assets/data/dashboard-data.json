@@ -14,12 +14,12 @@
       "valueK": 86000000,
       "formatted": "86 000 000",
       "trend": 12.0,
-      "change": "increase",
+      "change": "increase", 
       "currency": "UZS"
     },
     "activeProjects": {
       "value": 6,
-      "trend": 10.0,
+      "trend": 10.5,
       "change": "stable",
       "byCategory": {
         "land": 2,
@@ -38,6 +38,7 @@
     }
   },
   "charts": {
+    
     "investorsGrowth": {
       "monthly": {
         "categories": ["Yanvar", "Fevral", "Mart", "Aprel", "May", "Iyun", "Iyul", "Avgust", "Sentabr", "Oktabr", "Noyabr", "Dekabr"],

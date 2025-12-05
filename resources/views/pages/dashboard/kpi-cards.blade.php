@@ -66,7 +66,7 @@
             <div class="card-body">
                 <div class="row d-block d-xxl-flex align-items-center">
                     <div class="col-12 col-xxl-6 px-xxl-0 mb-3 mb-xxl-0">
-                        <div id="chart-revenue"></div>
+                        <div id="chart-investment"></div>
                     </div>
                     <div class="col-12 col-xxl-6 ps-xxl-4 pe-xl-0">
                         <h2 class="fs-5 fw-normal mb-1">{{ __('admin.kpi.total_investment') }}</h2>
@@ -96,46 +96,73 @@
         </div>
     </div>
 
-    <!-- Faol Loyihalar -->
     <div class="col-xl-3 col-md-6">
         <div class="card metric-card">
             <div class="card-body">
-                <h2 class="fs-5 fw-normal">{{ __('admin.kpi.active_projects') }}</h2>
-                <h3 class="fs-1 fw-extrabold mb-1" data-kpi="activeProjects">6</h3>
-                <div class="d-flex align-items-center">
-                    <span class="me-3">Feb 1 - Apr 1</span>
+                <div class="row d-block d-sm-flex d-xl-block d-xxl-flex align-items-center">
+                    <div class="col-12 col-sm-6 col-xl-12 col-xxl-6 px-xxl-0 mb-3 mb-sm-0 mb-xl-3 mb-xxl-0">
+                        <div id="chart-active-projects"></div>
+                    </div>
+                    <div class="col-12 col-sm-6 col-xl-12 col-xxl-6 ps-xxl-4 pe-xxl-0">
+                        <h2 class="fs-5 fw-normal mb-1">{{ __('admin.kpi.active_projects') }}</h2>
+                        <h3 class="fw-extrabold mb-1" data-kpi="activeProjects">0</h3>
+                        <span class="text-success fw-bolder me-1" data-trend="projectsTrend">0%</span>
+                        <small class="d-flex align-items-center">
+                            <svg class="icon icon-xxs text-gray-400 me-1" fill="currentColor" viewBox="0 0 20 20"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                    d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
+                                    clip-rule="evenodd"></path>
+                            </svg>
+                            Apr 1 - May 1
+                        </small>
+                        <div class="small d-flex mt-1">
+                            <svg class="icon icon-xs text-success" fill="currentColor" viewBox="0 0 20 20"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                    d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z"
+                                    clip-rule="evenodd"></path>
+                            </svg>
+                            <div><span class="text-success fw-bolder me-1">20%</span> Since last month</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
     <!-- Umumiy Daromad -->
+
     <div class="col-xl-3 col-md-6">
         <div class="card metric-card">
-            <div class="card border-0 shadow">
-                <div class="card-header border-bottom">
-                    <h2 class="fs-5 fw-bold mb-1">{{ __('admin.kpi.total_revenue') }}</h2>
-                    <h3 class="display-3 fw-extrabold mb-0" data-kpi="totalRevenue">456,678 k</h3>
-                    <span class="fw-bolder" data-trend="revenueTrend">22.4%</span>
-                    <small>28 Daily Avg.</small>
-                </div>
-                <div class="card-body text-center py-4 py-xl-5">
-                    <h3 class="display-3 fw-extrabold mb-0">$456,678</h3>
-                    <p>Total Themesberg Sales</p>
-                    <a href="#" class="btn btn-primary d-inline-flex align-items-center">
-                        <svg class="icon icon-xxs me-2" fill="currentColor" viewBox="0 0 20 20"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd"
-                                d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z"
-                                clip-rule="evenodd"></path>
-                        </svg>
-                        Generate Report
-                    </a>
-                </div>
-                <div class="card-footer border-0 px-3 py-4">
-                    <div id="chart-weekly-sales"></div>
+            <div class="card-body">
+                <div class="row d-block d-xxl-flex align-items-center">
+                    <div class="col-12 col-xxl-6 px-xxl-0 mb-3 mb-xxl-0">
+                        <div id="chart-revenue"></div>
+                    </div>
+                    <div class="col-12 col-xxl-6 ps-xxl-4 pe-xl-0">
+                        <h2 class="fs-6 fw-normal mb-1 text-gray-400">{{ __('admin.kpi.total_revenue') }}</h2>
+                        <h3 class="fw-extrabold mb-1" data-kpi="totalRevenue">0</h3>
+                        <small class="d-flex align-items-center">
+                            <svg class="icon icon-xxs text-gray-400 me-1" fill="currentColor" viewBox="0 0 20 20"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                    d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
+                                    clip-rule="evenodd"></path>
+                            </svg>
+                            Apr 1 - May 1
+                        </small>
+                        <div class="small d-flex mt-1">
+                            <div><svg class="icon icon-xs text-danger" fill="currentColor" viewBox="0 0 20 20"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                    d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z"
+                                    clip-rule="evenodd"></path>
+                                </svg><span class="text-green fw-bolder" data-trend="revenueTrend">0%</span> Since last month</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+    
 </div>

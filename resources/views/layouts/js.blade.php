@@ -468,6 +468,7 @@
 <!-- Core -->
 <script src="{{ asset('vendor/@popperjs/core/dist/umd/popper.min.js') }}"></script>
 {{-- <script src="{{ asset('vendor/bootstrap/dist/js/bootstrap.min.js') }}"></script> --}}
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
 <script src="{{ asset('vendor/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
 

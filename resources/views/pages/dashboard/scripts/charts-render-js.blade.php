@@ -604,4 +604,6 @@
 
     // Export function
     window.initializeAllCharts = initializeAllCharts;
+
+    
 </script>
