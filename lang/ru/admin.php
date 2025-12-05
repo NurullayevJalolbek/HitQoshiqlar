@@ -278,4 +278,5 @@ return [
         'select_date' => 'Выберите дату',
         'invalid_date_range' => 'Неверный диапазон',
     ],
+    'Back' => 'Ortga',
 ];

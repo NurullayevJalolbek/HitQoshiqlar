@@ -288,4 +288,6 @@ return [
         'select_date' => 'Sanani tanlang',
         'invalid_date_range' => 'Sanalar noto‘g‘ri',
     ],
+    'Back' => 'Ortga',
+
 ];

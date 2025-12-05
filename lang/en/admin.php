@@ -292,4 +292,6 @@ return [
         'rent' => 'Rent',
         'construction' => 'Construction',
     ],
+    'Back' => 'Ortga',
+
 ];

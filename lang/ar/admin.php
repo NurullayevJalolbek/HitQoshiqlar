@@ -306,4 +306,6 @@ return [
         'rent' => 'الإيجار',
         'construction' => 'البناء',
     ],
+    'Back' => 'Ortga',
+    
 ];

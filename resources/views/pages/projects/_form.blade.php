@@ -183,7 +183,7 @@
         }
 
         /* Button Styles */
-        .btn-step {
+        /* .btn-step {
             padding: 12px 30px;
             font-weight: 600;
             border-radius: 8px;
@@ -209,7 +209,7 @@
         .btn-outline-secondary:hover {
             background: #f9fafb;
             border-color: #d1d5db;
-        }
+        } */
 
         /* File Upload Area */
         .file-upload-wrapper {
@@ -511,7 +511,7 @@
             <div class="form-card">
                 <div class="form-card-header">
                     <div class="form-card-icon">
-                        <i class="fas fa-chart-line"></i>
+                        {!! file_get_contents(public_path('/svg/chart-line.svg')) !!}
                     </div>
                     <h5 class="form-card-title">Moliyaviy Ma'lumotlar</h5>
                 </div>
@@ -690,7 +690,7 @@
             <div class="form-card category-section" id="construction-section">
                 <div class="form-card-header">
                     <div class="form-card-icon">
-                        <i class="fas fa-hard-hat"></i>
+                        {!! file_get_contents(public_path('/svg/category-2.svg')) !!}
                     </div>
                     <h5 class="form-card-title">Qurilish Ma'lumotlari</h5>
                 </div>
@@ -808,7 +808,7 @@
             <div class="form-card">
                 <div class="form-card-header">
                     <div class="form-card-icon">
-                        <i class="fas fa-map-marker-alt"></i>
+                        {!! file_get_contents(public_path('svg/location.svg')) !!}
                     </div>
                     <h5 class="form-card-title">Joylashuv</h5>
                 </div>
@@ -892,7 +892,7 @@
             <div class="form-card">
                 <div class="form-card-header">
                     <div class="form-card-icon">
-                        <i class="fas fa-users"></i>
+                        {!! file_get_contents(public_path('svg/people.svg')) !!}
                     </div>
                     <h5 class="form-card-title">Boshqaruv va Hujjatlar</h5>
                 </div>
@@ -939,18 +939,8 @@
             </div>
         </div>
 
-        <!-- Navigation Buttons -->
-        <div class="progress-indicator">
-            <button type="button" class="btn btn-outline-secondary btn-step" id="prevBtn" style="display: none;">
-                <i class="fas fa-arrow-left me-2"></i>Orqaga
-            </button>
-            <button type="button" class="btn btn-primary-gradient btn-step" id="nextBtn">
-                Keyingi <i class="fas fa-arrow-right ms-2"></i>
-            </button>
-            <button type="submit" class="btn btn-primary-gradient btn-step" id="submitBtn" style="display: none;">
-                <i class="fas fa-check me-2"></i>{{ $submitText }}
-            </button>
-        </div>
+        <x-step-buttons />
+
     </form>
 </div>
 
