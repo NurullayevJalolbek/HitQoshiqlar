@@ -209,9 +209,15 @@
                     </td>
                     <td>${u[7]}</td>
                     <td class="text-center d-flex justify-content-center gap-2">
-                        <a href="#" class="btn btn-sm p-1" style="background:none;color:#1F2937;"><i class="bi bi-eye-fill"></i></a>
-                        <a href="#" class="btn btn-sm p-1" style="background:none;color:#f0bc74;"><i class="bi bi-pencil-fill"></i></a>
-                        <a href="#" class="btn btn-sm p-1 delete-role" style="background:none;color:#DC2626;"><i class="fas fa-trash"></i></a>
+
+                   <x-show-button />
+
+
+                   <x-edit-button />
+
+                   <x-delete-button />
+
+
                     </td>
                 </tr>
             `;

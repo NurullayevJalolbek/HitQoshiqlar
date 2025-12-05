@@ -35,6 +35,14 @@
             margin-left: 5px;
         }
 
+        /*shield icon*/
+
+        .status-pending-icon {
+            width: 20px;
+            height: 20px;
+            object-fit: contain;
+        }
+
         .action-btn i {
             font-size: 18px;
         }
@@ -193,14 +201,16 @@
             let pageData = investors.slice(start, end);
 
             pageData.forEach(inv => {
+                const verificationIcon = inv[7] === 'Tasdiqlangan'
+                    ? '<i class="bi bi-patch-check-fill icon-verified" title="Tasdiqlangan"></i>'
+                    : '<i class="bi bi-x-circle-fill status-pending" title="Tasdiqlanmagan"></i>';
+
                 tbody.innerHTML += `
         <tr>
             <td>${inv[0]}</td>
             <td>
                 ${inv[1]}
-                ${inv[7] === 'Tasdiqlangan'
-                    ? '<span class="label-verified">Tasdiqlangan</span>'
-                    : '<span class="label-unverified">Tasdiqlanmagan</span>'}
+                ${verificationIcon}
             </td>
             <td>${inv[2]}</td>
             <td>${inv[3]}</td>
@@ -219,8 +229,10 @@
             <td>${inv[8]}</td>
 
             <td class="text-center">
-                <i class="bi bi-eye-fill me-2"></i>
-                <i class="fas fa-shield-alt text-danger"></i>
+            <i class="bi bi-eye-fill me-2" style="width:20px;height:20px;font-size:20px;"></i>
+            <img src="/assets/img/icons/shield_icon.png"
+                     alt="Tasdiqlanmagan"
+                     class="status-pending-icon" style="color: #1F2937; ">
             </td>
         </tr>`;
             });
