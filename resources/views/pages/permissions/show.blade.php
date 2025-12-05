@@ -5,7 +5,7 @@
         /* Tab Navigation */
         .nav-tabs {
             border-bottom: 2px solid #e5e7eb;
-            margin-bottom: 1.5rem;
+            /*margin-bottom: 1.5rem;*/
             overflow-x: auto;
             white-space: nowrap;
             flex-wrap: nowrap;
@@ -13,6 +13,7 @@
         }
 
         .nav-tabs .nav-link {
+            height: 40px;
             color: #1F2937;
             border: none;
             padding: 0.75rem 1.5rem;
