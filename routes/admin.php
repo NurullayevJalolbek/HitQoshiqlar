@@ -46,7 +46,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'l
      * Investitsiyon loyihalar
      */
     //Projects
-    Route::resource('projects', ProjectController::class);
+    Route::resource('projects', ProjectController::class)->names('projects');
 
     //  Loyiha investorlar
     Route::resource('project-investors', ProjectInvestorController::class)->names([

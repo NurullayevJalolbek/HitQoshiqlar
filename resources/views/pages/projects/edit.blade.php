@@ -17,7 +17,7 @@
                         </a>
                     </li>
                     <li class="breadcrumb-item active" aria-current="page">
-                        {{ __('admin.create') }}
+                        Loyihani Tahrirlash
                     </li>
                 </ol>
             </nav>
@@ -26,11 +26,11 @@
 @endsection
 
 @section('content')
-    @include('pages.projects._form', [
-        'project' => null,
-        'action' => route('admin.projects.store'),
-        'method' => 'POST',
-        'submitText' => 'Loyihani Saqlash',
-        // 'pageTitle' => 'Yangi Investitsiya Loyihasi Yaratish'
+    @include('admin.projects._form', [
+        'project' => $project,
+        'action' => route('admin.projects.update', $project->id),
+        '_method' => 'PUT',
+        'submitText' => 'O\'zgarishlarni Saqlash',
+        'pageTitle' => 'Loyihani Tahrirlash: ' . $project->name
     ])
 @endsection

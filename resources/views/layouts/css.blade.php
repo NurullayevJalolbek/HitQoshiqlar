@@ -190,4 +190,19 @@
                 left: unset !important;
             }
         }
+
+        /* === SUBMENU CHAPGA QAYTARISH === */
+        .sidebar .multi-level {
+            padding-left: 0 !important;
+        }
+
+        .sidebar .multi-level .nav {
+            padding-left: 0 !important;
+        }
+
+        .sidebar .multi-level .nav-link {
+            padding-left: 2.75rem !important;
+            /* Standart volt ko‘rinishi */
+            margin-left: 0 !important;
+        }
     </style>
