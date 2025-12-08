@@ -381,31 +381,31 @@
                     </div>
                 </div>
                 <div class="col-md-2">
-                    <label for="categoryFilter" class="form-label mb-2">{{ __('admin.category')}}</label>
+                    <label for="categoryFilter" class="form-label mb-2">{{ __('admin.category') }}</label>
                     <select id="categoryFilter" class="form-select">
-                        <option value="">{{ __('admin.all')}}</option>
-                        <option value="yer">{{ __('admin.land')}}</option>
-                        <option value="qurilish">{{ __('admin.construction')}}</option>
-                        <option value="ijara">{{ __('admin.rent')}}</option>
+                        <option value="">{{ __('admin.all') }}</option>
+                        <option value="yer">{{ __('admin.land') }}</option>
+                        <option value="qurilish">{{ __('admin.construction') }}</option>
+                        <option value="ijara">{{ __('admin.rent') }}</option>
                     </select>
                 </div>
                 <div class="col-md-2">
-                    <label for="statusFilter" class="form-label mb-2">{{ __('admin.status')}}</label>
+                    <label for="statusFilter" class="form-label mb-2">{{ __('admin.status') }}</label>
                     <select id="statusFilter" class="form-select">
-                        <option value="">{{ __('admin.all')}}</option>
-                        <option value="faol">{{ __('admin.active')}}</option>
-                        <option value="rejalashtirilgan">{{ __('admin.planned')}}</option>
-                        <option value="yakunlangan">{{ __('admin.completed')}}</option>
-                        <option value="nofaol">{{ __('admin.inactive')}}</option>
+                        <option value="">{{ __('admin.all') }}</option>
+                        <option value="faol">{{ __('admin.active') }}</option>
+                        <option value="rejalashtirilgan">{{ __('admin.planned') }}</option>
+                        <option value="yakunlangan">{{ __('admin.completed') }}</option>
+                        <option value="nofaol">{{ __('admin.inactive') }}</option>
                     </select>
                 </div>
                 <div class="col-md-2">
-                    <label for="riskFilter" class="form-label mb-2">{{ __('admin.risk_level')}}</label>
+                    <label for="riskFilter" class="form-label mb-2">{{ __('admin.risk_level') }}</label>
                     <select id="riskFilter" class="form-select">
-                        <option value="">{{ __('admin.all')}}</option>
-                        <option value="past">{{ __('admin.low')}}</option>
-                        <option value="o'rta">{{ __('admin.medium')}}</option>
-                        <option value="yuqori">{{ __('admin.high')}}</option>
+                        <option value="">{{ __('admin.all') }}</option>
+                        <option value="past">{{ __('admin.low') }}</option>
+                        <option value="o'rta">{{ __('admin.medium') }}</option>
+                        <option value="yuqori">{{ __('admin.high') }}</option>
                     </select>
                 </div>
                 <x-filter-buttons :search-text="__('admin.search')" :clear-text="__('admin.clear')" />
@@ -414,18 +414,18 @@
     </div>
 
     <!-- Jadval -->
-    <div class="card card-body py-3 px-3 shadow border-0 table-wrapper table-responsive">
-        <table class="table project-table table-hover align-middle">
-            <thead>
+    <div class="card card-body py-3 px-3 shadow border-0 table-wrapper table-responsive mt-3">
+        <table class="table user-table table-bordered table-hover table-striped align-items-center">
+            <thead class="table-dark">
                 <tr>
                     <th style="width: 50px;">{{ __('admin.id') }}</th>
-                    <th style="width: 80px;">{{ __('admin.picture')}}</th>
-                    <th style="width: 100px;">{{ __('admin.code')}}</th>
-                    <th style="min-width: 200px;">{{ __('admin.project')}}</th>
-                    <th style="width: 100px;">{{ __('admin.category')}}</th>
-                    <th style="width: 130px;">{{ __('admin.status')}}</th>
-                    <th style="width: 90px;">{{ __('admin.risk_level')}}</th>
-                    <th style="min-width: 130px;">{{ __('admin.value')}}</th>
+                    <th style="width: 80px;">{{ __('admin.picture') }}</th>
+                    <th style="width: 100px;">{{ __('admin.code') }}</th>
+                    <th style="min-width: 200px;">{{ __('admin.project') }}</th>
+                    <th style="width: 100px;">{{ __('admin.category') }}</th>
+                    <th style="width: 130px;">{{ __('admin.status') }}</th>
+                    <th style="width: 90px;">{{ __('admin.risk_level') }}</th>
+                    <th style="min-width: 130px;">{{ __('admin.value') }}</th>
                     <th style="min-width: 120px;">{{ __('admin.progress') }}</th>
                     <th style="min-width: 120px;">{{ __('admin.financing') }}</th>
                     <th style="width: 100px;">{{ __('admin.rounds') }}</th>
@@ -652,20 +652,9 @@
                 </td>
                 <td>
                     <div class="action-buttons">
-                        <a href="${showUrl}" class="btn-action btn-view" title="Ko'rish">
-                            <i class="fas fa-eye"></i>
-                        </a>
-                        <a href="${editUrl}" class="btn-action btn-edit" title="Tahrirlash">
-                            <i class="fas fa-edit"></i>
-                        </a>
-                        <form action="${destroyUrl}" method="POST" class="d-inline" 
-                              onsubmit="return confirm('Ushbu loyihani o\'chirmoqchimisiz?')">
-                            <input type="hidden" name="_token" value="${csrfToken}">
-                            <input type="hidden" name="_method" value="DELETE">
-                            <button type="submit" class="btn-action btn-delete" title="O'chirish">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </form>
+                        <x-show-button />
+                        <x-edit-button />
+                        <x-delete-button/>
                     </div>
                 </td>
             </tr>
