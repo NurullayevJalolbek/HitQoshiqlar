@@ -315,5 +315,14 @@ return [
     'confirm' => "تأكيد",
     'cancel' => "إلغاء",
     'date_from' => "من",
-'date_to' => "إلى"
+    'date_to' => "إلى",
+    'add' => 'إضافة',
+    'picture' => 'صورة',
+    'value' => 'القيمة',
+    'progress' => 'التقدم',
+    'financing' => 'التمويل',
+    'rounds' => 'الجولات',
+    'risk' => 'المخاطر',
+    'id' => 'معرّف',
+    'income' => 'الدخل',
 ];

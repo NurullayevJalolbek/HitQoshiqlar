@@ -297,5 +297,14 @@ return [
     'confirm' => "Tasdiqlash",
     'cancel' => "Bekor qilish",
     'date_from' => "Sanadan",
-'date_to' => "Sanagacha"
+'date_to' => "Sanagacha",
+    'add' => 'Qo\'shish',
+    'picture' => 'Rasm',
+    'value' => 'Qiymat',
+    'progress' => 'Bosqich',
+    'financing' => 'Moliyalashtirish',
+    'rounds' => 'Raundlar',
+    'risk' => 'Xavf',
+    'id' => 'ID',
+    'income' => 'Daromad',
 ];

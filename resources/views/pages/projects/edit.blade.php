@@ -26,11 +26,11 @@
 @endsection
 
 @section('content')
-    @include('admin.projects._form', [
+    @include('pages.projects._form', [
         'project' => $project,
-        'action' => route('admin.projects.update', $project->id),
-        '_method' => 'PUT',
+        'action' => route('admin.projects.update', $project->id ?? request()->segment(3)),
+        'method' => 'PUT',
         'submitText' => 'O\'zgarishlarni Saqlash',
-        'pageTitle' => 'Loyihani Tahrirlash: ' . $project->name
+        'pageTitle' => 'Loyihani Tahrirlash: ' . $project['name'],
     ])
 @endsection

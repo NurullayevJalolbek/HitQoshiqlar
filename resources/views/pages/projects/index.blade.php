@@ -1,28 +1,364 @@
 @extends('layouts.app')
 
 @push('customCss')
+    <style>
+        /* Optimallashtrilgan CSS */
+        .filter-card {
+            background: #ffffff;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            border-radius: 0.75rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+        }
+
+        .stats-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 0.75rem;
+            padding: 1.25rem;
+            color: white;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
+        }
+
+        .stats-card .stat-value {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .stats-card .stat-label {
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+
+        /* Jadval optimizatsiyasi */
+        .project-table {
+            font-size: 0.875rem;
+            margin-bottom: 0;
+        }
+
+        .project-table thead th {
+            background: #1f2937;
+            color: white;
+            font-weight: 600;
+            padding: 0.875rem 0.75rem;
+            font-size: 0.8125rem;
+            white-space: nowrap;
+            border: none;
+            vertical-align: middle;
+        }
+
+        .project-table tbody td {
+            padding: 0.875rem 0.75rem;
+            vertical-align: middle;
+            border-color: #e5e7eb;
+        }
+
+        .project-table tbody tr {
+            transition: background-color 0.15s ease;
+        }
+
+        .project-table tbody tr:hover {
+            background-color: #f9fafb;
+        }
+
+        /* Rasm optimizatsiyasi */
+        .project-img {
+            width: 56px;
+            height: 56px;
+            object-fit: cover;
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border: 2px solid #fff;
+        }
+
+        /* Badge'lar */
+        .badge-custom {
+            padding: 0.375rem 0.75rem;
+            border-radius: 0.375rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: inline-block;
+            white-space: nowrap;
+        }
+
+        .badge-category-yer {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .badge-category-qurilish {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .badge-category-ijara {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .badge-status-faol {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .badge-status-rejalashtirilgan {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .badge-status-yakunlangan {
+            background: #e5e7eb;
+            color: #374151;
+        }
+
+        .badge-status-nofaol {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .badge-risk-past {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .badge-risk-o-rta {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .badge-risk-yuqori {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        /* Progress bar */
+        .progress-wrapper {
+            min-width: 100px;
+        }
+
+        .progress-custom {
+            height: 6px;
+            background: #e5e7eb;
+            border-radius: 1rem;
+            overflow: hidden;
+            margin-bottom: 0.25rem;
+        }
+
+        .progress-bar-custom {
+            height: 100%;
+            background: linear-gradient(90deg, #10b981 0%, #059669 100%);
+            border-radius: 1rem;
+            transition: width 0.3s ease;
+        }
+
+        .progress-text {
+            font-size: 0.7rem;
+            color: #6b7280;
+            font-weight: 500;
+        }
+
+        /* Raund ko'rsatkichlari */
+        .round-indicators {
+            display: flex;
+            gap: 0.25rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .round-dot {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: 600;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .round-active {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .round-completed {
+            background: #10b981;
+            color: white;
+        }
+
+        .round-pending {
+            background: #f3f4f6;
+            color: #9ca3af;
+            border: 1px solid #e5e7eb;
+        }
+
+        /* Amallar */
+        .action-buttons {
+            display: flex;
+            gap: 0.375rem;
+            justify-content: center;
+        }
+
+        .btn-action {
+            width: 32px;
+            height: 32px;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0.375rem;
+            border: 1px solid #e5e7eb;
+            background: white;
+            transition: all 0.2s ease;
+        }
+
+        .btn-action:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+        }
+
+        .btn-view {
+            color: #3b82f6;
+        }
+
+        .btn-view:hover {
+            background: #eff6ff;
+            border-color: #3b82f6;
+        }
+
+        .btn-edit {
+            color: #f59e0b;
+        }
+
+        .btn-edit:hover {
+            background: #fffbeb;
+            border-color: #f59e0b;
+        }
+
+        .btn-delete {
+            color: #ef4444;
+        }
+
+        .btn-delete:hover {
+            background: #fef2f2;
+            border-color: #ef4444;
+        }
+
+        /* Ma'lumot ko'rinishi */
+        .project-name {
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 0.125rem;
+            font-size: 0.875rem;
+        }
+
+        .project-location {
+            font-size: 0.75rem;
+            color: #6b7280;
+        }
+
+        .value-primary {
+            font-weight: 600;
+            color: #1f2937;
+            font-size: 0.875rem;
+        }
+
+        .value-secondary {
+            font-size: 0.75rem;
+            color: #6b7280;
+            margin-top: 0.125rem;
+        }
+
+        /* Loading state */
+        .loading-row td {
+            text-align: center;
+            padding: 3rem !important;
+            color: #6b7280;
+        }
+
+        .loading-spinner {
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Empty state */
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: #9ca3af;
+        }
+
+        .empty-state i {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        /* Responsive */
+        @media (max-width: 1400px) {
+            .project-table {
+                font-size: 0.8125rem;
+            }
+
+            .project-img {
+                width: 48px;
+                height: 48px;
+            }
+        }
+
+        /* Table scroll */
+        .table-responsive {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .table-responsive::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .table-responsive::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 4px;
+        }
+
+        .table-responsive::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+
+        .table-responsive::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
 @endpush
 
 @section('breadcrumb')
-    <div
-        class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-3 breadcrumb-block px-3 mt-3"
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-3 breadcrumb-block px-3 mt-3 mb-2"
         style="border: 1px solid rgba(0,0,0,0.05); border-radius: 0.5rem; background-color: #ffffff; height: 60px">
         <div class="d-block mb-2 mb-md-0">
             <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
                 <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent mb-0">
                     <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Loyihalar ro'yxati</li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ __('admin.projects') }}</li>
                 </ol>
             </nav>
         </div>
         <div class="d-flex gap-2 align-items-center flex-wrap">
-            <a href="{{ route('admin.projects.create') }}" class="btn btn-primary btn-sm px-3 py-1" id="addProjectBtn" style="min-width: 90px;">
-                <i class="fas fa-plus me-1" style="font-size: 0.85rem;"></i> Qo'shish
+            <a href="{{ route('admin.projects.create') }}" class="btn btn-primary btn-sm px-3 py-2">
+                <i class="fas fa-plus me-1"></i> {{ __('admin.add') }}
             </a>
-            <button class="btn btn-sm p-2 d-flex align-items-center justify-content-center"
-                    type="button" data-bs-toggle="collapse"
-                    data-bs-target="#projectsFilterContent" aria-expanded="true"
-                    aria-controls="projectsFilterContent">
+            <button class="btn btn-sm p-2 d-flex align-items-center justify-content-center" type="button"
+                data-bs-toggle="collapse" data-bs-target="#projectsFilterContent" aria-expanded="true"
+                aria-controls="projectsFilterContent">
                 <i class="bi bi-sliders2" style="font-size: 1.3rem;"></i>
             </button>
         </div>
@@ -30,70 +366,81 @@
 @endsection
 
 @section('content')
-    <div class="filter-card mb-3 mt-2 collapse show" id="projectsFilterContent" style="transition: all 0.3s ease;">
-        <div class="border rounded p-3" style="border-color: rgba(0,0,0,0.05); background-color: #fff;">
+    <!-- Filter qismi -->
+    <div class="filter-card mb-3 collapse show" id="projectsFilterContent">
+        <div class="p-3">
             <div class="row g-3 align-items-end">
                 <div class="col-md-4">
-                    <label for="searchInput">Qidiruv</label>
+                    <label for="searchInput" class="form-label mb-2">Qidiruv</label>
                     <div class="input-group">
-                        <span class="input-group-text bg-white"><i class="fas fa-search text-muted"></i></span>
-                        <input type="text" id="searchInput" class="form-control"
-                               placeholder="Loyiha nomi, ID...">
+                        <span class="input-group-text bg-white border-end-0">
+                            <i class="fas fa-search text-muted"></i>
+                        </span>
+                        <input type="text" id="searchInput" class="form-control border-start-0"
+                            placeholder="Loyiha nomi, kodi, joylashuv...">
                     </div>
                 </div>
-                <div class="col-md-3">
-                    <label for="categoryFilter">Kategoriya bo'yicha</label>
+                <div class="col-md-2">
+                    <label for="categoryFilter" class="form-label mb-2">{{ __('admin.category') }}</label>
                     <select id="categoryFilter" class="form-select">
-                        <option value="">Barchasi</option>
-                        <option value="yer">Yer</option>
-                        <option value="qurilish">Qurilish</option>
-                        <option value="ijara">Ijara</option>
+                        <option value="">{{ __('admin.all') }}</option>
+                        <option value="yer">{{ __('admin.land') }}</option>
+                        <option value="qurilish">{{ __('admin.construction') }}</option>
+                        <option value="ijara">{{ __('admin.rent') }}</option>
                     </select>
                 </div>
-                <div class="col-md-3">
-                    <label for="statusFilter">Holat bo'yicha</label>
+                <div class="col-md-2">
+                    <label for="statusFilter" class="form-label mb-2">{{ __('admin.status') }}</label>
                     <select id="statusFilter" class="form-select">
-                        <option value="">Barchasi</option>
-                        <option value="faol">Faol</option>
-                        <option value="rejalashtirilgan">Rejalashtirilgan</option>
-                        <option value="yakunlangan">Yakunlangan</option>
-                        <option value="nofaol">Nofaol</option>
+                        <option value="">{{ __('admin.all') }}</option>
+                        <option value="faol">{{ __('admin.active') }}</option>
+                        <option value="rejalashtirilgan">{{ __('admin.planned') }}</option>
+                        <option value="yakunlangan">{{ __('admin.completed') }}</option>
+                        <option value="nofaol">{{ __('admin.inactive') }}</option>
                     </select>
                 </div>
-                <div class="col-md-2 d-flex gap-2">
-                    <button id="filterBtn" class="btn btn-primary w-50">
-                        <i class="fas fa-filter"></i> Filter
-                    </button>
-                    <button id="clearBtn" class="btn btn-warning w-50">
-                        Tozalash
-                    </button>
+                <div class="col-md-2">
+                    <label for="riskFilter" class="form-label mb-2">{{ __('admin.risk_level') }}</label>
+                    <select id="riskFilter" class="form-select">
+                        <option value="">{{ __('admin.all') }}</option>
+                        <option value="past">{{ __('admin.low') }}</option>
+                        <option value="o'rta">{{ __('admin.medium') }}</option>
+                        <option value="yuqori">{{ __('admin.high') }}</option>
+                    </select>
                 </div>
+                <x-filter-buttons :search-text="__('admin.search')" :clear-text="__('admin.clear')" />
             </div>
         </div>
     </div>
 
+    <!-- Jadval -->
     <div class="card card-body py-3 px-3 shadow border-0 table-wrapper table-responsive mt-3">
-        <table class="table project-table table-bordered table-hover table-striped align-items-center">
+        <table class="table user-table table-bordered table-hover table-striped align-items-center">
             <thead class="table-dark">
-            <tr>
-                <th>ID</th>
-                <th>Rasm</th>
-                <th>Code</th>
-                <th>Loyiha nomi</th>
-                <th>Kategoriya</th>
-                <th>Holat</th>
-                <th>Xavf</th>
-                <th>Qiymati</th>
-                <th>Min. Inv.</th>
-                <th>Progress</th>
-                <th>Moliyalashtirish</th>
-                <th>Raundlar</th>
-                <th>Davomiyligi</th>
-                <th>Rentabellik</th>
-                <th>Amallar</th>
-            </tr>
+                <tr>
+                    <th style="width: 50px;">{{ __('admin.id') }}</th>
+                    <th style="width: 80px;">{{ __('admin.picture') }}</th>
+                    <th style="width: 100px;">{{ __('admin.code') }}</th>
+                    <th style="min-width: 200px;">{{ __('admin.project') }}</th>
+                    <th style="width: 100px;">{{ __('admin.category') }}</th>
+                    <th style="width: 130px;">{{ __('admin.status') }}</th>
+                    <th style="width: 90px;">{{ __('admin.risk_level') }}</th>
+                    <th style="min-width: 130px;">{{ __('admin.value') }}</th>
+                    <th style="min-width: 120px;">{{ __('admin.progress') }}</th>
+                    <th style="min-width: 120px;">{{ __('admin.financing') }}</th>
+                    <th style="width: 100px;">{{ __('admin.rounds') }}</th>
+                    <th style="width: 110px;">{{ __('admin.duration') }}</th>
+                    <th style="width: 100px;">{{ __('admin.income') }}</th>
+                    <th style="width: 130px;">{{ __('admin.actions') }}</th>
+                </tr>
             </thead>
             <tbody id="projectTableBody">
+                <tr class="loading-row">
+                    <td colspan="14">
+                        <i class="fas fa-spinner loading-spinner me-2"></i>
+                        <span>Loyihalar yuklanmoqda...</span>
+                    </td>
+                </tr>
             </tbody>
         </table>
     </div>
@@ -101,29 +448,6 @@
 
 @push('customJs')
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-
-    <style>
-        /* CSS uslublar */
-        .project-img {
-            width: 50px;
-            height: 50px;
-            object-fit: cover;
-            border-radius: 0.25rem;
-        }
-        .badge-category.category-yer { background-color: #4CAF50; color: white; padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; }
-        .badge-category.category-qurilish { background-color: #2196F3; color: white; padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; }
-        .badge-category.category-ijara { background-color: #FFC107; color: black; padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; }
-        .badge-status.status-faol { background-color: #008000; color: white; padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; }
-        .badge-status.status-yakunlangan { background-color: #6C757D; color: white; padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; }
-        .badge-risk.risk-past { background-color: #4CAF50; color: white; padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; }
-        .badge-risk.risk-o\'rta { background-color: #FFC107; color: black; padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; }
-        .badge-risk.risk-yuqori { background-color: #F44336; color: white; padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; }
-        .round-badge { display: inline-block; padding: 2px 5px; border-radius: 50%; font-size: 0.75rem; margin-right: 2px; }
-        .round-active { background-color: #2196F3; color: white; }
-        .round-completed { background-color: #4CAF50; color: white; }
-        .round-pending { background-color: #E5E7EB; color: #6B7280; }
-    </style>
-
     <script>
         let projects = [];
         let defaultProjects = [];
@@ -132,249 +456,308 @@
         const searchInput = document.getElementById('searchInput');
         const categoryFilter = document.getElementById('categoryFilter');
         const statusFilter = document.getElementById('statusFilter');
+        const riskFilter = document.getElementById('riskFilter');
         const filterBtn = document.getElementById('filterBtn');
         const clearBtn = document.getElementById('clearBtn');
-        const addProjectBtn = document.getElementById('addProjectBtn');
 
-        // --- Yordamchi Funksiyalar ---
-
+        // Pul formatini o'zgartirish
         function formatCurrency(num) {
             if (num === null || num === undefined) return '-';
-            const formatter = new Intl.NumberFormat('uz-UZ', { minimumFractionDigits: 0 });
-            return formatter.format(num) + ' sum';
-        }
-
-        function getCategoryName(category) {
-            const names = {
-                'yer': 'Yer',
-                'qurilish': 'Qurilish',
-                'ijara': 'Ijara'
-            };
-            return names[category] || category;
-        }
-
-        function getRiskClass(risk) {
-            const classes = {
-                'past': 'risk-past',
-                'o\'rta': 'risk-o\'rta',
-                'yuqori': 'risk-yuqori'
-            };
-            return classes[risk] || `risk-${risk}`;
-        }
-
-        function renderRounds(current, total) {
-            let html = '';
-            const effectiveTotal = Math.max(current + 1, total || 1);
-
-            for (let i = 1; i <= effectiveTotal; i++) {
-                const statusClass = i < current ? 'round-completed' :
-                    i === current ? 'round-active' : 'round-pending';
-                html += `<span class="round-badge ${statusClass}">${i}</span>`;
+            if (num >= 1000000000) {
+                return (num / 1000000000).toFixed(1) + ' mlrd';
+            } else if (num >= 1000000) {
+                return (num / 1000000).toFixed(1) + ' mln';
             }
-            return html;
+            return new Intl.NumberFormat('uz-UZ').format(num);
         }
 
-        // --- Asosiy Ma'lumotlarni Qayta Ishlash ---
+        // Qisqa format
+        function formatCurrencyShort(num) {
+            if (num === null || num === undefined) return '-';
+            if (num >= 1000000000) {
+                return (num / 1000000000).toFixed(2) + ' mlrd';
+            } else if (num >= 1000000) {
+                return (num / 1000000).toFixed(1) + ' mln';
+            }
+            return new Intl.NumberFormat('uz-UZ').format(num) + ' so\'m';
+        }
+
+        // Ma'lumotlarni qayta ishlash
         function preprocessProjects(list) {
-            // API javobi massiv ichidagi massiv bo'lsa, uni tekislaymiz
             const flatList = list.flat();
 
             return flatList.map(p => {
-                let category_key;
-                let risk_uz;
-                let status_uz;
+                // Kategoriya
+                const categoryMap = {
+                    'land': 'yer',
+                    'construction': 'qurilish',
+                    'rent': 'ijara'
+                };
+                const category_key = categoryMap[p.category] || p.category;
 
-                // Kategoriyalar
-                switch (p.category) {
-                    case 'land': category_key = 'yer'; break;
-                    case 'construction': category_key = 'qurilish'; break;
-                    case 'rent': category_key = 'ijara'; break;
-                    default: category_key = p.category;
-                }
+                // Xavf
+                const riskMap = {
+                    'low': 'past',
+                    'medium': 'o\'rta',
+                    'high': 'yuqori'
+                };
+                const risk_uz = riskMap[p.risk_level] || p.risk_level;
 
-                // Xavf darajasi
-                switch (p.risk_level) {
-                    case 'low': risk_uz = 'past'; break;
-                    case 'medium': risk_uz = 'o\'rta'; break;
-                    case 'high': risk_uz = 'yuqori'; break;
-                    default: risk_uz = p.risk_level;
-                }
+                // Holat
+                const statusMap = {
+                    'active': 'faol',
+                    'planned': 'rejalashtirilgan',
+                    'completed': 'yakunlangan',
+                    'inactive': 'nofaol'
+                };
+                const status_uz = statusMap[p.status] || p.status;
 
-                // Holatlar
-                switch (p.status) {
-                    case 'active': status_uz = 'faol'; break;
-                    case 'planned': status_uz = 'rejalashtirilgan'; break;
-                    case 'completed': status_uz = 'yakunlangan';
-                    case 'inactive': status_uz = 'nofaol';
-                    default: status_uz = p.status;
-                }
+                // Moliyalashtirish
+                const fundingPercent = p.investor_share > 0 ?
+                    Math.min(((p.collected || 0) / p.investor_share) * 100, 100) :
+                    0;
 
-                // Moliyalashtirish foizi
-                // Investor share (maqsad) 0 bo'lsa, bo'linish xatolarini oldini olish
-                const fundingPercent = p.investor_share > 0 ? ((p.collected / p.investor_share) * 100) : 0;
-
-                // Progress hisoblash
-                let progressPercent;
-                if (p.category === 'construction') {
-                    if (p.construction_stage === 'foundation') progressPercent = 20;
-                    else if (p.construction_stage === 'structure') progressPercent = 50;
-                    else if (p.construction_stage === 'finishing') progressPercent = 80;
-                    else progressPercent = 10;
-                } else {
-                    progressPercent = fundingPercent;
+                // Progress
+                let progressPercent = fundingPercent;
+                if (p.progress && p.progress.percent) {
+                    progressPercent = p.progress.percent;
                 }
 
                 // Davomiylik
-                const durationYears = Math.floor(p.duration_months / 12);
-                const durationMonths = p.duration_months % 12;
-                let durationStr = '';
-                if (durationYears > 0) durationStr += `${durationYears} yil `;
-                if (durationMonths > 0) durationStr += `${durationMonths} oy`;
-                durationStr = durationStr.trim();
-
-                // Rentabellik va Dividend
-                const roi = p.yearly_profit_percent || 0;
-                const lastDividend = p.yearly_yield ? p.yearly_yield.toFixed(1) : (roi / 4).toFixed(1);
-
-                // Rasm (Picsum Photos - ID'ni seed sifatida ishlatish)
-                const imageUrl = p.image
+                const months = p.duration_months || 0;
+                const years = Math.floor(months / 12);
+                const remainingMonths = months % 12;
+                let duration = '';
+                if (years > 0) duration += years + ' yil ';
+                if (remainingMonths > 0) duration += remainingMonths + ' oy';
+                duration = duration.trim() || '-';
 
                 return {
                     ...p,
-                    id: p.id,
-                    code: p.code,
                     category: category_key,
-                    category_uz: getCategoryName(category_key),
+                    category_display: category_key.charAt(0).toUpperCase() + category_key.slice(1),
                     risk: risk_uz,
                     status: status_uz,
-                    image: imageUrl,
-                    location: `${p.address}, ${p.district}, ${p.region}`,
-                    value: p.total_value,
-                    min_investment_uz: formatCurrency(p.min_investment),
-                    progress: parseFloat(progressPercent.toFixed(1)),
-                    funding: parseFloat(fundingPercent.toFixed(1)),
-                    totalRounds: p.round ? p.round + 1 : 1,
+                    progress: Math.round(progressPercent),
+                    funding: Math.round(fundingPercent),
                     currentRound: p.round || 1,
-                    duration: durationStr,
-                    roi: roi,
-                    lastDividend: lastDividend,
+                    totalRounds: p.round ? p.round + 1 : 1,
+                    duration: duration,
+                    roi: p.yearly_profit_percent || 0,
+                    location: `${p.district}, ${p.region}`
                 };
             });
         }
 
-        // --- Loyihalarni Render Qilish ---
+        // Raund ko'rsatkichlarini render qilish
+        function renderRounds(current, total) {
+            let html = '<div class="round-indicators">';
+            for (let i = 1; i <= total; i++) {
+                const statusClass = i < current ? 'round-completed' :
+                    i === current ? 'round-active' : 'round-pending';
+                html += `<span class="round-dot ${statusClass}">${i}</span>`;
+            }
+            html += '</div>';
+            html += `<div class="progress-text mt-1">${current}/${total} raund</div>`;
+            return html;
+        }
+
+        // Loyihalarni render qilish
         function renderProjects(list) {
-            projectTableBody.innerHTML = '';
             if (list.length === 0) {
-                projectTableBody.innerHTML = `<tr><td colspan="14" class="text-center py-4 text-muted">Hech qanday loyiha topilmadi.</td></tr>`;
+                projectTableBody.innerHTML = `
+            <tr>
+                <td colspan="14">
+                    <div class="empty-state">
+                        <i class="fas fa-folder-open"></i>
+                        <div class="mt-2">
+                            <h5>Loyihalar topilmadi</h5>
+                            <p class="text-muted">Filter sozlamalarini o'zgartiring yoki yangi loyiha qo'shing</p>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        `;
                 return;
             }
 
-            list.forEach((p, idx) => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td><strong>${p.id}</strong></td>
-                    <td><img src="${p.image}" class="project-img" alt="${p.name}"></td>
-                    <td>${p.code}</td>
-                    <td><strong>${p.name}</strong><br><small class="text-muted">${p.region}</small></td>
-                    <td><span class="badge-category category-${p.category}">${p.category_uz}</span></td>
-                    <td><span class="badge-status status-${p.status}">${p.status}</span></td>
-                    <td><span class="badge-risk ${getRiskClass(p.risk)}">${p.risk}</span></td>
-                    <td><strong>${formatCurrency(p.value)}</strong></td>
-                     <td><small class="text-nowrap">${p.min_investment_uz}</small></td>
-                    <td>
-                        <div class="progress" style="height: 8px; margin-bottom: 2px;">
-                            <div class="progress-bar" role="progressbar" style="width: ${p.progress}%; color: #1F2937"></div>
+            const routes = {
+                show: "{{ route('admin.projects.show', ':id') }}",
+                edit: "{{ route('admin.projects.edit', ':id') }}",
+                delete: "{{ route('admin.project.destroy', ':id') }}"
+            };
+
+            const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
+
+            let html = '';
+            list.forEach(p => {
+                const showUrl = routes.show.replace(':id', p.id);
+                const editUrl = routes.edit.replace(':id', p.id);
+                const destroyUrl = routes.delete.replace(':id', p.id);
+
+                html += `
+            <tr>
+                <td><strong>${p.id}</strong></td>
+                <td>
+                    <img src="${p.image}" class="project-img" alt="${p.name}" 
+                         onerror="this.src='https://via.placeholder.com/56'">
+                </td>
+                <td><span class="badge bg-secondary">${p.code}</span></td>
+                <td>
+                    <div class="project-name">${p.name}</div>
+                    <div class="project-location">
+                        <i class="fas fa-map-marker-alt me-1"></i>${p.location}
+                    </div>
+                </td>
+                <td>
+                    <span class="badge-custom badge-category-${p.category}">
+                        ${p.category_display}
+                    </span>
+                </td>
+                <td>
+                    <span class="badge-custom badge-status-${p.status}">
+                        ${p.status.charAt(0).toUpperCase() + p.status.slice(1)}
+                    </span>
+                </td>
+                <td>
+                    <span class="badge-custom badge-risk-${p.risk.replace("'", '-')}">
+                        ${p.risk.charAt(0).toUpperCase() + p.risk.slice(1)}
+                    </span>
+                </td>
+                <td>
+                    <div class="value-primary">${formatCurrencyShort(p.total_value)}</div>
+                    <div class="value-secondary">Min: ${formatCurrencyShort(p.min_investment)}</div>
+                </td>
+                <td>
+                    <div class="progress-wrapper">
+                        <div class="progress-custom">
+                            <div class="progress-bar-custom" style="width: ${p.progress}%"></div>
                         </div>
-                        <small>Bosqich: ${p.progress}%</small>
-                    </td>
-                    <td>
-                        <div class="progress" style="height: 8px; margin-bottom: 2px;">
-                            <div class="progress-bar" role="progressbar" style="width: ${p.funding}%; color: #1F2937"></div>
+                        <div class="progress-text">${p.progress}% bajarildi</div>
+                    </div>
+                </td>
+                <td>
+                    <div class="progress-wrapper">
+                        <div class="progress-custom">
+                            <div class="progress-bar-custom" style="width: ${p.funding}%"></div>
                         </div>
-                        <small>Yig'ilgan: ${p.funding}%</small>
-                    </td>
-                    <td>
-                        ${renderRounds(p.currentRound, p.totalRounds)}
-                        <div><small>Raund: ${p.currentRound}/${p.totalRounds}</small></div>
-                    </td>
-                    <td>${p.duration}</td>
-                    <td><strong>${p.roi}%</strong><br><small>Dividend: ${p.lastDividend}%</small></td>
-                     <td class="text-center d-flex justify-content-center gap-2">
-                        <a href="#" class="btn btn-sm p-1" style="color:#1F2937;" title="Ko'rish"><i class="bi bi-eye-fill"></i></a>
-                        <a href="#" class="btn btn-sm p-1" style="color:#f0bc74;" title="Tahrirlash"><i class="bi bi-pencil-fill"></i></a>
-                        <a href="#" class="btn btn-sm p-1" style="color:#DC2626;" title="O'chirish"><i class="fas fa-trash"></i></a>
-                    </td>
-                `;
-                projectTableBody.appendChild(row);
+                        <div class="progress-text">${p.funding}% to'plandi</div>
+                    </div>
+                </td>
+                <td>${renderRounds(p.currentRound, p.totalRounds)}</td>
+                <td>${p.duration}</td>
+                <td>
+                    <div class="value-primary">${p.roi}%</div>
+                    <div class="value-secondary">yillik</div>
+                </td>
+                <td>
+                    <div class="action-buttons">
+                        <x-show-button />
+                        <x-edit-button />
+                        <x-delete-button/>
+                    </div>
+                </td>
+            </tr>
+        `;
             });
+
+            projectTableBody.innerHTML = html;
         }
 
-        // --- API'dan Ma'lumotlarni Yuklash Funksiyasi ---
+        // Statistikani yangilash
+        function updateStatistics(list) {
+            const total = list.length;
+            const active = list.filter(p => p.status === 'faol').length;
+            const totalValue = list.reduce((sum, p) => sum + (p.total_value || 0), 0);
+            const avgFunding = list.length > 0 ?
+                Math.round(list.reduce((sum, p) => sum + p.funding, 0) / list.length) :
+                0;
+        }
 
+        // API dan ma'lumotlarni yuklash
         function fetchProjects() {
-            // Yuklanish holatini ko'rsatish
-            projectTableBody.innerHTML = `<tr><td colspan="14" class="text-center py-5"><i class="fas fa-spinner fa-spin me-2"></i> Loyihalar yuklanmoqda...</td></tr>`;
-
-            const API_URL = '/api/projects/list';
-
-            // 1. Axios orqali API chaqirig'i
-            axios.get(API_URL)
+            axios.get('/api/projects/list')
                 .then(response => {
-                    // API javobining to'g'ri joyidan (result) ma'lumotni olish
                     const apiResult = response.data.result;
 
-                    // API'dan 'result' maydoni bo'sh yoki massiv bo'lmasa, xato berish
                     if (!apiResult || !Array.isArray(apiResult)) {
-                        console.error("API javobi 'result' massivini o'z ichiga olmaydi yoki noto'g'ri formatda.");
-                        projectTableBody.innerHTML = `<tr><td colspan="14" class="text-center py-5 text-danger">Serverdan ma'lumot olish formati noto'g'ri.</td></tr>`;
-                        return;
+                        throw new Error('Noto\'g\'ri API javobi');
                     }
 
-                    // Ma'lumotni qayta ishlash
                     projects = preprocessProjects(apiResult);
-                    defaultProjects = JSON.parse(JSON.stringify(projects));
+                    defaultProjects = [...projects];
+
                     renderProjects(projects);
+                    updateStatistics(projects);
                 })
                 .catch(error => {
-                    // API xato bersa, faqat xatolik xabarini ko'rsatish
-                    console.error("API'dan ma'lumot yuklashda xato ro'y berdi:", error);
-                    projectTableBody.innerHTML = `<tr><td colspan="14" class="text-center py-5 text-danger">Ma'lumotlarni yuklashda xato! (API bilan ulanishni tekshiring).</td></tr>`;
+                    console.error('API xatosi:', error);
+                    projectTableBody.innerHTML = `
+                <tr>
+                    <td colspan="14">
+                        <div class="empty-state">
+                            <i class="fas fa-exclamation-triangle text-danger"></i>
+                            <div class="mt-2">
+                                <h5>Xatolik yuz berdi</h5>
+                                <p class="text-muted">Ma'lumotlarni yuklashda muammo yuz berdi. Iltimos, qayta urinib ko'ring.</p>
+                                <button class="btn btn-primary btn-sm mt-2" onclick="fetchProjects()">
+                                    <i class="fas fa-redo me-1"></i> Qayta yuklash
+                                </button>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            `;
                 });
         }
 
-
-        // --- Filter va Tugmalar Amallari ---
+        // Filterlash
         function applyFilter() {
             const search = searchInput.value.toLowerCase();
             const cat = categoryFilter.value;
             const stat = statusFilter.value;
+            const risk = riskFilter.value;
 
             const filtered = defaultProjects.filter(p => {
-                const matchesSearch = p.name.toLowerCase().includes(search) || p.id.toLowerCase().includes(search) || p.location.toLowerCase().includes(search);
+                const matchesSearch = !search ||
+                    p.name.toLowerCase().includes(search) ||
+                    p.code.toLowerCase().includes(search) ||
+                    p.location.toLowerCase().includes(search);
                 const matchesCategory = !cat || p.category === cat;
                 const matchesStatus = !stat || p.status === stat;
-                return matchesSearch && matchesCategory && matchesStatus;
+                const matchesRisk = !risk || p.risk === risk;
+
+                return matchesSearch && matchesCategory && matchesStatus && matchesRisk;
             });
 
             renderProjects(filtered);
+            updateStatistics(filtered);
         }
 
-        // --- Dastlabki Yuklanish va Event Listeners ---
-        document.addEventListener('DOMContentLoaded', function () {
+        // Event listeners
+        document.addEventListener('DOMContentLoaded', function() {
             fetchProjects();
 
             filterBtn.addEventListener('click', applyFilter);
-            clearBtn.addEventListener('click', function () {
+
+            clearBtn.addEventListener('click', function() {
                 searchInput.value = '';
                 categoryFilter.value = '';
                 statusFilter.value = '';
+                riskFilter.value = '';
                 renderProjects(defaultProjects);
+                updateStatistics(defaultProjects);
             });
-            searchInput.addEventListener('keyup', function (e) {
-                if (e.key === 'Enter') {
-                    applyFilter();
-                }
+
+            searchInput.addEventListener('keyup', function(e) {
+                if (e.key === 'Enter') applyFilter();
+            });
+
+            // Real-time qidiruv (debounce bilan)
+            let searchTimeout;
+            searchInput.addEventListener('input', function() {
+                clearTimeout(searchTimeout);
+                searchTimeout = setTimeout(applyFilter, 300);
             });
         });
     </script>
