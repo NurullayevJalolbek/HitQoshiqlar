@@ -31,5 +31,9 @@ class AppServiceProvider extends ServiceProvider
         }
 
 
+
+     Paginator::defaultView('layouts.pagination');
+
+
     }
 }

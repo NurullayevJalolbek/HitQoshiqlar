@@ -23,23 +23,32 @@
 @endpush
 
 @section('breadcrumb')
-    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4 breadcrumb-block">
-        <div class="d-block mb-4 mb-md-0">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-3 breadcrumb-block px-3 mt-3"
+        style="border: 1px solid rgba(0,0,0,0.05); border-radius: 0.5rem; background-color: #ffffff; height: 60px">
+        <!-- Breadcrumb -->
+        <div class="d-block mb-2 mb-md-0">
             <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
                 <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
                     <li class="breadcrumb-item">
-                        <a href="#"><i class="fas fa-home"></i></a>
+                        <a href="{{ route('admin.dashboard') }}">
+                            <i class="fas fa-home"></i>
+                        </a>
                     </li>
-                    <li class="breadcrumb-item"><a href="#">Foydalanuvchilar</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Foydalanuvchi qo‘shish</li>
+                    <li class="breadcrumb-item">
+                        <a href="{{ route('admin.users.index') }}">
+                            {{ __('admin.users') }}
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">
+                        Foydalanuvchi qo'shish
+                    </li>
                 </ol>
             </nav>
         </div>
     </div>
 @endsection
-
 @section('content')
-    <div class="row">
+    <div class="row mt-3">
         <div class="col-12 col-xl-12">
             <div class="card card-body border-0 shadow mb-4">
                 <h2 class="h5 mb-4">Foydalanuvchi qo‘shish</h2>
@@ -103,12 +112,20 @@
                                 </div>
                             </div>
 
-                            {{-- Submit tugmalar --}}
-                            <div class="d-flex justify-content-between mt-3">
-                                <a href="{{ route('admin.users.index') }}" class="btn btn-secondary me-2" type="reset">Bekor
-                                    qilish</a>
-                                <button class="btn btn-primary" type="submit">Saqlash</button>
+                            <div class="d-flex justify-content-end mt-3 gap-2">
+
+                                <!-- Bekor qilish -->
+                                <a href="{{ route('admin.users.index') }}" class="btn btn-secondary" type="reset">
+                                    <i class="fas fa-times me-1"></i> Bekor qilish
+                                </a>
+
+                                <!-- Saqlash -->
+                                <button class="btn btn-primary" type="submit">
+                                    <i class="fas fa-save me-1"></i> Saqlash
+                                </button>
+
                             </div>
+
                         </div>
                     </div>
                 </form>

@@ -16,4 +16,11 @@ class UserController extends Controller
     {
         return view('pages.users.create');
     }
+
+    public function show($id)
+    {
+       $model = getUsersData($id)[0];
+
+       return view('pages.users.show', compact('model'));
+    }
 }

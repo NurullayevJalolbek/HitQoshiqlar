@@ -307,5 +307,13 @@ return [
         'construction' => 'البناء',
     ],
     'Back' => 'Ortga',
-    
+
+
+    'are_you_sure' => "هل أنت متأكد؟",
+    'you_wont_be_able_to_revert_this' => "لن تتمكن من التراجع عن هذا!",
+    'yes_delete_it' => "نعم، احذفه!",
+    'confirm' => "تأكيد",
+    'cancel' => "إلغاء",
+    'date_from' => "من",
+'date_to' => "إلى"
 ];

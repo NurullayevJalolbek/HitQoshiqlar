@@ -290,4 +290,12 @@ return [
     ],
     'Back' => 'Ortga',
 
+
+    'are_you_sure' => "Ishonchingiz komilmi?",
+    'you_wont_be_able_to_revert_this' => "Buni qaytarib bo'lmaydi!",
+    'yes_delete_it' => "Ha, o'chiring!",
+    'confirm' => "Tasdiqlash",
+    'cancel' => "Bekor qilish",
+    'date_from' => "Sanadan",
+'date_to' => "Sanagacha"
 ];

@@ -279,4 +279,12 @@ return [
         'invalid_date_range' => 'Неверный диапазон',
     ],
     'Back' => 'Ortga',
+
+    'are_you_sure' => "Вы уверены?",
+    'you_wont_be_able_to_revert_this' => "Вы не сможете это отменить!",
+    'yes_delete_it' => "Да, удалить!",
+    'confirm' => "Подтвердить",
+    'cancel' => "Отмена",
+    'date_from' => "С",
+'date_to' => "По"
 ];

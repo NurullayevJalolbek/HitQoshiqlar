@@ -136,7 +136,7 @@
         toggleButtons();
     }
 
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         initToggleForm('#user-search-form');
         initToggleForm('#compatriot-discussion-search-form');
         initToggleForm('#academic-degrees-search-form');
@@ -146,44 +146,128 @@
 </script>
 
 <script>
-    document.querySelectorAll('.delete-form').forEach(form => {
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
+    document.addEventListener('DOMContentLoaded', function () {
+
+        // Global delete function
+        window.deleteModel = function (url) {
             Swal.fire({
-                html: `
-                <div style="text-align: center;">
-                    <div style="margin-bottom: 20px;">
-                        <img src="{{ asset('assets/img/icons/delete-waring-icon.png') }}" style="width: 60px; height: 60px;">
-                    </div>
-                    <h2 style="font-size: 20px; margin-bottom: 10px; color: #333;">
-                        {{ __('message.Are you sure?') }}
-                    </h2>
-                    <p style="font-size: 14px; color: #6c757d; margin-bottom: 0;">
-                        {{ __('message.You wont be able to revert this!') }}
-                    </p>
-                </div>
-            `,
+                title: `{{ __('admin.are_you_sure') }}`,
+                text: `{!! __('admin.you_wont_be_able_to_revert_this') !!}`,
+                icon: 'warning',
                 showCancelButton: true,
-                confirmButtonText: '{{ __('admin.Delete') }} <img src="{{ asset('assets/img/icons/trash.png') }}" style="width: 16;" class="fas fa-trash-alt"></img>',
-                cancelButtonText: '{{ __('message.Cancel') }} <img src="{{ asset('assets/img/icons/cancel-button.png') }}" style="width: 16;" class="fas fa-times-circle"></img>',
-                buttonsStyling: false,
+                confirmButtonText: `{{ __('admin.yes_delete_it') }}`,
+                cancelButtonText: `{{ __('admin.cancel') }}`,
                 customClass: {
-                    confirmButton: 'btn btn-danger ',
-                    cancelButton: 'btn btn-outline-secondary',
-                    popup: 'p-4 rounded shadow'
+                    confirmButton: 'btn btn-danger me-3',
+                    cancelButton: 'btn btn-secondary'
                 },
-                reverseButtons: true
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    form.submit();
+                buttonsStyling: false,
+                confirmButtonColor: '#dc3545', // Qizil rang
+                cancelButtonColor: 'rgb(31, 41, 55)' // Kustom kulrang
+            }).then(function (result) {
+                if (result.value) {
+                    $.ajax({
+                        url: url,
+                        type: 'DELETE',
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        dataType: 'json',
+                        processData: false,
+                        contentType: false,
+                        success: function (data) {
+                            window.sweetSuccess('', data.result);
+                            setTimeout(() => { location.reload(); }, 1000);
+                        },
+                        error: function (data) {
+                            data = JSON.parse(data.responseText);
+                            window.sweetError('', data.errors);
+                        }
+                    });
                 }
             });
-        });
+        }
+
+        // Global confirm function
+        window.confirmModel = function (url, method) {
+            Swal.fire({
+                title: `{{ __('admin.are_you_sure') }}`,
+                text: `{!! __('admin.you_wont_be_able_to_revert_this') !!}`,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: `{{ __('admin.confirm') }}`,
+                cancelButtonText: `{{ __('admin.cancel') }}`,
+                customClass: {
+                    confirmButton: 'btn btn-danger me-3',
+                    cancelButton: 'btn btn-secondary'
+                },
+                buttonsStyling: false,
+                confirmButtonColor: '#dc3545', // Qizil rang
+                cancelButtonColor: 'rgb(31, 41, 55)' // Kustom kulrang
+            }).then(function (result) {
+                if (result.value) {
+                    $.ajax({
+                        url: url,
+                        type: method,
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        dataType: 'json',
+                        processData: false,
+                        contentType: false,
+                        success: function (data) {
+                            window.sweetSuccess('', data.result);
+                            setTimeout(() => { location.reload(); }, 1000);
+                        },
+                        error: function (data) {
+                            data = JSON.parse(data.responseText);
+                            window.sweetError('', data.errors);
+                        }
+                    });
+                }
+            });
+        }
+
+        // Global success alert
+        window.sweetSuccess = function (title = null, text = null) {
+            text = text ?? `{{ session()->get('success') }}`;
+            if (text) {
+                Swal.fire({
+                    title: title,
+                    text: text,
+                    icon: 'success',
+                    timer: 2000,
+                    showConfirmButton: false,
+                });
+            }
+        }
+
+        // Global error alert
+        window.sweetError = function (title = null, text = null) {
+            text = text ?? `{{ session()->get('error') }}`;
+            if (text) {
+                Swal.fire({
+                    title: title,
+                    text: text,
+                    icon: 'error',
+                    customClass: {
+                        confirmButton: 'btn btn-primary'
+                    },
+                    buttonsStyling: false
+                });
+            }
+        }
+
+        // Agar session da success/error bo'lsa avtomatik alert
+        window.sweetSuccess();
+        window.sweetError();
     });
 
 
+
+
     document.querySelectorAll('.toggle-ai-permission').forEach(checkbox => {
-        checkbox.addEventListener('change', function(e) {
+        checkbox.addEventListener('change', function (e) {
             e.preventDefault();
             const isChecked = this.checked;
             const userId = this.dataset.id;
@@ -238,15 +322,15 @@
                 if (result.isConfirmed) {
                     fetch(`/admin/users/${userId}/toggle-ai-permission`, {
 
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'X-CSRF-TOKEN': csrfToken
-                            },
-                            body: JSON.stringify({
-                                ai_permission: isChecked
-                            })
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': csrfToken
+                        },
+                        body: JSON.stringify({
+                            ai_permission: isChecked
                         })
+                    })
                         .then(res => res.json())
                         .then(data => {
                             if (data.result) {
@@ -279,7 +363,7 @@
 
 <script>
     document.querySelectorAll('.delete-chat').forEach(form => {
-        form.addEventListener('submit', function(e) {
+        form.addEventListener('submit', function (e) {
             e.preventDefault();
             Swal.fire({
                 html: `
@@ -318,22 +402,22 @@
     ///employee status  permission
 
     document.querySelectorAll('.toggle-permission').forEach(checkbox => {
-        checkbox.addEventListener('change', function(e) {
+        checkbox.addEventListener('change', function (e) {
             const isChecked = this.checked;
             const userId = this.dataset.id;
 
             const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
             fetch(`/admin/status/${userId}/login-permission`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': csrfToken
-                    },
-                    body: JSON.stringify({
-                        login_access: isChecked
-                    })
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': csrfToken
+                },
+                body: JSON.stringify({
+                    login_access: isChecked
                 })
+            })
                 .then(res => res.json())
                 .then(data => {
                     if (!data.result) {
@@ -362,7 +446,7 @@
     }
 </script>
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         @if ($errors->any())
             var myModal = new bootstrap.Modal(document.getElementById('modal-default'));
             myModal.show();
@@ -425,7 +509,7 @@
             showConfirmButton: false
         });
     }
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         const searchInput = document.getElementById('searchInput');
         const readSelect = document.getElementById('readSelect');
         const readSelect2 = document.getElementById('employee-select');
@@ -467,7 +551,8 @@
 
 <!-- Core -->
 <script src="{{ asset('vendor/@popperjs/core/dist/umd/popper.min.js') }}"></script>
-{{-- <script src="{{ asset('vendor/bootstrap/dist/js/bootstrap.min.js') }}"></script> --}}
+{{--
+<script src="{{ asset('vendor/bootstrap/dist/js/bootstrap.min.js') }}"></script> --}}
 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
 <script src="{{ asset('vendor/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
@@ -486,7 +571,8 @@
 <script src="{{ asset('vendor/countup.js/dist/countUp.umd.js') }}"></script>
 
 <!-- Apex Charts -->
-{{-- <script src="{{ asset('vendor/apexcharts/dist/apexcharts.min.js') }}"></script> --}}
+{{--
+<script src="{{ asset('vendor/apexcharts/dist/apexcharts.min.js') }}"></script> --}}
 
 <!-- Datepicker -->
 <script src="{{ asset('vendor/vanillajs-datepicker/dist/js/datepicker.min.js') }}"></script>
@@ -519,7 +605,8 @@
 <script src="{{ asset('vendor/leaflet/dist/leaflet.js') }}"></script>
 
 <!-- SVG Map -->
-{{-- <script src="{{ asset('vendor/svg-pan-zoom/dist/svg-pan-zoom.min.js') }}"></script> --}}
+{{--
+<script src="{{ asset('vendor/svg-pan-zoom/dist/svg-pan-zoom.min.js') }}"></script> --}}
 <script src="{{ asset('vendor/svgmap/dist/svgMap.min.js') }}"></script>
 
 <!-- Simplebar -->

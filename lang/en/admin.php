@@ -294,4 +294,12 @@ return [
     ],
     'Back' => 'Ortga',
 
+
+    'are_you_sure' => "Are you sure?",
+    'you_wont_be_able_to_revert_this' => "You won't be able to revert this!",
+    'yes_delete_it' => "Yes, delete it!",
+    'confirm' => "Confirm",
+    'cancel' => "Cancel",
+    'date_from' => "From",
+'date_to' => "To"
 ];
