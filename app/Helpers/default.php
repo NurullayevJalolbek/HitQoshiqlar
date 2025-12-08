@@ -245,3 +245,192 @@ if (!function_exists('getUsersData')) {
         return $datas;
     }
 }
+
+
+// Statik investorlar
+if (!function_exists('getInvestorsData')) {
+    /**
+     * Investorlar ma'lumotlarini olish.
+     *
+     * @param int|null $id - Agar id berilsa, faqat o'sha investor ma'lumotlarini qaytaradi
+     * @return \Illuminate\Support\Collection|array
+     */
+    function getInvestorsData($id = null)
+    {
+        $investors = collect([
+            [
+                'id' => 1,
+                'name' => 'Jasur Islomov',
+                'username' => 'jasur',
+                'phone' => '+998901234567',
+                'passport' => 'AA1234567',
+                'inn' => '12345678901234',
+                'status' => 'Faol',
+                'verification_status' => 'Tasdiqlangan',
+                'created_at' => '2025-11-25 14:32'
+            ],
+            [
+                'id' => 2,
+                'name' => 'Gulbahor Qodirova',
+                'username' => 'gulbahor',
+                'phone' => '+998909876543',
+                'passport' => 'AB7654321',
+                'inn' => '98765432109876',
+                'status' => 'Kutilmoqda',
+                'verification_status' => 'Tasdiqlanmagan',
+                'created_at' => '2025-11-26 09:15'
+            ],
+            [
+                'id' => 3,
+                'name' => 'Olimjon Tursunov',
+                'username' => 'olimjon',
+                'phone' => '+998933445566',
+                'passport' => 'AC1122334',
+                'inn' => '11223344556677',
+                'status' => 'Faol',
+                'verification_status' => 'Tasdiqlangan',
+                'created_at' => '2025-11-27 08:50'
+            ],
+            [
+                'id' => 4,
+                'name' => 'Nilufar Rasulova',
+                'username' => 'nilufar',
+                'phone' => '+998922334455',
+                'passport' => 'AD5566778',
+                'inn' => '55667788901234',
+                'status' => 'Bloklangan',
+                'verification_status' => 'Tasdiqlanmagan',
+                'created_at' => '2025-11-24 18:20'
+            ],
+            [
+                'id' => 5,
+                'name' => 'Azizbek Karimov',
+                'username' => 'azizbek',
+                'phone' => '+998911223344',
+                'passport' => 'AA9988776',
+                'inn' => '99887766554433',
+                'status' => 'Faol',
+                'verification_status' => 'Tasdiqlangan',
+                'created_at' => '2025-11-26 12:45'
+            ],
+            [
+                'id' => 6,
+                'name' => 'Saodat Davronova',
+                'username' => 'saodat',
+                'phone' => '+998900112233',
+                'passport' => 'AB4455667',
+                'inn' => '44556677889900',
+                'status' => 'Kutilmoqda',
+                'verification_status' => 'Tasdiqlanmagan',
+                'created_at' => '2025-11-23 16:10'
+            ],
+            [
+                'id' => 7,
+                'name' => 'Oybek Rahimov',
+                'username' => 'oybek',
+                'phone' => '+998905554433',
+                'passport' => '',
+                'inn' => '',
+                'status' => 'Kutilmoqda',
+                'verification_status' => 'Tasdiqlanmagan',
+                'created_at' => '2025-11-22 11:10'
+            ],
+            [
+                'id' => 8,
+                'name' => 'Dilorom Mamarasul',
+                'username' => 'dilorom',
+                'phone' => '+998909998877',
+                'passport' => 'AC5544332',
+                'inn' => '55443322110099',
+                'status' => 'Faol',
+                'verification_status' => 'Tasdiqlangan',
+                'created_at' => '2025-11-21 17:33'
+            ],
+            [
+                'id' => 9,
+                'name' => 'Sirojiddin Bekmurodov',
+                'username' => 'siroj',
+                'phone' => '+998900011223',
+                'passport' => '',
+                'inn' => '',
+                'status' => 'Kutilmoqda',
+                'verification_status' => 'Tasdiqlanmagan',
+                'created_at' => '2025-11-20 09:55'
+            ],
+            [
+                'id' => 10,
+                'name' => 'Komil Qurbonov',
+                'username' => 'komil',
+                'phone' => '+998933301122',
+                'passport' => 'AA8899007',
+                'inn' => '88990077665544',
+                'status' => 'Faol',
+                'verification_status' => 'Tasdiqlangan',
+                'created_at' => '2025-11-19 08:12'
+            ],
+            [
+                'id' => 11,
+                'name' => 'Madina Usmonova',
+                'username' => 'madina',
+                'phone' => '+998930045612',
+                'passport' => 'AB1122994',
+                'inn' => '11229944556677',
+                'status' => 'Bloklangan',
+                'verification_status' => 'Tasdiqlangan',
+                'created_at' => '2025-11-18 19:55'
+            ],
+            [
+                'id' => 12,
+                'name' => 'Jamshid Soliyev',
+                'username' => 'jamshid',
+                'phone' => '+998950033221',
+                'passport' => 'AC7788112',
+                'inn' => '77881122334455',
+                'status' => 'Faol',
+                'verification_status' => 'Tasdiqlangan',
+                'created_at' => '2025-11-17 16:40'
+            ],
+            [
+                'id' => 13,
+                'name' => 'Shohjahon Abdullayev',
+                'username' => 'shoh',
+                'phone' => '+998977712345',
+                'passport' => 'AD6677885',
+                'inn' => '66778855332211',
+                'status' => 'Faol',
+                'verification_status' => 'Tasdiqlangan',
+                'created_at' => '2025-11-16 10:27'
+            ],
+            [
+                'id' => 14,
+                'name' => 'Hilola Qodirova',
+                'username' => 'hilola',
+                'phone' => '+998934455667',
+                'passport' => '',
+                'inn' => '',
+                'status' => 'Kutilmoqda',
+                'verification_status' => 'Tasdiqlanmagan',
+                'created_at' => '2025-11-15 14:22'
+            ],
+            [
+                'id' => 15,
+                'name' => 'Aziza Matyoqubova',
+                'username' => 'aziza',
+                'phone' => '+998990112233',
+                'passport' => 'AA4455667',
+                'inn' => '44556677889911',
+                'status' => 'Faol',
+                'verification_status' => 'Tasdiqlangan',
+                'created_at' => '2025-11-14 18:00'
+            ]
+        ]);
+
+        if ($id) {
+            // ID berilsa, faqat o'sha investor ma'lumotlarini qaytaradi
+            return $investors->where('id', $id)->first();
+        }
+
+        // ID berilmasa, barcha investorlarni qaytaradi
+        return $investors;
+    }
+}

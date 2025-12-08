@@ -1,7 +1,7 @@
 @props([
     'href' => '#', // link
     'size' => 18, // icon o'lchami px
-    'color' => '#f0bc74', // icon rangi (default sariq)
+    'color' => '#d39e00', // icon rangi (default sariq)
     'tooltip' => 'Tahrirlash', // tooltip
     'class' => '', // qo‘shimcha class
 ])

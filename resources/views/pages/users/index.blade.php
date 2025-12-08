@@ -69,16 +69,15 @@
 @endsection
 
 @section('content')
-    @php
-        $datas = getUsersData();
-    @endphp
-
 
     <!-- Filter card -->
     @include('pages.users._filter')
 
 
     @php
+        $datas = getUsersData();
+
+
         $pagination = manualPaginate($datas, 10);
 
 

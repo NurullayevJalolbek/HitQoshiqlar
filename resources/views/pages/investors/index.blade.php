@@ -52,8 +52,7 @@
 
 
 @section('breadcrumb')
-    <div
-        class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-3 breadcrumb-block px-3 mt-3"
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-3 breadcrumb-block px-3 mt-3"
         style="border: 1px solid rgba(0,0,0,0.05); border-radius: 0.5rem; background-color: #ffffff; height: 60px">
         <!-- Breadcrumb -->
         <div class="d-block mb-2 mb-md-0">
@@ -76,10 +75,9 @@
                 <i class="fas fa-file-csv me-1" style="font-size: 0.85rem;"></i> CSV
             </button>
 
-            <button class="btn btn-sm p-2 d-flex align-items-center justify-content-center"
-                    type="button" data-bs-toggle="collapse"
-                    data-bs-target="#investorFilterContent" aria-expanded="true"
-                    aria-controls="investorFilterContent">
+            <button class="btn btn-sm p-2 d-flex align-items-center justify-content-center" type="button"
+                data-bs-toggle="collapse" data-bs-target="#investorFilterContent" aria-expanded="true"
+                aria-controls="investorFilterContent">
                 <i class="bi bi-sliders2" style="font-size: 1.3rem;"></i>
             </button>
         </div>
@@ -89,69 +87,125 @@
 
 
 @section('content')
+    @php
+        $datas = getInvestorsData();
+
+
+        $pagination = manualPaginate($datas, 10);
+
+
+        $investors = $pagination['items'];
+
+
+        $currentPage = $pagination['currentPage'];
+        $pageCount = $pagination['pageCount'];
+
+        $start = $pagination['start'];
+        $total = $pagination['total'];
+        $end = $pagination['end'];
+    @endphp
+
+
 
     <!-- Filter card -->
-    <div class="filter-card mb-3 mt-2 collapse show" id="investorFilterContent" style="transition: all 0.3s ease;">
-        <div class="border rounded p-3" style="border-color: rgba(0,0,0,0.05); background-color: #fff;">
-            <div class="row g-3 align-items-end">
-
-                <div class="col-md-6">
-                    <label for="searchInput">Qidiruv</label>
-                    <div class="input-group">
-                        <span class="input-group-text bg-white"><i class="fas fa-search text-muted"></i></span>
-                        <input type="text" id="searchInput" class="form-control"
-                               placeholder="Ism, Login, Telefon...">
-                    </div>
-                </div>
-
-                <div class="col-md-4">
-                    <label for="statusFilter">Status</label>
-                    <select id="statusFilter" class="form-select">
-                        <option value="">Barchasi</option>
-                        <option value="Faol">Faol</option>
-                        <option value="Bloklangan">Bloklangan</option>
-                        <option value="Kutilmoqda">Kutilmoqda</option>
-                    </select>
-                </div>
-
-                <div class="col-md-2 d-flex gap-2">
-                    <button id="filterBtn" class="btn btn-primary w-50">
-                        <i class="fas fa-filter"></i> {{__('admin.search')}}
-                    </button>
-
-                    <button id="clearBtn" class="btn btn-warning w-50">
-                        {{__('admin.clear')}}
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
+    @include('pages.investors._filter')
 
 
     <div class="card card-body py-3 px-3 shadow border-0 table-wrapper table-responsive mt-3">
         <table class="table user-table table-bordered table-hover table-striped align-items-center">
             <thead class="table-dark">
-            <tr>
-                <th>№</th>
-                <th>F.I.O</th>
-                <th>Login</th>
-                <th>Telefon</th>
-                <th>Passport</th>
-                <th>JSHIR</th>
-                <th>Status</th>
-                <th>Oxirgi kirish</th>
-                <th>Amallar</th>
-            </tr>
+                <tr>
+                    <th>№</th>
+                    <th>F.I.O</th>
+                    <th>Login</th>
+                    <th>Telefon</th>
+                    <th>Seriya/Raqam</th>
+                    <th>JSHIR</th>
+                    <th>Holati</th>
+                    <th>Oxirgi kirish</th>
+                    <th>Amallar</th>
+                </tr>
             </thead>
             <tbody id="investorTableBody">
+                @forelse($investors as $investor)
+                    @php
+                        // Status ikonkalari
+                        $verificationIcon = '';
+                        if (strtolower(trim($investor['status'])) === 'bloklangan') {
+                            $verificationIcon = '<i class="fas fa-ban text-danger" title="Bloklangan"></i>';
+                        } elseif (strtolower(trim($investor['verification_status'])) === 'tasdiqlangan') {
+                            $verificationIcon = '<i class="bi bi-patch-check-fill status-active" title="Tasdiqlangan"></i>';
+                        } else {
+                            $verificationIcon = '<i class="bi bi-patch-exclamation-fill status-pending" title="Tasdiqlanmagan"></i>';
+                        }
+                    @endphp
+
+                    <tr>
+                        <td>{{ $investor['id'] }}</td>
+                        <td>
+                            {{ $investor['name'] }}
+                            {!! $verificationIcon !!}
+                        </td>
+                        <td>{{ $investor['username'] }}</td>
+                        <td>{{ $investor['phone'] }}</td>
+                        <td>
+                            @if($investor['verification_status'] === 'Tasdiqlangan')
+                                {{ $investor['passport'] ?: '-' }}
+                            @else
+                                -
+                            @endif
+                        </td>
+                        <td>
+                            @if($investor['verification_status'] === 'Tasdiqlangan')
+                                {{ $investor['inn'] ?: '-' }}
+                            @else
+                                -
+                            @endif
+                        </td>
+                        <td>
+                            @if($investor['status'] === 'Faol')
+                                <span class="status-active">Faol</span>
+                            @elseif($investor['status'] === 'Bloklangan')
+                                <span class="status-blocked">Bloklangan</span>
+                            @else
+                                <span class="status-pending">Kutilmoqda</span>
+                            @endif
+                        </td>
+                        <td>{{ $investor['created_at'] }}</td>
+                        <td class="text-center">
+                            <x-show-button href="{{ route('admin.investors.show', $investor['id']) }}" />
+
+                            <x-edit-button href="{{ route('admin.investors.edit', $investor['id']) }}" />
+
+                            <button class="btn btn-link p-0 verify-btn" data-id="{{ $investor['id'] }}" title="Tasdiqlash"
+                                @if($investor['verification_status'] === 'Tasdiqlangan') disabled @endif>
+                                <img src="{{ asset('assets/img/icons/shield_icon.png') }}" class="status-pending-icon"
+                                    style="filter: brightness(0) saturate(100%) invert(39%) sepia(94%) saturate(3390%) hue-rotate(199deg) brightness(93%) contrast(101%);">
+                            </button>
+                        </td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="9" class="text-center py-4">
+                            <div class="empty-state">
+                                <i class="bi bi-person-x fs-1 text-muted"></i>
+                                <p class="mt-2">Investorlar topilmadi</p>
+                            </div>
+                        </td>
+                    </tr>
+                @endforelse
             </tbody>
         </table>
 
-        <!-- PAGINATION -->
-        <div class="d-flex justify-content-start p-2">
-            <nav>
-                <ul class="pagination pagination-sm mb-0" id="pagination"></ul>
-            </nav>
+        <div class="d-flex justify-content-between align-items-center mt-2">
+
+            <div class="text-muted">
+                {{ $start }} - {{ $end }} / Jami: {{ $total }}
+            </div>
+
+            <div>
+                <x-pagination :pageCount="$pageCount" :currentPage="$currentPage" />
+            </div>
         </div>
 
     </div>
@@ -162,118 +216,7 @@
 
 
 @push('customJs')
-
     <script>
-
-        // 15 ta statik investorlar
-        const investors = [
-            [1, 'Jasur Islomov', 'jasur', '+998901234567', 'AA1234567', '12345678901234', 'Faol', 'Tasdiqlangan', '2025-11-25 14:32'],
-            [2, 'Gulbahor Qodirova', 'gulbahor', '+998909876543', 'AB7654321', '98765432109876', 'Kutilmoqda', 'Tasdiqlanmagan', '2025-11-26 09:15'],
-            [3, 'Olimjon Tursunov', 'olimjon', '+998933445566', 'AC1122334', '11223344556677', 'Faol', 'Tasdiqlangan', '2025-11-27 08:50'],
-            [4, 'Nilufar Rasulova', 'nilufar', '+998922334455', 'AD5566778', '55667788901234', 'Bloklangan', 'Tasdiqlanmagan', '2025-11-24 18:20'],
-            [5, 'Azizbek Karimov', 'azizbek', '+998911223344', 'AA9988776', '99887766554433', 'Faol', 'Tasdiqlangan', '2025-11-26 12:45'],
-            [6, 'Saodat Davronova', 'saodat', '+998900112233', 'AB4455667', '44556677889900', 'Kutilmoqda', 'Tasdiqlanmagan', '2025-11-23 16:10'],
-            [7, 'Oybek Rahimov', 'oybek', '+998905554433', '', '', 'Kutilmoqda', 'Tasdiqlanmagan', '2025-11-22 11:10'],
-            [8, 'Dilorom Mamarasul', 'dilorom', '+998909998877', 'AC5544332', '55443322110099', 'Faol', 'Tasdiqlangan', '2025-11-21 17:33'],
-            [9, 'Sirojiddin Bekmurodov', 'siroj', '+998900011223', '', '', 'Kutilmoqda', 'Tasdiqlanmagan', '2025-11-20 09:55'],
-            [10, 'Komil Qurbonov', 'komil', '+998933301122', 'AA8899007', '88990077665544', 'Faol', 'Tasdiqlangan', '2025-11-19 08:12'],
-            [11, 'Madina Usmonova', 'madina', '+998930045612', 'AB1122994', '11229944556677', 'Bloklangan', 'Tasdiqlangan', '2025-11-18 19:55'],
-            [12, 'Jamshid Soliyev', 'jamshid', '+998950033221', 'AC7788112', '77881122334455', 'Faol', 'Tasdiqlangan', '2025-11-17 16:40'],
-            [13, 'Shohjahon Abdullayev', 'shoh', '+998977712345', 'AD6677885', '66778855332211', 'Faol', 'Tasdiqlangan', '2025-11-16 10:27'],
-            [14, 'Hilola Qodirova', 'hilola', '+998934455667', '', '', 'Kutilmoqda', 'Tasdiqlanmagan', '2025-11-15 14:22'],
-            [15, 'Aziza Matyoqubova', 'aziza', '+998990112233', 'AA4455667', '44556677889911', 'Faol', 'Tasdiqlangan', '2025-11-14 18:00'],
-        ];
-
-
-        // PAGINATION SETTINGS
-        const perPage = 10;
-        const totalPages = 2;
-        let currentPage = 1;
-
-
-        // TABLE RENDER
-        function renderTable() {
-            let tbody = document.getElementById('investorTableBody');
-            tbody.innerHTML = "";
-
-            let start = (currentPage - 1) * perPage;
-            let end = start + perPage;
-            let pageData = investors.slice(start, end);
-
-            pageData.forEach(inv => {
-                const verificationIcon = inv[7] === 'Tasdiqlangan'
-                    ? '<i class="bi bi-patch-check-fill icon-verified" title="Tasdiqlangan"></i>'
-                    : '<i class="bi bi-x-circle-fill status-pending" title="Tasdiqlanmagan"></i>';
-
-                tbody.innerHTML += `
-        <tr>
-            <td>${inv[0]}</td>
-            <td>
-                ${inv[1]}
-                ${verificationIcon}
-            </td>
-            <td>${inv[2]}</td>
-            <td>${inv[3]}</td>
-
-            <td>${inv[7] === 'Tasdiqlangan' ? inv[4] : '-'}</td>
-            <td>${inv[7] === 'Tasdiqlangan' ? inv[5] : '-'}</td>
-
-            <td>
-                ${inv[6] === 'Faol'
-                    ? '<span class="status-active">Faol</span>'
-                    : inv[6] === 'Bloklangan'
-                        ? '<span class="status-blocked">Bloklangan</span>'
-                        : '<span class="status-pending">Kutilmoqda</span>'}
-            </td>
-
-            <td>${inv[8]}</td>
-
-            <td class="text-center">
-            <i class="bi bi-eye-fill me-2" style="width:20px;height:20px;font-size:20px;"></i>
-            <img src="/assets/img/icons/shield_icon.png"
-                     alt="Tasdiqlanmagan"
-                     class="status-pending-icon" style="color: #1F2937; ">
-            </td>
-        </tr>`;
-            });
-
-            renderPagination();
-        }
-
-
-        // PAGINATION BUTTONS
-        function renderPagination() {
-            let pagination = document.getElementById('pagination');
-            pagination.innerHTML = "";
-
-            pagination.innerHTML += `
-        <li class="page-item ${currentPage === 1 ? 'disabled' : ''}">
-            <button class="page-link" onclick="goPage(${currentPage - 1})">«</button>
-        </li>`;
-
-            for (let i = 1; i <= totalPages; i++) {
-                pagination.innerHTML += `
-            <li class="page-item ${currentPage === i ? 'active' : ''}">
-                <button class="page-link" onclick="goPage(${i})">${i}</button>
-            </li>`;
-            }
-
-            pagination.innerHTML += `
-        <li class="page-item ${currentPage === totalPages ? 'disabled' : ''}">
-            <button class="page-link" onclick="goPage(${currentPage + 1})">»</button>
-        </li>`;
-        }
-
-
-        function goPage(page) {
-            if (page < 1 || page > totalPages) return;
-            currentPage = page;
-            renderTable();
-        }
-
-
-        // INIT
-        renderTable();
-
+        //
     </script>
 @endpush
