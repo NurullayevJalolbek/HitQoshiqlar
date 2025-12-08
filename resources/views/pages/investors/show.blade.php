@@ -220,9 +220,9 @@
 
                                 @if($investor['inn'])
                                     <div class="col-12 info-row">
-                                        <div class="info-label">INN (STIR)</div>
+                                        <div class="info-label">JSHIR</div>
                                         <div class="info-value d-flex align-items-center">
-                                            <i class="fas fa-hashtag text-primary me-2"></i>
+                                            <!-- <i class="fas fa-hashtag text-primary me-2"></i> -->
                                             {{ $investor['inn'] }}
                                         </div>
                                     </div>
