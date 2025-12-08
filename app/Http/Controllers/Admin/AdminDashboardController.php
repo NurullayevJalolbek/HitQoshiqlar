@@ -12,3 +12,4 @@ class AdminDashboardController extends Controller
         return view('pages.dashboard.index');
     }
 }
+    

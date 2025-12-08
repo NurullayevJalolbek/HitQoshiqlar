@@ -301,5 +301,14 @@ return [
     'confirm' => "Confirm",
     'cancel' => "Cancel",
     'date_from' => "From",
-'date_to' => "To"
+'date_to' => "To",
+    'add' => 'Add',
+    'picture' => 'Picture',
+    'value' => 'Value',
+    'progress' => 'Progress',
+    'financing' => 'Financing',
+    'rounds' => 'Rounds',
+    'risk' => 'Risk',
+    'id' => 'ID',
+    'income' => 'Income',
 ];

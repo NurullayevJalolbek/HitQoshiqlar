@@ -6,7 +6,7 @@
 @endpush
 
 @section('breadcrumb')
-<div class="breadcrumb-wrapper d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-3 px-3 mt-3"
+<div class="breadcrumb-wrapper d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-3 px-3 mt-3 mb-2"
      style="border: 1px solid rgba(0,0,0,0.05); border-radius: 0.5rem; background-color: #ffffff; height: 60px;">
     <!-- Breadcrumb -->
     <div class="d-block mb-2 mb-md-0">
@@ -19,7 +19,7 @@
     </div>
     
     <!-- Action Buttons -->
-    <div class="d-flex gap-2 align-items-center flex-wrap">
+    <div class="d-flex gap-2 align-items-center flex-wrap mb-2">
         <button class="btn btn-success btn-sm px-2 py-1" onclick="exportData('excel')">
             <i class="fas fa-file-excel me-1" style="font-size: 0.85rem;"></i> Excel
         </button>
