@@ -132,7 +132,7 @@
 
                         <td class="text-center d-flex justify-content-center gap-2">
                             <x-show-button href="{{ route('admin.users.show', $user['id']) }}" />
-                            <x-edit-button />
+                            <x-edit-button href="{{ route('admin.users.edit', $user['id']) }}" />
                             <x-delete-button />
                         </td>
                     </tr>
