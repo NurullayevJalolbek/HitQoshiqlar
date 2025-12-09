@@ -277,8 +277,9 @@
                                 <div class="info-label">Ma'lumot to'liqligi</div>
                                 <div class="info-value">
                                     @php
-                                    // 2 bosqichli tizim: Kutilmoqda = 50%, Faol = 100%
-                                    if ($investor['status'] === 'Kutilmoqda') {
+                                    $status = strtolower(trim($investor['status']));
+
+                                    if ($status === 'kutilmoqda') {
                                     $completionPercentage = 50;
                                     $progressColor = 'warning';
                                     $filledFields = 1;
@@ -290,6 +291,7 @@
                                     $totalFields = 2;
                                     }
                                     @endphp
+
 
                                     <div class="d-flex align-items-center">
                                         <div class="progress flex-grow-1 me-2" style="height: 10px;">
