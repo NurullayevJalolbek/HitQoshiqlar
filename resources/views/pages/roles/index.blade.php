@@ -64,27 +64,42 @@ $end = $pagination['end'];
 <div class="filter-card mb-3 mt-2 collapse show" id="roleFilterContent" style="transition: all 0.3s ease;">
     <div class="border rounded p-3" style="border-color: rgba(0,0,0,0.05); background-color: #fff;">
         <div class="row g-3 align-items-end">
-            <div class="col-md-10">
-                <label>{{__('admin.search')}}</label>
+            
+            <!-- Role nomi bo'yicha qidiruv -->
+            <div class="col-md-5">
+                <label for="roleNameSearch">{{ __('admin.role_name') }}</label>
                 <div class="input-group">
-                    <span class="input-group-text bg-white"><i class="fas fa-search text-muted"></i></span>
-                    <input type="text" class="form-control"
-                        placeholder="{{__('admin.role_name')}}, {{__('admin.code')}}...">
+                    <span class="input-group-text bg-white"><i class="fas fa-user-tag text-muted"></i></span>
+                    <input type="text" class="form-control" id="roleNameSearch"
+                        placeholder="{{ __('admin.role_name') }}...">
                 </div>
             </div>
 
+            <!-- Role kodi bo'yicha qidiruv -->
+            <div class="col-md-5">
+                <label for="roleCodeSearch">{{ __('admin.code') }}</label>
+                <div class="input-group">
+                    <span class="input-group-text bg-white"><i class="fas fa-code"></i></span>
+                    <input type="text" class="form-control" id="roleCodeSearch"
+                        placeholder="{{ __('admin.code') }}...">
+                </div>
+            </div>
+
+            <!-- Tugmalar -->
             <div class="col-md-2 d-flex gap-2">
-                <button id="filterBtn" class="btn btn-primary w-50">
-                    <i class="fas fa-filter"></i> {{__('admin.search')}}
+                <button id="filterBtn" class="btn btn-primary flex-grow-1 d-flex align-items-center justify-content-center gap-1">
+                    <i class="fas fa-filter"></i> {{ __('admin.search') }}
                 </button>
 
-                <button id="clearBtn" class="btn btn-warning w-50">
-                    {{__('admin.clear')}}
+                <button id="clearBtn" class="btn btn-warning flex-grow-1 d-flex align-items-center justify-content-center gap-1">
+                    <i class="fas fa-times"></i> {{ __('admin.clear') }}
                 </button>
             </div>
+
         </div>
     </div>
 </div>
+
 
 {{--Content--}}
 <div class="card card-body py-3 px-3 shadow border-0 table-wrapper table-responsive mt-3">

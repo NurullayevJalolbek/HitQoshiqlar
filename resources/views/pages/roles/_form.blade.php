@@ -15,13 +15,17 @@
     ::placeholder {
         opacity: 0.6 !important;
     }
+
+    .input-group-text i {
+        width: 16px;
+        text-align: center;
+    }
 </style>
 @endpush
 
 @section('breadcrumb')
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-3 breadcrumb-block px-3 mt-3"
     style="border: 1px solid rgba(0,0,0,0.05); border-radius: 0.5rem; background-color: #ffffff; height: 60px">
-    <!-- Breadcrumb -->
     <div class="d-block mb-2 mb-md-0">
         <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
             <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent mb-0">
@@ -37,7 +41,7 @@
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">
                     @isset($role)
-                    Rolni tahirlash
+                    Rolni tahrirlash
                     @else
                     Yangi rol yaratish
                     @endisset
@@ -75,29 +79,35 @@
                     <!-- Role nomi -->
                     <div class="col-md-6">
                         <label for="roleName" class="form-label required">Rol nomi</label>
-                        <input type="text"
-                            class="form-control @error('name') is-invalid @enderror"
-                            id="roleName"
-                            name="name"
-                            value="{{ old('name', $role['name'] ?? '') }}"
-                            required
-                            placeholder="Rol nomini kiriting">
-                        <div class="invalid-feedback">Rol nomini kiriting.</div>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-user-tag"></i></span>
+                            <input type="text"
+                                class="form-control @error('name') is-invalid @enderror"
+                                id="roleName"
+                                name="name"
+                                value="{{ old('name', $role['name'] ?? '') }}"
+                                required
+                                placeholder="Rol nomini kiriting">
+                            <div class="invalid-feedback">Rol nomini kiriting.</div>
+                        </div>
                         @error('name') <div class="invalid-feedback">{{ $message }}</div> @enderror
                     </div>
 
                     <!-- Role kodi -->
                     <div class="col-md-6">
                         <label for="roleCode" class="form-label required">Rol kodi</label>
-                        <input type="text"
-                            class="form-control @error('code') is-invalid @enderror"
-                            id="roleCode"
-                            name="code"
-                            value="{{ old('code', $role['code'] ?? '') }}"
-                            required
-                            placeholder="Rol kodini kiriting"
-                            @isset($role) readonly @endisset>
-                        <div class="invalid-feedback">Rol kodini kiriting.</div>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-code"></i></span>
+                            <input type="text"
+                                class="form-control @error('code') is-invalid @enderror"
+                                id="roleCode"
+                                name="code"
+                                value="{{ old('code', $role['code'] ?? '') }}"
+                                required
+                                placeholder="Rol kodini kiriting"
+                                @isset($role) readonly @endisset>
+                            <div class="invalid-feedback">Rol kodini kiriting.</div>
+                        </div>
                         @error('code') <div class="invalid-feedback">{{ $message }}</div> @enderror
                     </div>
                 </div>
@@ -105,21 +115,27 @@
                 <!-- Tavsifi -->
                 <div class="mb-3">
                     <label for="roleDescription" class="form-label">Tavsifi</label>
-                    <textarea class="form-control @error('description') is-invalid @enderror"
-                        id="roleDescription"
-                        name="description"
-                        rows="3"
-                        placeholder="Rol tavsifini kiriting">{{ old('description', $role['description'] ?? '') }}</textarea>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fas fa-align-left"></i></span>
+                        <textarea class="form-control @error('description') is-invalid @enderror"
+                            id="roleDescription"
+                            name="description"
+                            rows="3"
+                            placeholder="Rol tavsifini kiriting">{{ old('description', $role['description'] ?? '') }}</textarea>
+                    </div>
                     @error('description') <div class="invalid-feedback">{{ $message }}</div> @enderror
                 </div>
 
                 <!-- Ikonka (fayl yuklash) -->
                 <div class="mb-3">
                     <label class="form-label">Ikonka (png, jpg, jpeg, svg)</label>
-                    <input type="file"
-                        class="form-control @error('icon') is-invalid @enderror"
-                        name="icon_file"
-                        accept=".png,.jpg,.jpeg,.svg">
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fas fa-image"></i></span>
+                        <input type="file"
+                            class="form-control @error('icon') is-invalid @enderror"
+                            name="icon_file"
+                            accept=".png,.jpg,.jpeg,.svg">
+                    </div>
                     @error('icon') <div class="invalid-feedback">{{ $message }}</div> @enderror
                     @isset($role['icon'])
                     <div class="mt-2">
@@ -130,19 +146,12 @@
                 </div>
 
                 <div class="d-flex justify-content-end mt-3 gap-2">
-                    <!-- Bekor qilish -->
-                    <a href="{{ route('admin.roles.index') }}" class="btn btn-secondary" type="reset">
+                    <a href="{{ route('admin.roles.index') }}" class="btn btn-secondary">
                         <i class="fas fa-times me-1"></i> Bekor qilish
                     </a>
-
-                    <!-- Saqlash -->
                     <button class="btn btn-primary" type="submit">
                         <i class="fas fa-save me-1"></i>
-                        @isset($user)
-                        Yangilash
-                        @else
-                        Saqlash
-                        @endisset
+                        @isset($role) Yangilash @else Saqlash @endisset
                     </button>
                 </div>
             </form>
