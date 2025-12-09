@@ -142,12 +142,12 @@ $end = $pagination['end'];
                 </td>
 
                 <td>
-                    <i class="fa-solid fa-phone me-1 text-success"></i>
+                    <i class="fa-solid fa-phone me-1"></i>
                     {{ $user['phone'] }}
                 </td>
 
                 <td>
-                    <i class="fa-solid fa-envelope me-1 text-warning"></i>
+                    <i class="fa-solid fa-envelope me-1"></i>
                     {{ $user['email'] }}
                 </td>
 
