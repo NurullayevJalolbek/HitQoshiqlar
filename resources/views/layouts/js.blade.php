@@ -242,6 +242,21 @@
             }
         }
 
+        // Global info alert (faqat ogohlantirish / xabar)
+            window.infoModal = function (title = null, text = null) {
+                Swal.fire({
+                    title: title ?? "{{ __('admin.info') }}",
+                    text: text ?? "",
+                    icon: 'info',
+                    confirmButtonText: "Ok",
+                    customClass: {
+                        confirmButton: 'btn btn-primary',
+                    },
+                    buttonsStyling: false
+                });
+            }
+
+
         // Global error alert
         window.sweetError = function (title = null, text = null) {
             text = text ?? `{{ session()->get('error') }}`;

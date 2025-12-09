@@ -433,4 +433,58 @@ if (!function_exists('getInvestorsData')) {
         // ID berilmasa, barcha investorlarni qaytaradi
         return $investors;
     }
+
+
+
+    function getRolesData($id = null): Collection
+    {
+        $roles = collect([
+            [
+                'id' => 1,
+                'name' => 'Admin',
+                'code' => 'admin',
+                'icon' => 'fas fa-shield-alt',
+                'users_count' => 0,
+                'description' => 'Tizimni to\'liq boshqarish',
+                'permissions_url' => route('admin.role-permissions.index'),
+                'is_deletable' => false
+            ],
+            [
+                'id' => 2,
+                'name' => 'Moliyaviy auditor',
+                'code' => 'finance',
+                'icon' => 'fas fa-briefcase',
+                'users_count' => 3,
+                'description' => 'Moliyaviy ma\'lumotlarni tekshirish',
+                'permissions_url' => route('admin.role-permissions.index'),
+                'is_deletable' => true
+            ],
+            [
+                'id' => 3,
+                'name' => 'Moderator',
+                'code' => 'moderator',
+                'icon' => 'fas fa-cog',
+                'users_count' => 5,
+                'description' => 'Kontent va foydalanuvchilarni nazorat qilish',
+                'permissions_url' => route('admin.role-permissions.index'),
+                'is_deletable' => true
+            ],
+            [
+                'id' => 4,
+                'name' => 'Islom moliyasi nazorati',
+                'code' => 'islamic_fin',
+                'icon' => 'fas fa-scroll',
+                'users_count' => 1,
+                'description' => 'Shariat asosida moliyaviy nazorat',
+                'permissions_url' => route('admin.role-permissions.index'),
+                'is_deletable' => true
+            ]
+        ]);
+
+        if ($id) {
+            return $roles->where('id', $id)->values();
+        }
+
+        return $roles;
+    }
 }

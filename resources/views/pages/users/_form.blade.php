@@ -28,7 +28,7 @@
         <!-- Breadcrumb -->
         <div class="d-block mb-2 mb-md-0">
             <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
-                <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
+                <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent mb-0">
                     <li class="breadcrumb-item">
                         <a href="{{ route('admin.dashboard') }}">
                             <i class="fas fa-home"></i>

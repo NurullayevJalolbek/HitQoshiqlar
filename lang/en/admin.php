@@ -322,4 +322,7 @@ return [
     'director_fullname' => 'Director Full Name',
     'total_share'     => 'Total share',
     'close' => 'Close',
+
+    'warning' => "Warning",
+    'role_delete_warning' => "Before deleting this role, you need to transfer its users to another role?"
 ];

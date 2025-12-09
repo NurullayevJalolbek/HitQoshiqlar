@@ -319,4 +319,8 @@ return [
     'total_share'     => 'Jami ulushi',
     'close' => 'Yopish',
 
+
+    'warning' => "Ogohlantirish",
+    'role_delete_warning' => "Bu roleni o'chirishdan oldin undagi foydalanuvchilarni boshqa rolega o'tkazishingiz kerak?"
+
 ];

@@ -16,4 +16,12 @@ class RoleController extends Controller
     {
         return view('pages.roles.create');
     }
+
+    public function edit($id)
+    {
+        $role = getRolesData($id)[0];
+
+
+        return view('pages.roles.edit', compact('role'));
+    }
 }
