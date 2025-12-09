@@ -35,6 +35,31 @@
                 <li class="breadcrumb-item active">{{ __('admin.project_entry_requests') }}</li>
             </ol>
         </nav>
+    <div
+        class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-3 breadcrumb-block px-3 mt-3"
+        style="border: 1px solid rgba(0,0,0,0.05); border-radius: 0.5rem; background-color: #ffffff; height: 60px">
+        <!-- Breadcrumb -->
+        <div class="d-block mb-2 mb-md-0">
+            <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
+                <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent mb-0">
+                    <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ __('admin.project_entry_requests') }}</li>
+                </ol>
+            </nav>
+        </div>
+
+        <!-- Tugmalar guruhi -->
+        <div class="d-flex gap-2 align-items-center flex-wrap">
+
+
+
+            <button class="btn btn-sm p-2 d-flex align-items-center justify-content-center"
+                    type="button" data-bs-toggle="collapse"
+                    data-bs-target="#projectEntryRequestFilterContent" aria-expanded="true"
+                    aria-controls="projectEntryRequestFilterContent">
+                <i class="fa-solid fa-list" style="font-size: 1.3rem;"></i>
+            </button>
+        </div>
     </div>
     <button class="btn btn-sm btn-light border" data-bs-toggle="collapse"
         data-bs-target="#projectEntryRequestFilterContent" aria-expanded="true">

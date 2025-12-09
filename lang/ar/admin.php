@@ -353,4 +353,6 @@ return [
     'enter_reject_reason'       => 'أدخل سبب الرفض',
     'selected_accepted'         => 'تم قبول الطلبات المحددة',
     'selected_rejected'         => 'تم رفض الطلبات المحددة',
+    'warning' => "تحذير",
+    'role_delete_warning' => "قبل حذف هذا الدور، تحتاج إلى نقل مستخدميه إلى دور آخر؟"
 ];

@@ -1,20 +1,71 @@
+@push('customCss')
+<style>
+    .input-group-text {
+        border-right: none;
+    }
+
+    .input-group .form-control,
+    .input-group .form-select {
+        border-left: none;
+    }
+</style>
+@endpush
+
 <div class="filter-card mb-3 mt-2 collapse show" id="userFilterContent" style="transition: all 0.3s ease;">
-        <div class="border rounded p-3" style="border-color: rgba(0,0,0,0.05); background-color: #fff;">
-            <div class="row g-3 align-items-end">
+    <div class="border rounded p-3" style="border-color: rgba(0,0,0,0.05); background-color: #fff;">
+        <div class="row g-3 align-items-end">
 
-                <!-- Qidiruv -->
-                <div class="col-md-4 col-sm-6 col-12">
-                    <label for="searchInput">{{__('admin.search')}}</label>
-                    <div class="input-group">
-                        <span class="input-group-text bg-white"><i class="fas fa-search text-muted"></i></span>
-                        <input type="text" id="searchInput" class="form-control"
-                            placeholder="{{__('admin.full_name')}}, {{__('admin.login')}}, {{__('admin.email')}}...">
-                    </div>
+            <!-- F.I.O -->
+            <div class="col-md-3 col-sm-6 col-12">
+                <label for="fioInput">F.I.O</label>
+                <div class="input-group">
+                    <span class="input-group-text bg-white">
+                        <i class="fa-solid fa-user text-muted"></i>
+                    </span>
+                    <input type="text" id="fioInput" class="form-control" placeholder="F.I.O">
                 </div>
+            </div>
 
-                <!-- Rol bo‘yicha filter -->
-                <div class="col-md-3 col-sm-6 col-12">
-                    <label for="roleFilter">{{__('admin.by_role')}}</label>
+            <!-- Login -->
+            <div class="col-md-3 col-sm-6 col-12">
+                <label for="loginInput">Login</label>
+                <div class="input-group">
+                    <span class="input-group-text bg-white">
+                        <i class="fa-solid fa-image-portrait text-muted"></i>
+                    </span>
+                    <input type="text" id="loginInput" class="form-control" placeholder="Login">
+                </div>
+            </div>
+
+            <!-- Email -->
+            <div class="col-md-3 col-sm-6 col-12">
+                <label for="emailInput">Email</label>
+                <div class="input-group">
+                    <span class="input-group-text bg-white">
+                        <i class="fa-solid fa-envelope text-muted"></i>
+                    </span>
+                    <input type="email" id="emailInput" class="form-control" placeholder="Email">
+                </div>
+            </div>
+
+            <!-- Telefon -->
+            <div class="col-md-3 col-sm-6 col-12">
+                <label for="phoneFilter">Telefon</label>
+                <div class="input-group">
+                    <span class="input-group-text bg-white">
+                        <i class="fa-solid fa-phone text-muted"></i>
+                    </span>
+                    <input type="text" id="phoneFilter" class="form-control" placeholder="+998 ...">
+                </div>
+            </div>
+
+            <!-- Rol bo‘yicha filter -->
+            <div class="col-md-3 col-sm-6 col-12">
+                <label for="roleFilter">{{__('admin.by_role')}}</label>
+                <div class="input-group">
+                    <span class="input-group-text bg-white">
+                        <i class="fa-solid fa-user-shield text-muted"></i>
+                    </span>
                     <select id="roleFilter" class="form-select">
                         <option value="">{{__('admin.all')}}</option>
                         <option value="Admin">Admin</option>
@@ -23,42 +74,47 @@
                         <option value="Islom moliyasi nazorati">Islom moliyasi nazorati</option>
                     </select>
                 </div>
+            </div>
 
-                <!-- Holat bo‘yicha filter -->
-                <div class="col-md-2 col-sm-6 col-12">
-                    <label for="statusFilter">{{__('admin.by_status')}}</label>
+            <!-- Holat bo‘yicha filter -->
+            <div class="col-md-3 col-sm-6 col-12">
+                <label for="statusFilter">{{__('admin.by_status')}}</label>
+                <div class="input-group">
+                    <span class="input-group-text bg-white">
+                        <i class="fa-solid fa-toggle-on text-muted"></i>
+                    </span>
                     <select id="statusFilter" class="form-select">
                         <option value="">{{__('admin.all')}}</option>
                         <option value="Faol">Faol</option>
+                        <option value="Kutilmoqda">Kutilmoqda</option>
                         <option value="Bloklangan">Bloklangan</option>
                     </select>
                 </div>
+            </div>
 
-                <!-- Telefon bo‘yicha filter -->
-                <div class="col-md-3 col-sm-6 col-12">
-                    <label for="phoneFilter">Telefon bo'yicha</label>
-                    <input type="text" id="phoneFilter" class="form-control" placeholder="+998 ...">
-                </div>
-
-                <!-- Sana oraligi filter -->
-                <div class="col-md-4 col-sm-6 col-12">
-                    <label for="dateFrom">{{ __('admin.date_from') }}</label>
+            <!-- Sana from -->
+            <div class="col-md-2 col-sm-6 col-12">
+                <label for="dateFrom">{{ __('admin.date_from') }}</label>
+                <div class="input-group">
+                    <span class="input-group-text bg-white">
+                        <i class="fa-solid fa-calendar-day text-muted"></i>
+                    </span>
                     <input type="date" id="dateFrom" class="form-control">
                 </div>
+            </div>
 
-                <div class="col-md-4 col-sm-6 col-12">
-                    <label for="dateTo">{{ __('admin.date_to') }}</label>
+            <!-- Sana to -->
+            <div class="col-md-2 col-sm-6 col-12">
+                <label for="dateTo">{{ __('admin.date_to') }}</label>
+                <div class="input-group">
+                    <span class="input-group-text bg-white">
+                        <i class="fa-solid fa-calendar-check text-muted"></i>
+                    </span>
                     <input type="date" id="dateTo" class="form-control">
                 </div>
-
-                <!-- Filter tugmalari -->
-                <div class="col-md-4">
-                    <button id="filterBtn" class="btn btn-primary">
-                        <i class="fas fa-filter"></i> {{__('admin.search')}}
-                    </button>
-                    <button id="clearBtn" class="btn btn-warning">
-                        {{__('admin.clear')}}
-                </div>
             </div>
+
+            <x-filter-buttons :search-text="__('admin.search')" :clear-text="__('admin.clear')" />
         </div>
     </div>
+</div>

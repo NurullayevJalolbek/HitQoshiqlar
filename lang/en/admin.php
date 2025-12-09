@@ -345,4 +345,7 @@ return [
     'currency'        => 'Currency',
     'payment_method'  => 'Payment Method',
     'investor'        => 'Investor',
+
+    'warning' => "Warning",
+    'role_delete_warning' => "Before deleting this role, you need to transfer its users to another role?"
 ];

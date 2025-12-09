@@ -349,4 +349,6 @@ return [
     'currency'        => 'Valyuta',
     'payment_method'      => 'Toʻlov usuli',
     'investor'        => 'Investor',
+    'warning' => "Ogohlantirish",
+    'role_delete_warning' => "Bu roleni o'chirishdan oldin undagi foydalanuvchilarni boshqa rolega o'tkazishingiz kerak?",
 ];
