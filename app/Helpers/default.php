@@ -488,3 +488,210 @@ if (!function_exists('getInvestorsData')) {
         return $roles;
     }
 }
+
+function getLoginHistoriesData($id = null): Collection
+{
+   $histories = collect([
+    [
+        'id' => 1,
+        'user' => 'Olim Jo‘rayev',
+        'username' => 'olim_admin',
+        'date' => '2025-01-02 04:00', // eng yangi
+        'ip' => '192.168.1.10',
+        'result' => 'Ogohlantirish', // 3-marta xato
+        'geo' => 'Toshkent',
+        'user_agent' => 'Chrome / Windows 10',
+        'session_id' => 'SID-15',
+        'login_duration' => '3 soniya',
+        'phone' => '+998901112233'
+    ],
+    [
+        'id' => 2,
+        'user' => 'Olim Jo‘rayev',
+        'username' => 'olim_admin',
+        'date' => '2025-01-02 03:55', // 2-xato
+        'ip' => '192.168.1.10',
+        'result' => 'Xato',
+        'geo' => 'Toshkent',
+        'user_agent' => 'Chrome / Windows 10',
+        'session_id' => 'SID-14',
+        'login_duration' => '2 soniya',
+        'phone' => '+998901112233'
+    ],
+    [
+        'id' => 3,
+        'user' => 'Olim Jo‘rayev',
+        'username' => 'olim_admin',
+        'date' => '2025-01-02 03:50', // 1-xato
+        'ip' => '192.168.1.10',
+        'result' => 'Xato',
+        'geo' => 'Toshkent',
+        'user_agent' => 'Chrome / Windows 10',
+        'session_id' => 'SID-13',
+        'login_duration' => '1 soniya',
+        'phone' => '+998901112233'
+    ],
+    [
+        'id' => 4,
+        'user' => 'Javohir Tursunov',
+        'username' => 'javohir_mod1',
+        'date' => '2025-01-02 03:45',
+        'ip' => '192.168.1.11',
+        'result' => 'Muvaffaqiyatli',
+        'geo' => 'Toshkent',
+        'user_agent' => 'Firefox / Windows 11',
+        'session_id' => 'SID-12',
+        'login_duration' => '4 soniya',
+        'phone' => '+998932223344'
+    ],
+    [
+        'id' => 5,
+        'user' => 'Rustam Abdurahmonov',
+        'username' => 'rustam_mod2',
+        'date' => '2025-01-02 03:40',
+        'ip' => '192.168.1.12',
+        'result' => 'Ogohlantirish', // 3-marta xato
+        'geo' => 'Samarqand',
+        'user_agent' => 'Safari / MacOS',
+        'session_id' => 'SID-11',
+        'login_duration' => '2 soniya',
+        'phone' => '+998953334455'
+    ],
+    [
+        'id' => 6,
+        'user' => 'Rustam Abdurahmonov',
+        'username' => 'rustam_mod2',
+        'date' => '2025-01-02 03:35',
+        'ip' => '192.168.1.12',
+        'result' => 'Xato',
+        'geo' => 'Samarqand',
+        'user_agent' => 'Safari / MacOS',
+        'session_id' => 'SID-10',
+        'login_duration' => '3 soniya',
+        'phone' => '+998953334455'
+    ],
+    [
+        'id' => 7,
+        'user' => 'Rustam Abdurahmonov',
+        'username' => 'rustam_mod2',
+        'date' => '2025-01-02 03:30',
+        'ip' => '192.168.1.12',
+        'result' => 'Xato',
+        'geo' => 'Samarqand',
+        'user_agent' => 'Safari / MacOS',
+        'session_id' => 'SID-9',
+        'login_duration' => '2 soniya',
+        'phone' => '+998953334455'
+    ],
+    [
+        'id' => 8,
+        'user' => 'Zoir Bekmurodov',
+        'username' => 'zoir_mod3',
+        'date' => '2025-01-02 03:25',
+        'ip' => '192.168.1.13',
+        'result' => 'Muvaffaqiyatli',
+        'geo' => 'Buxoro',
+        'user_agent' => 'Edge / Windows 10',
+        'session_id' => 'SID-8',
+        'login_duration' => '6 soniya',
+        'phone' => '+998974445566'
+    ],
+    [
+        'id' => 9,
+        'user' => 'Nodir Qodirov',
+        'username' => 'nodir_aud1',
+        'date' => '2025-01-02 03:20',
+        'ip' => '192.168.1.14',
+        'result' => 'Xato',
+        'geo' => 'Toshkent',
+        'user_agent' => 'Chrome / Android',
+        'session_id' => 'SID-7',
+        'login_duration' => '3 soniya',
+        'phone' => '+998905556677'
+    ],
+    [
+        'id' => 10,
+        'user' => 'Umid Abdullayev',
+        'username' => 'umid_aud2',
+        'date' => '2025-01-02 03:15',
+        'ip' => '192.168.1.15',
+        'result' => 'Muvaffaqiyatli',
+        'geo' => 'Samarqand',
+        'user_agent' => 'Opera / Windows 10',
+        'session_id' => 'SID-6',
+        'login_duration' => '5 soniya',
+        'phone' => '+998936677888'
+    ],
+    [
+        'id' => 11,
+        'user' => 'Sirojiddin Madrahimov',
+        'username' => 'siroj_islam1',
+        'date' => '2025-01-02 03:10',
+        'ip' => '192.168.1.16',
+        'result' => 'Ogohlantirish', // 3-marta xato
+        'geo' => 'Toshkent',
+        'user_agent' => 'Chrome / iOS',
+        'session_id' => 'SID-5',
+        'login_duration' => '4 soniya',
+        'phone' => '+998977778899'
+    ],
+    [
+        'id' => 12,
+        'user' => 'Sirojiddin Madrahimov',
+        'username' => 'siroj_islam1',
+        'date' => '2025-01-02 03:05',
+        'ip' => '192.168.1.16',
+        'result' => 'Xato',
+        'geo' => 'Toshkent',
+        'user_agent' => 'Chrome / iOS',
+        'session_id' => 'SID-4',
+        'login_duration' => '2 soniya',
+        'phone' => '+998977778899'
+    ],
+    [
+        'id' => 13,
+        'user' => 'Sirojiddin Madrahimov',
+        'username' => 'siroj_islam1',
+        'date' => '2025-01-02 03:00',
+        'ip' => '192.168.1.16',
+        'result' => 'Xato',
+        'geo' => 'Toshkent',
+        'user_agent' => 'Chrome / iOS',
+        'session_id' => 'SID-3',
+        'login_duration' => '3 soniya',
+        'phone' => '+998977778899'
+    ],
+    [
+        'id' => 14,
+        'user' => 'Husan Sharipov',
+        'username' => 'husan_islam2',
+        'date' => '2025-01-02 02:55',
+        'ip' => '192.168.1.17',
+        'result' => 'Muvaffaqiyatli',
+        'geo' => 'Buxoro',
+        'user_agent' => 'Firefox / Linux',
+        'session_id' => 'SID-2',
+        'login_duration' => '7 soniya',
+        'phone' => '+998958889900'
+    ],
+    [
+        'id' => 15,
+        'user' => 'Sherzod Mamatov',
+        'username' => 'sherzod_admin2',
+        'date' => '2025-01-02 02:50',
+        'ip' => '192.168.1.18',
+        'result' => 'Xato',
+        'geo' => 'Samarqand',
+        'user_agent' => 'Edge / Windows 11',
+        'session_id' => 'SID-1',
+        'login_duration' => '2 soniya',
+        'phone' => '+998901124567'
+    ]
+]);
+
+    if ($id !== null) {
+        return $histories->where('id', $id)->values();
+    }
+
+    return $histories;
+}
