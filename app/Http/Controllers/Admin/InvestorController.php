@@ -19,4 +19,11 @@ class InvestorController extends Controller
 
         return view('pages.investors.show', compact('investor'));
     }
+
+    public function edit($id)
+    {
+        $investor = getInvestorsData($id);
+
+        return view('pages.investors.edit', compact('investor'));
+    }
 }

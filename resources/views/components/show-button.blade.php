@@ -9,7 +9,7 @@
 ])
 
 <a 
-    href="{{ $href }}" 
+    href="{{ $href }}" data-bs-toggle="tooltip"  title="Batafsil"
     class="btn btn-sm p-1 {{ $class }}" 
     style="background:none; color: {{ $color }};"
     @if($tooltip) data-bs-toggle="tooltip" data-bs-placement="top" title="{{ $tooltip }}" @endif
