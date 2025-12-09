@@ -43,14 +43,13 @@
 
     <!-- Tugmalar guruhi -->
     <div class="d-flex gap-2 align-items-center flex-wrap">
-        <button class="btn btn-success btn-sm px-2 py-1" id="exportExcelBtn">
-            <i class="fas fa-file-excel me-1" style="font-size: 0.85rem;"></i> Excel
-        </button>
 
-        <!-- Export CSV -->
-        <button class="btn btn-info btn-sm text-white px-2 py-1" id="exportCsvBtn">
-            <i class="fas fa-file-csv me-1" style="font-size: 0.85rem;"></i> CSV
-        </button>
+        <x-export-dropdown :items="['excel','csv']" :urls="[
+                'excel' => '#',
+                'csv'   => '#',
+            ]" />
+
+
 
         <!-- Yangi foydalanuvchi qo'shish -->
         <a href="{{ route('admin.users.create') }}" class="btn btn-primary btn-sm px-3 py-1" id="addUserBtn"
@@ -58,13 +57,14 @@
             <i class="fas fa-plus me-1" style="font-size: 0.85rem;"></i> {{ __('admin.create') }}
         </a>
 
-
+        <!-- Filter toggle -->
         <button class="btn btn-sm p-2 d-flex align-items-center justify-content-center" type="button"
             data-bs-toggle="collapse" data-bs-target="#userFilterContent" aria-expanded="true"
             aria-controls="userFilterContent">
             <i class="fa-solid fa-list" style="font-size: 1.3rem;"></i>
         </button>
     </div>
+
 </div>
 @endsection
 
@@ -137,7 +137,7 @@ $end = $pagination['end'];
                 </td>
 
                 <td>
-                    <i class="fa-solid fa-image-portrait"></i> 
+                    <i class="fa-solid fa-image-portrait"></i>
                     {{ $user['username'] }}
                 </td>
 
