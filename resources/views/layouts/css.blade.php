@@ -205,4 +205,138 @@
             /* Standart volt ko‘rinishi */
             margin-left: 0 !important;
         }
+
+        /* ==== CONTRACTED SIDEBAR FIX ==== */
+        #sidebarMenu.contracted {
+            width: 80px !important;
+        }
+
+        #sidebarMenu.contracted .sidebar-text,
+        #sidebarMenu.contracted .logo-text {
+            display: none !important;
+        }
+
+        /* Nav-link width ni faqat normal holatda beramiz */
+        #sidebarMenu:not(.contracted) .nav-link {
+            width: 250px;
+        }
+
+        #sidebarMenu.contracted .nav-link {
+            width: 80px !important;
+            justify-content: center;
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+        }
+
+        /* ICON markazda turishi uchun */
+        #sidebarMenu.contracted .nav-link i {
+            margin-right: 0 !important;
+        }
+
+        /* DROPDOWN CONTRACTED PAYTIDA FLOAT QILIB CHIQSIN */
+        #sidebarMenu.contracted .multi-level {
+            position: absolute;
+            left: 80px;
+            top: 0;
+            width: 220px;
+            background: #1F2937;
+            border-radius: 8px;
+            padding: 8px 0;
+            z-index: 9999;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, .4);
+        }
+
+        /* Submenu textlari ko‘rinsin */
+        #sidebarMenu.contracted .multi-level .sidebar-text {
+            display: inline-block !important;
+        }
+
+        /* Arrow yo‘q bo‘lsin */
+        #sidebarMenu.contracted .link-arrow {
+            display: none !important;
+        }
+
+        /* Hoverda ko‘rsatish */
+        #sidebarMenu.contracted li.nav-item:hover>.multi-level.collapse {
+            display: block !important;
+            visibility: visible;
+            opacity: 1;
+            height: auto !important;
+        }
+
+        /* Sidebar contracted umumiy holat */
+        #sidebarMenu.contracted {
+            width: 80px;
+        }
+
+        #sidebarMenu.contracted .sidebar-text {
+            display: none !important;
+        }
+
+        /* Barcha nav-linklar bir xil bo‘lsin */
+        #sidebarMenu.contracted .nav-link {
+            justify-content: center !important;
+            padding: 12px 0 !important;
+        }
+
+        /* ICONLARNI MARKAZGA KELTIRISH */
+        #sidebarMenu.contracted .nav-link i,
+        #sidebarMenu.contracted .nav-link svg {
+            margin: 0 !important;
+            font-size: 20px;
+        }
+
+        /* DROPDOWN O‘QINI YASHIRISH */
+        #sidebarMenu.contracted .link-arrow {
+            display: none !important;
+        }
+
+        /* DROPDOWN TO‘LIQ YOPIQ TURADI */
+        #sidebarMenu.contracted .multi-level {
+            display: none !important;
+        }
+
+        /* DROPDOWNNI HOVERDA OCHISH (xohlasangiz) */
+        #sidebarMenu.contracted .nav-item:hover>.multi-level {
+            display: block !important;
+            position: absolute;
+            left: 80px;
+            top: 0;
+            background: #1f2937;
+            min-width: 220px;
+            z-index: 999;
+            border-radius: 8px;
+            padding: 8px 0;
+        }
+
+        /* DROPDOWN ICHIDAGI LINKLAR */
+        #sidebarMenu.contracted .multi-level .nav-link {
+            justify-content: flex-start !important;
+            padding: 10px 16px !important;
+        }
+
+        /* NAV-LINK NI HAQIQIY FLEX CENTER QILAMIZ */
+        #sidebarMenu.contracted .nav-link {
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+            width: 100% !important;
+        }
+
+        /* ICONLARNI HAQIQIY O‘RTAGA KIRITISH */
+        #sidebarMenu.contracted .nav-link i,
+        #sidebarMenu.contracted .nav-link svg {
+            display: block !important;
+            margin-left: auto !important;
+            margin-right: auto !important;
+            text-align: center !important;
+        }
+
+        /* AGAR ICHIDA SPAN BOR BO‘LSA HAM MARKAZDA QOLSIN */
+        #sidebarMenu.contracted .nav-link>* {
+            margin-left: auto;
+            margin-right: auto;
+        }
     </style>
