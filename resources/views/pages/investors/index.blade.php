@@ -49,8 +49,6 @@
 </style>
 @endpush
 
-
-
 @section('breadcrumb')
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-3 breadcrumb-block px-3 mt-3"
     style="border: 1px solid rgba(0,0,0,0.05); border-radius: 0.5rem; background-color: #ffffff; height: 60px">
@@ -84,8 +82,6 @@
 </div>
 @endsection
 
-
-
 @section('content')
 @php
 $datas = getInvestorsData();
@@ -110,6 +106,37 @@ $end = $pagination['end'];
 <!-- Filter card -->
 @include('pages.investors._filter')
 
+                <div class="col-md-3">
+                    <label for="activityTypeFilter">{{ __('admin.activity_type') }}</label>
+                    <select id="activityTypeFilter" class="form-select">
+                        <option value="">{{ __('admin.all') }}</option>
+                        <option value="МЧЖ">{{ __('admin.mchj') }}</option>
+                        <option value="АЖ">{{ __('admin.aj') }}</option>
+                        <option value="ЯТТ">{{ __('admin.yatt') }}</option>
+                    </select>
+                </div>
+
+                <div class="col-md-3">
+                    <label for="statusFilter">{{ __('admin.status') }}</label>
+                    <select id="statusFilter" class="form-select">
+                        <option value="">{{ __('admin.all') }}</option>
+                        <option value="Faol">{{ __('admin.active') }}</option>
+                        <option value="Bloklangan">{{ __('admin.blocked') }}</option>
+                    </select>
+                </div>
+
+                <div class="col-md-2 d-flex gap-2">
+                    <button id="filterBtn" class="btn btn-primary w-50">
+                        <i class="fas fa-filter"></i> {{ __('admin.search') }}
+                    </button>
+
+                    <button id="clearBtn" class="btn btn-warning w-50">
+                        {{ __('admin.clear') }}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 <div class="card card-body py-3 px-3 shadow border-0 table-wrapper table-responsive mt-3">
     <table class="table user-table table-bordered table-hover table-striped align-items-center">
@@ -284,9 +311,6 @@ $end = $pagination['end'];
 </div>
 
 @endsection
-
-
-
 
 @push('customJs')
 <script>

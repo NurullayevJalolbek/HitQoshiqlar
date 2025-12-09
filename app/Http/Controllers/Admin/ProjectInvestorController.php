@@ -12,7 +12,7 @@ class ProjectInvestorController extends Controller
      */
     public function index(Request $request)
     {
-        return view ('pages.project-investors.index');
+        return view ('pages.investors.index');
     }
 
     /**
