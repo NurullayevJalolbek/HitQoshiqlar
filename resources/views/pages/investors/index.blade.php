@@ -36,7 +36,6 @@
     }
 
     /*shield icon*/
-
     .status-pending-icon {
         width: 20px;
         height: 20px;
@@ -45,6 +44,11 @@
 
     .action-btn i {
         font-size: 18px;
+    }
+
+    /* Table cell padding */
+    .table-cell {
+        vertical-align: middle;
     }
 </style>
 @endpush
@@ -64,14 +68,10 @@
 
     <!-- Tugmalar guruhi -->
     <div class="d-flex gap-2 align-items-center flex-wrap">
-        <button class="btn btn-success btn-sm px-2 py-1" id="exportExcelBtn">
-            <i class="fas fa-file-excel me-1" style="font-size: 0.85rem;"></i> Excel
-        </button>
-
-        <!-- Export CSV -->
-        <button class="btn btn-info btn-sm text-white px-2 py-1" id="exportCsvBtn">
-            <i class="fas fa-file-csv me-1" style="font-size: 0.85rem;"></i> CSV
-        </button>
+        <x-export-dropdown :items="['excel','csv']" :urls="[
+                'excel' => '#',
+                'csv'   => '#',
+            ]" />
 
         <button class="btn btn-sm p-2 d-flex align-items-center justify-content-center" type="button"
             data-bs-toggle="collapse" data-bs-target="#investorFilterContent" aria-expanded="true"
@@ -85,17 +85,10 @@
 @section('content')
 @php
 $datas = getInvestorsData();
-
-
 $pagination = manualPaginate($datas, 10);
-
-
 $investors = $pagination['items'];
-
-
 $currentPage = $pagination['currentPage'];
 $pageCount = $pagination['pageCount'];
-
 $start = $pagination['start'];
 $total = $pagination['total'];
 $end = $pagination['end'];
@@ -125,50 +118,69 @@ $end = $pagination['end'];
         <tbody id="investorTableBody">
             @forelse($investors as $investor)
             @php
-            // Status ikonkalari
+            // Status ikonkalari (faqat 2 ta)
             $verificationIcon = '';
-            if (strtolower(trim($investor['status'])) === 'bloklangan') {
-            $verificationIcon = '<i class="fas fa-ban text-danger" title="Bloklangan"></i>';
-            } elseif (strtolower(trim($investor['verification_status'])) === 'tasdiqlangan') {
+            if (strtolower(trim($investor['verification_status'])) === 'tasdiqlangan') {
             $verificationIcon = '<i class="bi bi-patch-check-fill status-active" title="Tasdiqlangan"></i>';
             } else {
             $verificationIcon = '<i class="bi bi-patch-exclamation-fill status-pending" title="Tasdiqlanmagan"></i>';
             }
             @endphp
 
+
             <tr>
-                <td>{{ $investor['id'] }}</td>
-                <td>
+                <td class="table-cell">{{ $investor['id'] }}</td>
+                <td class="table-cell">
+                    <i class="fas fa-user me-2" style="color:#6c757d;"></i>
                     {{ $investor['name'] }}
                     {!! $verificationIcon !!}
                 </td>
-                <td>{{ $investor['username'] }}</td>
-                <td>{{ $investor['phone'] }}</td>
-                <td>
+                <td class="table-cell">
+                    <i class="fa-solid fa-image-portrait me-2" style="color:#6c757d;"></i>
+                    {{ $investor['username'] }}
+                </td>
+                <td class="table-cell">
+                    <i class="fas fa-phone me-2" style="color:#6c757d;"></i>
+                    {{ $investor['phone'] }}
+                </td>
+                <td class="table-cell">
                     @if($investor['verification_status'] === 'Tasdiqlangan')
+                    <i class="fas fa-id-card me-2" style="color:#6c757d;"></i>
                     {{ $investor['passport'] ?: '-' }}
                     @else
+                    <i class="fas fa-id-card me-2" style="color:#d3d3d3;"></i>
                     -
                     @endif
                 </td>
-                <td>
+                <td class="table-cell">
                     @if($investor['verification_status'] === 'Tasdiqlangan')
+                    <i class="fas fa-fingerprint me-2" style="color:#6c757d;"></i>
                     {{ $investor['inn'] ?: '-' }}
                     @else
+                    <i class="fas fa-fingerprint me-2" style="color:#d3d3d3;"></i>
                     -
                     @endif
                 </td>
-                <td>
+                <td class="table-cell">
                     @if($investor['status'] === 'Faol')
-                    <span class="status-active">Faol</span>
+                    <span class="status-active">
+                        <i class="fas fa-check-circle me-1"></i> Faol
+                    </span>
                     @elseif($investor['status'] === 'Bloklangan')
-                    <span class="status-blocked">Bloklangan</span>
+                    <span class="status-blocked">
+                        <i class="fas fa-ban me-1"></i> Bloklangan
+                    </span>
                     @else
-                    <span class="status-pending">Kutilmoqda</span>
+                    <span class="status-pending">
+                        <i class="fas fa-clock me-1"></i> Kutilmoqda
+                    </span>
                     @endif
                 </td>
-                <td>{{ $investor['created_at'] }}</td>
-                <td class="text-center">
+                <td class="table-cell">
+                    <i class="fa-solid fa-calendar-days me-1" style="color:#6c757d;"></i>
+                    {{ $investor['created_at'] }}
+                </td>
+                <td class="table-cell text-center">
                     {{-- Show --}}
                     <x-show-button href="{{ route('admin.investors.show', $investor['id']) }}" />
 
@@ -195,8 +207,6 @@ $end = $pagination['end'];
                     </button>
                     @endif
                 </td>
-
-
             </tr>
             @empty
             <tr>
@@ -211,10 +221,7 @@ $end = $pagination['end'];
         </tbody>
     </table>
 
-
-
     <div class="d-flex justify-content-between align-items-center mt-2">
-
         <div class="text-muted">
             {{ $start }} - {{ $end }} / Jami: {{ $total }}
         </div>
@@ -223,8 +230,8 @@ $end = $pagination['end'];
             <x-pagination :pageCount="$pageCount" :currentPage="$currentPage" />
         </div>
     </div>
-
 </div>
+
 <!-- Bloklash modal -->
 <div class="modal fade" id="blockModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
@@ -237,7 +244,7 @@ $end = $pagination['end'];
                 <p><strong id="blockInvestorName"></strong> investorini bloklashni istaysizmi?</p>
                 <div class="alert alert-warning">
                     <i class="fas fa-exclamation-triangle me-2"></i>
-                    Diqqat! Bloklangan investor tizimga kirishi va barcha huquqlardan mahrum bo‘ladi.
+                    Diqqat! Bloklangan investor tizimga kirishi va barcha huquqlardan mahrum bo'ladi.
                 </div>
             </div>
             <div class="modal-footer">
@@ -278,7 +285,6 @@ $end = $pagination['end'];
         </div>
     </div>
 </div>
-
 @endsection
 
 @push('customJs')

@@ -10,6 +10,14 @@
         content: " *";
         color: red;
     }
+
+    .input-group-text {
+        border-right: none;
+    }
+
+    .input-group .form-control {
+        border-left: none;
+    }
 </style>
 @endpush
 
@@ -25,13 +33,9 @@
                     </a>
                 </li>
                 <li class="breadcrumb-item">
-                    <a href="{{ route('admin.investors.index') }}">
-                        Investorlar
-                    </a>
+                    <a href="{{ route('admin.investors.index') }}">Investorlar</a>
                 </li>
-                <li class="breadcrumb-item active" aria-current="page">
-                    Investorni tahrirlash
-                </li>
+                <li class="breadcrumb-item active" aria-current="page">Investorni tahrirlash</li>
             </ol>
         </nav>
     </div>
@@ -42,86 +46,90 @@
 <div class="row mt-3">
     <div class="col-12 col-xl-12">
         <div class="card card-body border-0 shadow mb-4">
-
             <h2 class="h5 mb-4">Investorni tahrirlash</h2>
 
-            <form method="POST"
-                action="{{ route('admin.investors.update', $investor['id']) }}"
-                class="needs-validation"
-                novalidate>
-
+            <form method="POST" action="{{ route('admin.investors.update', $investor['id']) }}" class="needs-validation" novalidate>
                 @csrf
                 @method('PUT')
 
-                <div class="row">
+                <div class="row g-3">
 
-                    <div class="col-md-6 mb-3">
+                    <!-- F.I.O -->
+                    <div class="col-md-6">
                         <label class="form-label required">F.I.O</label>
-                        <input type="text" name="name"
-                            class="form-control @error('name') is-invalid @enderror"
-                            value="{{ old('name', $investor['name']) }}" required>
-                        @error('name') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                        <div class="input-group">
+                            <span class="input-group-text bg-white"><i class="fa-solid fa-user text-muted"></i></span>
+                            <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" value="{{ old('name', $investor['name']) }}" required>
+                            @error('name') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                        </div>
                     </div>
 
-                    <div class="col-md-6 mb-3">
+                    <!-- Username -->
+                    <div class="col-md-6">
                         <label class="form-label required">Username</label>
-                        <input type="text" name="username"
-                            class="form-control @error('username') is-invalid @enderror"
-                            value="{{ old('username', $investor['username']) }}" required>
-                        @error('username') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                        <div class="input-group">
+                            <span class="input-group-text bg-white"><i class="fa-solid fa-image-portrait text-muted"></i></span>
+                            <input type="text" name="username" class="form-control @error('username') is-invalid @enderror" value="{{ old('username', $investor['username']) }}" required>
+                            @error('username') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                        </div>
                     </div>
 
-                    <div class="col-md-6 mb-3">
+                    <!-- Telefon -->
+                    <div class="col-md-6">
                         <label class="form-label required">Telefon</label>
-                        <input type="text" name="phone"
-                            class="form-control @error('phone') is-invalid @enderror"
-                            value="{{ old('phone', $investor['phone']) }}" required>
-                        @error('phone') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                        <div class="input-group">
+                            <span class="input-group-text bg-white"><i class="fa-solid fa-phone text-muted"></i></span>
+                            <input type="text" name="phone" class="form-control @error('phone') is-invalid @enderror" value="{{ old('phone', $investor['phone']) }}" required>
+                            @error('phone') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                        </div>
                     </div>
 
-                    <div class="col-md-6 mb-3">
-                        <label class="form-label required">Passport</label>
-                        <input type="text" name="passport"
-                            class="form-control @error('passport') is-invalid @enderror"
-                            value="{{ old('passport', $investor['passport']) }}" required>
-                        @error('passport') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                    <!-- Pasport (readonly) -->
+                    <div class="col-md-6">
+                        <label class="form-label">Passport</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-white"><i class="fa-solid fa-id-card text-muted"></i></span>
+                            <input type="text" name="passport" class="form-control" value="{{ $investor['passport'] }}" readonly>
+                        </div>
                     </div>
 
-                    <div class="col-md-6 mb-3">
-                        <label class="form-label required">JSHIR</label>
-                        <input type="text" name="inn"
-                            class="form-control @error('inn') is-invalid @enderror"
-                            value="{{ old('inn', $investor['inn']) }}" required>
-                        @error('inn') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                    <!-- JSHIR (readonly) -->
+                    <div class="col-md-6">
+                        <label class="form-label">JSHIR</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-white"><i class="fa-solid fa-fingerprint text-muted"></i></span>
+                            <input type="text" name="inn" class="form-control" value="{{ $investor['inn'] }}" readonly>
+                        </div>
                     </div>
 
-                    {{-- READONLY STATUS — ADMIN O'ZGARTIRA OLMAYDI --}}
-                    <div class="col-md-6 mb-3">
-                        <label class="form-label required">Holati (Status)</label>
-                        <input type="text"
-                            class="form-control"
-                            value="{{ $investor['status'] }}"
-                            readonly>
+                    <!-- Status (readonly) -->
+                    <div class="col-md-6">
+                        <label class="form-label">Holati (Status)</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-white"><i class="fa-solid fa-toggle-on text-muted"></i></span>
+                            <input type="text" class="form-control" value="{{ $investor['status'] }}" readonly>
+                        </div>
                     </div>
 
-                    <div class="col-md-6 mb-3">
+                    <!-- Kirgan vaqt (readonly) -->
+                    <div class="col-md-6">
                         <label class="form-label">Ro‘yxatdan o‘tgan vaqt</label>
-                        <input type="text" class="form-control"
-                            value="{{ $investor['created_at'] }}" readonly>
+                        <div class="input-group">
+                            <span class="input-group-text bg-white"><i class="fa-solid fa-calendar-days text-muted"></i></span>
+                            <input type="text" class="form-control" value="{{ \Carbon\Carbon::parse($investor['created_at'])->format('H:i d.m.Y') }}" readonly>
+                        </div>
                     </div>
 
                 </div>
 
-                <div class="d-flex justify-content-end mt-3 gap-2">
+                <div class="d-flex justify-content-end mt-4 gap-2">
                     <a href="{{ route('admin.investors.index') }}" class="btn btn-secondary">
                         <i class="fas fa-times me-1"></i> Bekor qilish
                     </a>
-
                     <button class="btn btn-primary" type="submit">
                         <i class="fas fa-save me-1"></i> Yangilash
                     </button>
                 </div>
-
             </form>
 
         </div>
@@ -131,20 +139,18 @@
 
 @push('customJs')
 <script>
-    // Oddiy frontend validatsiya
     (function() {
-        'use strict'
-        var forms = document.querySelectorAll('.needs-validation')
-        Array.prototype.slice.call(forms)
-            .forEach(function(form) {
-                form.addEventListener('submit', function(event) {
-                    if (!form.checkValidity()) {
-                        event.preventDefault()
-                        event.stopPropagation()
-                    }
-                    form.classList.add('was-validated')
-                }, false)
-            })
+        'use strict';
+        var forms = document.querySelectorAll('.needs-validation');
+        Array.prototype.slice.call(forms).forEach(function(form) {
+            form.addEventListener('submit', function(event) {
+                if (!form.checkValidity()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                form.classList.add('was-validated');
+            }, false);
+        });
     })();
 </script>
 @endpush

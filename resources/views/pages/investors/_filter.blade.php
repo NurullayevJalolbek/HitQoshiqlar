@@ -1,72 +1,102 @@
+@push('customCss')
+<style>
+    .input-group-text {
+        border-right: none;
+    }
+
+    .input-group .form-control,
+    .input-group .form-select {
+        border-left: none;
+    }
+</style>
+@endpush
+
 <div class="filter-card mb-3 mt-2 collapse show" id="investorFilterContent" style="transition: all 0.3s ease;">
     <div class="border rounded p-3" style="border-color: rgba(0,0,0,0.05); background-color: #fff;">
         <div class="row g-3 align-items-end">
 
-            {{-- Qidiruv --}}
-            <div class="col-md-6">
-                <label for="searchInput" class="form-label">Qidiruv</label>
+            <!-- F.I.O -->
+            <div class="col-md-4 col-sm-12">
+                <label for="nameInput" class="form-label">F.I.O</label>
                 <div class="input-group">
-                    <span class="input-group-text bg-white"><i class="fas fa-search text-muted"></i></span>
-                    <input type="text" id="searchInput" class="form-control"
-                        placeholder="Ism, Login, Telefon, Pasport, JSHIR...">
+                    <span class="input-group-text bg-white"><i class="fa-solid fa-user text-muted"></i></span>
+                    <input type="text" id="nameInput" class="form-control" placeholder="F.I.O">
                 </div>
             </div>
 
-            {{-- Status --}}
-            <div class="col-md-3">
+            <!-- Login -->
+            <div class="col-md-4 col-sm-12">
+                <label for="loginInput" class="form-label">Login</label>
+                <div class="input-group">
+                    <span class="input-group-text bg-white"><i class="fa-solid fa-image-portrait text-muted"></i></span>
+                    <input type="text" id="loginInput" class="form-control" placeholder="Login">
+                </div>
+            </div>
+
+            <!-- Telefon -->
+            <div class="col-md-4 col-sm-12">
+                <label for="phoneInput" class="form-label">Telefon</label>
+                <div class="input-group">
+                    <span class="input-group-text bg-white"><i class="fa-solid fa-phone text-muted"></i></span>
+                    <input type="text" id="phoneInput" class="form-control" placeholder="+998 ...">
+                </div>
+            </div>
+
+            <!-- Pasport -->
+            <div class="col-md-4 col-sm-12">
+                <label for="passportInput" class="form-label">Pasport</label>
+                <div class="input-group">
+                    <span class="input-group-text bg-white"><i class="fa-solid fa-id-card text-muted"></i></span>
+                    <input type="text" id="passportInput" class="form-control" placeholder="Pasport seriya/raqam">
+                </div>
+            </div>
+
+            <!-- JSHIR -->
+            <div class="col-md-4 col-sm-12">
+                <label for="innInput" class="form-label">JSHIR</label>
+                <div class="input-group">
+                    <span class="input-group-text bg-white"><i class="fa-solid fa-fingerprint text-muted"></i></span>
+                    <input type="text" id="innInput" class="form-control" placeholder="JSHIR">
+                </div>
+            </div>
+
+            <!-- Holati -->
+            <div class="col-md-4 col-sm-12">
                 <label for="statusFilter" class="form-label">Holati</label>
-                <select id="statusFilter" class="form-select">
-                    <option value="">Barchasi</option>
-                    <option value="Faol">Faol</option>
-                    <option value="Bloklangan">Bloklangan</option>
-                    <option value="Kutilmoqda">Kutilmoqda</option>
-                </select>
-            </div>
-
-            {{-- Tasdiqlanish holati --}}
-            <div class="col-md-3">
-                <label for="verificationFilter" class="form-label">Tasdiqlanish</label>
-                <select id="verificationFilter" class="form-select">
-                    <option value="">Barchasi</option>
-                    <option value="Tasdiqlangan">Tasdiqlangan</option>
-                    <option value="Tasdiqlanmagan">Tasdiqlanmagan</option>
-                </select>
-            </div>
-            <!-- Sana oraligi filter -->
-            <div class="col-md-4 col-sm-6 col-12">
-                <label for="dateFrom">{{ __('admin.date_from') }}</label>
-                <input type="date" id="dateFrom" class="form-control">
-            </div>
-
-            <div class="col-md-4 col-sm-6 col-12">
-                <label for="dateTo">{{ __('admin.date_to') }}</label>
-                <input type="date" id="dateTo" class="form-control">
-            </div>
-
-            {{-- Custom sana oralig'i (dastlab yashirin) --}}
-            <div class="col-md-6 custom-date-range" style="display: none;">
-                <div class="row g-2">
-                    <div class="col-md-6">
-                        <label for="startDate" class="form-label">Boshlanish sanasi</label>
-                        <input type="date" id="startDate" class="form-control">
-                    </div>
-                    <div class="col-md-6">
-                        <label for="endDate" class="form-label">Tugash sanasi</label>
-                        <input type="date" id="endDate" class="form-control">
-                    </div>
+                <div class="input-group">
+                    <span class="input-group-text bg-white"><i class="fa-solid fa-toggle-on text-muted"></i></span>
+                    <select id="statusFilter" class="form-select">
+                        <option value="">Barchasi</option>
+                        <option value="Faol">Faol</option>
+                        <option value="Bloklangan">Bloklangan</option>
+                        <option value="Kutilmoqda">Kutilmoqda</option>
+                    </select>
                 </div>
             </div>
 
-            {{-- Harakatlar tugmalari --}}
-            <div class="col-md-2 d-flex gap-2">
-                <button id="filterBtn" class="btn btn-primary w-50">
-                    <i class="fas fa-filter"></i> {{__('admin.search')}}
-                </button>
 
-                <button id="clearBtn" class="btn btn-warning w-50">
-                    {{__('admin.clear')}}
-                </button>
+            <!-- Sana from -->
+            <div class="col-md-4 col-sm-6">
+                <label for="dateFrom" class="form-label">{{ __('admin.date_from') }}</label>
+                <div class="input-group">
+                    <span class="input-group-text bg-white"><i class="fa-solid fa-calendar-day text-muted"></i></span>
+                    <input type="date" id="dateFrom" class="form-control">
+                </div>
             </div>
+
+            <!-- Sana to -->
+            <div class="col-md-4 col-sm-6">
+                <label for="dateTo" class="form-label">{{ __('admin.date_to') }}</label>
+                <div class="input-group">
+                    <span class="input-group-text bg-white"><i class="fa-solid fa-calendar-check text-muted"></i></span>
+                    <input type="date" id="dateTo" class="form-control">
+                </div>
+            </div>
+
+            
+            <x-filter-buttons :search-text="__('admin.search')" :clear-text="__('admin.clear')" />
+
+
         </div>
     </div>
 </div>
