@@ -2,22 +2,7 @@
 
 @push('customCss')
 <style>
-    /* Modal tepa rangini #1F2937 rangga o'zgartirish */
-    .modal-header.custom-dark {
-        background-color: #1F2937;
-        color: #fff;
-    }
-
-    /* Actions ustunidagi dropdown menu uchun yuqori z-index (umid qilamizki stacking-context'tan tashqarida) */
-    .dropdown-menu {
-        z-index: 2000 !important;
-        /* modal va boshqa elementlardan ustun turishi uchun */
-    }
-
-    .dropdown {
-        position: static !important;
-        /* stacking-contextdan chiqish uchun */
-    }
+    /* // */
 </style>
 @endpush
 
