@@ -176,9 +176,9 @@ $end = $pagination['end'];
                     </span>
                     @endif
                 </td>
-                <td class="table-cell">
+                <td>
                     <i class="fa-solid fa-calendar-days me-1" style="color:#6c757d;"></i>
-                    {{ $investor['created_at'] }}
+                    {{ \Carbon\Carbon::parse($investor['created_at'])->format('H:i d.m.y') }}
                 </td>
                 <td class="table-cell text-center">
                     {{-- Show --}}
