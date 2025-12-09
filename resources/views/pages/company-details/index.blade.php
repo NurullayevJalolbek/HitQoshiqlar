@@ -20,7 +20,7 @@
                     type="button" data-bs-toggle="collapse"
                     data-bs-target="#companyDetailsFilterContent" aria-expanded="true"
                     aria-controls="companyDetailsFilterContent">
-                <i class="bi bi-sliders2" style="font-size: 1.3rem;"></i>
+                <i class="fa-solid fa-list" style="font-size: 1.3rem;"></i>
             </button>
         </div>
     </div>
