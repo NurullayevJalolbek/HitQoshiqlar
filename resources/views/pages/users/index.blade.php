@@ -176,9 +176,30 @@ $end = $pagination['end'];
 
 
                 <td class="text-center d-flex justify-content-center gap-2">
+
+
+
+
+
                     <x-show-button href="{{ route('admin.users.show', $user['id']) }}" />
                     <x-edit-button href="{{ route('admin.users.edit', $user['id']) }}" />
                     <x-delete-button />
+
+
+
+                    @if($user['status'] === 'Faol')
+                    <button class="btn btn-link p-0 verify-btn" data-bs-toggle="modal" data-bs-target="#blockModalUser"
+                        data-user-name="{{ $user['name'] }}" data-form-action="#" title="Blo'klash">
+                        <i class="fas fa-lock-open" style="font-size:18px; color:#007bff;"></i>
+                    </button>
+
+
+                    @elseif($user['status'] === 'Bloklangan')
+                    <button class="btn btn-link p-0 verify-btn" data-bs-toggle="modal" data-bs-target="#unblockModalUser"
+                        data-user-name="{{ $user['name'] }}" data-form-action="#" title="Bloklangan">
+                        <i class="fas fa-lock" style="font-size:18px; color:#bd2130;"></i>
+                    </button>
+                    @endif
                 </td>
             </tr>
             @endforeach
@@ -201,5 +222,85 @@ $end = $pagination['end'];
     </div>
 </div>
 
+<!-- Bloklash modal -->
+<div class="modal fade" id="blockModalUser" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Foydalanuvchini blo'klash </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p><strong id="blockUserName"></strong> foydalanuvchini bloklashni istaysizmi?</p>
+                <div class="alert alert-warning">
+                    <i class="fas fa-exclamation-triangle me-2"></i>
+                    Diqqat! Bloklangan foydalanuvchi tizimga kirishi va barcha huquqlardan mahrum bo'ladi.
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Bekor qilish</button>
+                <form id="blockForm" method="POST" style="display:inline;">
+                    @csrf
+                    @method('PUT')
+                    <button type="submit" class="btn btn-danger">Bloklash</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Blokdan chiqarish modal -->
+<div class="modal fade" id="unblockModalUser" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Foydalanuvchini blokdan chiqarish</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p><strong id="unblockUserName"></strong> foydalanuvchini blokdan chiqarishni istaysizmi?</p>
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle me-2"></i>
+                    Blokdan chiqarilgandan so'ng foydalanuvchi tizimga kirishi va huquqlari tiklanadi.
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Bekor qilish</button>
+                <form id="unblockForm" method="POST" style="display:inline;">
+                    @csrf
+                    @method('PUT')
+                    <button type="submit" class="btn btn-success">Blokdan chiqarish</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 @endsection
+
+@push('customJs')
+<script>
+    // Block modal uchun
+    var blockModal = document.getElementById('blockModalUser')
+    blockModal.addEventListener('show.bs.modal', function(event) {
+        var button = event.relatedTarget
+        var investorName = button.getAttribute('data-user-name')
+        var formAction = button.getAttribute('data-form-action')
+
+        blockModal.querySelector('#blockUserName').textContent = investorName
+        blockModal.querySelector('#blockForm').action = formAction
+    })
+
+    // Unblock modal uchun
+    var unblockModal = document.getElementById('unblockModalUser')
+    unblockModal.addEventListener('show.bs.modal', function(event) {
+        var button = event.relatedTarget
+        var investorName = button.getAttribute('data-user-name')
+        var formAction = button.getAttribute('data-form-action')
+
+        unblockModal.querySelector('#unblockUserName').textContent = investorName
+        unblockModal.querySelector('#unblockForm').action = formAction
+    })
+</script>
+@endpush

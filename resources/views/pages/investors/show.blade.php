@@ -249,7 +249,7 @@
                                 <div class="info-label">Qo'shilgan sana</div>
                                 <div class="info-value d-flex align-items-center">
                                     <i class="far fa-calendar-alt text-primary me-2"></i>
-                                    {{ $investor['created_at'] }}
+                                    {{ \Carbon\Carbon::parse($investor['created_at'])->format('H:i  d.m.Y')}}
                                 </div>
                             </div>
 

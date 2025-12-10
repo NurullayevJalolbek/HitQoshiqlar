@@ -128,7 +128,7 @@
 
                         <div class="col-md-6 info-row">
                             <div class="info-label"><i class="fa-solid fa-calendar-days"></i> Yaratilgan sanasi</div>
-                            <div class="info-value">{{ \Carbon\Carbon::parse($model['created_at'])->format('d.m.Y H:i') }}</div>
+                            <div class="info-value">{{ \Carbon\Carbon::parse($model['created_at'])->format('H:i  d.m.Y') }}</div>
                         </div>
 
                     </div>
