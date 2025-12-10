@@ -105,69 +105,72 @@ $end = $pagination['end'];
         </thead>
 
         <tbody>
-    @forelse($loginHistories as $h)
-        <tr>
-            {{-- ID --}}
-            <td>{{ $h['id'] }}</td>
+            @forelse($loginHistories as $h)
+            <tr>
+                {{-- ID --}}
+                <td>{{ $h['id'] }}</td>
 
-            {{-- FOYDALANUVCHI --}}
-            <td>
-                <i class="fas fa-user  me-1"></i>
-                {{ $h['user'] }}
-            </td>
+                {{-- FOYDALANUVCHI --}}
+                <td>
+                    <i class="fas fa-user  me-1"></i>
+                    {{ $h['user'] }}
+                </td>
 
-            {{-- LOGIN --}}
-            <td>
-                <i class="fas fa-id-badge  me-1"></i>
-                {{ $h['username'] }}
-            </td>
+                {{-- LOGIN --}}
+                <td>
+                    <i class="fas fa-id-badge  me-1"></i>
+                    {{ $h['username'] }}
+                </td>
 
-            {{-- SANA --}}
-            <td>
-                <i class="fas fa-calendar-alt me-1"></i>
-                {{ \Carbon\Carbon::parse($h['date'])->format('H:i d.m.y') }}
-            </td>
+                {{-- SANA --}}
+                <td>
+                    <i class="fas fa-calendar-alt me-1"></i>
+                    {{ \Carbon\Carbon::parse($h['date'])->format('H:i d.m.y') }}
+                </td>
 
-            {{-- IP --}}
-            <td>
-                <i class="fas fa-network-wired  me-1"></i>
-                {{ $h['ip'] }}
-            </td>
+                {{-- IP --}}
+                <td>
+                    <i class="fas fa-network-wired  me-1"></i>
+                    {{ $h['ip'] }}
+                </td>
 
-            {{-- NATIJA --}}
-            <td>
-                @php
+                {{-- NATIJA --}}
+                <td>
+                    @php
                     $cls = match($h['result']) {
-                        'Muvaffaqiyatli' => 'text-success',
-                        'Xato' => 'text-danger',
-                        default => 'text-warning'
+                    'Muvaffaqiyatli' => 'text-success',
+                    'Xato' => 'text-danger',
+                    default => 'text-warning'
                     };
 
                     $icon = match($h['result']) {
-                        'Muvaffaqiyatli' => 'fa-check-circle',
-                        'Xato' => 'fa-times-circle',
-                        default => 'fa-exclamation-circle'
+                    'Muvaffaqiyatli' => 'fa-check-circle',
+                    'Xato' => 'fa-times-circle',
+                    default => 'fa-exclamation-circle'
                     };
-                @endphp
+                    @endphp
 
-                <span class="{{ $cls }}">
-                    <i class="fas {{ $icon }} me-1"></i>
-                    {{ $h['result'] }}
-                </span>
-            </td>
+                    <span class="{{ $cls }}">
+                        <i class="fas {{ $icon }} me-1"></i>
+                        {{ $h['result'] }}
+                    </span>
+                </td>
 
-            {{-- KO‘RISH --}}
-            <td>
-                <i class="fas fa-eye  showDetail"
-                   data-id="{{ $h['id'] }}"></i>
-            </td>
-        </tr>
-    @empty
-        <tr>
-            <td colspan="7" class="text-center">Hech qanday kirish tarixi topilmadi.</td>
-        </tr>
-    @endforelse
-</tbody>
+                {{-- KO‘RISH --}}
+                <td>
+                    <i class="fas fa-eye text-primary showDetail"
+                        data-id="{{ $h['id'] }}"
+                        style="cursor: pointer;"></i>
+                </td>
+
+
+            </tr>
+            @empty
+            <tr>
+                <td colspan="7" class="text-center">Hech qanday kirish tarixi topilmadi.</td>
+            </tr>
+            @endforelse
+        </tbody>
 
 
     </table>
@@ -191,63 +194,91 @@ $end = $pagination['end'];
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Kirish tafsilotlari</h5>
+                <h5 class="modal-title">
+                    <i class="fas fa-info-circle text-primary me-1"></i>
+                    Kirish tafsilotlari
+                </h5>
                 <button class="btn-close" data-bs-dismiss="modal"></button>
             </div>
+
             <div class="modal-body">
-                <table class="table table-bordered">
+                <table class="table table-bordered align-middle">
                     <tbody>
                         <tr>
-                            <th>Foydalanuvchi</th>
+                            <th>
+                                <i class="fas fa-user  me-1"></i>
+                                Foydalanuvchi
+                            </th>
                             <td id="d_user"></td>
                         </tr>
+
                         <tr>
-                            <th>Login</th>
+                            <th>
+                                <i class="fas fa-id-badge  me-1"></i>
+                                Login
+                            </th>
                             <td id="d_login"></td>
                         </tr>
+
                         <tr>
-                            <th>Sana</th>
+                            <th>
+                                <i class="fas fa-calendar-days me-1"></i>
+                                Sana
+                            </th>
                             <td id="d_date"></td>
                         </tr>
+
                         <tr>
-                            <th>IP manzil</th>
+                            <th>
+                                <i class="fas fa-globe  me-1"></i>
+                                IP manzil
+                            </th>
                             <td id="d_ip"></td>
                         </tr>
+
                         <tr>
-                            <th>Natija</th>
+                            <th>
+                                <i class="fas fa-flag-checkered  me-1"></i>
+                                Natija
+                            </th>
                             <td id="d_result"></td>
                         </tr>
+
                         <tr>
-                            <th>GEO</th>
+                            <th>
+                                <i class="fas fa-location-dot  me-1"></i>
+                                GEO
+                            </th>
                             <td id="d_geo"></td>
                         </tr>
+
                         <tr>
-                            <th>User-Agent</th>
+                            <th>
+                                <i class="fas fa-desktop  me-1"></i>
+                                User-Agent
+                            </th>
                             <td id="d_agent"></td>
                         </tr>
+
                         <tr>
-                            <th>Session ID</th>
+                            <th>
+                                <i class="fas fa-key  me-1"></i>
+                                Session ID
+                            </th>
                             <td id="d_session"></td>
                         </tr>
+
                         <tr>
-                            <th>Kirish davomiyligi</th>
+                            <th>
+                                <i class="fas fa-clock  me-1"></i>
+                                Kirish davomiyligi
+                            </th>
                             <td id="d_duration"></td>
                         </tr>
                     </tbody>
                 </table>
-
-                <!-- Paginatsa -->
-                <div class="d-flex justify-content-between align-items-center mt-2">
-
-                    <div class="text-muted">
-                        {{ $start }} - {{ $end }} / Jami: {{ $total }}
-                    </div>
-
-                    <div>
-                        <x-pagination :pageCount="$pageCount" :currentPage="$currentPage" />
-                    </div>
-                </div>
             </div>
+
             <div class="modal-footer">
                 <button class="btn btn-secondary" data-bs-dismiss="modal">Yopish</button>
             </div>
@@ -259,6 +290,63 @@ $end = $pagination['end'];
 
 @push('customJs')
 <script>
-    //
+    document.addEventListener("DOMContentLoaded", () => {
+
+        const detailModal = new bootstrap.Modal(document.getElementById("loginDetailModal"));
+
+        document.querySelectorAll(".showDetail").forEach(btn => {
+            btn.addEventListener("click", async () => {
+
+                const id = btn.dataset.id;
+
+                try {
+                    const res = await axios.get(`/admin/login-histories/${id}`);
+                    console.log(res);
+
+                    const d = res.data.data[0]; // ✅ TO‘G‘RI
+
+                    document.getElementById('d_user').innerHTML =
+                        `${d.user}`;
+
+                    document.getElementById('d_login').innerHTML =
+                        `${d.username}`;
+
+                    document.getElementById('d_date').innerHTML =
+                        `${d.date}`;
+
+                    document.getElementById('d_ip').innerHTML =
+                        `${d.ip}`;
+
+                    document.getElementById('d_result').innerHTML =
+                        (d.result === "Xato") ?
+                        `${d.result}` :
+                        (d.result === "Ogohlantirish") ?
+                        `${d.result}` :
+                        `${d.result}`;
+
+                    document.getElementById('d_geo').innerHTML =
+                        `${d.geo}`;
+
+                    document.getElementById('d_agent').innerHTML =
+                        `${d.user_agent}`;
+
+                    document.getElementById('d_session').innerHTML =
+                        `${d.session_id}`;
+
+                    document.getElementById('d_duration').innerHTML =
+                        `${d.login_duration}`;
+
+                    detailModal.show();
+
+                } catch (e) {
+                    console.error(e);
+                    alert("Ma'lumotni yuklashda xatolik!");
+                }
+            });
+        });
+
+    });
 </script>
+
+
 @endpush

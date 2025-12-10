@@ -11,4 +11,15 @@ class LoginHistoryController extends Controller
     {
         return view('pages.login-histories.index');
     }
+
+
+    public function show($id)
+    {
+        $loginHistoriesData = getLoginHistoriesData($id);
+
+        return response()->json([
+            'status' => 'success',
+            'data' => $loginHistoriesData,
+        ]);
+    }
 }
