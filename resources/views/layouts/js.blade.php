@@ -595,7 +595,6 @@ document.querySelectorAll('[data-bs-toggle="collapse"]').forEach(trigger => {
     });
 });
 </script>
-
 <!-- Core -->
 <script src="{{ asset('vendor/@popperjs/core/dist/umd/popper.min.js') }}"></script>
 {{--

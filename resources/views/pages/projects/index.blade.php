@@ -380,6 +380,8 @@
                         placeholder="Loyiha nomi, kodi, joylashuv...">
                 </div>
             </div>
+            <x-select-with-search />
+            <x-from-to-date-picker />
             <div class="col-md-2">
                 <label for="categoryFilter" class="form-label mb-2">{{ __('admin.category') }}</label>
                 <select id="categoryFilter" class="form-select">
