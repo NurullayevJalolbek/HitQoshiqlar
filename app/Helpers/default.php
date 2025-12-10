@@ -918,3 +918,187 @@ function getNotificationsTab(): Collection
         ['id' => 4, 'name' => 'Bildirishnomani o\'chirish', 'route' => 'admin.notifications.destroy', 'method' => 'default', 'checked' => false]
     ]);
 }
+
+
+
+function generateLogsData(): Collection
+{
+    return collect([
+        [
+            'id' => 1,
+            'time' => '2025-12-02 10:05:30',
+            'level' => 'INFO',
+            'action' => 'UPDATE',
+            'module' => "Loyihalar",
+            'user' => 'admin',
+            'ip' => '192.168.1.10',
+            'desc' => "Loyiha 'Yangi Texno Park' ma'lumotlari yangilandi",
+            'extra' => "O'zgartirilgan maydonlar: nomi, byudjet"
+        ],
+        [
+            'id' => 2,
+            'time' => '2025-12-02 10:01:15',
+            'level' => 'ERROR',
+            'action' => 'CREATE',
+            'module' => "Loyihalar",
+            'user' => 'sardor',
+            'ip' => '192.168.1.15',
+            'desc' => "Loyiha yaratishda xatolik yuz berdi: Nomi takrorlanishi",
+            'extra' => "Xatolik kodi: 409 CONFLICT"
+        ],
+        [
+            'id' => 3,
+            'time' => '2025-12-02 09:55:40',
+            'level' => 'INFO',
+            'action' => 'EXPORT',
+            'module' => "Loyihalar",
+            'user' => 'ali',
+            'ip' => '192.168.1.20',
+            'desc' => "Loyihalar ro'yxatini CSV formatida export qilish amalga oshirildi",
+            'extra' => "Fayl nomi: projects_20251202.csv"
+        ],
+        [
+            'id' => 4,
+            'time' => '2025-12-02 09:45:00',
+            'level' => 'WARNING',
+            'action' => 'DELETE',
+            'module' => "Investorlar",
+            'user' => 'bobur',
+            'ip' => '192.168.1.18',
+            'desc' => "Investorni o'chirishda noaniqlik kuzatildi. Investitsiyalar hali mavjud",
+            'extra' => "Investor ID: 105, Status: Pending Confirmation"
+        ],
+        [
+            'id' => 5,
+            'time' => '2025-12-02 09:40:22',
+            'level' => 'INFO',
+            'action' => 'CREATE',
+            'module' => "Investorlar",
+            'user' => 'anna',
+            'ip' => '192.168.1.14',
+            'desc' => "Yangi investor 'Global Invest Corp' qo'shildi",
+            'extra' => "Investor ID: 108"
+        ],
+        [
+            'id' => 6,
+            'time' => '2025-12-02 09:35:10',
+            'level' => 'ERROR',
+            'action' => 'UPDATE',
+            'module' => "Ma'muriyat bo'limi",
+            'user' => 'admin',
+            'ip' => '192.168.1.11',
+            'desc' => "Admin foydalanuvchisi sozlamalarida xatolik: Ruxsatlar saqlanmadi",
+            'extra' => "Database error: Timeout"
+        ],
+        [
+            'id' => 7,
+            'time' => '2025-12-02 09:30:55',
+            'level' => 'WARNING',
+            'action' => 'EXPORT',
+            'module' => "Hisobotlar",
+            'user' => 'dilshod',
+            'ip' => '192.168.1.21',
+            'desc' => "Yillik hisobot eksportida vaqtinchalik kechikish (5 soniya)",
+            'extra' => "Hisobot turi: Yillik daromad"
+        ],
+        [
+            'id' => 8,
+            'time' => '2025-12-02 09:25:00',
+            'level' => 'INFO',
+            'action' => 'CREATE',
+            'module' => "Hisobotlar",
+            'user' => 'ali',
+            'ip' => '192.168.1.22',
+            'desc' => "Yangi 'Oylik Moliyaviy' hisobot generatsiya qilindi",
+            'extra' => "Hisobot ID: 55"
+        ],
+        [
+            'id' => 9,
+            'time' => '2025-12-02 09:20:11',
+            'level' => 'ERROR',
+            'action' => 'DELETE',
+            'module' => "Loyihalar",
+            'user' => 'sardor',
+            'ip' => '192.168.1.19',
+            'desc' => "Loyiha ID: 201 ni o'chirishda xatolik aniqlandi: Bog'liq resurslar topildi",
+            'extra' => "Xatolik kodi: 403 Forbidden"
+        ],
+        [
+            'id' => 10,
+            'time' => '2025-12-02 09:15:30',
+            'level' => 'INFO',
+            'action' => 'UPDATE',
+            'module' => "Investorlar",
+            'user' => 'bobur',
+            'ip' => '192.168.1.16',
+            'desc' => "Investor 'Azizov Group' aloqa ma'lumotlari yangilandi",
+            'extra' => "O'zgartirilgan maydonlar: telefon, email"
+        ],
+        [
+            'id' => 11,
+            'time' => '2025-12-01 18:00:00',
+            'level' => 'INFO',
+            'action' => 'CREATE',
+            'module' => "Foydalanuvchilar",
+            'user' => 'admin',
+            'ip' => '192.168.1.10',
+            'desc' => "Yangi foydalanuvchi 'Bekzod' qo'shildi",
+            'extra' => "Roli: Moderator"
+        ],
+        [
+            'id' => 12,
+            'time' => '2025-12-01 17:45:00',
+            'level' => 'WARNING',
+            'action' => 'UPDATE',
+            'module' => "Foydalanuvchilar",
+            'user' => 'ali',
+            'ip' => '192.168.1.20',
+            'desc' => "Foydalanuvchi 'Javohir' rolini o'zgartirishda ma'lumotlar to'liq emas",
+            'extra' => "Status: Incomplete form data"
+        ],
+        [
+            'id' => 13,
+            'time' => '2025-12-01 17:30:10',
+            'level' => 'INFO',
+            'action' => 'LOGIN',
+            'module' => "Ma'muriyat bo'limi",
+            'user' => 'rustam',
+            'ip' => '192.168.1.25',
+            'desc' => "Tizimga muvaffaqiyatli kirish",
+            'extra' => "Platforma: Web, Browser: Firefox"
+        ],
+        [
+            'id' => 14,
+            'time' => '2025-12-01 17:28:40',
+            'level' => 'ERROR',
+            'action' => 'LOGIN',
+            'module' => "Ma'muriyat bo'limi",
+            'user' => 'rustam',
+            'ip' => '192.168.1.25',
+            'desc' => "Kirish urinishi xatosi: noto'g'ri parol",
+            'extra' => "Urinish soni: 3"
+        ],
+        [
+            'id' => 15,
+            'time' => '2025-12-01 17:20:00',
+            'level' => 'INFO',
+            'action' => 'VIEW',
+            'module' => "Loyihalar",
+            'user' => 'anna',
+            'ip' => '192.168.1.14',
+            'desc' => "Loyiha ro'yxatini ko'rish",
+            'extra' => "Filter: Active projects"
+        ],
+    ]);
+}
+
+function getSystemLogsData(?int $id = null): Collection
+{
+    $allLogs = generateLogsData();
+
+    if ($id) {
+        return $allLogs->where('id', $id);
+    }
+
+    return $allLogs;
+}
