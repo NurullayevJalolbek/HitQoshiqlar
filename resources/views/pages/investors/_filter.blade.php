@@ -75,23 +75,11 @@
             </div>
 
 
-            <!-- Sana from -->
-            <div class="col-md-4 col-sm-6">
-                <label for="dateFrom" class="form-label">{{ __('admin.date_from') }}</label>
-                <div class="input-group">
-                    <span class="input-group-text bg-white"><i class="fa-solid fa-calendar-day text-muted"></i></span>
-                    <input type="date" id="dateFrom" class="form-control">
-                </div>
-            </div>
-
-            <!-- Sana to -->
-            <div class="col-md-4 col-sm-6">
-                <label for="dateTo" class="form-label">{{ __('admin.date_to') }}</label>
-                <div class="input-group">
-                    <span class="input-group-text bg-white"><i class="fa-solid fa-calendar-check text-muted"></i></span>
-                    <input type="date" id="dateTo" class="form-control">
-                </div>
-            </div>
+         <x-from-to-date-picker
+                colMd="8"
+                fromName="userFilterFromDate"
+                toName="userFilterToDate"
+                label="Tanlangan Sana Oralig'i" />
 
             
             <x-filter-buttons :search-text="__('admin.search')" :clear-text="__('admin.clear')" />

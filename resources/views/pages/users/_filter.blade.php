@@ -96,7 +96,7 @@
                 colMd="4"
                 fromName="userFilterFromDate"
                 toName="userFilterToDate"
-                label="Sana oraligi" />
+                label="Tanlangan Sana Oralig'i" />
 
             <x-filter-buttons :search-text="__('admin.search')" :clear-text="__('admin.clear')" />
         </div>

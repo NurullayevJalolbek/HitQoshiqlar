@@ -140,23 +140,33 @@ $end = $pagination['end'];
                     {{ $investor['phone'] }}
                 </td>
                 <td class="table-cell">
-                    @if($investor['verification_status'] === 'Tasdiqlangan')
+                    @if($investor['verification_status'] === 'Tasdiqlangan' && $investor['passport'])
                     <i class="fas fa-id-card me-2" style="color:#6c757d;"></i>
-                    {{ $investor['passport'] ?: '-' }}
+                    {{ $investor['passport'] }}
                     @else
-                    <i class="fas fa-id-card me-2" style="color:#d3d3d3;"></i>
                     -
                     @endif
                 </td>
+
                 <td class="table-cell">
-                    @if($investor['verification_status'] === 'Tasdiqlangan')
+                    @if($investor['verification_status'] === 'Tasdiqlangan' && $investor['inn'])
                     <i class="fas fa-fingerprint me-2" style="color:#6c757d;"></i>
-                    {{ $investor['inn'] ?: '-' }}
+
+                    <span id="innValue-{{ $investor['id'] }}">
+                        {{ $investor['inn'] }}
+                    </span>
+
+                    <button class="btn btn-sm btn-link p-0 ms-2 copy-inn-btn"
+                        data-inn="{{ $investor['inn'] }}"
+                        title="Copy">
+                        <i class="fa-regular fa-copy" style="font-size:16px;"></i>
+                    </button>
                     @else
-                    <i class="fas fa-fingerprint me-2" style="color:#d3d3d3;"></i>
                     -
                     @endif
                 </td>
+
+
                 <td class="table-cell">
                     @if($investor['status'] === 'Faol')
                     <span class="btn btn-outline-success">
@@ -286,6 +296,10 @@ $end = $pagination['end'];
 @endsection
 
 @push('customJs')
+<script
+    src="https://unpkg.com/@lottiefiles/dotlottie-wc@0.8.5/dist/dotlottie-wc.js"
+    type="module"></script>
+
 <script>
     // Block modal uchun
     var blockModal = document.getElementById('blockModal')
@@ -308,5 +322,34 @@ $end = $pagination['end'];
         unblockModal.querySelector('#unblockInvestorName').textContent = investorName
         unblockModal.querySelector('#unblockForm').action = formAction
     })
+
+
+    // INN ni clipboard ga nusxalash
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.copy-inn-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const inn = this.getAttribute('data-inn');
+                const icon = this.querySelector('i');
+
+                // Clipboard ga nusxalash
+                navigator.clipboard.writeText(inn).then(() => {
+                    // Lottie elementini yaratish
+                    const lottieEl = document.createElement('dotlottie-wc');
+                    lottieEl.src = "https://lottie.host/562b39e0-0a4d-4673-a953-941760806404/f6kph6vltz.lottie";
+                    lottieEl.style.width = "24px";
+                    lottieEl.style.height = "24px";
+                    lottieEl.autoplay = true;
+
+                    // Iconni Lottie bilan almashtirish
+                    icon.replaceWith(lottieEl);
+
+                    // 1.5 soniyadan keyin asl iconni qaytarish
+                    setTimeout(() => {
+                        lottieEl.replaceWith(icon);
+                    }, 700);
+                });
+            });
+        });
+    });
 </script>
 @endpush

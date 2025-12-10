@@ -52,27 +52,11 @@
                 </div>
             </div>
 
-            {{-- Sana dan --}}
-            <div class="col-md-4 col-sm-6 col-12">
-                <label for="filterStartDate">{{ __('admin.start_date') }}</label>
-                <div class="input-group">
-                    <span class="input-group-text bg-white">
-                        <i class="fa-solid fa-calendar-day text-muted"></i>
-                    </span>
-                    <input type="date" id="filterStartDate" class="form-control">
-                </div>
-            </div>
-
-            {{-- Sana gacha --}}
-            <div class="col-md-4 col-sm-6 col-12">
-                <label for="filterEndDate">{{ __('admin.end_date') }}</label>
-                <div class="input-group">
-                    <span class="input-group-text bg-white">
-                        <i class="fa-solid fa-calendar-check text-muted"></i>
-                    </span>
-                    <input type="date" id="filterEndDate" class="form-control">
-                </div>
-            </div>
+          <x-from-to-date-picker
+                colMd="8"
+                fromName="userFilterFromDate"
+                toName="userFilterToDate"
+                label="Tanlangan Sana Oralig'i" />
             <x-filter-buttons :search-text="__('admin.search')" :clear-text="__('admin.clear')" />
         </div>
     </div>
