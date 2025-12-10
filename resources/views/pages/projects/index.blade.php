@@ -381,7 +381,13 @@
                 </div>
             </div>
             <x-select-with-search />
-            <x-from-to-date-picker />
+
+            <x-from-to-date-picker
+                    fromName="startDate" 
+                    toName="endDate" 
+                    label="Tanlangan Sana Oralig'i" 
+            />
+            
             <div class="col-md-2">
                 <label for="categoryFilter" class="form-label mb-2">{{ __('admin.category') }}</label>
                 <select id="categoryFilter" class="form-select">

@@ -1,8 +1,14 @@
-<div class="col-md-6 col-12 mb-4">
-    <label class="form-label">Date Range</label>
+@props([
+    'fromName' => 'dateRangePickerFrom',
+    'toName' => 'dateRangePickerTo',
+    'label' => 'Date Range'
+])
+
+<div class="col-md-4 col-4 mb-4">
+    <label class="form-label">{{ $label }}</label>
     <div class="input-group">
-        <input type="text" id="dateRangePickerFrom" class="form-control" placeholder="MM/DD/YYYY">
+        <input type="date" id="{{ $fromName }}" class="form-control">
         <span class="input-group-text">to</span>
-        <input type="text" id="dateRangePickerTo" class="form-control" placeholder="MM/DD/YYYY">
+        <input type="date" id="{{ $toName }}" class="form-control">
     </div>
 </div>
