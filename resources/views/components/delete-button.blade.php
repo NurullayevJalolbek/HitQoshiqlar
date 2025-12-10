@@ -6,7 +6,7 @@
 'class' => '', // qo‘shimcha class
 ])
 
-<a href="javascript:void(0)" class="btn btn-sm p-1 {{ $class }}" style="background:none; color: {{ $color }};"
+<a href="javascript:void(0);" class="btn btn-sm p-1 {{ $class }}" style="background:none; color: {{ $color }};"
     data-bs-toggle="tooltip" data-bs-placement="top" title="{{ $tooltip }}" onclick="deleteModel('{{ $href }}')">
     <i class="fa-jelly-duo fa-solid fa-trash"></i>
     <svg class="icon icon-xs text-danger ms-1" title="Delete" data-bs-toggle="tooltip" fill="currentColor"
@@ -17,3 +17,4 @@
     </svg>
 
 </a>
+

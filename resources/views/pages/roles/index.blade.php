@@ -64,7 +64,7 @@ $end = $pagination['end'];
 <div class="filter-card mb-3 mt-2 collapse show" id="roleFilterContent" style="transition: all 0.3s ease;">
     <div class="border rounded p-3" style="border-color: rgba(0,0,0,0.05); background-color: #fff;">
         <div class="row g-3 align-items-end">
-            
+
             <!-- Role nomi bo'yicha qidiruv -->
             <div class="col-md-5">
                 <label for="roleNameSearch">{{ __('admin.role_name') }}</label>
@@ -161,17 +161,18 @@ $end = $pagination['end'];
 
                         <!-- O‘chirish (savatcha) -->
                         @if($role['is_deletable'] == false)
-                        <a href="#"
-                            class="btn btn-sm p-1 delete-role"
+                        <a href="javascript:void(0);"
+                            class="btn btn-sm p-1 "
                             style="background: none; color: #bd2130;"
                             data-bs-toggle="tooltip"
                             data-bs-placement="top"
                             title="Delete"
-                            onclick='infoModal(@json(__("admin.warning")), @json(__("admin.role_delete_warning")))'>
+                            onclick='infoModel(@json(__("admin.warning")), @json(__("admin.role_delete_warning")));'>
                             <i class="fas fa-trash"
                                 style="font-size: 18px; display: inline-block; width: 18px; height: 18px;">
                             </i>
                         </a>
+
                         @else
                         <x-delete-button />
                         @endif
