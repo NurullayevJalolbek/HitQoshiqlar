@@ -2,21 +2,6 @@
 
 @push('customCss')
 <style>
-    .status-active {
-        color: #1e7e34;
-        font-weight: bold;
-    }
-
-    .status-blocked {
-        color: #bd2130;
-        font-weight: bold;
-    }
-
-    .status-pending {
-        color: #d39e00;
-        font-weight: bold;
-    }
-
     .label-verified {
         background-color: #1e7e34;
         color: #fff;
@@ -27,7 +12,7 @@
     }
 
     .label-unverified {
-        background-color: #d39e00;
+        background-color: #f0bc74;
         color: #fff;
         padding: 3px 6px;
         border-radius: 4px;
@@ -49,6 +34,19 @@
     /* Table cell padding */
     .table-cell {
         vertical-align: middle;
+    }
+
+    /* // */
+    .btn-waiting {
+        border: 1px solid #f0bc74;
+        color: #f0bc74;
+        background-color: transparent;
+        transition: 0.3s;
+    }
+
+    .btn-waiting:hover {
+        background-color: #f0bc74;
+        color: #fff;
     }
 </style>
 @endpush
@@ -131,12 +129,10 @@ $end = $pagination['end'];
             <tr>
                 <td class="table-cell">{{ $investor['id'] }}</td>
                 <td class="table-cell">
-                    <i class="fas fa-user me-2" style="color:#6c757d;"></i>
                     {{ $investor['name'] }}
                     {!! $verificationIcon !!}
                 </td>
                 <td class="table-cell">
-                    <i class="fa-solid fa-image-portrait me-2" style="color:#6c757d;"></i>
                     {{ $investor['username'] }}
                 </td>
                 <td class="table-cell">
@@ -163,24 +159,25 @@ $end = $pagination['end'];
                 </td>
                 <td class="table-cell">
                     @if($investor['status'] === 'Faol')
-                    <span class="status-active">
+                    <span class="btn btn-outline-success">
                         <i class="fas fa-check-circle me-1"></i> Faol
                     </span>
                     @elseif($investor['status'] === 'Bloklangan')
-                    <span class="status-blocked">
+                    <span class="btn btn-outline-danger">
                         <i class="fas fa-ban me-1"></i> Bloklangan
                     </span>
                     @else
-                    <span class="status-pending">
+                    <span class="btn btn-waiting">
                         <i class="fas fa-clock me-1"></i> Kutilmoqda
                     </span>
+
                     @endif
                 </td>
                 <td>
                     <i class="fa-solid fa-calendar-days me-1" style="color:#6c757d;"></i>
                     {{ \Carbon\Carbon::parse($investor['created_at'])->format('H:i d.m.y') }}
                 </td>
-                <td class="table-cell text-center">
+                <td class="text-center d-flex justify-content-center gap-1">
                     {{-- Show --}}
                     <x-show-button href="{{ route('admin.investors.show', $investor['id']) }}" />
 
@@ -191,7 +188,7 @@ $end = $pagination['end'];
                     @if($investor['status'] === 'Faol')
                     <button class="btn btn-link p-0 verify-btn" data-bs-toggle="modal" data-bs-target="#blockModal"
                         data-investor-name="{{ $investor['name'] }}" data-form-action="#" title="Blo'klash">
-                        <i class="fas fa-lock-open" style="font-size:18px; color:#007bff;"></i>
+                        <i class="fas fa-lock-open status-info" style="font-size:18px;"></i>
                     </button>
 
                     @elseif($investor['status'] === 'Kutilmoqda')
@@ -203,8 +200,9 @@ $end = $pagination['end'];
                     @elseif($investor['status'] === 'Bloklangan')
                     <button class="btn btn-link p-0 verify-btn" data-bs-toggle="modal" data-bs-target="#unblockModal"
                         data-investor-name="{{ $investor['name'] }}" data-form-action="#" title="Bloklangan">
-                        <i class="fas fa-lock" style="font-size:18px; color:#bd2130;"></i>
+                        <i class="fas fa-lock status-blocked" style="font-size:18px;"></i>
                     </button>
+
                     @endif
                 </td>
             </tr>

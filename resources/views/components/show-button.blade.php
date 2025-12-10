@@ -10,7 +10,7 @@
 
 <a
     href="{{ $href }}" data-bs-toggle="tooltip" title="Batafsil"
-    class="btn btn-sm p-1 {{ $class }}"
+    class="btn btn-sm p-0 {{ $class }}"
     style="background:none; color: {{ $color }};"
     @if($tooltip) data-bs-toggle="tooltip" data-bs-placement="top" title="{{ $tooltip }}" @endif
     @if($onclick) onclick="{{ $onclick }}" @endif>

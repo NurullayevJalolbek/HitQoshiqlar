@@ -134,12 +134,10 @@ $end = $pagination['end'];
                 </td>
 
                 <td>
-                    <i class="fa-solid fa-user me-1 text-primary"></i>
                     {{ $user['name'] }}
                 </td>
 
                 <td>
-                    <i class="fa-solid fa-image-portrait"></i>
                     {{ $user['username'] }}
                 </td>
 
@@ -161,11 +159,12 @@ $end = $pagination['end'];
 
                 <td>
                     @if($user['status'] === 'Faol')
-                    <i class="fa-solid fa-circle-check me-1 text-success"></i>
-                    <span class="status-active">Faol</span>
+
+                    <span class="btn btn-outline-success"> <i class="fa-solid fa-circle-check me-1 text-success"></i>Faol</span>
                     @else
-                    <i class="fa-solid fa-circle-xmark me-1 text-danger"></i>
-                    <span class="status-blocked">Bloklangan</span>
+                    <span class="btn btn-outline-danger">
+                        <i class="fas fa-ban me-1"></i> Bloklangan
+                    </span>
                     @endif
                 </td>
 
@@ -175,11 +174,7 @@ $end = $pagination['end'];
                 </td>
 
 
-                <td class="text-center d-flex justify-content-center gap-2">
-
-
-
-
+                <td class="text-center d-flex justify-content-center gap-1">
 
                     <x-show-button href="{{ route('admin.users.show', $user['id']) }}" />
                     <x-edit-button href="{{ route('admin.users.edit', $user['id']) }}" />
@@ -190,14 +185,14 @@ $end = $pagination['end'];
                     @if($user['status'] === 'Faol')
                     <button class="btn btn-link p-0 verify-btn" data-bs-toggle="modal" data-bs-target="#blockModalUser"
                         data-user-name="{{ $user['name'] }}" data-form-action="#" title="Blo'klash">
-                        <i class="fas fa-lock-open" style="font-size:18px; color:#007bff;"></i>
+                        <i class="fas fa-lock-open status-info" style="font-size:18px;"></i>
                     </button>
 
 
                     @elseif($user['status'] === 'Bloklangan')
                     <button class="btn btn-link p-0 verify-btn" data-bs-toggle="modal" data-bs-target="#unblockModalUser"
                         data-user-name="{{ $user['name'] }}" data-form-action="#" title="Bloklangan">
-                        <i class="fas fa-lock" style="font-size:18px; color:#bd2130;"></i>
+                        <i class="fas fa-lock status-blocked" style="font-size:18px;"></i>
                     </button>
                     @endif
                 </td>
