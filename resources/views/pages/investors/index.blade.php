@@ -333,11 +333,13 @@ $end = $pagination['end'];
 
                 // Clipboard ga nusxalash
                 navigator.clipboard.writeText(inn).then(() => {
+
                     // Lottie elementini yaratish
                     const lottieEl = document.createElement('dotlottie-wc');
-                    lottieEl.src = "https://lottie.host/562b39e0-0a4d-4673-a953-941760806404/f6kph6vltz.lottie";
+                    lottieEl.src = "https://lottie.host/4e693ea5-2094-4f50-85c4-c6f186fc997f/lPwg3ALEob.lottie";
                     lottieEl.style.width = "24px";
                     lottieEl.style.height = "24px";
+                    lottieEl.style.color = "#10B981"; // Yashil rang
                     lottieEl.autoplay = true;
 
                     // Iconni Lottie bilan almashtirish
@@ -346,7 +348,7 @@ $end = $pagination['end'];
                     // 1.5 soniyadan keyin asl iconni qaytarish
                     setTimeout(() => {
                         lottieEl.replaceWith(icon);
-                    }, 700);
+                    }, 1700);
                 });
             });
         });
