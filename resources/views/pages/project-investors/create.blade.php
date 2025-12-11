@@ -4,3 +4,4 @@
     'label' => __('admin.Add'),
     'back_route' => route('admin.investors.index'),
 ])
+    

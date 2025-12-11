@@ -28,7 +28,7 @@ class ProjectBuyerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return view('pages.project-buyers.create');
     }
 
     /**
@@ -44,7 +44,7 @@ class ProjectBuyerController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        return view('pages.project-buyers.edit');
     }
 
     /**
