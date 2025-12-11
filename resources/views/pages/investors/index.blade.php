@@ -187,7 +187,7 @@ $end = $pagination['end'];
                     <i class="fa-solid fa-calendar-days me-1" style="color:#6c757d;"></i>
                     {{ \Carbon\Carbon::parse($investor['created_at'])->format('H:i d.m.y') }}
                 </td>
-                <td class="text-center d-flex justify-content-center gap-1">
+                <td class="text-center  justify-content-center gap-1">
                     {{-- Show --}}
                     <x-show-button href="{{ route('admin.investors.show', $investor['id']) }}" />
 

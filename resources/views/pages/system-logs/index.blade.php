@@ -29,6 +29,40 @@
     .table th {
         vertical-align: middle;
     }
+
+
+    .status-active,
+    .status-blocked,
+    .status-pending {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        padding: 4px 10px;
+        border-radius: 8px;
+        font-size: 13px;
+        font-weight: 500;
+        backdrop-filter: blur(6px);
+        /* shaffof effekt */
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    /* Yashil – Muvaffaqiyatli */
+    .status-active {
+        background: rgba(0, 200, 83, 0.15);
+        color: #0f9d58;
+    }
+
+    /* Qizil – Xato */
+    .status-blocked {
+        background: rgba(255, 0, 0, 0.15);
+        color: #d93025;
+    }
+
+    /* Sariq – Kutilyapti */
+    .status-pending {
+        background: rgba(255, 193, 7, 0.15);
+        color: #c99a00;
+    }
 </style>
 @endpush
 
@@ -110,14 +144,21 @@ $end = $pagination['end'];
 
         <tbody>
             @forelse($systemLogs as $systemLog)
+
             @php
-            // Levelga qarab icon va class
-            $levelIcons = [
-            'INFO' => ['icon' => 'fas fa-check-circle', 'class' => 'text-success'],
-            'WARNING' => ['icon' => 'fas fa-exclamation-triangle', 'class' => 'text-warning'],
-            'ERROR' => ['icon' => 'fas fa-times-circle', 'class' => 'text-danger'],
-            ];
-            $levelData = $levelIcons[$systemLog['level']] ?? ['icon' => 'fas fa-circle-info', 'class' => 'text-secondary'];
+
+            $cls = match($systemLog['level']){
+            'INFO' => 'status-active',
+            'WARNING' => 'status-pending',
+            'ERROR' => 'status-blocked',
+            default => 'text-secondary'
+            };
+            $icon = match($systemLog['level']){
+            'INFO' => 'fas fa-check-circle',
+            'WARNING' => 'fas fa-exclamation-triangle',
+            'ERROR' => 'fas fa-times-circle',
+            default => 'fas fa-circle-info'
+            };
             @endphp
 
             <tr>
@@ -125,15 +166,30 @@ $end = $pagination['end'];
                     {{ $loop->iteration + $start - 1 }}
                 </td>
                 <td>
-                    <i class="fas fa-user me-1 text-primary"></i>
                     {{ $systemLog['user'] }}
                 </td>
                 <td>
                     {{ $systemLog['action'] }}
                 </td>
+
                 <td>
-                    <i class="{{ $levelData['icon'] }} me-1 {{ $levelData['class'] }}"></i>
-                    <span class="{{ $levelData['class'] }}">
+                    @php
+
+                    $cls = match($systemLog['level']){
+                    'INFO' => 'status-active',
+                    'WARNING' => 'status-pending',
+                    'ERROR' => 'status-blocked',
+                    default => 'text-secondary'
+                    };
+                    $icon = match($systemLog['level']){
+                    'INFO' => 'fas fa-check-circle',
+                    'WARNING' => 'fas fa-exclamation-triangle',
+                    'ERROR' => 'fas fa-times-circle',
+                    default => 'fas fa-circle-info'
+                    };
+                    @endphp
+                    <span class="{{ $cls }}">
+                        <i class="fas {{ $icon }} me-1"></i>
                         {{ $systemLog['level'] }}
                     </span>
                 </td>
@@ -150,11 +206,10 @@ $end = $pagination['end'];
                     {{ $systemLog['ip'] }}
                 </td>
                 <td>
-                    <i class="fas fa-file-alt me-1 text-dark"></i>
                     {{ $systemLog['desc'] }}
                 </td>
                 <td class="text-center">
-                   <x-show-button />
+                    <x-show-button />
                 </td>
             </tr>
             @empty

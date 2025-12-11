@@ -106,18 +106,18 @@ $end = $pagination['end'];
     <table class="table user-table table-bordered table-hover table-striped align-items-center">
         <thead class="table-dark">
             <tr>
-                <th class="border-bottom text-start">№</th>
-                <th class="border-bottom text-center">{{__('admin.icon')}}</th>
-                <th class="border-bottom text-start">{{__('admin.name')}}</th>
-                <th class="border-bottom text-start">{{__('admin.code')}}</th>
-                <th class="border-bottom text-center">{{__('admin.users_count')}}</th>
-                <th class="border-bottom text-start">{{__('admin.description')}}</th>
-                <th class="border-bottom">{{__('admin.actions')}}</th>
+                <th>№</th>
+                <th>{{__('admin.icon')}}</th>
+                <th>{{__('admin.name')}}</th>
+                <th>{{__('admin.code')}}</th>
+                <th>{{__('admin.users_count')}}</th>
+                <th>{{__('admin.description')}}</th>
+                <th class="text-center">{{__('admin.actions')}}</th>
             </tr>
         </thead>
         <tbody>
             @forelse($roles as $index => $role)
-            <tr class="hover-lift">
+            <tr>
                 <td class="text-start">
                     <div class="lift-inner">{{ $loop->iteration }}</div>
                 </td>
@@ -140,7 +140,7 @@ $end = $pagination['end'];
                 <td class="text-start">
                     <div class="lift-inner">{{ $role['description'] }}</div>
                 </td>
-                <td class="text-center d-flex justify-content-center gap-1">
+                <td class="text-center  justify-content-center gap-1">
                     <div class="action-buttons d-flex gap-2 justify-content-end">
 
                     

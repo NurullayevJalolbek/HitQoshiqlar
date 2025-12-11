@@ -175,7 +175,7 @@ $end = $pagination['end'];
                 </td>
 
 
-                <td class="text-center d-flex justify-content-center gap-1">
+                <td class="text-center  justify-content-center gap-1">
 
                     <x-show-button href="{{ route('admin.users.show', $user['id']) }}" />
                     <x-edit-button href="{{ route('admin.users.edit', $user['id']) }}" />

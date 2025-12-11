@@ -30,6 +30,39 @@
         /* qizil */
         font-weight: 600;
     }
+
+    .status-active,
+    .status-blocked,
+    .status-pending {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        padding: 4px 10px;
+        border-radius: 8px;
+        font-size: 13px;
+        font-weight: 500;
+        backdrop-filter: blur(6px);
+        /* shaffof effekt */
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    /* Yashil – Muvaffaqiyatli */
+    .status-active {
+        background: rgba(0, 200, 83, 0.15);
+        color: #0f9d58;
+    }
+
+    /* Qizil – Xato */
+    .status-blocked {
+        background: rgba(255, 0, 0, 0.15);
+        color: #d93025;
+    }
+
+    /* Sariq – Kutilyapti */
+    .status-pending {
+        background: rgba(255, 193, 7, 0.15);
+        color: #c99a00;
+    }
 </style>
 @endpush
 
@@ -100,7 +133,7 @@ $end = $pagination['end'];
                 <th>{{__('admin.date')}}</th>
                 <th>{{__('admin.ip')}}</th>
                 <th>{{__('admin.result')}}</th>
-                <th>{{__('admin.actions')}}</th>
+                <th>Amallar</th>
             </tr>
         </thead>
 
@@ -112,19 +145,17 @@ $end = $pagination['end'];
 
                 {{-- FOYDALANUVCHI --}}
                 <td>
-                    <i class="fas fa-user  me-1"></i>
                     {{ $h['user'] }}
                 </td>
 
                 {{-- LOGIN --}}
                 <td>
-                    <i class="fas fa-id-badge  me-1"></i>
                     {{ $h['username'] }}
                 </td>
 
                 {{-- SANA --}}
                 <td>
-                    <i class="fas fa-calendar-alt me-1"></i>
+                    <i class="fas fa-calendar-alt me-1 text-muted"></i>
                     {{ \Carbon\Carbon::parse($h['date'])->format('H:i d.m.y') }}
                 </td>
 
@@ -138,9 +169,9 @@ $end = $pagination['end'];
                 <td>
                     @php
                     $cls = match($h['result']) {
-                    'Muvaffaqiyatli' => 'text-success',
-                    'Xato' => 'text-danger',
-                    default => 'text-warning'
+                    'Muvaffaqiyatli' => 'status-active',
+                    'Xato' => 'status-blocked',
+                    default => 'status-pending'
                     };
 
                     $icon = match($h['result']) {
@@ -157,7 +188,8 @@ $end = $pagination['end'];
                 </td>
 
                 {{-- KO‘RISH --}}
-                <td>
+                <td class="text-center  justify-content-center gap-1">
+
                     <i class="fas fa-eye text-primary showDetail"
                         data-id="{{ $h['id'] }}"
                         style="cursor: pointer;"></i>
