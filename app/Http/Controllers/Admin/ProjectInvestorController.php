@@ -12,7 +12,7 @@ class ProjectInvestorController extends Controller
      */
     public function index(Request $request)
     {
-        return view ('pages.investors.index');
+        return view ('pages.project-investors.index');
     }
 
     /**
@@ -20,7 +20,7 @@ class ProjectInvestorController extends Controller
      */
     public function create()
     {
-        //
+        return view ('pages.project-investors.create');
     }
 
     /**
