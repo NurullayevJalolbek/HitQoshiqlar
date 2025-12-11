@@ -11,6 +11,13 @@
 </style>
 @endpush
 
+@php
+$results = [
+    'Muvaffaqiyatli' => 'Muvaffaqiyatli',
+    'Xato' => 'Xato',
+];
+@endphp
+
 <div class="filter-card mb-3 mt-2 collapse show" id="loginHistoryFilterContent" style="transition: all 0.3s ease;">
     <div class="border rounded p-3" style="border-color: rgba(0,0,0,0.05); background-color: #fff;">
         <div class="row g-3 align-items-end">
@@ -37,20 +44,15 @@
                 </div>
             </div>
 
-            {{-- Natija bo‘yicha filter --}}
-            <div class="col-md-4 col-sm-6 col-12">
-                <label for="filterResult">{{ __('admin.result_type') }}</label>
-                <div class="input-group">
-                    <span class="input-group-text bg-white">
-                        <i class="fa-solid fa-check-circle text-muted"></i>
-                    </span>
-                    <select id="filterResult" class="form-select">
-                        <option value="">{{ __('admin.all') }}</option>
-                        <option value="Muvaffaqiyatli">Muvaffaqiyatli</option>
-                        <option value="Xato">Xato</option>
-                    </select>
-                </div>
-            </div>
+              <x-select-with-search 
+                name="resultFilter" 
+                label="Natija boyicha" 
+                :datas="$results"
+                colMd="4"
+                placeholder="Barchasi"
+                :selected="request()->get('resultFilter', '')"
+                icon="fa-check-circle"
+            />
 
           <x-from-to-date-picker
                 colMd="8"

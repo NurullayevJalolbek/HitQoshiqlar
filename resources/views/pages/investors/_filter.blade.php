@@ -10,6 +10,14 @@
     }
 </style>
 @endpush
+@php
+$statuses =[
+    'Faol' => 'Faol',
+    'Kutilmoqda' => 'Kutilmoqda',
+    'Bloklangan' => 'Bloklangan',
+];
+
+@endphp
 
 <div class="filter-card mb-3 mt-2 collapse show" id="investorFilterContent" style="transition: all 0.3s ease;">
     <div class="border rounded p-3" style="border-color: rgba(0,0,0,0.05); background-color: #fff;">
@@ -60,19 +68,14 @@
                 </div>
             </div>
 
-            <!-- Holati -->
-            <div class="col-md-4 col-sm-12">
-                <label for="statusFilter" class="form-label">Holati</label>
-                <div class="input-group">
-                    <span class="input-group-text bg-white"><i class="fa-solid fa-toggle-on text-muted"></i></span>
-                    <select id="statusFilter" class="form-select">
-                        <option value="">Barchasi</option>
-                        <option value="Faol">Faol</option>
-                        <option value="Bloklangan">Bloklangan</option>
-                        <option value="Kutilmoqda">Kutilmoqda</option>
-                    </select>
-                </div>
-            </div>
+            <x-select-with-search 
+                name="statusFilter" 
+                label="Holati boyicha" 
+                :datas="$statuses"
+                colMd="4"
+                placeholder="Barchasi"
+                :selected="request()->get('statusFilter', '')"
+            />
 
 
          <x-from-to-date-picker

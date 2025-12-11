@@ -140,16 +140,16 @@ $end = $pagination['end'];
                 <td class="text-start">
                     <div class="lift-inner">{{ $role['description'] }}</div>
                 </td>
-                <td class="text-end">
+                <td class="text-center d-flex justify-content-center gap-1">
                     <div class="action-buttons d-flex gap-2 justify-content-end">
+
+                    
                         <!-- Ruxsatlar (kalit) -->
                         <a href="{{ route('admin.role-permissions.index', ['role_id' => $role['id']]) }}"
                             class="btn btn-sm p-1 {{ $role['is_deletable'] ?? true ? '' : 'disabled' }}"
                             style="background: none; border: none; color: #1F2937;"
                             title="{{ __('admin.permissions') }}">
-                            <img src="{{ asset('assets/img/icons/shield_icon.png') }}"
-                                alt="Permissions"
-                                style="width: 18px; height: 18px; display: inline-block;">
+                           <i class="fa-solid fa-shield text-info"></i>
                         </a>
 
 
@@ -168,9 +168,12 @@ $end = $pagination['end'];
                             data-bs-placement="top"
                             title="Delete"
                             onclick='infoModel(@json(__("admin.warning")), @json(__("admin.role_delete_warning")));'>
-                            <i class="fas fa-trash"
-                                style="font-size: 18px; display: inline-block; width: 18px; height: 18px;">
-                            </i>
+                            <svg class="icon icon-xs text-danger status-blocked" title="Delete" data-bs-toggle="tooltip" fill="currentColor"
+                                viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                                    clip-rule="evenodd"></path>
+                            </svg>
                         </a>
 
                         @else

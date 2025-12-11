@@ -1,16 +1,18 @@
 @props([
 'name' => '',
 'label' => 'Select state',
-'colMd' => 4,
+'colMd' => '4',
 'selected' => null,
 'datas' => [],
-'placeholder' => 'Qiymatni tanlang'
+'placeholder' => 'Qiymatni tanlang',
+'icon' => "fa-toggle-on",
 ])
 
 @push('customCss')
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
 <style>
-    /* === Select2: Umumiy shakl === */
+    /* === Select2 asosiy ko‘rinishi === */
     .select2-container .select2-selection--single {
         height: 40px !important;
         border: 1px solid #ced4da !important;
@@ -18,11 +20,10 @@
         display: flex !important;
         align-items: center;
         padding-right: 36px;
-        /* o‘ng tarafda ikonalar uchun joy */
         position: relative;
     }
 
-    /* Tanlangan element (matn) */
+    /* Tanlangan element matni */
     .select2-container--default .select2-selection--single .select2-selection__rendered {
         padding-left: 12px !important;
         line-height: normal !important;
@@ -30,7 +31,7 @@
         font-size: 14px;
     }
 
-    /* "x" (clear) tugmasi */
+    /* Clear (x) tugmasi */
     .select2-container--default .select2-selection--single .select2-selection__clear {
         position: absolute;
         right: 26px;
@@ -42,7 +43,7 @@
         cursor: pointer;
     }
 
-    /* "Arrow" (pastga qaragan belgi) */
+    /* Arrow pozitsiyasi */
     .select2-container--default .select2-selection--single .select2-selection__arrow {
         position: absolute;
         right: 8px;
@@ -53,13 +54,38 @@
         pointer-events: none;
     }
 
-    /* Natijalarni tanlashda qora fonda oq yozuv */
+    /* Highlight qilingan option */
     .select2-container--default .select2-results__option--highlighted[aria-selected] {
         background-color: #1F2937 !important;
         color: #fff !important;
     }
 
-    /* Mobil uchun to‘liq width */
+    /* === 📌 ICON bilan input-group uchun maxsus qo‘shimcha CSS === */
+
+    /* Select2 input-group ichida width 100% bo‘lsin */
+    .select2-icon-group .select2-container {
+        flex: 1 1 auto !important;
+        width: 1% !important;
+    }
+
+    /* Icon qo‘yilganda selectning chap chegarasi yo‘qolsin */
+    .select2-with-icon~.select2-container .select2-selection--single {
+        border-left: none !important;
+        border-radius: 0px 8px 8px 0px !important;
+    }
+
+    /* Rendered text shift bo‘lmasligi uchun */
+    .select2-selection__rendered {
+        padding-left: 10px !important;
+    }
+
+    /* Arrow markazda */
+    .select2-selection__arrow {
+        top: 50% !important;
+        transform: translateY(-50%) !important;
+    }
+
+    /* Mobil uchun full width */
     @media (max-width: 768px) {
         .select2-container {
             width: 100% !important;
@@ -68,20 +94,29 @@
 </style>
 @endpush
 
-<div class="col-12 col-md-{{ $colMd }} col-lg-4">
+
+<div class="col-12 col-md-{{ $colMd }} col-lg-{{ $colMd }}">
     <div class="form-group">
         <label for="{{ $name }}" class="form-label">{{ $label }}</label>
-        <select name="{{ $name }}" id="{{ $name }}" data-allow-clear="true" autocomplete="off"
-            class="form-control select2">
-            <option value="">{{ $placeholder }}</option>
-            @foreach($datas as $code => $data)
-            <option value="{{ $code }}" {{ $selected == $code ? 'selected' : '' }}>
-                {{ $data }}
-            </option>
-            @endforeach
-        </select>
+
+        <div class="input-group select2-icon-group">
+            <span class="input-group-text bg-white">
+                <i class="fa-solid {{ $icon }} text-muted"></i>
+            </span>
+
+            <select name="{{ $name }}" id="{{ $name }}" data-allow-clear="true" autocomplete="off"
+                class="form-control select2-with-icon">
+                <option value="">{{ $placeholder }}</option>
+                @foreach($datas as $code => $data)
+                <option value="{{ $code }}" {{ $selected == $code ? 'selected' : '' }}>
+                    {{ $data }}
+                </option>
+                @endforeach
+            </select>
+        </div>
     </div>
 </div>
+
 
 @push('customJs')
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
