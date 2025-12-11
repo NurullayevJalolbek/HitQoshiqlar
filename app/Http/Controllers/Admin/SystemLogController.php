@@ -11,4 +11,16 @@ class SystemLogController extends Controller
     {
         return view('pages.system-logs.index');
     }
+
+
+    public function show($id)
+    {
+        $datas  = getSystemLogsData($id);
+
+        return response()->json([
+            'data'=> $datas,
+            'success' => true,
+
+        ]);
+    }
 }

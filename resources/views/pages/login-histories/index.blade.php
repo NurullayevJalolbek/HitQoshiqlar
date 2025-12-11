@@ -333,9 +333,8 @@ $end = $pagination['end'];
 
                 try {
                     const res = await axios.get(`/admin/login-histories/${id}`);
-                    console.log(res);
 
-                    const d = res.data.data[0]; // ✅ TO‘G‘RI
+                    const d = res.data.data[0]; 
 
                     document.getElementById('d_user').innerHTML =
                         `${d.user}`;

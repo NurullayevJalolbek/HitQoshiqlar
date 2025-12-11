@@ -921,9 +921,9 @@ function getNotificationsTab(): Collection
 
 
 
-function generateLogsData(): Collection
+function getSystemLogsData($id = null): Collection
 {
-    return collect([
+    $systemLogs =  collect([
         [
             'id' => 1,
             'time' => '2025-12-02 10:05:30',
@@ -1090,15 +1090,10 @@ function generateLogsData(): Collection
             'extra' => "Filter: Active projects"
         ],
     ]);
-}
 
-function getSystemLogsData(?int $id = null): Collection
-{
-    $allLogs = generateLogsData();
-
-    if ($id) {
-        return $allLogs->where('id', $id);
+    if ($id !== null) {
+        return $systemLogs->where('id', $id)->values();
     }
+    return $systemLogs;
 
-    return $allLogs;
 }

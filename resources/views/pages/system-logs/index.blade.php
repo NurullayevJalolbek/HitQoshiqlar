@@ -192,8 +192,11 @@ $end = $pagination['end'];
                 <td>
                     {{ $systemLog['desc'] }}
                 </td>
-                <td class="text-center">
-                    <x-show-button />
+                <td class="text-center  justify-content-center gap-1">
+
+                    <i class="fas fa-eye text-primary systemLogShowDetail"
+                        data-id="{{ $systemLog['id'] }}"
+                        style="cursor: pointer;"></i>
                 </td>
             </tr>
             @empty
@@ -223,51 +226,73 @@ $end = $pagination['end'];
 </div>
 
 {{-- DETAIL MODAL --}}
-<div class="modal fade" id="logDetailModal" tabindex="-1">
+<div class="modal fade" id="systemLogDetailModal" tabindex="-1">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Log tafsilotlari</h5>
+                <h5 class="modal-title">
+                    <i class="fas fa-info-circle text-primary me-1"></i>
+                    Kirish tafsilotlari
+                </h5>
                 <button class="btn-close" data-bs-dismiss="modal"></button>
             </div>
+
             <div class="modal-body">
-                <table class="table table-bordered">
+                <table class="table table-bordered align-middle">
                     <tbody>
                         <tr>
-                            <th>Foydalanuvchi</th>
+                            <th>
+                                <i class="fas fa-user-circle me-1"></i>
+                                Foydalanuvchi
+                            </th>
                             <td id="d_user"></td>
                         </tr>
                         <tr>
-                            <th>Turi (Action)</th>
+                            <th>
+                                <i class="fas fa-exchange-alt me-1"></i>
+                                Turi
+                            </th>
                             <td id="d_action"></td>
                         </tr>
                         <tr>
-                            <th>Holati (Level)</th>
+                            <th>
+                                <i class="fas fa-signal me-1"></i>
+                                Holati
+                            </th>
                             <td id="d_level"></td>
                         </tr>
                         <tr>
-                            <th>Modul</th>
+                            <th>
+                                <i class="fas fa-cubes me-1"></i>
+                                Module
+                            </th>
                             <td id="d_module"></td>
                         </tr>
                         <tr>
-                            <th>Sana va Vaqt</th>
+                            <th>
+                                <i class="fas fa-calendar-alt me-1"></i>
+                                Sana
+                            </th>
                             <td id="d_time"></td>
                         </tr>
                         <tr>
-                            <th>IP manzil</th>
-                            <td id="d_ip"></td>
+                            <th>
+                                <i class="fas fa-network-wired me-1"></i>
+                                IP
+                            </th>
+                            <td id="d_IP"></td>
                         </tr>
                         <tr>
-                            <th>Tavsif</th>
+                            <th>
+                                <i class="fas fa-info-circle me-1"></i>
+                                Tavsifi
+                            </th>
                             <td id="d_desc"></td>
-                        </tr>
-                        <tr>
-                            <th>Qo'shimcha ma'lumot</th>
-                            <td id="d_extra"></td>
                         </tr>
                     </tbody>
                 </table>
             </div>
+
             <div class="modal-footer">
                 <button class="btn btn-secondary" data-bs-dismiss="modal">Yopish</button>
             </div>
@@ -279,6 +304,49 @@ $end = $pagination['end'];
 
 @push('customJs')
 <script>
-    //
+    document.addEventListener('DOMContentLoaded', function() {
+
+        const detailModal = new bootstrap.Modal(document.getElementById("systemLogDetailModal"));
+
+
+
+        document.querySelectorAll(".systemLogShowDetail").forEach(btn => {
+
+            btn.addEventListener("click", async () => {
+
+                const id = btn.getAttribute("data-id");
+
+                try {
+
+                    const response = await axios.get('/admin/system-logs/' + id);
+
+
+                    const data = response.data.data[0];
+
+
+                    document.getElementById('d_user').innerHTML =
+                        `${data.user}`;
+                    document.getElementById('d_action').innerHTML =
+                        `${data.action}`;
+                    document.getElementById('d_level').innerHTML =
+                        `${data.level}`;
+                    document.getElementById('d_module').innerHTML =
+                        `${data.module}`;
+                    document.getElementById('d_time').innerHTML =
+                        `${data.time}`;
+                    document.getElementById('d_IP').innerHTML =
+                        `${data.ip}`;
+                    document.getElementById('d_desc').innerHTML =
+                        `${data.desc}`;
+                    detailModal.show();
+
+                } catch (e) {
+                    console.error(e);
+                    alert("Ma'lumotni yuklashda xatolik!");
+                }
+            });
+        })
+
+    })
 </script>
 @endpush
