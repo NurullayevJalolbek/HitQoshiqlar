@@ -368,7 +368,7 @@
                 <div class="alert alert-warning">
                     <i class="fas fa-exclamation-triangle me-2"></i>
                     <strong>Diqqat!</strong> Bloklangan investor tizimga kirishi va barcha harakatlarni amalga oshirish
-                    huquqidan mahrum bo'ladi.
+                    huquqidan mahrum boladi.
                 </div>
             </div>
             <div class="modal-footer">
@@ -397,7 +397,7 @@
                 <p><strong>{{ $investor['name'] }}</strong> investorini blokdan chiqarishni istaysizmi?</p>
                 <div class="alert alert-info">
                     <i class="fas fa-info-circle me-2"></i>
-                    Blokdan chiqarilgandan so'ng investor tizimga kirishi va barcha huquqlarni qayta tiklaydi.
+                    Blokdan chiqarilgandan song investor tizimga kirishi va barcha huquqlarni qayta tiklaydi.
                 </div>
             </div>
             <div class="modal-footer">

@@ -160,8 +160,9 @@ $end = $pagination['end'];
                 <td>
                     @if($user['status'] === 'Faol')
 
-                    <span class="btn btn-outline-success"> <i class="fa-solid fa-circle-check me-1 text-success"></i>Faol</span>
-                    @else
+                    <span class="btn btn-outline-success">
+                        <i class="fas fa-check-circle me-1"></i> Faol
+                    </span> @else
                     <span class="btn btn-outline-danger">
                         <i class="fas fa-ban me-1"></i> Bloklangan
                     </span>
@@ -222,7 +223,7 @@ $end = $pagination['end'];
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Foydalanuvchini blo'klash </h5>
+                <h5 class="modal-title">Foydalanuvchini bloklash </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
@@ -256,7 +257,7 @@ $end = $pagination['end'];
                 <p><strong id="unblockUserName"></strong> foydalanuvchini blokdan chiqarishni istaysizmi?</p>
                 <div class="alert alert-info">
                     <i class="fas fa-info-circle me-2"></i>
-                    Blokdan chiqarilgandan so'ng foydalanuvchi tizimga kirishi va huquqlari tiklanadi.
+                    Blokdan chiqarilgandan song foydalanuvchi tizimga kirishi va huquqlari tiklanadi.
                 </div>
             </div>
             <div class="modal-footer">

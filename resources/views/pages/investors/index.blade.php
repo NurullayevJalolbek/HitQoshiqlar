@@ -279,7 +279,7 @@ $end = $pagination['end'];
                 <p><strong id="unblockInvestorName"></strong> investorini blokdan chiqarishni istaysizmi?</p>
                 <div class="alert alert-info">
                     <i class="fas fa-info-circle me-2"></i>
-                    Blokdan chiqarilgandan so'ng investor tizimga kirishi va huquqlari tiklanadi.
+                    Blokdan chiqarilgandan song investor tizimga kirishi va huquqlari tiklanadi.
                 </div>
             </div>
             <div class="modal-footer">
