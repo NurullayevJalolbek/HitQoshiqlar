@@ -927,7 +927,7 @@ function generateLogsData(): Collection
         [
             'id' => 1,
             'time' => '2025-12-02 10:05:30',
-            'level' => 'INFO',
+            'level' => 'Muvaffaqiyatli',
             'action' => 'UPDATE',
             'module' => "Loyihalar",
             'user' => 'admin',
@@ -938,7 +938,7 @@ function generateLogsData(): Collection
         [
             'id' => 2,
             'time' => '2025-12-02 10:01:15',
-            'level' => 'ERROR',
+            'level' => 'Xato',
             'action' => 'CREATE',
             'module' => "Loyihalar",
             'user' => 'sardor',
@@ -949,7 +949,7 @@ function generateLogsData(): Collection
         [
             'id' => 3,
             'time' => '2025-12-02 09:55:40',
-            'level' => 'INFO',
+            'level' => 'Muvaffaqiyatli',
             'action' => 'EXPORT',
             'module' => "Loyihalar",
             'user' => 'ali',
@@ -960,7 +960,7 @@ function generateLogsData(): Collection
         [
             'id' => 4,
             'time' => '2025-12-02 09:45:00',
-            'level' => 'WARNING',
+            'level' => 'Ogohlantirish',
             'action' => 'DELETE',
             'module' => "Investorlar",
             'user' => 'bobur',
@@ -971,7 +971,7 @@ function generateLogsData(): Collection
         [
             'id' => 5,
             'time' => '2025-12-02 09:40:22',
-            'level' => 'INFO',
+            'level' => 'Muvaffaqiyatli',
             'action' => 'CREATE',
             'module' => "Investorlar",
             'user' => 'anna',
@@ -982,7 +982,7 @@ function generateLogsData(): Collection
         [
             'id' => 6,
             'time' => '2025-12-02 09:35:10',
-            'level' => 'ERROR',
+            'level' => 'Xato',
             'action' => 'UPDATE',
             'module' => "Ma'muriyat bo'limi",
             'user' => 'admin',
@@ -993,7 +993,7 @@ function generateLogsData(): Collection
         [
             'id' => 7,
             'time' => '2025-12-02 09:30:55',
-            'level' => 'WARNING',
+            'level' => 'Ogohlantirish',
             'action' => 'EXPORT',
             'module' => "Hisobotlar",
             'user' => 'dilshod',
@@ -1004,7 +1004,7 @@ function generateLogsData(): Collection
         [
             'id' => 8,
             'time' => '2025-12-02 09:25:00',
-            'level' => 'INFO',
+            'level' => 'Muvaffaqiyatli',
             'action' => 'CREATE',
             'module' => "Hisobotlar",
             'user' => 'ali',
@@ -1015,7 +1015,7 @@ function generateLogsData(): Collection
         [
             'id' => 9,
             'time' => '2025-12-02 09:20:11',
-            'level' => 'ERROR',
+            'level' => 'Xato',
             'action' => 'DELETE',
             'module' => "Loyihalar",
             'user' => 'sardor',
@@ -1026,7 +1026,7 @@ function generateLogsData(): Collection
         [
             'id' => 10,
             'time' => '2025-12-02 09:15:30',
-            'level' => 'INFO',
+            'level' => 'Muvaffaqiyatli',
             'action' => 'UPDATE',
             'module' => "Investorlar",
             'user' => 'bobur',
@@ -1037,7 +1037,7 @@ function generateLogsData(): Collection
         [
             'id' => 11,
             'time' => '2025-12-01 18:00:00',
-            'level' => 'INFO',
+            'level' => 'Muvaffaqiyatli',
             'action' => 'CREATE',
             'module' => "Foydalanuvchilar",
             'user' => 'admin',
@@ -1048,7 +1048,7 @@ function generateLogsData(): Collection
         [
             'id' => 12,
             'time' => '2025-12-01 17:45:00',
-            'level' => 'WARNING',
+            'level' => 'Ogohlantirish',
             'action' => 'UPDATE',
             'module' => "Foydalanuvchilar",
             'user' => 'ali',
@@ -1059,7 +1059,7 @@ function generateLogsData(): Collection
         [
             'id' => 13,
             'time' => '2025-12-01 17:30:10',
-            'level' => 'INFO',
+            'level' => 'Muvaffaqiyatli',
             'action' => 'LOGIN',
             'module' => "Ma'muriyat bo'limi",
             'user' => 'rustam',
@@ -1070,7 +1070,7 @@ function generateLogsData(): Collection
         [
             'id' => 14,
             'time' => '2025-12-01 17:28:40',
-            'level' => 'ERROR',
+            'level' => 'Xato',
             'action' => 'LOGIN',
             'module' => "Ma'muriyat bo'limi",
             'user' => 'rustam',
@@ -1081,7 +1081,7 @@ function generateLogsData(): Collection
         [
             'id' => 15,
             'time' => '2025-12-01 17:20:00',
-            'level' => 'INFO',
+            'level' => 'Muvaffaqiyatli',
             'action' => 'VIEW',
             'module' => "Loyihalar",
             'user' => 'anna',

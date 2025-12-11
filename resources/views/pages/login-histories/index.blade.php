@@ -177,7 +177,7 @@ $end = $pagination['end'];
                     $icon = match($h['result']) {
                     'Muvaffaqiyatli' => 'fa-check-circle',
                     'Xato' => 'fa-times-circle',
-                    default => 'fa-exclamation-circle'
+                    default => 'fas fa-exclamation-triangle'
                     };
                     @endphp
 

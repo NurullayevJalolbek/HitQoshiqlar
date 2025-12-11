@@ -145,22 +145,6 @@ $end = $pagination['end'];
         <tbody>
             @forelse($systemLogs as $systemLog)
 
-            @php
-
-            $cls = match($systemLog['level']){
-            'INFO' => 'status-active',
-            'WARNING' => 'status-pending',
-            'ERROR' => 'status-blocked',
-            default => 'text-secondary'
-            };
-            $icon = match($systemLog['level']){
-            'INFO' => 'fas fa-check-circle',
-            'WARNING' => 'fas fa-exclamation-triangle',
-            'ERROR' => 'fas fa-times-circle',
-            default => 'fas fa-circle-info'
-            };
-            @endphp
-
             <tr>
                 <td>
                     {{ $loop->iteration + $start - 1 }}
@@ -176,15 +160,15 @@ $end = $pagination['end'];
                     @php
 
                     $cls = match($systemLog['level']){
-                    'INFO' => 'status-active',
-                    'WARNING' => 'status-pending',
-                    'ERROR' => 'status-blocked',
+                    'Muvaffaqiyatli' => 'status-active',
+                    'Ogohlantirish' => 'status-pending',
+                    'Xato' => 'status-blocked',
                     default => 'text-secondary'
                     };
                     $icon = match($systemLog['level']){
-                    'INFO' => 'fas fa-check-circle',
-                    'WARNING' => 'fas fa-exclamation-triangle',
-                    'ERROR' => 'fas fa-times-circle',
+                    'Muvaffaqiyatli' => 'fas fa-check-circle',
+                    'Ogohlantirish' => 'fas fa-exclamation-triangle',
+                    'Xato' => 'fas fa-times-circle',
                     default => 'fas fa-circle-info'
                     };
                     @endphp
