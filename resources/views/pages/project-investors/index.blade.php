@@ -18,7 +18,7 @@
         <div class="d-flex gap-2 align-items-center flex-wrap">
 
             <!-- Yangi foydalanuvchi qo'shish -->
-            <a href="{{ route('admin.users.create') }}" class="btn btn-primary btn-sm px-3 py-1" id="addUserBtn"
+            <a href="{{ route('admin.project-investors.create') }}" class="btn btn-primary btn-sm px-3 py-1" id="addUserBtn"
                style="min-width: 90px;">
                 <i class="fas fa-plus me-1" style="font-size: 0.85rem;"></i> {{ __('admin.create') }}
             </a>
@@ -59,14 +59,7 @@
                 </div>
 
                 <!-- Filter tugmalari -->
-                <div class="col-md-2 d-flex gap-2">
-                    <button id="filterBtn" class="btn btn-primary w-50">
-                        <i class="fas fa-filter"></i> {{__('admin.search')}}
-                    </button>
-                    <button id="clearBtn" class="btn btn-warning w-50">
-                        {{__('admin.clear')}}
-                    </button>
-                </div>
+                <x-filter-buttons />
             </div>
         </div>
     </div>

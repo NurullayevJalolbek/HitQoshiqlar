@@ -64,45 +64,60 @@ $end = $pagination['end'];
 <div class="filter-card mb-3 mt-2 collapse show" id="roleFilterContent" style="transition: all 0.3s ease;">
     <div class="border rounded p-3" style="border-color: rgba(0,0,0,0.05); background-color: #fff;">
         <div class="row g-3 align-items-end">
-            <div class="col-md-10">
-                <label>{{__('admin.search')}}</label>
+
+            <!-- Role nomi bo'yicha qidiruv -->
+            <div class="col-md-5">
+                <label for="roleNameSearch">{{ __('admin.role_name') }}</label>
                 <div class="input-group">
-                    <span class="input-group-text bg-white"><i class="fas fa-search text-muted"></i></span>
-                    <input type="text" class="form-control"
-                        placeholder="{{__('admin.role_name')}}, {{__('admin.code')}}...">
+                    <span class="input-group-text bg-white"><i class="fas fa-user-tag text-muted"></i></span>
+                    <input type="text" class="form-control" id="roleNameSearch"
+                        placeholder="{{ __('admin.role_name') }}...">
                 </div>
             </div>
 
+            <!-- Role kodi bo'yicha qidiruv -->
+            <div class="col-md-5">
+                <label for="roleCodeSearch">{{ __('admin.code') }}</label>
+                <div class="input-group">
+                    <span class="input-group-text bg-white"><i class="fas fa-code"></i></span>
+                    <input type="text" class="form-control" id="roleCodeSearch"
+                        placeholder="{{ __('admin.code') }}...">
+                </div>
+            </div>
+
+            <!-- Tugmalar -->
             <div class="col-md-2 d-flex gap-2">
-                <button id="filterBtn" class="btn btn-primary w-50">
-                    <i class="fas fa-filter"></i> {{__('admin.search')}}
+                <button id="filterBtn" class="btn btn-primary flex-grow-1 d-flex align-items-center justify-content-center gap-1">
+                    <i class="fas fa-filter"></i> {{ __('admin.search') }}
                 </button>
 
-                <button id="clearBtn" class="btn btn-warning w-50">
-                    {{__('admin.clear')}}
+                <button id="clearBtn" class="btn btn-warning flex-grow-1 d-flex align-items-center justify-content-center gap-1">
+                    <i class="fas fa-times"></i> {{ __('admin.clear') }}
                 </button>
             </div>
+
         </div>
     </div>
 </div>
+
 
 {{--Content--}}
 <div class="card card-body py-3 px-3 shadow border-0 table-wrapper table-responsive mt-3">
     <table class="table user-table table-bordered table-hover table-striped align-items-center">
         <thead class="table-dark">
             <tr>
-                <th class="border-bottom text-start">№</th>
-                <th class="border-bottom text-center">{{__('admin.icon')}}</th>
-                <th class="border-bottom text-start">{{__('admin.name')}}</th>
-                <th class="border-bottom text-start">{{__('admin.code')}}</th>
-                <th class="border-bottom text-center">{{__('admin.users_count')}}</th>
-                <th class="border-bottom text-start">{{__('admin.description')}}</th>
-                <th class="border-bottom">{{__('admin.actions')}}</th>
+                <th>№</th>
+                <th>{{__('admin.icon')}}</th>
+                <th>{{__('admin.name')}}</th>
+                <th>{{__('admin.code')}}</th>
+                <th>{{__('admin.users_count')}}</th>
+                <th>{{__('admin.description')}}</th>
+                <th class="text-center">{{__('admin.actions')}}</th>
             </tr>
         </thead>
         <tbody>
             @forelse($roles as $index => $role)
-            <tr class="hover-lift">
+            <tr>
                 <td class="text-start">
                     <div class="lift-inner">{{ $loop->iteration }}</div>
                 </td>
@@ -125,16 +140,16 @@ $end = $pagination['end'];
                 <td class="text-start">
                     <div class="lift-inner">{{ $role['description'] }}</div>
                 </td>
-                <td class="text-end">
+                <td class="text-center  justify-content-center gap-1">
                     <div class="action-buttons d-flex gap-2 justify-content-end">
+
+                    
                         <!-- Ruxsatlar (kalit) -->
                         <a href="{{ route('admin.role-permissions.index', ['role_id' => $role['id']]) }}"
                             class="btn btn-sm p-1 {{ $role['is_deletable'] ?? true ? '' : 'disabled' }}"
                             style="background: none; border: none; color: #1F2937;"
                             title="{{ __('admin.permissions') }}">
-                            <img src="{{ asset('assets/img/icons/shield_icon.png') }}"
-                                alt="Permissions"
-                                style="width: 18px; height: 18px; display: inline-block;">
+                           <i class="fa-solid fa-shield text-info"></i>
                         </a>
 
 
@@ -146,17 +161,21 @@ $end = $pagination['end'];
 
                         <!-- O‘chirish (savatcha) -->
                         @if($role['is_deletable'] == false)
-                        <a href="#"
-                            class="btn btn-sm p-1 delete-role"
+                        <a href="javascript:void(0);"
+                            class="btn btn-sm p-1 "
                             style="background: none; color: #bd2130;"
                             data-bs-toggle="tooltip"
                             data-bs-placement="top"
                             title="Delete"
-                            onclick='infoModal(@json(__("admin.warning")), @json(__("admin.role_delete_warning")))'>
-                            <i class="fas fa-trash"
-                                style="font-size: 18px; display: inline-block; width: 18px; height: 18px;">
-                            </i>
+                            onclick='infoModel(@json(__("admin.warning")), @json(__("admin.role_delete_warning")));'>
+                            <svg class="icon icon-xs text-danger status-blocked" title="Delete" data-bs-toggle="tooltip" fill="currentColor"
+                                viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                                    clip-rule="evenodd"></path>
+                            </svg>
                         </a>
+
                         @else
                         <x-delete-button />
                         @endif

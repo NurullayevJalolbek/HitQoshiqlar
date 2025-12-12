@@ -1,4 +1,174 @@
 <script>
+    // INN ni clipboard ga nusxalash
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.copy-inn-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const inn = this.getAttribute('data-inn');
+                const icon = this.querySelector('i');
+
+                // Clipboard ga nusxalash
+                navigator.clipboard.writeText(inn).then(() => {
+
+                    // Lottie elementini yaratish
+                    const lottieEl = document.createElement('dotlottie-wc');
+                    lottieEl.src = "https://lottie.host/4e693ea5-2094-4f50-85c4-c6f186fc997f/lPwg3ALEob.lottie";
+                    lottieEl.style.width = "24px";
+                    lottieEl.style.height = "24px";
+                    lottieEl.style.color = "#10B981"; // Yashil rang
+                    lottieEl.autoplay = true;
+
+                    // Iconni Lottie bilan almashtirish
+                    icon.replaceWith(lottieEl);
+
+                    // 1.5 soniyadan keyin asl iconni qaytarish
+                    setTimeout(() => {
+                        lottieEl.replaceWith(icon);
+                    }, 1700);
+                });
+            });
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+
+    // Global delete function
+    window.deleteModel = function(url) {
+        Swal.fire({
+            title: `{{ __('admin.are_you_sure') }}`,
+            text: `{!! __('admin.you_wont_be_able_to_revert_this') !!}`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: `{{ __('admin.yes_delete_it') }}`,
+            cancelButtonText: `{{ __('admin.cancel') }}`,
+            customClass: {
+                confirmButton: 'btn btn-danger me-3',
+                cancelButton: 'btn btn-secondary'
+            },
+            buttonsStyling: false,
+            confirmButtonColor: '#dc3545', // Qizil rang
+            cancelButtonColor: 'rgb(31, 41, 55)' // Kustom kulrang
+        }).then(function(result) {
+            if (result.value) {
+                $.ajax({
+                    url: url,
+                    type: 'DELETE',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    dataType: 'json',
+                    processData: false,
+                    contentType: false,
+                    success: function(data) {
+                        window.sweetSuccess('', data.result);
+                        setTimeout(() => {
+                            location.reload();
+                        }, 1000);
+                    },
+                    error: function(data) {
+                        data = JSON.parse(data.responseText);
+                        window.sweetError('', data.errors);
+                    }
+                });
+            }
+        });
+    }
+
+    // Global confirm function
+    window.confirmModel = function(url, method) {
+        Swal.fire({
+            title: `{{ __('admin.are_you_sure') }}`,
+            text: `{!! __('admin.you_wont_be_able_to_revert_this') !!}`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: `{{ __('admin.confirm') }}`,
+            cancelButtonText: `{{ __('admin.cancel') }}`,
+            customClass: {
+                confirmButton: 'btn btn-danger me-3',
+                cancelButton: 'btn btn-secondary'
+            },
+            buttonsStyling: false,
+            confirmButtonColor: '#dc3545', // Qizil rang
+            cancelButtonColor: 'rgb(31, 41, 55)' // Kustom kulrang
+        }).then(function(result) {
+            if (result.value) {
+                $.ajax({
+                    url: url,
+                    type: method,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    dataType: 'json',
+                    processData: false,
+                    contentType: false,
+                    success: function(data) {
+                        window.sweetSuccess('', data.result);
+                        setTimeout(() => {
+                            location.reload();
+                        }, 1000);
+                    },
+                    error: function(data) {
+                        data = JSON.parse(data.responseText);
+                        window.sweetError('', data.errors);
+                    }
+                });
+            }
+        });
+    }
+
+    // Global success alert
+    window.sweetSuccess = function(title = null, text = null) {
+        text = text ?? `{{ session()->get('success') }}`;
+        if (text) {
+            Swal.fire({
+                title: title,
+                text: text,
+                icon: 'success',
+                timer: 2000,
+                showConfirmButton: false,
+            });
+        }
+    }
+    console.log('ishladi ..')
+
+       // Global info alert (faqat ogohlantirish / xabar)
+            window.infoModel = function (title = null, text = null) {
+                Swal.fire({
+                    title: title ?? "{{ __('admin.info') }}",
+                    text: text ?? "",
+                    icon: 'info',
+                    confirmButtonText: "Ok",
+                    customClass: {
+                        confirmButton: 'btn btn-primary',
+                    },
+                    buttonsStyling: false
+                });
+            }
+
+
+    // Global error alert
+    window.sweetError = function(title = null, text = null) {
+        text = text ?? `{{ session()->get('error') }}`;
+        if (text) {
+            Swal.fire({
+                title: title,
+                text: text,
+                icon: 'error',
+                customClass: {
+                    confirmButton: 'btn btn-primary'
+                },
+                buttonsStyling: false
+            });
+        }
+    }
+
+    // Agar session da success/error bo'lsa avtomatik alert
+    window.sweetSuccess();
+    window.sweetError();
+});
+
+
+
+
 const sidebarToggle = document.querySelector('#sidebar-toggle')
 const sidebarText = document.querySelector('#project-name')
 const sidebarMenu = document.querySelector('#sidebarMenu')
@@ -146,127 +316,6 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-
-    // Global delete function
-    window.deleteModel = function(url) {
-        Swal.fire({
-            title: `{{ __('admin.are_you_sure') }}`,
-            text: `{!! __('admin.you_wont_be_able_to_revert_this') !!}`,
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: `{{ __('admin.yes_delete_it') }}`,
-            cancelButtonText: `{{ __('admin.cancel') }}`,
-            customClass: {
-                confirmButton: 'btn btn-danger me-3',
-                cancelButton: 'btn btn-secondary'
-            },
-            buttonsStyling: false,
-            confirmButtonColor: '#dc3545', // Qizil rang
-            cancelButtonColor: 'rgb(31, 41, 55)' // Kustom kulrang
-        }).then(function(result) {
-            if (result.value) {
-                $.ajax({
-                    url: url,
-                    type: 'DELETE',
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    dataType: 'json',
-                    processData: false,
-                    contentType: false,
-                    success: function(data) {
-                        window.sweetSuccess('', data.result);
-                        setTimeout(() => {
-                            location.reload();
-                        }, 1000);
-                    },
-                    error: function(data) {
-                        data = JSON.parse(data.responseText);
-                        window.sweetError('', data.errors);
-                    }
-                });
-            }
-        });
-    }
-
-    // Global confirm function
-    window.confirmModel = function(url, method) {
-        Swal.fire({
-            title: `{{ __('admin.are_you_sure') }}`,
-            text: `{!! __('admin.you_wont_be_able_to_revert_this') !!}`,
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: `{{ __('admin.confirm') }}`,
-            cancelButtonText: `{{ __('admin.cancel') }}`,
-            customClass: {
-                confirmButton: 'btn btn-danger me-3',
-                cancelButton: 'btn btn-secondary'
-            },
-            buttonsStyling: false,
-            confirmButtonColor: '#dc3545', // Qizil rang
-            cancelButtonColor: 'rgb(31, 41, 55)' // Kustom kulrang
-        }).then(function(result) {
-            if (result.value) {
-                $.ajax({
-                    url: url,
-                    type: method,
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    dataType: 'json',
-                    processData: false,
-                    contentType: false,
-                    success: function(data) {
-                        window.sweetSuccess('', data.result);
-                        setTimeout(() => {
-                            location.reload();
-                        }, 1000);
-                    },
-                    error: function(data) {
-                        data = JSON.parse(data.responseText);
-                        window.sweetError('', data.errors);
-                    }
-                });
-            }
-        });
-    }
-
-    // Global success alert
-    window.sweetSuccess = function(title = null, text = null) {
-        text = text ?? `{{ session()->get('success') }}`;
-        if (text) {
-            Swal.fire({
-                title: title,
-                text: text,
-                icon: 'success',
-                timer: 2000,
-                showConfirmButton: false,
-            });
-        }
-    }
-
-    // Global error alert
-    window.sweetError = function(title = null, text = null) {
-        text = text ?? `{{ session()->get('error') }}`;
-        if (text) {
-            Swal.fire({
-                title: title,
-                text: text,
-                icon: 'error',
-                customClass: {
-                    confirmButton: 'btn btn-primary'
-                },
-                buttonsStyling: false
-            });
-        }
-    }
-
-    // Agar session da success/error bo'lsa avtomatik alert
-    window.sweetSuccess();
-    window.sweetError();
-});
-
 
 
 
@@ -575,7 +624,6 @@ document.querySelectorAll('[data-bs-toggle="collapse"]').forEach(trigger => {
     });
 });
 </script>
-
 <!-- Core -->
 <script src="{{ asset('vendor/@popperjs/core/dist/umd/popper.min.js') }}"></script>
 {{--

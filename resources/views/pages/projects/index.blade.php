@@ -368,6 +368,61 @@
 @endsection
 
 @section('content')
+@php
+$state = [             // default davlatlar ro'yxati
+        'AL' => 'Alabama',
+        'AK' => 'Alaska',
+        'AZ' => 'Arizona',
+        'AR' => 'Arkansas',
+        'CA' => 'California',
+        'CO' => 'Colorado',
+        'CT' => 'Connecticut',
+        'DE' => 'Delaware',
+        'DC' => 'District Of Columbia',
+        'FL' => 'Florida',
+        'GA' => 'Georgia',
+        'HI' => 'Hawaii',
+        'ID' => 'Idaho',
+        'IL' => 'Illinois',
+        'IN' => 'Indiana',
+        'IA' => 'Iowa',
+        'KS' => 'Kansas',
+        'KY' => 'Kentucky',
+        'LA' => 'Louisiana',
+        'ME' => 'Maine',
+        'MD' => 'Maryland',
+        'MA' => 'Massachusetts',
+        'MI' => 'Michigan',
+        'MN' => 'Minnesota',
+        'MS' => 'Mississippi',
+        'MO' => 'Missouri',
+        'MT' => 'Montana',
+        'NE' => 'Nebraska',
+        'NV' => 'Nevada',
+        'NH' => 'New Hampshire',
+        'NJ' => 'New Jersey',
+        'NM' => 'New Mexico',
+        'NY' => 'New York',
+        'NC' => 'North Carolina',
+        'ND' => 'North Dakota',
+        'OH' => 'Ohio',
+        'OK' => 'Oklahoma',
+        'OR' => 'Oregon',
+        'PA' => 'Pennsylvania',
+        'RI' => 'Rhode Island',
+        'SC' => 'South Carolina',
+        'SD' => 'South Dakota',
+        'TN' => 'Tennessee',
+        'TX' => 'Texas',
+        'UT' => 'Utah',
+        'VT' => 'Vermont',
+        'VA' => 'Virginia',
+        'WA' => 'Washington',
+        'WV' => 'West Virginia',
+        'WI' => 'Wisconsin',
+        'WY' => 'Wyoming',
+    ];
+@endphp
 <!-- Filter qismi -->
 <div class="filter-card mb-3 collapse show" id="projectsFilterContent">
     <div class="p-3">
@@ -381,6 +436,23 @@
                     <input type="text" id="searchInput" class="form-control border-start-0" placeholder="Loyiha nomi">
                 </div>
             </div>
+
+            <x-select-with-search 
+                name="user_state" 
+                label="Davlatni tanlang" 
+                :datas="$state"
+                colMd="6" 
+                placeholder="Davlatni tanlang"
+                :selected="request()->get('user_state', '')"
+            />
+
+
+            <x-from-to-date-picker
+                    fromName="startDate" 
+                    toName="endDate" 
+                    label="Tanlangan Sana Oralig'i" 
+            />
+            
             <div class="col-md-2">
                 <label for="categoryFilter" class="form-label mb-2">{{ __('admin.category') }}</label>
                 <select id="categoryFilter" class="form-select">

@@ -488,3 +488,612 @@ if (!function_exists('getInvestorsData')) {
         return $roles;
     }
 }
+
+function getLoginHistoriesData($id = null): Collection
+{
+    $histories = collect([
+        [
+            'id' => 1,
+            'user' => 'Olim Jo‘rayev',
+            'username' => 'olim_admin',
+            'date' => '2025-01-02 04:00', // eng yangi
+            'ip' => '192.168.1.10',
+            'result' => 'Ogohlantirish', // 3-marta xato
+            'geo' => 'Toshkent',
+            'user_agent' => 'Chrome / Windows 10',
+            'session_id' => 'SID-15',
+            'login_duration' => '3 soniya',
+            'phone' => '+998901112233'
+        ],
+        [
+            'id' => 2,
+            'user' => 'Olim Jo‘rayev',
+            'username' => 'olim_admin',
+            'date' => '2025-01-02 03:55', // 2-xato
+            'ip' => '192.168.1.10',
+            'result' => 'Xato',
+            'geo' => 'Toshkent',
+            'user_agent' => 'Chrome / Windows 10',
+            'session_id' => 'SID-14',
+            'login_duration' => '2 soniya',
+            'phone' => '+998901112233'
+        ],
+        [
+            'id' => 3,
+            'user' => 'Olim Jo‘rayev',
+            'username' => 'olim_admin',
+            'date' => '2025-01-02 03:50', // 1-xato
+            'ip' => '192.168.1.10',
+            'result' => 'Xato',
+            'geo' => 'Toshkent',
+            'user_agent' => 'Chrome / Windows 10',
+            'session_id' => 'SID-13',
+            'login_duration' => '1 soniya',
+            'phone' => '+998901112233'
+        ],
+        [
+            'id' => 4,
+            'user' => 'Javohir Tursunov',
+            'username' => 'javohir_mod1',
+            'date' => '2025-01-02 03:45',
+            'ip' => '192.168.1.11',
+            'result' => 'Muvaffaqiyatli',
+            'geo' => 'Toshkent',
+            'user_agent' => 'Firefox / Windows 11',
+            'session_id' => 'SID-12',
+            'login_duration' => '4 soniya',
+            'phone' => '+998932223344'
+        ],
+        [
+            'id' => 5,
+            'user' => 'Rustam Abdurahmonov',
+            'username' => 'rustam_mod2',
+            'date' => '2025-01-02 03:40',
+            'ip' => '192.168.1.12',
+            'result' => 'Ogohlantirish', // 3-marta xato
+            'geo' => 'Samarqand',
+            'user_agent' => 'Safari / MacOS',
+            'session_id' => 'SID-11',
+            'login_duration' => '2 soniya',
+            'phone' => '+998953334455'
+        ],
+        [
+            'id' => 6,
+            'user' => 'Rustam Abdurahmonov',
+            'username' => 'rustam_mod2',
+            'date' => '2025-01-02 03:35',
+            'ip' => '192.168.1.12',
+            'result' => 'Xato',
+            'geo' => 'Samarqand',
+            'user_agent' => 'Safari / MacOS',
+            'session_id' => 'SID-10',
+            'login_duration' => '3 soniya',
+            'phone' => '+998953334455'
+        ],
+        [
+            'id' => 7,
+            'user' => 'Rustam Abdurahmonov',
+            'username' => 'rustam_mod2',
+            'date' => '2025-01-02 03:30',
+            'ip' => '192.168.1.12',
+            'result' => 'Xato',
+            'geo' => 'Samarqand',
+            'user_agent' => 'Safari / MacOS',
+            'session_id' => 'SID-9',
+            'login_duration' => '2 soniya',
+            'phone' => '+998953334455'
+        ],
+        [
+            'id' => 8,
+            'user' => 'Zoir Bekmurodov',
+            'username' => 'zoir_mod3',
+            'date' => '2025-01-02 03:25',
+            'ip' => '192.168.1.13',
+            'result' => 'Muvaffaqiyatli',
+            'geo' => 'Buxoro',
+            'user_agent' => 'Edge / Windows 10',
+            'session_id' => 'SID-8',
+            'login_duration' => '6 soniya',
+            'phone' => '+998974445566'
+        ],
+        [
+            'id' => 9,
+            'user' => 'Nodir Qodirov',
+            'username' => 'nodir_aud1',
+            'date' => '2025-01-02 03:20',
+            'ip' => '192.168.1.14',
+            'result' => 'Xato',
+            'geo' => 'Toshkent',
+            'user_agent' => 'Chrome / Android',
+            'session_id' => 'SID-7',
+            'login_duration' => '3 soniya',
+            'phone' => '+998905556677'
+        ],
+        [
+            'id' => 10,
+            'user' => 'Umid Abdullayev',
+            'username' => 'umid_aud2',
+            'date' => '2025-01-02 03:15',
+            'ip' => '192.168.1.15',
+            'result' => 'Muvaffaqiyatli',
+            'geo' => 'Samarqand',
+            'user_agent' => 'Opera / Windows 10',
+            'session_id' => 'SID-6',
+            'login_duration' => '5 soniya',
+            'phone' => '+998936677888'
+        ],
+        [
+            'id' => 11,
+            'user' => 'Sirojiddin Madrahimov',
+            'username' => 'siroj_islam1',
+            'date' => '2025-01-02 03:10',
+            'ip' => '192.168.1.16',
+            'result' => 'Ogohlantirish', // 3-marta xato
+            'geo' => 'Toshkent',
+            'user_agent' => 'Chrome / iOS',
+            'session_id' => 'SID-5',
+            'login_duration' => '4 soniya',
+            'phone' => '+998977778899'
+        ],
+        [
+            'id' => 12,
+            'user' => 'Sirojiddin Madrahimov',
+            'username' => 'siroj_islam1',
+            'date' => '2025-01-02 03:05',
+            'ip' => '192.168.1.16',
+            'result' => 'Xato',
+            'geo' => 'Toshkent',
+            'user_agent' => 'Chrome / iOS',
+            'session_id' => 'SID-4',
+            'login_duration' => '2 soniya',
+            'phone' => '+998977778899'
+        ],
+        [
+            'id' => 13,
+            'user' => 'Sirojiddin Madrahimov',
+            'username' => 'siroj_islam1',
+            'date' => '2025-01-02 03:00',
+            'ip' => '192.168.1.16',
+            'result' => 'Xato',
+            'geo' => 'Toshkent',
+            'user_agent' => 'Chrome / iOS',
+            'session_id' => 'SID-3',
+            'login_duration' => '3 soniya',
+            'phone' => '+998977778899'
+        ],
+        [
+            'id' => 14,
+            'user' => 'Husan Sharipov',
+            'username' => 'husan_islam2',
+            'date' => '2025-01-02 02:55',
+            'ip' => '192.168.1.17',
+            'result' => 'Muvaffaqiyatli',
+            'geo' => 'Buxoro',
+            'user_agent' => 'Firefox / Linux',
+            'session_id' => 'SID-2',
+            'login_duration' => '7 soniya',
+            'phone' => '+998958889900'
+        ],
+        [
+            'id' => 15,
+            'user' => 'Sherzod Mamatov',
+            'username' => 'sherzod_admin2',
+            'date' => '2025-01-02 02:50',
+            'ip' => '192.168.1.18',
+            'result' => 'Xato',
+            'geo' => 'Samarqand',
+            'user_agent' => 'Edge / Windows 11',
+            'session_id' => 'SID-1',
+            'login_duration' => '2 soniya',
+            'phone' => '+998901124567'
+        ]
+    ]);
+
+    if ($id !== null) {
+        return $histories->where('id', $id)->values();
+    }
+
+    return $histories;
+}
+
+
+
+
+function getAllPermissionsData(): Collection
+{
+    return collect([
+        'tabs' => getTabs(),
+        'menus' => getMenusTab(),
+        'projects' => getProjectsTab(),
+        'revenues' => getRevenuesTab(),
+        'incomes' => getIncomesTab(),
+        'expenses' => getExpensesTab(),
+        'distributions' => getDistributionsTab(),
+        'contracts' => getContractsTab(),
+        'reports' => getReportsTab(),
+        'islamic' => getIslamicTab(),
+        'settings' => getSettingsTab(),
+        'administration' => getAdministrationTab(),
+        'notifications' => getNotificationsTab()
+    ]);
+}
+
+
+/**
+ * Tablar ro'yxati
+ */
+function getTabs(): Collection
+{
+    return collect([
+        ['id' => 'menus', 'name' => 'Menyular', 'icon' => 'list'],
+        ['id' => 'projects', 'name' => 'Investitsiya loyihalari', 'icon' => 'building'],
+        ['id' => 'revenues', 'name' => 'Tushumlar', 'icon' => 'currency-dollar'],
+        ['id' => 'incomes', 'name' => 'Daromadlar', 'icon' => 'wallet2'],
+        ['id' => 'expenses', 'name' => 'Xarajatlar', 'icon' => 'cash-stack'],
+        ['id' => 'distributions', 'name' => 'Taqsimot', 'icon' => 'diagram-3'],
+        ['id' => 'contracts', 'name' => 'Investitsiya shartnomalar', 'icon' => 'file-earmark-text'],
+        ['id' => 'reports', 'name' => 'Hisobotlar', 'icon' => 'bar-chart-line'],
+        ['id' => 'islamic', 'name' => 'Islom moliyasi', 'icon' => 'shield-check'],
+        ['id' => 'settings', 'name' => 'Sozlamalar', 'icon' => 'gear'],
+        ['id' => 'administration', 'name' => 'Ma\'muriyat', 'icon' => 'grid-3x3-gap'],
+        ['id' => 'notifications', 'name' => 'Bildirishnomalar', 'icon' => 'bell']
+    ]);
+}
+
+/**
+ * MENYULAR tab ma'lumotlari
+ */
+function getMenusTab(): Collection
+{
+    return collect([
+        ['id' => 1, 'name' => 'Dashboard', 'icon' => 'speedometer2', 'checked' => true],
+        ['id' => 2, 'name' => 'Investitsiya loyihalari', 'icon' => 'building', 'checked' => true],
+        ['id' => 3, 'name' => 'Tushumlar', 'icon' => 'currency-dollar', 'checked' => true],
+        ['id' => 4, 'name' => 'Daromadlar', 'icon' => 'wallet2', 'checked' => true],
+        ['id' => 5, 'name' => 'Xarajatlar', 'icon' => 'cash-stack', 'checked' => true],
+        ['id' => 6, 'name' => 'Taqsimot', 'icon' => 'diagram-3', 'checked' => true],
+        ['id' => 7, 'name' => 'Investitsiya shartnomalar', 'icon' => 'file-earmark-text', 'checked' => true],
+        ['id' => 8, 'name' => 'Hisobotlar', 'icon' => 'bar-chart-line', 'checked' => true],
+        ['id' => 9, 'name' => 'Islom moliyasi', 'icon' => 'shield-check', 'checked' => true],
+        ['id' => 10, 'name' => 'Sozlamalar', 'icon' => 'gear', 'checked' => true],
+        ['id' => 11, 'name' => 'Ma\'muriyat', 'icon' => 'grid-3x3-gap', 'checked' => true],
+        ['id' => 12, 'name' => 'Bildirishnomalar', 'icon' => 'bell', 'checked' => true]
+    ]);
+}
+
+/**
+ * INVESTITSIYA LOYIHALARI tab ma'lumotlari
+ */
+function getProjectsTab(): Collection
+{
+    return collect([
+        ['id' => 1, 'name' => 'Loyihalar ro\'yxati', 'route' => 'admin.projects.index', 'method' => 'default', 'checked' => false],
+        ['id' => 2, 'name' => 'Loyiha yaratish', 'route' => 'admin.projects.create', 'method' => 'default', 'checked' => false],
+        ['id' => 3, 'name' => 'Loyihani tahrirlash', 'route' => 'admin.projects.edit', 'method' => 'default', 'checked' => false],
+        ['id' => 4, 'name' => 'Loyihani o\'chirish', 'route' => 'admin.projects.destroy', 'method' => 'default', 'checked' => false],
+        ['id' => 5, 'name' => 'Loyiha investorlar ro\'yxati', 'route' => 'admin.project-investors.index', 'method' => 'default', 'checked' => false],
+        ['id' => 6, 'name' => 'Loyiha investor yaratish', 'route' => 'admin.project-investors.create', 'method' => 'default', 'checked' => false],
+        ['id' => 7, 'name' => 'Loyiha sotib olganlar', 'route' => 'admin.project-buyers.index', 'method' => 'default', 'checked' => false],
+        ['id' => 8, 'name' => 'Ulushga kirish so\'rovlari', 'route' => 'admin.project-entry-requests.index', 'method' => 'default', 'checked' => false],
+        ['id' => 9, 'name' => 'Ulushdan chiqish so\'rovlari', 'route' => 'admin.project-exit-requests.index', 'method' => 'default', 'checked' => false],
+        ['id' => 10, 'name' => 'Korxona rekvizitlari', 'route' => 'admin.company-details.index', 'method' => 'default', 'checked' => false]
+    ]);
+}
+
+/**
+ * TUSHUMLAR tab ma'lumotlari
+ */
+function getRevenuesTab(): Collection
+{
+    return collect([
+        ['id' => 1, 'name' => 'Tushumlar ro\'yxati', 'route' => 'admin.revenues.index', 'method' => 'default', 'checked' => false],
+        ['id' => 2, 'name' => 'Tushum qo\'shish', 'route' => 'admin.revenues.create', 'method' => 'default', 'checked' => false],
+        ['id' => 3, 'name' => 'Tushumni tahrirlash', 'route' => 'admin.revenues.edit', 'method' => 'default', 'checked' => false],
+        ['id' => 4, 'name' => 'Tushumni o\'chirish', 'route' => 'admin.revenues.destroy', 'method' => 'default', 'checked' => false]
+    ]);
+}
+
+/**
+ * DAROMADLAR tab ma'lumotlari
+ */
+function getIncomesTab(): Collection
+{
+    return collect([
+        ['id' => 1, 'name' => 'Daromadlar ro\'yxati', 'route' => 'admin.incomes.index', 'method' => 'default', 'checked' => false],
+        ['id' => 2, 'name' => 'Daromad qo\'shish', 'route' => 'admin.incomes.create', 'method' => 'default', 'checked' => false],
+        ['id' => 3, 'name' => 'Daromadni tahrirlash', 'route' => 'admin.incomes.edit', 'method' => 'default', 'checked' => false],
+        ['id' => 4, 'name' => 'Daromadni o\'chirish', 'route' => 'admin.incomes.destroy', 'method' => 'default', 'checked' => false]
+    ]);
+}
+
+/**
+ * XARAJATLAR tab ma'lumotlari
+ */
+function getExpensesTab(): Collection
+{
+    return collect([
+        ['id' => 1, 'name' => 'Xarajatlar ro\'yxati', 'route' => 'admin.expenses.index', 'method' => 'default', 'checked' => false],
+        ['id' => 2, 'name' => 'Xarajat qo\'shish', 'route' => 'admin.expenses.create', 'method' => 'default', 'checked' => false],
+        ['id' => 3, 'name' => 'Xarajatni tahrirlash', 'route' => 'admin.expenses.edit', 'method' => 'default', 'checked' => false],
+        ['id' => 4, 'name' => 'Xarajatni o\'chirish', 'route' => 'admin.expenses.destroy', 'method' => 'default', 'checked' => false]
+    ]);
+}
+
+/**
+ * TAQSIMOT tab ma'lumotlari
+ */
+function getDistributionsTab(): Collection
+{
+    return collect([
+        ['id' => 1, 'name' => 'Taqsimotlar ro\'yxati', 'route' => 'admin.distributions.index', 'method' => 'default', 'checked' => false],
+        ['id' => 2, 'name' => 'Taqsimot yaratish', 'route' => 'admin.distributions.create', 'method' => 'default', 'checked' => false],
+        ['id' => 3, 'name' => 'Taqsimotni tahrirlash', 'route' => 'admin.distributions.edit', 'method' => 'default', 'checked' => false],
+        ['id' => 4, 'name' => 'Taqsimotni o\'chirish', 'route' => 'admin.distributions.destroy', 'method' => 'default', 'checked' => false]
+    ]);
+}
+
+/**
+ * INVESTITSIYA SHARTNOMALAR tab ma'lumotlari
+ */
+function getContractsTab(): Collection
+{
+    return collect([
+        ['id' => 1, 'name' => 'Shartnomalar ro\'yxati', 'route' => 'admin.investment-contracts.index', 'method' => 'default', 'checked' => false],
+        ['id' => 2, 'name' => 'Shartnoma yaratish', 'route' => 'admin.investment-contracts.create', 'method' => 'default', 'checked' => false],
+        ['id' => 3, 'name' => 'Shartnomani tahrirlash', 'route' => 'admin.investment-contracts.edit', 'method' => 'default', 'checked' => false],
+        ['id' => 4, 'name' => 'Shartnomani o\'chirish', 'route' => 'admin.investment-contracts.destroy', 'method' => 'default', 'checked' => false]
+    ]);
+}
+
+/**
+ * HISOBOTLAR tab ma'lumotlari
+ */
+function getReportsTab(): Collection
+{
+    return collect([
+        ['id' => 1, 'name' => 'Hisobotlar ro\'yxati', 'route' => 'admin.reports.index', 'method' => 'default', 'checked' => false],
+        ['id' => 2, 'name' => 'Hisobot yaratish', 'route' => 'admin.reports.create', 'method' => 'default', 'checked' => false],
+        ['id' => 3, 'name' => 'Hisobotni tahrirlash', 'route' => 'admin.reports.edit', 'method' => 'default', 'checked' => false],
+        ['id' => 4, 'name' => 'Hisobotni o\'chirish', 'route' => 'admin.reports.destroy', 'method' => 'default', 'checked' => false]
+    ]);
+}
+
+/**
+ * ISLOM MOLIYASI tab ma'lumotlari
+ */
+function getIslamicTab(): Collection
+{
+    return collect([
+        ['id' => 1, 'name' => 'Islom moliyasi ro\'yxati', 'route' => 'admin.islamic-finance.index', 'method' => 'default', 'checked' => false],
+        ['id' => 2, 'name' => 'Nazorat qo\'shish', 'route' => 'admin.islamic-finance.create', 'method' => 'default', 'checked' => false],
+        ['id' => 3, 'name' => 'Nazoratni tahrirlash', 'route' => 'admin.islamic-finance.edit', 'method' => 'default', 'checked' => false],
+        ['id' => 4, 'name' => 'Nazoratni o\'chirish', 'route' => 'admin.islamic-finance.destroy', 'method' => 'default', 'checked' => false]
+    ]);
+}
+
+/**
+ * SOZLAMALAR tab ma'lumotlari
+ */
+function getSettingsTab(): Collection
+{
+    return collect([
+        ['id' => 1, 'name' => 'Ma\'lumotnomalar', 'route' => 'admin.references.index', 'method' => 'default', 'checked' => false],
+        ['id' => 2, 'name' => 'Umumiy sozlamalar', 'route' => 'admin.general-settings.index', 'method' => 'default', 'checked' => false],
+        ['id' => 3, 'name' => 'Integratsiya sozlamalari', 'route' => 'admin.integration-settings.index', 'method' => 'default', 'checked' => false],
+        ['id' => 4, 'name' => 'Foydalanuvchi interfeysi', 'route' => 'admin.user-interface.index', 'method' => 'default', 'checked' => false],
+        ['id' => 5, 'name' => 'Til boshqaruvi', 'route' => 'admin.user-interface.language-management.index', 'method' => 'default', 'checked' => false],
+        ['id' => 6, 'name' => 'Tizim tarjimalari', 'route' => 'admin.user-interface.system-translations.index', 'method' => 'default', 'checked' => false],
+        ['id' => 7, 'name' => 'Shablon xabarlari', 'route' => 'admin.user-interface.template-messages.index', 'method' => 'default', 'checked' => false]
+    ]);
+}
+
+/**
+ * MA'MURIYAT tab ma'lumotlari
+ */
+function getAdministrationTab(): Collection
+{
+    return collect([
+        ['id' => 1, 'name' => 'Foydalanuvchilar ro\'yxati', 'route' => 'admin.users.index', 'method' => 'default', 'checked' => false],
+        ['id' => 2, 'name' => 'Foydalanuvchi yaratish', 'route' => 'admin.users.create', 'method' => 'default', 'checked' => false],
+        ['id' => 3, 'name' => 'Foydalanuvchini tahrirlash', 'route' => 'admin.users.edit', 'method' => 'default', 'checked' => false],
+        ['id' => 4, 'name' => 'Foydalanuvchini o\'chirish', 'route' => 'admin.users.destroy', 'method' => 'default', 'checked' => false],
+        ['id' => 5, 'name' => 'Investorlar ro\'yxati', 'route' => 'admin.investors.index', 'method' => 'default', 'checked' => false],
+        ['id' => 6, 'name' => 'Investor yaratish', 'route' => 'admin.investors.create', 'method' => 'default', 'checked' => false],
+        ['id' => 7, 'name' => 'Rollar ro\'yxati', 'route' => 'admin.roles.index', 'method' => 'default', 'checked' => false],
+        ['id' => 8, 'name' => 'Rol yaratish', 'route' => 'admin.roles.create', 'method' => 'default', 'checked' => false],
+        ['id' => 9, 'name' => 'Login tarixi', 'route' => 'admin.login-histories.index', 'method' => 'default', 'checked' => false],
+        ['id' => 10, 'name' => 'Tizim loglar', 'route' => 'admin.system-logs.index', 'method' => 'default', 'checked' => false]
+    ]);
+}
+
+/**
+ * BILDIRISHNOMALAR tab ma'lumotlari
+ */
+function getNotificationsTab(): Collection
+{
+    return collect([
+        ['id' => 1, 'name' => 'Bildirishnomalar ro\'yxati', 'route' => 'admin.notifications.index', 'method' => 'default', 'checked' => false],
+        ['id' => 2, 'name' => 'Bildirishnoma yaratish', 'route' => 'admin.notifications.create', 'method' => 'default', 'checked' => false],
+        ['id' => 3, 'name' => 'Bildirishnomani tahrirlash', 'route' => 'admin.notifications.edit', 'method' => 'default', 'checked' => false],
+        ['id' => 4, 'name' => 'Bildirishnomani o\'chirish', 'route' => 'admin.notifications.destroy', 'method' => 'default', 'checked' => false]
+    ]);
+}
+
+
+
+function getSystemLogsData($id = null): Collection
+{
+    $systemLogs =  collect([
+        [
+            'id' => 1,
+            'time' => '2025-12-02 10:05:30',
+            'level' => 'Muvaffaqiyatli',
+            'action' => 'UPDATE',
+            'module' => "Loyihalar",
+            'user' => 'admin',
+            'ip' => '192.168.1.10',
+            'desc' => "Loyiha 'Yangi Texno Park' ma'lumotlari yangilandi",
+            'extra' => "O'zgartirilgan maydonlar: nomi, byudjet"
+        ],
+        [
+            'id' => 2,
+            'time' => '2025-12-02 10:01:15',
+            'level' => 'Xato',
+            'action' => 'CREATE',
+            'module' => "Loyihalar",
+            'user' => 'sardor',
+            'ip' => '192.168.1.15',
+            'desc' => "Loyiha yaratishda xatolik yuz berdi: Nomi takrorlanishi",
+            'extra' => "Xatolik kodi: 409 CONFLICT"
+        ],
+        [
+            'id' => 3,
+            'time' => '2025-12-02 09:55:40',
+            'level' => 'Muvaffaqiyatli',
+            'action' => 'EXPORT',
+            'module' => "Loyihalar",
+            'user' => 'ali',
+            'ip' => '192.168.1.20',
+            'desc' => "Loyihalar ro'yxatini CSV formatida export qilish amalga oshirildi",
+            'extra' => "Fayl nomi: projects_20251202.csv"
+        ],
+        [
+            'id' => 4,
+            'time' => '2025-12-02 09:45:00',
+            'level' => 'Ogohlantirish',
+            'action' => 'DELETE',
+            'module' => "Investorlar",
+            'user' => 'bobur',
+            'ip' => '192.168.1.18',
+            'desc' => "Investorni o'chirishda noaniqlik kuzatildi. Investitsiyalar hali mavjud",
+            'extra' => "Investor ID: 105, Status: Pending Confirmation"
+        ],
+        [
+            'id' => 5,
+            'time' => '2025-12-02 09:40:22',
+            'level' => 'Muvaffaqiyatli',
+            'action' => 'CREATE',
+            'module' => "Investorlar",
+            'user' => 'anna',
+            'ip' => '192.168.1.14',
+            'desc' => "Yangi investor 'Global Invest Corp' qo'shildi",
+            'extra' => "Investor ID: 108"
+        ],
+        [
+            'id' => 6,
+            'time' => '2025-12-02 09:35:10',
+            'level' => 'Xato',
+            'action' => 'UPDATE',
+            'module' => "Ma'muriyat bo'limi",
+            'user' => 'admin',
+            'ip' => '192.168.1.11',
+            'desc' => "Admin foydalanuvchisi sozlamalarida xatolik: Ruxsatlar saqlanmadi",
+            'extra' => "Database error: Timeout"
+        ],
+        [
+            'id' => 7,
+            'time' => '2025-12-02 09:30:55',
+            'level' => 'Ogohlantirish',
+            'action' => 'EXPORT',
+            'module' => "Hisobotlar",
+            'user' => 'dilshod',
+            'ip' => '192.168.1.21',
+            'desc' => "Yillik hisobot eksportida vaqtinchalik kechikish (5 soniya)",
+            'extra' => "Hisobot turi: Yillik daromad"
+        ],
+        [
+            'id' => 8,
+            'time' => '2025-12-02 09:25:00',
+            'level' => 'Muvaffaqiyatli',
+            'action' => 'CREATE',
+            'module' => "Hisobotlar",
+            'user' => 'ali',
+            'ip' => '192.168.1.22',
+            'desc' => "Yangi 'Oylik Moliyaviy' hisobot generatsiya qilindi",
+            'extra' => "Hisobot ID: 55"
+        ],
+        [
+            'id' => 9,
+            'time' => '2025-12-02 09:20:11',
+            'level' => 'Xato',
+            'action' => 'DELETE',
+            'module' => "Loyihalar",
+            'user' => 'sardor',
+            'ip' => '192.168.1.19',
+            'desc' => "Loyiha ID: 201 ni o'chirishda xatolik aniqlandi: Bog'liq resurslar topildi",
+            'extra' => "Xatolik kodi: 403 Forbidden"
+        ],
+        [
+            'id' => 10,
+            'time' => '2025-12-02 09:15:30',
+            'level' => 'Muvaffaqiyatli',
+            'action' => 'UPDATE',
+            'module' => "Investorlar",
+            'user' => 'bobur',
+            'ip' => '192.168.1.16',
+            'desc' => "Investor 'Azizov Group' aloqa ma'lumotlari yangilandi",
+            'extra' => "O'zgartirilgan maydonlar: telefon, email"
+        ],
+        [
+            'id' => 11,
+            'time' => '2025-12-01 18:00:00',
+            'level' => 'Muvaffaqiyatli',
+            'action' => 'CREATE',
+            'module' => "Foydalanuvchilar",
+            'user' => 'admin',
+            'ip' => '192.168.1.10',
+            'desc' => "Yangi foydalanuvchi 'Bekzod' qo'shildi",
+            'extra' => "Roli: Moderator"
+        ],
+        [
+            'id' => 12,
+            'time' => '2025-12-01 17:45:00',
+            'level' => 'Ogohlantirish',
+            'action' => 'UPDATE',
+            'module' => "Foydalanuvchilar",
+            'user' => 'ali',
+            'ip' => '192.168.1.20',
+            'desc' => "Foydalanuvchi 'Javohir' rolini o'zgartirishda ma'lumotlar to'liq emas",
+            'extra' => "Status: Incomplete form data"
+        ],
+        [
+            'id' => 13,
+            'time' => '2025-12-01 17:30:10',
+            'level' => 'Muvaffaqiyatli',
+            'action' => 'LOGIN',
+            'module' => "Ma'muriyat bo'limi",
+            'user' => 'rustam',
+            'ip' => '192.168.1.25',
+            'desc' => "Tizimga muvaffaqiyatli kirish",
+            'extra' => "Platforma: Web, Browser: Firefox"
+        ],
+        [
+            'id' => 14,
+            'time' => '2025-12-01 17:28:40',
+            'level' => 'Xato',
+            'action' => 'LOGIN',
+            'module' => "Ma'muriyat bo'limi",
+            'user' => 'rustam',
+            'ip' => '192.168.1.25',
+            'desc' => "Kirish urinishi xatosi: noto'g'ri parol",
+            'extra' => "Urinish soni: 3"
+        ],
+        [
+            'id' => 15,
+            'time' => '2025-12-01 17:20:00',
+            'level' => 'Muvaffaqiyatli',
+            'action' => 'VIEW',
+            'module' => "Loyihalar",
+            'user' => 'anna',
+            'ip' => '192.168.1.14',
+            'desc' => "Loyiha ro'yxatini ko'rish",
+            'extra' => "Filter: Active projects"
+        ],
+    ]);
+
+    if ($id !== null) {
+        return $systemLogs->where('id', $id)->values();
+    }
+    return $systemLogs;
+
+}

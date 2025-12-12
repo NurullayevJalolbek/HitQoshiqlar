@@ -5,8 +5,6 @@
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('assets/img/favicon.png') }}">
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/img/favicon-16.png') }}">
     <link rel="icon" type="image/svg+xml" href="{{ asset('assets/img/envast_logo.svg') }}">
-
-
     <!-- Font Awesome 6 Free -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
@@ -65,57 +63,73 @@
 
         /* Plaseholerni kamaytirish */
         <style>
-/* Input va selectlarni bir xil qiyofa qilish */
-.input-group .form-control,
-.input-group .form-select,
-.form-control,
-textarea {
-    border-radius: 0.25rem;
-    border: 1px solid #ced4da;
-    padding: 0.5rem 0.75rem;
-    font-size: 0.875rem;
-}
 
-/* Input-group ichidagi textni chiroyli qilish */
-.input-group-text {
-    border-right: none;
-    background-color: #fff;
-}
+        /* Input va selectlarni bir xil qiyofa qilish */
+        .input-group .form-control,
+        .input-group .form-select,
+        .form-control,
+        textarea {
+            border-radius: 0.25rem;
+            border: 1px solid #ced4da;
+            padding: 0.5rem 0.75rem;
+            font-size: 0.875rem;
+        }
 
-/* Input va select borderlarini uyg‘unlash */
-.input-group .form-control,
-.input-group .form-select {
-    border-left: none;
-}
+        /* Input-group ichidagi textni chiroyli qilish */
+        .input-group-text {
+            border-right: none;
+            background-color: #fff;
+        }
 
-/* Placeholder 60% opacity */
-::placeholder {
-    opacity: 0.6 !important;
-    color: #6c757d;
-}
+        /* Input va select borderlarini uyg‘unlash */
+        .input-group .form-control,
+        .input-group .form-select {
+            border-left: none;
+        }
 
-/* Focus bo‘lganda border va shadow */
-.form-control:focus,
-.form-select:focus,
-textarea:focus {
-    border-color: #3b82f6;
-    box-shadow: 0 0 0 0.2rem rgba(59, 130, 246, 0.25);
-    outline: none;
-}
+        /* Placeholder 60% opacity */
+        ::placeholder {
+            opacity: 0.6 !important;
+            color: #6c757d;
+        }
 
-/* Input va select kengligi va style bir xil bo‘lsin */
-.form-control,
-.form-select,
-textarea {
-    width: 100%;
-    transition: all 0.2s ease-in-out;
-}
+        /* Focus bo‘lganda border va shadow */
+        .form-control:focus,
+        .form-select:focus,
+        textarea:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 0.2rem rgba(59, 130, 246, 0.25);
+            outline: none;
+        }
 
-/* Barcha input va select ichidagi ikonlar rangini sozlash */
-.input-group-text i {
-    color: #6c757d;
-}
-</style>
+        /* Input va select kengligi va style bir xil bo‘lsin */
+        .form-control,
+        .form-select,
+        textarea {
+            width: 100%;
+            transition: all 0.2s ease-in-out;
+        }
+
+        /* Barcha input va select ichidagi ikonlar rangini sozlash */
+        .input-group-text i {
+            color: #6c757d !important;
+        }
+
+        .status-active {
+            color: #10B981 !important;
+        }
+
+        .status-blocked {
+            color: #E11D48 !important;
+        }
+
+        .status-pending {
+            color: #f0bc74 !important;
+        }
+        .status-info {
+            color: #2361ce !important;
+        }
+    </style>
 
     </style>
     <!-- Sweet Alert -->

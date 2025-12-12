@@ -11,6 +11,21 @@
 </style>
 @endpush
 
+@php
+$roles = [
+    'Admin' => 'Admin',
+    'Moliyaviy auditor' => 'Moliyaviy auditor',
+    'Moderator' => 'Moderator',
+    'Islom moliyasi nazorati' => 'Islom moliyasi nazorati',
+];
+
+$statuses = [
+    'Faol' => 'Faol',
+    'Kutilmoqda' => 'Kutilmoqda',
+    'Bloklangan' => 'Bloklangan',
+];
+@endphp
+
 <div class="filter-card mb-3 mt-2 collapse show" id="userFilterContent" style="transition: all 0.3s ease;">
     <div class="border rounded p-3" style="border-color: rgba(0,0,0,0.05); background-color: #fff;">
         <div class="row g-3 align-items-end">
@@ -59,25 +74,28 @@
                 </div>
             </div>
 
-            <!-- Rol bo‘yicha filter -->
-            <div class="col-md-3 col-sm-6 col-12">
-                <label for="roleFilter">{{__('admin.by_role')}}</label>
-                <div class="input-group">
-                    <span class="input-group-text bg-white">
-                        <i class="fa-solid fa-user-shield text-muted"></i>
-                    </span>
-                    <select id="roleFilter" class="form-select">
-                        <option value="">{{__('admin.all')}}</option>
-                        <option value="Admin">Admin</option>
-                        <option value="Moliyaviy auditor">Moliyaviy auditor</option>
-                        <option value="Moderator">Moderator</option>
-                        <option value="Islom moliyasi nazorati">Islom moliyasi nazorati</option>
-                    </select>
-                </div>
-            </div>
+             <x-select-with-search 
+                name="roleFilter" 
+                label="Role boyicha" 
+                :datas="$roles"
+                colMd="3"
+                placeholder="Barchasi"
+                :selected="request()->get('roleFilter', '')"
+            />
+
+             <x-select-with-search 
+                name="statusFilter" 
+                label="Holati boyicha" 
+                :datas="$statuses"
+                colMd="3"
+                placeholder="Barchasi"
+                :selected="request()->get('statusFilter', '')"
+            />
+
+
 
             <!-- Holat bo‘yicha filter -->
-            <div class="col-md-3 col-sm-6 col-12">
+            <!-- <div class="col-md-3 col-sm-6 col-12">
                 <label for="statusFilter">{{__('admin.by_status')}}</label>
                 <div class="input-group">
                     <span class="input-group-text bg-white">
@@ -90,29 +108,13 @@
                         <option value="Bloklangan">Bloklangan</option>
                     </select>
                 </div>
-            </div>
+            </div> -->
 
-            <!-- Sana from -->
-            <div class="col-md-2 col-sm-6 col-12">
-                <label for="dateFrom">{{ __('admin.date_from') }}</label>
-                <div class="input-group">
-                    <span class="input-group-text bg-white">
-                        <i class="fa-solid fa-calendar-day text-muted"></i>
-                    </span>
-                    <input type="date" id="dateFrom" class="form-control">
-                </div>
-            </div>
-
-            <!-- Sana to -->
-            <div class="col-md-2 col-sm-6 col-12">
-                <label for="dateTo">{{ __('admin.date_to') }}</label>
-                <div class="input-group">
-                    <span class="input-group-text bg-white">
-                        <i class="fa-solid fa-calendar-check text-muted"></i>
-                    </span>
-                    <input type="date" id="dateTo" class="form-control">
-                </div>
-            </div>
+            <x-from-to-date-picker
+                colMd="4"
+                fromName="userFilterFromDate"
+                toName="userFilterToDate"
+                label="Tanlangan Sana Oralig'i" />
 
             <x-filter-buttons :search-text="__('admin.search')" :clear-text="__('admin.clear')" />
         </div>
