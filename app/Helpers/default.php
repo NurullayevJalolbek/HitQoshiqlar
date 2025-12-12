@@ -704,20 +704,31 @@ function getAllPermissionsData(): Collection
     return collect([
         'tabs' => getTabs(),
         'menus' => getMenusTab(),
+        'dashboard' => getDashboardTab(),
         'projects' => getProjectsTab(),
+        'project_investors' => getProjectInvestorsTab(),
+        'project_buyers' => getProjectBuyersTab(),
+        'project_entry_requests' => getProjectEntryRequestsTab(),
+        'project_exit_requests' => getProjectExitRequestsTab(),
+        'company_details' => getCompanyDetailsTab(),
         'revenues' => getRevenuesTab(),
-        'incomes' => getIncomesTab(),
         'expenses' => getExpensesTab(),
         'distributions' => getDistributionsTab(),
         'contracts' => getContractsTab(),
         'reports' => getReportsTab(),
         'islamic' => getIslamicTab(),
-        'settings' => getSettingsTab(),
-        'administration' => getAdministrationTab(),
+        'references' => getReferencesTab(),
+        'general_settings' => getGeneralSettingsTab(),
+        'integration_settings' => getIntegrationSettingsTab(),
+        'user_interface' => getUserInterfaceTab(),
+        'users' => getUsersTab(),
+        'investors' => getInvestorsTab(),
+        'roles' => getRolesTab(),
+        'login_histories' => getLoginHistoriesTab(),
+        'system_logs' => getSystemLogsTab(),
         'notifications' => getNotificationsTab()
     ]);
 }
-
 
 /**
  * Tablar ro'yxati
@@ -725,13 +736,13 @@ function getAllPermissionsData(): Collection
 function getTabs(): Collection
 {
     return collect([
-        ['id' => 'menus', 'name' => 'Menyular', 'icon' => 'list'],
-        ['id' => 'projects', 'name' => 'Investitsiya loyihalari', 'icon' => 'building'],
+        ['id' => 'dashboard', 'name' => 'Dashboard', 'icon' => 'speedometer2'],
+        ['id' => 'projects', 'name' => 'Loyihalar', 'icon' => 'building'],
         ['id' => 'revenues', 'name' => 'Tushumlar', 'icon' => 'currency-dollar'],
         ['id' => 'incomes', 'name' => 'Daromadlar', 'icon' => 'wallet2'],
         ['id' => 'expenses', 'name' => 'Xarajatlar', 'icon' => 'cash-stack'],
         ['id' => 'distributions', 'name' => 'Taqsimot', 'icon' => 'diagram-3'],
-        ['id' => 'contracts', 'name' => 'Investitsiya shartnomalar', 'icon' => 'file-earmark-text'],
+        ['id' => 'contracts', 'name' => 'Shartnomalar', 'icon' => 'file-earmark-text'],
         ['id' => 'reports', 'name' => 'Hisobotlar', 'icon' => 'bar-chart-line'],
         ['id' => 'islamic', 'name' => 'Islom moliyasi', 'icon' => 'shield-check'],
         ['id' => 'settings', 'name' => 'Sozlamalar', 'icon' => 'gear'],
@@ -747,175 +758,388 @@ function getMenusTab(): Collection
 {
     return collect([
         ['id' => 1, 'name' => 'Dashboard', 'icon' => 'speedometer2', 'checked' => true],
-        ['id' => 2, 'name' => 'Investitsiya loyihalari', 'icon' => 'building', 'checked' => true],
-        ['id' => 3, 'name' => 'Tushumlar', 'icon' => 'currency-dollar', 'checked' => true],
-        ['id' => 4, 'name' => 'Daromadlar', 'icon' => 'wallet2', 'checked' => true],
-        ['id' => 5, 'name' => 'Xarajatlar', 'icon' => 'cash-stack', 'checked' => true],
-        ['id' => 6, 'name' => 'Taqsimot', 'icon' => 'diagram-3', 'checked' => true],
-        ['id' => 7, 'name' => 'Investitsiya shartnomalar', 'icon' => 'file-earmark-text', 'checked' => true],
-        ['id' => 8, 'name' => 'Hisobotlar', 'icon' => 'bar-chart-line', 'checked' => true],
-        ['id' => 9, 'name' => 'Islom moliyasi', 'icon' => 'shield-check', 'checked' => true],
-        ['id' => 10, 'name' => 'Sozlamalar', 'icon' => 'gear', 'checked' => true],
-        ['id' => 11, 'name' => 'Ma\'muriyat', 'icon' => 'grid-3x3-gap', 'checked' => true],
-        ['id' => 12, 'name' => 'Bildirishnomalar', 'icon' => 'bell', 'checked' => true]
+        ['id' => 2, 'name' => 'Loyihalar', 'icon' => 'building', 'checked' => true],
+        ['id' => 3, 'name' => 'Investorlar', 'icon' => 'people', 'checked' => true],
+        ['id' => 4, 'name' => 'Xaridorlar', 'icon' => 'person-badge', 'checked' => true],
+        ['id' => 5, 'name' => 'Kirish so\'rovlari', 'icon' => 'door-open', 'checked' => true],
+        ['id' => 6, 'name' => 'Chiqish so\'rovlari', 'icon' => 'door-closed', 'checked' => true],
+        ['id' => 7, 'name' => 'Rekvizitlar', 'icon' => 'building', 'checked' => true],
+        ['id' => 8, 'name' => 'Tushumlar', 'icon' => 'currency-dollar', 'checked' => true],
+        ['id' => 9, 'name' => 'Xarajatlar', 'icon' => 'cash-stack', 'checked' => true],
+        ['id' => 10, 'name' => 'Taqsimot', 'icon' => 'diagram-3', 'checked' => true],
+        ['id' => 11, 'name' => 'Shartnomalar', 'icon' => 'file-earmark-text', 'checked' => true],
+        ['id' => 12, 'name' => 'Hisobotlar', 'icon' => 'bar-chart-line', 'checked' => true],
+        ['id' => 13, 'name' => 'Islom moliyasi', 'icon' => 'shield-check', 'checked' => true],
+        ['id' => 14, 'name' => 'Ma\'lumotnomalar', 'icon' => 'file-text', 'checked' => true],
+        ['id' => 15, 'name' => 'Umumiy sozlamalar', 'icon' => 'gear-wide', 'checked' => true],
+        ['id' => 16, 'name' => 'Integratsiyalar', 'icon' => 'plug', 'checked' => true],
+        ['id' => 17, 'name' => 'Interfeys', 'icon' => 'display', 'checked' => true],
+        ['id' => 18, 'name' => 'Foydalanuvchilar', 'icon' => 'person', 'checked' => true],
+        ['id' => 19, 'name' => 'Investorlar', 'icon' => 'people', 'checked' => true],
+        ['id' => 20, 'name' => 'Rollar', 'icon' => 'shield', 'checked' => true],
+        ['id' => 21, 'name' => 'Kirish tarixi', 'icon' => 'clock-history', 'checked' => true],
+        ['id' => 22, 'name' => 'Tizim loglari', 'icon' => 'journal-text', 'checked' => true],
+        ['id' => 23, 'name' => 'Bildirishnomalar', 'icon' => 'bell', 'checked' => true]
     ]);
 }
 
 /**
- * INVESTITSIYA LOYIHALARI tab ma'lumotlari
+ * 1. DASHBOARD
+ */
+function getDashboardTab(): Collection
+{
+    return collect([
+        ['id' => 1, 'name' => 'Dashboard ko\'rinishi', 'route' => 'admin.dashboard', 'method' => 'GET', 'checked' => false]
+    ]);
+}
+
+/**
+ * 2. LOYIHALAR
  */
 function getProjectsTab(): Collection
 {
     return collect([
-        ['id' => 1, 'name' => 'Loyihalar ro\'yxati', 'route' => 'admin.projects.index', 'method' => 'default', 'checked' => false],
-        ['id' => 2, 'name' => 'Loyiha yaratish', 'route' => 'admin.projects.create', 'method' => 'default', 'checked' => false],
-        ['id' => 3, 'name' => 'Loyihani tahrirlash', 'route' => 'admin.projects.edit', 'method' => 'default', 'checked' => false],
-        ['id' => 4, 'name' => 'Loyihani o\'chirish', 'route' => 'admin.projects.destroy', 'method' => 'default', 'checked' => false],
-        ['id' => 5, 'name' => 'Loyiha investorlar ro\'yxati', 'route' => 'admin.project-investors.index', 'method' => 'default', 'checked' => false],
-        ['id' => 6, 'name' => 'Loyiha investor yaratish', 'route' => 'admin.project-investors.create', 'method' => 'default', 'checked' => false],
-        ['id' => 7, 'name' => 'Loyiha sotib olganlar', 'route' => 'admin.project-buyers.index', 'method' => 'default', 'checked' => false],
-        ['id' => 8, 'name' => 'Ulushga kirish so\'rovlari', 'route' => 'admin.project-entry-requests.index', 'method' => 'default', 'checked' => false],
-        ['id' => 9, 'name' => 'Ulushdan chiqish so\'rovlari', 'route' => 'admin.project-exit-requests.index', 'method' => 'default', 'checked' => false],
-        ['id' => 10, 'name' => 'Korxona rekvizitlari', 'route' => 'admin.company-details.index', 'method' => 'default', 'checked' => false]
+        ['id' => 1, 'name' => 'Loyihalar ro\'yxati', 'route' => 'admin.projects.index', 'method' => 'GET', 'checked' => false],
+        ['id' => 2, 'name' => 'Loyiha yaratish', 'route' => 'admin.projects.create', 'method' => 'GET', 'checked' => false],
+        ['id' => 3, 'name' => 'Loyiha saqlash', 'route' => 'admin.projects.store', 'method' => 'POST', 'checked' => false],
+        ['id' => 4, 'name' => 'Loyihani ko\'rish', 'route' => 'admin.projects.show', 'method' => 'GET', 'checked' => false],
+        ['id' => 5, 'name' => 'Loyihani tahrirlash', 'route' => 'admin.projects.edit', 'method' => 'GET', 'checked' => false],
+        ['id' => 6, 'name' => 'Loyihani yangilash', 'route' => 'admin.projects.update', 'method' => 'PUT', 'checked' => false],
+        ['id' => 7, 'name' => 'Loyihani o\'chirish', 'route' => 'admin.projects.destroy', 'method' => 'DELETE', 'checked' => false]
     ]);
 }
 
 /**
- * TUSHUMLAR tab ma'lumotlari
+ * 3. LOYIHA INVESTORLAR
+ */
+function getProjectInvestorsTab(): Collection
+{
+    return collect([
+        ['id' => 1, 'name' => 'Loyiha investorlar ro\'yxati', 'route' => 'admin.project-investors.index', 'method' => 'GET', 'checked' => false],
+        ['id' => 2, 'name' => 'Loyiha investor yaratish', 'route' => 'admin.project-investors.create', 'method' => 'GET', 'checked' => false],
+        ['id' => 3, 'name' => 'Loyiha investor saqlash', 'route' => 'admin.project-investors.store', 'method' => 'POST', 'checked' => false],
+        ['id' => 4, 'name' => 'Loyiha investor ko\'rish', 'route' => 'admin.project-investors.show', 'method' => 'GET', 'checked' => false],
+        ['id' => 5, 'name' => 'Loyiha investor tahrirlash', 'route' => 'admin.project-investors.edit', 'method' => 'GET', 'checked' => false],
+        ['id' => 6, 'name' => 'Loyiha investor yangilash', 'route' => 'admin.project-investors.update', 'method' => 'PUT', 'checked' => false],
+        ['id' => 7, 'name' => 'Loyiha investor o\'chirish', 'route' => 'admin.project-investors.destroy', 'method' => 'DELETE', 'checked' => false]
+    ]);
+}
+
+/**
+ * 4. LOYIHA XARIDORLAR
+ */
+function getProjectBuyersTab(): Collection
+{
+    return collect([
+        ['id' => 1, 'name' => 'Loyiha xaridorlar ro\'yxati', 'route' => 'admin.project-buyers.index', 'method' => 'GET', 'checked' => false],
+        ['id' => 2, 'name' => 'Loyiha xaridor yaratish', 'route' => 'admin.project-buyers.create', 'method' => 'GET', 'checked' => false],
+        ['id' => 3, 'name' => 'Loyiha xaridor saqlash', 'route' => 'admin.project-buyers.store', 'method' => 'POST', 'checked' => false],
+        ['id' => 4, 'name' => 'Loyiha xaridor ko\'rish', 'route' => 'admin.project-buyers.show', 'method' => 'GET', 'checked' => false],
+        ['id' => 5, 'name' => 'Loyiha xaridor tahrirlash', 'route' => 'admin.project-buyers.edit', 'method' => 'GET', 'checked' => false],
+        ['id' => 6, 'name' => 'Loyiha xaridor yangilash', 'route' => 'admin.project-buyers.update', 'method' => 'PUT', 'checked' => false],
+        ['id' => 7, 'name' => 'Loyiha xaridor o\'chirish', 'route' => 'admin.project-buyers.destroy', 'method' => 'DELETE', 'checked' => false]
+    ]);
+}
+
+/**
+ * 5. KIRISH SO'ROVLARI
+ */
+function getProjectEntryRequestsTab(): Collection
+{
+    return collect([
+        ['id' => 1, 'name' => 'Kirish so\'rovlari ro\'yxati', 'route' => 'admin.project-entry-requests.index', 'method' => 'GET', 'checked' => false],
+        ['id' => 2, 'name' => 'Kirish so\'rovi yaratish', 'route' => 'admin.project-entry-requests.create', 'method' => 'GET', 'checked' => false],
+        ['id' => 3, 'name' => 'Kirish so\'rovi saqlash', 'route' => 'admin.project-entry-requests.store', 'method' => 'POST', 'checked' => false],
+        ['id' => 4, 'name' => 'Kirish so\'rovini ko\'rish', 'route' => 'admin.project-entry-requests.show', 'method' => 'GET', 'checked' => false],
+        ['id' => 5, 'name' => 'Kirish so\'rovini tahrirlash', 'route' => 'admin.project-entry-requests.edit', 'method' => 'GET', 'checked' => false],
+        ['id' => 6, 'name' => 'Kirish so\'rovini yangilash', 'route' => 'admin.project-entry-requests.update', 'method' => 'PUT', 'checked' => false],
+        ['id' => 7, 'name' => 'Kirish so\'rovini o\'chirish', 'route' => 'admin.project-entry-requests.destroy', 'method' => 'DELETE', 'checked' => false]
+    ]);
+}
+
+/**
+ * 6. CHIQISH SO'ROVLARI
+ */
+function getProjectExitRequestsTab(): Collection
+{
+    return collect([
+        ['id' => 1, 'name' => 'Chiqish so\'rovlari ro\'yxati', 'route' => 'admin.project-exit-requests.index', 'method' => 'GET', 'checked' => false],
+        ['id' => 2, 'name' => 'Chiqish so\'rovi yaratish', 'route' => 'admin.project-exit-requests.create', 'method' => 'GET', 'checked' => false],
+        ['id' => 3, 'name' => 'Chiqish so\'rovi saqlash', 'route' => 'admin.project-exit-requests.store', 'method' => 'POST', 'checked' => false],
+        ['id' => 4, 'name' => 'Chiqish so\'rovini ko\'rish', 'route' => 'admin.project-exit-requests.show', 'method' => 'GET', 'checked' => false],
+        ['id' => 5, 'name' => 'Chiqish so\'rovini tahrirlash', 'route' => 'admin.project-exit-requests.edit', 'method' => 'GET', 'checked' => false],
+        ['id' => 6, 'name' => 'Chiqish so\'rovini yangilash', 'route' => 'admin.project-exit-requests.update', 'method' => 'PUT', 'checked' => false],
+        ['id' => 7, 'name' => 'Chiqish so\'rovini o\'chirish', 'route' => 'admin.project-exit-requests.destroy', 'method' => 'DELETE', 'checked' => false]
+    ]);
+}
+
+/**
+ * 7. REKVIZITLAR
+ */
+function getCompanyDetailsTab(): Collection
+{
+    return collect([
+        ['id' => 1, 'name' => 'Korxona rekvizitlari', 'route' => 'admin.company-details.index', 'method' => 'GET', 'checked' => false],
+        ['id' => 2, 'name' => 'Rekvizit yaratish', 'route' => 'admin.company-details.create', 'method' => 'GET', 'checked' => false],
+        ['id' => 3, 'name' => 'Rekvizit saqlash', 'route' => 'admin.company-details.store', 'method' => 'POST', 'checked' => false],
+        ['id' => 4, 'name' => 'Rekvizitni ko\'rish', 'route' => 'admin.company-details.show', 'method' => 'GET', 'checked' => false],
+        ['id' => 5, 'name' => 'Rekvizitni tahrirlash', 'route' => 'admin.company-details.edit', 'method' => 'GET', 'checked' => false],
+        ['id' => 6, 'name' => 'Rekvizitni yangilash', 'route' => 'admin.company-details.update', 'method' => 'PUT', 'checked' => false],
+        ['id' => 7, 'name' => 'Rekvizitni o\'chirish', 'route' => 'admin.company-details.destroy', 'method' => 'DELETE', 'checked' => false]
+    ]);
+}
+
+/**
+ * 8. TUSHUMLAR
  */
 function getRevenuesTab(): Collection
 {
     return collect([
-        ['id' => 1, 'name' => 'Tushumlar ro\'yxati', 'route' => 'admin.revenues.index', 'method' => 'default', 'checked' => false],
-        ['id' => 2, 'name' => 'Tushum qo\'shish', 'route' => 'admin.revenues.create', 'method' => 'default', 'checked' => false],
-        ['id' => 3, 'name' => 'Tushumni tahrirlash', 'route' => 'admin.revenues.edit', 'method' => 'default', 'checked' => false],
-        ['id' => 4, 'name' => 'Tushumni o\'chirish', 'route' => 'admin.revenues.destroy', 'method' => 'default', 'checked' => false]
+        ['id' => 1, 'name' => 'Tushumlar ro\'yxati', 'route' => 'admin.revenues.index', 'method' => 'GET', 'checked' => false],
+        ['id' => 2, 'name' => 'Tushum yaratish', 'route' => 'admin.revenues.create', 'method' => 'GET', 'checked' => false],
+        ['id' => 3, 'name' => 'Tushum saqlash', 'route' => 'admin.revenues.store', 'method' => 'POST', 'checked' => false],
+        ['id' => 4, 'name' => 'Tushumni ko\'rish', 'route' => 'admin.revenues.show', 'method' => 'GET', 'checked' => false],
+        ['id' => 5, 'name' => 'Tushumni tahrirlash', 'route' => 'admin.revenues.edit', 'method' => 'GET', 'checked' => false],
+        ['id' => 6, 'name' => 'Tushumni yangilash', 'route' => 'admin.revenues.update', 'method' => 'PUT', 'checked' => false],
+        ['id' => 7, 'name' => 'Tushumni o\'chirish', 'route' => 'admin.revenues.destroy', 'method' => 'DELETE', 'checked' => false]
     ]);
 }
 
 /**
- * DAROMADLAR tab ma'lumotlari
- */
-function getIncomesTab(): Collection
-{
-    return collect([
-        ['id' => 1, 'name' => 'Daromadlar ro\'yxati', 'route' => 'admin.incomes.index', 'method' => 'default', 'checked' => false],
-        ['id' => 2, 'name' => 'Daromad qo\'shish', 'route' => 'admin.incomes.create', 'method' => 'default', 'checked' => false],
-        ['id' => 3, 'name' => 'Daromadni tahrirlash', 'route' => 'admin.incomes.edit', 'method' => 'default', 'checked' => false],
-        ['id' => 4, 'name' => 'Daromadni o\'chirish', 'route' => 'admin.incomes.destroy', 'method' => 'default', 'checked' => false]
-    ]);
-}
-
-/**
- * XARAJATLAR tab ma'lumotlari
+ * 9. XARAJATLAR
  */
 function getExpensesTab(): Collection
 {
     return collect([
-        ['id' => 1, 'name' => 'Xarajatlar ro\'yxati', 'route' => 'admin.expenses.index', 'method' => 'default', 'checked' => false],
-        ['id' => 2, 'name' => 'Xarajat qo\'shish', 'route' => 'admin.expenses.create', 'method' => 'default', 'checked' => false],
-        ['id' => 3, 'name' => 'Xarajatni tahrirlash', 'route' => 'admin.expenses.edit', 'method' => 'default', 'checked' => false],
-        ['id' => 4, 'name' => 'Xarajatni o\'chirish', 'route' => 'admin.expenses.destroy', 'method' => 'default', 'checked' => false]
+        ['id' => 1, 'name' => 'Xarajatlar ro\'yxati', 'route' => 'admin.expenses.index', 'method' => 'GET', 'checked' => false],
+        ['id' => 2, 'name' => 'Xarajat yaratish', 'route' => 'admin.expenses.create', 'method' => 'GET', 'checked' => false],
+        ['id' => 3, 'name' => 'Xarajat saqlash', 'route' => 'admin.expenses.store', 'method' => 'POST', 'checked' => false],
+        ['id' => 4, 'name' => 'Xarajatni ko\'rish', 'route' => 'admin.expenses.show', 'method' => 'GET', 'checked' => false],
+        ['id' => 5, 'name' => 'Xarajatni tahrirlash', 'route' => 'admin.expenses.edit', 'method' => 'GET', 'checked' => false],
+        ['id' => 6, 'name' => 'Xarajatni yangilash', 'route' => 'admin.expenses.update', 'method' => 'PUT', 'checked' => false],
+        ['id' => 7, 'name' => 'Xarajatni o\'chirish', 'route' => 'admin.expenses.destroy', 'method' => 'DELETE', 'checked' => false]
     ]);
 }
 
 /**
- * TAQSIMOT tab ma'lumotlari
+ * 10. TAQSIMOT
  */
 function getDistributionsTab(): Collection
 {
     return collect([
-        ['id' => 1, 'name' => 'Taqsimotlar ro\'yxati', 'route' => 'admin.distributions.index', 'method' => 'default', 'checked' => false],
-        ['id' => 2, 'name' => 'Taqsimot yaratish', 'route' => 'admin.distributions.create', 'method' => 'default', 'checked' => false],
-        ['id' => 3, 'name' => 'Taqsimotni tahrirlash', 'route' => 'admin.distributions.edit', 'method' => 'default', 'checked' => false],
-        ['id' => 4, 'name' => 'Taqsimotni o\'chirish', 'route' => 'admin.distributions.destroy', 'method' => 'default', 'checked' => false]
+        ['id' => 1, 'name' => 'Taqsimotlar ro\'yxati', 'route' => 'admin.distributions.index', 'method' => 'GET', 'checked' => false],
+        ['id' => 2, 'name' => 'Taqsimot yaratish', 'route' => 'admin.distributions.create', 'method' => 'GET', 'checked' => false],
+        ['id' => 3, 'name' => 'Taqsimot saqlash', 'route' => 'admin.distributions.store', 'method' => 'POST', 'checked' => false],
+        ['id' => 4, 'name' => 'Taqsimotni ko\'rish', 'route' => 'admin.distributions.show', 'method' => 'GET', 'checked' => false],
+        ['id' => 5, 'name' => 'Taqsimotni tahrirlash', 'route' => 'admin.distributions.edit', 'method' => 'GET', 'checked' => false],
+        ['id' => 6, 'name' => 'Taqsimotni yangilash', 'route' => 'admin.distributions.update', 'method' => 'PUT', 'checked' => false],
+        ['id' => 7, 'name' => 'Taqsimotni o\'chirish', 'route' => 'admin.distributions.destroy', 'method' => 'DELETE', 'checked' => false]
     ]);
 }
 
 /**
- * INVESTITSIYA SHARTNOMALAR tab ma'lumotlari
+ * 11. SHARTNOMALAR
  */
 function getContractsTab(): Collection
 {
     return collect([
-        ['id' => 1, 'name' => 'Shartnomalar ro\'yxati', 'route' => 'admin.investment-contracts.index', 'method' => 'default', 'checked' => false],
-        ['id' => 2, 'name' => 'Shartnoma yaratish', 'route' => 'admin.investment-contracts.create', 'method' => 'default', 'checked' => false],
-        ['id' => 3, 'name' => 'Shartnomani tahrirlash', 'route' => 'admin.investment-contracts.edit', 'method' => 'default', 'checked' => false],
-        ['id' => 4, 'name' => 'Shartnomani o\'chirish', 'route' => 'admin.investment-contracts.destroy', 'method' => 'default', 'checked' => false]
+        ['id' => 1, 'name' => 'Shartnomalar ro\'yxati', 'route' => 'admin.investment-contracts.index', 'method' => 'GET', 'checked' => false],
+        ['id' => 2, 'name' => 'Shartnoma yaratish', 'route' => 'admin.investment-contracts.create', 'method' => 'GET', 'checked' => false],
+        ['id' => 3, 'name' => 'Shartnoma saqlash', 'route' => 'admin.investment-contracts.store', 'method' => 'POST', 'checked' => false],
+        ['id' => 4, 'name' => 'Shartnomani ko\'rish', 'route' => 'admin.investment-contracts.show', 'method' => 'GET', 'checked' => false],
+        ['id' => 5, 'name' => 'Shartnomani tahrirlash', 'route' => 'admin.investment-contracts.edit', 'method' => 'GET', 'checked' => false],
+        ['id' => 6, 'name' => 'Shartnomani yangilash', 'route' => 'admin.investment-contracts.update', 'method' => 'PUT', 'checked' => false],
+        ['id' => 7, 'name' => 'Shartnomani o\'chirish', 'route' => 'admin.investment-contracts.destroy', 'method' => 'DELETE', 'checked' => false]
     ]);
 }
 
 /**
- * HISOBOTLAR tab ma'lumotlari
+ * 12. HISOBOTLAR
  */
 function getReportsTab(): Collection
 {
     return collect([
-        ['id' => 1, 'name' => 'Hisobotlar ro\'yxati', 'route' => 'admin.reports.index', 'method' => 'default', 'checked' => false],
-        ['id' => 2, 'name' => 'Hisobot yaratish', 'route' => 'admin.reports.create', 'method' => 'default', 'checked' => false],
-        ['id' => 3, 'name' => 'Hisobotni tahrirlash', 'route' => 'admin.reports.edit', 'method' => 'default', 'checked' => false],
-        ['id' => 4, 'name' => 'Hisobotni o\'chirish', 'route' => 'admin.reports.destroy', 'method' => 'default', 'checked' => false]
+        ['id' => 1, 'name' => 'Hisobotlar ro\'yxati', 'route' => 'admin.reports.index', 'method' => 'GET', 'checked' => false],
+        ['id' => 2, 'name' => 'Hisobot yaratish', 'route' => 'admin.reports.create', 'method' => 'GET', 'checked' => false],
+        ['id' => 3, 'name' => 'Hisobot saqlash', 'route' => 'admin.reports.store', 'method' => 'POST', 'checked' => false],
+        ['id' => 4, 'name' => 'Hisobotni ko\'rish', 'route' => 'admin.reports.show', 'method' => 'GET', 'checked' => false],
+        ['id' => 5, 'name' => 'Hisobotni tahrirlash', 'route' => 'admin.reports.edit', 'method' => 'GET', 'checked' => false],
+        ['id' => 6, 'name' => 'Hisobotni yangilash', 'route' => 'admin.reports.update', 'method' => 'PUT', 'checked' => false],
+        ['id' => 7, 'name' => 'Hisobotni o\'chirish', 'route' => 'admin.reports.destroy', 'method' => 'DELETE', 'checked' => false]
     ]);
 }
 
 /**
- * ISLOM MOLIYASI tab ma'lumotlari
+ * 13. ISLOM MOLIYASI
  */
 function getIslamicTab(): Collection
 {
     return collect([
-        ['id' => 1, 'name' => 'Islom moliyasi ro\'yxati', 'route' => 'admin.islamic-finance.index', 'method' => 'default', 'checked' => false],
-        ['id' => 2, 'name' => 'Nazorat qo\'shish', 'route' => 'admin.islamic-finance.create', 'method' => 'default', 'checked' => false],
-        ['id' => 3, 'name' => 'Nazoratni tahrirlash', 'route' => 'admin.islamic-finance.edit', 'method' => 'default', 'checked' => false],
-        ['id' => 4, 'name' => 'Nazoratni o\'chirish', 'route' => 'admin.islamic-finance.destroy', 'method' => 'default', 'checked' => false]
+        ['id' => 1, 'name' => 'Islom moliyasi ro\'yxati', 'route' => 'admin.islamic-finance.index', 'method' => 'GET', 'checked' => false],
+        ['id' => 2, 'name' => 'Islom moliyasi yaratish', 'route' => 'admin.islamic-finance.create', 'method' => 'GET', 'checked' => false],
+        ['id' => 3, 'name' => 'Islom moliyasi saqlash', 'route' => 'admin.islamic-finance.store', 'method' => 'POST', 'checked' => false],
+        ['id' => 4, 'name' => 'Islom moliyasi ko\'rish', 'route' => 'admin.islamic-finance.show', 'method' => 'GET', 'checked' => false],
+        ['id' => 5, 'name' => 'Islom moliyasi tahrirlash', 'route' => 'admin.islamic-finance.edit', 'method' => 'GET', 'checked' => false],
+        ['id' => 6, 'name' => 'Islom moliyasi yangilash', 'route' => 'admin.islamic-finance.update', 'method' => 'PUT', 'checked' => false],
+        ['id' => 7, 'name' => 'Islom moliyasi o\'chirish', 'route' => 'admin.islamic-finance.destroy', 'method' => 'DELETE', 'checked' => false]
     ]);
 }
 
 /**
- * SOZLAMALAR tab ma'lumotlari
+ * 14. MA'LUMOTNOMALAR
  */
-function getSettingsTab(): Collection
+function getReferencesTab(): Collection
 {
     return collect([
-        ['id' => 1, 'name' => 'Ma\'lumotnomalar', 'route' => 'admin.references.index', 'method' => 'default', 'checked' => false],
-        ['id' => 2, 'name' => 'Umumiy sozlamalar', 'route' => 'admin.general-settings.index', 'method' => 'default', 'checked' => false],
-        ['id' => 3, 'name' => 'Integratsiya sozlamalari', 'route' => 'admin.integration-settings.index', 'method' => 'default', 'checked' => false],
-        ['id' => 4, 'name' => 'Foydalanuvchi interfeysi', 'route' => 'admin.user-interface.index', 'method' => 'default', 'checked' => false],
-        ['id' => 5, 'name' => 'Til boshqaruvi', 'route' => 'admin.user-interface.language-management.index', 'method' => 'default', 'checked' => false],
-        ['id' => 6, 'name' => 'Tizim tarjimalari', 'route' => 'admin.user-interface.system-translations.index', 'method' => 'default', 'checked' => false],
-        ['id' => 7, 'name' => 'Shablon xabarlari', 'route' => 'admin.user-interface.template-messages.index', 'method' => 'default', 'checked' => false]
+        ['id' => 1, 'name' => 'Ma\'lumotnomalar ro\'yxati', 'route' => 'admin.references.index', 'method' => 'GET', 'checked' => false],
+        ['id' => 2, 'name' => 'Ma\'lumotnoma yaratish', 'route' => 'admin.references.create', 'method' => 'GET', 'checked' => false],
+        ['id' => 3, 'name' => 'Ma\'lumotnoma saqlash', 'route' => 'admin.references.store', 'method' => 'POST', 'checked' => false],
+        ['id' => 4, 'name' => 'Ma\'lumotnomani ko\'rish', 'route' => 'admin.references.show', 'method' => 'GET', 'checked' => false],
+        ['id' => 5, 'name' => 'Ma\'lumotnomani tahrirlash', 'route' => 'admin.references.edit', 'method' => 'GET', 'checked' => false],
+        ['id' => 6, 'name' => 'Ma\'lumotnomani yangilash', 'route' => 'admin.references.update', 'method' => 'PUT', 'checked' => false],
+        ['id' => 7, 'name' => 'Ma\'lumotnomani o\'chirish', 'route' => 'admin.references.destroy', 'method' => 'DELETE', 'checked' => false]
     ]);
 }
 
 /**
- * MA'MURIYAT tab ma'lumotlari
+ * 15. UMUMIY SOZLAMALAR
  */
-function getAdministrationTab(): Collection
+function getGeneralSettingsTab(): Collection
 {
     return collect([
-        ['id' => 1, 'name' => 'Foydalanuvchilar ro\'yxati', 'route' => 'admin.users.index', 'method' => 'default', 'checked' => false],
-        ['id' => 2, 'name' => 'Foydalanuvchi yaratish', 'route' => 'admin.users.create', 'method' => 'default', 'checked' => false],
-        ['id' => 3, 'name' => 'Foydalanuvchini tahrirlash', 'route' => 'admin.users.edit', 'method' => 'default', 'checked' => false],
-        ['id' => 4, 'name' => 'Foydalanuvchini o\'chirish', 'route' => 'admin.users.destroy', 'method' => 'default', 'checked' => false],
-        ['id' => 5, 'name' => 'Investorlar ro\'yxati', 'route' => 'admin.investors.index', 'method' => 'default', 'checked' => false],
-        ['id' => 6, 'name' => 'Investor yaratish', 'route' => 'admin.investors.create', 'method' => 'default', 'checked' => false],
-        ['id' => 7, 'name' => 'Rollar ro\'yxati', 'route' => 'admin.roles.index', 'method' => 'default', 'checked' => false],
-        ['id' => 8, 'name' => 'Rol yaratish', 'route' => 'admin.roles.create', 'method' => 'default', 'checked' => false],
-        ['id' => 9, 'name' => 'Login tarixi', 'route' => 'admin.login-histories.index', 'method' => 'default', 'checked' => false],
-        ['id' => 10, 'name' => 'Tizim loglar', 'route' => 'admin.system-logs.index', 'method' => 'default', 'checked' => false]
+        ['id' => 1, 'name' => 'Umumiy sozlamalar', 'route' => 'admin.general-settings.index', 'method' => 'GET', 'checked' => false],
+        ['id' => 2, 'name' => 'Sozlamani yaratish', 'route' => 'admin.general-settings.create', 'method' => 'GET', 'checked' => false],
+        ['id' => 3, 'name' => 'Sozlamani saqlash', 'route' => 'admin.general-settings.store', 'method' => 'POST', 'checked' => false],
+        ['id' => 4, 'name' => 'Sozlamani ko\'rish', 'route' => 'admin.general-settings.show', 'method' => 'GET', 'checked' => false],
+        ['id' => 5, 'name' => 'Sozlamani tahrirlash', 'route' => 'admin.general-settings.edit', 'method' => 'GET', 'checked' => false],
+        ['id' => 6, 'name' => 'Sozlamani yangilash', 'route' => 'admin.general-settings.update', 'method' => 'PUT', 'checked' => false],
+        ['id' => 7, 'name' => 'Sozlamani o\'chirish', 'route' => 'admin.general-settings.destroy', 'method' => 'DELETE', 'checked' => false]
     ]);
 }
 
 /**
- * BILDIRISHNOMALAR tab ma'lumotlari
+ * 16. INTEGRATSIYALAR
+ */
+function getIntegrationSettingsTab(): Collection
+{
+    return collect([
+        ['id' => 1, 'name' => 'Integratsiya sozlamalari', 'route' => 'admin.integration-settings.index', 'method' => 'GET', 'checked' => false],
+        ['id' => 2, 'name' => 'Integratsiya yaratish', 'route' => 'admin.integration-settings.create', 'method' => 'GET', 'checked' => false],
+        ['id' => 3, 'name' => 'Integratsiya saqlash', 'route' => 'admin.integration-settings.store', 'method' => 'POST', 'checked' => false],
+        ['id' => 4, 'name' => 'Integratsiyani ko\'rish', 'route' => 'admin.integration-settings.show', 'method' => 'GET', 'checked' => false],
+        ['id' => 5, 'name' => 'Integratsiyani tahrirlash', 'route' => 'admin.integration-settings.edit', 'method' => 'GET', 'checked' => false],
+        ['id' => 6, 'name' => 'Integratsiyani yangilash', 'route' => 'admin.integration-settings.update', 'method' => 'PUT', 'checked' => false],
+        ['id' => 7, 'name' => 'Integratsiyani o\'chirish', 'route' => 'admin.integration-settings.destroy', 'method' => 'DELETE', 'checked' => false]
+    ]);
+}
+
+/**
+ * 17. INTERFEYS
+ */
+function getUserInterfaceTab(): Collection
+{
+    return collect([
+        ['id' => 1, 'name' => 'Interfeys sozlamalari', 'route' => 'admin.user-interface.index', 'method' => 'GET', 'checked' => false],
+        ['id' => 2, 'name' => 'Til boshqaruvi', 'route' => 'admin.user-interface.language-management.index', 'method' => 'GET', 'checked' => false],
+        ['id' => 3, 'name' => 'Tizim tarjimalari', 'route' => 'admin.user-interface.system-translations.index', 'method' => 'GET', 'checked' => false],
+        ['id' => 4, 'name' => 'Shablon xabarlari', 'route' => 'admin.user-interface.template-messages.index', 'method' => 'GET', 'checked' => false]
+    ]);
+}
+
+/**
+ * 18. FOYDALANUVCHILAR
+ */
+function getUsersTab(): Collection
+{
+    return collect([
+        ['id' => 1, 'name' => 'Foydalanuvchilar ro\'yxati', 'route' => 'admin.users.index', 'method' => 'GET', 'checked' => false],
+        ['id' => 2, 'name' => 'Foydalanuvchi yaratish', 'route' => 'admin.users.create', 'method' => 'GET', 'checked' => false],
+        ['id' => 3, 'name' => 'Foydalanuvchi saqlash', 'route' => 'admin.users.store', 'method' => 'POST', 'checked' => false],
+        ['id' => 4, 'name' => 'Foydalanuvchini ko\'rish', 'route' => 'admin.users.show', 'method' => 'GET', 'checked' => false],
+        ['id' => 5, 'name' => 'Foydalanuvchini tahrirlash', 'route' => 'admin.users.edit', 'method' => 'GET', 'checked' => false],
+        ['id' => 6, 'name' => 'Foydalanuvchini yangilash', 'route' => 'admin.users.update', 'method' => 'PUT', 'checked' => false],
+        ['id' => 7, 'name' => 'Foydalanuvchini o\'chirish', 'route' => 'admin.users.destroy', 'method' => 'DELETE', 'checked' => false]
+    ]);
+}
+
+/**
+ * 19. INVESTORLAR (Ma'muriyat)
+ */
+function getInvestorsTab(): Collection
+{
+    return collect([
+        ['id' => 1, 'name' => 'Investorlar ro\'yxati', 'route' => 'admin.investors.index', 'method' => 'GET', 'checked' => false],
+        ['id' => 2, 'name' => 'Investor yaratish', 'route' => 'admin.investors.create', 'method' => 'GET', 'checked' => false],
+        ['id' => 3, 'name' => 'Investor saqlash', 'route' => 'admin.investors.store', 'method' => 'POST', 'checked' => false],
+        ['id' => 4, 'name' => 'Investorni ko\'rish', 'route' => 'admin.investors.show', 'method' => 'GET', 'checked' => false],
+        ['id' => 5, 'name' => 'Investorni tahrirlash', 'route' => 'admin.investors.edit', 'method' => 'GET', 'checked' => false],
+        ['id' => 6, 'name' => 'Investorni yangilash', 'route' => 'admin.investors.update', 'method' => 'PUT', 'checked' => false],
+        ['id' => 7, 'name' => 'Investorni o\'chirish', 'route' => 'admin.investors.destroy', 'method' => 'DELETE', 'checked' => false]
+    ]);
+}
+
+/**
+ * 20. ROLLAR
+ */
+function getRolesTab(): Collection
+{
+    return collect([
+        ['id' => 1, 'name' => 'Rollar ro\'yxati', 'route' => 'admin.roles.index', 'method' => 'GET', 'checked' => false],
+        ['id' => 2, 'name' => 'Rol yaratish', 'route' => 'admin.roles.create', 'method' => 'GET', 'checked' => false],
+        ['id' => 3, 'name' => 'Rol saqlash', 'route' => 'admin.roles.store', 'method' => 'POST', 'checked' => false],
+        ['id' => 4, 'name' => 'Rolni ko\'rish', 'route' => 'admin.roles.show', 'method' => 'GET', 'checked' => false],
+        ['id' => 5, 'name' => 'Rolni tahrirlash', 'route' => 'admin.roles.edit', 'method' => 'GET', 'checked' => false],
+        ['id' => 6, 'name' => 'Rolni yangilash', 'route' => 'admin.roles.update', 'method' => 'PUT', 'checked' => false],
+        ['id' => 7, 'name' => 'Rolni o\'chirish', 'route' => 'admin.roles.destroy', 'method' => 'DELETE', 'checked' => false],
+        ['id' => 8, 'name' => 'Ruxsatlar boshqaruvi', 'route' => 'admin.role-permissions.index', 'method' => 'GET', 'checked' => false]
+    ]);
+}
+
+/**
+ * 21. KIRISH TARIXI
+ */
+function getLoginHistoriesTab(): Collection
+{
+    return collect([
+        ['id' => 1, 'name' => 'Kirish tarixi ro\'yxati', 'route' => 'admin.login-histories.index', 'method' => 'GET', 'checked' => false],
+        ['id' => 2, 'name' => 'Kirish tarixi yaratish', 'route' => 'admin.login-histories.create', 'method' => 'GET', 'checked' => false],
+        ['id' => 3, 'name' => 'Kirish tarixi saqlash', 'route' => 'admin.login-histories.store', 'method' => 'POST', 'checked' => false],
+        ['id' => 4, 'name' => 'Kirish tarixini ko\'rish', 'route' => 'admin.login-histories.show', 'method' => 'GET', 'checked' => false],
+        ['id' => 5, 'name' => 'Kirish tarixini tahrirlash', 'route' => 'admin.login-histories.edit', 'method' => 'GET', 'checked' => false],
+        ['id' => 6, 'name' => 'Kirish tarixini yangilash', 'route' => 'admin.login-histories.update', 'method' => 'PUT', 'checked' => false],
+        ['id' => 7, 'name' => 'Kirish tarixini o\'chirish', 'route' => 'admin.login-histories.destroy', 'method' => 'DELETE', 'checked' => false]
+    ]);
+}
+
+/**
+ * 22. TIZIM LOGLARI
+ */
+function getSystemLogsTab(): Collection
+{
+    return collect([
+        ['id' => 1, 'name' => 'Tizim loglari ro\'yxati', 'route' => 'admin.system-logs.index', 'method' => 'GET', 'checked' => false],
+        ['id' => 2, 'name' => 'Log yaratish', 'route' => 'admin.system-logs.create', 'method' => 'GET', 'checked' => false],
+        ['id' => 3, 'name' => 'Log saqlash', 'route' => 'admin.system-logs.store', 'method' => 'POST', 'checked' => false],
+        ['id' => 4, 'name' => 'Logni ko\'rish', 'route' => 'admin.system-logs.show', 'method' => 'GET', 'checked' => false],
+        ['id' => 5, 'name' => 'Logni tahrirlash', 'route' => 'admin.system-logs.edit', 'method' => 'GET', 'checked' => false],
+        ['id' => 6, 'name' => 'Logni yangilash', 'route' => 'admin.system-logs.update', 'method' => 'PUT', 'checked' => false],
+        ['id' => 7, 'name' => 'Logni o\'chirish', 'route' => 'admin.system-logs.destroy', 'method' => 'DELETE', 'checked' => false]
+    ]);
+}
+
+/**
+ * 23. BILDIRISHNOMALAR
  */
 function getNotificationsTab(): Collection
 {
     return collect([
-        ['id' => 1, 'name' => 'Bildirishnomalar ro\'yxati', 'route' => 'admin.notifications.index', 'method' => 'default', 'checked' => false],
-        ['id' => 2, 'name' => 'Bildirishnoma yaratish', 'route' => 'admin.notifications.create', 'method' => 'default', 'checked' => false],
-        ['id' => 3, 'name' => 'Bildirishnomani tahrirlash', 'route' => 'admin.notifications.edit', 'method' => 'default', 'checked' => false],
-        ['id' => 4, 'name' => 'Bildirishnomani o\'chirish', 'route' => 'admin.notifications.destroy', 'method' => 'default', 'checked' => false]
+        ['id' => 1, 'name' => 'Bildirishnomalar ro\'yxati', 'route' => 'admin.notifications.index', 'method' => 'GET', 'checked' => false],
+        ['id' => 2, 'name' => 'Bildirishnoma yaratish', 'route' => 'admin.notifications.create', 'method' => 'GET', 'checked' => false],
+        ['id' => 3, 'name' => 'Bildirishnoma saqlash', 'route' => 'admin.notifications.store', 'method' => 'POST', 'checked' => false],
+        ['id' => 4, 'name' => 'Bildirishnomani ko\'rish', 'route' => 'admin.notifications.show', 'method' => 'GET', 'checked' => false],
+        ['id' => 5, 'name' => 'Bildirishnomani tahrirlash', 'route' => 'admin.notifications.edit', 'method' => 'GET', 'checked' => false],
+        ['id' => 6, 'name' => 'Bildirishnomani yangilash', 'route' => 'admin.notifications.update', 'method' => 'PUT', 'checked' => false],
+        ['id' => 7, 'name' => 'Bildirishnomani o\'chirish', 'route' => 'admin.notifications.destroy', 'method' => 'DELETE', 'checked' => false]
     ]);
 }
 
