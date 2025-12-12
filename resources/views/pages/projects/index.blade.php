@@ -369,59 +369,59 @@
 
 @section('content')
 @php
-$state = [             // default davlatlar ro'yxati
-        'AL' => 'Alabama',
-        'AK' => 'Alaska',
-        'AZ' => 'Arizona',
-        'AR' => 'Arkansas',
-        'CA' => 'California',
-        'CO' => 'Colorado',
-        'CT' => 'Connecticut',
-        'DE' => 'Delaware',
-        'DC' => 'District Of Columbia',
-        'FL' => 'Florida',
-        'GA' => 'Georgia',
-        'HI' => 'Hawaii',
-        'ID' => 'Idaho',
-        'IL' => 'Illinois',
-        'IN' => 'Indiana',
-        'IA' => 'Iowa',
-        'KS' => 'Kansas',
-        'KY' => 'Kentucky',
-        'LA' => 'Louisiana',
-        'ME' => 'Maine',
-        'MD' => 'Maryland',
-        'MA' => 'Massachusetts',
-        'MI' => 'Michigan',
-        'MN' => 'Minnesota',
-        'MS' => 'Mississippi',
-        'MO' => 'Missouri',
-        'MT' => 'Montana',
-        'NE' => 'Nebraska',
-        'NV' => 'Nevada',
-        'NH' => 'New Hampshire',
-        'NJ' => 'New Jersey',
-        'NM' => 'New Mexico',
-        'NY' => 'New York',
-        'NC' => 'North Carolina',
-        'ND' => 'North Dakota',
-        'OH' => 'Ohio',
-        'OK' => 'Oklahoma',
-        'OR' => 'Oregon',
-        'PA' => 'Pennsylvania',
-        'RI' => 'Rhode Island',
-        'SC' => 'South Carolina',
-        'SD' => 'South Dakota',
-        'TN' => 'Tennessee',
-        'TX' => 'Texas',
-        'UT' => 'Utah',
-        'VT' => 'Vermont',
-        'VA' => 'Virginia',
-        'WA' => 'Washington',
-        'WV' => 'West Virginia',
-        'WI' => 'Wisconsin',
-        'WY' => 'Wyoming',
-    ];
+$state = [ // default davlatlar ro'yxati
+'AL' => 'Alabama',
+'AK' => 'Alaska',
+'AZ' => 'Arizona',
+'AR' => 'Arkansas',
+'CA' => 'California',
+'CO' => 'Colorado',
+'CT' => 'Connecticut',
+'DE' => 'Delaware',
+'DC' => 'District Of Columbia',
+'FL' => 'Florida',
+'GA' => 'Georgia',
+'HI' => 'Hawaii',
+'ID' => 'Idaho',
+'IL' => 'Illinois',
+'IN' => 'Indiana',
+'IA' => 'Iowa',
+'KS' => 'Kansas',
+'KY' => 'Kentucky',
+'LA' => 'Louisiana',
+'ME' => 'Maine',
+'MD' => 'Maryland',
+'MA' => 'Massachusetts',
+'MI' => 'Michigan',
+'MN' => 'Minnesota',
+'MS' => 'Mississippi',
+'MO' => 'Missouri',
+'MT' => 'Montana',
+'NE' => 'Nebraska',
+'NV' => 'Nevada',
+'NH' => 'New Hampshire',
+'NJ' => 'New Jersey',
+'NM' => 'New Mexico',
+'NY' => 'New York',
+'NC' => 'North Carolina',
+'ND' => 'North Dakota',
+'OH' => 'Ohio',
+'OK' => 'Oklahoma',
+'OR' => 'Oregon',
+'PA' => 'Pennsylvania',
+'RI' => 'Rhode Island',
+'SC' => 'South Carolina',
+'SD' => 'South Dakota',
+'TN' => 'Tennessee',
+'TX' => 'Texas',
+'UT' => 'Utah',
+'VT' => 'Vermont',
+'VA' => 'Virginia',
+'WA' => 'Washington',
+'WV' => 'West Virginia',
+'WI' => 'Wisconsin',
+'WY' => 'Wyoming',
+];
 @endphp
 <!-- Filter qismi -->
 <div class="filter-card mb-3 collapse show" id="projectsFilterContent">
@@ -437,32 +437,34 @@ $state = [             // default davlatlar ro'yxati
                 </div>
             </div>
 
-            <x-select-with-search 
+            <!-- <x-select-with-search 
                 name="user_state" 
                 label="Davlatni tanlang" 
                 :datas="$state"
                 colMd="6" 
                 placeholder="Davlatni tanlang"
                 :selected="request()->get('user_state', '')"
-            />
+            /> -->
 
 
-            <x-from-to-date-picker
-                    fromName="startDate" 
-                    toName="endDate" 
-                    label="Tanlangan Sana Oralig'i" 
-            />
-            
-            <div class="col-md-2">
-                <label for="categoryFilter" class="form-label mb-2">{{ __('admin.category') }}</label>
-                <select id="categoryFilter" class="form-select">
-                    <option value="">{{ __('admin.all') }}</option>
-                    <option value="yer">{{ __('admin.land') }}</option>
-                    <option value="qurilish">{{ __('admin.construction') }}</option>
-                    <option value="ijara">{{ __('admin.rent') }}</option>
-                </select>
+            <!-- <x-from-to-date-picker fromName="startDate" toName="endDate" label="Tanlangan Sana Oralig'i" /> -->
+
+            <i class="fas fa-search text-muted"></i>
+            </span>
+            <input type="text" id="searchInput" class="form-control border-start-0" placeholder="Loyiha nomi">
+        </div>
+        <div class="col-md-3">
+            <div class="input-group">
+                <span class="input-group-text bg-white border-end-0">
+                    <label for="categoryFilter" class="form-label mb-2">{{ __('admin.category') }}</label>
+                    <select id="categoryFilter" class="form-select">
+                        <option value="">{{ __('admin.all') }}</option>
+                        <option value="yer">{{ __('admin.land') }}</option>
+                        <option value="qurilish">{{ __('admin.construction') }}</option>
+                        <option value="ijara">{{ __('admin.rent') }}</option>
+                    </select>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-3">
                 <label for="statusFilter" class="form-label mb-2">{{ __('admin.status') }}</label>
                 <select id="statusFilter" class="form-select">
                     <option value="">{{ __('admin.all') }}</option>
@@ -472,7 +474,7 @@ $state = [             // default davlatlar ro'yxati
                     <option value="nofaol">{{ __('admin.inactive') }}</option>
                 </select>
             </div>
-            <div class="col-md-2">
+            <!-- <div class="col-md-2">
                 <label for="riskFilter" class="form-label mb-2">{{ __('admin.risk_level') }}</label>
                 <select id="riskFilter" class="form-select">
                     <option value="">{{ __('admin.all') }}</option>
@@ -480,7 +482,7 @@ $state = [             // default davlatlar ro'yxati
                     <option value="o'rta">{{ __('admin.medium') }}</option>
                     <option value="yuqori">{{ __('admin.high') }}</option>
                 </select>
-            </div>
+            </div> -->
             <x-filter-buttons :search-text="__('admin.search')" :clear-text="__('admin.clear')" />
         </div>
     </div>
