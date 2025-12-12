@@ -6,6 +6,7 @@
 'datas' => [],
 'placeholder' => 'Qiymatni tanlang',
 'icon' => "fa-toggle-on",
+'selectSearch' => true,
 ])
 
 @push('customCss')
@@ -125,12 +126,14 @@
         // Select2 ni ishga tushirish
         const selectEl = document.querySelector('#{{ $name }}');
         if (selectEl) {
-            $(selectEl).select2({
-                placeholder: "{{ $placeholder }}",
-                allowClear: true,
-                width: '100%'
-            });
-        }
+    $(selectEl).select2({
+        placeholder: "{{ $placeholder }}",
+        allowClear: true,
+        width: '100%',
+        minimumResultsForSearch: {{ $selectSearch ? 0 : 'Infinity' }}
+    });
+}
+
 
         // Qidiruv va select uchun tugmalarni holatini yangilash
         const searchInput = document.querySelector('#form-control-search');

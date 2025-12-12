@@ -81,6 +81,7 @@ $statuses = [
                 colMd="3"
                 placeholder="Barchasi"
                 :selected="request()->get('roleFilter', '')"
+                :selectSearch=false
             />
 
              <x-select-with-search 
@@ -90,6 +91,7 @@ $statuses = [
                 colMd="3"
                 placeholder="Barchasi"
                 :selected="request()->get('statusFilter', '')"
+                :selectSearch=false
             />
 
 
