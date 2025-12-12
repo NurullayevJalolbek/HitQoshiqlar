@@ -94,6 +94,22 @@
 
 
 @section('content')
+
+@php
+$roles = [
+'Admin' => 'Admin',
+'Moliyaviy auditor' => 'Moliyaviy auditor',
+'Moderator' => 'Moderator',
+'Islom moliyasi nazorati' => 'Islom moliyasi nazorati',
+];
+
+$statuses = [
+'Faol' => 'Faol',
+'Kutilmoqda' => 'Kutilmoqda',
+'Bloklangan' => 'Bloklangan',
+];
+@endphp
+
 <div class="row mt-3">
     <div class="col-12 col-xl-12">
         <div class="card card-body border-0 shadow mb-4">
@@ -141,7 +157,7 @@
                                 <label for="username" class="form-label required">Username (Login)</label>
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="fa-solid fa-image-portrait"></i></span>
-                                    <input type="text" class="form-control @error('username') is-invalid @enderror"
+                                    <input type="text" autocomplete="new-username" class="form-control @error('username') is-invalid @enderror"
                                         id="username" name="username"
                                         value="{{ old('username', $user['username'] ?? '') }}" required
                                         placeholder="Login">
@@ -180,57 +196,25 @@
                             </div>
 
                             <!-- Role -->
-                            <div class="col-md-6">
-                                <label for="role" class="form-label required">Roli</label>
-                                <div class="input-group">
-                                    <span class="input-group-text"><i class="fa-solid fa-user-shield"></i></span>
-                                    <select id="role" class="form-select @error('role') is-invalid @enderror" name="role"
-                                        required>
-                                        <option value="">Tanlang</option>
-                                        <option value="Admin"
-                                            @selected(old('role', $user['role'] ?? '' )=='Admin' )>Admin
-                                        </option>
-                                        <option value="Moliyaviy auditor"
-                                            @selected(old('role', $user['role'] ?? '' )=='Moliyaviy auditor' )>Moliyaviy
-                                            auditor
-                                        </option>
-                                        <option value="Moderator"
-                                            @selected(old('role', $user['role'] ?? '' )=='Moderator' )>Moderator
-                                        </option>
-                                        <option value="Islom moliyasi nazorati"
-                                            @selected(old('role', $user['role'] ?? '' )=='Islom moliyasi nazorati' )>
-                                            Islom moliyasi nazorati
-                                        </option>
-                                    </select>
-                                    @error('role')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
+                            <x-select-with-search
+                                name="roleFilter"
+                                label="Role boyicha"
+                                :datas="$roles"
+                                colMd="6"
+                                placeholder="Barchasi"
+                                :selected="$user['role'] ?? ''"
+                                icon="fa-user-shield" />
 
-                            <!-- Status -->
-                            <div class="col-md-6">
-                                <label for="status" class="form-label required">Holati</label>
-                                <div class="input-group">
-                                    <span class="input-group-text"><i class="fa-solid fa-toggle-on"></i></span>
-                                    <select id="status" class="form-select @error('status') is-invalid @enderror"
-                                        name="status" required>
-                                        <option value="">Tanlang</option>
-                                        <option value="Faol"
-                                            @selected(old('status', $user['status'] ?? '' )=='Faol' )>Faol
-                                        </option>
-                                        <option value="Kutilmoqda"
-                                            @selected(old('status', $user['status'] ?? '' )=='Kutilmoqda' )>Kutilmoqda
-                                        </option>
-                                        <option value="Nofaol"
-                                            @selected(old('status', $user['status'] ?? '' )=='Nofaol' )>Nofaol
-                                        </option>
-                                    </select>
-                                    @error('status')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
+
+
+                            <x-select-with-search
+                                name="statusFilter"
+                                label="Holati boyicha"
+                                :datas="$statuses"
+                                colMd="6"
+                                placeholder="Barchasi"
+                                :selected="$user['status'] ?? ''" />
+
 
                             <!-- Parol -->
                             <div class="col-md-6">
@@ -238,7 +222,7 @@
                                 </label>
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="fa-solid fa-lock"></i></span>
-                                    <input type="password" class="form-control @error('password') is-invalid @enderror"
+                                    <input type="password" autocomplete="new-password" class="form-control @error('password') is-invalid @enderror"
                                         id="password" name="password" @if(!isset($user)) required @endif
                                         placeholder="Parol">
                                     @error('password')
@@ -253,7 +237,7 @@
                                 </label>
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="fa-solid fa-lock"></i></span>
-                                    <input type="password" class="form-control" id="password_confirmation"
+                                    <input type="password" autocomplete="new-password" class="form-control" id="password_confirmation"
                                         name="password_confirmation" @if(!isset($user)) required @endif
                                         placeholder="Parolni takrorlang">
                                 </div>
