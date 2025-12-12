@@ -28,9 +28,9 @@ $logTypes = [
 ];
 
 $logStatuses = [
-'INFO'=>'Info',
-'WARNING'=>'Warning',
-'ERROR'=>'Error',
+'Muvaffaqiyatli'=>'Muvaffaqiyatli',
+'Ogohlantirish'=>'Ogohlantirish',
+'Xato'=>'Xato',
 ];
 @endphp
 
