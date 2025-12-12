@@ -1321,3 +1321,52 @@ function getSystemLogsData($id = null): Collection
     return $systemLogs;
 
 }
+
+
+function getNotifications(): Collection
+{
+    return collect([
+        [
+            'id' => 1,
+            'date' => '2025-12-01 09:14',
+            'type' => 'technical',
+            'text' => 'Server yuklanishi 85% ga yetdi.',
+            'status' => 'unread'
+        ],
+        [
+            'id' => 2,
+            'date' => '2025-12-01 10:22',
+            'type' => 'request',
+            'text' => 'User parolni tiklashni so‘radi.',
+            'status' => 'read'
+        ],
+        [
+            'id' => 3,
+            'date' => '2025-12-01 11:48',
+            'type' => 'error',
+            'text' => 'DB Connection Timeout xatosi.',
+            'status' => 'unread'
+        ],
+        [
+            'id' => 4,
+            'date' => '2025-12-02 08:25',
+            'type' => 'technical',
+            'text' => 'Tizim yangilanishi yakunlandi.',
+            'status' => 'read'
+        ],
+        [
+            'id' => 5,
+            'date' => '2025-12-02 12:14',
+            'type' => 'request',
+            'text' => 'Investor ro‘yxatdan o‘tishga so‘rov yubordi.',
+            'status' => 'unread'
+        ],
+        [
+            'id' => 6,
+            'date' => '2025-12-03 14:00',
+            'type' => 'error',
+            'text' => 'To‘lov shlyuzida 502 xato.',
+            'status' => 'unread'
+        ]
+    ]);
+}
