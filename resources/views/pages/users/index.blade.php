@@ -2,29 +2,29 @@
 
 @push('customCss')
 <style>
-    .status-active {
-        color: #1e7e34;
-        font-weight: bold;
-    }
+.status-active {
+    color: #1e7e34;
+    font-weight: bold;
+}
 
-    .status-blocked {
-        color: #bd2130;
-        font-weight: bold;
-    }
+.status-blocked {
+    color: #bd2130;
+    font-weight: bold;
+}
 
-    /* Yangi rol badge rangi (1F2937) */
-    .role-badge {
-        background: #1F2937 !important;
-        color: #fff;
-        padding: 3px 8px;
-        border-radius: 6px;
-        font-size: 0.75rem;
-    }
+/* Yangi rol badge rangi (1F2937) */
+.role-badge {
+    background: #1F2937 !important;
+    color: #fff;
+    padding: 3px 8px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+}
 
 
-    .action-btn i {
-        font-size: 18px;
-    }
+.action-btn i {
+    font-size: 18px;
+}
 </style>
 @endpush
 
@@ -191,8 +191,9 @@ $end = $pagination['end'];
 
 
                     @elseif($user['status'] === 'Bloklangan')
-                    <button class="btn btn-link p-0 verify-btn" data-bs-toggle="modal" data-bs-target="#unblockModalUser"
-                        data-user-name="{{ $user['name'] }}" data-form-action="#" title="Bloklangan">
+                    <button class="btn btn-link p-0 verify-btn" data-bs-toggle="modal"
+                        data-bs-target="#unblockModalUser" data-user-name="{{ $user['name'] }}" data-form-action="#"
+                        title="Bloklangan">
                         <i class="fas fa-lock status-blocked" style="font-size:18px;"></i>
                     </button>
                     @endif
@@ -277,26 +278,26 @@ $end = $pagination['end'];
 
 @push('customJs')
 <script>
-    // Block modal uchun
-    var blockModal = document.getElementById('blockModalUser')
-    blockModal.addEventListener('show.bs.modal', function(event) {
-        var button = event.relatedTarget
-        var investorName = button.getAttribute('data-user-name')
-        var formAction = button.getAttribute('data-form-action')
+// Block modal uchun
+var blockModal = document.getElementById('blockModalUser')
+blockModal.addEventListener('show.bs.modal', function(event) {
+    var button = event.relatedTarget
+    var investorName = button.getAttribute('data-user-name')
+    var formAction = button.getAttribute('data-form-action')
 
-        blockModal.querySelector('#blockUserName').textContent = investorName
-        blockModal.querySelector('#blockForm').action = formAction
-    })
+    blockModal.querySelector('#blockUserName').textContent = investorName
+    blockModal.querySelector('#blockForm').action = formAction
+})
 
-    // Unblock modal uchun
-    var unblockModal = document.getElementById('unblockModalUser')
-    unblockModal.addEventListener('show.bs.modal', function(event) {
-        var button = event.relatedTarget
-        var investorName = button.getAttribute('data-user-name')
-        var formAction = button.getAttribute('data-form-action')
+// Unblock modal uchun
+var unblockModal = document.getElementById('unblockModalUser')
+unblockModal.addEventListener('show.bs.modal', function(event) {
+    var button = event.relatedTarget
+    var investorName = button.getAttribute('data-user-name')
+    var formAction = button.getAttribute('data-form-action')
 
-        unblockModal.querySelector('#unblockUserName').textContent = investorName
-        unblockModal.querySelector('#unblockForm').action = formAction
-    })
+    unblockModal.querySelector('#unblockUserName').textContent = investorName
+    unblockModal.querySelector('#unblockForm').action = formAction
+})
 </script>
 @endpush

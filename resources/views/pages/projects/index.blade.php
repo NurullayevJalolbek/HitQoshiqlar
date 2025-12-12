@@ -70,14 +70,15 @@
     border: 2px solid #fff;
 }
 
-/* Badge'lar */
+/* Badge'lar - Optimized */
 .badge-custom {
-    padding: 0.375rem 0.75rem;
-    border-radius: 0.375rem;
-    font-size: 0.75rem;
+    padding: 0.35rem 0.65rem;
+    border-radius: 0.35rem;
+    font-size: 0.7rem;
     font-weight: 600;
     display: inline-block;
     white-space: nowrap;
+    text-transform: capitalize;
 }
 
 .badge-category-yer {
@@ -115,22 +116,7 @@
     color: #991b1b;
 }
 
-.badge-risk-past {
-    background: #d1fae5;
-    color: #065f46;
-}
-
-.badge-risk-o-rta {
-    background: #fef3c7;
-    color: #92400e;
-}
-
-.badge-risk-yuqori {
-    background: #fee2e2;
-    color: #991b1b;
-}
-
-/* Progress bar */
+/* Progress bar with dynamic colors */
 .progress-wrapper {
     min-width: 100px;
 }
@@ -145,9 +131,24 @@
 
 .progress-bar-custom {
     height: 100%;
-    background: linear-gradient(90deg, #10b981 0%, #059669 100%);
     border-radius: 1rem;
     transition: width 0.3s ease;
+}
+
+.progress-bar-danger {
+    background: linear-gradient(90deg, #ef4444 0%, #dc2626 100%);
+}
+
+.progress-bar-warning {
+    background: linear-gradient(90deg, #f59e0b 0%, #d97706 100%);
+}
+
+.progress-bar-info {
+    background: linear-gradient(90deg, #06b6d4 0%, #0891b2 100%);
+}
+
+.progress-bar-success {
+    background: linear-gradient(90deg, #10b981 0%, #059669 100%);
 }
 
 .progress-text {
@@ -156,24 +157,25 @@
     font-weight: 500;
 }
 
-/* Raund ko'rsatkichlari */
+/* Raund ko'rsatkichlari - Horizontal */
 .round-indicators {
     display: flex;
-    gap: 0.25rem;
+    gap: 0.35rem;
     align-items: center;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
 }
 
 .round-dot {
-    width: 24px;
-    height: 24px;
+    width: 22px;
+    height: 22px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.7rem;
+    font-size: 0.65rem;
     font-weight: 600;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    flex-shrink: 0;
 }
 
 .round-active {
@@ -367,59 +369,59 @@
 
 @section('content')
 @php
-$state = [             // default davlatlar ro'yxati
-        'AL' => 'Alabama',
-        'AK' => 'Alaska',
-        'AZ' => 'Arizona',
-        'AR' => 'Arkansas',
-        'CA' => 'California',
-        'CO' => 'Colorado',
-        'CT' => 'Connecticut',
-        'DE' => 'Delaware',
-        'DC' => 'District Of Columbia',
-        'FL' => 'Florida',
-        'GA' => 'Georgia',
-        'HI' => 'Hawaii',
-        'ID' => 'Idaho',
-        'IL' => 'Illinois',
-        'IN' => 'Indiana',
-        'IA' => 'Iowa',
-        'KS' => 'Kansas',
-        'KY' => 'Kentucky',
-        'LA' => 'Louisiana',
-        'ME' => 'Maine',
-        'MD' => 'Maryland',
-        'MA' => 'Massachusetts',
-        'MI' => 'Michigan',
-        'MN' => 'Minnesota',
-        'MS' => 'Mississippi',
-        'MO' => 'Missouri',
-        'MT' => 'Montana',
-        'NE' => 'Nebraska',
-        'NV' => 'Nevada',
-        'NH' => 'New Hampshire',
-        'NJ' => 'New Jersey',
-        'NM' => 'New Mexico',
-        'NY' => 'New York',
-        'NC' => 'North Carolina',
-        'ND' => 'North Dakota',
-        'OH' => 'Ohio',
-        'OK' => 'Oklahoma',
-        'OR' => 'Oregon',
-        'PA' => 'Pennsylvania',
-        'RI' => 'Rhode Island',
-        'SC' => 'South Carolina',
-        'SD' => 'South Dakota',
-        'TN' => 'Tennessee',
-        'TX' => 'Texas',
-        'UT' => 'Utah',
-        'VT' => 'Vermont',
-        'VA' => 'Virginia',
-        'WA' => 'Washington',
-        'WV' => 'West Virginia',
-        'WI' => 'Wisconsin',
-        'WY' => 'Wyoming',
-    ];
+$state = [ // default davlatlar ro'yxati
+'AL' => 'Alabama',
+'AK' => 'Alaska',
+'AZ' => 'Arizona',
+'AR' => 'Arkansas',
+'CA' => 'California',
+'CO' => 'Colorado',
+'CT' => 'Connecticut',
+'DE' => 'Delaware',
+'DC' => 'District Of Columbia',
+'FL' => 'Florida',
+'GA' => 'Georgia',
+'HI' => 'Hawaii',
+'ID' => 'Idaho',
+'IL' => 'Illinois',
+'IN' => 'Indiana',
+'IA' => 'Iowa',
+'KS' => 'Kansas',
+'KY' => 'Kentucky',
+'LA' => 'Louisiana',
+'ME' => 'Maine',
+'MD' => 'Maryland',
+'MA' => 'Massachusetts',
+'MI' => 'Michigan',
+'MN' => 'Minnesota',
+'MS' => 'Mississippi',
+'MO' => 'Missouri',
+'MT' => 'Montana',
+'NE' => 'Nebraska',
+'NV' => 'Nevada',
+'NH' => 'New Hampshire',
+'NJ' => 'New Jersey',
+'NM' => 'New Mexico',
+'NY' => 'New York',
+'NC' => 'North Carolina',
+'ND' => 'North Dakota',
+'OH' => 'Ohio',
+'OK' => 'Oklahoma',
+'OR' => 'Oregon',
+'PA' => 'Pennsylvania',
+'RI' => 'Rhode Island',
+'SC' => 'South Carolina',
+'SD' => 'South Dakota',
+'TN' => 'Tennessee',
+'TX' => 'Texas',
+'UT' => 'Utah',
+'VT' => 'Vermont',
+'VA' => 'Virginia',
+'WA' => 'Washington',
+'WV' => 'West Virginia',
+'WI' => 'Wisconsin',
+'WY' => 'Wyoming',
+];
 @endphp
 <!-- Filter qismi -->
 <div class="filter-card mb-3 collapse show" id="projectsFilterContent">
@@ -431,37 +433,38 @@ $state = [             // default davlatlar ro'yxati
                     <span class="input-group-text bg-white border-end-0">
                         <i class="fas fa-search text-muted"></i>
                     </span>
-                    <input type="text" id="searchInput" class="form-control border-start-0"
-                        placeholder="Loyiha nomi, kodi, joylashuv...">
+                    <input type="text" id="searchInput" class="form-control border-start-0" placeholder="Loyiha nomi">
                 </div>
             </div>
 
-            <x-select-with-search 
+            <!-- <x-select-with-search 
                 name="user_state" 
                 label="Davlatni tanlang" 
                 :datas="$state"
                 colMd="6" 
                 placeholder="Davlatni tanlang"
                 :selected="request()->get('user_state', '')"
-            />
+            /> -->
 
 
-            <x-from-to-date-picker
-                    fromName="startDate" 
-                    toName="endDate" 
-                    label="Tanlangan Sana Oralig'i" 
-            />
-            
-            <div class="col-md-2">
-                <label for="categoryFilter" class="form-label mb-2">{{ __('admin.category') }}</label>
-                <select id="categoryFilter" class="form-select">
-                    <option value="">{{ __('admin.all') }}</option>
-                    <option value="yer">{{ __('admin.land') }}</option>
-                    <option value="qurilish">{{ __('admin.construction') }}</option>
-                    <option value="ijara">{{ __('admin.rent') }}</option>
-                </select>
+            <!-- <x-from-to-date-picker fromName="startDate" toName="endDate" label="Tanlangan Sana Oralig'i" /> -->
+
+            <i class="fas fa-search text-muted"></i>
+            </span>
+            <input type="text" id="searchInput" class="form-control border-start-0" placeholder="Loyiha nomi">
+        </div>
+        <div class="col-md-3">
+            <div class="input-group">
+                <span class="input-group-text bg-white border-end-0">
+                    <label for="categoryFilter" class="form-label mb-2">{{ __('admin.category') }}</label>
+                    <select id="categoryFilter" class="form-select">
+                        <option value="">{{ __('admin.all') }}</option>
+                        <option value="yer">{{ __('admin.land') }}</option>
+                        <option value="qurilish">{{ __('admin.construction') }}</option>
+                        <option value="ijara">{{ __('admin.rent') }}</option>
+                    </select>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-3">
                 <label for="statusFilter" class="form-label mb-2">{{ __('admin.status') }}</label>
                 <select id="statusFilter" class="form-select">
                     <option value="">{{ __('admin.all') }}</option>
@@ -471,7 +474,7 @@ $state = [             // default davlatlar ro'yxati
                     <option value="nofaol">{{ __('admin.inactive') }}</option>
                 </select>
             </div>
-            <div class="col-md-2">
+            <!-- <div class="col-md-2">
                 <label for="riskFilter" class="form-label mb-2">{{ __('admin.risk_level') }}</label>
                 <select id="riskFilter" class="form-select">
                     <option value="">{{ __('admin.all') }}</option>
@@ -479,7 +482,7 @@ $state = [             // default davlatlar ro'yxati
                     <option value="o'rta">{{ __('admin.medium') }}</option>
                     <option value="yuqori">{{ __('admin.high') }}</option>
                 </select>
-            </div>
+            </div> -->
             <x-filter-buttons :search-text="__('admin.search')" :clear-text="__('admin.clear')" />
         </div>
     </div>
@@ -493,16 +496,13 @@ $state = [             // default davlatlar ro'yxati
                 <th style="width: 50px;">{{ __('admin.id') }}</th>
                 <th style="min-width: 200px;">{{ __('admin.project') }}</th>
                 <th style="width: 80px;">{{ __('admin.picture') }}</th>
-                <!-- <th style="width: 100px;">{{ __('admin.code') }}</th> -->
                 <th style="width: 100px;">{{ __('admin.category') }}</th>
-                <th style="width: 130px;">{{ __('admin.status') }}</th>
-                <th style="width: 90px;">{{ __('admin.risk_level') }}</th>
+                <th style="width: 90px;">{{ __('admin.status') }}</th>
                 <th style="min-width: 130px;">{{ __('admin.value') }}</th>
                 <th style="min-width: 120px;">{{ __('admin.progress') }}</th>
-                <th style="min-width: 120px;">{{ __('admin.financing') }}</th>
-                <th style="width: 100px;">{{ __('admin.rounds') }}</th>
+                <!-- <th style="min-width: 120px;">{{ __('admin.financing') }}</th> -->
+                <th style="min-width: 140px;">{{ __('admin.rounds') }}</th>
                 <th style="width: 110px;">{{ __('admin.duration') }}</th>
-                <th style="width: 100px;">{{ __('admin.income') }}</th>
                 <th style="width: 130px;">{{ __('admin.actions') }}</th>
             </tr>
         </thead>
@@ -552,6 +552,14 @@ function formatCurrencyShort(num) {
         return (num / 1000000).toFixed(1) + ' mln';
     }
     return new Intl.NumberFormat('uz-UZ').format(num) + ' so\'m';
+}
+
+// Progress bar rangi
+function getProgressBarClass(percent) {
+    if (percent >= 0 && percent < 25) return 'progress-bar-danger';
+    if (percent >= 25 && percent < 50) return 'progress-bar-warning';
+    if (percent >= 50 && percent < 75) return 'progress-bar-info';
+    return 'progress-bar-success';
 }
 
 // Ma'lumotlarni qayta ishlash
@@ -604,6 +612,7 @@ function preprocessProjects(list) {
         if (remainingMonths > 0) duration += remainingMonths + ' oy';
         duration = duration.trim() || '-';
 
+        console.log(p);
         return {
             ...p,
             category: category_key,
@@ -612,25 +621,33 @@ function preprocessProjects(list) {
             status: status_uz,
             progress: Math.round(progressPercent),
             funding: Math.round(fundingPercent),
-            currentRound: p.round || 1,
-            totalRounds: p.round ? p.round + 1 : 1,
+            currentRound: p.round,
+            totalRounds: p.rounds_status.length,
             duration: duration,
-            roi: p.yearly_profit_percent || 0,
+            roi: p.yearly_profit_percent || 0, // FIX 1: 0 chiqarish
             location: `${p.district}, ${p.region}`
         };
     });
 }
 
-// Raund ko'rsatkichlarini render qilish
-function renderRounds(current, total) {
+// Raund ko'rsatkichlarini render qilish - HORIZONTAL
+function renderRounds(roundsStatus) {
     let html = '<div class="round-indicators">';
-    for (let i = 1; i <= total; i++) {
-        const statusClass = i < current ? 'round-completed' :
-            i === current ? 'round-active' : 'round-pending';
-        html += `<span class="round-dot ${statusClass}">${i}</span>`;
-    }
+
+    roundsStatus.forEach((round, index) => {
+        let statusClass = 'round-pending';
+        if (round.status === 'completed') {
+            statusClass = 'round-completed';
+        } else if (round.status === 'active') {
+            statusClass = 'round-active';
+        } else if (round.status === 'in_progress') {
+            statusClass = 'round-pending';
+        }
+
+        html += `<span class="round-dot ${statusClass}">${round.round}</span>`;
+    });
+
     html += '</div>';
-    html += `<div class="progress-text mt-1">${current}/${total} raund</div>`;
     return html;
 }
 
@@ -667,9 +684,13 @@ function renderProjects(list) {
         const editUrl = routes.edit.replace(':id', p.id);
         const destroyUrl = routes.delete.replace(':id', p.id);
 
+        // FIX 2: Progress bar rangi
+        const progressBarClass = getProgressBarClass(p.progress);
+        const fundingBarClass = getProgressBarClass(p.funding);
+
         html += `
             <tr>
-                <td><span class="badge bg-secondary">${p.code}</span></td>
+                <td>${p.code}</td>
                 <td>
                     <div class="project-name">${p.name}</div>
                     <div class="project-location">
@@ -681,46 +702,29 @@ function renderProjects(list) {
                          onerror="this.src='https://via.placeholder.com/56'">
                 </td>
                 <td>
-                    <span class="badge-custom badge-category-${p.category}">
+                    <span class="badge badge-custom badge-category-${p.category}">
                         ${p.category_display}
                     </span>
                 </td>
                 <td>
-                    <span class="badge-custom badge-status-${p.status}">
+                    <span class="badge badge-custom badge-status-${p.status}">
                         ${p.status.charAt(0).toUpperCase() + p.status.slice(1)}
                     </span>
                 </td>
                 <td>
-                    <span class="badge-custom badge-risk-${p.risk.replace("'", '-')}">
-                        ${p.risk.charAt(0).toUpperCase() + p.risk.slice(1)}
-                    </span>
-                </td>
-                <td>
-                    <div class="value-primary">${formatCurrencyShort(p.total_value)}</div>
-                    <div class="value-secondary">Min: ${formatCurrencyShort(p.min_investment)}</div>
+                    <div class="value-primary">${formatCurrencyShort(p.total_value)} (${p.funding}%)</div>
+                                        <div class="value-secondary">Min: ${formatCurrencyShort(p.min_investment)}</div>
                 </td>
                 <td>
                     <div class="progress-wrapper">
                         <div class="progress-custom">
-                            <div class="progress-bar-custom" style="width: ${p.progress}%"></div>
+                            <div class="progress-bar-custom ${progressBarClass}" style="width: ${p.progress}%"></div>
                         </div>
                         <div class="progress-text">${p.progress}% bajarildi</div>
                     </div>
                 </td>
-                <td>
-                    <div class="progress-wrapper">
-                        <div class="progress-custom">
-                            <div class="progress-bar-custom" style="width: ${p.funding}%"></div>
-                        </div>
-                        <div class="progress-text">${p.funding}% to'plandi</div>
-                    </div>
-                </td>
-                <td>${renderRounds(p.currentRound, p.totalRounds)}</td>
+                <td>${renderRounds(p.rounds_status)}</td>
                 <td>${p.duration}</td>
-                <td>
-                    <div class="value-primary">${p.roi}%</div>
-                    <div class="value-secondary">yillik</div>
-                </td>
                 <td>
                     <div class="action-buttons">
                         <x-show-button />

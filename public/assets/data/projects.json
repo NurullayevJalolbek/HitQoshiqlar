@@ -4,10 +4,10 @@
             "id": 1,
             "code": "ENVST-2024-001",
             "name": "Chirchiq yaqinidagi tijorat zonasi",
-            "image": "https:\/\/storage.kun.uz\/source\/3\/EnAqs3cdv0IjzYwWfPP4lFoa5duw136m.jpg",
+            "image": "https://storage.kun.uz/source/3/EnAqs3cdv0IjzYwWfPP4lFoa5duw136m.jpg",
             "main_images": [
-                "https:\/\/storage.kun.uz\/source\/3\/EnAqs3cdv0IjzYwWfPP4lFoa5duw136m.jpg",
-                "https:\/\/example.com\/project1_2.jpg"
+                "https://storage.kun.uz/source/3/EnAqs3cdv0IjzYwWfPP4lFoa5duw136m.jpg",
+                "https://example.com/project1_2.jpg"
             ],
             "videos": [],
             "work_process_images": [],
@@ -68,6 +68,22 @@
             "rounds_status": [
                 {
                     "round": 1,
+                    "status": "completed"
+                },
+                {
+                    "round": 2,
+                    "status": "in_progress"
+                },
+                {
+                    "round": 3,
+                    "status": "in_progress"
+                },
+                {
+                    "round": 4,
+                    "status": "in_progress"
+                },
+                {
+                    "round": 5,
                     "status": "in_progress"
                 }
             ],
@@ -84,9 +100,9 @@
             "id": 2,
             "code": "ENVST-2024-004",
             "name": "Samarqand yo'li savdo maydoni",
-            "image": "https:\/\/cdn.uza.uz\/2023\/08\/24\/13\/00\/OBfT3Gh6n0jHW7okg9iSC78jTTOyVr4g_front.jpg",
+            "image": "https://cdn.uza.uz/2023/08/24/13/00/OBfT3Gh6n0jHW7okg9iSC78jTTOyVr4g_front.jpg",
             "main_images": [
-                "https:\/\/cdn.uza.uz\/2023\/08\/24\/13\/00\/OBfT3Gh6n0jHW7okg9iSC78jTTOyVr4g_front.jpg"
+                "https://cdn.uza.uz/2023/08/24/13/00/OBfT3Gh6n0jHW7okg9iSC78jTTOyVr4g_front.jpg"
             ],
             "videos": [],
             "work_process_images": [],
@@ -138,10 +154,26 @@
                     }
                 ]
             },
-            "round": 1,
+            "round": 2,
             "rounds_status": [
                 {
                     "round": 1,
+                    "status": "completed"
+                },
+                {
+                    "round": 2,
+                    "status": "active"
+                },
+                {
+                    "round": 3,
+                    "status": "in_progress"
+                },
+                {
+                    "round": 4,
+                    "status": "in_progress"
+                },
+                {
+                    "round": 5,
                     "status": "in_progress"
                 }
             ],
@@ -158,9 +190,9 @@
             "id": 3,
             "code": "ENVST-2024-002",
             "name": "Yangi Toshkent turar-joy majmuasi B-blok",
-            "image": "https:\/\/domtut.uz\/resources\/uploads\/property\/star-house-residence\/main_0.jpg",
+            "image": "https://domtut.uz/resources/uploads/property/star-house-residence/main_0.jpg",
             "main_images": [
-                "https:\/\/domtut.uz\/resources\/uploads\/property\/star-house-residence\/main_0.jpg"
+                "https://domtut.uz/resources/uploads/property/star-house-residence/main_0.jpg"
             ],
             "videos": [],
             "work_process_images": [],
@@ -198,7 +230,7 @@
             "amenities": [
                 "2 ta yuqori tezlikdagi lift",
                 "Yopiq parking",
-                "24\/7 xavfsizlik",
+                "24/7 xavfsizlik",
                 "Bolalar maydoni"
             ],
             "progress": {
@@ -223,6 +255,18 @@
                 {
                     "round": 2,
                     "status": "in_progress"
+                },
+                {
+                    "round": 3,
+                    "status": "in_progress"
+                },
+                {
+                    "round": 4,
+                    "status": "in_progress"
+                },
+                {
+                    "round": 5,
+                    "status": "in_progress"
                 }
             ],
             "start_date": "2024-02-01",
@@ -238,9 +282,9 @@
             "id": 4,
             "code": "ENVST-2024-005",
             "name": "Samarqand Premium Residence",
-            "image": "https:\/\/static.tildacdn.com\/tild3339-3538-4737-b165-616236326333\/Samarkand_Regency_Am.JPG",
+            "image": "https://static.tildacdn.com/tild3339-3538-4737-b165-616236326333/Samarkand_Regency_Am.JPG",
             "main_images": [
-                "https:\/\/static.tildacdn.com\/tild3339-3538-4737-b165-616236326333\/Samarkand_Regency_Am.JPG"
+                "https://static.tildacdn.com/tild3339-3538-4737-b165-616236326333/Samarkand_Regency_Am.JPG"
             ],
             "videos": [],
             "work_process_images": [],
@@ -269,11 +313,7 @@
             "construction_stage": "foundation",
             "construction_start": "2024-05-15",
             "construction_end": "2026-11-15",
-            "amenities": [
-                "Lift",
-                "Parking",
-                "Yashil hudud"
-            ],
+            "amenities": ["Lift", "Parking", "Yashil hudud"],
             "progress": {
                 "percent": 28,
                 "timeline": [
@@ -287,6 +327,22 @@
             "rounds_status": [
                 {
                     "round": 1,
+                    "status": "completed"
+                },
+                {
+                    "round": 2,
+                    "status": "completed"
+                },
+                {
+                    "round": 3,
+                    "status": "active"
+                },
+                {
+                    "round": 4,
+                    "status": "in_progress"
+                },
+                {
+                    "round": 5,
                     "status": "in_progress"
                 }
             ],
@@ -303,9 +359,9 @@
             "id": 5,
             "code": "ENVST-2024-003",
             "name": "Toshkent City biznes-markazi",
-            "image": "https:\/\/avatars.mds.yandex.net\/get-altay\/938969\/2a0000018dfefd547d0aa83700e2c7b9f09e\/XXL_height",
+            "image": "https://avatars.mds.yandex.net/get-altay/938969/2a0000018dfefd547d0aa83700e2c7b9f09e/XXL_height",
             "main_images": [
-                "https:\/\/avatars.mds.yandex.net\/get-altay\/938969\/2a0000018dfefd547d0aa83700e2c7b9f09e\/XXL_height"
+                "https://avatars.mds.yandex.net/get-altay/938969/2a0000018dfefd547d0aa83700e2c7b9f09e/XXL_height"
             ],
             "videos": [],
             "work_process_images": [],
@@ -358,9 +414,9 @@
             "id": 6,
             "code": "ENVST-2024-006",
             "name": "Chilonzor Shopping Mall",
-            "image": "https:\/\/content-17.foto.my.mail.ru\/community\/rodina-tafa\/4\/h-42.jpg",
+            "image": "https://content-17.foto.my.mail.ru/community/rodina-tafa/4/h-42.jpg",
             "main_images": [
-                "https:\/\/content-17.foto.my.mail.ru\/community\/rodina-tafa\/4\/h-42.jpg"
+                "https://content-17.foto.my.mail.ru/community/rodina-tafa/4/h-42.jpg"
             ],
             "videos": [],
             "work_process_images": [],
@@ -398,6 +454,22 @@
                 {
                     "round": 1,
                     "status": "completed"
+                },
+                {
+                    "round": 2,
+                    "status": "active"
+                },
+                {
+                    "round": 3,
+                    "status": "in_progress"
+                },
+                {
+                    "round": 4,
+                    "status": "in_progress"
+                },
+                {
+                    "round": 5,
+                    "status": "in_progress"
                 }
             ],
             "start_date": "2024-02-15",
