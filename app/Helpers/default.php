@@ -1370,3 +1370,46 @@ function getNotifications(): Collection
         ]
     ]);
 }
+
+
+
+function getLanguagesData($id = null)
+{
+    $datas = collect([
+        [
+            'id' => 1,
+            'name' => 'O\'zbek',
+            'code' => 'uz',
+            'is_active' => true,
+            'is_default' => true,
+        ],
+        [
+            'id' => 2,
+            'name' => 'Русский',
+            'code' => 'ru',
+            'is_active' => true,
+            'is_default' => false,
+        ],
+        [
+            'id' => 3,
+            'name' => 'English',
+            'code' => 'en',
+            'is_active' => false,
+            'is_default' => false,
+        ],
+        [
+            'id' => 4,
+            'name' => 'العربية',
+            'code' => 'ar',
+            'is_active' => false,
+            'is_default' => false,
+           
+        ]
+    ]);
+
+    if ($id !== null) {
+        return $datas->where('id', $id)->first();
+    }
+    return $datas;
+}
+

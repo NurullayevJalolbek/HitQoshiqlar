@@ -115,7 +115,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'l
     Route::prefix('user-interface')->name('user-interface.')->group(function () {
         Route::get('/', [UserInterfaceController::class, 'index'])->name('index');
 
-        Route::get('/language-management', [LanguageManagementController::class, 'index'])->name('language-management.index');
+        Route::resource('/language-management', LanguageManagementController::class);
 
         Route::get('/system-translations', [SystemTranslationController::class, 'index'])->name('system-translations.index');
 
