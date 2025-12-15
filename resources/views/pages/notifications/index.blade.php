@@ -2,7 +2,6 @@
 
 @push('customCss')
     <style>
-
         /* Jadval HEAD dizayni */
         thead.table-dark {
             background-color: #2c3e50 !important;
@@ -12,14 +11,14 @@
             accent-color: #ffffff; /* Oq checkbox */
         }
 
-        /* O‘qilmagan xabar */
+        /* O'qilmagan xabar */
         .row-unread {
             background-color: #eef6ff !important;
             font-weight: 600;
             color: #2c3e50;
         }
 
-        /* O‘qilgan xabar */
+        /* O'qilgan xabar */
         .row-read {
             background-color: #ffffff !important;
             color: #6c757d;
@@ -30,6 +29,9 @@
             font-size: 0.85rem;
             padding: 6px 10px;
             border-radius: 8px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
         }
 
         .bg-technical {
@@ -51,12 +53,6 @@
         }
 
         /* Holat nishonlari */
-        .status-indicator {
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-        }
-
         .status-badge {
             display: inline-flex;
             align-items: center;
@@ -76,8 +72,6 @@
             background: #e9f7ef;
             color: #198754;
         }
-
-
     </style>
 @endpush
 
@@ -107,58 +101,13 @@
 @endsection
 
 @section('content')
+    @php
+        $notifications = getNotifications();
+        $unreadCount = $notifications->where('status', 'unread')->count();
+    @endphp
 
     {{-- FILTER PANEL --}}
-    <div class="filter-card mb-3 mt-2 collapse show" id="notificationFilterContent" style="transition: all 0.3s ease;">
-        <div class="border rounded p-3" style="border-color: rgba(0,0,0,0.05); background-color: #fff;">
-            <div class="row g-3 align-items-end">
-                {{-- Qidiruv --}}
-                <div class="col-md-4">
-                    <label class="form-label text-muted small">Qidiruv</label>
-                    <div class="input-group">
-                        <span class="input-group-text bg-white"><i class="fas fa-search text-muted"></i></span>
-                        <input type="text" id="searchInput" class="form-control" placeholder="Kalit so‘z...">
-                    </div>
-                </div>
-
-                <div class="col-md-2">
-                    <label class="form-label text-muted small">Turi</label>
-                    <select id="typeFilter" class="form-select">
-                        <option value="">Barchasi</option>
-                        <option value="technical">Texnik</option>
-                        <option value="request">So‘rov</option>
-                        <option value="error">Xato</option>
-                    </select>
-                </div>
-
-                <div class="col-md-2">
-                    <label class="form-label text-muted small">Holati</label>
-                    <select id="statusFilter" class="form-select">
-                        <option value="">Barchasi</option>
-                        <option value="unread">O‘qilmagan</option>
-                        <option value="read">O‘qilgan</option>
-                    </select>
-                </div>
-
-                <div class="col-md-2">
-                    <label class="form-label text-muted small">Dan (Sana)</label>
-                    <input type="date" id="startDate" class="form-control">
-                </div>
-
-                {{-- Tugmalar --}}
-                <div class="col-md-2 d-flex gap-2">
-                    <button id="filterBtn" class="btn btn-primary w-50">
-                        <i class="fas fa-filter"></i> {{__('admin.search')}}
-                    </button>
-
-                    <button id="clearBtn" class="btn btn-warning w-50">
-                        {{__('admin.clear')}}
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
+    @include('pages.notifications._filter')
 
     {{-- TABLE --}}
     <div class="card card-body py-3 px-3 shadow border-0 table-wrapper table-responsive mt-3">
@@ -174,195 +123,217 @@
                 <th class="text-center">Holati</th>
             </tr>
             </thead>
-            <tbody id="notifBody"></tbody>
+            <tbody>
+                @forelse($notifications as $notification)
+                    @php
+                        $rowClass = $notification['status'] === 'unread' ? 'row-unread' : 'row-read';
+                        
+                        // Turi uchun konfiguratsiya
+                        $typeConfig = match($notification['type']) {
+                            'technical' => ['class' => 'bg-technical', 'icon' => '<i class="fas fa-server"></i>', 'label' => 'Texnik'],
+                            'request' => ['class' => 'bg-request', 'icon' => '<i class="fas fa-user-edit"></i>', 'label' => 'So\'rov'],
+                            'error' => ['class' => 'bg-error', 'icon' => '<i class="fas fa-exclamation-triangle"></i>', 'label' => 'Xato'],
+                            default => ['class' => 'bg-light', 'icon' => '<i class="fas fa-info-circle"></i>', 'label' => 'Info'],
+                        };
+                    @endphp
+                    
+                    <tr class="{{ $rowClass }}" data-id="{{ $notification['id'] }}" data-status="{{ $notification['status'] }}">
+                        <td>
+                            <input type="checkbox" 
+                                   class="form-check-input notif-checkbox"
+                                   data-id="{{ $notification['id'] }}"
+                                   {{ $notification['status'] === 'read' ? 'checked' : '' }}>
+                        </td>
+                        
+                        <td>
+                            <small class="text-muted">
+                                <i class="far fa-clock me-1"></i>
+                                {{  \Carbon\Carbon::parse($notification['date'])->format('H:i d.m.y')  }}
+                            </small>
+                        </td>
+                        
+                        <td>
+                            <span class="badge-type {{ $typeConfig['class'] }}">
+                                {!! $typeConfig['icon'] !!} {{ $typeConfig['label'] }}
+                            </span>
+                        </td>
+                        
+                        <td>{{ $notification['text'] }}</td>
+                        
+                        <td class="text-center">
+                            @if($notification['status'] === 'unread')
+                                <span class="status-badge status-unread-badge">
+                                    <i class="bi bi-envelope-arrow-down-fill me-1"></i>
+                                    O'qilmagan
+                                </span>
+                            @else
+                                <span class="status-badge status-read-badge">
+                                    <i class="bi bi-envelope-open me-1"></i>
+                                    O'qilgan
+                                </span>
+                            @endif
+                        </td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="5" class="text-center py-4 text-muted">
+                            <i class="fas fa-bell-slash me-2"></i>
+                            Hech qanday bildirishnoma mavjud emas
+                        </td>
+                    </tr>
+                @endforelse
+            </tbody>
+<!--             
+            @if($unreadCount > 0)
+                <tfoot>
+                    <tr>
+                        <td colspan="5" class="text-end text-muted small">
+                            <i class="fas fa-envelope me-1"></i>
+                            Jami: {{ $notifications->count() }} ta | 
+                            <i class="fas fa-envelope-open-text me-1"></i>
+                            O'qilgan: {{ $notifications->count() - $unreadCount }} ta |
+                            <i class="fas fa-envelope me-1 text-primary"></i>
+                            O'qilmagan: <span class="fw-bold text-primary">{{ $unreadCount }}</span> ta
+                        </td>
+                    </tr>
+                </tfoot>
+            @endif -->
         </table>
     </div>
 
 @endsection
 
 @push('customJs')
-    <script>
-        function initFilterToggle(buttonId, contentId, iconId, textId) {
-            const collapseEl = document.getElementById(contentId);
-            const button = document.getElementById(buttonId);
-            const icon = document.getElementById(iconId);
-            const text = document.getElementById(textId);
-
-            collapseEl.addEventListener('shown.bs.collapse', () => {
-                console.log('ishladi yopish');
-
-                icon.classList.remove('bi-caret-up-fill');
-                icon.classList.add('bi-caret-down-fill');
-                text.textContent = 'Yopish';
-            });
-
-            collapseEl.addEventListener('hidden.bs.collapse', () => {
-                console.log('ishladi ochish');
-                icon.classList.remove('bi-caret-down-fill');
-                icon.classList.add('bi-caret-up-fill');
-                text.textContent = 'Ochish';
+<script>
+    // JavaScript faqat checkboxlar bilan ishlash uchun
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        // "Barchasini tanlash" checkbox
+        const checkAll = document.getElementById('checkAll');
+        if (checkAll) {
+            checkAll.addEventListener('click', function() {
+                const checkboxes = document.querySelectorAll('.notif-checkbox');
+                const isChecked = this.checked;
+                
+                checkboxes.forEach(checkbox => {
+                    checkbox.checked = isChecked;
+                    
+                    // UI ni yangilash
+                    const row = checkbox.closest('tr');
+                    if (row) {
+                        if (isChecked) {
+                            row.classList.remove('row-unread');
+                            row.classList.add('row-read');
+                            row.dataset.status = 'read';
+                            
+                            // Status badge ni yangilash
+                            const statusCell = row.querySelector('td.text-center');
+                            if (statusCell) {
+                                statusCell.innerHTML = `
+                                    <span class="status-badge status-read-badge">
+                                        <i class="bi bi-envelope-open me-1"></i>
+                                        O'qilgan
+                                    </span>
+                                `;
+                            }
+                        } else {
+                            row.classList.remove('row-read');
+                            row.classList.add('row-unread');
+                            row.dataset.status = 'unread';
+                            
+                            // Status badge ni yangilash
+                            const statusCell = row.querySelector('td.text-center');
+                            if (statusCell) {
+                                statusCell.innerHTML = `
+                                    <span class="status-badge status-unread-badge">
+                                        <i class="bi bi-envelope-arrow-down-fill me-1"></i>
+                                        O'qilmagan
+                                    </span>
+                                `;
+                            }
+                        }
+                    }
+                });
+                
+                // O'qilmaganlar sonini yangilash
+                updateUnreadCount();
             });
         }
-
-        document.addEventListener('DOMContentLoaded', function () {
-            initFilterToggle('notificationToggleFilterBtn', 'notificationFilterContent', 'notificationFilterIcon', 'notificationFilterText');
+        
+        // Har bir checkbox uchun event
+        document.querySelectorAll('.notif-checkbox').forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                const row = this.closest('tr');
+                if (row) {
+                    if (this.checked) {
+                        row.classList.remove('row-unread');
+                        row.classList.add('row-read');
+                        row.dataset.status = 'read';
+                        
+                        // Status badge ni yangilash
+                        const statusCell = row.querySelector('td.text-center');
+                        if (statusCell) {
+                            statusCell.innerHTML = `
+                                <span class="status-badge status-read-badge">
+                                    <i class="bi bi-envelope-open me-1"></i>
+                                    O'qilgan
+                                </span>
+                            `;
+                        }
+                    } else {
+                        row.classList.remove('row-read');
+                        row.classList.add('row-unread');
+                        row.dataset.status = 'unread';
+                        
+                        // Status badge ni yangilash
+                        const statusCell = row.querySelector('td.text-center');
+                        if (statusCell) {
+                            statusCell.innerHTML = `
+                                <span class="status-badge status-unread-badge">
+                                    <i class="bi bi-envelope-arrow-down-fill me-1"></i>
+                                    O'qilmagan
+                                </span>
+                            `;
+                        }
+                        
+                        // Agar barchasi tanlangan bo'lsa, checkAll ni olib tashlash
+                        checkAll.checked = false;
+                    }
+                }
+                
+                // O'qilmaganlar sonini yangilash
+                updateUnreadCount();
+            });
         });
-    </script>
-    <script>
-
-        let notifications = [
-            {
-                id: 1,
-                date: "2025-12-01 09:14",
-                type: "technical",
-                text: "Server yuklanishi 85% ga yetdi.",
-                status: "unread"
-            },
-            {id: 2, date: "2025-12-01 10:22", type: "request", text: "User parolni tiklashni so‘radi.", status: "read"},
-            {id: 3, date: "2025-12-01 11:48", type: "error", text: "DB Connection Timeout xatosi.", status: "unread"},
-            {
-                id: 4,
-                date: "2025-12-02 08:25",
-                type: "technical",
-                text: "Tizim yangilanishi yakunlandi.",
-                status: "read"
-            },
-            {
-                id: 5,
-                date: "2025-12-02 12:14",
-                type: "request",
-                text: "Investor ro‘yxatdan o‘tishga so‘rov yubordi.",
-                status: "unread"
-            },
-            {id: 6, date: "2025-12-03 14:00", type: "error", text: "To‘lov shlyuzida 502 xato.", status: "unread"}
-        ];
-
-
-        /* === RENDER === */
-        function renderNotifications() {
-            const tbody = document.getElementById("notifBody");
-            tbody.innerHTML = "";
-
-            let filtered = applyFilters();
-
-            if (filtered.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="5" class="text-center py-4 text-muted">Ma'lumot topilmadi</td></tr>`;
-                return;
-            }
-
-            filtered.forEach(notif => {
-                let rowClass = notif.status === "unread" ? "row-unread" : "row-read";
-                let typeCfg = getTypeConfig(notif.type);
-
-                let statusBadge =
-                    notif.status === "unread"
-                        ? `
-            <span class="status-badge status-unread-badge">
-                <i class="bi bi-envelope-arrow-down-fill me-1"></i>
-                O‘qilmagan
-            </span>
-        `
-                        : `
-            <span class="status-badge status-read-badge">
-                <i class="bi bi-envelope-open me-1"></i>
-                O‘qilgan
-            </span>
-        `;
-
-
-                tbody.innerHTML += `
-        <tr class="${rowClass}">
-            <td>
-                <input type="checkbox" class="form-check-input notif-checkbox"
-                    data-id="${notif.id}"
-                    ${notif.status === "read" ? "checked" : ""}
-                    onchange="updateStatus(${notif.id}, this.checked)">
-            </td>
-
-            <td><small class="text-muted"><i class="far fa-clock me-1"></i>${notif.date}</small></td>
-
-            <td>
-                <span class="badge-type ${typeCfg.class}">
-                    ${typeCfg.icon} ${typeCfg.label}
-                </span>
-            </td>
-
-            <td>${notif.text}</td>
-
-            <td class="text-center">${statusBadge}</td>
-        </tr>
-        `;
-            });
-        }
-
-
-        /* === STATUS UPDATE === */
-        function updateStatus(id, isChecked) {
-            let item = notifications.find(n => n.id === id);
-            item.status = isChecked ? "read" : "unread";
-            renderNotifications();
-        }
-
-
-        /* === TYPE CONFIG === */
-        function getTypeConfig(type) {
-            switch (type) {
-                case "technical":
-                    return {class: "bg-technical", icon: '<i class="fas fa-server"></i>', label: "Texnik"};
-                case "request":
-                    return {class: "bg-request", icon: '<i class="fas fa-user-edit"></i>', label: "So‘rov"};
-                case "error":
-                    return {class: "bg-error", icon: '<i class="fas fa-exclamation-triangle"></i>', label: "Xato"};
-                default:
-                    return {class: "bg-light", icon: '<i class="fas fa-info-circle"></i>', label: "Info"};
+        
+        // O'qilmaganlar sonini yangilash funksiyasi
+        function updateUnreadCount() {
+            const unreadRows = document.querySelectorAll('tr[data-status="unread"]');
+            const unreadCount = unreadRows.length;
+            
+            // Footer yoki boshqa joyda ko'rsatish
+            const footer = document.querySelector('tfoot');
+            if (footer) {
+                const totalCount = document.querySelectorAll('tbody tr').length - 1; // Bo'sh qatorni hisoblamaslik
+                const readCount = totalCount - unreadCount;
+                
+                footer.innerHTML = `
+                    <tr>
+                        <td colspan="5" class="text-end text-muted small">
+                            <i class="fas fa-envelope me-1"></i>
+                            Jami: ${totalCount} ta | 
+                            <i class="fas fa-envelope-open-text me-1"></i>
+                            O'qilgan: ${readCount} ta |
+                            <i class="fas fa-envelope me-1 text-primary"></i>
+                            O'qilmagan: <span class="fw-bold text-primary">${unreadCount}</span> ta
+                        </td>
+                    </tr>
+                `;
             }
         }
-
-
-        /* === FILTERS === */
-        function applyFilters() {
-            let search = document.getElementById("searchInput").value.toLowerCase();
-            let type = document.getElementById("typeFilter").value;
-            let status = document.getElementById("statusFilter").value;
-            let start = document.getElementById("startDate").value;
-
-            return notifications.filter(n => {
-                return (
-                    n.text.toLowerCase().includes(search) &&
-                    (type ? n.type === type : true) &&
-                    (status ? n.status === status : true) &&
-                    (start ? n.date >= start : true)
-                );
-            }).sort((a, b) => new Date(b.date) - new Date(a.date));
-        }
-
-
-        /* === CHECK ALL === */
-        document.getElementById("checkAll").onclick = function () {
-            let isChecked = this.checked;
-
-            notifications = notifications.map(n => ({
-                ...n,
-                status: isChecked ? "read" : "unread"
-            }));
-
-            renderNotifications();
-        };
-
-
-        /* BUTTON EVENTS */
-        document.getElementById("filterBtn").onclick = renderNotifications;
-        document.getElementById("clearBtn").onclick = () => {
-            document.getElementById("searchInput").value = "";
-            document.getElementById("typeFilter").value = "";
-            document.getElementById("statusFilter").value = "";
-            document.getElementById("startDate").value = "";
-            renderNotifications();
-        };
-
-
-        /* INIT */
-        renderNotifications();
-
-    </script>
+        
+        // Dastlabki o'qilmaganlar sonini hisoblash
+        updateUnreadCount();
+    });
+</script>
 @endpush

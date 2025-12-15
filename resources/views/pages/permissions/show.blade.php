@@ -19,7 +19,7 @@
         font-weight: 500;
         border-bottom: 3px solid transparent;
         transition: all 0.3s;
-        background: #cccccc;
+        background: #ebeaeaff;
         margin-right: 0.25rem;
         border-radius: 0.5rem 0.5rem 0 0;
     }
@@ -252,7 +252,7 @@ $tabs = [
                 style="border: 2px solid rgba(42,52,65,0.4);">
                 <thead class="table-dark">
                     <tr>
-                        <th width="5%">ID</th>
+                        <th class="text-center" width="5%">№</th>
                         <th>Nomi</th>
                         <th class="text-center-cell">Amallar</th>
                     </tr>
@@ -260,7 +260,7 @@ $tabs = [
                 <tbody>
                     @foreach($items as $item)
                     <tr>
-                        <td>{{ $item['id'] }}</td>
+                        <td class="text-center">{{ $item['id'] }}</td>
                         <td>
                             @if(isset($item['icon']))
                             <i class="bi bi-{{ $item['icon'] }} me-2"></i>
@@ -286,7 +286,7 @@ $tabs = [
                 style="border: 2px solid rgba(42,52,65,0.4);">
                 <thead class="table-dark">
                     <tr>
-                        <th width="5%">ID</th>
+                        <th class="text-center" width="5%">№</th>
                         <th class="text-center">Nomi</th>
                         <th class="text-center">Route</th>
                         <th class="text-center">Method</th>
@@ -296,7 +296,7 @@ $tabs = [
                 <tbody>
                     @foreach($items as $item)
                     <tr>
-                        <td>{{ $item['id'] }}</td>
+                        <td class="text-center">{{ $item['id'] }}</td>
                         <td class="text-center">{{ $item['name'] }}</td>
                         <td class="text-center">
                             @if(isset($item['route']))
@@ -353,9 +353,17 @@ $tabs = [
 </div>
 
 <!-- Saqlash tugmasi -->
-<div class="text-end mt-4">
+<!-- <div class="text-end mt-4">
     <button type="button" class="btn btn-success px-4" id="savePermissions">
         <i class="fas fa-save me-2"></i>{{__('admin.save')}}
+    </button>
+</div> -->
+
+<div class="d-flex justify-content-end mt-3 gap-2">
+
+    <button class="btn btn-primary" type="submit">
+        <i class="fas fa-save me-1"></i>
+        Saqlash
     </button>
 </div>
 

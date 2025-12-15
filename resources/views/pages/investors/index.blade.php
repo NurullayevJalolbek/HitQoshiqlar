@@ -48,6 +48,45 @@
         background-color: #f0bc74;
         color: #fff;
     }
+
+    .investor-status-active,
+    .investor-status-blocked,
+    .investor-status-pending {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        padding: 4px 10px;
+        border-radius: 8px;
+        font-size: 13px;
+        font-weight: 500;
+        backdrop-filter: blur(6px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    /* Yashil – Faol */
+    .investor-status-active {
+        background: rgba(0, 200, 83, 0.15);
+        color: #0f9d58;
+    }
+
+    /* Qizil – Block */
+    .investor-status-blocked {
+        background: rgba(255, 0, 0, 0.15);
+        color: #d93025;
+    }
+
+    /* Sariq – Pending */
+    .investor-status-pending {
+        background: rgba(255, 193, 7, 0.15);
+        color: #c99a00;
+    }
+
+    /* O‘qilmagan user row */
+    .investor-row-unread {
+        background-color: #eef6ff !important;
+        font-weight: 600;
+        color: #2c3e50;
+    }
 </style>
 @endpush
 
@@ -166,8 +205,29 @@ $end = $pagination['end'];
                     @endif
                 </td>
 
+                <td>
+                    @php
+                    $cls = match($investor['status']) {
+                    'Faol' => 'investor-status-active',
+                    'Bloklangan' => 'investor-status-blocked',
+                    default => 'investor-status-pending'
+                    };
 
-                <td class="table-cell">
+                    $icon = match($investor['status']) {
+                    'Faol' => 'fas fa-check-circle me-1',
+                    'Bloklangan' => 'fas fa-ban me-1',
+                    default => 'fas fa-clock me-1'
+                    };
+                    @endphp
+
+                    <span class="{{ $cls }}">
+                        <i class="fas {{ $icon }} me-1"></i>
+                        {{ $investor['status'] }}
+                    </span>
+                </td>
+
+
+                <!-- <td class="table-cell">
                     @if($investor['status'] === 'Faol')
                     <span class="btn btn-outline-success">
                         <i class="fas fa-check-circle me-1"></i> Faol
@@ -182,7 +242,7 @@ $end = $pagination['end'];
                     </span>
 
                     @endif
-                </td>
+                </td> -->
                 <td>
                     <i class="fa-solid fa-calendar-days me-1" style="color:#6c757d;"></i>
                     {{ \Carbon\Carbon::parse($investor['created_at'])->format('H:i d.m.y') }}
@@ -296,9 +356,6 @@ $end = $pagination['end'];
 @endsection
 
 @push('customJs')
-<script
-    src="https://unpkg.com/@lottiefiles/dotlottie-wc@0.8.5/dist/dotlottie-wc.js"
-    type="module"></script>
 
 <script>
     // Block modal uchun
@@ -323,7 +380,18 @@ $end = $pagination['end'];
         unblockModal.querySelector('#unblockForm').action = formAction
     })
 
+    // INN ni clipboard ga nusxalash
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.copy-inn-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const inn = this.getAttribute('data-inn');
 
-    
+                // Clipboard ga nusxalash
+                navigator.clipboard.writeText(inn).then(() => {
+
+                });
+            });
+        });
+    });
 </script>
 @endpush

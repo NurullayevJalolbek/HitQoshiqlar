@@ -369,100 +369,122 @@
 
 @section('content')
     @php
-        $state = [ // default davlatlar ro'yxati
-            'AL' => 'Alabama',
-            'AK' => 'Alaska',
-            'AZ' => 'Arizona',
-            'AR' => 'Arkansas',
-            'CA' => 'California',
-            'CO' => 'Colorado',
-            'CT' => 'Connecticut',
-            'DE' => 'Delaware',
-            'DC' => 'District Of Columbia',
-            'FL' => 'Florida',
-            'GA' => 'Georgia',
-            'HI' => 'Hawaii',
-            'ID' => 'Idaho',
-            'IL' => 'Illinois',
-            'IN' => 'Indiana',
-            'IA' => 'Iowa',
-            'KS' => 'Kansas',
-            'KY' => 'Kentucky',
-            'LA' => 'Louisiana',
-            'ME' => 'Maine',
-            'MD' => 'Maryland',
-            'MA' => 'Massachusetts',
-            'MI' => 'Michigan',
-            'MN' => 'Minnesota',
-            'MS' => 'Mississippi',
-            'MO' => 'Missouri',
-            'MT' => 'Montana',
-            'NE' => 'Nebraska',
-            'NV' => 'Nevada',
-            'NH' => 'New Hampshire',
-            'NJ' => 'New Jersey',
-            'NM' => 'New Mexico',
-            'NY' => 'New York',
-            'NC' => 'North Carolina',
-            'ND' => 'North Dakota',
-            'OH' => 'Ohio',
-            'OK' => 'Oklahoma',
-            'OR' => 'Oregon',
-            'PA' => 'Pennsylvania',
-            'RI' => 'Rhode Island',
-            'SC' => 'South Carolina',
-            'SD' => 'South Dakota',
-            'TN' => 'Tennessee',
-            'TX' => 'Texas',
-            'UT' => 'Utah',
-            'VT' => 'Vermont',
-            'VA' => 'Virginia',
-            'WA' => 'Washington',
-            'WV' => 'West Virginia',
-            'WI' => 'Wisconsin',
-            'WY' => 'Wyoming',
-        ];
-        $statuses = [
-            'Faol' => 'Faol',
-            'Rejalashtirilgan' => 'Rejalashtirilgan',
-            'Yakunlangan' => 'Yakunlangan',
-            'Nofaol' => 'Nofaol',
-        ];
-        $categories = [
-            'Yer' => 'Yer',
-            'Qurilish' => 'Qurilish',
-            'Ijara' => 'Ijara',
+        $state = [
+            // default davlatlar ro'yxati
+    'AL' => 'Alabama',
+    'AK' => 'Alaska',
+    'AZ' => 'Arizona',
+    'AR' => 'Arkansas',
+    'CA' => 'California',
+    'CO' => 'Colorado',
+    'CT' => 'Connecticut',
+    'DE' => 'Delaware',
+    'DC' => 'District Of Columbia',
+    'FL' => 'Florida',
+    'GA' => 'Georgia',
+    'HI' => 'Hawaii',
+    'ID' => 'Idaho',
+    'IL' => 'Illinois',
+    'IN' => 'Indiana',
+    'IA' => 'Iowa',
+    'KS' => 'Kansas',
+    'KY' => 'Kentucky',
+    'LA' => 'Louisiana',
+    'ME' => 'Maine',
+    'MD' => 'Maryland',
+    'MA' => 'Massachusetts',
+    'MI' => 'Michigan',
+    'MN' => 'Minnesota',
+    'MS' => 'Mississippi',
+    'MO' => 'Missouri',
+    'MT' => 'Montana',
+    'NE' => 'Nebraska',
+    'NV' => 'Nevada',
+    'NH' => 'New Hampshire',
+    'NJ' => 'New Jersey',
+    'NM' => 'New Mexico',
+    'NY' => 'New York',
+    'NC' => 'North Carolina',
+    'ND' => 'North Dakota',
+    'OH' => 'Ohio',
+    'OK' => 'Oklahoma',
+    'OR' => 'Oregon',
+    'PA' => 'Pennsylvania',
+    'RI' => 'Rhode Island',
+    'SC' => 'South Carolina',
+    'SD' => 'South Dakota',
+    'TN' => 'Tennessee',
+    'TX' => 'Texas',
+    'UT' => 'Utah',
+    'VT' => 'Vermont',
+    'VA' => 'Virginia',
+    'WA' => 'Washington',
+    'WV' => 'West Virginia',
+    'WI' => 'Wisconsin',
+    'WY' => 'Wyoming',
         ];
     @endphp
     <!-- Filter qismi -->
     <div class="filter-card mb-3 collapse show" id="projectsFilterContent">
         <div class="p-3">
             <div class="row g-3 align-items-end">
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <label for="searchInput" class="form-label mb-2">Qidiruv</label>
                     <div class="input-group">
                         <span class="input-group-text bg-white border-end-0">
                             <i class="fas fa-search text-muted"></i>
                         </span>
-                        <input type="text" id="searchInput" class="form-control border-start-0" placeholder="Loyiha nomi">
+                        <input type="text" id="searchInput" class="form-control border-start-0"
+                            placeholder="Loyiha nomi">
                     </div>
+                </div>
+
+                <!-- <x-select-with-search
+                    name="user_state"
+                    label="Davlatni tanlang"
+                    :datas="$state"
+                    colMd="6"
+                    placeholder="Davlatni tanlang"
+                    :selected="request()->get('user_state', '')"
+                /> -->
+
+
+                <!-- <x-from-to-date-picker fromName="startDate" toName="endDate" label="Tanlangan Sana Oralig'i" /> -->
+
+                <i class="fas fa-search text-muted"></i>
+                </span>
+                <input type="text" id="searchInput" class="form-control border-start-0" placeholder="Loyiha nomi">
+            </div>
+            <div class="col-md-3">
+                <div class="input-group">
+                    <span class="input-group-text bg-white border-end-0">
+                        <label for="categoryFilter" class="form-label mb-2">{{ __('admin.category') }}</label>
+                        <select id="categoryFilter" class="form-select">
+                            <option value="">{{ __('admin.all') }}</option>
+                            <option value="yer">{{ __('admin.land') }}</option>
+                            <option value="qurilish">{{ __('admin.construction') }}</option>
+                            <option value="ijara">{{ __('admin.rent') }}</option>
+                        </select>
                 </div>
                 <div class="col-md-3">
-                    <label for="searchInput" class="form-label mb-2">{{ __('admin.location') }}</label>
-                    <div class="input-group">
-                        <span class="input-group-text bg-white border-end-0">
-                            <i class="fa-solid fa-location-dot text-muted"></i>
-                        </span>
-                        <input type="text" id="locationInput" class="form-control border-start-0" placeholder="{{ __('admin.location') }}">
-                    </div>
+                    <label for="statusFilter" class="form-label mb-2">{{ __('admin.status') }}</label>
+                    <select id="statusFilter" class="form-select">
+                        <option value="">{{ __('admin.all') }}</option>
+                        <option value="faol">{{ __('admin.active') }}</option>
+                        <option value="rejalashtirilgan">{{ __('admin.planned') }}</option>
+                        <option value="yakunlangan">{{ __('admin.completed') }}</option>
+                        <option value="nofaol">{{ __('admin.inactive') }}</option>
+                    </select>
                 </div>
-
-                <x-select-with-search name="categoryFilter" label="{{ __('admin.category') }}" :datas="$categories" colMd="2"
-                    placeholder="Barchasi" :selected="request()->get('categoryFilter', '')" :selectSearch=false icon="fa-layer-group text-primary"/>
-
-                <x-select-with-search name="statusFilter" label="Holati boyicha" :datas="$statuses" colMd="2"
-                    placeholder="Barchasi" :selected="request()->get('statusFilter', '')" :selectSearch=false />
-
+                <!-- <div class="col-md-2">
+                    <label for="riskFilter" class="form-label mb-2">{{ __('admin.risk_level') }}</label>
+                    <select id="riskFilter" class="form-select">
+                        <option value="">{{ __('admin.all') }}</option>
+                        <option value="past">{{ __('admin.low') }}</option>
+                        <option value="o'rta">{{ __('admin.medium') }}</option>
+                        <option value="yuqori">{{ __('admin.high') }}</option>
+                    </select>
+                </div> -->
                 <x-filter-buttons :search-text="__('admin.search')" :clear-text="__('admin.clear')" />
             </div>
         </div>
@@ -478,7 +500,7 @@
                     <th style="width: 80px;">{{ __('admin.picture') }}</th>
                     <th style="width: 100px;">{{ __('admin.category') }}</th>
                     <th style="width: 90px;">{{ __('admin.status') }}</th>
-                    <th style="min-width: 200px;">{{ __('admin.value') }}</th>
+                    <th style="min-width: 130px;">{{ __('admin.value') }}</th>
                     <th style="min-width: 120px;">{{ __('admin.progress') }}</th>
                     <!-- <th style="min-width: 120px;">{{ __('admin.financing') }}</th> -->
                     <th style="min-width: 140px;">{{ __('admin.rounds') }}</th>
@@ -592,27 +614,6 @@
                 if (remainingMonths > 0) duration += remainingMonths + ' oy';
                 duration = duration.trim() || '-';
 
-                // To'liq sherik va komanditchi taqsimoti
-                const companyShare = p.company_share || 0;
-                let fullPartnerSharePercent = p.full_partner_share;
-                let limitedPartnerSharePercent = p.limited_partner_share;
-                
-                // Agar maydonlar bo'lmasa, default qiymatlar (50-50 yoki mavjud bo'lsa)
-                if (fullPartnerSharePercent === undefined || fullPartnerSharePercent === null) {
-                    fullPartnerSharePercent = limitedPartnerSharePercent !== undefined && limitedPartnerSharePercent !== null 
-                        ? (100 - limitedPartnerSharePercent) 
-                        : 50; // Default 50%
-                }
-                if (limitedPartnerSharePercent === undefined || limitedPartnerSharePercent === null) {
-                    limitedPartnerSharePercent = fullPartnerSharePercent !== undefined && fullPartnerSharePercent !== null 
-                        ? (100 - fullPartnerSharePercent) 
-                        : 50; // Default 50%
-                }
-                
-                // Taqsimotni hisoblash
-                const fullPartnerAmount = companyShare * (fullPartnerSharePercent / 100);
-                const limitedPartnerAmount = companyShare * (limitedPartnerSharePercent / 100);
-
                 console.log(p);
                 return {
                     ...p,
@@ -626,11 +627,7 @@
                     totalRounds: p.rounds_status.length,
                     duration: duration,
                     roi: p.yearly_profit_percent || 0, // FIX 1: 0 chiqarish
-                    location: `${p.district}, ${p.region}`,
-                    fullPartnerShare: fullPartnerSharePercent,
-                    limitedPartnerShare: limitedPartnerSharePercent,
-                    fullPartnerAmount: fullPartnerAmount,
-                    limitedPartnerAmount: limitedPartnerAmount
+                    location: `${p.district}, ${p.region}`
                 };
             });
         }
@@ -660,18 +657,18 @@
         function renderProjects(list) {
             if (list.length === 0) {
                 projectTableBody.innerHTML = `
-                                <tr>
-                                    <td colspan="14">
-                                        <div class="empty-state">
-                                            <i class="fas fa-folder-open"></i>
-                                            <div class="mt-2">
-                                                <h5>Loyihalar topilmadi</h5>
-                                                <p class="text-muted">Filter sozlamalarini o'zgartiring yoki yangi loyiha qo'shing</p>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                            `;
+            <tr>
+                <td colspan="14">
+                    <div class="empty-state">
+                        <i class="fas fa-folder-open"></i>
+                        <div class="mt-2">
+                            <h5>Loyihalar topilmadi</h5>
+                            <p class="text-muted">Filter sozlamalarini o'zgartiring yoki yangi loyiha qo'shing</p>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        `;
                 return;
             }
 
@@ -694,55 +691,51 @@
                 const fundingBarClass = getProgressBarClass(p.funding);
 
                 html += `
-                                <tr>
-                                    <td>${p.code}</td>
-                                    <td>
-                                        <div class="project-name">${p.name}</div>
-                                        <div class="project-location">
-                                            <i class="fas fa-map-marker-alt me-1"></i>${p.location}
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <img src="${p.image}" class="project-img" alt="${p.name}"
-                                             onerror="this.src='https://via.placeholder.com/56'">
-                                    </td>
-                                    <td>
-                                        <span class="badge badge-custom badge-category-${p.category}">
-                                            ${p.category_display}
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <span class="badge badge-custom badge-status-${p.status}">
-                                            ${p.status.charAt(0).toUpperCase() + p.status.slice(1)}
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <div class="value-primary">${formatCurrencyShort(p.total_value)} (${p.funding}%)</div>
+            <tr>
+                <td>${p.code}</td>
+                <td>
+                    <div class="project-name">${p.name}</div>
+                    <div class="project-location">
+                        <i class="fas fa-map-marker-alt me-1"></i>${p.location}
+                    </div>
+                </td>
+                <td>
+                    <img src="${p.image}" class="project-img" alt="${p.name}"
+                         onerror="this.src='https://via.placeholder.com/56'">
+                </td>
+                <td>
+                    <span class="badge badge-custom badge-category-${p.category}">
+                        ${p.category_display}
+                    </span>
+                </td>
+                <td>
+                    <span class="badge badge-custom badge-status-${p.status}">
+                        ${p.status.charAt(0).toUpperCase() + p.status.slice(1)}
+                    </span>
+                </td>
+                <td>
+                    <div class="value-primary">${formatCurrencyShort(p.total_value)} (${p.funding}%)</div>
                                         <div class="value-secondary">Min: ${formatCurrencyShort(p.min_investment)}</div>
-                                        <div class="value-secondary mt-1" style="border-top: 1px solid #e5e7eb; padding-top: 0.25rem; margin-top: 0.25rem;">
-                                            <div style="font-size: 0.7rem;"><strong>To'liq sherik:</strong> ${formatCurrencyShort(p.fullPartnerAmount)} (${(p.fullPartnerShare || 0).toFixed(1)}%)</div>
-                                            <div style="font-size: 0.7rem;"><strong>Komanditchi:</strong> ${formatCurrencyShort(p.limitedPartnerAmount)} (${(p.limitedPartnerShare || 0).toFixed(1)}%)</div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="progress-wrapper">
-                                            <div class="progress-custom">
-                                                <div class="progress-bar-custom ${progressBarClass}" style="width: ${p.progress}%"></div>
-                                            </div>
-                                            <div class="progress-text">${p.progress}% bajarildi</div>
-                                        </div>
-                                    </td>
-                                    <td>${renderRounds(p.rounds_status)}</td>
-                                    <td>${p.duration}</td>
-                                    <td>
-                                        <div class="action-buttons">
-                                            <x-show-button />
-                                            <x-edit-button />
-                                            <x-delete-button/>
-                                        </div>
-                                    </td>
-                                </tr>
-                            `;
+                </td>
+                <td>
+                    <div class="progress-wrapper">
+                        <div class="progress-custom">
+                            <div class="progress-bar-custom ${progressBarClass}" style="width: ${p.progress}%"></div>
+                        </div>
+                        <div class="progress-text">${p.progress}% bajarildi</div>
+                    </div>
+                </td>
+                <td>${renderRounds(p.rounds_status)}</td>
+                <td>${p.duration}</td>
+                <td>
+                    <div class="action-buttons">
+                        <x-show-button />
+                        <x-edit-button />
+                        <x-delete-button/>
+                    </div>
+                </td>
+            </tr>
+        `;
             });
 
             projectTableBody.innerHTML = html;
@@ -777,21 +770,21 @@
                 .catch(error => {
                     console.error('API xatosi:', error);
                     projectTableBody.innerHTML = `
-                                    <tr>
-                                        <td colspan="14">
-                                            <div class="empty-state">
-                                                <i class="fas fa-exclamation-triangle text-danger"></i>
-                                                <div class="mt-2">
-                                                    <h5>Xatolik yuz berdi</h5>
-                                                    <p class="text-muted">Ma'lumotlarni yuklashda muammo yuz berdi. Iltimos, qayta urinib ko'ring.</p>
-                                                    <button class="btn btn-primary btn-sm mt-2" onclick="fetchProjects()">
-                                                        <i class="fas fa-redo me-1"></i> Qayta yuklash
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                `;
+                <tr>
+                    <td colspan="14">
+                        <div class="empty-state">
+                            <i class="fas fa-exclamation-triangle text-danger"></i>
+                            <div class="mt-2">
+                                <h5>Xatolik yuz berdi</h5>
+                                <p class="text-muted">Ma'lumotlarni yuklashda muammo yuz berdi. Iltimos, qayta urinib ko'ring.</p>
+                                <button class="btn btn-primary btn-sm mt-2" onclick="fetchProjects()">
+                                    <i class="fas fa-redo me-1"></i> Qayta yuklash
+                                </button>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            `;
                 });
         }
 
@@ -819,12 +812,12 @@
         }
 
         // Event listeners
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             fetchProjects();
 
             filterBtn.addEventListener('click', applyFilter);
 
-            clearBtn.addEventListener('click', function () {
+            clearBtn.addEventListener('click', function() {
                 searchInput.value = '';
                 categoryFilter.value = '';
                 statusFilter.value = '';
@@ -833,13 +826,13 @@
                 updateStatistics(defaultProjects);
             });
 
-            searchInput.addEventListener('keyup', function (e) {
+            searchInput.addEventListener('keyup', function(e) {
                 if (e.key === 'Enter') applyFilter();
             });
 
             // Real-time qidiruv (debounce bilan)
             let searchTimeout;
-            searchInput.addEventListener('input', function () {
+            searchInput.addEventListener('input', function() {
                 clearTimeout(searchTimeout);
                 searchTimeout = setTimeout(applyFilter, 300);
             });

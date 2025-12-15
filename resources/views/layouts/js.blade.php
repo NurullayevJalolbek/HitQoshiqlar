@@ -1,33 +1,4 @@
 <script>
-    // INN ni clipboard ga nusxalash
-    document.addEventListener('DOMContentLoaded', function() {
-        document.querySelectorAll('.copy-inn-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                const inn = this.getAttribute('data-inn');
-                const icon = this.querySelector('i');
-
-                // Clipboard ga nusxalash
-                navigator.clipboard.writeText(inn).then(() => {
-
-                    // Lottie elementini yaratish
-                    const lottieEl = document.createElement('dotlottie-wc');
-                    lottieEl.src = "https://lottie.host/4e693ea5-2094-4f50-85c4-c6f186fc997f/lPwg3ALEob.lottie";
-                    lottieEl.style.width = "24px";
-                    lottieEl.style.height = "24px";
-                    lottieEl.style.color = "#10B981"; // Yashil rang
-                    lottieEl.autoplay = true;
-
-                    // Iconni Lottie bilan almashtirish
-                    icon.replaceWith(lottieEl);
-
-                    // 1.5 soniyadan keyin asl iconni qaytarish
-                    setTimeout(() => {
-                        lottieEl.replaceWith(icon);
-                    }, 1700);
-                });
-            });
-        });
-    });
 
     document.addEventListener('DOMContentLoaded', function() {
 

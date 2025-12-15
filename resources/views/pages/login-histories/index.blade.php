@@ -63,6 +63,12 @@
         background: rgba(255, 193, 7, 0.15);
         color: #c99a00;
     }
+
+    .login-row-unread {
+        background-color: #eef6ff !important;
+        font-weight: 600;
+        color: #2c3e50;
+    }
 </style>
 @endpush
 
@@ -82,8 +88,9 @@
 
     <div class="d-flex gap-2 align-items-center flex-wrap">
 
-        <x-export-dropdown :items="['csv']" :urls="[
+        <x-export-dropdown :items="['csv','pdf']" :urls="[
                 'csv'   => '#',
+                'pdf'   => '#'
             ]" />
 
         <button class="btn btn-sm p-2 d-flex align-items-center justify-content-center"
@@ -334,7 +341,7 @@ $end = $pagination['end'];
                 try {
                     const res = await axios.get(`/admin/login-histories/${id}`);
 
-                    const d = res.data.data[0]; 
+                    const d = res.data.data[0];
 
                     document.getElementById('d_user').innerHTML =
                         `${d.user}`;
