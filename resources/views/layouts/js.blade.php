@@ -114,6 +114,34 @@
                     buttonsStyling: false
                 });
             }
+           window.setDefaultLanguage = function (checkbox) {
+
+                // Agar o‘chirilayotgan bo‘lsa — hech narsa qilmaymiz
+                if (!checkbox.checked) return;
+
+                Swal.fire({
+                    title: "Asosiy tilni o‘zgartirish",
+                    text: "Haqiqatan ham ushbu til qilib belgilamoqchimisiz?",
+                    icon: "question",
+                    showCancelButton: true,
+                    confirmButtonText: "Tasdiqlash",
+                    cancelButtonText: "Bekor qilish",
+                    customClass: {
+                        confirmButton: 'btn btn-primary me-2',
+                        cancelButton: 'btn btn-secondary',
+                    },
+                    buttonsStyling: false
+                }).then((result) => {
+                    if (!result.isConfirmed) {
+                        // Bekor qilinsa — checkbox qayta o‘chadi
+                        checkbox.checked = false;
+                    } else {
+                        // 👉 bu yerda AJAX / fetch bilan backendga yuborasan
+                        console.log('Default til ID:', checkbox.dataset.id);
+                    }
+                });
+            };
+
 
 
     // Global error alert
