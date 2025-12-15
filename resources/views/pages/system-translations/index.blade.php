@@ -1,7 +1,26 @@
 @extends('layouts.app')
 
 @push('customCss')
-{{-- CSS Ko'dlari--}}
+<style>
+    .system-translation-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        padding: 4px 10px;
+        border-radius: 8px;
+        font-size: 13px;
+        font-weight: 500;
+        backdrop-filter: blur(6px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    /* Yashil – Faol */
+    .system-translation-badge {
+        background: rgba(31, 41, 55, 0.15);
+        /* ✅ #1F2937 shaffof */
+        color: #1F2937;
+    }
+</style>
 @endpush
 
 
@@ -35,51 +54,51 @@
 @section('content')
 {{-- 2. INTERFEYS TАRЖIMALARI --}}
 @php
-            $data = [];
+$data = [];
 
 
-            foreach ($languages as $lang) {
+foreach ($languages as $lang) {
 
-            $code = $lang->url;
-            $file = base_path("lang/$code/admin.php");
-            $data[$code] = file_exists($file) ? include $file : [];
-            }
-
-
-            $baseKeys = array_keys($data['uz'] ?? []);
-
-            $pagination = manualPaginate($baseKeys, 10);
+$code = $lang->url;
+$file = base_path("lang/$code/admin.php");
+$data[$code] = file_exists($file) ? include $file : [];
+}
 
 
-            $paginatedUsers = $pagination['items'];
+$baseKeys = array_keys($data['uz'] ?? []);
+
+$pagination = manualPaginate($baseKeys, 10);
 
 
-            $currentPage = $pagination['currentPage'];
-            $pageCount = $pagination['pageCount'];
-
-            $start = $pagination['start'];
-            $total = $pagination['total'];
-            $end = $pagination['end'];
+$paginatedUsers = $pagination['items'];
 
 
+$currentPage = $pagination['currentPage'];
+$pageCount = $pagination['pageCount'];
 
+$start = $pagination['start'];
+$total = $pagination['total'];
+$end = $pagination['end'];
 
 
 
-            function renderValue($value, $prefix = '')
-            {
-            // Agar array bo‘lsa — har bir elementni alohida ko‘rsatamiz
-            if (is_array($value)) {
-            $html = '';
-            foreach ($value as $k => $v) {
-            $html .= renderValue($v, $prefix . $k . '. ');
-            }
-            return $html;
-            }
 
-            // Agar string bo‘lsa — to‘g‘ridan-to‘g‘ri chiqaramiz
-            return "<div>{$prefix}{$value}</div>";
-            }
+
+
+function renderValue($value, $prefix = '')
+{
+// Agar array bo‘lsa — har bir elementni alohida ko‘rsatamiz
+if (is_array($value)) {
+$html = '';
+foreach ($value as $k => $v) {
+$html .= renderValue($v, $prefix . $k . '. ');
+}
+return $html;
+}
+
+// Agar string bo‘lsa — to‘g‘ridan-to‘g‘ri chiqaramiz
+return "<div>{$prefix}{$value}</div>";
+}
 @endphp
 
 
@@ -100,33 +119,32 @@
             id="interfaceTable">
             <thead class="table-dark">
                 <tr>
-                    <th>#</th>
+                    <th class="text-center" width="5%">№</th>
                     <th>Kalit</th>
-                    <th>UZ</th>
-                    <th>RU</th>
-                    <th>EN</th>
-                    <th>AR</th>
+                    <th class="text-center">UZ</th>
+                    <th class="text-center">RU</th>
+                    <th class="text-center">EN</th>
+                    <th class="text-center">AR</th>
                     <th class="text-center">Amallar</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($baseKeys as $index => $key)
                 <tr>
-                    <td>{{ $index + 1 }}</td>
+                    <td class="text-center">{{ $index + 1 }}</td>
                     <td>
-                        <span class="badge rounded-pill text-white" style="background-color: #1F2937;">
+                        <span class="system-translation-badge">
                             {{ $key }}
                         </span>
                     </td>
-                    <td>{!! renderValue($data['uz'][$key] ?? '') !!}</td>
-                    <td>{!! renderValue($data['ru'][$key] ?? '') !!}</td>
-                    <td>{!! renderValue($data['en'][$key] ?? '') !!}</td>
-                    <td>{!! renderValue($data['ar'][$key] ?? '') !!}</td>
+                    <td class="text-center">{!! renderValue($data['uz'][$key] ?? '') !!}</td>
+                    <td class="text-center">{!! renderValue($data['ru'][$key] ?? '') !!}</td>
+                    <td class="text-center">{!! renderValue($data['en'][$key] ?? '') !!}</td>
+                    <td class="text-center">{!! renderValue($data['ar'][$key] ?? '') !!}</td>
 
-                    <td class="text-center">
-                        <a href="#" class="btn btn-sm p-1" style="background:none;color:#f0bc74;">
-                            <i class="bi bi-pencil-fill"></i>
-                        </a>
+                    <td class="text-center  justify-content-center gap-1">
+                        <x-edit-button href="#" />
+
                     </td>
                 </tr>
                 @endforeach
