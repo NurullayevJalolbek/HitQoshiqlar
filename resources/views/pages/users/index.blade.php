@@ -28,44 +28,43 @@
 
 
     .user-status-active,
-.user-status-blocked,
-.user-status-pending {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    padding: 4px 10px;
-    border-radius: 8px;
-    font-size: 13px;
-    font-weight: 500;
-    backdrop-filter: blur(6px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-}
+    .user-status-blocked,
+    .user-status-pending {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        padding: 4px 10px;
+        border-radius: 8px;
+        font-size: 13px;
+        font-weight: 500;
+        backdrop-filter: blur(6px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
 
-/* Yashil – Faol */
-.user-status-active {
-    background: rgba(0, 200, 83, 0.15);
-    color: #0f9d58;
-}
+    /* Yashil – Faol */
+    .user-status-active {
+        background: rgba(0, 200, 83, 0.15);
+        color: #0f9d58;
+    }
 
-/* Qizil – Block */
-.user-status-blocked {
-    background: rgba(255, 0, 0, 0.15);
-    color: #d93025;
-}
+    /* Qizil – Block */
+    .user-status-blocked {
+        background: rgba(255, 0, 0, 0.15);
+        color: #d93025;
+    }
 
-/* Sariq – Pending */
-.user-status-pending {
-    background: rgba(255, 193, 7, 0.15);
-    color: #c99a00;
-}
+    /* Sariq – Pending */
+    .user-status-pending {
+        background: rgba(255, 193, 7, 0.15);
+        color: #c99a00;
+    }
 
-/* O‘qilmagan user row */
-.user-row-unread {
-    background-color: #eef6ff !important;
-    font-weight: 600;
-    color: #2c3e50;
-}
-
+    /* O‘qilmagan user row */
+    .user-row-unread {
+        background-color: #eef6ff !important;
+        font-weight: 600;
+        color: #2c3e50;
+    }
 </style>
 @endpush
 
@@ -169,7 +168,7 @@ $end = $pagination['end'];
             $icon = $roleIcons[$user['role']] ?? 'fa-solid fa-user-tag';
             @endphp
 
-            <tr class="user-row-unread">
+            <tr>
                 <td>
                     {{ $user['id'] }}
                 </td>
@@ -197,7 +196,7 @@ $end = $pagination['end'];
                     <span>{{ $user['role'] }}</span>
                 </td>
 
-                 <td>
+                <td>
                     @php
                     $cls = match($user['status']) {
                     'Faol' => 'user-status-active',

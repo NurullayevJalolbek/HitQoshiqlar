@@ -64,12 +64,11 @@
         color: #c99a00;
     }
 
-        .login-row-unread {
-    background-color: #eef6ff !important;
-    font-weight: 600;
-    color: #2c3e50;
-}
-
+    .login-row-unread {
+        background-color: #eef6ff !important;
+        font-weight: 600;
+        color: #2c3e50;
+    }
 </style>
 @endpush
 
@@ -147,7 +146,7 @@ $end = $pagination['end'];
 
         <tbody>
             @forelse($loginHistories as $h)
-            <tr class="login-row-unread">
+            <tr>
                 {{-- ID --}}
                 <td>{{ $h['id'] }}</td>
 
@@ -342,7 +341,7 @@ $end = $pagination['end'];
                 try {
                     const res = await axios.get(`/admin/login-histories/${id}`);
 
-                    const d = res.data.data[0]; 
+                    const d = res.data.data[0];
 
                     document.getElementById('d_user').innerHTML =
                         `${d.user}`;

@@ -165,7 +165,7 @@ $end = $pagination['end'];
             @endphp
 
 
-            <tr class="investor-row-unread">
+            <tr>
                 <td class="table-cell">{{ $investor['id'] }}</td>
                 <td class="table-cell">
                     {{ $investor['name'] }}

@@ -64,12 +64,12 @@
         color: #c99a00;
     }
 
-    
-        .system-login-row-unread {
-    background-color: #eef6ff !important;
-    font-weight: 600;
-    color: #2c3e50;
-}
+
+    .system-login-row-unread {
+        background-color: #eef6ff !important;
+        font-weight: 600;
+        color: #2c3e50;
+    }
 </style>
 @endpush
 
@@ -153,7 +153,7 @@ $end = $pagination['end'];
         <tbody>
             @forelse($systemLogs as $systemLog)
 
-            <tr class="system-login-row-unread">
+            <tr>
                 <td>
                     {{ $loop->iteration + $start - 1 }}
                 </td>

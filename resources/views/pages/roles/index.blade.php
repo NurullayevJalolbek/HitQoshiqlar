@@ -3,11 +3,10 @@
 @push('customCss')
 <style>
     .role-row-unread {
-    background-color: #eef6ff !important;
-    font-weight: 600;
-    color: #2c3e50;
-}
-
+        background-color: #eef6ff !important;
+        font-weight: 600;
+        color: #2c3e50;
+    }
 </style>
 @endpush
 
@@ -122,7 +121,7 @@ $end = $pagination['end'];
         </thead>
         <tbody>
             @forelse($roles as $index => $role)
-            <tr class="role-row-unread">
+            <tr>
                 <td class="text-start">
                     <div class="lift-inner">{{ $loop->iteration }}</div>
                 </td>
@@ -148,13 +147,13 @@ $end = $pagination['end'];
                 <td class="text-center  justify-content-center gap-1">
                     <div class="action-buttons d-flex gap-2 justify-content-end">
 
-                    
+
                         <!-- Ruxsatlar (kalit) -->
                         <a href="{{ route('admin.role-permissions.index', ['role_id' => $role['id']]) }}"
                             class="btn btn-sm p-1 {{ $role['is_deletable'] ?? true ? '' : 'disabled' }}"
                             style="background: none; border: none; color: #1F2937;"
                             title="{{ __('admin.permissions') }}">
-                           <i class="fa-solid fa-shield text-info"></i>
+                            <i class="fa-solid fa-shield text-info"></i>
                         </a>
 
 
