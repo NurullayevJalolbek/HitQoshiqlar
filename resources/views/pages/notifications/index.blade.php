@@ -148,7 +148,7 @@
                         <td>
                             <small class="text-muted">
                                 <i class="far fa-clock me-1"></i>
-                                {{ $notification['date'] }}
+                                {{  \Carbon\Carbon::parse($notification['date'])->format('H:i d.m.y')  }}
                             </small>
                         </td>
                         

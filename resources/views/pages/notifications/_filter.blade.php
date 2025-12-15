@@ -11,7 +11,7 @@ $statuses = ['unread' => 'O‘qilmagan', 'read' => 'O‘qilgan'];
                 <label class="form-label text-muted small">Qidiruv</label>
                 <div class="input-group">
                     <span class="input-group-text bg-white"><i class="fas fa-search text-muted"></i></span>
-                    <input type="text" id="searchInput" class="form-control" placeholder="Kalit so‘z...">
+                    <input type="text" id="searchInput" class="form-control" placeholder="Xabar matni...">
                 </div>
             </div>
 

@@ -160,7 +160,7 @@ $end = $pagination['end'];
 
 
                         <!-- O‘chirish (savatcha) -->
-                        @if($role['is_deletable'] == false)
+                        @if($role['is_deletable'] !== false)
                         <a href="javascript:void(0);"
                             class="btn btn-sm p-0 "
                             style="background: none; color: #bd2130;"

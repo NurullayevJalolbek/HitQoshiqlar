@@ -252,7 +252,7 @@ $tabs = [
                 style="border: 2px solid rgba(42,52,65,0.4);">
                 <thead class="table-dark">
                     <tr>
-                        <th width="5%">ID</th>
+                        <th width="5%">№</th>
                         <th>Nomi</th>
                         <th class="text-center-cell">Amallar</th>
                     </tr>
@@ -286,7 +286,7 @@ $tabs = [
                 style="border: 2px solid rgba(42,52,65,0.4);">
                 <thead class="table-dark">
                     <tr>
-                        <th width="5%">ID</th>
+                        <th width="5%">№</th>
                         <th class="text-center">Nomi</th>
                         <th class="text-center">Route</th>
                         <th class="text-center">Method</th>
