@@ -351,4 +351,37 @@ return [
     'investor'        => 'Investor',
     'warning' => "Ogohlantirish",
     'role_delete_warning' => "Bu roleni o'chirishdan oldin undagi foydalanuvchilarni boshqa rolega o'tkazishingiz kerak?",
+    'enterprise_name' => 'Korxona nomi',
+    'search_placeholder' => 'Transaction ID',
+
+
+    'accept' => 'Qabul qilish',
+    'reject' => 'Rad etish',
+
+    'application_comment' => 'Ariza holatiga izoh',
+    'refund_receipt' => 'Qaytarish kvitantsiya',
+    'rejection_act' => 'Rad etish ba\'yonnoma',
+    'kyc_info' => 'KYC ma\'lumotlari',
+    'digital_signature' => 'Elektron imzo',
+    'document_verification' => 'Hujjatlarini tasdiqlash',
+    'investor_name' => 'Investor F.I.O.',
+    'registered_at' => 'Rozxatdan otgan sana',
+    'registration_info' => 'Rozxatdan otish ma\'lumotlari',
+
+    'loading' => 'Yuklanmoqda...',
+    'no_data' => 'Ma\'lumot topilmadi',
+    'no_entries' => 'Hozircha hech qanday ariza mavjud emas',
+
+    'accept_applications' => 'Ariza larni qabul qilish',
+    'reject_applications' => 'Ariza larni rad etish',
+    'attention' => 'E\'tibor!',
+    'accept_selected_info' => 'Ta arizani qabul qilishiz kerak.',
+    'reject_selected_info' => 'Ta arizani rad etishiz kerak.',
+
+    'registration_date' => 'Rozxatdan otgan sana',
+    'registration_date_hint' => 'Investorlar kommanditschi sifatida royxatga olingan sana ni kiriting',
+
+    'registration_info_hint' => 'Davlat royxatidan otkazish ma\'lumotlari ni kiriting',
+    'rejection_reason' => 'Rad etish sababi',
+    'rejection_reason_hint' => 'Bu ma\'lumot investorga ko\'rsatiladi',
 ];

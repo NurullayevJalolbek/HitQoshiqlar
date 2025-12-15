@@ -2,16 +2,47 @@
 
 @push('customCss')
     <style>
-        .table td, .table th {
+        .table td,
+        .table th {
             vertical-align: middle;
+        }
+
+        .status-badge {
+            padding: 0.35rem 0.65rem;
+            border-radius: 0.25rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .status-processing {
+            background-color: #fef3c7;
+            color: #92400e;
+        }
+
+        .status-accepted {
+            background-color: #d1fae5;
+            color: #065f46;
+        }
+
+        .status-rejected {
+            background-color: #fee2e2;
+            color: #991b1b;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 0.25rem;
+        }
+
+        .action-buttons .btn {
+            padding: 0.25rem 0.5rem;
+            min-width: 32px;
         }
     </style>
 @endpush
 
-
 @section('breadcrumb')
-    <div
-        class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-3 breadcrumb-block px-3 mt-3"
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-3 breadcrumb-block px-3 mt-3"
         style="border: 1px solid rgba(0,0,0,0.05); border-radius: 0.5rem; background-color: #ffffff; height: 60px">
         <!-- Breadcrumb -->
         <div class="d-block mb-2 mb-md-0">
@@ -25,10 +56,9 @@
 
         <!-- Tugmalar guruhi -->
         <div class="d-flex gap-2 align-items-center flex-wrap">
-            <button class="btn btn-sm p-2 d-flex align-items-center justify-content-center"
-                    type="button" data-bs-toggle="collapse"
-                    data-bs-target="#projectExitRequestFilterContent" aria-expanded="true"
-                    aria-controls="projectExitRequestFilterContent">
+            <button class="btn btn-sm p-2 d-flex align-items-center justify-content-center" type="button"
+                data-bs-toggle="collapse" data-bs-target="#projectExitRequestFilterContent" aria-expanded="true"
+                aria-controls="projectExitRequestFilterContent">
                 <i class="fa-solid fa-list" style="font-size: 1.3rem;"></i>
             </button>
         </div>
@@ -38,7 +68,7 @@
 @section('content')
 
     <div class="filter-card mb-3 mt-2 collapse show" id="projectExitRequestFilterContent"
-         style="transition: all 0.3s ease;">
+        style="transition: all 0.3s ease;">
         <div class="border rounded p-3" style="border-color: rgba(0,0,0,0.05); background-color: #fff;">
             <div class="row g-3 align-items-end">
                 <!-- Qidiruv -->
@@ -47,7 +77,7 @@
                     <div class="input-group">
                         <span class="input-group-text bg-white"><i class="fas fa-search text-muted"></i></span>
                         <input type="text" id="searchInput" class="form-control"
-                               placeholder="{{__('admin.full_name')}}, {{__('admin.login')}}, {{__('admin.email')}}...">
+                            placeholder="{{__('admin.full_name')}}, {{__('admin.login')}}, {{__('admin.phone')}}...">
                     </div>
                 </div>
 
@@ -55,8 +85,8 @@
                     <label>Ariza holati</label>
                     <select id="filter_exit_status" class="form-control">
                         <option value="">— Barchasi —</option>
-                        <option value="accepted">Qabul qilingan</option>
                         <option value="processing">Jarayonda</option>
+                        <option value="accepted">Qabul qilingan</option>
                         <option value="rejected">Rad etilgan</option>
                     </select>
                 </div>
@@ -76,22 +106,71 @@
 
     {{-- TABLE CARD --}}
     <div class="card card-body py-3 px-3 shadow border-0 table-wrapper table-responsive mt-3">
-        <table class="table  table-bordered table-hover table-striped align-items-center">
+        <table class="table table-bordered table-hover table-striped align-items-center">
             <thead class="table-dark">
-            <tr>
-                <th>№</th>
-                <th>Ulashdan chiqish ID</th>
-                <th>Ariza holati</th>
-                <th>Izoh</th>
-                <th>Ko‘rib chiqish muddati</th>
-                <th>Invest F.I.O</th>
-                <th>Telefon</th>
-                <th>Login</th>
-                <th>Amallar</th>
-            </tr>
+                <tr>
+                    <th style="width: 40px;">№</th>
+                    <th>Ulashdan chiqish ID</th>
+                    <th style="width: 150px;">Ariza holati</th>
+                    <th>Izoh</th>
+                    <th style="width: 140px;">Ko'rib chiqish muddati</th>
+                    <th>Invest F.I.O</th>
+                    <th>Telefon</th>
+                    <th>Login</th>
+                    <th style="width: 200px;">Amallar</th>
+                </tr>
             </thead>
             <tbody id="exit-request-body"></tbody>
         </table>
+    </div>
+
+    <!-- Modal: Qabul qilish -->
+    <div class="modal fade" id="acceptModal" tabindex="-1" aria-labelledby="acceptModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-success text-white">
+                    <h5 class="modal-title" id="acceptModalLabel">Arizani qabul qilish</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Ushbu arizani qabul qilmoqchimisiz?</p>
+                    <p class="text-muted small">Ariza qabul qilingandan so'ng, Inestitsion loyiha doirasida yangi raund
+                        e'lon qilinib, sotув jarayoni boshlanishi kerak.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Bekor qilish</button>
+                    <button type="button" class="btn btn-success" id="confirmAcceptBtn">Qabul qilish</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Rad etish -->
+    <div class="modal fade" id="rejectModal" tabindex="-1" aria-labelledby="rejectModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title" id="rejectModalLabel">Arizani rad etish</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="rejectReason" class="form-label">Rad etish sababi <span
+                                class="text-danger">*</span></label>
+                        <textarea class="form-control" id="rejectReason" rows="4"
+                            placeholder="Ariza rad etilish sababini kiriting..." required></textarea>
+                        <div class="invalid-feedback">Rad etish sababini kiritish majburiy!</div>
+                    </div>
+                    <p class="text-muted small">Kiritilgan sabab mobil ilova orqali Investorga ko'rsatiladi.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Bekor qilish</button>
+                    <button type="button" class="btn btn-danger" id="confirmRejectBtn">Rad etish</button>
+                </div>
+            </div>
+        </div>
     </div>
 
 @endsection
@@ -100,127 +179,257 @@
     <script>
 
         // ========================================
-        //            LOCAL STORAGE
+        //            IN-MEMORY STORAGE
         // ========================================
 
-        let exitRequests = JSON.parse(localStorage.getItem('exitRequests') || '[]');
+        let exitRequests = [
+            {
+                id: 1,
+                exit_id: "EXIT-20001",
+                status: "processing",
+                status_comment: "",
+                deadline: "2025-12-15",
+                full_name: "Rasulov Islom",
+                phone: "+998901223344",
+                login: "islom_dev",
+            },
+            {
+                id: 2,
+                exit_id: "EXIT-20002",
+                status: "accepted",
+                status_comment: "Ariza qabul qilindi",
+                deadline: "2025-12-10",
+                full_name: "Sobirova Farangiz",
+                phone: "+998907778899",
+                login: "farangiz_s",
+            },
+            {
+                id: 3,
+                exit_id: "EXIT-20003",
+                status: "processing",
+                status_comment: "",
+                deadline: "2025-12-18",
+                full_name: "Karimov Aziz",
+                phone: "+998901112233",
+                login: "aziz_k",
+            },
+            {
+                id: 4,
+                exit_id: "EXIT-20004",
+                status: "rejected",
+                status_comment: "Investitsiya davri hali yakunlanmagan",
+                deadline: "2025-12-12",
+                full_name: "Toshmatova Dilnoza",
+                phone: "+998905556677",
+                login: "dilnoza_t",
+            }
+        ];
 
-        // Static demo data agar LocalStorage bo‘sh bo‘lsa
-        if (exitRequests.length === 0) {
-            exitRequests = [
-                {
-                    id: 1,
-                    exit_id: "EXIT-20001",
-                    status: "processing",
-                    status_comment: "",
-                    deadline: "2025-12-05",
-                    full_name: "Rasulov Islom",
-                    phone: "+998901223344",
-                    login: "islom_dev",
-                },
-                {
-                    id: 2,
-                    exit_id: "EXIT-20002",
-                    status: "accepted",
-                    status_comment: "Tasdiqlandi",
-                    deadline: "2025-12-01",
-                    full_name: "Sobirova Farangiz",
-                    phone: "+998907778899",
-                    login: "farangiz_s",
-                }
-            ];
-            saveExitStorage();
-        }
-
-        function saveExitStorage() {
-            localStorage.setItem('exitRequests', JSON.stringify(exitRequests));
-        }
+        let currentActionId = null;
 
         // ========================================
         //              RENDER TABLE
         // ========================================
 
+        function getStatusBadge(status) {
+            const statusMap = {
+                'processing': '<span class="status-badge status-processing">Jarayonda</span>',
+                'accepted': '<span class="status-badge status-accepted">Qabul qilingan</span>',
+                'rejected': '<span class="status-badge status-rejected">Rad etilgan</span>'
+            };
+            return statusMap[status] || status;
+        }
+
         function renderExitRequests(list = exitRequests) {
             let tbody = document.getElementById('exit-request-body');
             tbody.innerHTML = "";
 
+            if (list.length === 0) {
+                tbody.innerHTML = `
+                                                <tr>
+                                                    <td colspan="9" class="text-center text-muted py-4">
+                                                        <i class="fas fa-inbox fa-3x mb-3 d-block"></i>
+                                                        Ma'lumotlar topilmadi
+                                                    </td>
+                                                </tr>
+                                            `;
+                return;
+            }
             list.forEach((item, index) => {
+                const buttons = ['accept', 'delete'];
+                const isProcessing = item.status === 'processing';
+                const actionButtons = isProcessing ? `
+                                                <div class="action-buttons">
+                                                    <a href="#" class="btn btn-sm p-0 " style="background:none; width: 28px; height: 28px; !important"
+                                                        data-bs-toggle="tooltip" data-bs-placement="top" title="{{ __('admin.accept') }}">
+                                                        <i class="fa-solid fa-circle-check"></i>
+                                                    </a>
+                                                    <a href="javascript:void(0);"
+                                                        class="btn btn-sm p-0 "
+                                                        style="background: none; color: #bd2130;"
+                                                        data-bs-toggle="tooltip"
+                                                        data-bs-placement="top"
+                                                        title="Delete"
+                                                        onclick='infoModel(@json(__("admin.warning")), @json(__("admin.role_delete_warning")));'>
+                                                        <svg class="icon icon-xs text-danger status-blocked" title="Delete" data-bs-toggle="tooltip" fill="currentColor"
+                                                            viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                                            <path fill-rule="evenodd"
+                                                                d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                                                                clip-rule="evenodd"></path>
+                                                        </svg>
+                                                    </a>
+
+                                                </div>
+                                            ` : `<span class="text-muted small">—</span>`;
                 tbody.innerHTML += `
-            <tr>
-                <td>${index + 1}</td>
-                <td>${item.exit_id}</td>
-                <td>${item.status}</td>
-                <td>${item.status_comment || '-'}</td>
-                <td>${item.deadline}</td>
-                <td>${item.full_name}</td>
-                <td>${item.phone}</td>
-                <td>${item.login}</td>
-                <td>
-                    <button class="btn btn-success btn-sm" onclick="acceptExit(${item.id})">Qabul qilish</button>
-                    <button class="btn btn-danger btn-sm" onclick="rejectExit(${item.id})">Rad etish</button>
-                </td>
-            </tr>
-        `;
+                                                <tr>
+                                                    <td>${index + 1}</td>
+                                                    <td><strong>${item.exit_id}</strong></td>
+                                                    <td>${getStatusBadge(item.status)}</td>
+                                                    <td>${item.status_comment || '—'}</td>
+                                                    <td>${item.deadline}</td>
+                                                    <td>${item.full_name}</td>
+                                                    <td>${item.phone}</td>
+                                                    <td>${item.login}</td>
+                                                    <td>${actionButtons}</td>
+                                                </tr>
+                                            `;
             });
+        }
+
+        // ========================================
+        //           MODAL FUNCTIONS
+        // ========================================
+
+        function openAcceptModal(id) {
+            currentActionId = id;
+            const modal = new bootstrap.Modal(document.getElementById('acceptModal'));
+            modal.show();
+        }
+
+        function openRejectModal(id) {
+            currentActionId = id;
+            document.getElementById('rejectReason').value = '';
+            document.getElementById('rejectReason').classList.remove('is-invalid');
+            const modal = new bootstrap.Modal(document.getElementById('rejectModal'));
+            modal.show();
         }
 
         // ========================================
         //           ACCEPT EXIT REQUEST
         // ========================================
 
-        function acceptExit(id) {
-            let item = exitRequests.find(i => i.id === id);
+        document.getElementById('confirmAcceptBtn').addEventListener('click', function () {
+            if (!currentActionId) return;
+
+            let item = exitRequests.find(i => i.id === currentActionId);
             if (!item) return;
 
-            // Hech qanday qo‘shimcha maydon so‘ralmaydi
             item.status = "accepted";
             item.status_comment = "Ariza qabul qilindi";
 
-            saveExitStorage();
             renderExitRequests();
 
-            alert("Ariza qabul qilindi. Yangi raunt ochilishi kerak.");
-        }
+            // Modalni yopish
+            const modal = bootstrap.Modal.getInstance(document.getElementById('acceptModal'));
+            modal.hide();
+
+            // Success alert
+            showAlert('success', 'Ariza muvaffaqiyatli qabul qilindi. Yangi raund ochilishi kerak.');
+
+            currentActionId = null;
+        });
 
         // ========================================
         //           REJECT EXIT REQUEST
         // ========================================
 
-        function rejectExit(id) {
-            let item = exitRequests.find(i => i.id === id);
-            if (!item) return;
+        document.getElementById('confirmRejectBtn').addEventListener('click', function () {
+            if (!currentActionId) return;
 
-            let reason = prompt("Rad etish sababini kiriting:");
-            if (!reason) return;
+            const reasonInput = document.getElementById('rejectReason');
+            const reason = reasonInput.value.trim();
+
+            if (!reason) {
+                reasonInput.classList.add('is-invalid');
+                return;
+            }
+
+            let item = exitRequests.find(i => i.id === currentActionId);
+            if (!item) return;
 
             item.status = "rejected";
             item.status_comment = reason;
 
-            saveExitStorage();
             renderExitRequests();
-        }
+
+            // Modalni yopish
+            const modal = bootstrap.Modal.getInstance(document.getElementById('rejectModal'));
+            modal.hide();
+
+            // Success alert
+            showAlert('danger', 'Ariza rad etildi. Sabab Investorga yuborildi.');
+
+            currentActionId = null;
+        });
 
         // ========================================
         //                FILTERS
         // ========================================
 
         function applyExitFilters() {
-            let search = document.getElementById('filter_search_exit').value.toLowerCase();
+            let search = document.getElementById('searchInput').value.toLowerCase();
             let status = document.getElementById('filter_exit_status').value;
 
             let filtered = exitRequests.filter(i => {
-                return (
-                    (i.full_name.toLowerCase().includes(search) ||
-                        i.phone.includes(search) ||
-                        i.login.toLowerCase().includes(search)) &&
-                    (status ? i.status === status : true)
-                );
+                const matchSearch = !search ||
+                    i.full_name.toLowerCase().includes(search) ||
+                    i.phone.includes(search) ||
+                    i.login.toLowerCase().includes(search) ||
+                    i.exit_id.toLowerCase().includes(search);
+
+                const matchStatus = !status || i.status === status;
+
+                return matchSearch && matchStatus;
             });
 
             renderExitRequests(filtered);
         }
 
-        document.getElementById('filterExitBtn').addEventListener('click', applyExitFilters);
+        function clearFilters() {
+            document.getElementById('searchInput').value = '';
+            document.getElementById('filter_exit_status').value = '';
+            renderExitRequests();
+        }
+
+        document.getElementById('filterBtn').addEventListener('click', applyExitFilters);
+        document.getElementById('clearBtn').addEventListener('click', clearFilters);
+
+        // Enter tugmasi bilan qidiruv
+        document.getElementById('searchInput').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                applyExitFilters();
+            }
+        });
+
+        // ========================================
+        //           ALERT FUNCTION
+        // ========================================
+
+        function showAlert(type, message) {
+            const alertDiv = document.createElement('div');
+            alertDiv.className = `alert alert-${type} alert-dismissible fade show position-fixed`;
+            alertDiv.style.cssText = 'top: 20px; right: 20px; z-index: 9999; min-width: 300px;';
+            alertDiv.innerHTML = `
+                                            ${message}
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                                        `;
+            document.body.appendChild(alertDiv);
+
+            setTimeout(() => {
+                alertDiv.remove();
+            }, 5000);
+        }
 
         // Initial render
         renderExitRequests();

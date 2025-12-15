@@ -339,5 +339,37 @@ return [
     'payment_method'  => 'Способ оплаты',
     'investor'        => 'Инвестор',
         'warning' => "Предупреждение",
-    'role_delete_warning' => "Перед удалением этой роли вам нужно перенести ее пользователей в другую роль?"
+    'role_delete_warning' => "Перед удалением этой роли вам нужно перенести ее пользователей в другую роль?",
+    'enterprise_name' => 'Название компании',
+    
+
+    'accept' => 'Принять',
+    'reject' => 'Отклонить',
+
+    'application_comment' => 'Заявка статус комментарий',
+    'refund_receipt' => 'Возврат квитанции',
+    'rejection_act' => 'Отклонение акта',
+    'kyc_info' => 'KYC информация',
+    'digital_signature' => 'Электронная подпись',
+    'document_verification' => 'Подтверждение документов',
+    'investor_name' => 'Инвестор Ф.И.О.',
+    'registered_at' => 'Дата регистрации',
+    'registration_info' => 'Регистрация информации',
+
+    'loading' => 'Загрузка...',
+    'no_data' => 'Нет данных',
+    'no_entries' => 'Нет заявок',
+
+    'accept_applications' => 'Заявки на принятие',
+    'reject_applications' => 'Заявки на отклонение',
+    'attention' => 'Внимание!',
+    'accept_selected_info' => 'Заявки на принятие',
+    'reject_selected_info' => 'Заявки на отклонение',
+
+    'registration_date' => 'Дата регистрации',
+    'registration_date_hint' => 'Инвесторы командитчи сифатида регистрация дата ввести',
+
+    'registration_info_hint' => 'Регистрация информации ввести',
+    'rejection_reason' => 'Причина отклонения',
+    'rejection_reason_hint' => 'Это информация для инвестора',
 ];

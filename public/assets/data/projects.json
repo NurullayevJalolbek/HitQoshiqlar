@@ -48,7 +48,7 @@
                 "Suv ta'minoti tarmog'i"
             ],
             "progress": {
-                "percent": 37,
+                "percent": 56,
                 "timeline": [
                     {
                         "stage": "Yer tayyorlash",
@@ -72,11 +72,11 @@
                 },
                 {
                     "round": 2,
-                    "status": "in_progress"
+                    "status": "completed"
                 },
                 {
                     "round": 3,
-                    "status": "in_progress"
+                    "status": "active"
                 },
                 {
                     "round": 4,
@@ -234,7 +234,7 @@
                 "Bolalar maydoni"
             ],
             "progress": {
-                "percent": 42,
+                "percent": 79,
                 "timeline": [
                     {
                         "stage": "Fundament",
@@ -254,15 +254,15 @@
                 },
                 {
                     "round": 2,
-                    "status": "in_progress"
+                    "status": "completed"
                 },
                 {
                     "round": 3,
-                    "status": "in_progress"
+                    "status": "completed"
                 },
                 {
                     "round": 4,
-                    "status": "in_progress"
+                    "status": "active"
                 },
                 {
                     "round": 5,
@@ -315,7 +315,7 @@
             "construction_end": "2026-11-15",
             "amenities": ["Lift", "Parking", "Yashil hudud"],
             "progress": {
-                "percent": 28,
+                "percent": 21,
                 "timeline": [
                     {
                         "stage": "Poydevor",
@@ -327,15 +327,15 @@
             "rounds_status": [
                 {
                     "round": 1,
-                    "status": "completed"
+                    "status": "active"
                 },
                 {
                     "round": 2,
-                    "status": "completed"
+                    "status": "in_progress"
                 },
                 {
                     "round": 3,
-                    "status": "active"
+                    "status": "in_progress"
                 },
                 {
                     "round": 4,
@@ -386,7 +386,7 @@
             "monthly_income": 1330000000,
             "occupancy_rate": 90.5,
             "progress": {
-                "percent": 90,
+                "percent": 33,
                 "timeline": [
                     {
                         "stage": "Ijaraga topshirilgan",
@@ -399,6 +399,22 @@
                 {
                     "round": 1,
                     "status": "completed"
+                },
+                {
+                    "round": 2,
+                    "status": "active"
+                },
+                {
+                    "round": 3,
+                    "status": "in_progress"
+                },
+                {
+                    "round": 4,
+                    "status": "in_progress"
+                },
+                {
+                    "round": 5,
+                    "status": "in_progress"
                 }
             ],
             "start_date": "2024-01-10",
@@ -457,19 +473,19 @@
                 },
                 {
                     "round": 2,
-                    "status": "active"
+                    "status": "completed"
                 },
                 {
                     "round": 3,
-                    "status": "in_progress"
+                    "status": "completed"
                 },
                 {
                     "round": 4,
-                    "status": "in_progress"
+                    "status": "completed"
                 },
                 {
                     "round": 5,
-                    "status": "in_progress"
+                    "status": "active"
                 }
             ],
             "start_date": "2024-02-15",

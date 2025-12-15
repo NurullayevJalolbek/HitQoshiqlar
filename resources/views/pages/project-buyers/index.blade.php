@@ -48,98 +48,179 @@
             margin-bottom: 0;
         }
 
-        .table thead th {
+        .buyer-table thead th {
+            background: #1f2937;
+            color: white;
             font-weight: 600;
-            text-transform: uppercase;
-            font-size: 0.875rem;
-            letter-spacing: 0.5px;
+            padding: 0.875rem 0.75rem;
+            font-size: 0.8125rem;
             white-space: nowrap;
-        }
-
-        .table tbody td {
+            border: none;
             vertical-align: middle;
-            font-size: 0.9rem;
         }
 
-        .badge {
-            padding: 0.5em 0.75em;
-            font-weight: 500;
+        .buyer-table tbody td {
+            padding: 0.875rem 0.75rem;
+            vertical-align: middle;
+            border-color: #e5e7eb;
         }
 
-        .status-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.25rem;
+        .buyer-table tbody tr {
+            transition: background-color 0.15s ease;
         }
 
-        .status-badge::before {
-            content: '';
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            display: inline-block;
+        .buyer-table tbody tr:hover {
+            background-color: #f9fafb;
         }
 
-        .status-badge.status-active::before {
-            background-color: #28a745;
-        }
-
-        .status-badge.status-inactive::before {
-            background-color: #dc3545;
-        }
-
-        .status-badge.status-pending::before {
-            background-color: #ffc107;
-        }
-
-        .filter-card {
-            background: #ffffff;
-            border-radius: 0.5rem;
-            border: 1px solid rgba(0, 0, 0, 0.05);
-        }
-
-        .btn-filter-apply {
-            min-width: 100px;
-        }
-
-        .contract-info {
-            display: flex;
-            flex-direction: column;
-            gap: 0.25rem;
-        }
-
-        .contract-info small {
-            color: #6c757d;
-        }
-
-        .company-info {
-            display: flex;
-            flex-direction: column;
-            gap: 0.25rem;
-        }
-
-        .company-name {
+        /* Badge'lar */
+        .badge-custom {
+            padding: 0.35rem 0.65rem;
+            border-radius: 0.35rem;
+            font-size: 0.7rem;
             font-weight: 600;
-            color: #212529;
+            display: inline-block;
+            white-space: nowrap;
+            text-transform: capitalize;
         }
 
-        .company-inn {
+        .badge-activity-mchj {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .badge-activity-aj {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .badge-activity-yatt {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .badge-direction-yer {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .badge-direction-qurilish {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .badge-direction-ijara {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        /* Amallar */
+        .action-buttons {
+            display: flex;
+            gap: 0.375rem;
+            justify-content: center;
+        }
+
+        .btn-action {
+            width: 32px;
+            height: 32px;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0.375rem;
+            border: 1px solid #e5e7eb;
+            background: white;
+            transition: all 0.2s ease;
+        }
+
+        .btn-action:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+        }
+
+        .btn-edit {
+            color: #f59e0b;
+        }
+
+        .btn-edit:hover {
+            background: #fffbeb;
+            border-color: #f59e0b;
+        }
+
+        .btn-delete {
+            color: #ef4444;
+        }
+
+        .btn-delete:hover {
+            background: #fef2f2;
+            border-color: #ef4444;
+        }
+
+        .value-primary {
+            font-weight: 600;
+            color: #1f2937;
             font-size: 0.875rem;
-            color: #6c757d;
         }
 
-        .direction-badge {
-            font-size: 0.85rem;
-            padding: 0.4em 0.8em;
+        .value-secondary {
+            font-size: 0.75rem;
+            color: #6b7280;
+            margin-top: 0.125rem;
         }
 
+        /* Empty state */
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: #9ca3af;
+        }
+
+        .empty-state i {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        /* Responsive */
+        @media (max-width: 1400px) {
+            .buyer-table {
+                font-size: 0.8125rem;
+            }
+        }
+
+        /* Table scroll */
         .table-responsive {
-            border-radius: 0.5rem;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
         }
 
-        .action-btn {
-            padding: 0.4rem 0.6rem;
-            font-size: 0.875rem;
+        .table-responsive::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .table-responsive::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 4px;
+        }
+
+        .table-responsive::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+
+        .table-responsive::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        .certificate-link {
+            color: #3b82f6;
+            text-decoration: none;
+            font-size: 0.75rem;
+        }
+
+        .certificate-link:hover {
+            text-decoration: underline;
         }
     </style>
 @endpush
@@ -173,13 +254,6 @@
 @endsection
 
 @section('content')
-    <!-- Loading Overlay -->
-    <div class="loading-overlay" id="loadingOverlay">
-        <div class="spinner-border text-light" role="status">
-            <span class="visually-hidden">{{ __('Юкланмоқда...') }}</span>
-        </div>
-    </div>
-
     <!-- Success/Error Messages -->
     @if (session('success'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -201,12 +275,16 @@
     <!-- Main Table -->
     <div class="card card-body py-3 px-3 shadow-sm border-0 mt-3">
         <div class="table-responsive">
-            <table class="table table-hover align-items-center mb-0">
+            <table class="table buyer-table table-bordered table-hover table-striped align-items-center mb-0">
                 <thead class="table-dark">
                     @include('pages.project-buyers._columns')
                 </thead>
-                <tbody id="purchaser-table-body">
-                    <!-- JavaScript bilan to'ldiriladi -->
+                <tbody id="buyerTableBody">
+                    <tr class="loading-row">
+                        <td colspan="14" class="text-center py-4 text-muted">
+                            <i class="fas fa-spinner fa-spin me-2"></i>{{ __('Юкланмоқда...') }}
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>
@@ -216,11 +294,6 @@
             <i class="fas fa-inbox"></i>
             <h5 class="mt-3 mb-2 text-muted">{{ __('Маълумотлар топилмади') }}</h5>
             <p class="text-muted mb-0">{{ __('Ҳали ҳеч қандай маълумот қўшилмаган') }}</p>
-        </div>
-
-        <!-- Pagination -->
-        <div id="paginationContainer" class="d-flex justify-content-between align-items-center mt-3">
-            <!-- JavaScript bilan to'ldiriladi -->
         </div>
     </div>
 
