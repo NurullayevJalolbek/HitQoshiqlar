@@ -286,7 +286,7 @@ $tabs = [
                 style="border: 2px solid rgba(42,52,65,0.4);">
                 <thead class="table-dark">
                     <tr>
-                        <th  class="text-center" width="5%">№</th>
+                        <th class="text-center" width="5%">№</th>
                         <th class="text-center">Nomi</th>
                         <th class="text-center">Route</th>
                         <th class="text-center">Method</th>
@@ -353,9 +353,17 @@ $tabs = [
 </div>
 
 <!-- Saqlash tugmasi -->
-<div class="text-end mt-4">
+<!-- <div class="text-end mt-4">
     <button type="button" class="btn btn-success px-4" id="savePermissions">
         <i class="fas fa-save me-2"></i>{{__('admin.save')}}
+    </button>
+</div> -->
+
+<div class="d-flex justify-content-end mt-3 gap-2">
+
+    <button class="btn btn-primary" type="submit">
+        <i class="fas fa-save me-1"></i>
+        Saqlash
     </button>
 </div>
 
