@@ -423,72 +423,50 @@
     'WI' => 'Wisconsin',
     'WY' => 'Wyoming',
         ];
+
+        $categories = [
+            'construction' => 'Qurilish',
+            'land' => 'Yer',
+            'rent' => 'ijara'
+        ];
+
+        $statuses = [
+            'active' => 'Active',
+            'inactive' => 'Inactive'
+        ];
     @endphp
     <!-- Filter qismi -->
     <div class="filter-card mb-3 collapse show" id="projectsFilterContent">
         <div class="p-3">
             <div class="row g-3 align-items-end">
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <label for="searchInput" class="form-label mb-2">Qidiruv</label>
                     <div class="input-group">
                         <span class="input-group-text bg-white border-end-0">
                             <i class="fas fa-search text-muted"></i>
                         </span>
-                        <input type="text" id="searchInput" class="form-control border-start-0"
-                            placeholder="Loyiha nomi">
+                        <input type="text" id="searchInput" class="form-control border-start-0" placeholder="Loyiha nomi">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <label for="searchInput" class="form-label mb-2">{{ __('admin.location') }}</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-white border-end-0">
+                            <i class="fa-solid fa-location-dot text-muted"></i>
+                        </span>
+                        <input type="text" id="locationInput" class="form-control border-start-0" placeholder="{{ __('admin.location') }}">
                     </div>
                 </div>
 
-                <!-- <x-select-with-search
-                    name="user_state"
-                    label="Davlatni tanlang"
-                    :datas="$state"
-                    colMd="6"
-                    placeholder="Davlatni tanlang"
-                    :selected="request()->get('user_state', '')"
-                /> -->
+                <x-select-with-search name="categoryFilter" label="{{ __('admin.category') }}" :datas="$categories" colMd="2"
+                    placeholder="Barchasi" :selected="request()->get('categoryFilter', '')" :selectSearch=false icon="fa-layer-group text-primary"/>
 
+                <x-select-with-search name="statusFilter" label="Holati boyicha" :datas="$statuses" colMd="2"
+                    placeholder="Barchasi" :selected="request()->get('statusFilter', '')" :selectSearch=false />
 
-                <!-- <x-from-to-date-picker fromName="startDate" toName="endDate" label="Tanlangan Sana Oralig'i" /> -->
-
-                <i class="fas fa-search text-muted"></i>
-                </span>
-                <input type="text" id="searchInput" class="form-control border-start-0" placeholder="Loyiha nomi">
-            </div>
-            <div class="col-md-3">
-                <div class="input-group">
-                    <span class="input-group-text bg-white border-end-0">
-                        <label for="categoryFilter" class="form-label mb-2">{{ __('admin.category') }}</label>
-                        <select id="categoryFilter" class="form-select">
-                            <option value="">{{ __('admin.all') }}</option>
-                            <option value="yer">{{ __('admin.land') }}</option>
-                            <option value="qurilish">{{ __('admin.construction') }}</option>
-                            <option value="ijara">{{ __('admin.rent') }}</option>
-                        </select>
-                </div>
-                <div class="col-md-3">
-                    <label for="statusFilter" class="form-label mb-2">{{ __('admin.status') }}</label>
-                    <select id="statusFilter" class="form-select">
-                        <option value="">{{ __('admin.all') }}</option>
-                        <option value="faol">{{ __('admin.active') }}</option>
-                        <option value="rejalashtirilgan">{{ __('admin.planned') }}</option>
-                        <option value="yakunlangan">{{ __('admin.completed') }}</option>
-                        <option value="nofaol">{{ __('admin.inactive') }}</option>
-                    </select>
-                </div>
-                <!-- <div class="col-md-2">
-                    <label for="riskFilter" class="form-label mb-2">{{ __('admin.risk_level') }}</label>
-                    <select id="riskFilter" class="form-select">
-                        <option value="">{{ __('admin.all') }}</option>
-                        <option value="past">{{ __('admin.low') }}</option>
-                        <option value="o'rta">{{ __('admin.medium') }}</option>
-                        <option value="yuqori">{{ __('admin.high') }}</option>
-                    </select>
-                </div> -->
                 <x-filter-buttons :search-text="__('admin.search')" :clear-text="__('admin.clear')" />
             </div>
         </div>
-    </div>
 
     <!-- Jadval -->
     <div class="card card-body py-3 px-3 shadow border-0 table-wrapper table-responsive mt-3">
