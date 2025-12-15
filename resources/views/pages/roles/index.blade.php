@@ -2,7 +2,12 @@
 
 @push('customCss')
 <style>
-    /* // */
+    .role-row-unread {
+    background-color: #eef6ff !important;
+    font-weight: 600;
+    color: #2c3e50;
+}
+
 </style>
 @endpush
 
@@ -117,7 +122,7 @@ $end = $pagination['end'];
         </thead>
         <tbody>
             @forelse($roles as $index => $role)
-            <tr>
+            <tr class="role-row-unread">
                 <td class="text-start">
                     <div class="lift-inner">{{ $loop->iteration }}</div>
                 </td>

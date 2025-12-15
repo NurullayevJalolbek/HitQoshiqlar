@@ -63,6 +63,13 @@
         background: rgba(255, 193, 7, 0.15);
         color: #c99a00;
     }
+
+    
+        .system-login-row-unread {
+    background-color: #eef6ff !important;
+    font-weight: 600;
+    color: #2c3e50;
+}
 </style>
 @endpush
 
@@ -83,8 +90,9 @@
     <!-- Tugmalar guruhi -->
     <div class="d-flex gap-2 align-items-center flex-wrap">
 
-        <x-export-dropdown :items="['csv']" :urls="[
+        <x-export-dropdown :items="['csv','pdf']" :urls="[
                 'csv'   => '#',
+                'pdf'   => '#'
             ]" />
 
         <button class="btn btn-sm p-2 d-flex align-items-center justify-content-center"
@@ -145,7 +153,7 @@ $end = $pagination['end'];
         <tbody>
             @forelse($systemLogs as $systemLog)
 
-            <tr>
+            <tr class="system-login-row-unread">
                 <td>
                     {{ $loop->iteration + $start - 1 }}
                 </td>

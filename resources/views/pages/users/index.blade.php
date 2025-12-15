@@ -2,29 +2,70 @@
 
 @push('customCss')
 <style>
-.status-active {
-    color: #1e7e34;
-    font-weight: bold;
+    .status-active {
+        color: #1e7e34;
+        font-weight: bold;
+    }
+
+    .status-blocked {
+        color: #bd2130;
+        font-weight: bold;
+    }
+
+    /* Yangi rol badge rangi (1F2937) */
+    .role-badge {
+        background: #1F2937 !important;
+        color: #fff;
+        padding: 3px 8px;
+        border-radius: 6px;
+        font-size: 0.75rem;
+    }
+
+
+    .action-btn i {
+        font-size: 18px;
+    }
+
+
+    .user-status-active,
+.user-status-blocked,
+.user-status-pending {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-.status-blocked {
-    color: #bd2130;
-    font-weight: bold;
+/* Yashil – Faol */
+.user-status-active {
+    background: rgba(0, 200, 83, 0.15);
+    color: #0f9d58;
 }
 
-/* Yangi rol badge rangi (1F2937) */
-.role-badge {
-    background: #1F2937 !important;
-    color: #fff;
-    padding: 3px 8px;
-    border-radius: 6px;
-    font-size: 0.75rem;
+/* Qizil – Block */
+.user-status-blocked {
+    background: rgba(255, 0, 0, 0.15);
+    color: #d93025;
 }
 
-
-.action-btn i {
-    font-size: 18px;
+/* Sariq – Pending */
+.user-status-pending {
+    background: rgba(255, 193, 7, 0.15);
+    color: #c99a00;
 }
+
+/* O‘qilmagan user row */
+.user-row-unread {
+    background-color: #eef6ff !important;
+    font-weight: 600;
+    color: #2c3e50;
+}
+
 </style>
 @endpush
 
@@ -128,7 +169,7 @@ $end = $pagination['end'];
             $icon = $roleIcons[$user['role']] ?? 'fa-solid fa-user-tag';
             @endphp
 
-            <tr>
+            <tr class="user-row-unread">
                 <td>
                     {{ $user['id'] }}
                 </td>
@@ -156,8 +197,28 @@ $end = $pagination['end'];
                     <span>{{ $user['role'] }}</span>
                 </td>
 
+                 <td>
+                    @php
+                    $cls = match($user['status']) {
+                    'Faol' => 'user-status-active',
+                    default => 'user-status-blocked'
+                    };
 
-                <td>
+                    $icon = match($user['status']) {
+                    'Faol' => 'fas fa-check-circle me-1',
+                    default => 'fas fa-ban me-1'
+                    };
+                    @endphp
+
+                    <span class="{{ $cls }}">
+                        <i class="fas {{ $icon }} me-1"></i>
+                        {{ $user['status'] }}
+                    </span>
+                </td>
+
+
+
+                <!-- <td>
                     @if($user['status'] === 'Faol')
 
                     <span class="btn btn-outline-success">
@@ -167,7 +228,7 @@ $end = $pagination['end'];
                         <i class="fas fa-ban me-1"></i> Bloklangan
                     </span>
                     @endif
-                </td>
+                </td> -->
 
                 <td>
                     <i class="fa-solid fa-calendar-days me-1" style="color:#6c757d;"></i>
@@ -278,26 +339,26 @@ $end = $pagination['end'];
 
 @push('customJs')
 <script>
-// Block modal uchun
-var blockModal = document.getElementById('blockModalUser')
-blockModal.addEventListener('show.bs.modal', function(event) {
-    var button = event.relatedTarget
-    var investorName = button.getAttribute('data-user-name')
-    var formAction = button.getAttribute('data-form-action')
+    // Block modal uchun
+    var blockModal = document.getElementById('blockModalUser')
+    blockModal.addEventListener('show.bs.modal', function(event) {
+        var button = event.relatedTarget
+        var investorName = button.getAttribute('data-user-name')
+        var formAction = button.getAttribute('data-form-action')
 
-    blockModal.querySelector('#blockUserName').textContent = investorName
-    blockModal.querySelector('#blockForm').action = formAction
-})
+        blockModal.querySelector('#blockUserName').textContent = investorName
+        blockModal.querySelector('#blockForm').action = formAction
+    })
 
-// Unblock modal uchun
-var unblockModal = document.getElementById('unblockModalUser')
-unblockModal.addEventListener('show.bs.modal', function(event) {
-    var button = event.relatedTarget
-    var investorName = button.getAttribute('data-user-name')
-    var formAction = button.getAttribute('data-form-action')
+    // Unblock modal uchun
+    var unblockModal = document.getElementById('unblockModalUser')
+    unblockModal.addEventListener('show.bs.modal', function(event) {
+        var button = event.relatedTarget
+        var investorName = button.getAttribute('data-user-name')
+        var formAction = button.getAttribute('data-form-action')
 
-    unblockModal.querySelector('#unblockUserName').textContent = investorName
-    unblockModal.querySelector('#unblockForm').action = formAction
-})
+        unblockModal.querySelector('#unblockUserName').textContent = investorName
+        unblockModal.querySelector('#unblockForm').action = formAction
+    })
 </script>
 @endpush
