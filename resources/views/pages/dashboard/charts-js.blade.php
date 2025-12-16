@@ -29,7 +29,6 @@
             }
             const data = await response.json();
             apiData = data.result;
-            console.log('✅ API ma\'lumotlari muvaffaqiyatli yuklandi:', apiData);
             return apiData;
         } catch (error) {
             console.error('❌ API ma\'lumotlarini yuklashda xato:', error);
@@ -877,14 +876,12 @@
         renderDocumentsChart();
         renderRevenueByProjectChart();
 
-        console.log('✅ Barcha grafiklar yuklandi');
     }
 
     /**
      * Grafiklarni yangilash (eski versiya - backward compatibility)
      */
     window.updateCharts = function(data) {
-        console.log('Grafiklar yangilanmoqda...', data);
 
         if (data.investors) {
             renderInvestorsChart(data.investors.active, data.investors.passive);
@@ -914,7 +911,6 @@
      */
     window.switchChartMode = async function(mode) {
         window.chartMode = mode;
-        console.log('📊 Chart mode o\'zgardi:', mode);
 
         // API dan yangi ma'lumotlarni olish
         await fetchDashboardData();
@@ -927,7 +923,6 @@
      * Til o'zgarganda grafiklarni qayta yuklash
      */
     window.reloadChartsWithLanguage = function() {
-        console.log('🌐 Grafiklar tili o\'zgardi, qayta yuklanmoqda...');
         initializeAllCharts(window.chartMode || 'monthly');
     };
 
@@ -935,25 +930,18 @@
      * Sahifa yuklanganda
      */
     document.addEventListener('DOMContentLoaded', async function() {
-        console.log('📈 Dashboard yuklanmoqda...');
-
-        // API dan ma'lumotlarni olish
         await fetchDashboardData();
 
-        // Grafiklarni boshlang'ich holatga keltirish
         await initializeAllCharts();
 
-        console.log('✅ Dashboard muvaffaqiyatli yuklandi!');
     });
 
     /**
      * Avtomatik yangilanish - har 5 daqiqada
      */
     setInterval(async () => {
-        console.log('🔄 Avtomatik yangilanish...');
         await fetchDashboardData();
         await initializeAllCharts(window.chartMode || 'monthly');
-        console.log('yangilandi harrom')
     }, 1); // 5 daqiqa
 
     // Export funksiyalar (agar kerak bo'lsa)

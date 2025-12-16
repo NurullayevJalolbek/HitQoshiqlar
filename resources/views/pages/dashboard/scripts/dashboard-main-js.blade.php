@@ -57,7 +57,6 @@ async function fetchDashboardData() {
         }
         const data = await response.json();
         DashboardState.apiData = data.result;
-        console.log('✅ API ma\'lumotlari yuklandi:', DashboardState.apiData);
         return DashboardState.apiData;
     } catch (error) {
         console.error('❌ API xatosi:', error);
@@ -414,21 +413,14 @@ function exportToCSV(filters, lang) {
 // ============= INITIALIZATION =============
 
 async function initializeDashboard() {
-    console.log('📊 Dashboard yuklanmoqda...');
-    
     showLoading(true);
     
     try {
-        // Fetch data
         await fetchDashboardData();
         
-        // Update KPIs
         updateKPICards();
         
-        // Initialize charts
         await initializeAllCharts(DashboardState.chartMode);
-        
-        console.log('✅ Dashboard muvaffaqiyatli yuklandi!');
     } catch (error) {
         console.error('❌ Dashboard yuklanishida xatolik:', error);
         Swal.fire({
@@ -449,7 +441,6 @@ function startAutoRefresh(intervalMinutes = 5) {
     stopAutoRefresh(); // Clear existing interval
     
     autoRefreshInterval = setInterval(async () => {
-        console.log('🔄 Avtomatik yangilanish...');
         await fetchDashboardData();
         updateKPICards();
         await initializeAllCharts(DashboardState.chartMode);

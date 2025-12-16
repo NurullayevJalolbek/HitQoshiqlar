@@ -274,17 +274,13 @@ window.switchChartMode = function(mode) {
 
 // Sahifa yuklanganda ma'lumotlarni olish
 document.addEventListener('DOMContentLoaded', async function() {
-    console.log('Dashboard yuklanmoqda...');
     
     // API dan ma'lumotlarni olish
     const dashboardData = await fetchDashboardData();
     
     if (dashboardData) {
-        console.log('API ma\'lumotlari olindi:', dashboardData);
         updateAllCharts(dashboardData);
     } else {
-        console.warn('API ma\'lumotlari topilmadi, standart ma\'lumotlar bilan ishlaymiz');
-        // Standart grafiklarni ko'rsatish
         initializeAllCharts();
     }
 });

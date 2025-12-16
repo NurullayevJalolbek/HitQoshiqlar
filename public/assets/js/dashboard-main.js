@@ -15,11 +15,8 @@ async function loadDashboardData() {
     try {
         const response = await fetch('/dashboard-data.json');
         dashboardData = await response.json();
-        console.log('Dashboard ma\'lumotlari yuklandi:', dashboardData);
         return dashboardData;
     } catch (error) {
-        console.error('Dashboard ma\'lumotlarini yuklashda xatolik:', error);
-        // Fallback - default ma'lumotlar
         return getDefaultData();
     }
 }
@@ -195,35 +192,23 @@ function renderAllCharts(data) {
     // 4. Chiqish to'lovlari
     renderExitPaymentsChart(chartsData.exitPayments[mode]);
     
-    // 5. Shartnoma daromadi
     renderContractRevenueChart(chartsData.contractRevenue[mode]);
     
-    // 6. Dividendlar
     renderDividendsChart(chartsData.dividendsDistribution);
     
-    // 7. Sof foyda
     renderNetProfitChart(chartsData.netProfit[mode]);
     
-    // 8. To'liq sherik daromadi
     renderPartnerRevenueChart(chartsData.partnerRevenue[mode]);
     
-    // 9. Realization shartnomalar
     renderRealizationContractsChart(chartsData.realizationContracts[mode]);
     
-    // 10. Loyihalar bo'yicha daromad
     renderRevenueByProjectChart(chartsData.revenueByProject);
 }
 
-/**
- * Sonlarni formatlash (mln UZS)
- */
 function formatCurrency(value) {
     return (value / 1000000).toLocaleString() + ' mln';
 }
 
-/**
- * Grafikni qayta render qilish helper
- */
 function recreateChart(elementId, options) {
     const element = document.getElementById(elementId);
     if (!element) return null;
@@ -237,9 +222,6 @@ function recreateChart(elementId, options) {
     return chartInstances[elementId];
 }
 
-/**
- * Dashboard rejimini o'zgartirish (monthly/daily)
- */
 function switchChartMode(mode) {
     currentMode = mode;
     if (dashboardData) {
@@ -248,22 +230,13 @@ function switchChartMode(mode) {
     }
 }
 
-/**
- * Sahifa yuklanganda
- */
 document.addEventListener('DOMContentLoaded', async function() {
-    console.log('Dashboard yuklanmoqda...');
-    
-    // Ma'lumotlarni yuklash
     dashboardData = await loadDashboardData();
     
-    // KPI va grafiklarni yangilash
     updateKPICards(dashboardData);
     renderAllCharts(dashboardData);
     
-    console.log('Dashboard tayyor!');
 });
 
-// Global funksiyalarni export qilish
 window.switchChartMode = switchChartMode;
 window.dashboardData = dashboardData;

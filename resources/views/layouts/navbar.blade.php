@@ -378,20 +378,16 @@
         animationInterval = setInterval(displayCurrency, 3000);
     }
 
-    // Dastlabki yuklash
     if (document.getElementById('currencyRates')) {
         fetchCurrencyRates();
 
-        // Har 30 soniyada yangi ma'lumot yuklash
         setInterval(fetchCurrencyRates, 30000);
     }
 
-    // Search functionality
     const searchInput2 = document.getElementById('searchInput');
     if (searchInput2) {
         searchInput2.addEventListener('input', function(e) {
             const searchTerm = e.target.value;
-            console.log('Qidiruv:', searchTerm);
         });
     }
 </script>

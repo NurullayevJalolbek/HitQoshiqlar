@@ -98,36 +98,123 @@
             margin-top: 0.25rem;
         }
 
-        .tab-navigation {
-            display: flex;
-            gap: 0;
-            border-bottom: 2px solid var(--gray-200);
-            margin-bottom: 2rem;
+        /* --------------------- Tab menu css start ------------------------------ */
+
+        .nav-tabs-container {
+            position: relative;
+            margin-bottom: 1rem;
+            padding: 0 0.75rem;
+        }
+
+        .nav-tabs {
+            border-bottom: 2px solid #e5e7eb;
             overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-        }
-
-        .tab-button {
-            padding: 0.875rem 1.25rem;
-            border: none;
-            background: transparent;
-            color: var(--gray-600);
-            font-weight: 500;
-            font-size: 0.9rem;
-            cursor: pointer;
-            border-bottom: 3px solid transparent;
-            transition: all 0.2s;
             white-space: nowrap;
+            flex-wrap: nowrap;
+            overflow-y: hidden;
+            padding-bottom: 0.5rem;
+            scroll-behavior: smooth;
         }
 
-        .tab-button.active {
-            color: var(--primary-color);
-            border-bottom-color: var(--primary-color);
+        .nav-tabs::-webkit-scrollbar {
+            height: 8px;
         }
 
-        .tab-button:hover {
-            color: var(--primary-dark);
-            background: var(--gray-50);
+        .nav-tabs::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+
+        .nav-tabs::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 4px;
+        }
+
+        .nav-tabs::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        .scroll-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 36px;
+            height: 36px;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0;
+            color: #1F2937;
+            z-index: 10;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0;
+            pointer-events: none;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .scroll-btn i {
+            font-size: 0.875rem;
+            transition: transform 0.3s;
+        }
+
+        .nav-tabs-container:hover .scroll-btn {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .scroll-btn:hover {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            color: #2563eb;
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .scroll-btn:hover i {
+            transform: scale(1.2);
+        }
+
+        .scroll-btn:active {
+            transform: translateY(-50%) scale(0.95);
+        }
+
+        .scroll-btn-left {
+            left: 8px;
+        }
+
+        .scroll-btn-right {
+            right: 8px;
+        }
+
+        .scroll-btn.hidden {
+            display: none;
+        }
+
+        .nav-tabs .nav-link {
+            height: 40px;
+            color: #1F2937;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            font-weight: 500;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+            background: #ebeaeaff;
+            margin-right: 0.25rem;
+            border-radius: 0.5rem 0.5rem 0 0;
+        }
+
+        .nav-tabs .nav-link.active {
+            color: #fff;
+            background: #1F2937;
+            border-bottom: 3px solid #2a3441;
+            font-weight: 600;
         }
 
         .tab-content {
@@ -137,6 +224,9 @@
         .tab-content.active {
             display: block;
         }
+
+        /* --------------------- Tab menu css end ------------------------------ */
+
 
         .info-card {
             background: #ffffff;
@@ -616,13 +706,9 @@
                 grid-template-columns: 1fr;
             }
 
-            .tab-navigation {
-                gap: 0;
-            }
-
-            .tab-button {
+            .nav-tabs .nav-link {
                 font-size: 0.85rem;
-                padding: 0.75rem 1rem;
+                padding: 0.5rem 1rem;
             }
         }
 
@@ -670,26 +756,27 @@
 @endpush
 
 @section('breadcrumb')
-    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-3 px-3 mt-3"
-        style="border: 1px solid var(--gray-200); border-radius: var(--border-radius); background-color: #ffffff;">
-        <div class="d-block mb-2 mb-md-0">
-            <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
-                <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent mb-0">
-                    <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
-                    <li class="breadcrumb-item"><a href="#">Loyihalar</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Loyiha kartochkasi</li>
-                </ol>
-            </nav>
-        </div>
-        <div class="d-flex gap-2 align-items-center flex-wrap">
-            <button class="btn-action btn-primary" onclick="enableEdit()">
-                <i class="bi bi-pencil"></i> Tahrirlash
-            </button>
-            <button class="btn-action btn-success" id="saveBtn" style="display: none;" onclick="saveChanges()">
-                <i class="bi bi-check-lg"></i> Saqlash
-            </button>
-        </div>
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-3 px-3 mt-3"
+    style="border: 1px solid var(--gray-200); border-radius: var(--border-radius); background-color: #ffffff;">
+    <div class="d-block mb-2 mb-md-0">
+        <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
+            <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent mb-0">
+                <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}"><i class="fas fa-home"></i></a>
+                </li>
+                <li class="breadcrumb-item"><a href="{{ route('admin.projects.index') }}">Loyihalar</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Loyiha kartochkasi</li>
+            </ol>
+        </nav>
     </div>
+    <div class="d-flex gap-2 align-items-center flex-wrap">
+        @php($projectId = request()->route('project'))
+
+        <x-edit-button :href="route('admin.projects.edit', $projectId)" text="{{ __('admin.Edit') }}"/>
+        <button class="btn-action btn-success" id="saveBtn" style="display: none;" onclick="saveChanges()">
+            <i class="bi bi-check-lg"></i> Saqlash
+        </button>
+    </div>
+</div>
 @endsection
 
 @section('content')
@@ -711,15 +798,60 @@
     </div>
 
     <div class="card card-body shadow-sm border-0">
-        <div class="tab-navigation">
-            <button class="tab-button active" onclick="switchTab('characteristics')">Karakteristik ma'lumotlar</button>
-            <button class="tab-button" onclick="switchTab('stages')">Loyiha bosqichlari</button>
-            <button class="tab-button" onclick="switchTab('distribution')">Taqsimot sozlamalari</button>
-            <button class="tab-button" onclick="switchTab('rounds')">Loyiha raundlari</button>
-            <button class="tab-button" onclick="switchTab('financial')">Moliyaviy ko'rsatkichlar</button>
-            <button class="tab-button" onclick="switchTab('partners')">To'liq sheriklar</button>
-            <button class="tab-button" onclick="switchTab('risks')">Risklar</button>
-            <button class="tab-button" onclick="switchTab('documents')">Loyiha hujjatlari</button>
+        <div style="border-color: rgba(0,0,0,0.05); background-color: #fff; padding: 0;">
+            <!-- Tab Navigation -->
+            <div class="nav-tabs-container">
+                <button class="scroll-btn scroll-btn-left" onclick="scrollTabs('left')" id="scrollLeftBtn"
+                    aria-label="Scroll left">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <ul class="nav nav-tabs" id="projectTabs" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" onclick="switchTab('characteristics')" type="button">
+                            Karakteristik ma'lumotlar
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" onclick="switchTab('stages')" type="button">
+                            Loyiha bosqichlari
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" onclick="switchTab('distribution')" type="button">
+                            Taqsimot sozlamalari
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" onclick="switchTab('rounds')" type="button">
+                            Loyiha raundlari
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" onclick="switchTab('financial')" type="button">
+                            Moliyaviy ko'rsatkichlar
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" onclick="switchTab('partners')" type="button">
+                            To'liq sheriklar
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" onclick="switchTab('risks')" type="button">
+                            Risklar
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" onclick="switchTab('documents')" type="button">
+                            Loyiha hujjatlari
+                        </button>
+                    </li>
+                </ul>
+                <button class="scroll-btn scroll-btn-right" onclick="scrollTabs('right')" id="scrollRightBtn"
+                    aria-label="Scroll right">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
         </div>
 
         <div id="characteristics" class="tab-content active">
@@ -1376,10 +1508,10 @@
             document.getElementById('videosCard').style.display = 'block';
             const container = document.getElementById('videosContainer');
             container.innerHTML = videos.map(url => `
-                    <div class="video-embed">
-                        <iframe src="${url}" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
-                    </div>
-                `).join('');
+                            <div class="video-embed">
+                                <iframe src="${url}" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
+                            </div>
+                        `).join('');
         }
 
         function displayProcessImages(images) {
@@ -1391,10 +1523,10 @@
             document.getElementById('processImagesCard').style.display = 'block';
             const container = document.getElementById('processImagesContainer');
             container.innerHTML = images.map((img, index) => `
-                    <div class="gallery-item" onclick="openImageModal('${img}')">
-                        <img src="${img}" alt="Qurilish jarayoni ${index + 1}" loading="lazy">
-                    </div>
-                `).join('');
+                            <div class="gallery-item" onclick="openImageModal('${img}')">
+                                <img src="${img}" alt="Qurilish jarayoni ${index + 1}" loading="lazy">
+                            </div>
+                        `).join('');
         }
 
         function openImageModal(imageUrl) {
@@ -1425,14 +1557,14 @@
                 const itemEl = document.createElement('div');
                 itemEl.className = 'timeline-item';
                 itemEl.innerHTML = `
-                        <div class="timeline-marker ${status.class}">${status.icon}</div>
-                        ${index < stages.length - 1 ? '<div class="timeline-line"></div>' : ''}
-                        <div class="timeline-content">
-                            <div class="timeline-title">${stage.name}</div>
-                            <div style="color: var(--gray-600); font-size: 0.9rem; margin: 0.25rem 0;">${status.text} • ${stage.progress}%</div>
-                            <div class="timeline-date">${stage.start_date} - ${stage.end_date}</div>
-                        </div>
-                    `;
+                                <div class="timeline-marker ${status.class}">${status.icon}</div>
+                                ${index < stages.length - 1 ? '<div class="timeline-line"></div>' : ''}
+                                <div class="timeline-content">
+                                    <div class="timeline-title">${stage.name}</div>
+                                    <div style="color: var(--gray-600); font-size: 0.9rem; margin: 0.25rem 0;">${status.text} • ${stage.progress}%</div>
+                                    <div class="timeline-date">${stage.start_date} - ${stage.end_date}</div>
+                                </div>
+                            `;
                 timeline.appendChild(itemEl);
             });
         }
@@ -1448,17 +1580,17 @@
             container.innerHTML = rounds.map(round => {
                 const status = statusMap[round.status];
                 return `
-                        <div class="round-item">
-                            <div class="round-info">
-                                <h6>${round.name}</h6>
-                                <span class="status-badge ${status.class}">${status.text}</span>
-                            </div>
-                            <div style="text-align: right;">
-                                <div class="round-amount">${formatMoney(round.min_share)}</div>
-                                <div style="font-size: 0.85rem; color: var(--gray-600);">Minimal ulush</div>
-                            </div>
-                        </div>
-                    `;
+                                <div class="round-item">
+                                    <div class="round-info">
+                                        <h6>${round.name}</h6>
+                                        <span class="status-badge ${status.class}">${status.text}</span>
+                                    </div>
+                                    <div style="text-align: right;">
+                                        <div class="round-amount">${formatMoney(round.min_share)}</div>
+                                        <div style="font-size: 0.85rem; color: var(--gray-600);">Minimal ulush</div>
+                                    </div>
+                                </div>
+                            `;
             }).join('');
         }
 
@@ -1475,103 +1607,103 @@
 
             const historyContainer = document.getElementById('dividendHistory');
             historyContainer.innerHTML = p.dividend_history.map(item => `
-                    <div class="dividend-item">
-                        <div>
-                            <div class="dividend-date">${item.date}</div>
-                            <div class="dividend-status">${item.status}</div>
-                        </div>
-                        <div class="dividend-amount">${item.amount}%</div>
-                    </div>
-                `).join('');
+                            <div class="dividend-item">
+                                <div>
+                                    <div class="dividend-date">${item.date}</div>
+                                    <div class="dividend-status">${item.status}</div>
+                                </div>
+                                <div class="dividend-amount">${item.amount}%</div>
+                            </div>
+                        `).join('');
         }
 
         function displayPartners(partners) {
             const container = document.getElementById('partnersContainer');
             container.innerHTML = partners.map(partner => `
-                    <div class="partner-card" style="margin-bottom: 1.5rem;">
-                        <div class="partner-header">${partner.company_name}</div>
-                        <div class="info-grid">
-                            <div class="info-row">
-                                <span class="info-label">To'liq sherikning identifikatori (ID)</span>
-                                <span class="info-value">${partner.id}</span>
+                            <div class="partner-card" style="margin-bottom: 1.5rem;">
+                                <div class="partner-header">${partner.company_name}</div>
+                                <div class="info-grid">
+                                    <div class="info-row">
+                                        <span class="info-label">To'liq sherikning identifikatori (ID)</span>
+                                        <span class="info-value">${partner.id}</span>
+                                    </div>
+                                    <div class="info-row">
+                                        <span class="info-label">Korxona to'liq nomi</span>
+                                        <span class="info-value">${partner.company_name}</span>
+                                    </div>
+                                    <div class="info-row">
+                                        <span class="info-label">INN</span>
+                                        <span class="info-value">${partner.inn}</span>
+                                    </div>
+                                    <div class="info-row">
+                                        <span class="info-label">IFUT kodi</span>
+                                        <span class="info-value">${partner.ifut}</span>
+                                    </div>
+                                    <div class="info-row">
+                                        <span class="info-label">Faoliyat turi</span>
+                                        <span class="info-value">${partner.type}</span>
+                                    </div>
+                                    <div class="info-row">
+                                        <span class="info-label">Manzil</span>
+                                        <span class="info-value">${partner.address}</span>
+                                    </div>
+                                    <div class="info-row">
+                                        <span class="info-label">Direktor F.I.O.</span>
+                                        <span class="info-value">${partner.director}</span>
+                                    </div>
+                                    <div class="info-row">
+                                        <span class="info-label">Bog'lanish uchun telefon raqami</span>
+                                        <span class="info-value">${partner.phone}</span>
+                                    </div>
+                                    <div class="info-row">
+                                        <span class="info-label">Email</span>
+                                        <span class="info-value">${partner.email}</span>
+                                    </div>
+                                    <div class="info-row">
+                                        <span class="info-label">Ro'yxatdan o'tkazilgan sana</span>
+                                        <span class="info-value">${partner.registration_date}</span>
+                                    </div>
+                                    <div class="info-row">
+                                        <span class="info-label">Ro'yxatdan o'tkazish raqami</span>
+                                        <span class="info-value">${partner.registration_number}</span>
+                                    </div>
+                                    <div class="info-row">
+                                        <span class="info-label">Ro'yxatdan o'tkazuvchi davlat tashkiloti nomi</span>
+                                        <span class="info-value">${partner.registration_org}</span>
+                                    </div>
+                                    ${partner.type === 'YaTT' ? `
+                                    <div class="info-row">
+                                        <span class="info-label">Pasport ma'lumoti</span>
+                                        <span class="info-value">${partner.passport_data}</span>
+                                    </div>
+                                    <div class="info-row">
+                                        <span class="info-label">JSHSHIR</span>
+                                        <span class="info-value">${partner.pinfl}</span>
+                                    </div>
+                                    ` : ''}
+                                    <div class="info-row">
+                                        <span class="info-label">Akkount holati</span>
+                                        <span class="info-value">${partner.account_status === 'active' ? 'Faol' : 'Bloklangan'}</span>
+                                    </div>
+                                    <div class="info-row">
+                                        <span class="info-label">To'liq sheriklik holati sanasi</span>
+                                        <span class="info-value">${partner.partnership_date}</span>
+                                    </div>
+                                    <div class="info-row">
+                                        <span class="info-label">Investorlik sertifikati fayli</span>
+                                        <span class="info-value">${partner.investor_certificate}</span>
+                                    </div>
+                                    <div class="info-row">
+                                        <span class="info-label">Loyihadagi jami ulushi (summada)</span>
+                                        <span class="info-value">${formatMoney(partner.share_amount)}</span>
+                                    </div>
+                                    <div class="info-row">
+                                        <span class="info-label">Loyihadagi jami ulushi (foizda)</span>
+                                        <span class="info-value">${partner.share_percent}%</span>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="info-row">
-                                <span class="info-label">Korxona to'liq nomi</span>
-                                <span class="info-value">${partner.company_name}</span>
-                            </div>
-                            <div class="info-row">
-                                <span class="info-label">INN</span>
-                                <span class="info-value">${partner.inn}</span>
-                            </div>
-                            <div class="info-row">
-                                <span class="info-label">IFUT kodi</span>
-                                <span class="info-value">${partner.ifut}</span>
-                            </div>
-                            <div class="info-row">
-                                <span class="info-label">Faoliyat turi</span>
-                                <span class="info-value">${partner.type}</span>
-                            </div>
-                            <div class="info-row">
-                                <span class="info-label">Manzil</span>
-                                <span class="info-value">${partner.address}</span>
-                            </div>
-                            <div class="info-row">
-                                <span class="info-label">Direktor F.I.O.</span>
-                                <span class="info-value">${partner.director}</span>
-                            </div>
-                            <div class="info-row">
-                                <span class="info-label">Bog'lanish uchun telefon raqami</span>
-                                <span class="info-value">${partner.phone}</span>
-                            </div>
-                            <div class="info-row">
-                                <span class="info-label">Email</span>
-                                <span class="info-value">${partner.email}</span>
-                            </div>
-                            <div class="info-row">
-                                <span class="info-label">Ro'yxatdan o'tkazilgan sana</span>
-                                <span class="info-value">${partner.registration_date}</span>
-                            </div>
-                            <div class="info-row">
-                                <span class="info-label">Ro'yxatdan o'tkazish raqami</span>
-                                <span class="info-value">${partner.registration_number}</span>
-                            </div>
-                            <div class="info-row">
-                                <span class="info-label">Ro'yxatdan o'tkazuvchi davlat tashkiloti nomi</span>
-                                <span class="info-value">${partner.registration_org}</span>
-                            </div>
-                            ${partner.type === 'YaTT' ? `
-                            <div class="info-row">
-                                <span class="info-label">Pasport ma'lumoti</span>
-                                <span class="info-value">${partner.passport_data}</span>
-                            </div>
-                            <div class="info-row">
-                                <span class="info-label">JSHSHIR</span>
-                                <span class="info-value">${partner.pinfl}</span>
-                            </div>
-                            ` : ''}
-                            <div class="info-row">
-                                <span class="info-label">Akkount holati</span>
-                                <span class="info-value">${partner.account_status === 'active' ? 'Faol' : 'Bloklangan'}</span>
-                            </div>
-                            <div class="info-row">
-                                <span class="info-label">To'liq sheriklik holati sanasi</span>
-                                <span class="info-value">${partner.partnership_date}</span>
-                            </div>
-                            <div class="info-row">
-                                <span class="info-label">Investorlik sertifikati fayli</span>
-                                <span class="info-value">${partner.investor_certificate}</span>
-                            </div>
-                            <div class="info-row">
-                                <span class="info-label">Loyihadagi jami ulushi (summada)</span>
-                                <span class="info-value">${formatMoney(partner.share_amount)}</span>
-                            </div>
-                            <div class="info-row">
-                                <span class="info-label">Loyihadagi jami ulushi (foizda)</span>
-                                <span class="info-value">${partner.share_percent}%</span>
-                            </div>
-                        </div>
-                    </div>
-                `).join('');
+                        `).join('');
         }
 
         function displayRisks(risks) {
@@ -1592,41 +1724,92 @@
 
             const container = document.getElementById('risksContainer');
             container.innerHTML = risks.risk_items.map(item => `
-                    <div class="risk-item">
-                        <div class="risk-title">${item.name}</div>
-                        <p class="risk-description">${item.description}</p>
-                    </div>
-                `).join('');
+                            <div class="risk-item">
+                                <div class="risk-title">${item.name}</div>
+                                <p class="risk-description">${item.description}</p>
+                            </div>
+                        `).join('');
         }
 
         function displayDocuments(documents) {
             const container = document.getElementById('documentsContainer');
             container.innerHTML = documents.map(doc => `
-                    <div class="document-item">
-                        <div class="document-info">
-                            <div class="document-icon">
-                                <i class="bi bi-file-earmark-pdf"></i>
+                            <div class="document-item">
+                                <div class="document-info">
+                                    <div class="document-icon">
+                                        <i class="bi bi-file-earmark-pdf"></i>
+                                    </div>
+                                    <div>
+                                        <div style="font-weight: 600; color: var(--gray-900);">${doc.name}</div>
+                                        <div style="font-size: 0.85rem; color: var(--gray-600);">${doc.file}</div>
+                                    </div>
+                                </div>
+                                <button class="btn-action btn-outline" onclick="downloadDocument('${doc.file}')">
+                                    <i class="bi bi-download"></i> Yuklash
+                                </button>
                             </div>
-                            <div>
-                                <div style="font-weight: 600; color: var(--gray-900);">${doc.name}</div>
-                                <div style="font-size: 0.85rem; color: var(--gray-600);">${doc.file}</div>
-                            </div>
-                        </div>
-                        <button class="btn-action btn-outline" onclick="downloadDocument('${doc.file}')">
-                            <i class="bi bi-download"></i> Yuklash
-                        </button>
-                    </div>
-                `).join('');
+                        `).join('');
         }
 
         function switchTab(tabName) {
-            document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.nav-link').forEach(btn => btn.classList.remove('active'));
             document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
 
             event.target.classList.add('active');
             document.getElementById(tabName).classList.add('active');
             currentTab = tabName;
         }
+
+        function scrollTabs(direction) {
+            const navTabs = document.getElementById('projectTabs');
+            const scrollAmount = 200;
+
+            if (direction === 'left') {
+                navTabs.scrollBy({
+                    left: -scrollAmount,
+                    behavior: 'smooth'
+                });
+            } else {
+                navTabs.scrollBy({
+                    left: scrollAmount,
+                    behavior: 'smooth'
+                });
+            }
+
+            // Scroll tugmalarini tekshirish
+            setTimeout(() => {
+                checkScrollButtons();
+            }, 300);
+        }
+
+        function checkScrollButtons() {
+            const navTabs = document.getElementById('projectTabs');
+            const scrollLeftBtn = document.getElementById('scrollLeftBtn');
+            const scrollRightBtn = document.getElementById('scrollRightBtn');
+
+            // Chap tugma
+            if (navTabs.scrollLeft <= 0) {
+                scrollLeftBtn.classList.add('hidden');
+            } else {
+                scrollLeftBtn.classList.remove('hidden');
+            }
+
+            // O'ng tugma
+            if (navTabs.scrollLeft >= navTabs.scrollWidth - navTabs.clientWidth - 1) {
+                scrollRightBtn.classList.add('hidden');
+            } else {
+                scrollRightBtn.classList.remove('hidden');
+            }
+        }
+
+        // Scroll holatini kuzatish
+        document.addEventListener('DOMContentLoaded', function () {
+            const navTabs = document.getElementById('projectTabs');
+            if (navTabs) {
+                checkScrollButtons();
+                navTabs.addEventListener('scroll', checkScrollButtons);
+            }
+        });
 
         function formatMoney(amount) {
             return new Intl.NumberFormat('uz-UZ').format(amount) + " so'm";

@@ -407,7 +407,6 @@
 
     // Xabar ko'rsatish funksiyasi
     function showNotification(message, type = 'info') {
-        // Bu yerda toast notification qo'shish mumkin
         console.log(`[${type.toUpperCase()}] ${message}`);
     }
 

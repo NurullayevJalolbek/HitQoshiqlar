@@ -99,8 +99,6 @@
             });
         }
     }
-    console.log('ishladi ..')
-
        // Global info alert (faqat ogohlantirish / xabar)
             window.infoModel = function (title = null, text = null) {
                 Swal.fire({
@@ -136,8 +134,6 @@
                         // Bekor qilinsa — checkbox qayta o‘chadi
                         checkbox.checked = false;
                     } else {
-                        // 👉 bu yerda AJAX / fetch bilan backendga yuborasan
-                        console.log('Default til ID:', checkbox.dataset.id);
                     }
                 });
             };
@@ -226,7 +222,6 @@ sidebarMenu.addEventListener('mouseleave', () => {
 const sidebarCloser = document.querySelector('#sidebar-close-figure')
 if (sidebarCloser && sidebarMenu) {
     sidebarCloser.addEventListener('click', () => {
-        console.log('hello')
         sidebarMenu.classList.remove('show')
     })
 }

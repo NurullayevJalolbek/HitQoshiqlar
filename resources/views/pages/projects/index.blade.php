@@ -349,7 +349,8 @@
         <div class="d-block mb-2 mb-md-0">
             <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
                 <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent mb-0">
-                    <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}"><i class="fas fa-home"></i></a>
+                    </li>
                     <li class="breadcrumb-item active" aria-current="page">{{ __('admin.projects') }}</li>
                 </ol>
             </nav>
@@ -371,57 +372,57 @@
     @php
         $state = [
             // default davlatlar ro'yxati
-    'AL' => 'Alabama',
-    'AK' => 'Alaska',
-    'AZ' => 'Arizona',
-    'AR' => 'Arkansas',
-    'CA' => 'California',
-    'CO' => 'Colorado',
-    'CT' => 'Connecticut',
-    'DE' => 'Delaware',
-    'DC' => 'District Of Columbia',
-    'FL' => 'Florida',
-    'GA' => 'Georgia',
-    'HI' => 'Hawaii',
-    'ID' => 'Idaho',
-    'IL' => 'Illinois',
-    'IN' => 'Indiana',
-    'IA' => 'Iowa',
-    'KS' => 'Kansas',
-    'KY' => 'Kentucky',
-    'LA' => 'Louisiana',
-    'ME' => 'Maine',
-    'MD' => 'Maryland',
-    'MA' => 'Massachusetts',
-    'MI' => 'Michigan',
-    'MN' => 'Minnesota',
-    'MS' => 'Mississippi',
-    'MO' => 'Missouri',
-    'MT' => 'Montana',
-    'NE' => 'Nebraska',
-    'NV' => 'Nevada',
-    'NH' => 'New Hampshire',
-    'NJ' => 'New Jersey',
-    'NM' => 'New Mexico',
-    'NY' => 'New York',
-    'NC' => 'North Carolina',
-    'ND' => 'North Dakota',
-    'OH' => 'Ohio',
-    'OK' => 'Oklahoma',
-    'OR' => 'Oregon',
-    'PA' => 'Pennsylvania',
-    'RI' => 'Rhode Island',
-    'SC' => 'South Carolina',
-    'SD' => 'South Dakota',
-    'TN' => 'Tennessee',
-    'TX' => 'Texas',
-    'UT' => 'Utah',
-    'VT' => 'Vermont',
-    'VA' => 'Virginia',
-    'WA' => 'Washington',
-    'WV' => 'West Virginia',
-    'WI' => 'Wisconsin',
-    'WY' => 'Wyoming',
+            'AL' => 'Alabama',
+            'AK' => 'Alaska',
+            'AZ' => 'Arizona',
+            'AR' => 'Arkansas',
+            'CA' => 'California',
+            'CO' => 'Colorado',
+            'CT' => 'Connecticut',
+            'DE' => 'Delaware',
+            'DC' => 'District Of Columbia',
+            'FL' => 'Florida',
+            'GA' => 'Georgia',
+            'HI' => 'Hawaii',
+            'ID' => 'Idaho',
+            'IL' => 'Illinois',
+            'IN' => 'Indiana',
+            'IA' => 'Iowa',
+            'KS' => 'Kansas',
+            'KY' => 'Kentucky',
+            'LA' => 'Louisiana',
+            'ME' => 'Maine',
+            'MD' => 'Maryland',
+            'MA' => 'Massachusetts',
+            'MI' => 'Michigan',
+            'MN' => 'Minnesota',
+            'MS' => 'Mississippi',
+            'MO' => 'Missouri',
+            'MT' => 'Montana',
+            'NE' => 'Nebraska',
+            'NV' => 'Nevada',
+            'NH' => 'New Hampshire',
+            'NJ' => 'New Jersey',
+            'NM' => 'New Mexico',
+            'NY' => 'New York',
+            'NC' => 'North Carolina',
+            'ND' => 'North Dakota',
+            'OH' => 'Ohio',
+            'OK' => 'Oklahoma',
+            'OR' => 'Oregon',
+            'PA' => 'Pennsylvania',
+            'RI' => 'Rhode Island',
+            'SC' => 'South Carolina',
+            'SD' => 'South Dakota',
+            'TN' => 'Tennessee',
+            'TX' => 'Texas',
+            'UT' => 'Utah',
+            'VT' => 'Vermont',
+            'VA' => 'Virginia',
+            'WA' => 'Washington',
+            'WV' => 'West Virginia',
+            'WI' => 'Wisconsin',
+            'WY' => 'Wyoming',
         ];
 
         $categories = [
@@ -454,12 +455,14 @@
                         <span class="input-group-text bg-white border-end-0">
                             <i class="fa-solid fa-location-dot text-muted"></i>
                         </span>
-                        <input type="text" id="locationInput" class="form-control border-start-0" placeholder="{{ __('admin.location') }}">
+                        <input type="text" id="locationInput" class="form-control border-start-0"
+                            placeholder="{{ __('admin.location') }}">
                     </div>
                 </div>
 
-                <x-select-with-search name="categoryFilter" label="{{ __('admin.category') }}" :datas="$categories" colMd="2"
-                    placeholder="Barchasi" :selected="request()->get('categoryFilter', '')" :selectSearch=false icon="fa-layer-group text-primary"/>
+                <x-select-with-search name="categoryFilter" label="{{ __('admin.category') }}" :datas="$categories"
+                    colMd="2" placeholder="Barchasi" :selected="request()->get('categoryFilter', '')" :selectSearch=false
+                    icon="fa-layer-group text-primary" />
 
                 <x-select-with-search name="statusFilter" label="Holati boyicha" :datas="$statuses" colMd="2"
                     placeholder="Barchasi" :selected="request()->get('statusFilter', '')" :selectSearch=false />
@@ -468,352 +471,352 @@
             </div>
         </div>
 
-    <!-- Jadval -->
-    <div class="card card-body py-3 px-3 shadow border-0 table-wrapper table-responsive mt-3">
-        <table class="table user-table table-bordered table-hover table-striped align-items-center">
-            <thead class="table-dark">
-                <tr>
-                    <th style="width: 50px;">{{ __('admin.id') }}</th>
-                    <th style="min-width: 200px;">{{ __('admin.project') }}</th>
-                    <th style="width: 80px;">{{ __('admin.picture') }}</th>
-                    <th style="width: 100px;">{{ __('admin.category') }}</th>
-                    <th style="width: 90px;">{{ __('admin.status') }}</th>
-                    <th style="min-width: 130px;">{{ __('admin.value') }}</th>
-                    <th style="min-width: 120px;">{{ __('admin.progress') }}</th>
-                    <!-- <th style="min-width: 120px;">{{ __('admin.financing') }}</th> -->
-                    <th style="min-width: 140px;">{{ __('admin.rounds') }}</th>
-                    <th style="width: 110px;">{{ __('admin.duration') }}</th>
-                    <th style="width: 130px;">{{ __('admin.actions') }}</th>
-                </tr>
-            </thead>
-            <tbody id="projectTableBody">
-                <tr class="loading-row">
-                    <td colspan="14">
-                        <i class="fas fa-spinner loading-spinner me-2"></i>
-                        <span>Loyihalar yuklanmoqda...</span>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+        <!-- Jadval -->
+        <div class="card card-body py-3 px-3 shadow border-0 table-wrapper table-responsive mt-3">
+            <table class="table user-table table-bordered table-hover table-striped align-items-center">
+                <thead class="table-dark">
+                    <tr>
+                        <th style="width: 50px;">{{ __('admin.id') }}</th>
+                        <th style="min-width: 200px;">{{ __('admin.project') }}</th>
+                        <th style="width: 80px;">{{ __('admin.picture') }}</th>
+                        <th style="width: 100px;">{{ __('admin.category') }}</th>
+                        <th style="width: 90px;">{{ __('admin.status') }}</th>
+                        <th style="min-width: 130px;">{{ __('admin.value') }}</th>
+                        <th style="min-width: 120px;">{{ __('admin.progress') }}</th>
+                        <!-- <th style="min-width: 120px;">{{ __('admin.financing') }}</th> -->
+                        <th style="min-width: 140px;">{{ __('admin.rounds') }}</th>
+                        <th style="width: 110px;">{{ __('admin.duration') }}</th>
+                        <th style="width: 130px;">{{ __('admin.actions') }}</th>
+                    </tr>
+                </thead>
+                <tbody id="projectTableBody">
+                    <tr class="loading-row">
+                        <td colspan="14">
+                            <i class="fas fa-spinner loading-spinner me-2"></i>
+                            <span>Loyihalar yuklanmoqda...</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 @endsection
 
-@push('customJs')
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script>
-        let projects = [];
-        let defaultProjects = [];
+    @push('customJs')
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script>
+            let projects = [];
+            let defaultProjects = [];
 
-        const projectTableBody = document.getElementById('projectTableBody');
-        const searchInput = document.getElementById('searchInput');
-        const categoryFilter = document.getElementById('categoryFilter');
-        const statusFilter = document.getElementById('statusFilter');
-        const riskFilter = document.getElementById('riskFilter');
-        const filterBtn = document.getElementById('filterBtn');
-        const clearBtn = document.getElementById('clearBtn');
+            const projectTableBody = document.getElementById('projectTableBody');
+            const searchInput = document.getElementById('searchInput');
+            const categoryFilter = document.getElementById('categoryFilter');
+            const statusFilter = document.getElementById('statusFilter');
+            const riskFilter = document.getElementById('riskFilter');
+            const filterBtn = document.getElementById('filterBtn');
+            const clearBtn = document.getElementById('clearBtn');
 
-        // Pul formatini o'zgartirish
-        function formatCurrency(num) {
-            if (num === null || num === undefined) return '-';
-            if (num >= 1000000000) {
-                return (num / 1000000000).toFixed(1) + ' mlrd';
-            } else if (num >= 1000000) {
-                return (num / 1000000).toFixed(1) + ' mln';
-            }
-            return new Intl.NumberFormat('uz-UZ').format(num);
-        }
-
-        // Qisqa format
-        function formatCurrencyShort(num) {
-            if (num === null || num === undefined) return '-';
-            if (num >= 1000000000) {
-                return (num / 1000000000).toFixed(2) + ' mlrd';
-            } else if (num >= 1000000) {
-                return (num / 1000000).toFixed(1) + ' mln';
-            }
-            return new Intl.NumberFormat('uz-UZ').format(num) + ' so\'m';
-        }
-
-        // Progress bar rangi
-        function getProgressBarClass(percent) {
-            if (percent >= 0 && percent < 25) return 'progress-bar-danger';
-            if (percent >= 25 && percent < 50) return 'progress-bar-warning';
-            if (percent >= 50 && percent < 75) return 'progress-bar-info';
-            return 'progress-bar-success';
-        }
-
-        // Ma'lumotlarni qayta ishlash
-        function preprocessProjects(list) {
-            const flatList = list.flat();
-
-            return flatList.map(p => {
-                // Kategoriya
-                const categoryMap = {
-                    'land': 'yer',
-                    'construction': 'qurilish',
-                    'rent': 'ijara'
-                };
-                const category_key = categoryMap[p.category] || p.category;
-
-                // Xavf
-                const riskMap = {
-                    'low': 'past',
-                    'medium': 'o\'rta',
-                    'high': 'yuqori'
-                };
-                const risk_uz = riskMap[p.risk_level] || p.risk_level;
-
-                // Holat
-                const statusMap = {
-                    'active': 'faol',
-                    'planned': 'rejalashtirilgan',
-                    'completed': 'yakunlangan',
-                    'inactive': 'nofaol'
-                };
-                const status_uz = statusMap[p.status] || p.status;
-
-                // Moliyalashtirish
-                const fundingPercent = p.investor_share > 0 ?
-                    Math.min(((p.collected || 0) / p.investor_share) * 100, 100) :
-                    0;
-
-                // Progress
-                let progressPercent = fundingPercent;
-                if (p.progress && p.progress.percent) {
-                    progressPercent = p.progress.percent;
+            // Pul formatini o'zgartirish
+            function formatCurrency(num) {
+                if (num === null || num === undefined) return '-';
+                if (num >= 1000000000) {
+                    return (num / 1000000000).toFixed(1) + ' mlrd';
+                } else if (num >= 1000000) {
+                    return (num / 1000000).toFixed(1) + ' mln';
                 }
-
-                // Davomiylik
-                const months = p.duration_months || 0;
-                const years = Math.floor(months / 12);
-                const remainingMonths = months % 12;
-                let duration = '';
-                if (years > 0) duration += years + ' yil ';
-                if (remainingMonths > 0) duration += remainingMonths + ' oy';
-                duration = duration.trim() || '-';
-
-                console.log(p);
-                return {
-                    ...p,
-                    category: category_key,
-                    category_display: category_key.charAt(0).toUpperCase() + category_key.slice(1),
-                    risk: risk_uz,
-                    status: status_uz,
-                    progress: Math.round(progressPercent),
-                    funding: Math.round(fundingPercent),
-                    currentRound: p.round,
-                    totalRounds: p.rounds_status.length,
-                    duration: duration,
-                    roi: p.yearly_profit_percent || 0, // FIX 1: 0 chiqarish
-                    location: `${p.district}, ${p.region}`
-                };
-            });
-        }
-
-        // Raund ko'rsatkichlarini render qilish - HORIZONTAL
-        function renderRounds(roundsStatus) {
-            let html = '<div class="round-indicators">';
-
-            roundsStatus.forEach((round, index) => {
-                let statusClass = 'round-pending';
-                if (round.status === 'completed') {
-                    statusClass = 'round-completed';
-                } else if (round.status === 'active') {
-                    statusClass = 'round-active';
-                } else if (round.status === 'in_progress') {
-                    statusClass = 'round-pending';
-                }
-
-                html += `<span class="round-dot ${statusClass}">${round.round}</span>`;
-            });
-
-            html += '</div>';
-            return html;
-        }
-
-        // Loyihalarni render qilish
-        function renderProjects(list) {
-            if (list.length === 0) {
-                projectTableBody.innerHTML = `
-            <tr>
-                <td colspan="14">
-                    <div class="empty-state">
-                        <i class="fas fa-folder-open"></i>
-                        <div class="mt-2">
-                            <h5>Loyihalar topilmadi</h5>
-                            <p class="text-muted">Filter sozlamalarini o'zgartiring yoki yangi loyiha qo'shing</p>
-                        </div>
-                    </div>
-                </td>
-            </tr>
-        `;
-                return;
+                return new Intl.NumberFormat('uz-UZ').format(num);
             }
 
-            const routes = {
-                show: "{{ route('admin.projects.show', ':id') }}",
-                edit: "{{ route('admin.projects.edit', ':id') }}",
-                delete: "{{ route('admin.project.destroy', ':id') }}"
-            };
+            // Qisqa format
+            function formatCurrencyShort(num) {
+                if (num === null || num === undefined) return '-';
+                if (num >= 1000000000) {
+                    return (num / 1000000000).toFixed(2) + ' mlrd';
+                } else if (num >= 1000000) {
+                    return (num / 1000000).toFixed(1) + ' mln';
+                }
+                return new Intl.NumberFormat('uz-UZ').format(num) + ' so\'m';
+            }
 
-            const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
+            // Progress bar rangi
+            function getProgressBarClass(percent) {
+                if (percent >= 0 && percent < 25) return 'progress-bar-danger';
+                if (percent >= 25 && percent < 50) return 'progress-bar-warning';
+                if (percent >= 50 && percent < 75) return 'progress-bar-info';
+                return 'progress-bar-success';
+            }
+            // Ma'lumotlarni qayta ishlash
+            function preprocessProjects(list) {
+                let autoId = 1; // 🔥 1 dan boshlanadi
+                const flatList = list.flat();
 
-            let html = '';
-            list.forEach(p => {
-                const showUrl = routes.show.replace(':id', p.id);
-                const editUrl = routes.edit.replace(':id', p.id);
-                const destroyUrl = routes.delete.replace(':id', p.id);
+                return flatList.map(p => {
+                    // Kategoriya
+                    const categoryMap = {
+                        'land': 'yer',
+                        'construction': 'qurilish',
+                        'rent': 'ijara'
+                    };
+                    const category_key = categoryMap[p.category] || p.category;
 
-                // FIX 2: Progress bar rangi
-                const progressBarClass = getProgressBarClass(p.progress);
-                const fundingBarClass = getProgressBarClass(p.funding);
+                    // Xavf
+                    const riskMap = {
+                        'low': 'past',
+                        'medium': 'o\'rta',
+                        'high': 'yuqori'
+                    };
+                    const risk_uz = riskMap[p.risk_level] || p.risk_level;
 
-                html += `
-            <tr>
-                <td>${p.code}</td>
-                <td>
-                    <div class="project-name">${p.name}</div>
-                    <div class="project-location">
-                        <i class="fas fa-map-marker-alt me-1"></i>${p.location}
-                    </div>
-                </td>
-                <td>
-                    <img src="${p.image}" class="project-img" alt="${p.name}"
-                         onerror="this.src='https://via.placeholder.com/56'">
-                </td>
-                <td>
-                    <span class="badge badge-custom badge-category-${p.category}">
-                        ${p.category_display}
-                    </span>
-                </td>
-                <td>
-                    <span class="badge badge-custom badge-status-${p.status}">
-                        ${p.status.charAt(0).toUpperCase() + p.status.slice(1)}
-                    </span>
-                </td>
-                <td>
-                    <div class="value-primary">${formatCurrencyShort(p.total_value)} (${p.funding}%)</div>
-                                        <div class="value-secondary">Min: ${formatCurrencyShort(p.min_investment)}</div>
-                </td>
-                <td>
-                    <div class="progress-wrapper">
-                        <div class="progress-custom">
-                            <div class="progress-bar-custom ${progressBarClass}" style="width: ${p.progress}%"></div>
-                        </div>
-                        <div class="progress-text">${p.progress}% bajarildi</div>
-                    </div>
-                </td>
-                <td>${renderRounds(p.rounds_status)}</td>
-                <td>${p.duration}</td>
-                <td>
-                    <div class="action-buttons">
-                        <x-show-button />
-                        <x-edit-button />
-                        <x-delete-button/>
-                    </div>
-                </td>
-            </tr>
-        `;
-            });
+                    // Holat
+                    const statusMap = {
+                        'active': 'faol',
+                        'planned': 'rejalashtirilgan',
+                        'completed': 'yakunlangan',
+                        'inactive': 'nofaol'
+                    };
+                    const status_uz = statusMap[p.status] || p.status;
 
-            projectTableBody.innerHTML = html;
-        }
+                    // Moliyalashtirish
+                    const fundingPercent = p.investor_share > 0 ?
+                        Math.min(((p.collected || 0) / p.investor_share) * 100, 100) :
+                        0;
 
-        // Statistikani yangilash
-        function updateStatistics(list) {
-            const total = list.length;
-            const active = list.filter(p => p.status === 'faol').length;
-            const totalValue = list.reduce((sum, p) => sum + (p.total_value || 0), 0);
-            const avgFunding = list.length > 0 ?
-                Math.round(list.reduce((sum, p) => sum + p.funding, 0) / list.length) :
-                0;
-        }
-
-        // API dan ma'lumotlarni yuklash
-        function fetchProjects() {
-            axios.get('/api/projects/list')
-                .then(response => {
-                    const apiResult = response.data.result;
-
-                    if (!apiResult || !Array.isArray(apiResult)) {
-                        throw new Error('Noto\'g\'ri API javobi');
+                    // Progress
+                    let progressPercent = fundingPercent;
+                    if (p.progress && p.progress.percent) {
+                        progressPercent = p.progress.percent;
                     }
 
-                    projects = preprocessProjects(apiResult);
-                    defaultProjects = [...projects];
+                    // Davomiylik
+                    const months = p.duration_months || 0;
+                    const years = Math.floor(months / 12);
+                    const remainingMonths = months % 12;
+                    let duration = '';
+                    if (years > 0) duration += years + ' yil ';
+                    if (remainingMonths > 0) duration += remainingMonths + ' oy';
+                    duration = duration.trim() || '-';
 
-                    renderProjects(projects);
-                    updateStatistics(projects);
-                })
-                .catch(error => {
-                    console.error('API xatosi:', error);
-                    projectTableBody.innerHTML = `
-                <tr>
-                    <td colspan="14">
-                        <div class="empty-state">
-                            <i class="fas fa-exclamation-triangle text-danger"></i>
-                            <div class="mt-2">
-                                <h5>Xatolik yuz berdi</h5>
-                                <p class="text-muted">Ma'lumotlarni yuklashda muammo yuz berdi. Iltimos, qayta urinib ko'ring.</p>
-                                <button class="btn btn-primary btn-sm mt-2" onclick="fetchProjects()">
-                                    <i class="fas fa-redo me-1"></i> Qayta yuklash
-                                </button>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-            `;
+                    return {
+                        ...p,
+                        fake_id: autoId++, // 🔥 vaqtinchalik ID
+                        category: category_key,
+                        category_display: category_key.charAt(0).toUpperCase() + category_key.slice(1),
+                        risk: risk_uz,
+                        status: status_uz,
+                        progress: Math.round(progressPercent),
+                        funding: Math.round(fundingPercent),
+                        currentRound: p.round,
+                        totalRounds: p.rounds_status.length,
+                        duration: duration,
+                        roi: p.yearly_profit_percent || 0,
+                        location: `${p.district}, ${p.region}`
+                    };
                 });
-        }
+            }
 
-        // Filterlash
-        function applyFilter() {
-            const search = searchInput.value.toLowerCase();
-            const cat = categoryFilter.value;
-            const stat = statusFilter.value;
-            const risk = riskFilter.value;
+            // Raund ko'rsatkichlarini render qilish - HORIZONTAL
+            function renderRounds(roundsStatus) {
+                let html = '<div class="round-indicators">';
 
-            const filtered = defaultProjects.filter(p => {
-                const matchesSearch = !search ||
-                    p.name.toLowerCase().includes(search) ||
-                    p.code.toLowerCase().includes(search) ||
-                    p.location.toLowerCase().includes(search);
-                const matchesCategory = !cat || p.category === cat;
-                const matchesStatus = !stat || p.status === stat;
-                const matchesRisk = !risk || p.risk === risk;
+                roundsStatus.forEach((round, index) => {
+                    let statusClass = 'round-pending';
+                    if (round.status === 'completed') {
+                        statusClass = 'round-completed';
+                    } else if (round.status === 'active') {
+                        statusClass = 'round-active';
+                    } else if (round.status === 'in_progress') {
+                        statusClass = 'round-pending';
+                    }
 
-                return matchesSearch && matchesCategory && matchesStatus && matchesRisk;
+                    html += `<span class="round-dot ${statusClass}">${round.round}</span>`;
+                });
+
+                html += '</div>';
+                return html;
+            }
+
+            // Loyihalarni render qilish
+            function renderProjects(list) {
+                if (list.length === 0) {
+                    projectTableBody.innerHTML = `
+                    <tr>
+                        <td colspan="14">
+                            <div class="empty-state">
+                                <i class="fas fa-folder-open"></i>
+                                <div class="mt-2">
+                                    <h5>Loyihalar topilmadi</h5>
+                                    <p class="text-muted">Filter sozlamalarini o'zgartiring yoki yangi loyiha qo'shing</p>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+                    return;
+                }
+
+                const routes = {
+                    show: "{{ route('admin.projects.show', ':id') }}",
+                    edit: "{{ route('admin.projects.edit', ':id') }}",
+                    delete: "{{ route('admin.project.destroy', ':id') }}"
+                };
+
+                const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
+
+                let html = '';
+                list.forEach(p => {
+                    const showUrl = routes.show.replace(':id', p.id);
+                    const editUrl = routes.edit.replace(':id', p.id);
+                    const destroyUrl = routes.delete.replace(':id', p.id);
+
+                    // FIX 2: Progress bar rangi
+                    const progressBarClass = getProgressBarClass(p.progress);
+                    const fundingBarClass = getProgressBarClass(p.funding);
+
+                    html += `
+                    <tr>
+                        <td>${p.code}</td>
+                        <td>
+                            <div class="project-name">${p.name}</div>
+                            <div class="project-location">
+                                <i class="fas fa-map-marker-alt me-1"></i>${p.location}
+                            </div>
+                        </td>
+                        <td>
+                            <img src="${p.image}" class="project-img" alt="${p.name}"
+                                 onerror="this.src='https://via.placeholder.com/56'">
+                        </td>
+                        <td>
+                            <span class="badge badge-custom badge-category-${p.category}">
+                                ${p.category_display}
+                            </span>
+                        </td>
+                        <td>
+                            <span class="badge badge-custom badge-status-${p.status}">
+                                ${p.status.charAt(0).toUpperCase() + p.status.slice(1)}
+                            </span>
+                        </td>
+                        <td>
+                            <div class="value-primary">${formatCurrencyShort(p.total_value)} (${p.funding}%)</div>
+                                                <div class="value-secondary">Min: ${formatCurrencyShort(p.min_investment)}</div>
+                        </td>
+                        <td>
+                            <div class="progress-wrapper">
+                                <div class="progress-custom">
+                                    <div class="progress-bar-custom ${progressBarClass}" style="width: ${p.progress}%"></div>
+                                </div>
+                                <div class="progress-text">${p.progress}% bajarildi</div>
+                            </div>
+                        </td>
+                        <td>${renderRounds(p.rounds_status)}</td>
+                        <td>${p.duration}</td>
+                        <td>
+                            <div class="action-buttons">
+                                <x-show-button href=${showUrl}/>
+                                <x-edit-button href=${editUrl}/>
+                                <x-delete-button href=${destroyUrl}/>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+                });
+
+                projectTableBody.innerHTML = html;
+            }
+
+            // Statistikani yangilash
+            function updateStatistics(list) {
+                const total = list.length;
+                const active = list.filter(p => p.status === 'faol').length;
+                const totalValue = list.reduce((sum, p) => sum + (p.total_value || 0), 0);
+                const avgFunding = list.length > 0 ?
+                    Math.round(list.reduce((sum, p) => sum + p.funding, 0) / list.length) :
+                    0;
+            }
+
+            // API dan ma'lumotlarni yuklash
+            function fetchProjects() {
+                axios.get('/api/projects/list')
+                    .then(response => {
+                        const apiResult = response.data.result;
+
+                        if (!apiResult || !Array.isArray(apiResult)) {
+                            throw new Error('Noto\'g\'ri API javobi');
+                        }
+
+                        projects = preprocessProjects(apiResult);
+                        defaultProjects = [...projects];
+
+                        renderProjects(projects);
+                        updateStatistics(projects);
+                    })
+                    .catch(error => {
+                        console.error('API xatosi:', error);
+                        projectTableBody.innerHTML = `
+                        <tr>
+                            <td colspan="14">
+                                <div class="empty-state">
+                                    <i class="fas fa-exclamation-triangle text-danger"></i>
+                                    <div class="mt-2">
+                                        <h5>Xatolik yuz berdi</h5>
+                                        <p class="text-muted">Ma'lumotlarni yuklashda muammo yuz berdi. Iltimos, qayta urinib ko'ring.</p>
+                                        <button class="btn btn-primary btn-sm mt-2" onclick="fetchProjects()">
+                                            <i class="fas fa-redo me-1"></i> Qayta yuklash
+                                        </button>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    `;
+                    });
+            }
+
+            // Filterlash
+            function applyFilter() {
+                const search = searchInput.value.toLowerCase();
+                const cat = categoryFilter.value;
+                const stat = statusFilter.value;
+                const risk = riskFilter.value;
+
+                const filtered = defaultProjects.filter(p => {
+                    const matchesSearch = !search ||
+                        p.name.toLowerCase().includes(search) ||
+                        p.code.toLowerCase().includes(search) ||
+                        p.location.toLowerCase().includes(search);
+                    const matchesCategory = !cat || p.category === cat;
+                    const matchesStatus = !stat || p.status === stat;
+                    const matchesRisk = !risk || p.risk === risk;
+
+                    return matchesSearch && matchesCategory && matchesStatus && matchesRisk;
+                });
+
+                renderProjects(filtered);
+                updateStatistics(filtered);
+            }
+
+            // Event listeners
+            document.addEventListener('DOMContentLoaded', function () {
+                fetchProjects();
+
+                filterBtn.addEventListener('click', applyFilter);
+
+                clearBtn.addEventListener('click', function () {
+                    searchInput.value = '';
+                    categoryFilter.value = '';
+                    statusFilter.value = '';
+                    riskFilter.value = '';
+                    renderProjects(defaultProjects);
+                    updateStatistics(defaultProjects);
+                });
+
+                searchInput.addEventListener('keyup', function (e) {
+                    if (e.key === 'Enter') applyFilter();
+                });
+
+                // Real-time qidiruv (debounce bilan)
+                let searchTimeout;
+                searchInput.addEventListener('input', function () {
+                    clearTimeout(searchTimeout);
+                    searchTimeout = setTimeout(applyFilter, 300);
+                });
             });
-
-            renderProjects(filtered);
-            updateStatistics(filtered);
-        }
-
-        // Event listeners
-        document.addEventListener('DOMContentLoaded', function() {
-            fetchProjects();
-
-            filterBtn.addEventListener('click', applyFilter);
-
-            clearBtn.addEventListener('click', function() {
-                searchInput.value = '';
-                categoryFilter.value = '';
-                statusFilter.value = '';
-                riskFilter.value = '';
-                renderProjects(defaultProjects);
-                updateStatistics(defaultProjects);
-            });
-
-            searchInput.addEventListener('keyup', function(e) {
-                if (e.key === 'Enter') applyFilter();
-            });
-
-            // Real-time qidiruv (debounce bilan)
-            let searchTimeout;
-            searchInput.addEventListener('input', function() {
-                clearTimeout(searchTimeout);
-                searchTimeout = setTimeout(applyFilter, 300);
-            });
-        });
-    </script>
-@endpush
+        </script>
+    @endpush
