@@ -1319,7 +1319,6 @@ function getSystemLogsData($id = null): Collection
         return $systemLogs->where('id', $id)->values();
     }
     return $systemLogs;
-
 }
 
 
@@ -1403,7 +1402,7 @@ function getLanguagesData($id = null)
             'code' => 'ar',
             'is_active' => false,
             'is_default' => false,
-           
+
         ]
     ]);
 
@@ -1413,3 +1412,15 @@ function getLanguagesData($id = null)
     return $datas;
 }
 
+function renderValue($value, $prefix = '')
+{
+    if (is_array($value)) {
+        $html = '';
+        foreach ($value as $k => $v) {
+            $html .= renderValue($v, $prefix . $k . '. ');
+        }
+        return $html;
+    }
+
+    return "<div>{$prefix}{$value}</div>";
+}

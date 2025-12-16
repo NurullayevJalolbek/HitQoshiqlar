@@ -117,7 +117,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'l
 
         Route::resource('/language-management', LanguageManagementController::class);
 
-        Route::get('/system-translations', [SystemTranslationController::class, 'index'])->name('system-translations.index');
+        Route::resource('/system-translations',SystemTranslationController::class);
 
         Route::get('/template-messages', [TemplateMessageController::class, 'index'])->name("template-messages.index");
     });
