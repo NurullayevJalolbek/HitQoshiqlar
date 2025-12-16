@@ -30,7 +30,7 @@
     <!-- Breadcrumb -->
     <div class="d-block mb-2 mb-md-0">
         <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
-            <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
+            <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent mb-0">
                 <li class="breadcrumb-item">
                     <a href="{{ route('admin.dashboard') }}">
                         <i class="fas fa-home"></i>
@@ -47,10 +47,22 @@
             </ol>
         </nav>
     </div>
+
+    <div class="d-flex gap-2 align-items-center flex-wrap">
+
+        <!-- Filter toggle -->
+        <button class="btn btn-sm p-2 d-flex align-items-center justify-content-center" type="button"
+            data-bs-toggle="collapse" data-bs-target="#systemTranslationFilterContent" aria-expanded="true"
+            aria-controls="systemTranslationFilterContent">
+            <i class="fa-solid fa-list" style="font-size: 1.3rem;"></i>
+        </button>
+    </div>
 </div>
 @endsection
 
 @section('content')
+
+@include('pages.system-translations._filter')
 @php
 $pagination = manualPaginate($baseKeys, 10);
 
@@ -83,7 +95,7 @@ $end = $pagination['end'];
             <thead class="table-dark">
                 <tr>
                     <th class="text-center" width="5%">№</th>
-                    <th>Kalit</th>
+                    <th>Kalit sozi</th>
                     <th class="text-center">UZ</th>
                     <th class="text-center">RU</th>
                     <th class="text-center">EN</th>
