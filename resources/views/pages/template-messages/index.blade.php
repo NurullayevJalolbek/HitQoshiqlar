@@ -175,7 +175,7 @@
     <div class="d-flex gap-2 align-items-center flex-wrap">
 
         <!-- Yangi foydalanuvchi qo'shish -->
-        <a href="#" class="btn btn-primary btn-sm px-3 py-1" id="addUserBtn"
+        <a href="#" class="btn btn-primary btn-sm px-3 py-1" onclick="openCreateModal()"
             style="min-width: 90px;">
             <i class="fas fa-plus me-1" style="font-size: 0.85rem;"></i> {{ __('admin.create') }}
         </a>
@@ -249,6 +249,7 @@ $categories = [
                                         style="background:none; color: #f0bc74;">
                                         <i class="fa-jelly-duo fa-solid fa-pencil"></i>
                                     </button>
+                                    <x-delete-button />
                                 </div>
                             </td>
                         </tr>
@@ -288,6 +289,8 @@ $categories = [
                                         style="background:none; color: #f0bc74;">
                                         <i class="fa-jelly-duo fa-solid fa-pencil"></i>
                                     </button>
+                                    <x-delete-button />
+
                                 </div>
                             </td>
                         </tr>
@@ -327,6 +330,8 @@ $categories = [
                                         style="background:none; color: #f0bc74;">
                                         <i class="fa-jelly-duo fa-solid fa-pencil"></i>
                                     </button>
+                                    <x-delete-button />
+
                                 </div>
                             </td>
                         </tr>
