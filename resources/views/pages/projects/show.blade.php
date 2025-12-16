@@ -63,6 +63,12 @@
             border-color: #86efac;
         }
 
+        .status-inprogress {
+            background: #DBEAFE;
+            color: #1E40AF;
+            border-color: #93c5fd;
+        }
+
         .status-planned {
             background: #dbeafe;
             color: #1e40af;
@@ -70,9 +76,9 @@
         }
 
         .status-completed {
-            background: #f3e8ff;
-            color: #6b21a8;
-            border-color: #d8b4fe;
+            background: #dcfce7;
+            color: #10B981;
+            border-color: #86efac;
         }
 
         .status-inactive {
@@ -771,7 +777,7 @@
     <div class="d-flex gap-2 align-items-center flex-wrap">
         @php($projectId = request()->route('project'))
 
-        <x-edit-button :href="route('admin.projects.edit', $projectId)" text="{{ __('admin.Edit') }}"/>
+        <x-edit-button :href="route('admin.projects.edit', $projectId)" text="{{ __('admin.Edit') }}" />
         <button class="btn-action btn-success" id="saveBtn" style="display: none;" onclick="saveChanges()">
             <i class="bi bi-check-lg"></i> Saqlash
         </button>
@@ -1016,7 +1022,7 @@
                         <div class="progress-bar-fill" id="progressBar" style="width: 0%">0%</div>
                     </div>
                 </div>
-                <div class="timeline" id="timeline"></div>
+                <div class="list-group list-group-flush list-group-timeline" id="timeline"></div>
             </div>
         </div>
 
@@ -1508,10 +1514,10 @@
             document.getElementById('videosCard').style.display = 'block';
             const container = document.getElementById('videosContainer');
             container.innerHTML = videos.map(url => `
-                            <div class="video-embed">
-                                <iframe src="${url}" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
-                            </div>
-                        `).join('');
+                                    <div class="video-embed">
+                                        <iframe src="${url}" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
+                                    </div>
+                                `).join('');
         }
 
         function displayProcessImages(images) {
@@ -1523,10 +1529,10 @@
             document.getElementById('processImagesCard').style.display = 'block';
             const container = document.getElementById('processImagesContainer');
             container.innerHTML = images.map((img, index) => `
-                            <div class="gallery-item" onclick="openImageModal('${img}')">
-                                <img src="${img}" alt="Qurilish jarayoni ${index + 1}" loading="lazy">
-                            </div>
-                        `).join('');
+                                    <div class="gallery-item" onclick="openImageModal('${img}')">
+                                        <img src="${img}" alt="Qurilish jarayoni ${index + 1}" loading="lazy">
+                                    </div>
+                                `).join('');
         }
 
         function openImageModal(imageUrl) {
@@ -1547,24 +1553,32 @@
             timeline.innerHTML = '';
 
             const statusMap = {
-                'completed': { icon: '✓', class: 'completed', text: 'Bajarildi' },
-                'in_progress': { icon: '◐', class: 'in-progress', text: 'Jarayonda' },
-                'planned': { icon: '○', class: 'planned', text: 'Rejalashtirilgan' }
+                'completed': { icon: 'bi-check-circle', class: 'icon-shape-success', text: 'Bajarildi' },
+                'in_progress': { icon: 'bi-arrow-clockwise', class: 'icon-shape-primary', text: 'Jarayonda' },
+                'planned': { icon: 'bi-circle', class: 'icon-shape-secondary', text: 'Rejalashtirilgan' }
             };
 
-            stages.forEach((stage, index) => {
+            stages.forEach((stage) => {
                 const status = statusMap[stage.status];
                 const itemEl = document.createElement('div');
-                itemEl.className = 'timeline-item';
+                itemEl.className = 'list-group-item border-0';
                 itemEl.innerHTML = `
-                                <div class="timeline-marker ${status.class}">${status.icon}</div>
-                                ${index < stages.length - 1 ? '<div class="timeline-line"></div>' : ''}
-                                <div class="timeline-content">
-                                    <div class="timeline-title">${stage.name}</div>
-                                    <div style="color: var(--gray-600); font-size: 0.9rem; margin: 0.25rem 0;">${status.text} • ${stage.progress}%</div>
-                                    <div class="timeline-date">${stage.start_date} - ${stage.end_date}</div>
-                                </div>
-                            `;
+                <div class="row ps-lg-1">
+                    <div class="col-auto">
+                        <div class="icon-shape icon-xs ${status.class} rounded" style="width: 2.5rem; height: 2.5rem; display: flex; align-items: center; justify-content: center;">
+                            <i class="${status.icon}"></i>
+                        </div>
+                    </div>
+                    <div class="col ms-n2 mb-3">
+                        <h3 class="fs-6 fw-bold mb-1">${stage.name}</h3>
+                        <p class="mb-1" style="color: var(--gray-600); font-size: 0.9rem;">${status.text} • ${stage.progress}%</p>
+                        <div class="d-flex align-items-center">
+                            <svg class="icon icon-xxs text-gray-400 me-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"></path></svg>
+                            <span class="small">${stage.start_date} - ${stage.end_date}</span>
+                        </div>
+                    </div>
+                </div>
+            `;
                 timeline.appendChild(itemEl);
             });
         }
@@ -1572,7 +1586,7 @@
         function displayRounds(rounds) {
             const container = document.getElementById('roundsContainer');
             const statusMap = {
-                'in_progress': { text: 'Jarayonda', class: 'status-active' },
+                'in_progress': { text: 'Jarayonda', class: 'status-inprogress' },
                 'completed': { text: 'Yakunlangan', class: 'status-completed' },
                 'inactive': { text: 'Nofaol', class: 'status-inactive' }
             };
@@ -1580,17 +1594,17 @@
             container.innerHTML = rounds.map(round => {
                 const status = statusMap[round.status];
                 return `
-                                <div class="round-item">
-                                    <div class="round-info">
-                                        <h6>${round.name}</h6>
-                                        <span class="status-badge ${status.class}">${status.text}</span>
-                                    </div>
-                                    <div style="text-align: right;">
-                                        <div class="round-amount">${formatMoney(round.min_share)}</div>
-                                        <div style="font-size: 0.85rem; color: var(--gray-600);">Minimal ulush</div>
-                                    </div>
-                                </div>
-                            `;
+                                        <div class="round-item">
+                                            <div class="round-info">
+                                                <h6>${round.name}</h6>
+                                                <span class="status-badge ${status.class}">${status.text}</span>
+                                            </div>
+                                            <div style="text-align: right;">
+                                                <div class="round-amount">${formatMoney(round.min_share)}</div>
+                                                <div style="font-size: 0.85rem; color: var(--gray-600);">Minimal ulush</div>
+                                            </div>
+                                        </div>
+                                    `;
             }).join('');
         }
 
@@ -1607,103 +1621,103 @@
 
             const historyContainer = document.getElementById('dividendHistory');
             historyContainer.innerHTML = p.dividend_history.map(item => `
-                            <div class="dividend-item">
-                                <div>
-                                    <div class="dividend-date">${item.date}</div>
-                                    <div class="dividend-status">${item.status}</div>
-                                </div>
-                                <div class="dividend-amount">${item.amount}%</div>
-                            </div>
-                        `).join('');
+                                    <div class="dividend-item">
+                                        <div>
+                                            <div class="dividend-date">${item.date}</div>
+                                            <div class="dividend-status">${item.status}</div>
+                                        </div>
+                                        <div class="dividend-amount">${item.amount}%</div>
+                                    </div>
+                                `).join('');
         }
 
         function displayPartners(partners) {
             const container = document.getElementById('partnersContainer');
             container.innerHTML = partners.map(partner => `
-                            <div class="partner-card" style="margin-bottom: 1.5rem;">
-                                <div class="partner-header">${partner.company_name}</div>
-                                <div class="info-grid">
-                                    <div class="info-row">
-                                        <span class="info-label">To'liq sherikning identifikatori (ID)</span>
-                                        <span class="info-value">${partner.id}</span>
+                                    <div class="partner-card" style="margin-bottom: 1.5rem;">
+                                        <div class="partner-header">${partner.company_name}</div>
+                                        <div class="info-grid">
+                                            <div class="info-row">
+                                                <span class="info-label">To'liq sherikning identifikatori (ID)</span>
+                                                <span class="info-value">${partner.id}</span>
+                                            </div>
+                                            <div class="info-row">
+                                                <span class="info-label">Korxona to'liq nomi</span>
+                                                <span class="info-value">${partner.company_name}</span>
+                                            </div>
+                                            <div class="info-row">
+                                                <span class="info-label">INN</span>
+                                                <span class="info-value">${partner.inn}</span>
+                                            </div>
+                                            <div class="info-row">
+                                                <span class="info-label">IFUT kodi</span>
+                                                <span class="info-value">${partner.ifut}</span>
+                                            </div>
+                                            <div class="info-row">
+                                                <span class="info-label">Faoliyat turi</span>
+                                                <span class="info-value">${partner.type}</span>
+                                            </div>
+                                            <div class="info-row">
+                                                <span class="info-label">Manzil</span>
+                                                <span class="info-value">${partner.address}</span>
+                                            </div>
+                                            <div class="info-row">
+                                                <span class="info-label">Direktor F.I.O.</span>
+                                                <span class="info-value">${partner.director}</span>
+                                            </div>
+                                            <div class="info-row">
+                                                <span class="info-label">Bog'lanish uchun telefon raqami</span>
+                                                <span class="info-value">${partner.phone}</span>
+                                            </div>
+                                            <div class="info-row">
+                                                <span class="info-label">Email</span>
+                                                <span class="info-value">${partner.email}</span>
+                                            </div>
+                                            <div class="info-row">
+                                                <span class="info-label">Ro'yxatdan o'tkazilgan sana</span>
+                                                <span class="info-value">${partner.registration_date}</span>
+                                            </div>
+                                            <div class="info-row">
+                                                <span class="info-label">Ro'yxatdan o'tkazish raqami</span>
+                                                <span class="info-value">${partner.registration_number}</span>
+                                            </div>
+                                            <div class="info-row">
+                                                <span class="info-label">Ro'yxatdan o'tkazuvchi davlat tashkiloti nomi</span>
+                                                <span class="info-value">${partner.registration_org}</span>
+                                            </div>
+                                            ${partner.type === 'YaTT' ? `
+                                            <div class="info-row">
+                                                <span class="info-label">Pasport ma'lumoti</span>
+                                                <span class="info-value">${partner.passport_data}</span>
+                                            </div>
+                                            <div class="info-row">
+                                                <span class="info-label">JSHSHIR</span>
+                                                <span class="info-value">${partner.pinfl}</span>
+                                            </div>
+                                            ` : ''}
+                                            <div class="info-row">
+                                                <span class="info-label">Akkount holati</span>
+                                                <span class="info-value">${partner.account_status === 'active' ? 'Faol' : 'Bloklangan'}</span>
+                                            </div>
+                                            <div class="info-row">
+                                                <span class="info-label">To'liq sheriklik holati sanasi</span>
+                                                <span class="info-value">${partner.partnership_date}</span>
+                                            </div>
+                                            <div class="info-row">
+                                                <span class="info-label">Investorlik sertifikati fayli</span>
+                                                <span class="info-value">${partner.investor_certificate}</span>
+                                            </div>
+                                            <div class="info-row">
+                                                <span class="info-label">Loyihadagi jami ulushi (summada)</span>
+                                                <span class="info-value">${formatMoney(partner.share_amount)}</span>
+                                            </div>
+                                            <div class="info-row">
+                                                <span class="info-label">Loyihadagi jami ulushi (foizda)</span>
+                                                <span class="info-value">${partner.share_percent}%</span>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="info-row">
-                                        <span class="info-label">Korxona to'liq nomi</span>
-                                        <span class="info-value">${partner.company_name}</span>
-                                    </div>
-                                    <div class="info-row">
-                                        <span class="info-label">INN</span>
-                                        <span class="info-value">${partner.inn}</span>
-                                    </div>
-                                    <div class="info-row">
-                                        <span class="info-label">IFUT kodi</span>
-                                        <span class="info-value">${partner.ifut}</span>
-                                    </div>
-                                    <div class="info-row">
-                                        <span class="info-label">Faoliyat turi</span>
-                                        <span class="info-value">${partner.type}</span>
-                                    </div>
-                                    <div class="info-row">
-                                        <span class="info-label">Manzil</span>
-                                        <span class="info-value">${partner.address}</span>
-                                    </div>
-                                    <div class="info-row">
-                                        <span class="info-label">Direktor F.I.O.</span>
-                                        <span class="info-value">${partner.director}</span>
-                                    </div>
-                                    <div class="info-row">
-                                        <span class="info-label">Bog'lanish uchun telefon raqami</span>
-                                        <span class="info-value">${partner.phone}</span>
-                                    </div>
-                                    <div class="info-row">
-                                        <span class="info-label">Email</span>
-                                        <span class="info-value">${partner.email}</span>
-                                    </div>
-                                    <div class="info-row">
-                                        <span class="info-label">Ro'yxatdan o'tkazilgan sana</span>
-                                        <span class="info-value">${partner.registration_date}</span>
-                                    </div>
-                                    <div class="info-row">
-                                        <span class="info-label">Ro'yxatdan o'tkazish raqami</span>
-                                        <span class="info-value">${partner.registration_number}</span>
-                                    </div>
-                                    <div class="info-row">
-                                        <span class="info-label">Ro'yxatdan o'tkazuvchi davlat tashkiloti nomi</span>
-                                        <span class="info-value">${partner.registration_org}</span>
-                                    </div>
-                                    ${partner.type === 'YaTT' ? `
-                                    <div class="info-row">
-                                        <span class="info-label">Pasport ma'lumoti</span>
-                                        <span class="info-value">${partner.passport_data}</span>
-                                    </div>
-                                    <div class="info-row">
-                                        <span class="info-label">JSHSHIR</span>
-                                        <span class="info-value">${partner.pinfl}</span>
-                                    </div>
-                                    ` : ''}
-                                    <div class="info-row">
-                                        <span class="info-label">Akkount holati</span>
-                                        <span class="info-value">${partner.account_status === 'active' ? 'Faol' : 'Bloklangan'}</span>
-                                    </div>
-                                    <div class="info-row">
-                                        <span class="info-label">To'liq sheriklik holati sanasi</span>
-                                        <span class="info-value">${partner.partnership_date}</span>
-                                    </div>
-                                    <div class="info-row">
-                                        <span class="info-label">Investorlik sertifikati fayli</span>
-                                        <span class="info-value">${partner.investor_certificate}</span>
-                                    </div>
-                                    <div class="info-row">
-                                        <span class="info-label">Loyihadagi jami ulushi (summada)</span>
-                                        <span class="info-value">${formatMoney(partner.share_amount)}</span>
-                                    </div>
-                                    <div class="info-row">
-                                        <span class="info-label">Loyihadagi jami ulushi (foizda)</span>
-                                        <span class="info-value">${partner.share_percent}%</span>
-                                    </div>
-                                </div>
-                            </div>
-                        `).join('');
+                                `).join('');
         }
 
         function displayRisks(risks) {
@@ -1724,31 +1738,31 @@
 
             const container = document.getElementById('risksContainer');
             container.innerHTML = risks.risk_items.map(item => `
-                            <div class="risk-item">
-                                <div class="risk-title">${item.name}</div>
-                                <p class="risk-description">${item.description}</p>
-                            </div>
-                        `).join('');
+                                    <div class="risk-item">
+                                        <div class="risk-title">${item.name}</div>
+                                        <p class="risk-description">${item.description}</p>
+                                    </div>
+                                `).join('');
         }
 
         function displayDocuments(documents) {
             const container = document.getElementById('documentsContainer');
             container.innerHTML = documents.map(doc => `
-                            <div class="document-item">
-                                <div class="document-info">
-                                    <div class="document-icon">
-                                        <i class="bi bi-file-earmark-pdf"></i>
+                                    <div class="document-item">
+                                        <div class="document-info">
+                                            <div class="document-icon">
+                                                <i class="bi bi-file-earmark-pdf"></i>
+                                            </div>
+                                            <div>
+                                                <div style="font-weight: 600; color: var(--gray-900);">${doc.name}</div>
+                                                <div style="font-size: 0.85rem; color: var(--gray-600);">${doc.file}</div>
+                                            </div>
+                                        </div>
+                                        <button class="btn-action btn-outline" onclick="downloadDocument('${doc.file}')">
+                                            <i class="bi bi-download"></i> Yuklash
+                                        </button>
                                     </div>
-                                    <div>
-                                        <div style="font-weight: 600; color: var(--gray-900);">${doc.name}</div>
-                                        <div style="font-size: 0.85rem; color: var(--gray-600);">${doc.file}</div>
-                                    </div>
-                                </div>
-                                <button class="btn-action btn-outline" onclick="downloadDocument('${doc.file}')">
-                                    <i class="bi bi-download"></i> Yuklash
-                                </button>
-                            </div>
-                        `).join('');
+                                `).join('');
         }
 
         function switchTab(tabName) {

@@ -11,4 +11,9 @@ class RevenueController extends Controller
     {
         return view('pages.revenues.index');
     }
+
+    public function show(Request $request, $id)
+    {
+        return view('pages.revenues.show');
+    }
 }

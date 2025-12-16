@@ -436,7 +436,7 @@
             'inactive' => 'Inactive'
         ];
     @endphp
-    <!-- Filter qismi -->
+    <!-- Filter qismi (collapse faqat filterlarga, jadval tashqarida) -->
     <div class="filter-card mb-3 collapse show" id="projectsFilterContent">
         <div class="p-3">
             <div class="row g-3 align-items-end">
@@ -470,35 +470,36 @@
                 <x-filter-buttons :search-text="__('admin.search')" :clear-text="__('admin.clear')" />
             </div>
         </div>
+    </div>
 
-        <!-- Jadval -->
-        <div class="card card-body py-3 px-3 shadow border-0 table-wrapper table-responsive mt-3">
-            <table class="table user-table table-bordered table-hover table-striped align-items-center">
-                <thead class="table-dark">
-                    <tr>
-                        <th style="width: 50px;">{{ __('admin.id') }}</th>
-                        <th style="min-width: 200px;">{{ __('admin.project') }}</th>
-                        <th style="width: 80px;">{{ __('admin.picture') }}</th>
-                        <th style="width: 100px;">{{ __('admin.category') }}</th>
-                        <th style="width: 90px;">{{ __('admin.status') }}</th>
-                        <th style="min-width: 130px;">{{ __('admin.value') }}</th>
-                        <th style="min-width: 120px;">{{ __('admin.progress') }}</th>
-                        <!-- <th style="min-width: 120px;">{{ __('admin.financing') }}</th> -->
-                        <th style="min-width: 140px;">{{ __('admin.rounds') }}</th>
-                        <th style="width: 110px;">{{ __('admin.duration') }}</th>
-                        <th style="width: 130px;">{{ __('admin.actions') }}</th>
-                    </tr>
-                </thead>
-                <tbody id="projectTableBody">
-                    <tr class="loading-row">
-                        <td colspan="14">
-                            <i class="fas fa-spinner loading-spinner me-2"></i>
-                            <span>Loyihalar yuklanmoqda...</span>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+    <!-- Jadval (collapse tashqarisida) -->
+    <div class="card card-body py-3 px-3 shadow border-0 table-wrapper table-responsive mt-3">
+        <table class="table user-table table-bordered table-hover table-striped align-items-center">
+            <thead class="table-dark">
+                <tr>
+                    <th style="width: 50px;">{{ __('admin.id') }}</th>
+                    <th style="min-width: 200px;">{{ __('admin.project') }}</th>
+                    <th style="width: 80px;">{{ __('admin.picture') }}</th>
+                    <th style="width: 100px;">{{ __('admin.category') }}</th>
+                    <th style="width: 90px;">{{ __('admin.status') }}</th>
+                    <th style="min-width: 130px;">{{ __('admin.value') }}</th>
+                    <th style="min-width: 120px;">{{ __('admin.progress') }}</th>
+                    <!-- <th style="min-width: 120px;">{{ __('admin.financing') }}</th> -->
+                    <th style="min-width: 140px;">{{ __('admin.rounds') }}</th>
+                    <th style="width: 110px;">{{ __('admin.duration') }}</th>
+                    <th style="width: 130px;">{{ __('admin.actions') }}</th>
+                </tr>
+            </thead>
+            <tbody id="projectTableBody">
+                <tr class="loading-row">
+                    <td colspan="14">
+                        <i class="fas fa-spinner loading-spinner me-2"></i>
+                        <span>Loyihalar yuklanmoqda...</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 @endsection
 
     @push('customJs')

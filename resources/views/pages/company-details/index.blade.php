@@ -1,306 +1,483 @@
 @extends('layouts.app')
 
+@push('customCss')
+    <style>
+        /* projects/index uslubiga mos umumiy kartalar */
+        .filter-card {
+            background: #ffffff;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            border-radius: 0.75rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+        }
+
+        .badge-custom {
+            padding: 0.35rem 0.65rem;
+            border-radius: 0.35rem;
+            font-size: 0.7rem;
+            font-weight: 600;
+            display: inline-block;
+            white-space: nowrap;
+            text-transform: capitalize;
+        }
+
+        /* Korxona kategoriyasi badge'lari */
+        .badge-category-full {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .badge-category-subsidiary {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .badge-category-commandite {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        /* Faoliyat turi badge'lari – project-investors sahifasiga o‘xshash */
+        .badge-activity-mchj {
+            background: #e0f2fe;
+            color: #0369a1;
+        }
+
+        .badge-activity-aj {
+            background: #fef9c3;
+            color: #854d0e;
+        }
+
+        .badge-activity-yatt {
+            background: #ede9fe;
+            color: #5b21b6;
+        }
+
+        .company-name {
+            font-weight: 600;
+            color: #1f2937;
+            font-size: 0.9rem;
+            margin-bottom: 0.1rem;
+        }
+
+        .company-info {
+            font-size: 0.75rem;
+            color: #6b7280;
+        }
+
+        .value-primary {
+            font-weight: 600;
+            color: #1f2937;
+            font-size: 0.875rem;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: #9ca3af;
+        }
+
+        .empty-state i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 0.375rem;
+            justify-content: center;
+        }
+    </style>
+@endpush
+
 @section('breadcrumb')
     <div
-        class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-3 breadcrumb-block px-3 mt-3"
+        class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-3 breadcrumb-block px-3 mt-3 mb-2"
         style="border: 1px solid rgba(0,0,0,0.05); border-radius: 0.5rem; background-color: #ffffff; height: 60px">
-        <!-- Breadcrumb -->
         <div class="d-block mb-2 mb-md-0">
             <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
                 <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent mb-0">
-                    <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
-                    <li class="breadcrumb-item active" aria-current="page">{{ __('admin.company_details') }}</li>
+                    <li class="breadcrumb-item">
+                        <a href="{{ route('admin.dashboard') }}">
+                            <i class="fas fa-home"></i>
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">
+                        {{ __('admin.company_details') ?? 'Rekvizitlar' }}
+                    </li>
                 </ol>
             </nav>
         </div>
 
-        <!-- Tugmalar guruhi -->
         <div class="d-flex gap-2 align-items-center flex-wrap">
-            <button class="btn btn-sm p-2 d-flex align-items-center justify-content-center"
-                    type="button" data-bs-toggle="collapse"
-                    data-bs-target="#companyDetailsFilterContent" aria-expanded="true"
-                    aria-controls="companyDetailsFilterContent">
-                <i class="fa-solid fa-list" style="font-size: 1.3rem;"></i>
+            {{-- Keyin real route bilan to‘ldirasiz --}}
+            <a href="javascript:void(0)" class="btn btn-primary btn-sm px-3 py-2 disabled">
+                <i class="fas fa-plus me-1"></i> {{ __('admin.add') ?? 'Korxona qo‘shish' }}
+            </a>
+            <button class="btn btn-sm p-2 d-flex align-items-center justify-content-center" type="button"
+                data-bs-toggle="collapse" data-bs-target="#companyFilterContent" aria-expanded="true"
+                aria-controls="companyFilterContent">
+                <i class="bi bi-sliders2" style="font-size: 1.3rem;"></i>
             </button>
         </div>
     </div>
 @endsection
 
-
 @section('content')
-    {{--    Filter--}}
-    <div class="filter-card mb-3 mt-2 collapse show" id="companyDetailsFilterContent"
-         style="transition: all 0.3s ease;">
-        <div class="border rounded p-3" style="border-color: rgba(0,0,0,0.05); background-color: #fff;">
+    <div class="filter-card mb-3 collapse show" id="companyFilterContent">
+        <div class="p-3">
             <div class="row g-3 align-items-end">
-                <!-- Qidiruv -->
+                {{-- Qidiruv --}}
                 <div class="col-md-4">
-                    <label for="searchInput">{{__('admin.search')}}</label>
+                    <label for="searchInput" class="form-label mb-2">{{ __('admin.search') ?? 'Qidiruv' }}</label>
                     <div class="input-group">
-                        <span class="input-group-text bg-white"><i class="fas fa-search text-muted"></i></span>
-                        <input type="text" id="searchInput" class="form-control"
-                               placeholder="{{__('admin.full_name')}}, {{__('admin.login')}}, {{__('admin.email')}}...">
+                        <span class="input-group-text bg-white border-end-0">
+                            <i class="fas fa-search text-muted"></i>
+                        </span>
+                        <input type="text" id="searchInput" class="form-control border-start-0"
+                            placeholder="{{ __('admin.search') ?? 'Nom, INN, direktor...' }}">
                     </div>
                 </div>
 
-                <!-- Holat bo‘yicha filter -->
-                <!-- Faoliyat turi bo‘yicha filter -->
-                <div class="col-md-3">
-                    <label for="f_type" class="form-label">Faoliyat turi</label>
-                    <select id="f_type" class="form-select">
-                        <option value="">Tanlang</option>
-                        <option value="МЧЖ">МЧЖ</option>
-                        <option value="АЖ">АЖ</option>
-                        <option value="ЯТТ">ЯТТ</option>
-                    </select>
-                </div>
+                {{-- Korxona kategoriyasi (To‘liq sherik, Shu‘ba, Komandit) --}}
+                <x-select-with-search
+                    name="companyCategoryFilter"
+                    label="{{ __('admin.company_category') ?? 'Korxona kategoriyasi' }}"
+                    :datas="[
+                        'full_partner' => 'To‘liq sherik',
+                        'subsidiary' => 'Shu\'ba korxona',
+                        'commandite' => 'Komandit shirkati',
+                    ]"
+                    colMd="3"
+                    placeholder="Barchasi"
+                    :selected="request()->get('companyCategoryFilter', '')"
+                    :selectSearch="false"
+                    icon="fa-layer-group" />
 
+                {{-- Faoliyat turi (MChJ, AJ, YaTT) --}}
+                <x-select-with-search
+                    name="activityTypeFilter"
+                    label="{{ __('admin.activity_type') ?? 'Faoliyat turi' }}"
+                    :datas="['MChJ' => 'MChJ', 'AJ' => 'AJ', 'YaTT' => 'YaTT']"
+                    colMd="3"
+                    placeholder="Barchasi"
+                    :selected="request()->get('activityTypeFilter', '')"
+                    :selectSearch="false"
+                    icon="fa-briefcase" />
 
-                <!-- Filter tugmalari -->
-                <div class="col-md-2 d-flex gap-2">
-                    <button id="filterBtn" class="btn btn-primary w-50">
-                        <i class="fas fa-filter"></i> {{__('admin.search')}}
-                    </button>
-                    <button id="clearBtn" class="btn btn-warning w-50">
-                        {{__('admin.clear')}}
-                    </button>
-                </div>
+                {{-- projects/index dagi filter tugmalari --}}
+                <x-filter-buttons :search-text="__('admin.search')" :clear-text="__('admin.clear')" />
             </div>
         </div>
     </div>
 
-
-    <!-- TABLE -->
+    {{-- Jadval (collapse tashqarisida) --}}
     <div class="card card-body py-3 px-3 shadow border-0 table-wrapper table-responsive mt-3">
-        <table class="table  table-bordered table-hover table-striped align-items-center">
+        <table class="table user-table table-bordered table-hover table-striped align-items-center">
             <thead class="table-dark">
-            <tr>
-                <th >ID</th>
-                <th >Корхона номи</th>
-                <th >ИНН</th>
-                <th >ИФУТ коди</th>
-                <th >Фаолият тури</th>
-                <th >Манзили</th>
-                <th >Директор Ф.И.О.</th>
-                <th >Телефон</th>
-                <th >Эмайл</th>
-                <th >Рўйхатдан ўтказилган сана</th>
-                <th >Рўйхат рақами</th>
-                <th >Рўйхатчи давлат органи</th>
-                <th >Амаллар</th>
-            </tr>
+                <tr>
+                    <th>ID</th>
+                    <th>{{ __('admin.company_name') ?? 'Korxona to‘liq nomi' }}</th>
+                    <th>{{ __('admin.company_category') ?? 'Korxona kategoriyasi' }}</th>
+                    <th>{{ __('admin.inn') ?? 'INN' }}</th>
+                    <th>{{ __('admin.ifut_code') ?? 'IFUT kodi' }}</th>
+                    <th>{{ __('admin.activity_type') ?? 'Faoliyat turi' }}</th>
+                    <th>{{ __('admin.address') ?? 'Manzili' }}</th>
+                    <th>{{ __('admin.director_fio') ?? 'Direktor F.I.O.' }}</th>
+                    <th>{{ __('admin.phone') ?? 'Telefon' }}</th>
+                    <th>{{ __('admin.email') ?? 'Email' }}</th>
+                    <th>{{ __('admin.registered_at') ?? 'Ro‘yxatdan o‘tgan sana' }}</th>
+                    <th>{{ __('admin.registration_number') ?? 'Ro‘yxat raqami' }}</th>
+                    <th>{{ __('admin.registration_org') ?? 'Ro‘yxatdan o‘tkazgan tashkilot' }}</th>
+                    <th>{{ __('admin.passport') ?? 'Pasport (YaTT)' }}</th>
+                    <th>{{ __('admin.jshshir') ?? 'JSHSHIR (YaTT)' }}</th>
+                    <th class="text-center">{{ __('admin.actions') }}</th>
+                </tr>
             </thead>
-            <tbody id="company-table-body"></tbody>
+            <tbody id="companyTableBody">
+                <tr>
+                    <td colspan="16">
+                        <div class="empty-state">
+                            <i class="fas fa-spinner fa-spin"></i>
+                            <div class="mt-2">
+                                <h5>{{ __('admin.loading') ?? 'Ma‘lumotlar yuklanmoqda...' }}</h5>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
         </table>
     </div>
-
-    <!-- COMPANY MODAL -->
-    <div id="companyModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
-        <div class="bg-white rounded p-6 w-11/12 max-w-4xl relative">
-            <button onclick="closeCompanyModal()" class="absolute top-2 right-2 text-gray-600">&times;</button>
-            <h2 class="text-xl font-bold mb-4" id="modal-title">Янги корхона қўшиш</h2>
-
-            <form id="companyForm" class="grid grid-cols-2 gap-4">
-                <input type="hidden" id="company_id">
-                <div>
-                    <label class="block font-semibold mb-1">Корхона тўлиқ номи</label>
-                    <input type="text" id="company_name" class="border p-2 w-full rounded">
-                </div>
-                <div>
-                    <label class="block font-semibold mb-1">ИНН</label>
-                    <input type="text" id="company_inn" class="border p-2 w-full rounded">
-                </div>
-                <div>
-                    <label class="block font-semibold mb-1">ИФУТ коди</label>
-                    <input type="text" id="company_ifut" class="border p-2 w-full rounded">
-                </div>
-                <div>
-                    <label class="block font-semibold mb-1">Фаолият тури</label>
-                    <select id="company_type" class="border p-2 w-full rounded">
-                        <option value="МЧЖ">МЧЖ</option>
-                        <option value="АЖ">АЖ</option>
-                        <option value="ЯТТ">ЯТТ</option>
-                    </select>
-                </div>
-                <div>
-                    <label class="block font-semibold mb-1">Манзили</label>
-                    <input type="text" id="company_address" class="border p-2 w-full rounded">
-                </div>
-                <div>
-                    <label class="block font-semibold mb-1">Директор Ф.И.О.</label>
-                    <input type="text" id="company_director" class="border p-2 w-full rounded">
-                </div>
-                <div>
-                    <label class="block font-semibold mb-1">Телефон</label>
-                    <input type="text" id="company_phone" class="border p-2 w-full rounded">
-                </div>
-                <div>
-                    <label class="block font-semibold mb-1">Эмайл</label>
-                    <input type="email" id="company_email" class="border p-2 w-full rounded">
-                </div>
-                <div>
-                    <label class="block font-semibold mb-1">Рўйхатдан ўтказилган сана</label>
-                    <input type="date" id="company_register_date" class="border p-2 w-full rounded">
-                </div>
-                <div>
-                    <label class="block font-semibold mb-1">Рўйхат рақами</label>
-                    <input type="text" id="company_register_number" class="border p-2 w-full rounded">
-                </div>
-                <div class="col-span-2">
-                    <label class="block font-semibold mb-1">Рўйхатчи давлат органи</label>
-                    <input type="text" id="company_register_authority" class="border p-2 w-full rounded">
-                </div>
-
-                <div class="col-span-2 flex justify-end mt-4">
-                    <button type="button" onclick="saveCompany()" class="bg-blue-600 text-white p-2 rounded">Сақлаш
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
-
 @endsection
 
-@section('scripts')
+@push('customJs')
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            // Dummy data
-            let companies = [
-                {
-                    id: 1,
-                    name: "Коммандит A",
-                    inn: "123456789",
-                    ifut: "IFUT001",
-                    type: "МЧЖ",
-                    address: "Тошкент ш.",
-                    director: "Олим Р.",
-                    phone: "+998901234567",
-                    email: "info@kommanditA.uz",
-                    register_date: "2025-01-10",
-                    register_number: "001",
-                    register_authority: "Давлат органи A"
-                },
-                {
-                    id: 2,
-                    name: "Тўлиқ шерик B",
-                    inn: "987654321",
-                    ifut: "IFUT002",
-                    type: "АЖ",
-                    address: "Самарқанд ш.",
-                    director: "Жасур И.",
-                    phone: "+998912345678",
-                    email: "info@fullB.uz",
-                    register_date: "2024-12-05",
-                    register_number: "002",
-                    register_authority: "Давлат органи B"
-                },
-            ];
+        // Texnik topshiriqqa mos demo ma'lumotlar
+        const DEFAULT_COMPANIES = [
+            {
+                id: 1,
+                company_name: '"Envast Capital" MChJ',
+                category: 'full_partner', // To‘liq sherik
+                inn: '123456789',
+                ifut: '00001',
+                activity_type: 'MChJ',
+                address: "Toshkent sh., Yunusobod t., Amir Temur ko'chasi 15-uy",
+                director_fio: 'Abdullayev Jamshid Murodovich',
+                phone: '+998 90 123-45-67',
+                email: 'info@envast.uz',
+                registered_at: '2020-05-15',
+                registration_number: 'REG-2020-001',
+                registration_org: "Toshkent shahar adliya boshqarmasi",
+                passport: '',
+                jshshir: '',
+            },
+            {
+                id: 2,
+                company_name: '"Premium Residence" MChJ',
+                category: 'subsidiary', // Shu‘ba korxona
+                inn: '987654321',
+                ifut: '00002',
+                activity_type: 'MChJ',
+                address: "Toshkent sh., Mirzo Ulug'bek t., Buyuk Ipak yo'li 45-uy",
+                director_fio: 'Karimov Aziz Rustamovich',
+                phone: '+998 97 222-33-44',
+                email: 'office@premium-res.uz',
+                registered_at: '2021-08-10',
+                registration_number: 'REG-2021-045',
+                registration_org: "Toshkent shahar adliya boshqarmasi",
+                passport: '',
+                jshshir: '',
+            },
+            {
+                id: 3,
+                company_name: '"Envast Commandite 1" Komandit shirkati',
+                category: 'commandite', // Komandit shirkati
+                inn: '564738291',
+                ifut: '00003',
+                activity_type: 'MChJ',
+                address: "Toshkent sh., Chilonzor t., Bunyodkor ko'chasi 120-uy",
+                director_fio: 'Sattorov Dilshod Shavkatovich',
+                phone: '+998 93 555-66-77',
+                email: 'commandite1@envast.uz',
+                registered_at: '2024-01-05',
+                registration_number: 'REG-2024-010',
+                registration_org: "Toshkent shahar adliya boshqarmasi",
+                passport: '',
+                jshshir: '',
+            },
+            {
+                id: 4,
+                company_name: 'Tursunov Aziz Mahmudovich',
+                category: 'full_partner', // To‘liq sherik sifatida qatnashayotgan YaTT
+                inn: '321654987',
+                ifut: '00004',
+                activity_type: 'YaTT',
+                address: "Samarqand sh., Siab t., Bog'ishamol ko'chasi 7-uy",
+                director_fio: 'Tursunov Aziz Mahmudovich',
+                phone: '+998 90 333-44-55',
+                email: 'aziz.t@example.uz',
+                registered_at: '2019-03-20',
+                registration_number: 'REG-2019-077',
+                registration_org: "Samarqand viloyati soliq boshqarmasi",
+                passport: 'AA1234567',
+                jshshir: '12345678901234',
+            },
+        ];
 
-            const tableBody = document.getElementById("company-table-body");
+        let companies = [...DEFAULT_COMPANIES];
+        let defaultCompanies = [...DEFAULT_COMPANIES];
 
-            function renderTable(data = companies) {
-                tableBody.innerHTML = data.map(item => `
-            <tr class="border-b hover:bg-gray-50">
-                <td class="p-2">${item.id}</td>
-                <td class="p-2">${item.name}</td>
-                <td class="p-2">${item.inn}</td>
-                <td class="p-2">${item.ifut}</td>
-                <td class="p-2">${item.type}</td>
-                <td class="p-2">${item.address}</td>
-                <td class="p-2">${item.director}</td>
-                <td class="p-2">${item.phone}</td>
-                <td class="p-2">${item.email}</td>
-                <td class="p-2">${item.register_date}</td>
-                <td class="p-2">${item.register_number}</td>
-                <td class="p-2">${item.register_authority}</td>
-                <td class="p-2">
-                    <button onclick="editCompany(${item.id})" class="text-blue-600 underline mr-2">Таҳрирлаш</button>
-                    <button onclick="deleteCompany(${item.id})" class="text-red-600 underline">Ўчириш</button>
-                </td>
-            </tr>
-        `).join("");
+        const companyTableBody = document.getElementById('companyTableBody');
+        const searchInput = document.getElementById('searchInput');
+        const companyCategoryFilter = document.getElementById('companyCategoryFilter');
+        const activityTypeFilter = document.getElementById('activityTypeFilter');
+        const filterBtn = document.getElementById('filterBtn');
+        const clearBtn = document.getElementById('clearBtn');
+
+        function escapeHtml(text) {
+            if (!text) return '';
+            const map = {
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#039;',
+            };
+            return String(text).replace(/[&<>"']/g, m => map[m]);
+        }
+
+        function formatDate(dateString) {
+            if (!dateString) return '<span class="text-muted">-</span>';
+            try {
+                const date = new Date(dateString);
+                return date.toLocaleDateString('uz-UZ', {
+                    year: 'numeric',
+                    month: '2-digit',
+                    day: '2-digit',
+                });
+            } catch (e) {
+                return dateString;
+            }
+        }
+
+        function getCategoryBadge(category) {
+            if (category === 'full_partner') {
+                return '<span class="badge badge-custom badge-category-full">To‘liq sherik</span>';
+            }
+            if (category === 'subsidiary') {
+                return '<span class="badge badge-custom badge-category-subsidiary">Shu\'ba korxona</span>';
+            }
+            if (category === 'commandite') {
+                return '<span class="badge badge-custom badge-category-commandite">Komandit shirkati</span>';
+            }
+            return '<span class="badge badge-custom">-</span>';
+        }
+
+        function getActivityBadge(type) {
+            if (type === 'MChJ') {
+                return '<span class="badge badge-custom badge-activity-mchj">MChJ</span>';
+            }
+            if (type === 'AJ') {
+                return '<span class="badge badge-custom badge-activity-aj">AJ</span>';
+            }
+            if (type === 'YaTT') {
+                return '<span class="badge badge-custom badge-activity-yatt">YaTT</span>';
+            }
+            return '<span class="badge badge-custom">-</span>';
+        }
+
+        function renderCompanies(list = companies) {
+            if (!companyTableBody) return;
+
+            if (!list.length) {
+                companyTableBody.innerHTML = `
+                    <tr>
+                        <td colspan="16">
+                            <div class="empty-state">
+                                <i class="fas fa-folder-open"></i>
+                                <div class="mt-2">
+                                    <h5>Korxonalar topilmadi</h5>
+                                    <p class="text-muted">Filterlarni o‘zgartiring yoki yangi korxona qo‘shing</p>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+                return;
             }
 
-            // FILTER
-            window.applyFilters = function () {
-                const name = document.getElementById("f_company").value.toLowerCase();
-                const type = document.getElementById("f_type").value;
-                const filtered = companies.filter(c =>
-                    (name ? c.name.toLowerCase().includes(name) : true) &&
-                    (type ? c.type === type : true)
-                );
-                renderTable(filtered);
+            let html = '';
+            list.forEach(item => {
+                html += `
+                    <tr>
+                        <td class="text-center">${item.id}</td>
+                        <td>
+                            <div class="company-name">${escapeHtml(item.company_name)}</div>
+                            <div class="company-info">
+                                <i class="fas fa-id-card me-1"></i>${escapeHtml(item.inn)}
+                            </div>
+                        </td>
+                        <td class="text-center">
+                            ${getCategoryBadge(item.category)}
+                        </td>
+                        <td class="text-center">${escapeHtml(item.inn)}</td>
+                        <td class="text-center">${escapeHtml(item.ifut)}</td>
+                        <td class="text-center">
+                            ${getActivityBadge(item.activity_type)}
+                        </td>
+                        <td>
+                            <div class="value-primary">${escapeHtml(item.address)}</div>
+                        </td>
+                        <td>
+                            <div class="value-primary">${escapeHtml(item.director_fio)}</div>
+                        </td>
+                        <td>${escapeHtml(item.phone)}</td>
+                        <td>${escapeHtml(item.email)}</td>
+                        <td class="text-center">${formatDate(item.registered_at)}</td>
+                        <td>${escapeHtml(item.registration_number || '-')}</td>
+                        <td>${escapeHtml(item.registration_org || '-')}</td>
+                        <td class="text-center">
+                            ${item.activity_type === 'YaTT'
+                                ? escapeHtml(item.passport || '')
+                                : '<span class="text-muted">-</span>'}
+                        </td>
+                        <td class="text-center">
+                            ${item.activity_type === 'YaTT'
+                                ? escapeHtml(item.jshshir || '')
+                                : '<span class="text-muted">-</span>'}
+                        </td>
+                        <td>
+                            <div class="action-buttons">
+                                {{-- keyinchalik real route bilan to‘ldiring --}}
+                                <x-edit-button />
+                                <x-delete-button />
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            });
+
+            companyTableBody.innerHTML = html;
+        }
+
+        function applyFilter() {
+            const search = (searchInput?.value || '').toLowerCase().trim();
+            const category = companyCategoryFilter?.value || '';
+            const activity = activityTypeFilter?.value || '';
+
+            const filtered = defaultCompanies.filter(c => {
+                const matchesSearch = !search
+                    || (c.company_name && c.company_name.toLowerCase().includes(search))
+                    || (c.director_fio && c.director_fio.toLowerCase().includes(search))
+                    || (c.inn && c.inn.includes(search))
+                    || (c.phone && c.phone.includes(search))
+                    || (c.email && c.email.toLowerCase().includes(search));
+
+                const matchesCategory = !category || c.category === category;
+                const matchesActivity = !activity || c.activity_type === activity;
+
+                return matchesSearch && matchesCategory && matchesActivity;
+            });
+
+            renderCompanies(filtered);
+        }
+
+        function resetFilters() {
+            if (searchInput) searchInput.value = '';
+            if (companyCategoryFilter) companyCategoryFilter.value = '';
+            if (activityTypeFilter) activityTypeFilter.value = '';
+            renderCompanies(defaultCompanies);
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            renderCompanies(companies);
+
+            if (filterBtn) {
+                filterBtn.addEventListener('click', applyFilter);
+            }
+            if (clearBtn) {
+                clearBtn.addEventListener('click', resetFilters);
             }
 
-            // MODAL
-            const modal = document.getElementById("companyModal");
-            window.openCompanyModal = function () {
-                document.getElementById("modal-title").innerText = "Янги корхона қўшиш";
-                document.getElementById("companyForm").reset();
-                document.getElementById("company_id").value = "";
-                modal.classList.remove("hidden");
-                modal.classList.add("flex");
-            }
-            window.closeCompanyModal = function () {
-                modal.classList.add("hidden");
-                modal.classList.remove("flex");
+            if (searchInput) {
+                let searchTimeout;
+                searchInput.addEventListener('input', function () {
+                    clearTimeout(searchTimeout);
+                    searchTimeout = setTimeout(applyFilter, 300);
+                });
+                searchInput.addEventListener('keyup', function (e) {
+                    if (e.key === 'Enter') applyFilter();
+                });
             }
 
-            // SAVE / EDIT
-            window.saveCompany = function () {
-                const id = document.getElementById("company_id").value;
-                const company = {
-                    id: id || companies.length + 1,
-                    name: document.getElementById("company_name").value,
-                    inn: document.getElementById("company_inn").value,
-                    ifut: document.getElementById("company_ifut").value,
-                    type: document.getElementById("company_type").value,
-                    address: document.getElementById("company_address").value,
-                    director: document.getElementById("company_director").value,
-                    phone: document.getElementById("company_phone").value,
-                    email: document.getElementById("company_email").value,
-                    register_date: document.getElementById("company_register_date").value,
-                    register_number: document.getElementById("company_register_number").value,
-                    register_authority: document.getElementById("company_register_authority").value
-                };
-                if (id) {
-                    companies = companies.map(c => c.id == id ? company : c);
-                } else {
-                    companies.push(company);
-                }
-                renderTable();
-                closeCompanyModal();
+            if (companyCategoryFilter) {
+                companyCategoryFilter.addEventListener('change', applyFilter);
             }
-
-            // EDIT
-            window.editCompany = function (id) {
-                const c = companies.find(x => x.id == id);
-                document.getElementById("modal-title").innerText = "Корхонани таҳрирлаш";
-                document.getElementById("company_id").value = c.id;
-                document.getElementById("company_name").value = c.name;
-                document.getElementById("company_inn").value = c.inn;
-                document.getElementById("company_ifut").value = c.ifut;
-                document.getElementById("company_type").value = c.type;
-                document.getElementById("company_address").value = c.address;
-                document.getElementById("company_director").value = c.director;
-                document.getElementById("company_phone").value = c.phone;
-                document.getElementById("company_email").value = c.email;
-                document.getElementById("company_register_date").value = c.register_date;
-                document.getElementById("company_register_number").value = c.register_number;
-                document.getElementById("company_register_authority").value = c.register_authority;
-                modal.classList.remove("hidden");
-                modal.classList.add("flex");
+            if (activityTypeFilter) {
+                activityTypeFilter.addEventListener('change', applyFilter);
             }
-
-            // DELETE
-            window.deleteCompany = function (id) {
-                if (confirm("Ўчиришни тасдиқлайсизми?")) {
-                    companies = companies.filter(c => c.id != id);
-                    renderTable();
-                }
-            }
-
-            renderTable();
         });
     </script>
-@endsection
+@endpush
+
+
