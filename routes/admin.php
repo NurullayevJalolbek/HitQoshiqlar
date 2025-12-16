@@ -119,7 +119,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'l
 
         Route::resource('/system-translations',SystemTranslationController::class);
 
-        Route::get('/template-messages', [TemplateMessageController::class, 'index'])->name("template-messages.index");
+        Route::resource('/template-messages', TemplateMessageController::class);
     });
 
     /*
