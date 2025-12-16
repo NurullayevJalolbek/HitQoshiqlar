@@ -1424,3 +1424,70 @@ function renderValue($value, $prefix = '')
 
     return "<div>{$prefix}{$value}</div>";
 }
+
+
+function getNotificationsData($id = null)
+{
+    $notifications = collect([
+        'sms' => [
+            [
+                'id' => 1,
+                'type' => 'Tasdiqlash kodi',
+                'template' => 'Hurmatli {FISH}, tizimga kirish uchun tasdiqlash kodingiz: {kod}. Ushbu kod 5 daqiqa davomida amal qiladi.',
+                'condition' => "Ro'yxatdan o'tishda",
+                'description' => 'Har doim',
+                'category' => 'sms'
+            ],
+            [
+                'id' => 2,
+                'type' => 'Parol tiklash',
+                'template' => 'Hurmatli {FISH}, parolingizni tiklash uchun kod: {kod}. Agar ushbu so\'rovni siz bajarmagan bo\'lsangiz, iltimos, e\'tibor bermang.',
+                'condition' => 'Parol unutganda',
+                'description' => 'Har doim',
+                'category' => 'sms'
+            ]
+        ],
+        'email' => [
+            [
+                'id' => 3,
+                'type' => "Ro'yxatdan o'tish",
+                'template' => "Assalomu alaykum, {FISH}! \n\nSizning ro'yxatdan o'tish jarayoningiz muvaffaqiyatli yakunlandi. Profilingiz faollashtirildi. \n\nHurmat bilan, Administratsiya.",
+                'condition' => "Ro'yxatdan o'tishda",
+                'description' => 'Har doim',
+                'category' => 'email'
+            ]
+        ],
+        'push' => [
+            [
+                'id' => 4,
+                'type' => 'Yangilik xabari',
+                'template' => '{FISH}, siz uchun yangi yangilik mavjud! Batafsil ko\'ring.',
+                'condition' => 'Yangilik e\'loni',
+                'description' => 'Push xabari',
+                'category' => 'push'
+            ],
+            [
+                'id' => 5,
+                'type' => 'Reklama xabari',
+                'template' => '{FISH}, siz uchun maxsus aksiya boshlandi! Shoshiling!',
+                'condition' => 'Promo paytida',
+                'description' => 'Push xabari',
+                'category' => 'push'
+            ]
+        ]
+    ]);
+
+    // Barcha notificationlarni bitta array ga birlashtirish
+    $allNotifications = collect();
+    foreach ($notifications as $category => $items) {
+        $allNotifications = $allNotifications->merge($items);
+    }
+
+    // Agar ID berilsa, shu ID ga mos notificationni qaytarish
+    if ($id !== null) {
+        return $allNotifications->firstWhere('id', $id);
+    }
+
+    // ID berilmasa, barchasini qaytarish
+    return $allNotifications;
+}
