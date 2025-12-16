@@ -586,9 +586,6 @@
     async function initializeAllCharts(mode = 'monthly') {
         DashboardState.chartMode = mode;
 
-        console.log('📊 Grafiklar yuklanmoqda...', mode);
-
-        // Render all charts
         renderInvestorsChart();
         renderRevenueChart();
         renderPaymentsChart();
@@ -598,11 +595,8 @@
         renderContractsChart();
         renderDocumentsChart();
         renderRevenueByProjectChart();
-
-        console.log('✅ Barcha grafiklar yuklandi');
     }
 
-    // Export function
     window.initializeAllCharts = initializeAllCharts;
 
     

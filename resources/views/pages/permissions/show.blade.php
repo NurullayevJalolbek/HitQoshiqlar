@@ -3,12 +3,38 @@
 @push('customCss')
 <style>
     /* Tab Navigation */
+    .nav-tabs-container {
+        position: relative;
+        padding: 0 0.75rem;
+        margin-bottom: 1rem;
+    }
+
     .nav-tabs {
         border-bottom: 2px solid #e5e7eb;
         overflow-x: auto;
         white-space: nowrap;
         flex-wrap: nowrap;
         overflow-y: hidden;
+        padding-bottom: 0.5rem;
+        scroll-behavior: smooth;
+    }
+
+    .nav-tabs::-webkit-scrollbar {
+        height: 8px;
+    }
+
+    .nav-tabs::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 4px;
+    }
+
+    .nav-tabs::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 4px;
+    }
+
+    .nav-tabs::-webkit-scrollbar-thumb:hover {
+        background: #555;
     }
 
     .nav-tabs .nav-link {
@@ -29,6 +55,69 @@
         background: #1F2937;
         border-bottom: 3px solid #2a3441;
         font-weight: 600;
+    }
+
+    .scroll-btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 32px;
+        height: 32px;
+        background: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0;
+        color: #1F2937;
+        z-index: 10;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        opacity: 0;
+        pointer-events: none;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .scroll-btn i {
+        font-size: 0.8rem;
+        transition: transform 0.3s;
+    }
+
+    .nav-tabs-container:hover .scroll-btn {
+        opacity: 1;
+        pointer-events: all;
+    }
+
+    .scroll-btn:hover {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        color: #2563eb;
+        transform: translateY(-50%) scale(1.08);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .scroll-btn:hover i {
+        transform: scale(1.15);
+    }
+
+    .scroll-btn:active {
+        transform: translateY(-50%) scale(0.95);
+    }
+
+    .scroll-btn-left {
+        left: 6px;
+    }
+
+    .scroll-btn-right {
+        right: 6px;
+    }
+
+    .scroll-btn.hidden {
+        display: none;
     }
 
     /* Method Badges */
@@ -215,24 +304,34 @@ $tabs = [
     </div>
 </div>
 
-<div class="border rounded p-2 mt-3" style="border-color: rgba(0,0,0,0.05); background-color: #fff;">
+<div class="border rounded p-2 mt-3" style="border-color: rgba(0,0,0,0.05); background-color: #fff; padding: 0;">
 
     <!-- Tab Navigation -->
-    <ul class="nav nav-tabs" id="permissionTabs" role="tablist">
-        @php $isFirst = true; @endphp
-        @foreach($tabs as $key => $name)
-        <li class="nav-item" role="presentation">
-            <button class="nav-link {{ $isFirst ? 'active' : '' }}"
-                id="{{ $key }}-tab"
-                data-bs-toggle="tab"
-                data-bs-target="#{{ $key }}"
-                type="button">
-                {{ $name }}
-            </button>
-        </li>
-        @php $isFirst = false; @endphp
-        @endforeach
-    </ul>
+    <div class="nav-tabs-container">
+        <button class="scroll-btn scroll-btn-left" onclick="scrollPermissionTabs('left')" id="permissionScrollLeftBtn"
+            aria-label="Scroll left">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <ul class="nav nav-tabs" id="permissionTabs" role="tablist">
+            @php $isFirst = true; @endphp
+            @foreach($tabs as $key => $name)
+            <li class="nav-item" role="presentation">
+                <button class="nav-link {{ $isFirst ? 'active' : '' }}"
+                    id="{{ $key }}-tab"
+                    data-bs-toggle="tab"
+                    data-bs-target="#{{ $key }}"
+                    type="button">
+                    {{ $name }}
+                </button>
+            </li>
+            @php $isFirst = false; @endphp
+            @endforeach
+        </ul>
+        <button class="scroll-btn scroll-btn-right" onclick="scrollPermissionTabs('right')" id="permissionScrollRightBtn"
+            aria-label="Scroll right">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+    </div>
 
     <!-- Tab Content -->
     <div class="tab-content" id="permissionTabsContent">
@@ -387,10 +486,6 @@ $tabs = [
             }
         });
 
-        // Bu yerda serverga yuborish logikasi qo'shiladi
-        console.log('Tanlangan ruxsatlar:', permissions);
-
-        // Misol uchun alert
         alert('Ruxsatlar saqlandi! (Serverga yuborish logikasi qo\'shilishi kerak)');
     });
 
@@ -411,6 +506,54 @@ $tabs = [
             tabLinks.forEach(l => l.classList.remove('active'));
             this.classList.add('active');
         });
+    });
+
+    // Tab scroll controls
+    function scrollPermissionTabs(direction) {
+        const navTabs = document.getElementById('permissionTabs');
+        const scrollAmount = 200;
+
+        if (direction === 'left') {
+            navTabs.scrollBy({
+                left: -scrollAmount,
+                behavior: 'smooth'
+            });
+        } else {
+            navTabs.scrollBy({
+                left: scrollAmount,
+                behavior: 'smooth'
+            });
+        }
+
+        setTimeout(() => {
+            checkPermissionScrollButtons();
+        }, 300);
+    }
+
+    function checkPermissionScrollButtons() {
+        const navTabs = document.getElementById('permissionTabs');
+        const scrollLeftBtn = document.getElementById('permissionScrollLeftBtn');
+        const scrollRightBtn = document.getElementById('permissionScrollRightBtn');
+
+        if (navTabs.scrollLeft <= 0) {
+            scrollLeftBtn.classList.add('hidden');
+        } else {
+            scrollLeftBtn.classList.remove('hidden');
+        }
+
+        if (navTabs.scrollLeft >= navTabs.scrollWidth - navTabs.clientWidth - 1) {
+            scrollRightBtn.classList.add('hidden');
+        } else {
+            scrollRightBtn.classList.remove('hidden');
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const navTabs = document.getElementById('permissionTabs');
+        if (navTabs) {
+            checkPermissionScrollButtons();
+            navTabs.addEventListener('scroll', checkPermissionScrollButtons);
+        }
     });
 </script>
 @endpush

@@ -285,13 +285,8 @@ function switchChartMode(mode) {
         monthlyBtn.classList.remove('btn-primary');
         monthlyBtn.classList.add('btn-outline-primary');
     }
-    
-    // Trigger chart update (implement your chart reload logic)
-    console.log('Switching to', mode, 'mode');
-    // reloadCharts(mode);
 }
 
-// Initialize on page load
 document.addEventListener('DOMContentLoaded', function() {
     updateTimestamp();
     setInterval(updateTimestamp, 60000); // Update every minute

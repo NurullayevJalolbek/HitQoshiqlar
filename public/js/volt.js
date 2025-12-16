@@ -1404,7 +1404,6 @@ document.addEventListener("DOMContentLoaded", function () {
             const res = await fetch("/api/dashboard");
             const data = await res.json();
 
-            console.log("API RAW RESPONSE:", data); // <-- SHU MUHIM
 
             dashboardData = data;
 
