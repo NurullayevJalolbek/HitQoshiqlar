@@ -11,4 +11,20 @@ class TemplateMessageController extends Controller
     {
         return view('pages.template-messages.index');
     }
+
+
+    public function edit(Request $request)
+    {
+        $id = $request->input('id');
+
+        $data = getNotificationsData($id);
+
+
+        return response()->json([
+            'status' => 'success',
+            'data' => $data,
+        ]);
+
+
+    }
 }
