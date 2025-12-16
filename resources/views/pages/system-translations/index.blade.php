@@ -1,7 +1,25 @@
 @extends('layouts.app')
 
 @push('customCss')
-{{-- CSS Ko'dlari--}}
+<style>
+    .system-translation-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        padding: 4px 10px;
+        border-radius: 8px;
+        font-size: 13px;
+        font-weight: 500;
+        backdrop-filter: blur(6px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    /* Yashil – Faol */
+    .system-translation-badge {
+        background: rgba(35, 97, 206, 0.08);
+        color: #2361ce;
+    }
+</style>
 @endpush
 
 
@@ -12,7 +30,7 @@
     <!-- Breadcrumb -->
     <div class="d-block mb-2 mb-md-0">
         <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
-            <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
+            <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent mb-0">
                 <li class="breadcrumb-item">
                     <a href="{{ route('admin.dashboard') }}">
                         <i class="fas fa-home"></i>
@@ -29,57 +47,33 @@
             </ol>
         </nav>
     </div>
+
+    <div class="d-flex gap-2 align-items-center flex-wrap">
+
+        <!-- Filter toggle -->
+        <button class="btn btn-sm p-2 d-flex align-items-center justify-content-center" type="button"
+            data-bs-toggle="collapse" data-bs-target="#systemTranslationFilterContent" aria-expanded="true"
+            aria-controls="systemTranslationFilterContent">
+            <i class="fa-solid fa-list" style="font-size: 1.3rem;"></i>
+        </button>
+    </div>
 </div>
 @endsection
 
 @section('content')
-{{-- 2. INTERFEYS TАRЖIMALARI --}}
+
+@include('pages.system-translations._filter')
 @php
-            $data = [];
+$pagination = manualPaginate($baseKeys, 10);
 
+$systemTranslations = $pagination['items'];
 
-            foreach ($languages as $lang) {
+$currentPage = $pagination['currentPage'];
+$pageCount = $pagination['pageCount'];
 
-            $code = $lang->url;
-            $file = base_path("lang/$code/admin.php");
-            $data[$code] = file_exists($file) ? include $file : [];
-            }
-
-
-            $baseKeys = array_keys($data['uz'] ?? []);
-
-            $pagination = manualPaginate($baseKeys, 10);
-
-
-            $paginatedUsers = $pagination['items'];
-
-
-            $currentPage = $pagination['currentPage'];
-            $pageCount = $pagination['pageCount'];
-
-            $start = $pagination['start'];
-            $total = $pagination['total'];
-            $end = $pagination['end'];
-
-
-
-
-
-
-            function renderValue($value, $prefix = '')
-            {
-            // Agar array bo‘lsa — har bir elementni alohida ko‘rsatamiz
-            if (is_array($value)) {
-            $html = '';
-            foreach ($value as $k => $v) {
-            $html .= renderValue($v, $prefix . $k . '. ');
-            }
-            return $html;
-            }
-
-            // Agar string bo‘lsa — to‘g‘ridan-to‘g‘ri chiqaramiz
-            return "<div>{$prefix}{$value}</div>";
-            }
+$start = $pagination['start'];
+$total = $pagination['total'];
+$end = $pagination['end'];
 @endphp
 
 
@@ -100,39 +94,44 @@
             id="interfaceTable">
             <thead class="table-dark">
                 <tr>
-                    <th>#</th>
-                    <th>Kalit</th>
-                    <th>UZ</th>
-                    <th>RU</th>
-                    <th>EN</th>
-                    <th>AR</th>
+                    <th class="text-center" width="5%">№</th>
+                    <th>Kalit sozi</th>
+                    <th class="text-center">UZ</th>
+                    <th class="text-center">RU</th>
+                    <th class="text-center">EN</th>
+                    <th class="text-center">AR</th>
                     <th class="text-center">Amallar</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($baseKeys as $index => $key)
+                @foreach ($systemTranslations as $index => $key)
                 <tr>
-                    <td>{{ $index + 1 }}</td>
+                    <td class="text-center">{{ $index + 1 }}</td>
                     <td>
-                        <span class="badge rounded-pill text-white" style="background-color: #1F2937;">
+                        <span class="system-translation-badge">
                             {{ $key }}
                         </span>
                     </td>
-                    <td>{!! renderValue($data['uz'][$key] ?? '') !!}</td>
-                    <td>{!! renderValue($data['ru'][$key] ?? '') !!}</td>
-                    <td>{!! renderValue($data['en'][$key] ?? '') !!}</td>
-                    <td>{!! renderValue($data['ar'][$key] ?? '') !!}</td>
+                    <td class="text-center">{!! renderValue($data['uz'][$key] ?? '') !!}</td>
+                    <td class="text-center">{!! renderValue($data['ru'][$key] ?? '') !!}</td>
+                    <td class="text-center">{!! renderValue($data['en'][$key] ?? '') !!}</td>
+                    <td class="text-center">{!! renderValue($data['ar'][$key] ?? '') !!}</td>
 
-                    <td class="text-center">
-                        <a href="#" class="btn btn-sm p-1" style="background:none;color:#f0bc74;">
-                            <i class="bi bi-pencil-fill"></i>
+                    <td class="text-center  justify-content-center gap-1">
+
+                        <a href="#"
+                            class="btn btn-sm p-0 edit-translation"
+                            data-key="{{ $key }}"
+                            style="background:none; color: #f0bc74;">
+                            <i class="fa-jelly-duo fa-solid fa-pencil"></i>
                         </a>
+
+
                     </td>
                 </tr>
                 @endforeach
             </tbody>
         </table>
-
         <!-- Paginatsa -->
         <div class="d-flex justify-content-between align-items-center mt-2">
 
@@ -147,83 +146,128 @@
 
     </div>
 </div>
+
+
+<div class="modal fade" id="systemTranslationModal" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Tizim tillari boshqarish </h5>
+                <button class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body" id="systemTranslationModalBody">
+                <div class="text-center text-muted">
+                    Yuklanmoqda...
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 @endsection
 @push('customJs')
-{{-- Tizim tillari uchun paginatsa--}}
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const rowsPerPage = 10;
-        const table = document.getElementById("interfaceTable");
-        const tbody = table.querySelector("tbody");
-        const rows = tbody.querySelectorAll("tr");
+    document.addEventListener('click', function(e) {
+        const btn = e.target.closest('.edit-translation');
+        if (!btn) return;
 
-        let currentPage = 1;
-        const totalRows = rows.length;
-        const totalPages = Math.ceil(totalRows / rowsPerPage);
+        e.preventDefault();
+        const key = btn.dataset.key;
 
-        const paginationNumbers = document.getElementById("paginationNumbers");
+        const url = "{{ route('admin.user-interface.system-translations.edit', ':id') }}"
+            .replace(':id', key);
 
 
-        /* ====================
-           SAHIFANI KO'RSATISH
-        ==================== */
-        function showPage(page) {
-            const start = (page - 1) * rowsPerPage;
-            const end = start + rowsPerPage;
+        // JSON olish
+        axios.get(url, {
+                params: {
+                    key
+                }
+            })
+            .then(res => {
+                const data = res.data;
+                const modalBody = document.getElementById('systemTranslationModalBody');
 
-            rows.forEach((row, index) => {
-                row.style.display = (index >= start && index < end) ? "" : "none";
+                // Modalni tozalash
+                modalBody.innerHTML = '';
+
+                // Form yaratish
+                const form = document.createElement('form');
+                form.id = 'translationEditForm';
+
+                // CSRF input
+                const csrf = document.createElement('input');
+                csrf.type = 'hidden';
+                csrf.name = '_token';
+                csrf.value = '{{ csrf_token() }}';
+                form.appendChild(csrf);
+
+                // KEY input (readonly)
+                const keyDiv = document.createElement('div');
+                keyDiv.className = 'mb-3';
+                const keyLabel = document.createElement('label');
+                keyLabel.className = 'form-label fw-semibold';
+                keyLabel.textContent = 'Kalit (o‘zgartirib bo‘lmaydi)';
+                const keyInput = document.createElement('input');
+                keyInput.type = 'text';
+                keyInput.className = 'form-control';
+                keyInput.name = 'key';
+                keyInput.value = data.key;
+                keyInput.readOnly = true;
+                keyDiv.appendChild(keyLabel);
+                keyDiv.appendChild(keyInput);
+                form.appendChild(keyDiv);
+
+                // Har bir til uchun oddiy input
+                data.languages.forEach(lang => {
+                    const langDiv = document.createElement('div');
+                    langDiv.className = 'mb-3';
+
+                    const langLabel = document.createElement('label');
+                    langLabel.className = 'form-label fw-semibold';
+                    langLabel.textContent = lang.name + ` (${lang.url.toUpperCase()})`;
+
+                    const input = document.createElement('input');
+                    input.type = 'text';
+                    input.className = 'form-control';
+                    input.name = `translations[${lang.url}]`;
+                    input.value = data.translations[lang.url] || '';
+
+                    langDiv.appendChild(langLabel);
+                    langDiv.appendChild(input);
+                    form.appendChild(langDiv);
+                });
+
+
+                // Footer (buttons)
+                const footerDiv = document.createElement('div');
+                footerDiv.className = 'd-flex justify-content-end gap-2 mt-4';
+                const closeBtn = document.createElement('button');
+                closeBtn.type = 'button';
+                closeBtn.className = 'btn btn-secondary';
+                closeBtn.setAttribute('data-bs-dismiss', 'modal');
+                closeBtn.textContent = 'Yopish';
+                const saveBtn = document.createElement('button');
+                saveBtn.type = 'submit';
+                saveBtn.className = 'btn btn-primary';
+                saveBtn.textContent = 'Saqlash';
+                footerDiv.appendChild(closeBtn);
+                footerDiv.appendChild(saveBtn);
+
+                form.appendChild(footerDiv);
+                modalBody.appendChild(form);
+
+                // Modalni ko‘rsatish
+                const modal = new bootstrap.Modal(document.getElementById('systemTranslationModal'));
+                modal.show();
+            })
+            .catch(err => {
+                console.error(err);
+                alert('Xatolik yuz berdi!');
             });
-
-            renderPagination();
-        }
-
-
-        /* ============================
-           PAGINATION RAQAMLARINI CHIZISH
-        ============================ */
-        function renderPagination() {
-            paginationNumbers.innerHTML = "";
-
-            // OLDINGI
-            paginationNumbers.innerHTML += `
-            <li class="page-item ${currentPage === 1 ? 'disabled' : ''}">
-                <a class="page-link" style="cursor:pointer;" onclick="goPage(${currentPage - 1})">«</a>
-            </li>
-        `;
-
-            // RAQAMLAR
-            for (let i = 1; i <= totalPages; i++) {
-                paginationNumbers.innerHTML += `
-                <li class="page-item ${currentPage === i ? 'active' : ''}">
-                    <a class="page-link" style="cursor:pointer;" onclick="goPage(${i})">${i}</a>
-                </li>
-            `;
-            }
-
-            // KEYINGI
-            paginationNumbers.innerHTML += `
-            <li class="page-item ${currentPage === totalPages ? 'disabled' : ''}">
-                <a class="page-link" style="cursor:pointer;" onclick="goPage(${currentPage + 1})">»</a>
-            </li>
-        `;
-        }
-
-
-        /* ============================
-           GLOBAL FUNKSIYA
-           (onclick uchun kerak)
-        ============================ */
-        window.goPage = function(page) {
-            if (page >= 1 && page <= totalPages) {
-                currentPage = page;
-                showPage(currentPage);
-            }
-        }
-
-
-        // INITIAL
-        showPage(currentPage);
     });
 </script>
 
