@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\LanguageManagementController;
+use App\Http\Controllers\Admin\MultilingualController;
 use App\Http\Controllers\Admin\ProjectEntryRequestController;
 use App\Http\Controllers\Admin\IntegrationSettingController;
 use App\Http\Controllers\Admin\ProjectExitRequestController;
@@ -30,6 +31,7 @@ use App\Http\Controllers\Admin\IncomeController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
+use PhpParser\Node\Expr\AssignOp\Mul;
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'lang']], function () {
 
@@ -120,6 +122,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'l
         Route::resource('/system-translations',SystemTranslationController::class);
 
         Route::resource('/template-messages', TemplateMessageController::class);
+
+        Route::resource('/multimedia', MultilingualController::class);
     });
 
     /*

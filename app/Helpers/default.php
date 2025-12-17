@@ -1491,3 +1491,38 @@ function getNotificationsData($id = null)
     // ID berilmasa, barchasini qaytarish
     return $allNotifications;
 }
+
+
+
+function getMediaItems($id = null)
+{
+    $datas = collect([
+        [
+            'id' => 1,
+            'title' => 'Kompaniya logotipi',
+            'description' => 'Platformaning asosiy brend logotipi.',
+            'type' => 'LOGO',
+            'image_url' => 'https://i.pinimg.com/736x/aa/7b/ab/aa7bab4df90c1d86cc205f237eb8a847.jpg'
+        ],
+        [
+            'id' => 2,
+            'title' => 'Bosh sahifa banneri',
+            'description' => 'Marketing va vizual ko\'rinish uchun banner rasmi.',
+            'type' => 'BANNER',
+            'image_url' => 'https://img.freepik.com/premium-photo/vintage-camera-parts-black-fabric-background-flat-lay-composition-aig55_31965-690491.jpg?semt=ais_hybrid&w=740'
+        ],
+        [
+            'id' => 3,
+            'title' => 'Login fon rasmi',
+            'description' => 'Login sahifasi uchun fon tasviri.',
+            'type' => 'AUTH',
+            'image_url' => 'https://www.ema-eda.com/wp-content/uploads/2023/12/datamanagement_web.jpg'
+        ]
+    ]);
+
+    if ($id !== null) {
+        return $datas->where('id', $id)->first();
+    }
+
+    return $datas;
+}

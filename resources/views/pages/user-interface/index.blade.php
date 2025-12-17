@@ -110,7 +110,7 @@
 
         {{-- 4. Multimedia va vizual elementlar --}}
         <div class="col-12 col-md-6 col-lg-4 mb-4">
-            <a href="#" class="card directory-card">
+            <a href="{{ route('admin.user-interface.multimedia.index') }}" class="card directory-card">
                 <div class="card-body">
                     <i class="fas fa-image directory-icon"></i>
                     <h5 class="directory-title">Multimedia va vizual elementlar</h5>
