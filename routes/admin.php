@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\IslamicFinanceController;
 use App\Http\Controllers\Admin\AdministrationController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\CompanyDetailController;
+use App\Http\Controllers\Admin\StaticPageController;
 use App\Http\Controllers\Admin\SystemTranslationController;
 use App\Http\Controllers\Admin\TemplateMessageController;
 use App\Http\Controllers\Admin\UserInterfaceController;
@@ -124,6 +125,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'l
         Route::resource('/template-messages', TemplateMessageController::class);
 
         Route::resource('/multimedia', MultilingualController::class);
+
+        Route::resource('/static-pages', StaticPageController::class);
     });
 
     /*

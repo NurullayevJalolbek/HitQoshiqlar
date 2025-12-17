@@ -1526,3 +1526,30 @@ function getMediaItems($id = null)
 
     return $datas;
 }
+
+function getStaticPages($id = null)
+{
+    $datas = collect([
+        [
+            'id' => 1,
+            'title' => 'Biz haqimizda',
+            'description' => '«Envast» platformasi – bu koʻchmas mulkka halol va ulushli investitsiyalarni amalga oshirish uchun yaratilgan raqamli axborot tizimidir. Platforma investorlarga ulushli moliyalashtirish asosida loyihalarda ishtirok etish, investitsiya shartlarini kuzatish va daromad taqsimotini onlayn nazorat qilish imkonini beradi. «Envast» platformasi Islom moliyasi qoidalari hamda Oʻzbekiston Respublikasi qonunchilik meʼyorlari asosida faoliyat yuritadi. Bizning maqsadimiz – investitsiya jarayonini shaffof, xavfsiz va qulay raqamli muhitda tashkil etishdir.'
+        ],
+        [
+            'id' => 2,
+            'title' => 'Aloqa uchun',
+            'description' => "Agar siz «Envast» platformasi bilan bogʻlanmoqchi boʻlsangiz, quyidagi manzillar orqali murojaat qilishingiz mumkin:\n\nElektron pochta: support@envast.uz\nTelefon: +998 71 123 45 67\nManzil: Toshkent sh., Mustaqillik ko'chasi, 10-uy"
+        ],
+        [
+            'id' => 3,
+            'title' => 'Foydalanish shartlari',
+            'description' => "«Envast» platformasidan foydalanish quyidagi shartlarga bogʻliq:\n1. Platformaga roʻyxatdan oʻtish va KYC (Know Your Customer) jarayonini toʻliq yakunlash.\n2. Investitsiya loyihalarini tanlash, ularga mablagʻ yoʻnaltirish va foyda ulushini kuzatish.\n3. Platformadagi shartnomalar va moliyaviy hisobotlarni hurmat qilish.\n4. Oʻz ulushingizni sotish yoki chiqarib olish jarayonlarini faqat belgilangan qoidalar asosida amalga oshirish.\n5. Platformadan foydalanish davomida qonun va Islom moliyasi tamoyillariga rioya qilish."
+        ]
+    ]);
+
+    if ($id !== null) {
+        return $datas->where('id', $id)->first();
+    }
+
+    return $datas;
+}

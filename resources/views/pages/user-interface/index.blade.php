@@ -100,7 +100,7 @@
         {{-- 3. Statik sahifalar va ma'lumotlar --}}
         <div class="col-12 col-md-6 col-lg-4 mb-4">
             {{-- Agar link bo'lmasa href="#" qoldirildi, stil buzilmasligi uchun --}}
-            <a href="#" class="card directory-card">
+            <a href="{{ route('admin.user-interface.static-pages.index') }}" class="card directory-card">
                 <div class="card-body">
                     <i class="fas fa-file-alt directory-icon"></i>
                     <h5 class="directory-title">Statik sahifalar va ma’lumotlar</h5>
