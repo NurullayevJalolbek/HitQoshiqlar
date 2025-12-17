@@ -11,44 +11,48 @@
         }
 
         .badge-custom {
-            padding: 0.35rem 0.65rem;
-            border-radius: 0.35rem;
-            font-size: 0.7rem;
-            font-weight: 600;
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 500;
+            backdrop-filter: blur(6px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             white-space: nowrap;
             text-transform: capitalize;
         }
 
         /* Korxona kategoriyasi badge'lari */
         .badge-category-full {
-            background: #d1fae5;
+            background: rgba(5, 101, 70, 0.15);
             color: #065f46;
         }
 
         .badge-category-subsidiary {
-            background: #dbeafe;
+            background: rgba(30, 64, 175, 0.15);
             color: #1e40af;
         }
 
         .badge-category-commandite {
-            background: #fef3c7;
+            background: rgba(146, 64, 14, 0.15);
             color: #92400e;
         }
 
-        /* Faoliyat turi badge'lari – project-investors sahifasiga o‘xshash */
+        /* Faoliyat turi badge'lari – project-investors sahifasiga o'xshash */
         .badge-activity-mchj {
-            background: #e0f2fe;
+            background: rgba(3, 105, 161, 0.15);
             color: #0369a1;
         }
 
         .badge-activity-aj {
-            background: #fef9c3;
+            background: rgba(133, 77, 14, 0.15);
             color: #854d0e;
         }
 
         .badge-activity-yatt {
-            background: #ede9fe;
+            background: rgba(91, 33, 182, 0.15);
             color: #5b21b6;
         }
 

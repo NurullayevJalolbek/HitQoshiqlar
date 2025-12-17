@@ -41,40 +41,44 @@
             background-color: #f9fafb;
         }
 
-        /* Badge'lar - Optimized */
+        /* Badge'lar - Login-histories va Investors stillari bilan bir xil */
         .badge-custom {
-            padding: 0.35rem 0.65rem;
-            border-radius: 0.35rem;
-            font-size: 0.7rem;
-            font-weight: 600;
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 500;
+            backdrop-filter: blur(6px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             white-space: nowrap;
             text-transform: capitalize;
         }
 
         .badge-activity-mchj {
-            background: #dbeafe;
+            background: rgba(30, 64, 175, 0.15);
             color: #1e40af;
         }
 
         .badge-activity-aj {
-            background: #d1fae5;
+            background: rgba(5, 101, 70, 0.15);
             color: #065f46;
         }
 
         .badge-activity-yatt {
-            background: #fef3c7;
+            background: rgba(146, 64, 14, 0.15);
             color: #92400e;
         }
 
         .badge-status-active {
-            background: #d1fae5;
-            color: #065f46;
+            background: rgba(0, 200, 83, 0.15);
+            color: #0f9d58;
         }
 
         .badge-status-blocked {
-            background: #fee2e2;
-            color: #991b1b;
+            background: rgba(255, 0, 0, 0.15);
+            color: #d93025;
         }
 
         /* Amallar */

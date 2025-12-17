@@ -68,52 +68,131 @@
             border-radius: 0.5rem;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             border: 2px solid #fff;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
 
-        /* Badge'lar - Optimized */
+        .project-img:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Image Modal Styles */
+        .image-modal .modal-dialog {
+            max-width: 90vw;
+            max-height: 90vh;
+            width: auto;
+            margin: 1.75rem auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .image-modal .modal-content {
+            background: transparent;
+            border: none;
+            width: fit-content;
+            max-width: 90vw;
+            max-height: 90vh;
+            margin: auto;
+        }
+
+        .image-modal .modal-body {
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            width: fit-content;
+            max-width: 90vw;
+            max-height: 90vh;
+            margin: auto;
+        }
+
+        .image-modal img {
+            max-width: 90vw;
+            max-height: 90vh;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            border-radius: 0.5rem;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+            display: block;
+            margin: auto;
+        }
+
+        .image-modal .btn-close {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: rgba(255, 255, 255, 0.95);
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23000'%3e%3cpath d='M.293.293a1 1 0 011.414 0L8 6.586 14.293.293a1 1 0 111.414 1.414L9.414 8l6.293 6.293a1 1 0 01-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 01-1.414-1.414L6.586 8 .293 1.707a1 1 0 010-1.414z'/%3e%3c/svg%3e");
+            background-size: 16px;
+            background-repeat: no-repeat;
+            background-position: center;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            opacity: 1;
+            z-index: 1051;
+            border: 2px solid rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            filter: none;
+        }
+
+        .image-modal .btn-close:hover {
+            background-color: rgba(255, 255, 255, 1);
+            border-color: rgba(0, 0, 0, 0.2);
+        }
+
+        /* Badge'lar - Login-histories va Investors stillari bilan bir xil */
         .badge-custom {
-            padding: 0.35rem 0.65rem;
-            border-radius: 0.35rem;
-            font-size: 0.7rem;
-            font-weight: 600;
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 500;
+            backdrop-filter: blur(6px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             white-space: nowrap;
             text-transform: capitalize;
         }
 
         .badge-category-yer {
-            background: #d1fae5;
+            background: rgba(5, 101, 70, 0.15);
             color: #065f46;
         }
 
         .badge-category-qurilish {
-            background: #dbeafe;
+            background: rgba(30, 64, 175, 0.15);
             color: #1e40af;
         }
 
         .badge-category-ijara {
-            background: #fef3c7;
+            background: rgba(146, 64, 14, 0.15);
             color: #92400e;
         }
 
         .badge-status-faol {
-            background: #d1fae5;
-            color: #065f46;
+            background: rgba(0, 200, 83, 0.15);
+            color: #0f9d58;
         }
 
         .badge-status-rejalashtirilgan {
-            background: #dbeafe;
+            background: rgba(30, 64, 175, 0.15);
             color: #1e40af;
         }
 
         .badge-status-yakunlangan {
-            background: #e5e7eb;
+            background: rgba(55, 65, 81, 0.15);
             color: #374151;
         }
 
         .badge-status-nofaol {
-            background: #fee2e2;
-            color: #991b1b;
+            background: rgba(255, 0, 0, 0.15);
+            color: #d93025;
         }
 
         /* Progress bar with dynamic colors */
@@ -500,6 +579,18 @@
             </tbody>
         </table>
     </div>
+
+    <!-- Image Modal -->
+    <div class="modal fade image-modal" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <img id="modalImage" src="" alt="Project Image">
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
     @push('customJs')
@@ -683,7 +774,8 @@
                         </td>
                         <td>
                             <img src="${p.image}" class="project-img" alt="${p.name}"
-                                 onerror="this.src='https://via.placeholder.com/56'">
+                                 onerror="this.src='https://via.placeholder.com/56'"
+                                 onclick="openImageModal('${p.image}', '${p.name.replace(/'/g, "\\'")}')">
                         </td>
                         <td>
                             <span class="badge badge-custom badge-category-${p.category}">
@@ -791,6 +883,21 @@
 
                 renderProjects(filtered);
                 updateStatistics(filtered);
+            }
+
+            // Image Modal funksiyasi
+            function openImageModal(imageSrc, imageAlt) {
+                const modal = new bootstrap.Modal(document.getElementById('imageModal'));
+                const modalImage = document.getElementById('modalImage');
+                
+                // Rasm yuklanganda modal o'lchamini yangilash
+                modalImage.onload = function() {
+                    // Rasm yuklangandan keyin modal o'lchami avtomatik moslashadi
+                };
+                
+                modalImage.src = imageSrc;
+                modalImage.alt = imageAlt || 'Project Image';
+                modal.show();
             }
 
             // Event listeners
