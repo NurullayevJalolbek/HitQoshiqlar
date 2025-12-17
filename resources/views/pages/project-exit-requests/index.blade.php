@@ -8,25 +8,30 @@
         }
 
         .status-badge {
-            padding: 0.35rem 0.65rem;
-            border-radius: 0.25rem;
-            font-size: 0.875rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-size: 13px;
             font-weight: 500;
+            backdrop-filter: blur(6px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .status-processing {
-            background-color: #fef3c7;
-            color: #92400e;
+            background: rgba(255, 193, 7, 0.15);
+            color: #c99a00;
         }
 
         .status-accepted {
-            background-color: #d1fae5;
-            color: #065f46;
+            background: rgba(0, 200, 83, 0.15);
+            color: #0f9d58;
         }
 
         .status-rejected {
-            background-color: #fee2e2;
-            color: #991b1b;
+            background: rgba(255, 0, 0, 0.15);
+            color: #d93025;
         }
 
         .action-buttons {

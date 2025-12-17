@@ -28,45 +28,49 @@
         }
 
         .badge-custom {
-            padding: 0.35rem 0.65rem;
-            border-radius: 0.35rem;
-            font-size: 0.7rem;
-            font-weight: 600;
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 500;
+            backdrop-filter: blur(6px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             white-space: nowrap;
             text-transform: capitalize;
         }
 
         /* Loyiha kategoriyasi */
         .badge-category-rent {
-            background: #dbeafe;
+            background: rgba(30, 64, 175, 0.15);
             color: #1e40af;
         }
 
         .badge-category-construction {
-            background: #fef3c7;
+            background: rgba(146, 64, 14, 0.15);
             color: #92400e;
         }
 
         .badge-category-land {
-            background: #d1fae5;
+            background: rgba(5, 101, 70, 0.15);
             color: #065f46;
         }
 
         /* Holat badge'lari (tulov holati) */
         .badge-status-pending {
-            background: #fef3c7;
-            color: #92400e;
+            background: rgba(255, 193, 7, 0.15);
+            color: #c99a00;
         }
 
         .badge-status-paid {
-            background: #dcfce7;
-            color: #166534;
+            background: rgba(0, 200, 83, 0.15);
+            color: #0f9d58;
         }
 
         .badge-status-rejected {
-            background: #fee2e2;
-            color: #b91c1c;
+            background: rgba(255, 0, 0, 0.15);
+            color: #d93025;
         }
 
         .value-primary {

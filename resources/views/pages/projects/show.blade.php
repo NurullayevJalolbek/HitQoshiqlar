@@ -324,6 +324,40 @@
             transition: width 0.5s ease;
         }
 
+        .stage-actions {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+            justify-content: flex-end;
+        }
+
+        .badge-stage-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 10px;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            backdrop-filter: blur(6px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .badge-stage-completed {
+            background: rgba(22, 163, 74, 0.12);
+            color: #166534;
+        }
+
+        .badge-stage-in-progress {
+            background: rgba(37, 99, 235, 0.12);
+            color: #1d4ed8;
+        }
+
+        .badge-stage-planned {
+            background: rgba(148, 163, 184, 0.2);
+            color: #4b5563;
+        }
+
         .timeline {
             position: relative;
             padding-left: 2.5rem;
@@ -412,6 +446,21 @@
             border-radius: var(--border-radius);
             border: 1px solid var(--gray-200);
             text-align: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .stat-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 0.75rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .stat-value {
@@ -442,23 +491,40 @@
         }
 
         .risk-item {
-            padding: 1rem;
+            padding: 1.25rem;
             background: var(--gray-50);
             border-radius: var(--border-radius);
-            margin-bottom: 0.75rem;
+            margin-bottom: 1rem;
             border-left: 4px solid var(--warning-color);
+            transition: all 0.2s;
+            border: 1px solid var(--gray-200);
+            border-left: 4px solid var(--warning-color);
+        }
+
+        .risk-item:hover {
+            background: white;
+            box-shadow: var(--shadow-sm);
         }
 
         .risk-title {
             font-weight: 600;
             color: var(--gray-900);
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .risk-title i {
+            color: var(--warning-color);
         }
 
         .risk-description {
             color: var(--gray-600);
             font-size: 0.9rem;
             margin: 0;
+            line-height: 1.6;
         }
 
         .document-list {
@@ -538,6 +604,7 @@
             color: white;
             font-weight: 600;
             font-size: 0.9rem;
+            transition: width 0.3s ease;
         }
 
         .segment-partners {
@@ -584,6 +651,110 @@
             color: var(--success-color);
         }
 
+        .dividend-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            border: 1px solid var(--gray-200);
+            margin-top: 1rem;
+        }
+
+        .dividend-table thead {
+            background: var(--gray-100);
+        }
+
+        .dividend-table th {
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+            color: var(--gray-900);
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid var(--gray-200);
+        }
+
+        .dividend-table td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--gray-100);
+            color: var(--gray-700);
+        }
+
+        .dividend-table tbody tr:hover {
+            background: var(--gray-50);
+        }
+
+        .dividend-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .dividend-table .status-badge-paid {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.375rem;
+            padding: 0.375rem 0.75rem;
+            border-radius: 0.375rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+            background: #dcfce7;
+            color: #166534;
+            border: 1px solid #86efac;
+        }
+
+        .dividend-table .status-badge-pending {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.375rem;
+            padding: 0.375rem 0.75rem;
+            border-radius: 0.375rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+            background: #fef3c7;
+            color: #92400e;
+            border: 1px solid #fde047;
+        }
+
+        .pagination-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .pagination-btn {
+            padding: 0.5rem 0.75rem;
+            border: 1px solid var(--gray-300);
+            background: white;
+            color: var(--gray-700);
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-size: 0.875rem;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .pagination-btn:hover:not(.disabled):not(.active) {
+            background: var(--gray-100);
+            border-color: var(--gray-400);
+        }
+
+        .pagination-btn.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .pagination-btn.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
         .gallery-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -610,6 +781,57 @@
             object-fit: cover;
         }
 
+        .gallery-item.video-item {
+            position: relative;
+            background: var(--gray-900);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .gallery-item.video-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: 1;
+            transition: background 0.3s;
+        }
+
+        .gallery-item.video-item:hover::before {
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .gallery-item.video-item .play-icon {
+            position: absolute;
+            z-index: 2;
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            transition: all 0.3s;
+        }
+
+        .gallery-item.video-item:hover .play-icon {
+            transform: scale(1.1);
+            background: white;
+        }
+
+        .gallery-item.video-item iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+            pointer-events: none;
+        }
+
         .video-embed {
             position: relative;
             padding-bottom: 56.25%;
@@ -617,6 +839,11 @@
             overflow: hidden;
             border-radius: var(--border-radius);
             margin-bottom: 1rem;
+            max-width: 480px;
+            margin-left: auto;
+            margin-right: auto;
+            box-shadow: var(--shadow-sm);
+            cursor: pointer;
         }
 
         .video-embed iframe {
@@ -626,14 +853,16 @@
             width: 100%;
             height: 100%;
             border: 0;
+            pointer-events: none;
         }
 
         .image-slider {
             position: relative;
             border-radius: var(--border-radius);
             overflow: hidden;
-            height: 400px;
+            height: 260px;
             background: var(--gray-100);
+            cursor: pointer;
         }
 
         .image-slider img {
@@ -861,22 +1090,13 @@
         </div>
 
         <div id="characteristics" class="tab-content active">
-            <!-- Main Images Slider -->
-            <div class="info-card">
+            <!-- Main Images -->
+            <div class="info-card" id="mainImagesCard">
                 <h5 class="info-card-title">
                     <i class="bi bi-images"></i>
                     Asosiy fon rasmlari
                 </h5>
-                <div class="image-slider" id="mainImageSlider">
-                    <button class="slider-nav prev" onclick="changeMainSlide(-1)">
-                        <i class="bi bi-chevron-left"></i>
-                    </button>
-                    <img src="" alt="Loyiha rasmi" id="mainSliderImage">
-                    <button class="slider-nav next" onclick="changeMainSlide(1)">
-                        <i class="bi bi-chevron-right"></i>
-                    </button>
-                    <div class="slider-indicators" id="mainSliderIndicators"></div>
-                </div>
+                <div class="gallery-grid" id="mainImagesContainer"></div>
             </div>
 
             <!-- Videos Section -->
@@ -885,7 +1105,7 @@
                     <i class="bi bi-camera-video"></i>
                     Loyiha videolari
                 </h5>
-                <div id="videosContainer"></div>
+                <div class="gallery-grid" id="videosContainer"></div>
             </div>
 
             <!-- Construction Process Images -->
@@ -907,27 +1127,45 @@
                         </h5>
                         <div class="info-grid">
                             <div class="info-row">
-                                <span class="info-label">Loyihaning unikal IDsi</span>
+                                <span class="info-label">
+                                    <i class="bi bi-hash me-1 text-muted"></i>
+                                    Loyihaning unikal IDsi
+                                </span>
                                 <span class="info-value" id="projectId">-</span>
                             </div>
                             <div class="info-row">
-                                <span class="info-label">Nomi</span>
+                                <span class="info-label">
+                                    <i class="bi bi-type me-1 text-muted"></i>
+                                    Nomi
+                                </span>
                                 <span class="info-value" id="name">-</span>
                             </div>
                             <div class="info-row">
-                                <span class="info-label">Qisqacha tavsif</span>
+                                <span class="info-label">
+                                    <i class="bi bi-card-text me-1 text-muted"></i>
+                                    Qisqacha tavsif
+                                </span>
                                 <span class="info-value" id="shortDesc">-</span>
                             </div>
                             <div class="info-row">
-                                <span class="info-label">Maqsadi</span>
+                                <span class="info-label">
+                                    <i class="bi bi-bullseye me-1 text-muted"></i>
+                                    Maqsadi
+                                </span>
                                 <span class="info-value" id="purpose">-</span>
                             </div>
                             <div class="info-row">
-                                <span class="info-label">Kategoriya</span>
+                                <span class="info-label">
+                                    <i class="bi bi-tags me-1 text-muted"></i>
+                                    Kategoriya
+                                </span>
                                 <span class="info-value" id="category">-</span>
                             </div>
                             <div class="info-row">
-                                <span class="info-label">Holati</span>
+                                <span class="info-label">
+                                    <i class="bi bi-flag me-1 text-muted"></i>
+                                    Holati
+                                </span>
                                 <span class="info-value" id="status">-</span>
                             </div>
                         </div>
@@ -942,19 +1180,31 @@
                         </h5>
                         <div class="info-grid">
                             <div class="info-row">
-                                <span class="info-label">Shahar</span>
+                                <span class="info-label">
+                                    <i class="bi bi-building me-1 text-muted"></i>
+                                    Shahar
+                                </span>
                                 <span class="info-value" id="city">-</span>
                             </div>
                             <div class="info-row">
-                                <span class="info-label">Tuman</span>
+                                <span class="info-label">
+                                    <i class="bi bi-geo-alt me-1 text-muted"></i>
+                                    Tuman
+                                </span>
                                 <span class="info-value" id="district">-</span>
                             </div>
                             <div class="info-row">
-                                <span class="info-label">Ko'cha</span>
+                                <span class="info-label">
+                                    <i class="bi bi-signpost-2 me-1 text-muted"></i>
+                                    Ko'cha
+                                </span>
                                 <span class="info-value" id="street">-</span>
                             </div>
                             <div class="info-row">
-                                <span class="info-label">Uy</span>
+                                <span class="info-label">
+                                    <i class="bi bi-house-door me-1 text-muted"></i>
+                                    Uy
+                                </span>
                                 <span class="info-value" id="house">-</span>
                             </div>
                         </div>
@@ -975,11 +1225,17 @@
                         </h5>
                         <div class="info-grid">
                             <div class="info-row">
-                                <span class="info-label">Tashkilot nomi</span>
+                                <span class="info-label">
+                                    <i class="bi bi-building me-1 text-muted"></i>
+                                    Tashkilot nomi
+                                </span>
                                 <span class="info-value" id="managerOrg">-</span>
                             </div>
                             <div class="info-row">
-                                <span class="info-label">Litsenziya raqami</span>
+                                <span class="info-label">
+                                    <i class="bi bi-file-earmark-text me-1 text-muted"></i>
+                                    Litsenziya raqami
+                                </span>
                                 <span class="info-value" id="licenseNumber">-</span>
                             </div>
                         </div>
@@ -994,15 +1250,24 @@
                         </h5>
                         <div class="info-grid">
                             <div class="info-row">
-                                <span class="info-label">Tashkilot nomi</span>
+                                <span class="info-label">
+                                    <i class="bi bi-building me-1 text-muted"></i>
+                                    Tashkilot nomi
+                                </span>
                                 <span class="info-value" id="constructionName">-</span>
                             </div>
                             <div class="info-row">
-                                <span class="info-label">Logotipi</span>
+                                <span class="info-label">
+                                    <i class="bi bi-image me-1 text-muted"></i>
+                                    Logotipi
+                                </span>
                                 <span class="info-value" id="constructionLogo">-</span>
                             </div>
                             <div class="info-row">
-                                <span class="info-label">Qisqacha tavsif</span>
+                                <span class="info-label">
+                                    <i class="bi bi-card-text me-1 text-muted"></i>
+                                    Qisqacha tavsif
+                                </span>
                                 <span class="info-value" id="constructionDesc">-</span>
                             </div>
                         </div>
@@ -1013,10 +1278,19 @@
 
         <div id="stages" class="tab-content">
             <div class="info-card">
-                <h5 class="info-card-title">
-                    <i class="bi bi-diagram-3"></i>
-                    Loyiha (mulk) bosqichlari
-                </h5>
+                <div class="d-flex justify-content-between align-items-center">
+                    <h5 class="info-card-title mb-0">
+                        <i class="bi bi-diagram-3"></i>
+                        Loyiha (mulk) bosqichlari
+                    </h5>
+                    <div class="d-flex align-items-center gap-2">
+                        <button type="button" class="btn btn-outline-secondary btn-sm" id="toggleStagesEditBtn"
+                            onclick="toggleStagesEdit()">
+                            <i class="bi bi-pencil-square me-1"></i>
+                            Bosqichlarni tahrirlash
+                        </button>
+                    </div>
+                </div>
                 <div class="progress-section">
                     <div class="progress-bar-wrapper">
                         <div class="progress-bar-fill" id="progressBar" style="width: 0%">0%</div>
@@ -1028,11 +1302,20 @@
 
         <div id="distribution" class="tab-content">
             <div class="info-card">
-                <h5 class="info-card-title">
-                    <i class="bi bi-pie-chart"></i>
-                    Taqsimot sozlamalari
-                </h5>
-                <div class="info-grid">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h5 class="info-card-title mb-0">
+                        <i class="bi bi-pie-chart"></i>
+                        Taqsimot sozlamalari
+                    </h5>
+                    <div class="d-flex align-items-center gap-2">
+                        <button type="button" class="btn btn-outline-secondary btn-sm" id="toggleDistributionEditBtn"
+                            onclick="toggleDistributionEdit()">
+                            <i class="bi bi-pencil-square me-1"></i>
+                            Sozlamalarni tahrirlash
+                        </button>
+                    </div>
+                </div>
+                <div class="info-grid" id="distributionContent">
                     <div class="info-row">
                         <span class="info-label">To'liq sherikning investitsion loyihadagi o'ziga tegishli ulushining
                             realizatsiyasidan kutilayotgan sof foyda/zarardan oladigan qiymati (foizda)</span>
@@ -1051,11 +1334,11 @@
                 </div>
 
                 <h6 style="margin-top: 2rem; margin-bottom: 1rem; font-weight: 600;">Vizual taqsimot</h6>
-                <div class="distribution-visual">
-                    <div class="distribution-segment segment-partners" style="width: 30%">
+                <div class="distribution-visual" id="distributionVisual">
+                    <div class="distribution-segment segment-partners" id="partnersSegment" style="width: 30%">
                         To'liq sheriklar: 30%
                     </div>
-                    <div class="distribution-segment segment-investors" style="width: 70%">
+                    <div class="distribution-segment segment-investors" id="investorsSegment" style="width: 70%">
                         Kommanditchilar: 70%
                     </div>
                 </div>
@@ -1064,10 +1347,24 @@
 
         <div id="rounds" class="tab-content">
             <div class="info-card">
-                <h5 class="info-card-title">
-                    <i class="bi bi-arrow-repeat"></i>
-                    Loyiha raundlari
-                </h5>
+                <div class="d-flex justify-content-between align-items-center">
+                    <h5 class="info-card-title mb-0">
+                        <i class="bi bi-arrow-repeat"></i>
+                        Loyiha raundlari
+                    </h5>
+                    <div class="d-flex align-items-center gap-2">
+                        <button type="button" class="btn btn-success btn-sm" id="addRoundBtn"
+                            onclick="addNewRound()" style="display: none;">
+                            <i class="bi bi-plus-lg me-1"></i>
+                            Yangi raund qo'shish
+                        </button>
+                        <button type="button" class="btn btn-outline-secondary btn-sm" id="toggleRoundsEditBtn"
+                            onclick="toggleRoundsEdit()">
+                            <i class="bi bi-pencil-square me-1"></i>
+                            Raundlarni tahrirlash
+                        </button>
+                    </div>
+                </div>
                 <div id="roundsContainer"></div>
             </div>
         </div>
@@ -1080,22 +1377,37 @@
                 </h5>
                 <div class="stat-grid">
                     <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="bi bi-currency-exchange"></i>
+                        </div>
                         <div class="stat-value" id="totalValue">0</div>
                         <div class="stat-label">Umumiy qiymati</div>
                     </div>
                     <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="bi bi-cash-coin"></i>
+                        </div>
                         <div class="stat-value" id="minShare">0</div>
                         <div class="stat-label">Minimal ulush miqdori narxi</div>
                     </div>
                     <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="bi bi-graph-up-arrow"></i>
+                        </div>
                         <div class="stat-value" id="yearlyProfit">0%</div>
                         <div class="stat-label">Kutilayotgan daromad (yillik, foizlarda)</div>
                     </div>
                     <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="bi bi-pie-chart-fill"></i>
+                        </div>
                         <div class="stat-value" id="fundingStatus">0%</div>
                         <div class="stat-label">Moliyalashtirilganlik holati ko'rsatkichi</div>
                     </div>
                     <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="bi bi-calendar-range"></i>
+                        </div>
                         <div class="stat-value" id="investmentPeriod">-</div>
                         <div class="stat-label">Investitsiya davri yoki davomiyligi</div>
                     </div>
@@ -1103,27 +1415,42 @@
 
                 <div class="info-grid">
                     <div class="info-row">
-                        <span class="info-label">Rentabellik ko'rsatkichi (%) yoki prognoz qilingan daromad summasi</span>
+                        <span class="info-label">
+                            <i class="bi bi-percent me-1 text-muted"></i>
+                            Rentabellik ko'rsatkichi (%) yoki prognoz qilingan daromad summasi
+                        </span>
                         <span class="info-value" id="profitability">-</span>
                     </div>
                     <div class="info-row">
-                        <span class="info-label">To'liq sheriklar va Kommanditchilar o'rtasidagi foyda/zararning taqsimot
-                            ko'rsatkichlari</span>
+                        <span class="info-label">
+                            <i class="bi bi-share me-1 text-muted"></i>
+                            To'liq sheriklar va Kommanditchilar o'rtasidagi foyda/zararning taqsimot
+                            ko'rsatkichlari
+                        </span>
                         <span class="info-value" id="distributionIndicators">-</span>
                     </div>
                     <div class="info-row">
-                        <span class="info-label">Taqsimot amaga oshirilishi boshlanadigan davr</span>
+                        <span class="info-label">
+                            <i class="bi bi-calendar-event me-1 text-muted"></i>
+                            Taqsimot amaga oshirilishi boshlanadigan davr
+                        </span>
                         <span class="info-value" id="distributionStart">-</span>
                     </div>
                     <div class="info-row">
-                        <span class="info-label">Eng oxirgi marta taqsimlangan dividend foiz ko'rsatkichi</span>
+                        <span class="info-label">
+                            <i class="bi bi-cash-stack me-1 text-muted"></i>
+                            Eng oxirgi marta taqsimlangan dividend foiz ko'rsatkichi
+                        </span>
                         <span class="info-value" id="lastDividend">-</span>
                     </div>
                 </div>
 
-                <h6 style="margin-top: 2rem; margin-bottom: 1rem; font-weight: 600;">Loyiha doirasida taqsimlangan
-                    dividendlar tarixi</h6>
+                <h6 style="margin-top: 2rem; margin-bottom: 1rem; font-weight: 600; display: flex; align-items: center; gap: 0.5rem;">
+                    <i class="bi bi-clock-history"></i>
+                    Loyiha doirasida taqsimlangan dividendlar tarixi
+                </h6>
                 <div id="dividendHistory"></div>
+                <div id="dividendPagination" class="mt-3"></div>
             </div>
         </div>
 
@@ -1139,43 +1466,98 @@
 
         <div id="risks" class="tab-content">
             <div class="info-card">
-                <h5 class="info-card-title">
-                    <i class="bi bi-exclamation-triangle"></i>
-                    Xatarlar (Risklar)
-                </h5>
-                <div class="info-grid">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h5 class="info-card-title mb-0">
+                        <i class="bi bi-exclamation-triangle"></i>
+                        Xatarlar (Risklar)
+                    </h5>
+                    <div class="d-flex align-items-center gap-2">
+                        <button type="button" class="btn btn-success btn-sm" id="addRiskBtn"
+                            onclick="addNewRisk()" style="display: none;">
+                            <i class="bi bi-plus-lg me-1"></i>
+                            Yangi xatar qo'shish
+                        </button>
+                        <button type="button" class="btn btn-outline-secondary btn-sm" id="toggleRisksEditBtn"
+                            onclick="toggleRisksEdit()">
+                            <i class="bi bi-pencil-square me-1"></i>
+                            Ma'lumotlarni tahrirlash
+                        </button>
+                    </div>
+                </div>
+                <div class="info-grid" id="risksInfoContent">
                     <div class="info-row">
-                        <span class="info-label">Loyihaning boshqarilish modeli nomi</span>
+                        <span class="info-label">
+                            <i class="bi bi-diagram-3 me-1 text-muted"></i>
+                            Loyihaning boshqarilish modeli nomi
+                        </span>
                         <span class="info-value" id="managementModel">-</span>
                     </div>
                     <div class="info-row">
-                        <span class="info-label">Loyihaning boshqarilish modeli qisqacha tavsifi</span>
-                        <span class="info-value" id="managementDesc">-</span>
+                        <span class="info-label">
+                            <i class="bi bi-file-text me-1 text-muted"></i>
+                            Loyihaning boshqarilish modeli to'liq tavsifi
+                        </span>
+                        <span class="info-value" id="managementDescription">-</span>
                     </div>
                     <div class="info-row">
-                        <span class="info-label">Loyihaning boshqarilish modeli haqida ma'lumot</span>
-                        <span class="info-value" id="managementInfo">-</span>
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">Loyihaning xatar darajasi</span>
+                        <span class="info-label">
+                            <i class="bi bi-shield-exclamation me-1 text-muted"></i>
+                            Loyihaning xatar darajasi
+                        </span>
                         <span class="info-value">
                             <span class="status-badge" id="riskLevel">-</span>
                         </span>
                     </div>
                 </div>
 
-                <h6 style="margin-top: 2rem; margin-bottom: 1rem; font-weight: 600;">Mumkin bo'lgan xatarlar</h6>
+                <h6 style="margin-top: 2rem; margin-bottom: 1rem; font-weight: 600; display: flex; align-items: center; gap: 0.5rem;">
+                    <i class="bi bi-exclamation-circle"></i>
+                    Mumkin bo'lgan xatarlar
+                </h6>
                 <div id="risksContainer"></div>
             </div>
         </div>
 
         <div id="documents" class="tab-content">
             <div class="info-card">
-                <h5 class="info-card-title">
-                    <i class="bi bi-file-earmark-text"></i>
-                    Loyiha (mulk) hujjatlari
-                </h5>
+                <div class="d-flex justify-content-between align-items-center">
+                    <h5 class="info-card-title mb-0">
+                        <i class="bi bi-file-earmark-text"></i>
+                        Loyiha (mulk) hujjatlari
+                    </h5>
+                    <div class="d-flex align-items-center gap-2">
+                        <button type="button" class="btn btn-success btn-sm" id="addDocumentBtn"
+                            onclick="addNewDocument()" style="display: none;">
+                            <i class="bi bi-plus-lg me-1"></i>
+                            Yangi hujjat qo'shish
+                        </button>
+                        <button type="button" class="btn btn-outline-secondary btn-sm" id="toggleDocumentsEditBtn"
+                            onclick="toggleDocumentsEdit()">
+                            <i class="bi bi-pencil-square me-1"></i>
+                            Hujjatlarni tahrirlash
+                        </button>
+                    </div>
+                </div>
                 <div class="document-list" id="documentsContainer"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Media Modal (images & videos) -->
+    <div class="modal fade" id="mediaModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content" style="background: transparent; border: none;">
+                <button type="button" class="btn-close bg-white rounded-circle shadow position-absolute"
+                    style="top: 10px; right: 10px; z-index: 1051;" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="modal-body p-0 d-flex justify-content-center align-items-center">
+                    <img id="mediaModalImage" src="" alt="Media" class="img-fluid d-none"
+                        style="border-radius: 0.5rem; max-height: 80vh; object-fit: contain;">
+                    <div id="mediaModalVideoWrapper" class="ratio ratio-16x9 d-none" style="width: 100%;">
+                        <iframe id="mediaModalVideo" src="" allowfullscreen
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            style="border-radius: 0.5rem;"></iframe>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -1234,6 +1616,11 @@
             funding_status: 72,
             investment_period: "24 oy",
             profitability: "25%",
+            distribution: {
+                full_partner_own_share: 100,
+                full_partner_investor_share: 30,
+                investors_own_share: 70
+            },
             distribution_indicators: "To'liq sheriklar: 30%, Kommanditchilar: 70%",
             distribution_start: "2025-yil yanvar",
             last_dividend: 4.5,
@@ -1241,7 +1628,13 @@
                 { date: "2024-12", amount: 4.5, status: "To'langan" },
                 { date: "2024-09", amount: 4.2, status: "To'langan" },
                 { date: "2024-06", amount: 4.0, status: "To'langan" },
-                { date: "2024-03", amount: 3.8, status: "To'langan" }
+                { date: "2024-03", amount: 3.8, status: "To'langan" },
+                { date: "2023-12", amount: 3.5, status: "To'langan" },
+                { date: "2023-09", amount: 3.2, status: "To'langan" },
+                { date: "2023-06", amount: 3.0, status: "To'langan" },
+                { date: "2023-03", amount: 2.8, status: "To'langan" },
+                { date: "2022-12", amount: 2.5, status: "To'langan" },
+                { date: "2022-09", amount: 2.2, status: "To'langan" }
             ],
             stages: [
                 {
@@ -1307,16 +1700,19 @@
             ],
             rounds: [
                 {
+                    id: 1,
                     name: "1-raund (Boshlang'ich)",
                     status: "completed",
                     min_share: 5000000
                 },
                 {
+                    id: 2,
                     name: "2-raund (Asosiy)",
                     status: "in_progress",
                     min_share: 10000000
                 },
                 {
+                    id: 3,
                     name: "3-raund (Yakunlovchi)",
                     status: "inactive",
                     min_share: 15000000
@@ -1370,32 +1766,37 @@
                 management_model: "Markazlashgan boshqaruv modeli",
                 management_desc: "Barcha strategik qarorlar markaziy boshqaruv idorasi tomonidan qabul qilinadi",
                 management_info: "Loyiha boshqaruvi markazlashgan tuzilmada amalga oshiriladi. Operativ qarorlar esa loyiha menejerlariga topshirilgan. Har hafta hisobotlar taqdim etiladi.",
+                management_description: "Loyiha boshqaruvi markazlashgan tuzilmada amalga oshiriladi. Barcha strategik qarorlar markaziy boshqaruv idorasi tomonidan qabul qilinadi. Operativ qarorlar esa loyiha menejerlariga topshirilgan. Har hafta hisobotlar taqdim etiladi va barcha qarorlar investorlar kengashida muhokama qilinadi. Bu model loyihaning samarali boshqarilishini va shaffoflikni ta'minlaydi.",
                 risk_level: "low",
                 risk_items: [
                     {
+                        id: 1,
                         name: "Bozor riski",
-                        description: "Ko'chmas mulk bozoridagi narxlarning kutilmagan pasayishi, talab-talabning kamayishi"
+                        description: "Ko'chmas mulk bozoridagi narxlarning kutilmagan pasayishi, talab-talabning kamayishi. Bu risk bozor sharoitlarining o'zgarishi, iqtisodiy inqirozlar yoki mintaqaviy omillar tufayli yuzaga kelishi mumkin. Riskni kamaytirish uchun bozor tendentsiyalarini doimiy kuzatish va diversifikatsiya strategiyasini qo'llash tavsiya etiladi."
                     },
                     {
+                        id: 2,
                         name: "Qurilish riski",
-                        description: "Qurilish materiallarining narxining oshishi, qurilish jarayonida texnik muammolar"
+                        description: "Qurilish materiallarining narxining oshishi, qurilish jarayonida texnik muammolar. Materiallar narxining o'zgarishi, yetkazib beruvchilar bilan muammolar, iqlim sharoitlari va texnik xatolar qurilish jarayoniga ta'sir qilishi mumkin. Bu riskni minimallashtirish uchun ehtiyotkorlik bilan rejalashtirish va professional qurilish kompaniyalari bilan ishlash muhimdir."
                     },
                     {
+                        id: 3,
                         name: "Moliyaviy risk",
-                        description: "Investorlar tomonidan mablag'larning o'z vaqtida kiritilmasligi, valyuta kursining o'zgarishi"
+                        description: "Investorlar tomonidan mablag'larning o'z vaqtida kiritilmasligi, valyuta kursining o'zgarishi. Moliyaviy risklar loyihaning moliyalashtirilishiga ta'sir qilishi mumkin. Valyuta kursining o'zgarishi, investorlarning moliyaviy qiyinchiliklari yoki makroiqtisodiy omillar bu risklarni keltirib chiqarishi mumkin. Moliyaviy rejalashtirish va zaxira mablag'larini yaratish bu risklarni kamaytirishga yordam beradi."
                     },
                     {
+                        id: 4,
                         name: "Huquqiy risk",
-                        description: "Qonunchilikdagi o'zgarishlar, ruxsatnomalarni olishdagi kechikishlar"
+                        description: "Qonunchilikdagi o'zgarishlar, ruxsatnomalarni olishdagi kechikishlar. Huquqiy risklar loyihaning amalga oshirilishiga to'sqinlik qilishi mumkin. Qonunchilikdagi o'zgarishlar, ruxsatnomalarni olishdagi kechikishlar yoki huquqiy muammolar loyihani kechiktirishi yoki to'xtatishi mumkin. Bu riskni kamaytirish uchun barcha huquqiy hujjatlarni vaqtida tayyorlash va huquqiy maslahatchilar bilan ishlash tavsiya etiladi."
                     }
                 ]
             },
             documents: [
-                { name: "Yer uchastkasi hujjatlari", file: "land_documents.pdf" },
-                { name: "Investitsiya shartnomasi", file: "investment_contract.pdf" },
-                { name: "Qurilish ruxsatnomasi", file: "construction_license.pdf" },
-                { name: "Loyiha-smeta hujjatlari", file: "project_estimate.pdf" },
-                { name: "Texnik shartlar", file: "technical_specs.pdf" }
+                { id: 1, name: "Yer uchastkasi hujjatlari", file: "land_documents.pdf" },
+                { id: 2, name: "Investitsiya shartnomasi", file: "investment_contract.pdf" },
+                { id: 3, name: "Qurilish ruxsatnomasi", file: "construction_license.pdf" },
+                { id: 4, name: "Loyiha-smeta hujjatlari", file: "project_estimate.pdf" },
+                { id: 5, name: "Texnik shartlar", file: "technical_specs.pdf" }
             ]
         };
 
@@ -1462,6 +1863,7 @@
             displayVideos(p.videos);
             displayProcessImages(p.process_images);
             displayStages(p.stages);
+            displayDistribution(p.distribution);
             displayRounds(p.rounds);
             displayFinancial(p);
             displayPartners(p.partners);
@@ -1470,39 +1872,21 @@
         }
 
         function displayMainImages(images) {
-            if (!images || images.length === 0) return;
+            if (!images || images.length === 0) {
+                document.getElementById('mainImagesCard').style.display = 'none';
+                return;
+            }
 
+            document.getElementById('mainImagesCard').style.display = 'block';
             mainImages = images;
             currentMainImageIndex = 0;
 
-            const imageEl = document.getElementById('mainSliderImage');
-            imageEl.src = mainImages[0];
-
-            const indicators = document.getElementById('mainSliderIndicators');
-            indicators.innerHTML = mainImages.map((_, index) =>
-                `<div class="indicator ${index === 0 ? 'active' : ''}" onclick="goToMainSlide(${index})"></div>`
-            ).join('');
-        }
-
-        function changeMainSlide(direction) {
-            currentMainImageIndex += direction;
-            if (currentMainImageIndex < 0) currentMainImageIndex = mainImages.length - 1;
-            if (currentMainImageIndex >= mainImages.length) currentMainImageIndex = 0;
-
-            document.getElementById('mainSliderImage').src = mainImages[currentMainImageIndex];
-
-            document.querySelectorAll('#mainSliderIndicators .indicator').forEach((ind, idx) => {
-                ind.classList.toggle('active', idx === currentMainImageIndex);
-            });
-        }
-
-        function goToMainSlide(index) {
-            currentMainImageIndex = index;
-            document.getElementById('mainSliderImage').src = mainImages[index];
-
-            document.querySelectorAll('#mainSliderIndicators .indicator').forEach((ind, idx) => {
-                ind.classList.toggle('active', idx === index);
-            });
+            const container = document.getElementById('mainImagesContainer');
+            container.innerHTML = images.map((img, index) => `
+                <div class="gallery-item" onclick="openImageModal('${img}')">
+                    <img src="${img}" alt="Asosiy fon rasmi ${index + 1}" loading="lazy">
+                </div>
+            `).join('');
         }
 
         function displayVideos(videos) {
@@ -1513,11 +1897,22 @@
 
             document.getElementById('videosCard').style.display = 'block';
             const container = document.getElementById('videosContainer');
-            container.innerHTML = videos.map(url => `
-                                    <div class="video-embed">
-                                        <iframe src="${url}" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
-                                    </div>
-                                `).join('');
+            container.innerHTML = videos.map((url, index) => {
+                // YouTube URL dan thumbnail olish
+                const videoId = url.match(/(?:youtube\.com\/embed\/|youtu\.be\/)([^&\n?#]+)/)?.[1];
+                const thumbnailUrl = videoId 
+                    ? `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`
+                    : '';
+                
+                return `
+                    <div class="gallery-item video-item" onclick="openVideoModal('${url}')">
+                        ${thumbnailUrl ? `<img src="${thumbnailUrl}" alt="Video ${index + 1}" loading="lazy">` : ''}
+                        <div class="play-icon">
+                            <i class="bi bi-play-fill"></i>
+                        </div>
+                    </div>
+                `;
+            }).join('');
         }
 
         function displayProcessImages(images) {
@@ -1536,9 +1931,37 @@
         }
 
         function openImageModal(imageUrl) {
-            // Bu yerda modal oynani ochish logikasi bo'ladi
-            window.open(imageUrl, '_blank');
+            const modalEl = document.getElementById('mediaModal');
+            const bsModal = new bootstrap.Modal(modalEl);
+            const imgEl = document.getElementById('mediaModalImage');
+            const videoWrapper = document.getElementById('mediaModalVideoWrapper');
+            const videoEl = document.getElementById('mediaModalVideo');
+
+            // faqat rasm ko'rsatamiz
+            imgEl.classList.remove('d-none');
+            videoWrapper.classList.add('d-none');
+            videoEl.src = '';
+            imgEl.src = imageUrl;
+
+            bsModal.show();
         }
+
+        function openVideoModal(videoUrl) {
+            const modalEl = document.getElementById('mediaModal');
+            const bsModal = new bootstrap.Modal(modalEl);
+            const imgEl = document.getElementById('mediaModalImage');
+            const videoWrapper = document.getElementById('mediaModalVideoWrapper');
+            const videoEl = document.getElementById('mediaModalVideo');
+
+            // faqat video ko'rsatamiz
+            imgEl.classList.add('d-none');
+            videoWrapper.classList.remove('d-none');
+            videoEl.src = videoUrl;
+
+            bsModal.show();
+        }
+
+        let stagesEditMode = false;
 
         function displayStages(stages) {
             const totalProgress = stages.reduce((sum, stage) => {
@@ -1553,35 +1976,245 @@
             timeline.innerHTML = '';
 
             const statusMap = {
-                'completed': { icon: 'bi-check-circle', class: 'icon-shape-success', text: 'Bajarildi' },
-                'in_progress': { icon: 'bi-arrow-clockwise', class: 'icon-shape-primary', text: 'Jarayonda' },
-                'planned': { icon: 'bi-circle', class: 'icon-shape-secondary', text: 'Rejalashtirilgan' }
+                'completed': {
+                    icon: 'bi-check-circle',
+                    badgeClass: 'badge-stage-status badge-stage-completed',
+                    text: 'Bajarildi'
+                },
+                'in_progress': {
+                    icon: 'bi-arrow-clockwise',
+                    badgeClass: 'badge-stage-status badge-stage-in-progress',
+                    text: 'Jarayonda'
+                },
+                'planned': {
+                    icon: 'bi-circle',
+                    badgeClass: 'badge-stage-status badge-stage-planned',
+                    text: 'Rejalashtirilgan'
+                }
             };
 
-            stages.forEach((stage) => {
+            stages.forEach((stage, index) => {
                 const status = statusMap[stage.status];
                 const itemEl = document.createElement('div');
                 itemEl.className = 'list-group-item border-0';
-                itemEl.innerHTML = `
-                <div class="row ps-lg-1">
-                    <div class="col-auto">
-                        <div class="icon-shape icon-xs ${status.class} rounded" style="width: 2.5rem; height: 2.5rem; display: flex; align-items: center; justify-content: center;">
-                            <i class="${status.icon}"></i>
+
+                if (!stagesEditMode) {
+                    // Ko'rish rejimi
+                    itemEl.innerHTML = `
+                        <div class="row ps-lg-1 align-items-center">
+                            <div class="col-auto">
+                                <div class="${status.badgeClass}">
+                                    <i class="${status.icon}"></i>
+                                    ${status.text}
+                                </div>
+                            </div>
+                            <div class="col ms-n2 mb-2">
+                                <h3 class="fs-6 fw-bold mb-1">${stage.name}</h3>
+                                <div class="d-flex align-items-center small text-muted">
+                                    <i class="bi bi-calendar3 me-1"></i>
+                                    <span>${stage.start_date} - ${stage.end_date}</span>
+                                </div>
+                            </div>
+                            <div class="col-auto text-end">
+                                <span class="badge rounded-pill bg-light text-dark">
+                                    <i class="bi bi-bar-chart-fill me-1 text-primary"></i>${stage.progress}%
+                                </span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col ms-n2 mb-3">
-                        <h3 class="fs-6 fw-bold mb-1">${stage.name}</h3>
-                        <p class="mb-1" style="color: var(--gray-600); font-size: 0.9rem;">${status.text} • ${stage.progress}%</p>
-                        <div class="d-flex align-items-center">
-                            <svg class="icon icon-xxs text-gray-400 me-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"></path></svg>
-                            <span class="small">${stage.start_date} - ${stage.end_date}</span>
+                    `;
+                } else {
+                    // Tahrirlash rejimi
+                    itemEl.innerHTML = `
+                        <div class="row ps-lg-1 align-items-start gy-2">
+                            <div class="col-12 col-md-4">
+                                <label class="form-label small mb-1">Bosqich nomi</label>
+                                <input type="text" class="form-control form-control-sm" value="${stage.name}"
+                                    onchange="updateStageField(${index}, 'name', this.value)">
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <label class="form-label small mb-1">Holati</label>
+                                <select class="form-select form-select-sm"
+                                    onchange="updateStageField(${index}, 'status', this.value)">
+                                    <option value="planned" ${stage.status === 'planned' ? 'selected' : ''}>Rejalashtirilgan</option>
+                                    <option value="in_progress" ${stage.status === 'in_progress' ? 'selected' : ''}>Jarayonda</option>
+                                    <option value="completed" ${stage.status === 'completed' ? 'selected' : ''}>Bajarilgan</option>
+                                </select>
+                            </div>
+                            <div class="col-6 col-md-2">
+                                <label class="form-label small mb-1">% bajarilgan</label>
+                                <input type="number" min="0" max="100" class="form-control form-control-sm" value="${stage.progress}"
+                                    onchange="updateStageField(${index}, 'progress', Number(this.value) || 0)">
+                            </div>
+                            <div class="col-6 col-md-1">
+                                <label class="form-label small mb-1">Boshlanish</label>
+                                <input type="text" class="form-control form-control-sm" value="${stage.start_date}"
+                                    onchange="updateStageField(${index}, 'start_date', this.value)">
+                            </div>
+                            <div class="col-6 col-md-1">
+                                <label class="form-label small mb-1">Yakun</label>
+                                <input type="text" class="form-control form-control-sm" value="${stage.end_date}"
+                                    onchange="updateStageField(${index}, 'end_date', this.value)">
+                            </div>
                         </div>
-                    </div>
-                </div>
-            `;
+                    `;
+                }
+
                 timeline.appendChild(itemEl);
             });
         }
+
+        function toggleStagesEdit() {
+            stagesEditMode = !stagesEditMode;
+            const btn = document.getElementById('toggleStagesEditBtn');
+            btn.innerHTML = stagesEditMode
+                ? '<i class="bi bi-check-lg me-1"></i> Tahrirlashni yakunlash'
+                : '<i class="bi bi-pencil-square me-1"></i> Bosqichlarni tahrirlash';
+
+            displayStages(projectData.stages);
+        }
+
+        function updateStageField(index, field, value) {
+            if (!projectData || !projectData.stages || !projectData.stages[index]) return;
+            projectData.stages[index][field] = value;
+            // progress bar va ko‘rinish yangilanishi uchun qayta chizamiz
+            displayStages(projectData.stages);
+        }
+
+        let distributionEditMode = false;
+
+        function displayDistribution(distribution) {
+            if (!distribution) return;
+
+            const content = document.getElementById('distributionContent');
+            
+            if (!distributionEditMode) {
+                // Ko'rish rejimi
+                content.innerHTML = `
+                    <div class="info-row">
+                        <span class="info-label">To'liq sherikning investitsion loyihadagi o'ziga tegishli ulushining
+                            realizatsiyasidan kutilayotgan sof foyda/zarardan oladigan qiymati (foizda)</span>
+                        <span class="info-value" id="fullPartnerOwnShare">${distribution.full_partner_own_share}%</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">To'liq sherikning investitsion Kommanditchilarning loyihadagi tegishli
+                            ulushining realizatsiyasidan kutilayotgan sof foyda/zarardan oladigan qiymati (foizda)</span>
+                        <span class="info-value" id="fullPartnerInvestorShare">${distribution.full_partner_investor_share}%</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Kommanditchilarning investitsion loyihadagi o'ziga tegishli ulushining
+                            realizatsiyasidan kutilayotgan sof foyda/zarardan oladigan qiymati (foizda)</span>
+                        <span class="info-value" id="investorsOwnShare">${distribution.investors_own_share}%</span>
+                    </div>
+                `;
+            } else {
+                // Tahrirlash rejimi
+                content.innerHTML = `
+                    <div class="info-row">
+                        <span class="info-label">To'liq sherikning investitsion loyihadagi o'ziga tegishli ulushining
+                            realizatsiyasidan kutilayotgan sof foyda/zarardan oladigan qiymati (foizda)</span>
+                        <div class="d-flex align-items-center gap-2">
+                            <input type="number" min="0" max="100" step="0.1" 
+                                class="form-control form-control-sm" style="max-width: 120px;" 
+                                value="${distribution.full_partner_own_share}"
+                                onchange="updateDistributionField('full_partner_own_share', Number(this.value) || 0)"
+                                id="editFullPartnerOwnShare">
+                            <span class="text-muted">%</span>
+                        </div>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">To'liq sherikning investitsion Kommanditchilarning loyihadagi tegishli
+                            ulushining realizatsiyasidan kutilayotgan sof foyda/zarardan oladigan qiymati (foizda)</span>
+                        <div class="d-flex align-items-center gap-2">
+                            <input type="number" min="0" max="100" step="0.1" 
+                                class="form-control form-control-sm" style="max-width: 120px;" 
+                                value="${distribution.full_partner_investor_share}"
+                                onchange="updateDistributionField('full_partner_investor_share', Number(this.value) || 0)"
+                                id="editFullPartnerInvestorShare">
+                            <span class="text-muted">%</span>
+                        </div>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Kommanditchilarning investitsion loyihadagi o'ziga tegishli ulushining
+                            realizatsiyasidan kutilayotgan sof foyda/zarardan oladigan qiymati (foizda)</span>
+                        <div class="d-flex align-items-center gap-2">
+                            <input type="number" min="0" max="100" step="0.1" 
+                                class="form-control form-control-sm" style="max-width: 120px;" 
+                                value="${distribution.investors_own_share}"
+                                onchange="updateDistributionField('investors_own_share', Number(this.value) || 0)"
+                                id="editInvestorsOwnShare">
+                            <span class="text-muted">%</span>
+                        </div>
+                    </div>
+                `;
+            }
+
+            // Vizual taqsimotni yangilash
+            updateDistributionVisual(distribution);
+        }
+
+        function updateDistributionVisual(distribution) {
+            const partnersPercent = distribution.full_partner_investor_share;
+            const investorsPercent = distribution.investors_own_share;
+            
+            const partnersSegment = document.getElementById('partnersSegment');
+            const investorsSegment = document.getElementById('investorsSegment');
+            
+            if (partnersSegment && investorsSegment) {
+                partnersSegment.style.width = partnersPercent + '%';
+                partnersSegment.textContent = `To'liq sheriklar: ${partnersPercent}%`;
+                
+                investorsSegment.style.width = investorsPercent + '%';
+                investorsSegment.textContent = `Kommanditchilar: ${investorsPercent}%`;
+            }
+        }
+
+        function toggleDistributionEdit() {
+            distributionEditMode = !distributionEditMode;
+            const btn = document.getElementById('toggleDistributionEditBtn');
+            btn.innerHTML = distributionEditMode
+                ? '<i class="bi bi-check-lg me-1"></i> Tahrirlashni yakunlash'
+                : '<i class="bi bi-pencil-square me-1"></i> Sozlamalarni tahrirlash';
+
+            if (projectData && projectData.distribution) {
+                displayDistribution(projectData.distribution);
+            }
+        }
+
+        function updateDistributionField(field, value) {
+            if (!projectData || !projectData.distribution) return;
+            
+            // Qiymatni cheklash
+            if (value < 0) value = 0;
+            if (value > 100) value = 100;
+            
+            projectData.distribution[field] = value;
+            
+            // Agar full_partner_investor_share o'zgarsa, investors_own_share ni avtomatik hisoblaymiz
+            if (field === 'full_partner_investor_share') {
+                projectData.distribution.investors_own_share = 100 - value;
+                // Input qiymatini yangilaymiz
+                const investorsInput = document.getElementById('editInvestorsOwnShare');
+                if (investorsInput) {
+                    investorsInput.value = projectData.distribution.investors_own_share;
+                }
+            }
+            
+            // Agar investors_own_share o'zgarsa, full_partner_investor_share ni avtomatik hisoblaymiz
+            if (field === 'investors_own_share') {
+                projectData.distribution.full_partner_investor_share = 100 - value;
+                // Input qiymatini yangilaymiz
+                const partnerInput = document.getElementById('editFullPartnerInvestorShare');
+                if (partnerInput) {
+                    partnerInput.value = projectData.distribution.full_partner_investor_share;
+                }
+            }
+            
+            // Vizual taqsimotni yangilash
+            updateDistributionVisual(projectData.distribution);
+        }
+
+        let roundsEditMode = false;
+        let nextRoundId = 4; // Yangi roundlar uchun ID
 
         function displayRounds(rounds) {
             const container = document.getElementById('roundsContainer');
@@ -1591,22 +2224,126 @@
                 'inactive': { text: 'Nofaol', class: 'status-inactive' }
             };
 
-            container.innerHTML = rounds.map(round => {
-                const status = statusMap[round.status];
-                return `
-                                        <div class="round-item">
-                                            <div class="round-info">
-                                                <h6>${round.name}</h6>
-                                                <span class="status-badge ${status.class}">${status.text}</span>
-                                            </div>
-                                            <div style="text-align: right;">
-                                                <div class="round-amount">${formatMoney(round.min_share)}</div>
-                                                <div style="font-size: 0.85rem; color: var(--gray-600);">Minimal ulush</div>
-                                            </div>
-                                        </div>
-                                    `;
-            }).join('');
+            if (!rounds || rounds.length === 0) {
+                container.innerHTML = '<p class="text-muted text-center py-4">Raundlar mavjud emas</p>';
+                return;
+            }
+
+            if (!roundsEditMode) {
+                // Ko'rish rejimi
+                container.innerHTML = rounds.map(round => {
+                    const status = statusMap[round.status];
+                    return `
+                        <div class="round-item">
+                            <div class="round-info">
+                                <h6>${round.name}</h6>
+                                <span class="status-badge ${status.class}">${status.text}</span>
+                            </div>
+                            <div style="text-align: right;">
+                                <div class="round-amount">${formatMoney(round.min_share)}</div>
+                                <div style="font-size: 0.85rem; color: var(--gray-600);">Minimal ulush</div>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            } else {
+                // Tahrirlash rejimi
+                container.innerHTML = rounds.map((round, index) => {
+                    const status = statusMap[round.status];
+                    return `
+                        <div class="round-item" style="flex-direction: column; align-items: stretch; gap: 1rem;">
+                            <div class="row g-2 align-items-center">
+                                <div class="col-12 col-md-4">
+                                    <label class="form-label small mb-1">Raund nomi</label>
+                                    <input type="text" class="form-control form-control-sm" value="${round.name}"
+                                        onchange="updateRoundField(${round.id}, 'name', this.value)"
+                                        id="roundName_${round.id}">
+                                </div>
+                                <div class="col-6 col-md-3">
+                                    <label class="form-label small mb-1">Holati</label>
+                                    <select class="form-select form-select-sm"
+                                        onchange="updateRoundField(${round.id}, 'status', this.value)"
+                                        id="roundStatus_${round.id}">
+                                        <option value="inactive" ${round.status === 'inactive' ? 'selected' : ''}>Nofaol</option>
+                                        <option value="in_progress" ${round.status === 'in_progress' ? 'selected' : ''}>Jarayonda</option>
+                                        <option value="completed" ${round.status === 'completed' ? 'selected' : ''}>Yakunlangan</option>
+                                    </select>
+                                </div>
+                                <div class="col-6 col-md-3">
+                                    <label class="form-label small mb-1">Minimal ulush (so'm)</label>
+                                    <input type="number" min="0" step="1000" class="form-control form-control-sm" 
+                                        value="${round.min_share}"
+                                        onchange="updateRoundField(${round.id}, 'min_share', Number(this.value) || 0)"
+                                        id="roundMinShare_${round.id}">
+                                </div>
+                                <div class="col-12 col-md-2 d-flex align-items-end">
+                                    <button type="button" class="btn btn-danger btn-sm w-100" 
+                                        onclick="deleteRound(${round.id})">
+                                        <i class="bi bi-trash"></i> O'chirish
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }
         }
+
+        function toggleRoundsEdit() {
+            roundsEditMode = !roundsEditMode;
+            const btn = document.getElementById('toggleRoundsEditBtn');
+            const addBtn = document.getElementById('addRoundBtn');
+            
+            btn.innerHTML = roundsEditMode
+                ? '<i class="bi bi-check-lg me-1"></i> Tahrirlashni yakunlash'
+                : '<i class="bi bi-pencil-square me-1"></i> Raundlarni tahrirlash';
+            
+            addBtn.style.display = roundsEditMode ? 'inline-flex' : 'none';
+
+            if (projectData && projectData.rounds) {
+                displayRounds(projectData.rounds);
+            }
+        }
+
+        function addNewRound() {
+            if (!projectData || !projectData.rounds) return;
+
+            const newRound = {
+                id: nextRoundId++,
+                name: `Yangi raund ${nextRoundId - 3}`,
+                status: 'inactive',
+                min_share: 0
+            };
+
+            projectData.rounds.push(newRound);
+            displayRounds(projectData.rounds);
+        }
+
+        function updateRoundField(roundId, field, value) {
+            if (!projectData || !projectData.rounds) return;
+            
+            const round = projectData.rounds.find(r => r.id === roundId);
+            if (!round) return;
+
+            round[field] = value;
+            
+            // Agar edit rejimida bo'lsa, ko'rinishni yangilaymiz
+            if (roundsEditMode) {
+                displayRounds(projectData.rounds);
+            }
+        }
+
+        function deleteRound(roundId) {
+            if (!projectData || !projectData.rounds) return;
+            
+            if (confirm('Bu raundni o\'chirishni xohlaysizmi?')) {
+                projectData.rounds = projectData.rounds.filter(r => r.id !== roundId);
+                displayRounds(projectData.rounds);
+            }
+        }
+
+        let currentDividendPage = 1;
+        const itemsPerPage = 5;
 
         function displayFinancial(p) {
             document.getElementById('totalValue').textContent = formatMoney(p.total_value);
@@ -1619,100 +2356,282 @@
             document.getElementById('distributionStart').textContent = p.distribution_start;
             document.getElementById('lastDividend').textContent = p.last_dividend + '%';
 
+            displayDividendHistory(p.dividend_history);
+        }
+
+        function displayDividendHistory(dividendHistory) {
+            if (!dividendHistory || dividendHistory.length === 0) {
+                document.getElementById('dividendHistory').innerHTML = `
+                    <div class="text-center py-4 text-muted">
+                        <i class="bi bi-inbox" style="font-size: 2rem; display: block; margin-bottom: 0.5rem;"></i>
+                        <p>Dividendlar tarixi mavjud emas</p>
+                    </div>
+                `;
+                document.getElementById('dividendPagination').innerHTML = '';
+                return;
+            }
+
+            const totalPages = Math.ceil(dividendHistory.length / itemsPerPage);
+            const startIndex = (currentDividendPage - 1) * itemsPerPage;
+            const endIndex = startIndex + itemsPerPage;
+            const paginatedItems = dividendHistory.slice(startIndex, endIndex);
+
             const historyContainer = document.getElementById('dividendHistory');
-            historyContainer.innerHTML = p.dividend_history.map(item => `
-                                    <div class="dividend-item">
-                                        <div>
-                                            <div class="dividend-date">${item.date}</div>
-                                            <div class="dividend-status">${item.status}</div>
-                                        </div>
-                                        <div class="dividend-amount">${item.amount}%</div>
-                                    </div>
-                                `).join('');
+            historyContainer.innerHTML = `
+                <table class="dividend-table">
+                    <thead>
+                        <tr>
+                            <th>
+                                <i class="bi bi-calendar3 me-1"></i>
+                                Sana
+                            </th>
+                            <th>
+                                <i class="bi bi-percent me-1"></i>
+                                Dividend foizi
+                            </th>
+                            <th>
+                                <i class="bi bi-check-circle me-1"></i>
+                                Holati
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${paginatedItems.map(item => {
+                            const statusClass = item.status === 'To\'langan' ? 'status-badge-paid' : 'status-badge-pending';
+                            const statusIcon = item.status === 'To\'langan' ? 'bi-check-circle-fill' : 'bi-clock';
+                            return `
+                                <tr>
+                                    <td>
+                                        <i class="bi bi-calendar-event me-1 text-muted"></i>
+                                        <strong>${item.date}</strong>
+                                    </td>
+                                    <td>
+                                        <span style="font-size: 1.1rem; font-weight: 600; color: var(--success-color);">
+                                            ${item.amount}%
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span class="${statusClass}">
+                                            <i class="bi ${statusIcon}"></i>
+                                            ${item.status}
+                                        </span>
+                                    </td>
+                                </tr>
+                            `;
+                        }).join('')}
+                    </tbody>
+                </table>
+            `;
+
+            // Pagination
+            if (totalPages > 1) {
+                displayDividendPagination(totalPages);
+            } else {
+                document.getElementById('dividendPagination').innerHTML = '';
+            }
+        }
+
+        function displayDividendPagination(totalPages) {
+            const paginationContainer = document.getElementById('dividendPagination');
+            let paginationHTML = '<div class="pagination-container">';
+
+            // Previous button
+            paginationHTML += `
+                <button class="pagination-btn ${currentDividendPage === 1 ? 'disabled' : ''}" 
+                    onclick="changeDividendPage(${currentDividendPage - 1})" 
+                    ${currentDividendPage === 1 ? 'disabled' : ''}>
+                    <i class="bi bi-chevron-left"></i>
+                    Oldingi
+                </button>
+            `;
+
+            // Page numbers
+            for (let i = 1; i <= totalPages; i++) {
+                if (i === 1 || i === totalPages || (i >= currentDividendPage - 1 && i <= currentDividendPage + 1)) {
+                    paginationHTML += `
+                        <button class="pagination-btn ${i === currentDividendPage ? 'active' : ''}" 
+                            onclick="changeDividendPage(${i})">
+                            ${i}
+                        </button>
+                    `;
+                } else if (i === currentDividendPage - 2 || i === currentDividendPage + 2) {
+                    paginationHTML += `<span class="pagination-btn disabled">...</span>`;
+                }
+            }
+
+            // Next button
+            paginationHTML += `
+                <button class="pagination-btn ${currentDividendPage === totalPages ? 'disabled' : ''}" 
+                    onclick="changeDividendPage(${currentDividendPage + 1})" 
+                    ${currentDividendPage === totalPages ? 'disabled' : ''}>
+                    Keyingi
+                    <i class="bi bi-chevron-right"></i>
+                </button>
+            `;
+
+            paginationHTML += '</div>';
+            paginationContainer.innerHTML = paginationHTML;
+        }
+
+        function changeDividendPage(page) {
+            if (page < 1 || !projectData || !projectData.dividend_history) return;
+            const totalPages = Math.ceil(projectData.dividend_history.length / itemsPerPage);
+            if (page > totalPages) return;
+            
+            currentDividendPage = page;
+            displayDividendHistory(projectData.dividend_history);
+            
+            // Scroll to top of table
+            const historyContainer = document.getElementById('dividendHistory');
+            historyContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
         function displayPartners(partners) {
             const container = document.getElementById('partnersContainer');
             container.innerHTML = partners.map(partner => `
                                     <div class="partner-card" style="margin-bottom: 1.5rem;">
-                                        <div class="partner-header">${partner.company_name}</div>
+                                        <div class="partner-header">
+                                            <i class="bi bi-building me-2"></i>
+                                            ${partner.company_name}
+                                        </div>
                                         <div class="info-grid">
                                             <div class="info-row">
-                                                <span class="info-label">To'liq sherikning identifikatori (ID)</span>
+                                                <span class="info-label">
+                                                    <i class="bi bi-hash me-1 text-muted"></i>
+                                                    To'liq sherikning identifikatori (ID)
+                                                </span>
                                                 <span class="info-value">${partner.id}</span>
                                             </div>
                                             <div class="info-row">
-                                                <span class="info-label">Korxona to'liq nomi</span>
+                                                <span class="info-label">
+                                                    <i class="bi bi-building me-1 text-muted"></i>
+                                                    Korxona to'liq nomi
+                                                </span>
                                                 <span class="info-value">${partner.company_name}</span>
                                             </div>
                                             <div class="info-row">
-                                                <span class="info-label">INN</span>
+                                                <span class="info-label">
+                                                    <i class="bi bi-card-text me-1 text-muted"></i>
+                                                    INN
+                                                </span>
                                                 <span class="info-value">${partner.inn}</span>
                                             </div>
                                             <div class="info-row">
-                                                <span class="info-label">IFUT kodi</span>
+                                                <span class="info-label">
+                                                    <i class="bi bi-upc-scan me-1 text-muted"></i>
+                                                    IFUT kodi
+                                                </span>
                                                 <span class="info-value">${partner.ifut}</span>
                                             </div>
                                             <div class="info-row">
-                                                <span class="info-label">Faoliyat turi</span>
+                                                <span class="info-label">
+                                                    <i class="bi bi-briefcase me-1 text-muted"></i>
+                                                    Faoliyat turi
+                                                </span>
                                                 <span class="info-value">${partner.type}</span>
                                             </div>
                                             <div class="info-row">
-                                                <span class="info-label">Manzil</span>
+                                                <span class="info-label">
+                                                    <i class="bi bi-geo-alt me-1 text-muted"></i>
+                                                    Manzil
+                                                </span>
                                                 <span class="info-value">${partner.address}</span>
                                             </div>
                                             <div class="info-row">
-                                                <span class="info-label">Direktor F.I.O.</span>
+                                                <span class="info-label">
+                                                    <i class="bi bi-person-badge me-1 text-muted"></i>
+                                                    Direktor F.I.O.
+                                                </span>
                                                 <span class="info-value">${partner.director}</span>
                                             </div>
                                             <div class="info-row">
-                                                <span class="info-label">Bog'lanish uchun telefon raqami</span>
+                                                <span class="info-label">
+                                                    <i class="bi bi-telephone me-1 text-muted"></i>
+                                                    Bog'lanish uchun telefon raqami
+                                                </span>
                                                 <span class="info-value">${partner.phone}</span>
                                             </div>
                                             <div class="info-row">
-                                                <span class="info-label">Email</span>
+                                                <span class="info-label">
+                                                    <i class="bi bi-envelope me-1 text-muted"></i>
+                                                    Email
+                                                </span>
                                                 <span class="info-value">${partner.email}</span>
                                             </div>
                                             <div class="info-row">
-                                                <span class="info-label">Ro'yxatdan o'tkazilgan sana</span>
+                                                <span class="info-label">
+                                                    <i class="bi bi-calendar-check me-1 text-muted"></i>
+                                                    Ro'yxatdan o'tkazilgan sana
+                                                </span>
                                                 <span class="info-value">${partner.registration_date}</span>
                                             </div>
                                             <div class="info-row">
-                                                <span class="info-label">Ro'yxatdan o'tkazish raqami</span>
+                                                <span class="info-label">
+                                                    <i class="bi bi-file-earmark-text me-1 text-muted"></i>
+                                                    Ro'yxatdan o'tkazish raqami
+                                                </span>
                                                 <span class="info-value">${partner.registration_number}</span>
                                             </div>
                                             <div class="info-row">
-                                                <span class="info-label">Ro'yxatdan o'tkazuvchi davlat tashkiloti nomi</span>
+                                                <span class="info-label">
+                                                    <i class="bi bi-building-check me-1 text-muted"></i>
+                                                    Ro'yxatdan o'tkazuvchi davlat tashkiloti nomi
+                                                </span>
                                                 <span class="info-value">${partner.registration_org}</span>
                                             </div>
                                             ${partner.type === 'YaTT' ? `
                                             <div class="info-row">
-                                                <span class="info-label">Pasport ma'lumoti</span>
+                                                <span class="info-label">
+                                                    <i class="bi bi-person-vcard me-1 text-muted"></i>
+                                                    Pasport ma'lumoti
+                                                </span>
                                                 <span class="info-value">${partner.passport_data}</span>
                                             </div>
                                             <div class="info-row">
-                                                <span class="info-label">JSHSHIR</span>
+                                                <span class="info-label">
+                                                    <i class="bi bi-fingerprint me-1 text-muted"></i>
+                                                    JSHSHIR
+                                                </span>
                                                 <span class="info-value">${partner.pinfl}</span>
                                             </div>
                                             ` : ''}
                                             <div class="info-row">
-                                                <span class="info-label">Akkount holati</span>
-                                                <span class="info-value">${partner.account_status === 'active' ? 'Faol' : 'Bloklangan'}</span>
+                                                <span class="info-label">
+                                                    <i class="bi bi-toggle-on me-1 text-muted"></i>
+                                                    Akkount holati
+                                                </span>
+                                                <span class="info-value">
+                                                    ${partner.account_status === 'active' 
+                                                        ? '<span class="status-badge status-active"><i class="bi bi-check-circle me-1"></i>Faol</span>' 
+                                                        : '<span class="status-badge status-inactive"><i class="bi bi-x-circle me-1"></i>Bloklangan</span>'}
+                                                </span>
                                             </div>
                                             <div class="info-row">
-                                                <span class="info-label">To'liq sheriklik holati sanasi</span>
+                                                <span class="info-label">
+                                                    <i class="bi bi-handshake me-1 text-muted"></i>
+                                                    To'liq sheriklik holati sanasi
+                                                </span>
                                                 <span class="info-value">${partner.partnership_date}</span>
                                             </div>
                                             <div class="info-row">
-                                                <span class="info-label">Investorlik sertifikati fayli</span>
+                                                <span class="info-label">
+                                                    <i class="bi bi-file-earmark-pdf me-1 text-muted"></i>
+                                                    Investorlik sertifikati fayli
+                                                </span>
                                                 <span class="info-value">${partner.investor_certificate}</span>
                                             </div>
                                             <div class="info-row">
-                                                <span class="info-label">Loyihadagi jami ulushi (summada)</span>
+                                                <span class="info-label">
+                                                    <i class="bi bi-cash-stack me-1 text-muted"></i>
+                                                    Loyihadagi jami ulushi (summada)
+                                                </span>
                                                 <span class="info-value">${formatMoney(partner.share_amount)}</span>
                                             </div>
                                             <div class="info-row">
-                                                <span class="info-label">Loyihadagi jami ulushi (foizda)</span>
+                                                <span class="info-label">
+                                                    <i class="bi bi-percent me-1 text-muted"></i>
+                                                    Loyihadagi jami ulushi (foizda)
+                                                </span>
                                                 <span class="info-value">${partner.share_percent}%</span>
                                             </div>
                                         </div>
@@ -1720,10 +2639,75 @@
                                 `).join('');
         }
 
+        let risksEditMode = false;
+        let nextRiskId = 5; // Yangi risklar uchun ID
+
         function displayRisks(risks) {
-            document.getElementById('managementModel').textContent = risks.management_model;
-            document.getElementById('managementDesc').textContent = risks.management_desc;
-            document.getElementById('managementInfo').textContent = risks.management_info;
+            const infoContent = document.getElementById('risksInfoContent');
+            
+            if (!risksEditMode) {
+                // Ko'rish rejimi
+                infoContent.innerHTML = `
+                    <div class="info-row">
+                        <span class="info-label">
+                            <i class="bi bi-diagram-3 me-1 text-muted"></i>
+                            Loyihaning boshqarilish modeli nomi
+                        </span>
+                        <span class="info-value" id="managementModel">${risks.management_model || '-'}</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">
+                            <i class="bi bi-file-text me-1 text-muted"></i>
+                            Loyihaning boshqarilish modeli to'liq tavsifi
+                        </span>
+                        <span class="info-value" id="managementDescription">${risks.management_description || risks.management_info || '-'}</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">
+                            <i class="bi bi-shield-exclamation me-1 text-muted"></i>
+                            Loyihaning xatar darajasi
+                        </span>
+                        <span class="info-value">
+                            <span class="status-badge" id="riskLevel">-</span>
+                        </span>
+                    </div>
+                `;
+            } else {
+                // Tahrirlash rejimi
+                infoContent.innerHTML = `
+                    <div class="info-row">
+                        <span class="info-label">
+                            <i class="bi bi-diagram-3 me-1 text-muted"></i>
+                            Loyihaning boshqarilish modeli nomi
+                        </span>
+                        <input type="text" class="form-control" value="${risks.management_model || ''}"
+                            onchange="updateRiskField('management_model', this.value)"
+                            id="editManagementModel">
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">
+                            <i class="bi bi-file-text me-1 text-muted"></i>
+                            Loyihaning boshqarilish modeli to'liq tavsifi
+                        </span>
+                        <textarea class="form-control" rows="4" 
+                            onchange="updateRiskField('management_description', this.value)"
+                            id="editManagementDescription">${risks.management_description || risks.management_info || ''}</textarea>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">
+                            <i class="bi bi-shield-exclamation me-1 text-muted"></i>
+                            Loyihaning xatar darajasi
+                        </span>
+                        <select class="form-select" style="max-width: 200px;"
+                            onchange="updateRiskField('risk_level', this.value)"
+                            id="editRiskLevel">
+                            <option value="low" ${risks.risk_level === 'low' ? 'selected' : ''}>Past</option>
+                            <option value="medium" ${risks.risk_level === 'medium' ? 'selected' : ''}>O'rta</option>
+                            <option value="high" ${risks.risk_level === 'high' ? 'selected' : ''}>Yuqori</option>
+                        </select>
+                    </div>
+                `;
+            }
 
             const riskMap = {
                 'low': { text: 'Past', class: 'status-active' },
@@ -1733,36 +2717,287 @@
 
             const risk = riskMap[risks.risk_level];
             const riskEl = document.getElementById('riskLevel');
-            riskEl.textContent = risk.text;
-            riskEl.className = `status-badge ${risk.class}`;
+            if (riskEl) {
+                riskEl.textContent = risk.text;
+                riskEl.className = `status-badge ${risk.class}`;
+            }
 
+            // Risk items
             const container = document.getElementById('risksContainer');
-            container.innerHTML = risks.risk_items.map(item => `
-                                    <div class="risk-item">
-                                        <div class="risk-title">${item.name}</div>
-                                        <p class="risk-description">${item.description}</p>
-                                    </div>
-                                `).join('');
+            if (!risks.risk_items || risks.risk_items.length === 0) {
+                container.innerHTML = '<p class="text-muted text-center py-4">Xatarlar mavjud emas</p>';
+                return;
+            }
+
+            if (!risksEditMode) {
+                // Ko'rish rejimi
+                container.innerHTML = risks.risk_items.map(item => `
+                    <div class="risk-item">
+                        <div class="risk-title">
+                            <i class="bi bi-exclamation-triangle"></i>
+                            ${item.name}
+                        </div>
+                        <p class="risk-description">${item.description}</p>
+                    </div>
+                `).join('');
+            } else {
+                // Tahrirlash rejimi
+                container.innerHTML = risks.risk_items.map((item, index) => `
+                    <div class="risk-item" style="border: 1px solid var(--gray-200); padding: 1.5rem;">
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <label class="form-label small mb-1">
+                                    <i class="bi bi-exclamation-triangle me-1 text-warning"></i>
+                                    Xatar nomi
+                                </label>
+                                <input type="text" class="form-control form-control-sm" value="${item.name}"
+                                    onchange="updateRiskItemField(${item.id || index}, 'name', this.value)"
+                                    id="riskName_${item.id || index}">
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label small mb-1">
+                                    <i class="bi bi-file-text me-1 text-muted"></i>
+                                    Xatar tavsifi
+                                </label>
+                                <textarea class="form-control form-control-sm" rows="3"
+                                    onchange="updateRiskItemField(${item.id || index}, 'description', this.value)"
+                                    id="riskDesc_${item.id || index}">${item.description}</textarea>
+                            </div>
+                            <div class="col-12">
+                                <button type="button" class="btn btn-danger btn-sm" 
+                                    onclick="deleteRisk(${item.id || index})">
+                                    <i class="bi bi-trash me-1"></i>
+                                    O'chirish
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            }
         }
+
+        function toggleRisksEdit() {
+            risksEditMode = !risksEditMode;
+            const btn = document.getElementById('toggleRisksEditBtn');
+            const addBtn = document.getElementById('addRiskBtn');
+            
+            btn.innerHTML = risksEditMode
+                ? '<i class="bi bi-check-lg me-1"></i> Tahrirlashni yakunlash'
+                : '<i class="bi bi-pencil-square me-1"></i> Ma\'lumotlarni tahrirlash';
+            
+            addBtn.style.display = risksEditMode ? 'inline-flex' : 'none';
+
+            if (projectData && projectData.risks) {
+                displayRisks(projectData.risks);
+            }
+        }
+
+        function updateRiskField(field, value) {
+            if (!projectData || !projectData.risks) return;
+            
+            projectData.risks[field] = value;
+            
+            // Agar risk_level o'zgarsa, ko'rinishni yangilaymiz
+            if (field === 'risk_level') {
+                const riskMap = {
+                    'low': { text: 'Past', class: 'status-active' },
+                    'medium': { text: "O'rta", class: 'status-planned' },
+                    'high': { text: 'Yuqori', class: 'status-inactive' }
+                };
+                const risk = riskMap[value];
+                const riskEl = document.getElementById('riskLevel');
+                if (riskEl) {
+                    riskEl.textContent = risk.text;
+                    riskEl.className = `status-badge ${risk.class}`;
+                }
+            }
+        }
+
+        function updateRiskItemField(riskId, field, value) {
+            if (!projectData || !projectData.risks || !projectData.risks.risk_items) return;
+            
+            const riskItem = projectData.risks.risk_items.find(r => r.id === riskId) || 
+                           projectData.risks.risk_items[riskId];
+            if (!riskItem) return;
+
+            riskItem[field] = value;
+        }
+
+        function addNewRisk() {
+            if (!projectData || !projectData.risks || !projectData.risks.risk_items) return;
+
+            const newRisk = {
+                id: nextRiskId++,
+                name: 'Yangi xatar',
+                description: 'Xatar tavsifini kiriting...'
+            };
+
+            projectData.risks.risk_items.push(newRisk);
+            displayRisks(projectData.risks);
+        }
+
+        function deleteRisk(riskId) {
+            if (!projectData || !projectData.risks || !projectData.risks.risk_items) return;
+            
+            if (confirm('Bu xatarni o\'chirishni xohlaysizmi?')) {
+                projectData.risks.risk_items = projectData.risks.risk_items.filter(r => r.id !== riskId);
+                displayRisks(projectData.risks);
+            }
+        }
+
+        let documentsEditMode = false;
+        let nextDocumentId = 6; // Yangi hujjatlar uchun ID
 
         function displayDocuments(documents) {
             const container = document.getElementById('documentsContainer');
-            container.innerHTML = documents.map(doc => `
-                                    <div class="document-item">
-                                        <div class="document-info">
-                                            <div class="document-icon">
-                                                <i class="bi bi-file-earmark-pdf"></i>
-                                            </div>
-                                            <div>
-                                                <div style="font-weight: 600; color: var(--gray-900);">${doc.name}</div>
-                                                <div style="font-size: 0.85rem; color: var(--gray-600);">${doc.file}</div>
-                                            </div>
-                                        </div>
-                                        <button class="btn-action btn-outline" onclick="downloadDocument('${doc.file}')">
-                                            <i class="bi bi-download"></i> Yuklash
-                                        </button>
-                                    </div>
-                                `).join('');
+            
+            if (!documents || documents.length === 0) {
+                container.innerHTML = '<p class="text-muted text-center py-4">Hujjatlar mavjud emas</p>';
+                return;
+            }
+
+            if (!documentsEditMode) {
+                // Ko'rish rejimi
+                container.innerHTML = documents.map(doc => `
+                    <div class="document-item">
+                        <div class="document-info">
+                            <div class="document-icon">
+                                <i class="bi bi-file-earmark-pdf"></i>
+                            </div>
+                            <div>
+                                <div style="font-weight: 600; color: var(--gray-900);">${doc.name}</div>
+                                <div style="font-size: 0.85rem; color: var(--gray-600);">
+                                    <i class="bi bi-file-earmark me-1"></i>
+                                    ${doc.file}
+                                </div>
+                            </div>
+                        </div>
+                        <button class="btn-action btn-outline" onclick="downloadDocument('${doc.file}')">
+                            <i class="bi bi-download"></i> Yuklash
+                        </button>
+                    </div>
+                `).join('');
+            } else {
+                // Tahrirlash rejimi
+                container.innerHTML = documents.map((doc, index) => `
+                    <div class="document-item" style="flex-direction: column; align-items: stretch; gap: 1rem; padding: 1.5rem;">
+                        <div class="row g-3 align-items-end">
+                            <div class="col-12 col-md-5">
+                                <label class="form-label small mb-1">
+                                    <i class="bi bi-file-text me-1 text-muted"></i>
+                                    Hujjat nomi
+                                </label>
+                                <input type="text" class="form-control form-control-sm" value="${doc.name}"
+                                    onchange="updateDocumentField(${doc.id || index}, 'name', this.value)"
+                                    id="docName_${doc.id || index}">
+                            </div>
+                            <div class="col-12 col-md-4">
+                                <label class="form-label small mb-1">
+                                    <i class="bi bi-file-earmark me-1 text-muted"></i>
+                                    Hozirgi fayl
+                                </label>
+                                <div class="form-control form-control-sm" style="background: var(--gray-50); padding: 0.5rem;">
+                                    <i class="bi bi-file-earmark-pdf me-1"></i>
+                                    <span style="font-size: 0.875rem;">${doc.file}</span>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-3">
+                                <label class="form-label small mb-1">
+                                    <i class="bi bi-upload me-1 text-muted"></i>
+                                    Yangi fayl yuklash
+                                </label>
+                                <input type="file" class="form-control form-control-sm" 
+                                    accept=".pdf,.doc,.docx,.xls,.xlsx,.jpg,.jpeg,.png"
+                                    onchange="handleFileUpload(${doc.id || index}, this)"
+                                    id="docFile_${doc.id || index}">
+                            </div>
+                        </div>
+                        <div class="d-flex gap-2 justify-content-end">
+                            <button class="btn-action btn-outline" onclick="downloadDocument('${doc.file}')">
+                                <i class="bi bi-download"></i> Yuklash
+                            </button>
+                            <button type="button" class="btn btn-danger btn-sm" 
+                                onclick="deleteDocument(${doc.id || index})">
+                                <i class="bi bi-trash me-1"></i>
+                                O'chirish
+                            </button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        function toggleDocumentsEdit() {
+            documentsEditMode = !documentsEditMode;
+            const btn = document.getElementById('toggleDocumentsEditBtn');
+            const addBtn = document.getElementById('addDocumentBtn');
+            
+            btn.innerHTML = documentsEditMode
+                ? '<i class="bi bi-check-lg me-1"></i> Tahrirlashni yakunlash'
+                : '<i class="bi bi-pencil-square me-1"></i> Hujjatlarni tahrirlash';
+            
+            addBtn.style.display = documentsEditMode ? 'inline-flex' : 'none';
+
+            if (projectData && projectData.documents) {
+                displayDocuments(projectData.documents);
+            }
+        }
+
+        function updateDocumentField(docId, field, value) {
+            if (!projectData || !projectData.documents) return;
+            
+            const doc = projectData.documents.find(d => d.id === docId) || 
+                       projectData.documents[docId];
+            if (!doc) return;
+
+            doc[field] = value;
+        }
+
+        function handleFileUpload(docId, input) {
+            if (!input.files || input.files.length === 0) return;
+            
+            const file = input.files[0];
+            const fileName = file.name;
+            
+            if (!projectData || !projectData.documents) return;
+            
+            const doc = projectData.documents.find(d => d.id === docId) || 
+                       projectData.documents[docId];
+            if (!doc) return;
+
+            // Fayl nomini yangilaymiz
+            doc.file = fileName;
+            
+            // Bu yerda haqiqiy fayl yuklash API chaqiruvini qo'shish mumkin
+            // Masalan: uploadFileToServer(file, docId)
+            
+            // Ko'rinishni yangilaymiz
+            displayDocuments(projectData.documents);
+            
+            // Input ni tozalaymiz (yangi fayl yuklash uchun)
+            input.value = '';
+        }
+
+        function addNewDocument() {
+            if (!projectData || !projectData.documents) return;
+
+            const newDoc = {
+                id: nextDocumentId++,
+                name: 'Yangi hujjat',
+                file: 'fayl_yuklanmagan.pdf'
+            };
+
+            projectData.documents.push(newDoc);
+            displayDocuments(projectData.documents);
+        }
+
+        function deleteDocument(docId) {
+            if (!projectData || !projectData.documents) return;
+            
+            if (confirm('Bu hujjatni o\'chirishni xohlaysizmi?')) {
+                projectData.documents = projectData.documents.filter(d => d.id !== docId);
+                displayDocuments(projectData.documents);
+            }
         }
 
         function switchTab(tabName) {
