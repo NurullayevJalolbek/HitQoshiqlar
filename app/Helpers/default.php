@@ -1667,3 +1667,38 @@ function getIntegrationSettings($id = null)
     return $integrations;
 }
 
+
+
+function getSEOSettings($page = null)
+{
+    $seoSettings = collect([
+        'general' => [
+            'title' => 'Envast - Investitsiya Platformasi',
+            'keywords' => 'Envast, investitsiya, ko\'chmas mulk, Islom moliyasi, ulushli moliyalashtirish',
+            'description' => 'Envast - ko\'chmas mulkka halol va ulushli investitsiyalarni amalga oshirish uchun yaratilgan raqamli platforma. Investorlar investitsiya jarayonini onlayn nazorat qilish imkoniyatiga ega.',
+            'type' => 'general'
+        ],
+        'home' => [
+            'title' => 'Envast | Investitsiya Platformasi',
+            'description' => 'Asosiy sahifada investitsiya loyihalari, moliyalashtirish va foyda kuzatuv tizimi mavjud.',
+            'type' => 'page'
+        ],
+        'projects' => [
+            'title' => 'Envast Loyiha Katalogi | Ko\'chmas Mulk Investitsiyalari',
+            'description' => 'Ko\'chmas mulk loyihalari katalogi. Investorlar uchun ulushli moliyalashtirish va daromad kuzatuvi.',
+            'type' => 'page'
+        ],
+        'og' => [
+            'title' => 'Envast - Investitsiya Platformasi',
+            'description' => 'Ko\'chmas mulk investitsiyalari va ulushli moliyalashtirish imkoniyatlari.',
+            'image' => 'https://envast.uz/images/og-image.jpg',
+            'type' => 'social'
+        ]
+    ]);
+
+    if ($page !== null && isset($seoSettings[$page])) {
+        return (object) $seoSettings[$page];
+    }
+
+    return $seoSettings;
+}
