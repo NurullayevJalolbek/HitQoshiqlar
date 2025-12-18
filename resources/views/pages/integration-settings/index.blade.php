@@ -33,44 +33,8 @@
 
 @section('content')
     @php
-        $integrations = [
-            [
-                'name'  => 'SMS Xizmati (PlayMobile)',
-                'status' => true,
-            ],
-            [
-                'name'  => 'Payme To‘lov Tizimi',
-                'status' => false,
-            ],
-            [
-                'name'  => 'Click To‘lov Tizimi',
-                'status' => true,
-            ],
-            [
-                'name'  => 'Visa Online Payments',
-                'status' => false,
-            ],
-            [
-                'name'  => 'Mastercard Online Payments',
-                'status' => false,
-            ],
-            [
-                'name'  => 'Email SMTP (Gmail)',
-                'status' => true,
-            ],
-            [
-                'name'  => 'Firebase Push Notification',
-                'status' => false,
-            ],
-            [
-                'name'  => 'Google Maps API',
-                'status' => true,
-            ],
-            [
-                'name'  => 'Google Analytics',
-                'status' => true,
-            ],
-        ];
+       $datas = getIntegrationSettings();
+
     @endphp
 
     <div class="card card-body py-3 px-3 shadow border-0 table-wrapper table-responsive mt-3">
@@ -80,20 +44,20 @@
         <table class="table user-table table-bordered table-hover table-striped align-items-center">
             <thead class="table-dark">
             <tr>
-                <th style="width: 60px;">№</th>
+                <th class="text-center" style="width: 5%;">№</th>
                 <th class="text-center">Nomi</th>
-                <th>Holati</th>
+                <th class="text-center">Holati</th>
                 <th class="text-center" style="width: 150px;">Amallar</th>
             </tr>
             </thead>
             <tbody>
-            @foreach($integrations as $key => $item)
+            @foreach($datas as $key => $item)
                 <tr>
-                    <td>{{ $key + 1 }}</td>
+                    <td class="text-center">{{ $key + 1 }}</td>
 
                     <td class="text-center">{{ $item['name'] }}</td>
 
-                    <td>
+                    <td class="text-center">
                         @if($item['status'])
                             <span class="status-active">Faol</span>
                         @else
@@ -102,7 +66,7 @@
                     </td>
 
                     <td class="text-center">
-                        <a href="#" class="btn btn-sm p-1" style="background:none;color:#f0bc74;"><i
+                        <a href="{{ route('admin.integration-settings.edit', $item['id']) }}" class="btn btn-sm p-1" style="background:none;color:#f0bc74;"><i
                                 class="bi bi-pencil-fill"></i></a>
 
                     </td>
