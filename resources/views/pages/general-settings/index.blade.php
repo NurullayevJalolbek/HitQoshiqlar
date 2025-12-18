@@ -74,14 +74,14 @@
 <div class="row mt-3">
 
     {{-- 1. Sayt haqida umumiy ma’lumotlar --}}
-    <div class="col-12 col-md-6 col-lg-4 mb-4">
+    <!-- <div class="col-12 col-md-6 col-lg-4 mb-4">
         <a href="#" class="card directory-card">
             <div class="card-body">
                 <i class="fas fa-info-circle directory-icon"></i>
                 <h5 class="directory-title">Sayt haqida umumiy ma’lumotlar</h5>
             </div>
         </a>
-    </div>
+    </div> -->
 
     {{-- 2. SEO sozlamalari --}}
     <div class="col-12 col-md-6 col-lg-4 mb-4">
@@ -94,18 +94,18 @@
     </div>
 
     {{-- 3. Xabar yuborish sozlamalari --}}
-    <div class="col-12 col-md-6 col-lg-4 mb-4">
+    <!-- <div class="col-12 col-md-6 col-lg-4 mb-4">
         <a href="#" class="card directory-card">
             <div class="card-body">
                 <i class="fas fa-envelope-open-text directory-icon"></i>
                 <h5 class="directory-title">Xabar yuborish sozlamalari</h5>
             </div>
         </a>
-    </div>
+    </div> -->
 
     {{-- 4. Sana, vaqt va til sozlamalari --}}
     <div class="col-12 col-md-6 col-lg-4 mb-4">
-        <a href="#" class="card directory-card">
+        <a href="{{ route('admin.localization.index') }}" class="card directory-card">
             <div class="card-body">
                 <i class="fas fa-clock directory-icon"></i>
                 <h5 class="directory-title">Sana, vaqt va til sozlamalari</h5>

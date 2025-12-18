@@ -30,6 +30,7 @@ use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\ExpenseController;
 use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Admin\IncomeController;
+use App\Http\Controllers\Admin\LocalizationController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
@@ -132,6 +133,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'l
 
 
     Route::resource('/seo-settings', SEOController::class);
+
+    Route::resource('/localization', LocalizationController::class);
+
     /*
      *
      * Mamuriyat bo'limi
