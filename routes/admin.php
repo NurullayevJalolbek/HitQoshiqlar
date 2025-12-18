@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\IslamicFinanceController;
 use App\Http\Controllers\Admin\AdministrationController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\CompanyDetailController;
+use App\Http\Controllers\Admin\SEOController;
 use App\Http\Controllers\Admin\StaticPageController;
 use App\Http\Controllers\Admin\SystemTranslationController;
 use App\Http\Controllers\Admin\TemplateMessageController;
@@ -129,6 +130,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'l
         Route::resource('/static-pages', StaticPageController::class);
     });
 
+
+    Route::resource('/seo-settings', SEOController::class);
     /*
      *
      * Mamuriyat bo'limi
