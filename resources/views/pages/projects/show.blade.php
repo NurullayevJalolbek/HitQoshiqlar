@@ -1038,7 +1038,7 @@
             <ul class="nav nav-tabs" id="projectTabs" role="tablist">
                 <li class="nav-item" role="presentation">
                     <button class="nav-link active" onclick="switchTab('characteristics')" type="button">
-                        Karakteristik ma'lumotlar
+                        Xarakteristik ma'lumotlar
                     </button>
                 </li>
                 <li class="nav-item" role="presentation">
