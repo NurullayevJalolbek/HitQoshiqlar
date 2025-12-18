@@ -11,4 +11,12 @@ class IntegrationSettingController extends Controller
     {
         return view('pages.integration-settings.index');
     }
+
+    public function edit($id)
+    {
+        $data = getIntegrationSettings($id);
+
+
+        return view('pages.integration-settings.edit', compact('data'));
+    }
 }
