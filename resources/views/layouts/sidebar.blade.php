@@ -149,6 +149,8 @@
                             'admin.general-settings.*',
                             'admin.integration-settings.*',
                             'admin.user-interface.*',
+                            'admin.seo-settings.*',
+                            'admin.localization.*'
                         ], 'show');
                     @endphp
 
@@ -175,7 +177,7 @@
                                     <span class="sidebar-text">{{ __('admin.documents') }}</span>
                                 </a>
                             </li>
-                            <li class="nav-item {{ isActiveRoute('admin.general-settings.*') }}">
+                            <li class="nav-item {{ isActiveRoute(['admin.general-settings.*', 'admin.seo-settings.*', 'admin.localization.*']) }}">
                                 <a class="nav-link" href="{{ route('admin.general-settings.index') }}">
                                     <span class="sidebar-text">{{ __('admin.general_settings') }}</span>
                                 </a>
