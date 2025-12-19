@@ -422,10 +422,7 @@
                     <div class="meta-value">
                         {{ $model['general']['title'] }}
                     </div>
-                    <div class="meta-hint">
-                        <i class="fas fa-ruler"></i>
-                        Ideal uzunlik: 50-60 belgi
-                    </div>
+                  
                 </div>
 
                 <div class="meta-field">
@@ -436,10 +433,7 @@
                     <div class="meta-value">
                         {{ $model['general']['keywords'] }}
                     </div>
-                    <div class="meta-hint">
-                        <i class="fas fa-tags"></i>
-                        Kalit so'zlarni vergul bilan ajrating
-                    </div>
+                  
                 </div>
             </div>
 
@@ -451,9 +445,7 @@
                 <div class="meta-value">
                     {{ $model['general']['description'] }}
                 </div>
-                <div class="meta-hint">
-                    <i class="fas fa-ruler"></i>
-                    Ideal uzunlik: 150-160 belgi
+                
                 </div>
             </div>
         </div>
@@ -641,7 +633,7 @@
                     </div>
                 </div>
 
-               
+
 
                 <div class="meta-field">
                     <div class="meta-label">
@@ -653,15 +645,15 @@
                     </div>
                 </div>
             </div>
-             <div class="meta-field">
-                    <div class="meta-label">
-                        <i class="fas fa-paragraph"></i>
-                        Meta Description
-                    </div>
-                    <div class="meta-value">
-                        {{ $model['media']['description'] }}
-                    </div>
+            <div class="meta-field">
+                <div class="meta-label">
+                    <i class="fas fa-paragraph"></i>
+                    Meta Description
                 </div>
+                <div class="meta-value">
+                    {{ $model['media']['description'] }}
+                </div>
+            </div>
         </div>
 
         <!-- Aloqa Sahifasi SEO -->
@@ -682,7 +674,7 @@
                     </div>
                 </div>
 
-               
+
 
                 <div class="meta-field">
                     <div class="meta-label">
@@ -694,15 +686,15 @@
                     </div>
                 </div>
             </div>
-             <div class="meta-field">
-                    <div class="meta-label">
-                        <i class="fas fa-paragraph"></i>
-                        Meta Description
-                    </div>
-                    <div class="meta-value">
-                        {{ $model['contact']['description'] }}
-                    </div>
+            <div class="meta-field">
+                <div class="meta-label">
+                    <i class="fas fa-paragraph"></i>
+                    Meta Description
                 </div>
+                <div class="meta-value">
+                    {{ $model['contact']['description'] }}
+                </div>
+            </div>
         </div>
 
         <!-- Open Graph Sozlamalari -->
@@ -723,7 +715,7 @@
                     </div>
                 </div>
 
-                
+
 
                 <div class="meta-field">
                     <div class="meta-label">
@@ -736,18 +728,24 @@
                 </div>
             </div>
             <div class="meta-field">
-                    <div class="meta-label">
-                        <i class="fas fa-align-left"></i>
-                        OG Description
-                    </div>
-                    <div class="meta-value">
-                        {{ $model['og']['description'] }}
-                    </div>
+                <div class="meta-label">
+                    <i class="fas fa-align-left"></i>
+                    OG Description
                 </div>
+                <div class="meta-value">
+                    {{ $model['og']['description'] }}
+                </div>
+            </div>
         </div>
 
+        @php
+            $seo = getSEOSettings('general'); // yoki kerakli sahifa: 'home', 'projects' va h.k.
+        @endphp
+
+
         <!-- Google Preview -->
-        <div class="preview-box">
+        <div class="preview-box"
+            style="border: 1px solid #E5E7EB; border-radius: 12px; padding: 16px; background-color: #ffffff;">
             <div class="preview-header">
                 <div class="preview-icon">
                     <img src="{{ asset('assets/img/icons/chrome.svg') }}" alt="Chrome Icon">
@@ -758,17 +756,57 @@
             </div>
 
             <div class="search-result">
-                <div class="search-title">{{ $model['general']['title'] }}</div>
-                <div class="search-url">
-                    <i class="fas fa-globe" style="font-size: 12px;"></i>
+                <div class="search-title" style="color:#1a0dab; font-size:16px; font-weight:500;">
+                    {{ $seo->title }}
+                </div>
+                <div class="search-url" style="color:#006621; font-size:12px; margin:4px 0;">
+                    <img src="{{ asset('assets/img/envast_logo.svg') }}" alt="Favicon"
+                        style="width:12px; height:12px; margin-right:4px; vertical-align:middle;">
+
                     https://envast.uz › investitsiya
                 </div>
-                <div class="search-description">
-                    Envast platformasi orqali ko'chmas mulk investitsiyalari, ulushli moliyalashtirish va daromad kuzatuvi
-                    imkoniyati.
+                <div class="search-description" style="color:#545454; font-size:13px; line-height:1.5;">
+                    {{ $seo->description }}
                 </div>
             </div>
         </div>
+
+
+
+        <div
+            style="border: 1px solid #FACC15; border-radius: 12px; padding: 20px; background-color: #FEF3C7; margin-top: 16px; box-shadow: 0 2px 6px rgba(0,0,0,0.05);">
+
+            <!-- Card Title -->
+            <div style="font-weight: 700; font-size: 18px; color: #92400E; margin-bottom: 12px;">SEO bo‘yicha maslahatlar
+            </div>
+
+            <!-- Intro Text -->
+            <div style="color: #92400E; font-size: 14px; line-height: 1.7; margin-bottom: 16px;">
+                Ushbu tavsiyalar yordamida sahifangizning SEO meta ma'lumotlarini to‘g‘ri sozlash va qidiruv tizimlarida
+                yuqori o‘rinlarga chiqish imkoniyatini oshirishingiz mumkin.
+                Meta sarlavhalar, kalit so‘zlar va tavsiflar sahifa reytingiga bevosita ta’sir qiladi.
+            </div>
+
+            <!-- Tips List -->
+            <ul style="color: #78350F; font-size: 14px; line-height: 1.8; padding-left: 20px; margin: 0;">
+                <li>Sayt sarlavhasi (Title) <strong>50-60 belgidan oshmasligi</strong> kerak.</li>
+                <li>Kalit so‘zlar (Keywords) ni <strong>vergul bilan ajrating</strong> va ortiqcha so‘zlardan saqlaning.
+                </li>
+                <li>Tavsif (Description) <strong>150-160 belgi</strong> oralig‘ida bo‘lsin.</li>
+                <li>Har bir sahifa uchun meta ma’lumotlar <strong>noyob</strong> bo‘lishi kerak.</li>
+                <li>Sahifa URL manzili qisqa, tushunarli va kalit so‘zni o‘z ichiga olishi kerak.</li>
+                <li>Rasm alt attributlarini (alt text) to‘g‘ri to‘ldiring, qidiruv tizimi uchun optimallashtirilgan bo‘lsin.
+                </li>
+            </ul>
+
+            <!-- Optional Note -->
+            <div style="margin-top: 16px; color: #92400E; font-size: 13px; line-height: 1.6;">
+                <strong>Izoh:</strong> Yuqoridagi maslahatlar SEO asosiy qoidalariga asoslangan bo‘lib, sahifangizni qidiruv
+                tizimlariga moslashtirishda yordam beradi.
+            </div>
+        </div>
+
+
     </div>
 @endsection
 
