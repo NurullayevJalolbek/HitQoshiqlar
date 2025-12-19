@@ -100,7 +100,7 @@ $datas = getLanguagesData();
 
                 <td class="text-center  justify-content-center gap-1">
                     <x-edit-button href="{{ route('admin.user-interface.language-management.edit', $data['id']) }}" />
-                    <x-delete-button />
+                    <x-delete-button class="disabled"/>
                 </td>
             </tr>
             @endforeach
