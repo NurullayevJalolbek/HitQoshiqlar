@@ -302,7 +302,7 @@
 
         <div class="envast-wave-wrapper envast-wave-left">
             <div class="envast-wave"
-                 style="width: 920px !important; height: 400px !important; position:absolute; top: 230px !important;">
+                 style="width: 920px !important; height: 400px !important; position:absolute; top: 262px !important;">
                 {!! file_get_contents(public_path('assets/img/newanimation.svg')) !!}
             </div>
         </div>
@@ -311,7 +311,7 @@
         <!-- O‘ng tomondagi tolqin -->
         <div class="envast-wave-wrapper envast-wave-right">
             <div class="envast-wave"
-                 style="width: 2000px !important; height: 400px; position:absolute; top: -15px !important; left: 10px;">
+                 style="width: 2000px !important; height: 400px; position:absolute; top: 30px !important; left: 10px;">
                 {!! file_get_contents(public_path('assets/img/newanimation.svg')) !!}
             </div>
         </div>

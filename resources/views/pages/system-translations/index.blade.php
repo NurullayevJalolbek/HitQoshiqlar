@@ -64,7 +64,7 @@
 
 @include('pages.system-translations._filter')
 @php
-$pagination = manualPaginate($baseKeys, 10);
+$pagination = manualPaginate($baseKeys, 20);
 
 $systemTranslations = $pagination['items'];
 

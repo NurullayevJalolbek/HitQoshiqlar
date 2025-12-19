@@ -249,7 +249,7 @@ $categories = [
                                         style="background:none; color: #f0bc74;">
                                         <i class="fa-jelly-duo fa-solid fa-pencil"></i>
                                     </button>
-                                    <x-delete-button />
+                                    <x-delete-button class="disabled" />
                                 </div>
                             </td>
                         </tr>
@@ -289,7 +289,7 @@ $categories = [
                                         style="background:none; color: #f0bc74;">
                                         <i class="fa-jelly-duo fa-solid fa-pencil"></i>
                                     </button>
-                                    <x-delete-button />
+                                    <x-delete-button class="disabled" />
 
                                 </div>
                             </td>
@@ -330,7 +330,7 @@ $categories = [
                                         style="background:none; color: #f0bc74;">
                                         <i class="fa-jelly-duo fa-solid fa-pencil"></i>
                                     </button>
-                                    <x-delete-button />
+                                    <x-delete-button class="disabled" />
 
                                 </div>
                             </td>

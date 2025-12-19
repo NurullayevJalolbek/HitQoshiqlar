@@ -1668,29 +1668,54 @@ function getIntegrationSettings($id = null)
 }
 
 
-
 function getSEOSettings($page = null)
 {
     $seoSettings = collect([
         'general' => [
             'title' => 'Envast - Investitsiya Platformasi',
-            'keywords' => 'Envast, investitsiya, ko\'chmas mulk, Islom moliyasi, ulushli moliyalashtirish',
+            'keywords' => 'Envast, investitsiya, ko\'chmas mulk, Islom moliyasi, ulushli moliyalashtirish, halol investitsiya, raqamli platforma, onlayn investitsiya, Shariat moliyasi',
             'description' => 'Envast - ko\'chmas mulkka halol va ulushli investitsiyalarni amalga oshirish uchun yaratilgan raqamli platforma. Investorlar investitsiya jarayonini onlayn nazorat qilish imkoniyatiga ega.',
             'type' => 'general'
         ],
         'home' => [
             'title' => 'Envast | Investitsiya Platformasi',
-            'description' => 'Asosiy sahifada investitsiya loyihalari, moliyalashtirish va foyda kuzatuv tizimi mavjud.',
+            'keywords' => 'asosiy sahifa, investitsiya platformasi, investor paneli, onlayn investitsiya, ko\'chmas mulk, foyda kuzatuv tizimi',
+            'description' => 'Asosiy sahifada investitsiya loyihalari, moliyalashtirish va foyda kuzatuv tizimi mavjud. Envast - ko\'chmas mulk investitsiyalari uchun yetakchi raqamli platforma.',
+            'type' => 'page'
+        ],
+        'about' => [
+            'title' => 'Envast Haqida | Bizning Maqsad va Qadriyatlar',
+            'keywords' => 'Envast haqida, kompaniya tarixi, missiyasi, vision, jamoamiz, investorlar uchun platforma, Islom moliyasi prinsiplari',
+            'description' => 'Envast - ko\'chmas mulkka halol va ulushli investitsiyalarni amalga oshirish uchun yaratilgan raqamli platforma. Bizning maqsadimiz - investorlar uchun ishonchli va Shariatga muvofiq investitsiya imkoniyatlarini yaratish.',
             'type' => 'page'
         ],
         'projects' => [
             'title' => 'Envast Loyiha Katalogi | Ko\'chmas Mulk Investitsiyalari',
-            'description' => 'Ko\'chmas mulk loyihalari katalogi. Investorlar uchun ulushli moliyalashtirish va daromad kuzatuvi.',
+            'keywords' => 'investitsion loyihalar, ko\'chmas mulk loyihalari, investitsiya ob\'yektlari, ulushli moliyalashtirish, aktivlarni tanlash, daromadli loyihalar, loyiha katalogi',
+            'description' => 'Investitsion loyihalar katalogi. Investorlar uchun turli ko\'chmas mulk loyihalari, ulushli moliyalashtirish va daromad kuzatuvi. Turli xil investitsiya ob\'yektlari va ularning rentabelligi.',
+            'type' => 'page'
+        ],
+        'shariah' => [
+            'title' => 'Shariatga Muvofiqligi | Halol Investitsiya - Envast',
+            'keywords' => 'Shariatga muvofiqligi, halol investitsiya, Islom moliyasi, Shariat qoidalari, mudoraba, musharaka, g\'arar va maisir, halol daromad',
+            'description' => 'Envast platformasidagi barcha investitsiyalar Shariat qoidalariga qat\'iy rioya qilinadi. Mudoraba, Musharaka kabi halol moliyaviy modellar orqali investitsiya qilish imkoniyati.',
+            'type' => 'page'
+        ],
+        'media' => [
+            'title' => 'Media | Yangiliklar va Fotogalereya - Envast',
+            'keywords' => 'media, yangiliklar, fotogalereya, videolar, tadbirlar, investor uchrashuvlari, loyiha yangiliklari, press-relizlar',
+            'description' => 'Envast media markazi - platformamizdagi yangi loyihalar, investor uchrashuvlari, fotogalereya va videolar. Bizning faoliyatimiz haqida eng so\'nggi yangiliklar.',
+            'type' => 'page'
+        ],
+        'contact' => [
+            'title' => 'Bog\'lanish | Envast Investorlar Uchun Qo\'llab-quvvatlash',
+            'keywords' => 'bog\'lanish, aloqa, mijozlar uchun qo\'llab-quvvatlash, texnik yordam, investor munosabatlari, ofis manzili, telefon raqamlari, elektron pochta',
+            'description' => 'Envast bilan bog\'lanish uchun aloqa ma\'lumotlari. Investorlar uchun qo\'llab-quvvatlash xizmati, texnik yordam va maslahat olish imkoniyati. Biz bilan aloqaga chiqing.',
             'type' => 'page'
         ],
         'og' => [
             'title' => 'Envast - Investitsiya Platformasi',
-            'description' => 'Ko\'chmas mulk investitsiyalari va ulushli moliyalashtirish imkoniyatlari.',
+            'description' => 'Ko\'chmas mulk investitsiyalari va ulushli moliyalashtirish imkoniyatlari. Halol va Shariatga muvofiq investitsiya platformasi.',
             'image' => 'https://envast.uz/images/og-image.jpg',
             'type' => 'social'
         ]
