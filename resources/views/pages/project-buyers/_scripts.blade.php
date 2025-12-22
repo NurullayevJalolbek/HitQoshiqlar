@@ -156,20 +156,21 @@
         return `<span class="badge badge-custom ${badgeClass}">${type}</span>`;
     }
 
-    // Sana formati
     function formatDate(dateString) {
-        if (!dateString) return '<span class="text-muted">-</span>';
-        try {
-            const date = new Date(dateString);
-            return date.toLocaleDateString('uz-UZ', {
-                year: 'numeric',
-                month: '2-digit',
-                day: '2-digit'
-            });
-        } catch (e) {
-            return dateString;
-        }
-    }
+    if (!dateString) return '<span class="text-muted">-</span>';
+
+    const d = new Date(dateString);
+    if (isNaN(d)) return '<span class="text-muted">-</span>';
+
+    const day = String(d.getDate()).padStart(2, '0');
+    const month = String(d.getMonth() + 1).padStart(2, '0');
+    const year = String(d.getFullYear()).slice(-2);
+
+    return `${day}.${month}.${year}`;
+}
+
+
+
 
     // Shartnoma fayli
     function getContractFileDisplay(filename) {
@@ -211,19 +212,42 @@
         list.forEach(item => {
             const editUrl = `${EDIT_ROUTE_BASE}/${item.id}/edit`;
 
+            const phoneCompact = item.phone ? escapeHtml(item.phone) : '';
+            const pinflCompact = item.pinfl ? escapeHtml(item.pinfl) : '';
+
             html += `
                 <tr>
                     <td class="text-center">${item.id}</td>
+
+                    <!-- Korxona: nom + INN (ko‘rinadigan) -->
                     <td>
                         <div class="value-primary">${escapeHtml(item.company_name)}</div>
                         <div class="value-secondary"><i class="fas fa-hashtag me-1"></i>${escapeHtml(item.inn)}</div>
                     </td>
-                    <td>${escapeHtml(item.inn)}</td>
+
+                    <!-- INN: kodda bor, ko‘rinmaydi (CSS .col-inn) -->
+                    <td class="col-inn">${escapeHtml(item.inn)}</td>
+
                     <td class="text-center">${getActivityBadge(item.activity_type)}</td>
-                    <td>${escapeHtml(item.director_name)}</td>
-                    <td>${escapeHtml(item.phone)}</td>
-                    <td class="text-center">${item.passport ? escapeHtml(item.passport) : '<span class="text-muted">-</span>'}</td>
-                    <td class="text-center">${item.pinfl ? escapeHtml(item.pinfl) : '<span class="text-muted">-</span>'}</td>
+
+                    <!-- Direktor: ism + telefon (ko‘rinadigan) -->
+                    <td>
+                        <div class="value-primary">${escapeHtml(item.director_name)}</div>
+                        ${phoneCompact ? `<div class="value-secondary"><i class="fas fa-phone me-1"></i>${phoneCompact}</div>` : `<div class="value-secondary"><span class="text-muted">-</span></div>`}
+                    </td>
+
+                    <!-- Telefon: kodda bor, ko‘rinmaydi (CSS .col-phone) -->
+                    <td class="col-phone">${escapeHtml(item.phone)}</td>
+
+                    <!-- Pasport: pasport + JSHSHIR (ko‘rinadigan) -->
+                    <td class="text-center">
+                        <div class="value-primary">${item.passport ? escapeHtml(item.passport) : '<span class="text-muted">-</span>'}</div>
+                        ${pinflCompact ? `<div class="value-secondary"><i class="fas fa-id-card me-1"></i>${pinflCompact}</div>` : `<div class="value-secondary"><span class="text-muted">-</span></div>`}
+                    </td>
+
+                    <!-- JSHSHIR: kodda bor, ko‘rinmaydi (CSS .col-pinfl) -->
+                    <td class="col-pinfl text-center">${item.pinfl ? escapeHtml(item.pinfl) : '<span class="text-muted">-</span>'}</td>
+
                     <td class="text-center">${getContractFileDisplay(item.contract_file)}</td>
                     <td>${escapeHtml(item.contract_number)}</td>
                     <td class="text-center">${formatDate(item.contract_date)}</td>

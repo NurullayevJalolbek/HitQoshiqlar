@@ -1,12 +1,26 @@
 <tr>
     <th style="width: 60px;">{{ __('ID') }}</th>
+
+    {{-- Korxona nomi (ichida INN ham ko‘rinadi) --}}
     <th style="min-width: 200px;">{{ __('Корхона тўлиқ номи') }}</th>
-    <th style="width: 110px;">{{ __('ИНН') }}</th>
+
+    {{-- INN ustuni kodda bor, lekin ko‘rinmaydi (CSS orqali) --}}
+    <th class="col-inn" style="width: 110px;">{{ __('ИНН') }}</th>
+
     <th style="width: 100px;">{{ __('Фаолият тури') }}</th>
+
+    {{-- Direktor ustunida telefon ham ko‘rinadi --}}
     <th style="min-width: 170px;">{{ __('Директор Ф.И.О.') }}</th>
-    <th style="width: 130px;">{{ __('Телефон рақами') }}</th>
+
+    {{-- Telefon ustuni kodda bor, lekin ko‘rinmaydi (CSS orqali) --}}
+    <th class="col-phone" style="width: 130px;">{{ __('Телефон рақами') }}</th>
+
+    {{-- Pasport ustunida JSHSHIR ham ko‘rinadi --}}
     <th style="width: 150px;">{{ __('Паспорт (ЯТТ)') }}</th>
-    <th style="width: 150px;">{{ __('ЖШШИР (ЯТТ)') }}</th>
+
+    {{-- JSHSHIR ustuni kodda bor, lekin ko‘rinmaydi (CSS orqali) --}}
+    <th class="col-pinfl" style="width: 150px;">{{ __('ЖШШИР (ЯТТ)') }}</th>
+
     <th style="width: 150px;">{{ __('Шартнома файли') }}</th>
     <th style="width: 140px;">{{ __('Шартнома рақами') }}</th>
     <th style="width: 130px;">{{ __('Шартнома санаси') }}</th>

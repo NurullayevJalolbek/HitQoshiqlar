@@ -224,6 +224,13 @@
         return new Intl.NumberFormat('uz-UZ').format(num) + ' so\'m';
     }
 
+    function formatPercent(p) {
+        if (p === null || p === undefined || p === '') return '-';
+        const n = Number(p);
+        if (Number.isNaN(n)) return '-';
+        return n.toFixed(2) + '%';
+    }
+
     // Activity type badge
     function getActivityTypeBadge(activityType) {
         const badgeClass = activityType === 'MChJ' ? 'badge-activity-mchj' :
@@ -252,27 +259,47 @@
 
     // Sana formatini chiroyli ko'rinishda chiqarish
     function formatDate(dateString) {
-        if (!dateString) return '<span class="text-muted">-</span>';
-        try {
-            const date = new Date(dateString);
-            return date.toLocaleDateString('uz-UZ', {
-                year: 'numeric',
-                month: '2-digit',
-                day: '2-digit'
-            });
-        } catch (e) {
-            return dateString;
-        }
+    if (!dateString) return '<span class="text-muted">-</span>';
+
+    const d = new Date(dateString);
+    if (isNaN(d)) return '<span class="text-muted">-</span>';
+
+    const day = String(d.getDate()).padStart(2, '0');
+    const month = String(d.getMonth() + 1).padStart(2, '0');
+    const year = String(d.getFullYear()).slice(-2);
+
+    return `${day}.${month}.${year}`;
+}
+
+
+    // HTML escape funksiyasi
+    function escapeHtml(text) {
+        if (text === null || text === undefined) return '';
+        const map = {
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#039;'
+        };
+        return String(text).replace(/[&<>"']/g, m => map[m]);
     }
 
-    // Jadval renderi - projects sahifasiga o'xshash
+    function safeText(v, fallback = '-') {
+        if (v === null || v === undefined) return fallback;
+        const s = String(v).trim();
+        if (!s) return fallback;
+        return escapeHtml(s);
+    }
+
+    // Jadval renderi - qisqartirilgan ustunlar bilan
     function renderInvestors(list = investors) {
         if (!investorTableBody) return;
 
         if (list.length === 0) {
             investorTableBody.innerHTML = `
                 <tr>
-                    <td colspan="20">
+                    <td colspan="21">
                         <div class="empty-state">
                             <i class="fas fa-folder-open"></i>
                             <div class="mt-2">
@@ -288,43 +315,66 @@
 
         let html = '';
         list.forEach(item => {
-            const editUrl = `${EDIT_ROUTE_BASE}/${item.id}/edit`;
-
             html += `
                 <tr>
                     <td class="text-center">${item.id}</td>
+
+                    <!-- Korxona: nom + INN (INN ustuni yashiriladi) -->
                     <td>
-                        <div class="company-name">${escapeHtml(item.company_name)}</div>
+                        <div class="company-name">${safeText(item.company_name)}</div>
                         <div class="company-info">
-                            <i class="fas fa-building me-1"></i>${escapeHtml(item.inn)}
+                            <span class="text-muted">INN:</span> ${safeText(item.inn)}
                         </div>
                     </td>
-                    <td>${escapeHtml(item.inn)}</td>
-                    <td class="text-center">${escapeHtml(item.ifut)}</td>
+                    <td class="col-inn">${safeText(item.inn)}</td>
+
+                    <td class="text-center">${safeText(item.ifut)}</td>
                     <td class="text-center">${getActivityTypeBadge(item.activity_type)}</td>
+
                     <td>
-                        <div class="value-primary">${escapeHtml(item.address)}</div>
+                        <div class="value-primary">${safeText(item.address)}</div>
                     </td>
+
                     <td>
-                        <div class="value-primary">${escapeHtml(item.director_fio)}</div>
+                        <div class="value-primary">${safeText(item.director_fio)}</div>
                     </td>
-                    <td>${escapeHtml(item.login)}</td>
-                    <td>${escapeHtml(item.phone)}</td>
-                    <td>${escapeHtml(item.email)}</td>
-                    <td class="text-center">${formatDate(item.registered_at)}</td>
-                    <td>${escapeHtml(item.registration_number || '-')}</td>
-                    <td>${escapeHtml(item.registration_org || '-')}</td>
-                    <td class="text-center">${item.passport ? escapeHtml(item.passport) : '<span class="text-muted">-</span>'}</td>
-                    <td class="text-center">${item.jshshir ? escapeHtml(item.jshshir) : '<span class="text-muted">-</span>'}</td>
+
+                    <!-- Login: login + telefon + email (telefon/email ustunlari yashiriladi) -->
+                    <td>
+                        <div class="value-primary">${safeText(item.login)}</div>
+                        <div class="value-secondary"><span class="text-muted">Tel:</span> ${safeText(item.phone)}</div>
+                        <div class="value-secondary"><span class="text-muted">Email:</span> ${safeText(item.email)}</div>
+                    </td>
+                    <td class="col-phone">${safeText(item.phone)}</td>
+                    <td class="col-email">${safeText(item.email)}</td>
+
+                    <!-- Ro'yxatdan o'tgan sana: sana + reg# + org (2 ustun yashiriladi) -->
+                    <td class="text-center">
+                        <div class="value-primary">${formatDate(item.registered_at)}</div>
+                        <div class="value-secondary"><span class="text-muted">Reg#:</span> ${safeText(item.registration_number, '-')}</div>
+                        <div class="value-secondary"><span class="text-muted">Org:</span> ${safeText(item.registration_org, '-')}</div>
+                    </td>
+                    <td class="col-regno">${safeText(item.registration_number, '-')}</td>
+                    <td class="col-regorg">${safeText(item.registration_org, '-')}</td>
+
+                    <!-- Pasport: pasport + JSHSHIR (JSHSHIR ustuni yashiriladi) -->
+                    <td class="text-center">
+                        <div class="value-primary">${item.passport ? safeText(item.passport) : '<span class="text-muted">-</span>'}</div>
+                        <div class="value-secondary"><span class="text-muted">JSHSHIR:</span> ${safeText(item.jshshir, '-')}</div>
+                    </td>
+                    <td class="col-jshshir text-center">${safeText(item.jshshir, '-')}</td>
+
                     <td class="text-center">${getStatusBadge(item.status)}</td>
                     <td class="text-center">${formatDate(item.investor_status_date)}</td>
                     <td class="text-center">${getCertificateDisplay(item.certificate_file)}</td>
+
+                    <!-- Ulush: summa + % (ulush % ustuni yashiriladi) -->
                     <td class="text-end">
                         <div class="value-primary">${formatCurrencyShort(item.share_amount)}</div>
+                        <div class="value-secondary">${formatPercent(item.share_percent)}</div>
                     </td>
-                    <td class="text-center">
-                        <div class="value-primary">${item.share_percent.toFixed(2)}%</div>
-                    </td>
+                    <td class="col-sharepct text-center">${formatPercent(item.share_percent)}</td>
+
                     <td>
                         <div class="action-buttons">
                             <x-edit-button />
@@ -336,19 +386,6 @@
         });
 
         investorTableBody.innerHTML = html;
-    }
-
-    // HTML escape funksiyasi
-    function escapeHtml(text) {
-        if (!text) return '';
-        const map = {
-            '&': '&amp;',
-            '<': '&lt;',
-            '>': '&gt;',
-            '"': '&quot;',
-            "'": '&#039;'
-        };
-        return String(text).replace(/[&<>"']/g, m => map[m]);
     }
 
     // Investorni o'chirish
@@ -373,7 +410,6 @@
         const status = statusFilter?.value || '';
 
         const filtered = defaultInvestors.filter(i => {
-            // Qidiruv bo'yicha
             const matchesSearch = !search ||
                 (i.company_name && i.company_name.toLowerCase().includes(search)) ||
                 (i.director_fio && i.director_fio.toLowerCase().includes(search)) ||
@@ -383,10 +419,8 @@
                 (i.inn && i.inn.includes(search)) ||
                 (i.ifut && i.ifut.includes(search));
 
-            // Faoliyat turi bo'yicha
             const matchesActivityType = !activityType || i.activity_type === activityType;
 
-            // Status bo'yicha
             const matchesStatus = !status ||
                 (status === 'Faol' && i.status === 'active') ||
                 (status === 'Bloklangan' && i.status === 'blocked');
@@ -412,20 +446,16 @@
 
     // Event listeners
     document.addEventListener('DOMContentLoaded', function () {
-        // Dastlabki render
         renderInvestors(investors);
 
-        // Filter tugmasi
         if (filterBtn) {
             filterBtn.addEventListener('click', applyFilter);
         }
 
-        // Clear tugmasi
         if (clearBtn) {
             clearBtn.addEventListener('click', resetFilters);
         }
 
-        // Qidiruv - real-time (debounce bilan)
         if (searchInput) {
             let searchTimeout;
             searchInput.addEventListener('input', function () {
@@ -438,12 +468,10 @@
             });
         }
 
-        // Activity type filter
         if (activityTypeFilter) {
             activityTypeFilter.addEventListener('change', applyFilter);
         }
 
-        // Status filter
         if (statusFilter) {
             statusFilter.addEventListener('change', applyFilter);
         }

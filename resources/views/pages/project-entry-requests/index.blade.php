@@ -124,6 +124,8 @@
             font-size: 0.75rem;
             color: #6b7280;
             margin-top: 0.125rem;
+            line-height: 1.2;
+            word-break: break-word;
         }
 
         .empty-state {
@@ -198,12 +200,32 @@
         .text-file-link:hover {
             color: #764ba2;
         }
+
+        /* ====== QISQARTIRISH: USTUNLARNI VIZUAL YASHIRISH (DATA SAQLANADI) ======
+           Telefon + Login -> Investor ismi katagiga
+           Payment date + Currency + Payment method -> Amount katagiga
+           Registration info -> Registered at katagiga
+        */
+        .entry-table th.col-phone,
+        .entry-table td.col-phone,
+        .entry-table th.col-login,
+        .entry-table td.col-login,
+        .entry-table th.col-paydate,
+        .entry-table td.col-paydate,
+        .entry-table th.col-currency,
+        .entry-table td.col-currency,
+        .entry-table th.col-paymethod,
+        .entry-table td.col-paymethod,
+        .entry-table th.col-reginfo,
+        .entry-table td.col-reginfo {
+            display: none;
+        }
     </style>
 @endpush
 
 @section('breadcrumb')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-3 breadcrumb-block px-3 mt-3 mb-2"
-        style="border: 1px solid rgba(0,0,0,0.05); border-radius: 0.5rem; background-color: #ffffff; height: 60px">
+         style="border: 1px solid rgba(0,0,0,0.05); border-radius: 0.5rem; background-color: #ffffff; height: 60px">
         <div class="d-block mb-2 mb-md-0">
             <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
                 <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent mb-0">
@@ -213,11 +235,10 @@
             </nav>
         </div>
 
-        <!-- Tugmalar guruhi -->
         <div class="d-flex gap-2 align-items-center flex-wrap">
             <button class="btn btn-sm p-2 d-flex align-items-center justify-content-center" type="button"
-                data-bs-toggle="collapse" data-bs-target="#projectEntryRequestFilterContent" aria-expanded="true"
-                aria-controls="projectEntryRequestFilterContent">
+                    data-bs-toggle="collapse" data-bs-target="#projectEntryRequestFilterContent" aria-expanded="true"
+                    aria-controls="projectEntryRequestFilterContent">
                 <i class="bi bi-sliders2" style="font-size: 1.3rem;"></i>
             </button>
         </div>
@@ -239,7 +260,6 @@
         ];
     @endphp
 
-    <!-- Filter -->
     <div class="filter-card mt-3 collapse show" id="projectEntryRequestFilterContent">
         <div class="p-3">
             <div class="row g-3 align-items-end">
@@ -251,17 +271,17 @@
                             <i class="fas fa-search text-muted"></i>
                         </span>
                         <input type="text" id="searchInput" class="form-control border-start-0"
-                            placeholder="{{ __('admin.search_placeholder') }}">
+                               placeholder="{{ __('admin.search_placeholder') }}">
                     </div>
                 </div>
 
                 <x-select-with-search name="filter_status" label="{{ __('admin.application_status') }}" :datas="$statuses"
-                    colMd="2" placeholder="{{ __('admin.all') }}" :selected="request()->get('filter_status', '')"
-                    :selectSearch=false />
+                                     colMd="2" placeholder="{{ __('admin.all') }}" :selected="request()->get('filter_status', '')"
+                                     :selectSearch=false />
 
                 <x-select-with-search name="filter_payment_status" label="{{ __('admin.payment_status') }}"
-                    :datas="$paymentStatuses" colMd="2" placeholder="{{ __('admin.all') }}"
-                    :selected="request()->get('filter_payment_status', '')" :selectSearch=false />
+                                     :datas="$paymentStatuses" colMd="2" placeholder="{{ __('admin.all') }}"
+                                     :selected="request()->get('filter_payment_status', '')" :selectSearch=false />
 
                 <div class="col-md-3 d-flex gap-2">
                     <button id="acceptSelectedBtn" class="btn btn-success btn-sm flex-fill">
@@ -278,41 +298,54 @@
         </div>
     </div>
 
-    <!-- Table -->
     <div class="card card-body py-3 px-3 shadow border-0 table-wrapper table-responsive mt-3">
         <table class="table entry-table table-bordered table-hover table-striped align-items-center mb-0">
             <thead class="table-dark">
-                <tr>
-                    <th><input type="checkbox" id="checkAll" class="form-check-input"></th>
-                    <th>{{ __('admin.txn_id') }}</th>
-                    <th>{{ __('admin.application_status') }}</th>
-                    <th>{{ __('admin.application_comment') }}</th>
-                    <th>{{ __('admin.refund_receipt') }}</th>
-                    <th>{{ __('admin.rejection_act') }}</th>
-                    <th>{{ __('admin.kyc_info') }}</th>
-                    <th>{{ __('admin.digital_signature') }}</th>
-                    <th>{{ __('admin.document_verification') }}</th>
-                    <th>{{ __('admin.contract') }}</th>
-                    <th>{{ __('admin.agreement') }}</th>
-                    <th>{{ __('admin.payment_date') }}</th>
-                    <th>{{ __('admin.amount') }}</th>
-                    <th>{{ __('admin.currency') }}</th>
-                    <th>{{ __('admin.payment_status') }}</th>
-                    <th>{{ __('admin.payment_method') }}</th>
-                    <th>{{ __('admin.investor_name') }}</th>
-                    <th>{{ __('admin.phone') }}</th>
-                    <th>{{ __('admin.login') }}</th>
-                    <th>{{ __('admin.registered_at') }}</th>
-                    <th>{{ __('admin.registration_info') }}</th>
-                </tr>
+            <tr>
+                <th><input type="checkbox" id="checkAll" class="form-check-input"></th>
+                <th>{{ __('admin.txn_id') }}</th>
+                <th>{{ __('admin.application_status') }}</th>
+                <th>{{ __('admin.application_comment') }}</th>
+                <th>{{ __('admin.refund_receipt') }}</th>
+                <th>{{ __('admin.rejection_act') }}</th>
+                <th>{{ __('admin.kyc_info') }}</th>
+                <th>{{ __('admin.digital_signature') }}</th>
+                <th>{{ __('admin.document_verification') }}</th>
+                <th>{{ __('admin.contract') }}</th>
+                <th>{{ __('admin.agreement') }}</th>
+
+                {{-- Payment date: ko‘rinmaydi, Amount ichiga tushadi --}}
+                <th class="col-paydate">{{ __('admin.payment_date') }}</th>
+
+                <th>{{ __('admin.amount') }}</th>
+
+                {{-- Currency: ko‘rinmaydi, Amount ichiga tushadi --}}
+                <th class="col-currency">{{ __('admin.currency') }}</th>
+
+                <th>{{ __('admin.payment_status') }}</th>
+
+                {{-- Payment method: ko‘rinmaydi, Amount ichiga tushadi --}}
+                <th class="col-paymethod">{{ __('admin.payment_method') }}</th>
+
+                <th>{{ __('admin.investor_name') }}</th>
+
+                {{-- Phone + Login: ko‘rinmaydi, Investor ismi ichiga tushadi --}}
+                <th class="col-phone">{{ __('admin.phone') }}</th>
+                <th class="col-login">{{ __('admin.login') }}</th>
+
+                <th>{{ __('admin.registered_at') }}</th>
+
+                {{-- Registration info: ko‘rinmaydi, Registered at ichiga tushadi --}}
+                <th class="col-reginfo">{{ __('admin.registration_info') }}</th>
+            </tr>
             </thead>
 
             <tbody id="entryRequestBody">
-                <tr class="loading-row">
-                    <td colspan="21" class="text-center py-4 text-muted">
-                        <i class="fas fa-spinner fa-spin me-2"></i>{{ __('admin.loading') }}
-                    </td>
-                </tr>
+            <tr class="loading-row">
+                <td colspan="21" class="text-center py-4 text-muted">
+                    <i class="fas fa-spinner fa-spin me-2"></i>{{ __('admin.loading') }}
+                </td>
+            </tr>
             </tbody>
         </table>
 
@@ -436,11 +469,11 @@
                     transaction_id: "TXN-2025-0001",
                     status: "processing",
                     status_comment: "",
-            refund_receipt: "receipt_001.pdf",
-            rejection_act: "-",
-            kyc: "Tasdiqlangan",
-            e_signature: "Mavjud",
-            doc_confirm: "Tasdiqlangan",
+                    refund_receipt: "receipt_001.pdf",
+                    rejection_act: "-",
+                    kyc: "Tasdiqlangan",
+                    e_signature: "Mavjud",
+                    doc_confirm: "Tasdiqlangan",
                     signed_contract: "contract_001.pdf",
                     agreement: "agreement_001.pdf",
                     payment_date: "2025-12-05",
@@ -604,7 +637,7 @@
             return `${formatted} ${currency || ''}`.trim();
         }
 
-        function docLink(file, color = 'primary') {
+        function docLink(file) {
             if (!file || file === '' || file === '-') return '<span class="text-muted">-</span>';
             return `<a href="#" class="text-file-link" title="${file}"><i class="bi bi-file-earmark-pdf"></i> ${file}</a>`;
         }
@@ -628,33 +661,79 @@
             let rows = '';
             list.forEach(i => {
                 const canCheck = i.status === 'processing';
+
+                const paymentDate = i.payment_date ? escapeHtml(i.payment_date) : '-';
+                const currency = i.currency ? escapeHtml(i.currency) : '-';
+                const payMethod = i.payment_method ? escapeHtml(i.payment_method) : '-';
+
+                const phone = i.phone ? escapeHtml(i.phone) : '-';
+                const login = i.login ? escapeHtml(i.login) : '-';
+
+                const regDate = i.reg_date ? escapeHtml(i.reg_date) : '-';
+                const regInfo = i.reg_info ? escapeHtml(i.reg_info) : '-';
+
                 rows += `
-                        <tr>
-                            <td>
-                                ${canCheck ? `<input type="checkbox" class="row-check form-check-input" value="${i.id}">` : ''}
-                            </td>
-                            <td><div class="value-primary">${escapeHtml(i.transaction_id)}</div></td>
-                            <td>${statusBadge(i.status)}</td>
-                            <td>${escapeHtml(i.status_comment)}</td>
-                            <td class="text-center">${docLink(i.refund_receipt, 'success')}</td>
-                            <td class="text-center">${docLink(i.rejection_act, 'danger')}</td>
-                            <td>${escapeHtml(i.kyc)}</td>
-                            <td>${escapeHtml(i.e_signature)}</td>
-                            <td>${escapeHtml(i.doc_confirm)}</td>
-                            <td class="text-center">${docLink(i.signed_contract)}</td>
-                            <td class="text-center">${docLink(i.agreement)}</td>
-                            <td class="text-center">${escapeHtml(i.payment_date)}</td>
-                            <td class="text-end"><div class="value-primary">${formatCurrency(i.amount, i.currency)}</div></td>
-                            <td class="text-center">${escapeHtml(i.currency)}</td>
-                            <td>${payBadge(i.payment_status)}</td>
-                            <td><span class="badge badge-custom badge-pay-pending">${escapeHtml(i.payment_method)}</span></td>
-                            <td><div class="value-primary">${escapeHtml(i.full_name)}</div></td>
-                            <td>${escapeHtml(i.phone)}</td>
-                            <td><code>${escapeHtml(i.login)}</code></td>
-                            <td class="text-center">${escapeHtml(i.reg_date)}</td>
-                            <td>${escapeHtml(i.reg_info)}</td>
-                        </tr>`;
+                    <tr>
+                        <td>
+                            ${canCheck ? `<input type="checkbox" class="row-check form-check-input" value="${i.id}">` : ''}
+                        </td>
+
+                        <td><div class="value-primary">${escapeHtml(i.transaction_id)}</div></td>
+                        <td>${statusBadge(i.status)}</td>
+                        <td>${escapeHtml(i.status_comment)}</td>
+
+                        <td class="text-center">${docLink(i.refund_receipt)}</td>
+                        <td class="text-center">${docLink(i.rejection_act)}</td>
+
+                        <td>${escapeHtml(i.kyc)}</td>
+                        <td>${escapeHtml(i.e_signature)}</td>
+                        <td>${escapeHtml(i.doc_confirm)}</td>
+
+                        <td class="text-center">${docLink(i.signed_contract)}</td>
+                        <td class="text-center">${docLink(i.agreement)}</td>
+
+                        <!-- payment_date: kodda bor, ko‘rinmaydi -->
+                        <td class="col-paydate text-center">${paymentDate}</td>
+
+                        <!-- amount: ichiga payment_date + currency + method jamlanadi -->
+                        <td class="text-end">
+                            <div class="value-primary">${formatCurrency(i.amount, i.currency)}</div>
+                            <div class="value-secondary"><span class="text-muted">Sana:</span> ${paymentDate}</div>
+                            <div class="value-secondary"><span class="text-muted">Valuta:</span> ${currency}</div>
+                            <div class="value-secondary"><span class="text-muted">Usul:</span> ${payMethod}</div>
+                        </td>
+
+                        <!-- currency: kodda bor, ko‘rinmaydi -->
+                        <td class="col-currency text-center">${currency}</td>
+
+                        <td>${payBadge(i.payment_status)}</td>
+
+                        <!-- payment_method: kodda bor, ko‘rinmaydi -->
+                        <td class="col-paymethod"><span class="badge badge-custom badge-pay-pending">${payMethod}</span></td>
+
+                        <!-- investor_name: ichiga phone + login jamlanadi -->
+                        <td>
+                            <div class="value-primary">${escapeHtml(i.full_name)}</div>
+                            <div class="value-secondary"><span class="text-muted">Tel:</span> ${phone}</div>
+                            <div class="value-secondary"><span class="text-muted">Login:</span> <code>${login}</code></div>
+                        </td>
+
+                        <!-- phone/login: kodda bor, ko‘rinmaydi -->
+                        <td class="col-phone">${phone}</td>
+                        <td class="col-login"><code>${login}</code></td>
+
+                        <!-- registered_at: ichiga registration info jamlanadi -->
+                        <td class="text-center">
+                            <div class="value-primary">${regDate}</div>
+                            <div class="value-secondary">${regInfo}</div>
+                        </td>
+
+                        <!-- registration_info: kodda bor, ko‘rinmaydi -->
+                        <td class="col-reginfo">${regInfo}</td>
+                    </tr>
+                `;
             });
+
             tbody.innerHTML = rows;
         }
 
@@ -848,6 +927,5 @@
         window.confirmRejectAction = confirmRejectAction;
         window.applyFilters = applyFilters;
         window.resetFilters = resetFilters;
-
     </script>
 @endpush

@@ -43,6 +43,29 @@
             padding: 0.25rem 0.5rem;
             min-width: 32px;
         }
+
+        /* ====== QISQARTIRISH: Telefon + Login ustunlari ko‘rinmaydi (data saqlanadi) ====== */
+        .exit-table th.col-phone,
+        .exit-table td.col-phone,
+        .exit-table th.col-login,
+        .exit-table td.col-login {
+            display: none;
+        }
+
+        .value-primary {
+            font-weight: 600;
+            color: #111827;
+            font-size: 0.875rem;
+            line-height: 1.2;
+        }
+
+        .value-secondary {
+            font-size: 0.75rem;
+            color: #6b7280;
+            margin-top: 0.15rem;
+            line-height: 1.2;
+            word-break: break-word;
+        }
     </style>
 @endpush
 
@@ -78,11 +101,11 @@
             <div class="row g-3 align-items-end">
                 <!-- Qidiruv -->
                 <div class="col-md-4">
-                    <label for="searchInput">{{__('admin.search')}}</label>
+                    <label for="searchInput">{{ __('admin.search') }}</label>
                     <div class="input-group">
                         <span class="input-group-text bg-white"><i class="fas fa-search text-muted"></i></span>
                         <input type="text" id="searchInput" class="form-control"
-                            placeholder="{{__('admin.full_name')}}, {{__('admin.login')}}, {{__('admin.phone')}}...">
+                            placeholder="{{ __('admin.full_name') }}, {{ __('admin.login') }}, {{ __('admin.phone') }}...">
                     </div>
                 </div>
 
@@ -99,10 +122,10 @@
                 <!-- Filter tugmalari -->
                 <div class="col-md-2 d-flex gap-2">
                     <button id="filterBtn" class="btn btn-primary w-50">
-                        <i class="fas fa-filter"></i> {{__('admin.search')}}
+                        <i class="fas fa-filter"></i> {{ __('admin.search') }}
                     </button>
                     <button id="clearBtn" class="btn btn-warning w-50">
-                        {{__('admin.clear')}}
+                        {{ __('admin.clear') }}
                     </button>
                 </div>
             </div>
@@ -111,7 +134,7 @@
 
     {{-- TABLE CARD --}}
     <div class="card card-body py-3 px-3 shadow border-0 table-wrapper table-responsive mt-3">
-        <table class="table table-bordered table-hover table-striped align-items-center">
+        <table class="table exit-table table-bordered table-hover table-striped align-items-center">
             <thead class="table-dark">
                 <tr>
                     <th style="width: 40px;">№</th>
@@ -119,9 +142,14 @@
                     <th style="width: 150px;">Ariza holati</th>
                     <th>Izoh</th>
                     <th style="width: 140px;">Ko'rib chiqish muddati</th>
-                    <th>Invest F.I.O</th>
-                    <th>Telefon</th>
-                    <th>Login</th>
+
+                    <!-- Investor FIO ichiga telefon + login jamlanadi -->
+                    <th style="min-width: 200px;">Invest F.I.O</th>
+
+                    <!-- Ustunlar o‘chirilmaydi, faqat ko‘rinmaydi -->
+                    <th class="col-phone">Telefon</th>
+                    <th class="col-login">Login</th>
+
                     <th style="width: 200px;">Amallar</th>
                 </tr>
             </thead>
@@ -141,7 +169,7 @@
                 <div class="modal-body">
                     <p>Ushbu arizani qabul qilmoqchimisiz?</p>
                     <p class="text-muted small">Ariza qabul qilingandan so'ng, Inestitsion loyiha doirasida yangi raund
-                        e'lon qilinib, sotув jarayoni boshlanishi kerak.</p>
+                        e'lon qilinib, sotuv jarayoni boshlanishi kerak.</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Bekor qilish</button>
@@ -182,7 +210,6 @@
 
 @push('customJs')
     <script>
-
         // ========================================
         //            IN-MEMORY STORAGE
         // ========================================
@@ -236,6 +263,12 @@
         //              RENDER TABLE
         // ========================================
 
+        function escapeHtml(text) {
+            if (text === null || text === undefined) return '';
+            const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' };
+            return String(text).replace(/[&<>"']/g, m => map[m]);
+        }
+
         function getStatusBadge(status) {
             const statusMap = {
                 'processing': '<span class="status-badge status-processing">Jarayonda</span>',
@@ -251,54 +284,67 @@
 
             if (list.length === 0) {
                 tbody.innerHTML = `
-                                                <tr>
-                                                    <td colspan="9" class="text-center text-muted py-4">
-                                                        <i class="fas fa-inbox fa-3x mb-3 d-block"></i>
-                                                        Ma'lumotlar topilmadi
-                                                    </td>
-                                                </tr>
-                                            `;
+                    <tr>
+                        <td colspan="9" class="text-center text-muted py-4">
+                            <i class="fas fa-inbox fa-3x mb-3 d-block"></i>
+                            Ma'lumotlar topilmadi
+                        </td>
+                    </tr>
+                `;
                 return;
             }
-            list.forEach((item, index) => {
-                const buttons = ['accept', 'delete'];
-                const isProcessing = item.status === 'processing';
-                const actionButtons = isProcessing ? `
-                                                <div class="action-buttons">
-                                                    <a href="#" class="btn btn-sm p-0 " style="background:none; width: 28px; height: 28px; !important"
-                                                        data-bs-toggle="tooltip" data-bs-placement="top" title="{{ __('admin.accept') }}">
-                                                        <i class="fa-solid fa-circle-check"></i>
-                                                    </a>
-                                                    <a href="javascript:void(0);"
-                                                        class="btn btn-sm p-0 "
-                                                        style="background: none; color: #bd2130;"
-                                                        data-bs-toggle="tooltip"
-                                                        data-bs-placement="top"
-                                                        title="Delete"
-                                                        onclick='infoModel(@json(__("admin.warning")), @json(__("admin.role_delete_warning")));'>
-                                                        <svg class="icon icon-xs text-danger status-blocked" title="Delete" data-bs-toggle="tooltip" fill="currentColor"
-                                                            viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                                            <path fill-rule="evenodd"
-                                                                d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
-                                                                clip-rule="evenodd"></path>
-                                                        </svg>
-                                                    </a>
 
-                                                </div>
-                                            ` : `<span class="text-muted small">—</span>`;
+            list.forEach((item, index) => {
+                const isProcessing = item.status === 'processing';
+
+                const actionButtons = isProcessing ? `
+                    <div class="action-buttons">
+                        <a href="javascript:void(0);" class="btn btn-sm p-0"
+                           style="background:none; width: 28px; height: 28px;"
+                           data-bs-toggle="tooltip" data-bs-placement="top" title="{{ __('admin.accept') }}"
+                           onclick="openAcceptModal(${item.id})">
+                            <i class="fa-solid fa-circle-check"></i>
+                        </a>
+
+                        <a href="javascript:void(0);"
+                           class="btn btn-sm p-0"
+                           style="background: none; color: #bd2130;"
+                           data-bs-toggle="tooltip"
+                           data-bs-placement="top"
+                           title="Delete"
+                           onclick='infoModel(@json(__("admin.warning")), @json(__("admin.role_delete_warning")));'>
+                            <svg class="icon icon-xs text-danger status-blocked" title="Delete" data-bs-toggle="tooltip" fill="currentColor"
+                                viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                                    clip-rule="evenodd"></path>
+                            </svg>
+                        </a>
+                    </div>
+                ` : `<span class="text-muted small">—</span>`;
+
                 tbody.innerHTML += `
-                                                <tr>
-                                                    <td>${index + 1}</td>
-                                                    <td><strong>${item.exit_id}</strong></td>
-                                                    <td>${getStatusBadge(item.status)}</td>
-                                                    <td>${item.status_comment || '—'}</td>
-                                                    <td>${item.deadline}</td>
-                                                    <td>${item.full_name}</td>
-                                                    <td>${item.phone}</td>
-                                                    <td>${item.login}</td>
-                                                    <td>${actionButtons}</td>
-                                                </tr>
-                                            `;
+                    <tr>
+                        <td>${index + 1}</td>
+                        <td><strong>${escapeHtml(item.exit_id)}</strong></td>
+                        <td>${getStatusBadge(item.status)}</td>
+                        <td>${item.status_comment ? escapeHtml(item.status_comment) : '—'}</td>
+                        <td>${escapeHtml(item.deadline)}</td>
+
+                        <!-- Investor FIO ichiga Tel + Login jamlandi -->
+                        <td>
+                            <div class="value-primary">${escapeHtml(item.full_name)}</div>
+                            <div class="value-secondary"><span class="text-muted">Tel:</span> ${escapeHtml(item.phone || '—')}</div>
+                            <div class="value-secondary"><span class="text-muted">Login:</span> <code>${escapeHtml(item.login || '—')}</code></div>
+                        </td>
+
+                        <!-- Telefon/Login: data bor, lekin ko‘rinmaydi -->
+                        <td class="col-phone">${escapeHtml(item.phone || '—')}</td>
+                        <td class="col-login"><code>${escapeHtml(item.login || '—')}</code></td>
+
+                        <td>${actionButtons}</td>
+                    </tr>
+                `;
             });
         }
 
@@ -335,11 +381,9 @@
 
             renderExitRequests();
 
-            // Modalni yopish
             const modal = bootstrap.Modal.getInstance(document.getElementById('acceptModal'));
             modal.hide();
 
-            // Success alert
             showAlert('success', 'Ariza muvaffaqiyatli qabul qilindi. Yangi raund ochilishi kerak.');
 
             currentActionId = null;
@@ -368,11 +412,9 @@
 
             renderExitRequests();
 
-            // Modalni yopish
             const modal = bootstrap.Modal.getInstance(document.getElementById('rejectModal'));
             modal.hide();
 
-            // Success alert
             showAlert('danger', 'Ariza rad etildi. Sabab Investorga yuborildi.');
 
             currentActionId = null;
@@ -410,7 +452,6 @@
         document.getElementById('filterBtn').addEventListener('click', applyExitFilters);
         document.getElementById('clearBtn').addEventListener('click', clearFilters);
 
-        // Enter tugmasi bilan qidiruv
         document.getElementById('searchInput').addEventListener('keypress', function (e) {
             if (e.key === 'Enter') {
                 applyExitFilters();
@@ -426,9 +467,9 @@
             alertDiv.className = `alert alert-${type} alert-dismissible fade show position-fixed`;
             alertDiv.style.cssText = 'top: 20px; right: 20px; z-index: 9999; min-width: 300px;';
             alertDiv.innerHTML = `
-                                            ${message}
-                                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                                        `;
+                ${message}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            `;
             document.body.appendChild(alertDiv);
 
             setTimeout(() => {
@@ -438,6 +479,5 @@
 
         // Initial render
         renderExitRequests();
-
     </script>
 @endpush

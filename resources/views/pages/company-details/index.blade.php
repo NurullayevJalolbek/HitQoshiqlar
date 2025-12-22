@@ -40,7 +40,7 @@
             color: #92400e;
         }
 
-        /* Faoliyat turi badge'lari – project-investors sahifasiga o'xshash */
+        /* Faoliyat turi badge'lari */
         .badge-activity-mchj {
             background: rgba(3, 105, 161, 0.15);
             color: #0369a1;
@@ -66,12 +66,23 @@
         .company-info {
             font-size: 0.75rem;
             color: #6b7280;
+            line-height: 1.2;
+            word-break: break-word;
         }
 
         .value-primary {
             font-weight: 600;
             color: #1f2937;
             font-size: 0.875rem;
+            line-height: 1.2;
+        }
+
+        .value-secondary {
+            font-size: 0.75rem;
+            color: #6b7280;
+            margin-top: 0.125rem;
+            line-height: 1.2;
+            word-break: break-word;
         }
 
         .empty-state {
@@ -90,6 +101,25 @@
             display: flex;
             gap: 0.375rem;
             justify-content: center;
+        }
+
+        /* ====== QISQARTIRISH: ustunlar o‘chirilmaydi, faqat ko‘rinmaydi (data saqlanadi) ======
+           - INN -> Korxona nomi katagida pastda chiqadi
+           - Telefon -> Direktor FIO katagida pastda chiqadi
+           - Ro‘yxat raqami + organ -> Ro‘yxatdan o‘tgan sana katagida pastda chiqadi
+           - JSHSHIR -> Pasport katagida pastda chiqadi
+        */
+        .user-table th.col-inn,
+        .user-table td.col-inn,
+        .user-table th.col-phone,
+        .user-table td.col-phone,
+        .user-table th.col-regnum,
+        .user-table td.col-regnum,
+        .user-table th.col-regorg,
+        .user-table td.col-regorg,
+        .user-table th.col-jshshir,
+        .user-table td.col-jshshir {
+            display: none;
         }
     </style>
 @endpush
@@ -114,7 +144,6 @@
         </div>
 
         <div class="d-flex gap-2 align-items-center flex-wrap">
-            {{-- Keyin real route bilan to‘ldirasiz --}}
             <a href="javascript:void(0)" class="btn btn-primary btn-sm px-3 py-2 disabled">
                 <i class="fas fa-plus me-1"></i> {{ __('admin.add') ?? 'Korxona qo‘shish' }}
             </a>
@@ -143,7 +172,7 @@
                     </div>
                 </div>
 
-                {{-- Korxona kategoriyasi (To‘liq sherik, Shu‘ba, Komandit) --}}
+                {{-- Korxona kategoriyasi --}}
                 <x-select-with-search
                     name="companyCategoryFilter"
                     label="{{ __('admin.company_category') ?? 'Korxona kategoriyasi' }}"
@@ -158,7 +187,7 @@
                     :selectSearch="false"
                     icon="fa-layer-group" />
 
-                {{-- Faoliyat turi (MChJ, AJ, YaTT) --}}
+                {{-- Faoliyat turi --}}
                 <x-select-with-search
                     name="activityTypeFilter"
                     label="{{ __('admin.activity_type') ?? 'Faoliyat turi' }}"
@@ -169,13 +198,11 @@
                     :selectSearch="false"
                     icon="fa-briefcase" />
 
-                {{-- projects/index dagi filter tugmalari --}}
                 <x-filter-buttons :search-text="__('admin.search')" :clear-text="__('admin.clear')" />
             </div>
         </div>
     </div>
 
-    {{-- Jadval (collapse tashqarisida) --}}
     <div class="card card-body py-3 px-3 shadow border-0 table-wrapper table-responsive mt-3">
         <table class="table user-table table-bordered table-hover table-striped align-items-center">
             <thead class="table-dark">
@@ -183,18 +210,32 @@
                     <th>ID</th>
                     <th>{{ __('admin.company_name') ?? 'Korxona to‘liq nomi' }}</th>
                     <th>{{ __('admin.company_category') ?? 'Korxona kategoriyasi' }}</th>
-                    <th>{{ __('admin.inn') ?? 'INN' }}</th>
+
+                    {{-- INN ustuni kodda bor, lekin ko‘rinmaydi --}}
+                    <th class="col-inn">{{ __('admin.inn') ?? 'INN' }}</th>
+
                     <th>{{ __('admin.ifut_code') ?? 'IFUT kodi' }}</th>
                     <th>{{ __('admin.activity_type') ?? 'Faoliyat turi' }}</th>
                     <th>{{ __('admin.address') ?? 'Manzili' }}</th>
+
                     <th>{{ __('admin.director_fio') ?? 'Direktor F.I.O.' }}</th>
-                    <th>{{ __('admin.phone') ?? 'Telefon' }}</th>
+
+                    {{-- Telefon ustuni kodda bor, lekin ko‘rinmaydi --}}
+                    <th class="col-phone">{{ __('admin.phone') ?? 'Telefon' }}</th>
+
                     <th>{{ __('admin.email') ?? 'Email' }}</th>
+
                     <th>{{ __('admin.registered_at') ?? 'Ro‘yxatdan o‘tgan sana' }}</th>
-                    <th>{{ __('admin.registration_number') ?? 'Ro‘yxat raqami' }}</th>
-                    <th>{{ __('admin.registration_org') ?? 'Ro‘yxatdan o‘tkazgan tashkilot' }}</th>
+
+                    {{-- ro‘yxat raqami + organ ustunlari kodda bor, lekin ko‘rinmaydi --}}
+                    <th class="col-regnum">{{ __('admin.registration_number') ?? 'Ro‘yxat raqami' }}</th>
+                    <th class="col-regorg">{{ __('admin.registration_org') ?? 'Ro‘yxatdan o‘tkazgan tashkilot' }}</th>
+
                     <th>{{ __('admin.passport') ?? 'Pasport (YaTT)' }}</th>
-                    <th>{{ __('admin.jshshir') ?? 'JSHSHIR (YaTT)' }}</th>
+
+                    {{-- JSHSHIR ustuni kodda bor, lekin ko‘rinmaydi --}}
+                    <th class="col-jshshir">{{ __('admin.jshshir') ?? 'JSHSHIR (YaTT)' }}</th>
+
                     <th class="text-center">{{ __('admin.actions') }}</th>
                 </tr>
             </thead>
@@ -216,12 +257,11 @@
 
 @push('customJs')
     <script>
-        // Texnik topshiriqqa mos demo ma'lumotlar
         const DEFAULT_COMPANIES = [
             {
                 id: 1,
                 company_name: '"Envast Capital" MChJ',
-                category: 'full_partner', // To‘liq sherik
+                category: 'full_partner',
                 inn: '123456789',
                 ifut: '00001',
                 activity_type: 'MChJ',
@@ -238,7 +278,7 @@
             {
                 id: 2,
                 company_name: '"Premium Residence" MChJ',
-                category: 'subsidiary', // Shu‘ba korxona
+                category: 'subsidiary',
                 inn: '987654321',
                 ifut: '00002',
                 activity_type: 'MChJ',
@@ -255,7 +295,7 @@
             {
                 id: 3,
                 company_name: '"Envast Commandite 1" Komandit shirkati',
-                category: 'commandite', // Komandit shirkati
+                category: 'commandite',
                 inn: '564738291',
                 ifut: '00003',
                 activity_type: 'MChJ',
@@ -272,7 +312,7 @@
             {
                 id: 4,
                 company_name: 'Tursunov Aziz Mahmudovich',
-                category: 'full_partner', // To‘liq sherik sifatida qatnashayotgan YaTT
+                category: 'full_partner',
                 inn: '321654987',
                 ifut: '00004',
                 activity_type: 'YaTT',
@@ -300,53 +340,36 @@
 
         function escapeHtml(text) {
             if (!text) return '';
-            const map = {
-                '&': '&amp;',
-                '<': '&lt;',
-                '>': '&gt;',
-                '"': '&quot;',
-                "'": '&#039;',
-            };
+            const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' };
             return String(text).replace(/[&<>"']/g, m => map[m]);
         }
 
         function formatDate(dateString) {
-            if (!dateString) return '<span class="text-muted">-</span>';
-            try {
-                const date = new Date(dateString);
-                return date.toLocaleDateString('uz-UZ', {
-                    year: 'numeric',
-                    month: '2-digit',
-                    day: '2-digit',
-                });
-            } catch (e) {
-                return dateString;
-            }
-        }
+    if (!dateString) return '<span class="text-muted">-</span>';
+
+    const d = new Date(dateString);
+    if (isNaN(d)) return '<span class="text-muted">-</span>';
+
+    const day = String(d.getDate()).padStart(2, '0');
+    const month = String(d.getMonth() + 1).padStart(2, '0');
+    const year = String(d.getFullYear()).slice(-2);
+
+    return `${day}.${month}.${year}`;
+}
+
+
 
         function getCategoryBadge(category) {
-            if (category === 'full_partner') {
-                return '<span class="badge badge-custom badge-category-full">To‘liq sherik</span>';
-            }
-            if (category === 'subsidiary') {
-                return '<span class="badge badge-custom badge-category-subsidiary">Shu\'ba korxona</span>';
-            }
-            if (category === 'commandite') {
-                return '<span class="badge badge-custom badge-category-commandite">Komandit shirkati</span>';
-            }
+            if (category === 'full_partner') return '<span class="badge badge-custom badge-category-full">To‘liq sherik</span>';
+            if (category === 'subsidiary') return '<span class="badge badge-custom badge-category-subsidiary">Shu\'ba korxona</span>';
+            if (category === 'commandite') return '<span class="badge badge-custom badge-category-commandite">Komandit shirkati</span>';
             return '<span class="badge badge-custom">-</span>';
         }
 
         function getActivityBadge(type) {
-            if (type === 'MChJ') {
-                return '<span class="badge badge-custom badge-activity-mchj">MChJ</span>';
-            }
-            if (type === 'AJ') {
-                return '<span class="badge badge-custom badge-activity-aj">AJ</span>';
-            }
-            if (type === 'YaTT') {
-                return '<span class="badge badge-custom badge-activity-yatt">YaTT</span>';
-            }
+            if (type === 'MChJ') return '<span class="badge badge-custom badge-activity-mchj">MChJ</span>';
+            if (type === 'AJ') return '<span class="badge badge-custom badge-activity-aj">AJ</span>';
+            if (type === 'YaTT') return '<span class="badge badge-custom badge-activity-yatt">YaTT</span>';
             return '<span class="badge badge-custom">-</span>';
         }
 
@@ -372,47 +395,80 @@
 
             let html = '';
             list.forEach(item => {
+                const inn = item.inn ? escapeHtml(item.inn) : '-';
+                const phone = item.phone ? escapeHtml(item.phone) : '-';
+
+                // registered_at shu yerda ishlatiladi -> dd.mm.yy
+                const regDate = item.registered_at ? formatDate(item.registered_at) : '<span class="text-muted">-</span>';
+                const regNum = item.registration_number ? escapeHtml(item.registration_number) : '-';
+                const regOrg = item.registration_org ? escapeHtml(item.registration_org) : '-';
+
+                const passport = item.passport ? escapeHtml(item.passport) : '';
+                const jshshir = item.jshshir ? escapeHtml(item.jshshir) : '';
+
                 html += `
                     <tr>
                         <td class="text-center">${item.id}</td>
+
+                        <!-- Korxona nomi ichiga INN jamlanadi -->
                         <td>
                             <div class="company-name">${escapeHtml(item.company_name)}</div>
-                            <div class="company-info">
-                                <i class="fas fa-id-card me-1"></i>${escapeHtml(item.inn)}
-                            </div>
+                            <div class="company-info"><i class="fas fa-id-card me-1"></i>${inn}</div>
                         </td>
-                        <td class="text-center">
-                            ${getCategoryBadge(item.category)}
-                        </td>
-                        <td class="text-center">${escapeHtml(item.inn)}</td>
+
+                        <td class="text-center">${getCategoryBadge(item.category)}</td>
+
+                        <!-- INN: data bor, lekin ko‘rinmaydi -->
+                        <td class="col-inn text-center">${inn}</td>
+
                         <td class="text-center">${escapeHtml(item.ifut)}</td>
-                        <td class="text-center">
-                            ${getActivityBadge(item.activity_type)}
-                        </td>
+                        <td class="text-center">${getActivityBadge(item.activity_type)}</td>
+
                         <td>
                             <div class="value-primary">${escapeHtml(item.address)}</div>
                         </td>
+
+                        <!-- Direktor ichiga Telefon jamlanadi -->
                         <td>
                             <div class="value-primary">${escapeHtml(item.director_fio)}</div>
+                            <div class="value-secondary"><span class="text-muted">Tel:</span> ${phone}</div>
                         </td>
-                        <td>${escapeHtml(item.phone)}</td>
+
+                        <!-- Telefon: data bor, lekin ko‘rinmaydi -->
+                        <td class="col-phone">${phone}</td>
+
                         <td>${escapeHtml(item.email)}</td>
-                        <td class="text-center">${formatDate(item.registered_at)}</td>
-                        <td>${escapeHtml(item.registration_number || '-')}</td>
-                        <td>${escapeHtml(item.registration_org || '-')}</td>
+
+                        <!-- Ro‘yxatdan o‘tgan sana ichiga raqam + organ jamlanadi -->
                         <td class="text-center">
-                            ${item.activity_type === 'YaTT'
-                                ? escapeHtml(item.passport || '')
-                                : '<span class="text-muted">-</span>'}
+                            <div class="value-primary">${regDate}</div>
+                            <div class="value-secondary"><span class="text-muted">№</span> ${regNum}</div>
+                            <div class="value-secondary">${regOrg}</div>
                         </td>
+
+                        <!-- reg_number/reg_org: data bor, lekin ko‘rinmaydi -->
+                        <td class="col-regnum">${regNum}</td>
+                        <td class="col-regorg">${regOrg}</td>
+
+                        <!-- Pasport ichiga JSHSHIR jamlanadi (faqat YaTT mazmuni saqlanadi) -->
                         <td class="text-center">
-                            ${item.activity_type === 'YaTT'
-                                ? escapeHtml(item.jshshir || '')
-                                : '<span class="text-muted">-</span>'}
+                            ${
+                                item.activity_type === 'YaTT'
+                                ? `
+                                    <div class="value-primary">${passport ? passport : '<span class="text-muted">-</span>'}</div>
+                                    <div class="value-secondary"><span class="text-muted">JSHSHIR:</span> ${jshshir ? jshshir : '-'}</div>
+                                  `
+                                : '<span class="text-muted">-</span>'
+                            }
                         </td>
+
+                        <!-- JSHSHIR: data bor, lekin ko‘rinmaydi -->
+                        <td class="col-jshshir text-center">
+                            ${item.activity_type === 'YaTT' ? (jshshir ? jshshir : '-') : '-'}
+                        </td>
+
                         <td>
                             <div class="action-buttons">
-                                {{-- keyinchalik real route bilan to‘ldiring --}}
                                 <x-edit-button />
                                 <x-delete-button />
                             </div>
@@ -456,12 +512,8 @@
         document.addEventListener('DOMContentLoaded', function () {
             renderCompanies(companies);
 
-            if (filterBtn) {
-                filterBtn.addEventListener('click', applyFilter);
-            }
-            if (clearBtn) {
-                clearBtn.addEventListener('click', resetFilters);
-            }
+            if (filterBtn) filterBtn.addEventListener('click', applyFilter);
+            if (clearBtn) clearBtn.addEventListener('click', resetFilters);
 
             if (searchInput) {
                 let searchTimeout;
@@ -474,14 +526,8 @@
                 });
             }
 
-            if (companyCategoryFilter) {
-                companyCategoryFilter.addEventListener('change', applyFilter);
-            }
-            if (activityTypeFilter) {
-                activityTypeFilter.addEventListener('change', applyFilter);
-            }
+            if (companyCategoryFilter) companyCategoryFilter.addEventListener('change', applyFilter);
+            if (activityTypeFilter) activityTypeFilter.addEventListener('change', applyFilter);
         });
     </script>
 @endpush
-
-

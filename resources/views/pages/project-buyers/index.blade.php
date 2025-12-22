@@ -73,7 +73,7 @@
             background-color: #f9fafb;
         }
 
-        /* Badge'lar - Login-histories va Investors stillari bilan bir xil */
+        /* Badge'lar */
         .badge-custom {
             display: inline-flex;
             align-items: center;
@@ -225,6 +225,18 @@
 
         .certificate-link:hover {
             text-decoration: underline;
+        }
+
+        /* ====== KENGAYTIRILGAN QISQARTIRISH (USTUNLARNI YASHIRISH) ======
+           Ustunlar o‘chirilmaydi, faqat ko‘rinishi yopiladi.
+        */
+        .buyer-table th.col-inn,
+        .buyer-table td.col-inn,
+        .buyer-table th.col-phone,
+        .buyer-table td.col-phone,
+        .buyer-table th.col-pinfl,
+        .buyer-table td.col-pinfl {
+            display: none;
         }
     </style>
 @endpush

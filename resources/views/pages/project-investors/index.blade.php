@@ -224,6 +224,30 @@
         .certificate-link:hover {
             text-decoration: underline;
         }
+
+        /* Ustunlarni vizual qisqartirish (ma'lumot saqlanadi, ustun ko'rinmaydi) */
+        .investor-table th.col-inn,
+        .investor-table td.col-inn,
+
+        .investor-table th.col-phone,
+        .investor-table td.col-phone,
+
+        .investor-table th.col-email,
+        .investor-table td.col-email,
+
+        .investor-table th.col-regno,
+        .investor-table td.col-regno,
+
+        .investor-table th.col-regorg,
+        .investor-table td.col-regorg,
+
+        .investor-table th.col-jshshir,
+        .investor-table td.col-jshshir,
+
+        .investor-table th.col-sharepct,
+        .investor-table td.col-sharepct {
+            display: none;
+        }
     </style>
 @endpush
 
@@ -274,14 +298,14 @@
                         <span class="input-group-text bg-white border-end-0">
                             <i class="fas fa-search text-muted"></i>
                         </span>
-                        <input type="text" id="searchInput" class="form-control border-start-0" 
+                        <input type="text" id="searchInput" class="form-control border-start-0"
                             placeholder="{{ __('admin.enterprise_name') }}">
                     </div>
                 </div>
 
                 <x-select-with-search name="activityTypeFilter" label="Faoliyat turi" :datas="$activityTypes" colMd="3"
-                    placeholder="Barchasi" :selected="request()->get('activityTypeFilter', '')" :selectSearch=false 
-                    icon="fa-building text-primary"/>
+                    placeholder="Barchasi" :selected="request()->get('activityTypeFilter', '')" :selectSearch=false
+                    icon="fa-building text-primary" />
 
                 <x-select-with-search name="statusFilter" label="Holati boyicha" :datas="$statuses" colMd="3"
                     placeholder="Barchasi" :selected="request()->get('statusFilter', '')" :selectSearch=false />
@@ -298,30 +322,38 @@
                 <tr>
                     <th style="width: 50px;">{{ __('admin.id') }}</th>
                     <th style="min-width: 200px;">{{ __('Korxona to\'liq nomi') }}</th>
-                    <th style="width: 100px;">{{ __('INN') }}</th>
+
+                    <th class="col-inn" style="width: 100px;">{{ __('INN') }}</th>
+
                     <th style="width: 90px;">{{ __('IFUT') }}</th>
                     <th style="width: 90px;">{{ __('Faoliyat turi') }}</th>
                     <th style="min-width: 200px;">{{ __('Manzil') }}</th>
                     <th style="min-width: 180px;">{{ __('Direktor F.I.O') }}</th>
+
                     <th style="width: 120px;">{{ __('Login') }}</th>
-                    <th style="width: 130px;">{{ __('Telefon') }}</th>
-                    <th style="min-width: 150px;">{{ __('Email') }}</th>
+                    <th class="col-phone" style="width: 130px;">{{ __('Telefon') }}</th>
+                    <th class="col-email" style="min-width: 150px;">{{ __('Email') }}</th>
+
                     <th style="width: 110px;">{{ __('Ro\'yxatdan o\'tgan sana') }}</th>
-                    <th style="width: 140px;">{{ __('Ro\'yxatdan o\'tkazish raqami') }}</th>
-                    <th style="min-width: 200px;">{{ __('Ro\'yxatdan o\'tkazuvchi tashkilot') }}</th>
+                    <th class="col-regno" style="width: 140px;">{{ __('Ro\'yxatdan o\'tkazish raqami') }}</th>
+                    <th class="col-regorg" style="min-width: 200px;">{{ __('Ro\'yxatdan o\'tkazuvchi tashkilot') }}</th>
+
                     <th style="width: 120px;">{{ __('Pasport (YaTT)') }}</th>
-                    <th style="width: 130px;">{{ __('JSHSHIR (YaTT)') }}</th>
+                    <th class="col-jshshir" style="width: 130px;">{{ __('JSHSHIR (YaTT)') }}</th>
+
                     <th style="width: 90px;">{{ __('Holat') }}</th>
                     <th style="width: 110px;">{{ __('Investorlik holati sanasi') }}</th>
                     <th style="width: 120px;">{{ __('Sertifikat') }}</th>
+
                     <th style="width: 140px; text-align: right;">{{ __('Ulush (summa)') }}</th>
-                    <th style="width: 90px; text-align: center;">{{ __('Ulush (%)') }}</th>
+                    <th class="col-sharepct" style="width: 90px; text-align: center;">{{ __('Ulush (%)') }}</th>
+
                     <th style="width: 110px;">{{ __('admin.actions') }}</th>
                 </tr>
             </thead>
             <tbody id="investorTableBody">
                 <tr class="loading-row">
-                    <td colspan="20">
+                    <td colspan="21">
                         <i class="fas fa-spinner loading-spinner me-2"></i>
                         <span>Investorlar yuklanmoqda...</span>
                     </td>

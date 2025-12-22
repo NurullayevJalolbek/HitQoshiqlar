@@ -3,7 +3,7 @@
         <tr>
             <th style="width: 60px;">{{ __('ID') }}</th>
             <th style="min-width: 180px;">{{ __('Korxona nomi') }}</th>
-            <th style="width: 100px;">{{ __('INN') }}</th>
+            <th class="inn-col" style="width: 100px;">{{ __('INN') }}</th>
             <th style="width: 80px;">{{ __('IFUT') }}</th>
             <th style="width: 80px;">{{ __('Faoliyat turi') }}</th>
             <th style="min-width: 200px;">{{ __('Manzil') }}</th>
