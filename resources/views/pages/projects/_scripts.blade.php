@@ -291,6 +291,15 @@
 
         function loadProjectData() {
             projectData = mockData;
+
+            // stages uchun yangi ID generatsiyasi
+            try {
+                const maxId = (projectData.stages || []).reduce((m, s) => Math.max(m, Number(s.id) || 0), 0);
+                nextStageId = maxId + 1;
+            } catch (e) {
+                nextStageId = 1;
+            }
+
             displayProjectData();
         }
 
@@ -385,7 +394,7 @@
 
             const container = document.getElementById('mainImagesContainer');
             container.innerHTML = images.map((img, index) => `
-                            <div class="gallery-item" onclick="openImageModal('${img}')">
+                            <div class="gallery-item" data-media-src="${img}" onclick="openImageModal('${img}')">
                                 <img src="${img}" alt="Asosiy fon rasmi ${index + 1}" loading="lazy">
                             </div>
                         `).join('');
@@ -407,7 +416,7 @@
                     '';
 
                 return `
-                                <div class="gallery-item video-item" onclick="openVideoModal('${url}')">
+                                <div class="gallery-item video-item" data-media-src="${url}" onclick="openVideoModal('${url}')">
                                     ${thumbnailUrl ? `<img src="${thumbnailUrl}" alt="Video ${index + 1}" loading="lazy">` : ''}
                                     <div class="play-icon">
                                         <i class="bi bi-play-fill"></i>
@@ -426,7 +435,7 @@
             document.getElementById('processImagesCard').style.display = 'block';
             const container = document.getElementById('processImagesContainer');
             container.innerHTML = images.map((img, index) => `
-                                                <div class="gallery-item" onclick="openImageModal('${img}')">
+                                                <div class="gallery-item" data-media-src="${img}" onclick="openImageModal('${img}')">
                                                     <img src="${img}" alt="Qurilish jarayoni ${index + 1}" loading="lazy">
                                                 </div>
                                             `).join('');
@@ -464,15 +473,177 @@
         }
 
         let stagesEditMode = false;
+        let nextStageId = 1;
+        let stageInsertAfterId = '';
+        let dragStageId = null;
+
+        function setStageInsertAfter(v) {
+            stageInsertAfterId = (v === null || v === undefined) ? '' : String(v);
+        }
+
+        function buildStageInsertAfterSelect() {
+            const sel = document.getElementById('stageInsertAfterSelect');
+            if (!sel || !projectData || !Array.isArray(projectData.stages)) return;
+
+            uiEnsurePriority(projectData.stages, 'order');
+
+            const opts = ['<option value="">Oxiriga qo‘shish</option>']
+                .concat(projectData.stages.map(s =>
+                    `<option value="${s.id}">#${s.order} — ${uiEscapeHtml(s.name)}</option>`
+                ));
+
+            sel.innerHTML = opts.join('');
+            sel.value = stageInsertAfterId;
+        }
+
+        function addNewStage() {
+            if (!projectData || !Array.isArray(projectData.stages)) return;
+
+            uiEnsurePriority(projectData.stages, 'order');
+
+            const newStage = {
+                id: nextStageId++,
+                name: 'Yangi bosqich',
+                status: 'planned',
+                icon: 'bi-circle',
+                order: projectData.stages.length + 1,
+                start_date: '',
+                end_date: '',
+                progress: 0
+            };
+
+            const afterId = stageInsertAfterId;
+            if (afterId) {
+                const idx = projectData.stages.findIndex(s => String(s.id) === String(afterId));
+                if (idx === -1) projectData.stages.push(newStage);
+                else projectData.stages.splice(idx + 1, 0, newStage);
+            } else {
+                projectData.stages.push(newStage);
+            }
+
+            uiEnsurePriority(projectData.stages, 'order');
+            displayStages(projectData.stages);
+            buildStageInsertAfterSelect();
+        }
+
+        function buildStageMoveAfterSelect(stageId) {
+            if (!projectData || !Array.isArray(projectData.stages)) return '';
+
+            uiEnsurePriority(projectData.stages, 'order');
+
+            const options = ['<option value="">Boshiga</option>']
+                .concat(
+                    projectData.stages
+                        .filter(s => String(s.id) !== String(stageId))
+                        .map(s => `<option value="${s.id}">#${s.order} — ${uiEscapeHtml(s.name)}</option>`)
+                );
+
+            return `<select class="form-select form-select-sm" onchange="moveStageToAfter(${stageId}, this.value)">
+                            ${options.join('')}
+                        </select>`;
+        }
+
+        function moveStageToAfter(stageId, afterId) {
+            if (!projectData || !Array.isArray(projectData.stages)) return;
+
+            uiEnsurePriority(projectData.stages, 'order');
+
+            const list = projectData.stages.slice();
+            const fromIndex = list.findIndex(s => String(s.id) === String(stageId));
+            if (fromIndex === -1) return;
+
+            const [moved] = list.splice(fromIndex, 1);
+
+            if (!afterId) list.unshift(moved);
+            else {
+                const toIndex = list.findIndex(s => String(s.id) === String(afterId));
+                if (toIndex === -1) list.push(moved);
+                else list.splice(toIndex + 1, 0, moved);
+            }
+
+            projectData.stages = list;
+            uiEnsurePriority(projectData.stages, 'order');
+            displayStages(projectData.stages);
+            buildStageInsertAfterSelect();
+        }
+
+        function onStageDragStart(e, stageId) {
+            dragStageId = stageId;
+            try { e.dataTransfer.setData('text/plain', String(stageId)); } catch (err) { }
+            e.dataTransfer.effectAllowed = 'move';
+        }
+
+        function onStageDragOver(e, targetId) {
+            e.preventDefault();
+            e.dataTransfer.dropEffect = 'move';
+            const target = document.querySelector(`.stage-item[data-stage-id="${targetId}"]`);
+            if (target) target.classList.add('is-drag-over');
+        }
+
+        function onStageDragLeave(e, targetId) {
+            const target = document.querySelector(`.stage-item[data-stage-id="${targetId}"]`);
+            if (target) target.classList.remove('is-drag-over');
+        }
+
+        function onStageDrop(e, targetId) {
+            e.preventDefault();
+
+            const targetEl = document.querySelector(`.stage-item[data-stage-id="${targetId}"]`);
+            if (targetEl) targetEl.classList.remove('is-drag-over');
+
+            const draggedId = dragStageId || (function () {
+                try { return e.dataTransfer.getData('text/plain'); } catch (err) { return null; }
+            })();
+
+            if (!draggedId || String(draggedId) === String(targetId)) return;
+            if (!projectData || !Array.isArray(projectData.stages)) return;
+
+            uiEnsurePriority(projectData.stages, 'order');
+
+            const list = projectData.stages.slice();
+            const fromIndex = list.findIndex(s => String(s.id) === String(draggedId));
+            const toIndex = list.findIndex(s => String(s.id) === String(targetId));
+            if (fromIndex === -1 || toIndex === -1) return;
+
+            const [dragged] = list.splice(fromIndex, 1);
+
+            const rect = targetEl ? targetEl.getBoundingClientRect() : null;
+            const placeAfter = rect ? ((e.clientY - rect.top) > rect.height / 2) : true;
+
+            const insertIndex = (fromIndex < toIndex)
+                ? (placeAfter ? toIndex : toIndex - 1)
+                : (placeAfter ? toIndex + 1 : toIndex);
+
+            const safeIndex = Math.max(0, Math.min(insertIndex, list.length));
+            list.splice(safeIndex, 0, dragged);
+
+            projectData.stages = list;
+            uiEnsurePriority(projectData.stages, 'order');
+            displayStages(projectData.stages);
+            buildStageInsertAfterSelect();
+        }
+
 
         function displayStages(stages) {
+            if (!Array.isArray(stages)) stages = [];
+            if (projectData && Array.isArray(projectData.stages)) {
+                uiEnsurePriority(projectData.stages, 'order');
+                stages = projectData.stages;
+            } else {
+                uiEnsurePriority(stages, 'order');
+            }
+
             const totalProgress = stages.reduce((sum, stage) => {
-                return sum + (stage.status === 'completed' ? stage.progress : 0);
+                return sum + (stage.status === 'completed' ? (Number(stage.progress) || 0) : 0);
             }, 0);
 
             const progressBar = document.getElementById('progressBar');
-            progressBar.style.width = totalProgress + '%';
-            progressBar.textContent = totalProgress + '%';
+            const progressBarLabel = document.getElementById('progressBarLabel');
+
+            const progress = Math.min(100, Math.max(0, totalProgress));
+            if (progressBar) progressBar.style.width = progress + '%';
+            if (progressBarLabel) progressBarLabel.textContent = progress + '%';
+            if (progressBar && !progressBarLabel) progressBar.textContent = progress + '%';
 
             const timeline = document.getElementById('timeline');
             timeline.innerHTML = '';
@@ -496,12 +667,13 @@
             };
 
             stages.forEach((stage, index) => {
-                const status = statusMap[stage.status];
+                const status = statusMap[stage.status] || statusMap.planned;
+
                 const itemEl = document.createElement('div');
-                itemEl.className = 'list-group-item border-0';
+                itemEl.className = 'list-group-item border-0 stage-item';
+                itemEl.setAttribute('data-stage-id', stage.id);
 
                 if (!stagesEditMode) {
-                    // Ko'rish rejimi
                     itemEl.innerHTML = `
                                     <div class="row ps-lg-1 align-items-center">
                                         <div class="col-auto">
@@ -517,45 +689,61 @@
                                                 <span>${stage.start_date} - ${stage.end_date}</span>
                                             </div>
                                         </div>
-                                        <div class="col-auto text-end">
-                                            <span class="badge rounded-pill bg-light text-dark">
-                                                <i class="bi bi-bar-chart-fill me-1 text-primary"></i>${stage.progress}%
-                                            </span>
+                                        <div class="col-auto">
+                                            <span class="badge bg-light text-dark">${Number(stage.progress) || 0}%</span>
                                         </div>
                                     </div>
                                 `;
                 } else {
-                    // Tahrirlash rejimi
+                    itemEl.setAttribute('draggable', 'true');
+                    itemEl.setAttribute('ondragstart', `onStageDragStart(event, ${stage.id})`);
+                    itemEl.setAttribute('ondragover', `onStageDragOver(event, ${stage.id})`);
+                    itemEl.setAttribute('ondragleave', `onStageDragLeave(event, ${stage.id})`);
+                    itemEl.setAttribute('ondrop', `onStageDrop(event, ${stage.id})`);
+
                     itemEl.innerHTML = `
                                     <div class="row ps-lg-1 align-items-start gy-2">
+                                        <div class="col-auto">
+                                            <div class="drag-handle" title="Joyini o‘zgartirish">
+                                                <i class="bi bi-grip-vertical"></i>
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <span class="priority-pill">#${stage.order}</span>
+                                        </div>
+
                                         <div class="col-12 col-md-4">
                                             <label class="form-label small mb-1">Bosqich nomi</label>
-                                            <input type="text" class="form-control form-control-sm" value="${stage.name}"
-                                                onchange="updateStageField(${index}, 'name', this.value)">
+                                            <input type="text" class="form-control form-control-sm" value="${uiEscapeHtml(stage.name)}"
+                                                onchange="updateStageField(${stage.id}, 'name', this.value)">
                                         </div>
                                         <div class="col-6 col-md-3">
                                             <label class="form-label small mb-1">Holati</label>
                                             <select class="form-select form-select-sm"
-                                                onchange="updateStageField(${index}, 'status', this.value)">
+                                                onchange="updateStageField(${stage.id}, 'status', this.value)">
                                                 <option value="planned" ${stage.status === 'planned' ? 'selected' : ''}>Rejalashtirilgan</option>
                                                 <option value="in_progress" ${stage.status === 'in_progress' ? 'selected' : ''}>Jarayonda</option>
-                                                <option value="completed" ${stage.status === 'completed' ? 'selected' : ''}>Bajarilgan</option>
+                                                <option value="completed" ${stage.status === 'completed' ? 'selected' : ''}>Bajarildi</option>
                                             </select>
                                         </div>
                                         <div class="col-6 col-md-2">
                                             <label class="form-label small mb-1">% bajarilgan</label>
-                                            <input type="number" min="0" max="100" class="form-control form-control-sm" value="${stage.progress}"
-                                                onchange="updateStageField(${index}, 'progress', Number(this.value) || 0)">
+                                            <input type="number" min="0" max="100" class="form-control form-control-sm" value="${Number(stage.progress) || 0}"
+                                                onchange="updateStageField(${stage.id}, 'progress', Number(this.value) || 0)">
                                         </div>
                                         <div class="col-6 col-md-1">
                                             <label class="form-label small mb-1">Boshlanish</label>
-                                            <input type="text" class="form-control form-control-sm" value="${stage.start_date}"
-                                                onchange="updateStageField(${index}, 'start_date', this.value)">
+                                            <input type="text" class="form-control form-control-sm" value="${uiEscapeHtml(stage.start_date || '')}"
+                                                onchange="updateStageField(${stage.id}, 'start_date', this.value)">
                                         </div>
                                         <div class="col-6 col-md-1">
                                             <label class="form-label small mb-1">Yakun</label>
-                                            <input type="text" class="form-control form-control-sm" value="${stage.end_date}"
-                                                onchange="updateStageField(${index}, 'end_date', this.value)">
+                                            <input type="text" class="form-control form-control-sm" value="${uiEscapeHtml(stage.end_date || '')}"
+                                                onchange="updateStageField(${stage.id}, 'end_date', this.value)">
+                                        </div>
+                                        <div class="col-12 col-md-2">
+                                            <label class="form-label small mb-1">Joylashuvi</label>
+                                            ${buildStageMoveAfterSelect(stage.id)}
                                         </div>
                                     </div>
                                 `;
@@ -563,22 +751,40 @@
 
                 timeline.appendChild(itemEl);
             });
+
+            buildStageInsertAfterSelect();
         }
 
         function toggleStagesEdit() {
             stagesEditMode = !stagesEditMode;
-            const btn = document.getElementById('toggleStagesEditBtn');
-            btn.innerHTML = stagesEditMode ?
-                '<i class="bi bi-check-lg me-1"></i> Saqlash' :
-                '<i class="bi bi-pencil-square me-1"></i> Tahrirlash';
 
-            displayStages(projectData.stages);
+            const btn = document.getElementById('toggleStagesEditBtn');
+            const addBtn = document.getElementById('addStageBtn');
+            const tools = document.getElementById('stagesTools');
+            const hint = document.getElementById('stagesHint');
+
+            if (btn) {
+                btn.innerHTML = stagesEditMode
+                    ? '<i class="bi bi-check-lg me-1"></i> Saqlash'
+                    : '<i class="bi bi-pencil-square me-1"></i> Tahrirlash';
+            }
+
+            uiToggleEditButton(btn, stagesEditMode);
+
+            if (addBtn) addBtn.classList.toggle('d-none', !stagesEditMode);
+            if (tools) tools.classList.toggle('active', stagesEditMode);
+            if (hint) hint.classList.toggle('active', stagesEditMode);
+
+            buildStageInsertAfterSelect();
+            displayStages(projectData.stages || []);
         }
 
-        function updateStageField(index, field, value) {
-            if (!projectData || !projectData.stages || !projectData.stages[index]) return;
-            projectData.stages[index][field] = value;
-            // progress bar va ko‘rinish yangilanishi uchun qayta chizamiz
+        function updateStageField(stageId, field, value) {
+            if (!projectData || !Array.isArray(projectData.stages)) return;
+            const stage = projectData.stages.find(s => String(s.id) === String(stageId));
+            if (!stage) return;
+
+            stage[field] = value;
             displayStages(projectData.stages);
         }
 
@@ -609,14 +815,17 @@
                                 </div>
                             `;
             } else {
-                // Tahrirlash rejimi: faqat full_partner_investor_share tahrirlanadi
+                // Tahrirlash rejimi
                 content.innerHTML = `
                                 <div class="info-row">
                                     <span class="info-label">To'liq sherikning investitsion loyihadagi o'ziga tegishli ulushining
                                         realizatsiyasidan kutilayotgan sof foyda/zarardan oladigan qiymati (foizda)</span>
                                     <div class="d-flex align-items-center gap-2">
-                                        <input type="number" class="form-control form-control-sm" style="max-width: 120px;"
-                                            value="${distribution.full_partner_own_share}" disabled>
+                                        <input type="number" min="0" max="100" step="0.1" 
+                                            class="form-control form-control-sm" style="max-width: 120px;" 
+                                            value="${distribution.full_partner_own_share}"
+                                            disabled
+                                            id="editFullPartnerOwnShare">
                                         <span class="text-muted">%</span>
                                     </div>
                                 </div>
@@ -624,27 +833,30 @@
                                     <span class="info-label">To'liq sherikning investitsion Kommanditchilarning loyihadagi tegishli
                                         ulushining realizatsiyasidan kutilayotgan sof foyda/zarardan oladigan qiymati (foizda)</span>
                                     <div class="d-flex align-items-center gap-2">
-                                        <input type="number" min="0" max="100" step="0.1"
-                                            class="form-control form-control-sm" style="max-width: 120px;"
+                                        <input type="number" min="0" max="100" step="0.1" 
+                                            class="form-control form-control-sm" style="max-width: 120px;" 
                                             value="${distribution.full_partner_investor_share}"
                                             onchange="updateDistributionField('full_partner_investor_share', Number(this.value) || 0)"
                                             id="editFullPartnerInvestorShare">
                                         <span class="text-muted">%</span>
                                     </div>
-                                    <div class="small text-muted mt-1">Qolgan qiymatlar avtomatik hisoblanadi</div>
                                 </div>
                                 <div class="info-row">
                                     <span class="info-label">Kommanditchilarning investitsion loyihadagi o'ziga tegishli ulushining
                                         realizatsiyasidan kutilayotgan sof foyda/zarardan oladigan qiymati (foizda)</span>
                                     <div class="d-flex align-items-center gap-2">
-                                        <input type="number" class="form-control form-control-sm" style="max-width: 120px;"
-                                            value="${distribution.investors_own_share}" disabled id="editInvestorsOwnShare">
+                                        <input type="number" min="0" max="100" step="0.1" 
+                                            class="form-control form-control-sm" style="max-width: 120px;" 
+                                            value="${distribution.investors_own_share}"
+                                            disabled
+                                            id="editInvestorsOwnShare">
                                         <span class="text-muted">%</span>
                                     </div>
                                 </div>
                             `;
             }
 
+            // Vizual taqsimotni yangilash
             updateDistributionVisual(distribution);
         }
 
@@ -679,73 +891,198 @@
         function updateDistributionField(field, value) {
             if (!projectData || !projectData.distribution) return;
 
-            // faqat full_partner_investor_share tahrirlanadi
+            // Faqat to'liq sherik ulushi tahrirlanadi
             if (field !== 'full_partner_investor_share') return;
 
             // Qiymatni cheklash
             if (value < 0) value = 0;
             if (value > 100) value = 100;
 
-            projectData.distribution.full_partner_investor_share = value;
-            projectData.distribution.investors_own_share = 100 - value;
+            projectData.distribution[field] = value;
 
-            const investorsInput = document.getElementById('editInvestorsOwnShare');
-            if (investorsInput) {
-                investorsInput.value = projectData.distribution.investors_own_share;
+            // Agar full_partner_investor_share o'zgarsa, investors_own_share ni avtomatik hisoblaymiz
+            if (field === 'full_partner_investor_share') {
+                projectData.distribution.investors_own_share = 100 - value;
+                // Input qiymatini yangilaymiz
+                const investorsInput = document.getElementById('editInvestorsOwnShare');
+                if (investorsInput) {
+                    investorsInput.value = projectData.distribution.investors_own_share;
+                }
             }
 
+            // Agar investors_own_share o'zgarsa, full_partner_investor_share ni avtomatik hisoblaymiz
+            if (field === 'investors_own_share') {
+                projectData.distribution.full_partner_investor_share = 100 - value;
+                // Input qiymatini yangilaymiz
+                const partnerInput = document.getElementById('editFullPartnerInvestorShare');
+                if (partnerInput) {
+                    partnerInput.value = projectData.distribution.full_partner_investor_share;
+                }
+            }
+
+            // Vizual taqsimotni yangilash
             updateDistributionVisual(projectData.distribution);
         }
 
-        // === Raundlar: priority + joylashuv + delete cheklovi ===
         let roundsEditMode = false;
-        let nextRoundId = null;
+        let nextRoundId = 4; // Yangi raundlar uchun ID
+        let roundInsertAfterId = '';
 
-        function ensureNextRoundId() {
-            if (nextRoundId !== null) return;
-            const rounds = (projectData && projectData.rounds) ? projectData.rounds : [];
-            const maxId = rounds.reduce((m, r) => Math.max(m, Number(r.id) || 0), 0);
-            nextRoundId = maxId + 1;
+        let dragRoundId = null;
+
+        function uiEscapeHtml(str) {
+            return String(str ?? '')
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
         }
 
-        function normalizeRounds() {
-            if (!projectData || !projectData.rounds) return;
 
-            // priority bo'lmasa berib chiqamiz
-            projectData.rounds.forEach((r, idx) => {
-                if (r.priority === undefined || r.priority === null) r.priority = idx + 1;
-            });
 
-            projectData.rounds.sort((a, b) => (a.priority || 0) - (b.priority || 0));
-            projectData.rounds.forEach((r, idx) => r.priority = idx + 1);
+        function uiToggleEditButton(btn, isEditMode) {
+            if (!btn) return;
+            btn.classList.toggle('btn-outline-secondary', !isEditMode);
+            btn.classList.toggle('btn-success', isEditMode);
         }
 
-        function refreshRoundInsertAfterOptions() {
-            const select = document.getElementById('roundInsertAfter');
-            if (!select) return;
-
-            normalizeRounds();
-            const rounds = projectData?.rounds || [];
-
-            const current = select.value || 'end';
-
-            let html = '';
-            html += `<option value="end">Oxiriga (eng pastga)</option>`;
-            html += `<option value="start">Boshiga (eng yuqoriga)</option>`;
-            rounds.forEach(r => {
-                html += `<option value="${r.id}">${escapeHtml(r.name)} dan keyin</option>`;
+        function uiEnsurePriority(list, key) {
+            if (!Array.isArray(list)) return [];
+            list.forEach((it, idx) => {
+                const v = Number(it[key]);
+                if (!Number.isFinite(v) || v <= 0) it[key] = idx + 1;
             });
+            list.sort((a, b) => Number(a[key]) - Number(b[key]));
+            list.forEach((it, idx) => (it[key] = idx + 1));
+            return list;
+        }
 
-            select.innerHTML = html;
+        function setRoundInsertAfter(v) {
+            roundInsertAfterId = (v === null || v === undefined) ? '' : String(v);
+        }
 
-            // oldingi tanlovni saqlash
-            const allowed = ['end', 'start', ...rounds.map(r => String(r.id))];
-            select.value = allowed.includes(String(current)) ? current : 'end';
+        function buildRoundInsertAfterSelect() {
+            const sel = document.getElementById('roundInsertAfterSelect');
+            if (!sel || !projectData || !Array.isArray(projectData.rounds)) return;
+
+            uiEnsurePriority(projectData.rounds, 'priority');
+
+            const opts = [
+                `<option value="">Oxiriga qo‘shish</option>`,
+                ...projectData.rounds.map(r => `<option value="${r.id}">#${r.priority} — ${uiEscapeHtml(r.name)}</option>`)
+            ];
+
+            sel.innerHTML = opts.join('');
+            sel.value = roundInsertAfterId;
+        }
+
+        function buildRoundMoveAfterSelect(roundId) {
+            if (!projectData || !Array.isArray(projectData.rounds)) return '';
+            uiEnsurePriority(projectData.rounds, 'priority');
+
+            const options = [
+                `<option value="">Boshiga</option>`,
+                ...projectData.rounds
+                    .filter(r => r.id !== roundId)
+                    .map(r => `<option value="${r.id}">#${r.priority} — ${uiEscapeHtml(r.name)}</option>`)
+            ];
+
+            return `<select class="form-select form-select-sm" onchange="moveRoundToAfter(${roundId}, this.value)">
+                            ${options.join('')}
+                        </select>`;
+        }
+
+        function moveRoundToAfter(roundId, afterId) {
+            if (!projectData || !Array.isArray(projectData.rounds)) return;
+
+            uiEnsurePriority(projectData.rounds, 'priority');
+
+            const draggedId = roundId;
+            const targetId = (afterId === null || afterId === undefined) ? '' : String(afterId);
+
+            if (targetId === String(draggedId)) return;
+
+            const list = projectData.rounds.slice();
+            const draggedIndex = list.findIndex(r => String(r.id) === String(draggedId));
+            if (draggedIndex === -1) return;
+
+            const [dragged] = list.splice(draggedIndex, 1);
+
+            if (targetId === '') {
+                list.unshift(dragged);
+            } else {
+                const targetIndex = list.findIndex(r => String(r.id) === String(targetId));
+                if (targetIndex === -1) {
+                    list.push(dragged);
+                } else {
+                    list.splice(targetIndex + 1, 0, dragged);
+                }
+            }
+
+            projectData.rounds = list;
+            uiEnsurePriority(projectData.rounds, 'priority');
+            displayRounds(projectData.rounds);
+        }
+
+        function onRoundDragStart(e, roundId) {
+            dragRoundId = roundId;
+            try {
+                e.dataTransfer.effectAllowed = 'move';
+                e.dataTransfer.setData('text/plain', String(roundId));
+            } catch (err) { }
+        }
+
+        function onRoundDragOver(e, targetId) {
+            e.preventDefault();
+            const el = document.querySelector(`.round-item[data-round-id="${targetId}"]`);
+            if (el) el.classList.add('is-drag-over');
+        }
+
+        function onRoundDragLeave(e, targetId) {
+            const el = document.querySelector(`.round-item[data-round-id="${targetId}"]`);
+            if (el) el.classList.remove('is-drag-over');
+        }
+
+        function onRoundDrop(e, targetId) {
+            e.preventDefault();
+
+            const targetEl = document.querySelector(`.round-item[data-round-id="${targetId}"]`);
+            if (targetEl) targetEl.classList.remove('is-drag-over');
+
+            const draggedId = dragRoundId || (function () {
+                try { return e.dataTransfer.getData('text/plain'); } catch (err) { return null; }
+            })();
+
+            if (!draggedId || String(draggedId) === String(targetId)) return;
+            if (!projectData || !Array.isArray(projectData.rounds)) return;
+
+            uiEnsurePriority(projectData.rounds, 'priority');
+
+            const rect = targetEl ? targetEl.getBoundingClientRect() : null;
+            const placeAfter = rect ? ((e.clientY - rect.top) > rect.height / 2) : true;
+
+            const list = projectData.rounds.slice();
+            const fromIndex = list.findIndex(r => String(r.id) === String(draggedId));
+            const toIndex = list.findIndex(r => String(r.id) === String(targetId));
+            if (fromIndex === -1 || toIndex === -1) return;
+
+            const [dragged] = list.splice(fromIndex, 1);
+            const insertIndex = (fromIndex < toIndex)
+                ? (placeAfter ? toIndex : toIndex - 1)
+                : (placeAfter ? toIndex + 1 : toIndex);
+
+            const safeIndex = Math.max(0, Math.min(insertIndex, list.length));
+            list.splice(safeIndex, 0, dragged);
+
+            projectData.rounds = list;
+            uiEnsurePriority(projectData.rounds, 'priority');
+            displayRounds(projectData.rounds);
         }
 
         function displayRounds(rounds) {
             const container = document.getElementById('roundsContainer');
-            const metaEl = document.getElementById('roundsMeta');
+            if (!container) return;
 
             const statusMap = {
                 'in_progress': { text: 'Jarayonda', class: 'status-inprogress' },
@@ -755,197 +1092,181 @@
 
             if (!rounds || rounds.length === 0) {
                 container.innerHTML = '<p class="text-muted text-center py-4">Raundlar mavjud emas</p>';
-                if (metaEl) metaEl.textContent = '';
-                refreshRoundInsertAfterOptions();
+                buildRoundInsertAfterSelect();
                 return;
             }
 
-            normalizeRounds();
-            rounds = projectData.rounds;
-
-            if (metaEl) metaEl.textContent = `Jami: ${rounds.length} • Tartib: priority`;
+            uiEnsurePriority(rounds, 'priority');
 
             if (!roundsEditMode) {
                 container.innerHTML = rounds.map(round => {
                     const status = statusMap[round.status] || statusMap['inactive'];
                     return `
-                                    <div class="round-item">
-                                        <div class="d-flex align-items-center gap-3">
-                                            <span class="priority-pill">#${round.priority}</span>
-                                            <div class="round-info">
-                                                <div class="round-name">${escapeHtml(round.name)}</div>
-                                                <div class="d-flex align-items-center gap-2 flex-wrap">
-                                                    <span class="status-badge ${status.class}">${status.text}</span>
-                                                    <span class="round-caption">Minimal ulush</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="round-right text-end">
-                                            <div class="round-amount">${formatMoney(round.min_share)}</div>
-                                            <div class="round-caption">so'm</div>
-                                        </div>
+                            <div class="round-item">
+                                <div class="round-info">
+                                    <div class="d-flex align-items-center gap-2 mb-1">
+                                        <span class="priority-pill">#${round.priority}</span>
+                                        <h6 class="mb-0">${uiEscapeHtml(round.name)}</h6>
                                     </div>
-                                `;
+                                    <span class="status-badge ${status.class}">${status.text}</span>
+                                </div>
+                                <div style="text-align: right;">
+                                    <div class="round-amount">${formatMoney(round.min_share)}</div>
+                                    <div style="font-size: 0.85rem; color: var(--gray-600);">Minimal ulush</div>
+                                </div>
+                            </div>
+                        `;
                 }).join('');
             } else {
-                container.innerHTML = rounds.map((round, index) => {
+                container.innerHTML = rounds.map(round => {
                     const status = statusMap[round.status] || statusMap['inactive'];
-                    const canDelete = (round.status === 'inactive');
-                    const upDisabled = index === 0 ? 'disabled' : '';
-                    const downDisabled = index === rounds.length - 1 ? 'disabled' : '';
-                    const deleteDisabled = canDelete ? '' : 'disabled';
-
-                    const deleteTitle = canDelete ? "O'chirish" : "Faqat nofaol raund o'chiriladi";
+                    const canDelete = String(round.status) === 'inactive';
 
                     return `
-                                    <div class="round-editor">
-                                        <div class="round-editor-top">
-                                            <div class="d-flex align-items-center gap-2 flex-wrap">
-                                                <span class="priority-pill">#${round.priority}</span>
-                                                <span class="status-badge ${status.class}">${status.text}</span>
-                                                <span class="text-muted small">Priority bo'yicha tartib</span>
+                            <div class="round-item" data-round-id="${round.id}"
+                                 ondragover="onRoundDragOver(event, ${round.id})"
+                                 ondragleave="onRoundDragLeave(event, ${round.id})"
+                                 ondrop="onRoundDrop(event, ${round.id})"
+                                 style="flex-direction: column; align-items: stretch; gap: 1rem;">
+                                <div class="row g-2 align-items-end">
+                                    <div class="col-12 col-md-2">
+                                        <label class="form-label small mb-1">Tartib</label>
+                                        <div class="d-flex align-items-center gap-2">
+                                            <div class="drag-handle" draggable="true"
+                                                 ondragstart="onRoundDragStart(event, ${round.id})"
+                                                 title="Ushlab torting">
+                                                <i class="bi bi-grip-vertical"></i>
                                             </div>
-                                            <div class="d-flex align-items-center gap-1">
-                                                <button type="button" class="btn btn-light btn-sm icon-btn" ${upDisabled}
-                                                    onclick="moveRound(${round.id}, -1)" title="Yuqoriga">
-                                                    <i class="bi bi-arrow-up"></i>
-                                                </button>
-                                                <button type="button" class="btn btn-light btn-sm icon-btn" ${downDisabled}
-                                                    onclick="moveRound(${round.id}, 1)" title="Pastga">
-                                                    <i class="bi bi-arrow-down"></i>
-                                                </button>
-                                                <button type="button" class="btn btn-outline-danger btn-sm icon-btn" ${deleteDisabled}
-                                                    onclick="deleteRound(${round.id})" title="${deleteTitle}">
-                                                    <i class="bi bi-trash"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-
-                                        <div class="row g-2 align-items-end">
-                                            <div class="col-12 col-md-5">
-                                                <label class="form-label small mb-1">Raund nomi</label>
-                                                <input type="text" class="form-control form-control-sm"
-                                                    value="${escapeAttr(round.name)}"
-                                                    onchange="updateRoundField(${round.id}, 'name', this.value)">
-                                            </div>
-                                            <div class="col-6 col-md-3">
-                                                <label class="form-label small mb-1">Holati</label>
-                                                <select class="form-select form-select-sm"
-                                                    onchange="updateRoundField(${round.id}, 'status', this.value)">
-                                                    <option value="inactive" ${round.status === 'inactive' ? 'selected' : ''}>Nofaol</option>
-                                                    <option value="in_progress" ${round.status === 'in_progress' ? 'selected' : ''}>Jarayonda</option>
-                                                    <option value="completed" ${round.status === 'completed' ? 'selected' : ''}>Yakunlangan</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-6 col-md-4">
-                                                <label class="form-label small mb-1">Minimal ulush (so'm)</label>
-                                                <input type="number" min="0" step="1000" class="form-control form-control-sm"
-                                                    value="${Number(round.min_share) || 0}"
-                                                    onchange="updateRoundField(${round.id}, 'min_share', Number(this.value) || 0)">
-                                            </div>
+                                            <span class="priority-pill">#${round.priority}</span>
                                         </div>
                                     </div>
-                                `;
+                                    <div class="col-12 col-md-3">
+                                        <label class="form-label small mb-1">Raund nomi</label>
+                                        <input type="text" class="form-control form-control-sm" value="${uiEscapeHtml(round.name)}"
+                                            onchange="updateRoundField(${round.id}, 'name', this.value)"
+                                            id="roundName_${round.id}">
+                                    </div>
+                                    <div class="col-6 col-md-2">
+                                        <label class="form-label small mb-1">Holati</label>
+                                        <select class="form-select form-select-sm"
+                                            onchange="updateRoundField(${round.id}, 'status', this.value)"
+                                            id="roundStatus_${round.id}">
+                                            <option value="inactive" ${round.status === 'inactive' ? 'selected' : ''}>Nofaol</option>
+                                            <option value="in_progress" ${round.status === 'in_progress' ? 'selected' : ''}>Jarayonda</option>
+                                            <option value="completed" ${round.status === 'completed' ? 'selected' : ''}>Yakunlangan</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-6 col-md-2">
+                                        <label class="form-label small mb-1">Minimal ulush (so'm)</label>
+                                        <input type="number" min="0" step="1000" class="form-control form-control-sm"
+                                            value="${Number(round.min_share) || 0}"
+                                            onchange="updateRoundField(${round.id}, 'min_share', Number(this.value) || 0)"
+                                            id="roundMinShare_${round.id}">
+                                    </div>
+                                    <div class="col-12 col-md-2">
+                                        <label class="form-label small mb-1">Joylashuvi</label>
+                                        ${buildRoundMoveAfterSelect(round.id)}
+                                    </div>
+                                    <div class="col-12 col-md-1 d-flex justify-content-end">
+                                        <button type="button" class="btn btn-danger btn-sm w-100"
+                                            ${canDelete ? '' : 'disabled'}
+                                            title="${canDelete ? '' : 'Faqat nofaol raundni o‘chirish mumkin'}"
+                                            onclick="deleteRound(${round.id})">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
                 }).join('');
             }
 
-            refreshRoundInsertAfterOptions();
+            buildRoundInsertAfterSelect();
         }
 
         function toggleRoundsEdit() {
             roundsEditMode = !roundsEditMode;
+
             const btn = document.getElementById('toggleRoundsEditBtn');
             const addBtn = document.getElementById('addRoundBtn');
-            const insertGroup = document.getElementById('roundInsertAfterGroup');
+            const tools = document.getElementById('roundsTools');
+            const hint = document.getElementById('roundsHint');
 
-            btn.innerHTML = roundsEditMode
-                ? '<i class="bi bi-check-lg me-1"></i> Saqlash'
-                : '<i class="bi bi-pencil-square me-1"></i> Tahrirlash';
+            if (btn) {
+                btn.innerHTML = roundsEditMode
+                    ? '<i class="bi bi-check-lg me-1"></i> Saqlash'
+                    : '<i class="bi bi-pencil-square me-1"></i> Tahrirlash';
+            }
 
-            if (addBtn) addBtn.style.display = roundsEditMode ? 'inline-flex' : 'none';
-            if (insertGroup) insertGroup.style.display = roundsEditMode ? 'flex' : 'none';
+            uiToggleEditButton(btn, roundsEditMode);
+
+            if (addBtn) addBtn.classList.toggle('d-none', !roundsEditMode);
+            if (tools) tools.classList.toggle('active', roundsEditMode);
+            if (hint) hint.classList.toggle('active', roundsEditMode);
+
+            buildRoundInsertAfterSelect();
 
             if (projectData && projectData.rounds) displayRounds(projectData.rounds);
         }
 
         function addNewRound() {
-            if (!projectData || !projectData.rounds) return;
+            if (!projectData || !Array.isArray(projectData.rounds)) return;
 
-            ensureNextRoundId();
-            normalizeRounds();
-
-            const afterSelect = document.getElementById('roundInsertAfter');
-            const afterValue = afterSelect ? (afterSelect.value || 'end') : 'end';
+            uiEnsurePriority(projectData.rounds, 'priority');
 
             const newRound = {
                 id: nextRoundId++,
                 name: `Yangi raund`,
                 status: 'inactive',
                 min_share: 0,
-                priority: 9999
+                priority: projectData.rounds.length + 1
             };
 
-            // insert
-            const rounds = projectData.rounds;
-            if (afterValue === 'start') {
-                rounds.unshift(newRound);
-            } else if (afterValue === 'end') {
-                rounds.push(newRound);
+            const afterId = roundInsertAfterId;
+            if (afterId) {
+                const idx = projectData.rounds.findIndex(r => String(r.id) === String(afterId));
+                if (idx === -1) projectData.rounds.push(newRound);
+                else projectData.rounds.splice(idx + 1, 0, newRound);
             } else {
-                const idx = rounds.findIndex(r => String(r.id) === String(afterValue));
-                if (idx === -1) rounds.push(newRound);
-                else rounds.splice(idx + 1, 0, newRound);
+                projectData.rounds.push(newRound);
             }
 
-            normalizeRounds();
-            displayRounds(projectData.rounds);
-        }
-
-        function moveRound(roundId, direction) {
-            if (!projectData || !projectData.rounds) return;
-            normalizeRounds();
-
-            const rounds = projectData.rounds;
-            const idx = rounds.findIndex(r => r.id === roundId);
-            if (idx === -1) return;
-
-            const target = idx + direction;
-            if (target < 0 || target >= rounds.length) return;
-
-            const tmp = rounds[idx];
-            rounds[idx] = rounds[target];
-            rounds[target] = tmp;
-
-            normalizeRounds();
+            uiEnsurePriority(projectData.rounds, 'priority');
             displayRounds(projectData.rounds);
         }
 
         function updateRoundField(roundId, field, value) {
-            if (!projectData || !projectData.rounds) return;
+            if (!projectData || !Array.isArray(projectData.rounds)) return;
 
             const round = projectData.rounds.find(r => r.id === roundId);
             if (!round) return;
 
             round[field] = value;
+
+            if (field === 'status') {
+                // delete cheklovi UI’da qayta hisoblanadi
+            }
+
+            if (roundsEditMode) displayRounds(projectData.rounds);
         }
 
         function deleteRound(roundId) {
-            if (!projectData || !projectData.rounds) return;
+            if (!projectData || !Array.isArray(projectData.rounds)) return;
 
             const round = projectData.rounds.find(r => r.id === roundId);
             if (!round) return;
 
-            // faqat nofaol raund o'chiriladi
-            if (round.status !== 'inactive') return;
+            if (String(round.status) !== 'inactive') return;
 
             if (confirm('Bu raundni o\'chirishni xohlaysizmi?')) {
                 projectData.rounds = projectData.rounds.filter(r => r.id !== roundId);
-                normalizeRounds();
+                uiEnsurePriority(projectData.rounds, 'priority');
                 displayRounds(projectData.rounds);
             }
         }
 
         let currentDividendPage = 1;
+
         const itemsPerPage = 5;
 
         function displayFinancial(p) {
@@ -1252,49 +1573,151 @@
                                             `).join('');
         }
 
-        // === Risklar: priority + joylashuv ===
         let risksEditMode = false;
-        let nextRiskId = null;
+        let nextRiskId = 5; // Yangi risklar uchun ID
+        let riskInsertAfterId = '';
+        let dragRiskId = null;
 
-        function ensureNextRiskId() {
-            if (nextRiskId !== null) return;
-            const items = (projectData && projectData.risks && projectData.risks.risk_items) ? projectData.risks.risk_items : [];
-            const maxId = items.reduce((m, r) => Math.max(m, Number(r.id) || 0), 0);
-            nextRiskId = maxId + 1;
+        function setRiskInsertAfter(v) {
+            riskInsertAfterId = (v === null || v === undefined) ? '' : String(v);
         }
 
-        function normalizeRisks() {
-            if (!projectData || !projectData.risks || !projectData.risks.risk_items) return;
+        function uiEnsureRiskIds(list) {
+            if (!Array.isArray(list)) return [];
+            // nextRiskId ni max id dan keyin qo'yamiz
+            let maxId = 0;
+            list.forEach(it => {
+                const idNum = Number(it.id);
+                if (Number.isFinite(idNum)) maxId = Math.max(maxId, idNum);
+            });
+            nextRiskId = Math.max(nextRiskId, maxId + 1);
 
-            const items = projectData.risks.risk_items;
-
-            items.forEach((r, idx) => {
-                if (r.priority === undefined || r.priority === null) r.priority = idx + 1;
+            list.forEach(it => {
+                if (it.id === undefined || it.id === null || it.id === '') {
+                    it.id = nextRiskId++;
+                }
             });
 
-            items.sort((a, b) => (a.priority || 0) - (b.priority || 0));
-            items.forEach((r, idx) => r.priority = idx + 1);
+            return list;
         }
 
-        function refreshRiskInsertAfterOptions() {
-            const select = document.getElementById('riskInsertAfter');
-            if (!select) return;
+        function buildRiskInsertAfterSelect() {
+            const sel = document.getElementById('riskInsertAfterSelect');
+            if (!sel || !projectData || !projectData.risks || !Array.isArray(projectData.risks.risk_items)) return;
 
-            normalizeRisks();
-            const items = projectData?.risks?.risk_items || [];
-            const current = select.value || 'end';
+            uiEnsureRiskIds(projectData.risks.risk_items);
+            uiEnsurePriority(projectData.risks.risk_items, 'priority');
 
-            let html = '';
-            html += `<option value="end">Oxiriga (eng pastga)</option>`;
-            html += `<option value="start">Boshiga (eng yuqoriga)</option>`;
-            items.forEach(r => {
-                html += `<option value="${r.id}">${escapeHtml(r.name)} dan keyin</option>`;
-            });
+            const opts = [
+                `<option value="">Oxiriga qo‘shish</option>`,
+                ...projectData.risks.risk_items.map(r => `<option value="${r.id}">#${r.priority} — ${uiEscapeHtml(r.name)}</option>`)
+            ];
 
-            select.innerHTML = html;
+            sel.innerHTML = opts.join('');
+            sel.value = riskInsertAfterId;
+        }
 
-            const allowed = ['end', 'start', ...items.map(r => String(r.id))];
-            select.value = allowed.includes(String(current)) ? current : 'end';
+        function buildRiskMoveAfterSelect(riskId) {
+            if (!projectData || !projectData.risks || !Array.isArray(projectData.risks.risk_items)) return '';
+
+            uiEnsureRiskIds(projectData.risks.risk_items);
+            uiEnsurePriority(projectData.risks.risk_items, 'priority');
+
+            const options = [
+                `<option value="">Boshiga</option>`,
+                ...projectData.risks.risk_items
+                    .filter(r => String(r.id) !== String(riskId))
+                    .map(r => `<option value="${r.id}">#${r.priority} — ${uiEscapeHtml(r.name)}</option>`)
+            ];
+
+            return `<select class="form-select form-select-sm" onchange="moveRiskToAfter(${riskId}, this.value)">
+                            ${options.join('')}
+                        </select>`;
+        }
+
+        function moveRiskToAfter(riskId, afterId) {
+            if (!projectData || !projectData.risks || !Array.isArray(projectData.risks.risk_items)) return;
+
+            uiEnsureRiskIds(projectData.risks.risk_items);
+            uiEnsurePriority(projectData.risks.risk_items, 'priority');
+
+            const draggedId = riskId;
+            const targetId = (afterId === null || afterId === undefined) ? '' : String(afterId);
+            if (targetId === String(draggedId)) return;
+
+            const list = projectData.risks.risk_items.slice();
+            const draggedIndex = list.findIndex(r => String(r.id) === String(draggedId));
+            if (draggedIndex === -1) return;
+
+            const [dragged] = list.splice(draggedIndex, 1);
+
+            if (targetId === '') {
+                list.unshift(dragged);
+            } else {
+                const targetIndex = list.findIndex(r => String(r.id) === String(targetId));
+                if (targetIndex === -1) list.push(dragged);
+                else list.splice(targetIndex + 1, 0, dragged);
+            }
+
+            projectData.risks.risk_items = list;
+            uiEnsurePriority(projectData.risks.risk_items, 'priority');
+            displayRisks(projectData.risks);
+        }
+
+        function onRiskDragStart(e, riskId) {
+            dragRiskId = riskId;
+            try {
+                e.dataTransfer.effectAllowed = 'move';
+                e.dataTransfer.setData('text/plain', String(riskId));
+            } catch (err) { }
+        }
+
+        function onRiskDragOver(e, targetId) {
+            e.preventDefault();
+            const el = document.querySelector(`.risk-item[data-risk-id="${targetId}"]`);
+            if (el) el.classList.add('is-drag-over');
+        }
+
+        function onRiskDragLeave(e, targetId) {
+            const el = document.querySelector(`.risk-item[data-risk-id="${targetId}"]`);
+            if (el) el.classList.remove('is-drag-over');
+        }
+
+        function onRiskDrop(e, targetId) {
+            e.preventDefault();
+
+            const targetEl = document.querySelector(`.risk-item[data-risk-id="${targetId}"]`);
+            if (targetEl) targetEl.classList.remove('is-drag-over');
+
+            const draggedId = dragRiskId || (function () {
+                try { return e.dataTransfer.getData('text/plain'); } catch (err) { return null; }
+            })();
+
+            if (!draggedId || String(draggedId) === String(targetId)) return;
+            if (!projectData || !projectData.risks || !Array.isArray(projectData.risks.risk_items)) return;
+
+            uiEnsureRiskIds(projectData.risks.risk_items);
+            uiEnsurePriority(projectData.risks.risk_items, 'priority');
+
+            const rect = targetEl ? targetEl.getBoundingClientRect() : null;
+            const placeAfter = rect ? ((e.clientY - rect.top) > rect.height / 2) : true;
+
+            const list = projectData.risks.risk_items.slice();
+            const fromIndex = list.findIndex(r => String(r.id) === String(draggedId));
+            const toIndex = list.findIndex(r => String(r.id) === String(targetId));
+            if (fromIndex === -1 || toIndex === -1) return;
+
+            const [dragged] = list.splice(fromIndex, 1);
+            const insertIndex = (fromIndex < toIndex)
+                ? (placeAfter ? toIndex : toIndex - 1)
+                : (placeAfter ? toIndex + 1 : toIndex);
+
+            const safeIndex = Math.max(0, Math.min(insertIndex, list.length));
+            list.splice(safeIndex, 0, dragged);
+
+            projectData.risks.risk_items = list;
+            uiEnsurePriority(projectData.risks.risk_items, 'priority');
+            displayRisks(projectData.risks);
         }
 
         function displayRisks(risks) {
@@ -1302,62 +1725,64 @@
 
             if (!risksEditMode) {
                 infoContent.innerHTML = `
-                                <div class="info-row">
-                                    <span class="info-label">
-                                        <i class="bi bi-diagram-3 me-1 text-muted"></i>
-                                        Loyihaning boshqarilish modeli nomi
-                                    </span>
-                                    <span class="info-value" id="managementModel">${escapeHtml(risks.management_model || '-')}</span>
-                                </div>
-                                <div class="info-row">
-                                    <span class="info-label">
-                                        <i class="bi bi-file-text me-1 text-muted"></i>
-                                        Loyihaning boshqarilish modeli to'liq tavsifi
-                                    </span>
-                                    <span class="info-value" id="managementDescription">${escapeHtml(risks.management_description || risks.management_info || '-')}</span>
-                                </div>
-                                <div class="info-row">
-                                    <span class="info-label">
-                                        <i class="bi bi-shield-exclamation me-1 text-muted"></i>
-                                        Loyihaning xatar darajasi
-                                    </span>
-                                    <span class="info-value">
-                                        <span class="status-badge" id="riskLevel">-</span>
-                                    </span>
-                                </div>
-                            `;
+                        <div class="info-row">
+                            <span class="info-label">
+                                <i class="bi bi-diagram-3 me-1 text-muted"></i>
+                                Loyihaning boshqarilish modeli nomi
+                            </span>
+                            <span class="info-value" id="managementModel">${risks.management_model || '-'}</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">
+                                <i class="bi bi-file-text me-1 text-muted"></i>
+                                Loyihaning boshqarilish modeli to'liq tavsifi
+                            </span>
+                            <span class="info-value" id="managementDescription">${risks.management_description || risks.management_info || '-'}</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">
+                                <i class="bi bi-shield-exclamation me-1 text-muted"></i>
+                                Loyihaning xatar darajasi
+                            </span>
+                            <span class="info-value">
+                                <span class="status-badge" id="riskLevel">-</span>
+                            </span>
+                        </div>
+                    `;
             } else {
                 infoContent.innerHTML = `
-                                <div class="info-row">
-                                    <span class="info-label">
-                                        <i class="bi bi-diagram-3 me-1 text-muted"></i>
-                                        Loyihaning boshqarilish modeli nomi
-                                    </span>
-                                    <input type="text" class="form-control" value="${escapeAttr(risks.management_model || '')}"
-                                        onchange="updateRiskField('management_model', this.value)" id="editManagementModel">
-                                </div>
-                                <div class="info-row">
-                                    <span class="info-label">
-                                        <i class="bi bi-file-text me-1 text-muted"></i>
-                                        Loyihaning boshqarilish modeli to'liq tavsifi
-                                    </span>
-                                    <textarea class="form-control" rows="4"
-                                        onchange="updateRiskField('management_description', this.value)"
-                                        id="editManagementDescription">${escapeHtml(risks.management_description || risks.management_info || '')}</textarea>
-                                </div>
-                                <div class="info-row">
-                                    <span class="info-label">
-                                        <i class="bi bi-shield-exclamation me-1 text-muted"></i>
-                                        Loyihaning xatar darajasi
-                                    </span>
-                                    <select class="form-select" style="max-width: 200px;"
-                                        onchange="updateRiskField('risk_level', this.value)" id="editRiskLevel">
-                                        <option value="low" ${risks.risk_level === 'low' ? 'selected' : ''}>Past</option>
-                                        <option value="medium" ${risks.risk_level === 'medium' ? 'selected' : ''}>O'rta</option>
-                                        <option value="high" ${risks.risk_level === 'high' ? 'selected' : ''}>Yuqori</option>
-                                    </select>
-                                </div>
-                            `;
+                        <div class="info-row">
+                            <span class="info-label">
+                                <i class="bi bi-diagram-3 me-1 text-muted"></i>
+                                Loyihaning boshqarilish modeli nomi
+                            </span>
+                            <input type="text" class="form-control" value="${uiEscapeHtml(risks.management_model || '')}"
+                                onchange="updateRiskField('management_model', this.value)"
+                                id="editManagementModel">
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">
+                                <i class="bi bi-file-text me-1 text-muted"></i>
+                                Loyihaning boshqarilish modeli to'liq tavsifi
+                            </span>
+                            <textarea class="form-control" rows="4"
+                                onchange="updateRiskField('management_description', this.value)"
+                                id="editManagementDescription">${uiEscapeHtml(risks.management_description || risks.management_info || '')}</textarea>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">
+                                <i class="bi bi-shield-exclamation me-1 text-muted"></i>
+                                Loyihaning xatar darajasi
+                            </span>
+                            <select class="form-select" style="max-width: 200px;"
+                                onchange="updateRiskField('risk_level', this.value)"
+                                id="editRiskLevel">
+                                <option value="low" ${risks.risk_level === 'low' ? 'selected' : ''}>Past</option>
+                                <option value="medium" ${risks.risk_level === 'medium' ? 'selected' : ''}>O'rta</option>
+                                <option value="high" ${risks.risk_level === 'high' ? 'selected' : ''}>Yuqori</option>
+                            </select>
+                        </div>
+                    `;
             }
 
             const riskMap = {
@@ -1366,108 +1791,119 @@
                 'high': { text: 'Yuqori', class: 'status-inactive' }
             };
 
-            const riskLevel = riskMap[risks.risk_level] || { text: '-', class: 'status-planned' };
+            const riskMeta = riskMap[risks.risk_level] || { text: '-', class: 'status-inactive' };
             const riskEl = document.getElementById('riskLevel');
             if (riskEl) {
-                riskEl.textContent = riskLevel.text;
-                riskEl.className = `status-badge ${riskLevel.class}`;
+                riskEl.textContent = riskMeta.text;
+                riskEl.className = `status-badge ${riskMeta.class}`;
             }
 
             const container = document.getElementById('risksContainer');
-            const metaEl = document.getElementById('risksMeta');
+            if (!container) return;
+
             if (!risks.risk_items || risks.risk_items.length === 0) {
                 container.innerHTML = '<p class="text-muted text-center py-4">Xatarlar mavjud emas</p>';
-                refreshRiskInsertAfterOptions();
+                buildRiskInsertAfterSelect();
                 return;
             }
 
-            normalizeRisks();
-            const items = projectData.risks.risk_items;
-            if (metaEl) metaEl.textContent = `Jami: ${items.length} • Tartib: priority`;
+            uiEnsureRiskIds(risks.risk_items);
+            uiEnsurePriority(risks.risk_items, 'priority');
 
             if (!risksEditMode) {
-                container.innerHTML = items.map(item => `
-                                <div class="risk-item">
-                                    <div class="risk-title">
-                                        <span class="priority-pill me-2">#${item.priority}</span>
-                                        <i class="bi bi-exclamation-triangle"></i>
-                                        ${escapeHtml(item.name)}
-                                    </div>
-                                    <p class="risk-description">${escapeHtml(item.description || '')}</p>
-                                </div>
-                            `).join('');
+                container.innerHTML = risks.risk_items.map(item => `
+                        <div class="risk-item">
+                            <div class="risk-title" style="display:flex; align-items:center; gap:0.5rem;">
+                                <span class="priority-pill">#${item.priority}</span>
+                                <i class="bi bi-exclamation-triangle"></i>
+                                ${uiEscapeHtml(item.name)}
+                            </div>
+                            <p class="risk-description">${uiEscapeHtml(item.description)}</p>
+                        </div>
+                    `).join('');
             } else {
-                container.innerHTML = items.map((item, index) => {
-                    const upDisabled = index === 0 ? 'disabled' : '';
-                    const downDisabled = index === items.length - 1 ? 'disabled' : '';
-
-                    return `
-                                <div class="risk-item risk-item-edit">
-                                    <div class="risk-editor-top">
-                                        <div class="d-flex align-items-center gap-2 flex-wrap">
-                                            <span class="priority-pill">#${item.priority}</span>
-                                            <span class="text-muted small">Priority bo'yicha tartib</span>
+                container.innerHTML = risks.risk_items.map(item => `
+                        <div class="risk-item" data-risk-id="${item.id}"
+                             ondragover="onRiskDragOver(event, ${item.id})"
+                             ondragleave="onRiskDragLeave(event, ${item.id})"
+                             ondrop="onRiskDrop(event, ${item.id})"
+                             style="border: 1px solid var(--gray-200); padding: 1.25rem;">
+                            <div class="row g-3 align-items-end">
+                                <div class="col-12 col-md-2">
+                                    <label class="form-label small mb-1">Tartib</label>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <div class="drag-handle" draggable="true"
+                                             ondragstart="onRiskDragStart(event, ${item.id})"
+                                             title="Ushlab torting">
+                                            <i class="bi bi-grip-vertical"></i>
                                         </div>
-                                        <div class="d-flex align-items-center gap-1">
-                                            <button type="button" class="btn btn-light btn-sm icon-btn" ${upDisabled}
-                                                onclick="moveRisk(${item.id}, -1)" title="Yuqoriga">
-                                                <i class="bi bi-arrow-up"></i>
-                                            </button>
-                                            <button type="button" class="btn btn-light btn-sm icon-btn" ${downDisabled}
-                                                onclick="moveRisk(${item.id}, 1)" title="Pastga">
-                                                <i class="bi bi-arrow-down"></i>
-                                            </button>
-                                            <button type="button" class="btn btn-outline-danger btn-sm icon-btn"
-                                                onclick="deleteRisk(${item.id})" title="O'chirish">
-                                                <i class="bi bi-trash"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-
-                                    <div class="row g-2">
-                                        <div class="col-12">
-                                            <label class="form-label small mb-1">
-                                                <i class="bi bi-exclamation-triangle me-1 text-warning"></i>
-                                                Xatar nomi
-                                            </label>
-                                            <input type="text" class="form-control form-control-sm" value="${escapeAttr(item.name || '')}"
-                                                onchange="updateRiskItemField(${item.id}, 'name', this.value)">
-                                        </div>
-                                        <div class="col-12">
-                                            <label class="form-label small mb-1">
-                                                <i class="bi bi-file-text me-1 text-muted"></i>
-                                                Xatar tavsifi
-                                            </label>
-                                            <textarea class="form-control form-control-sm" rows="3"
-                                                onchange="updateRiskItemField(${item.id}, 'description', this.value)">${escapeHtml(item.description || '')}</textarea>
-                                        </div>
+                                        <span class="priority-pill">#${item.priority}</span>
                                     </div>
                                 </div>
-                            `;
-                }).join('');
+                                <div class="col-12 col-md-4">
+                                    <label class="form-label small mb-1">
+                                        <i class="bi bi-exclamation-triangle me-1 text-warning"></i>
+                                        Xatar nomi
+                                    </label>
+                                    <input type="text" class="form-control form-control-sm" value="${uiEscapeHtml(item.name)}"
+                                        onchange="updateRiskItemField(${item.id}, 'name', this.value)"
+                                        id="riskName_${item.id}">
+                                </div>
+                                <div class="col-12 col-md-4">
+                                    <label class="form-label small mb-1">Joylashuvi</label>
+                                    ${buildRiskMoveAfterSelect(item.id)}
+                                </div>
+                                <div class="col-12 col-md-2 d-flex justify-content-end">
+                                    <button type="button" class="btn btn-danger btn-sm w-100"
+                                        onclick="deleteRisk(${item.id})">
+                                        <i class="bi bi-trash me-1"></i>
+                                        O'chirish
+                                    </button>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label small mb-1">
+                                        <i class="bi bi-file-text me-1 text-muted"></i>
+                                        Xatar tavsifi
+                                    </label>
+                                    <textarea class="form-control form-control-sm" rows="3"
+                                        onchange="updateRiskItemField(${item.id}, 'description', this.value)"
+                                        id="riskDesc_${item.id}">${uiEscapeHtml(item.description)}</textarea>
+                                </div>
+                            </div>
+                        </div>
+                    `).join('');
             }
 
-            refreshRiskInsertAfterOptions();
+            buildRiskInsertAfterSelect();
         }
 
         function toggleRisksEdit() {
             risksEditMode = !risksEditMode;
             const btn = document.getElementById('toggleRisksEditBtn');
             const addBtn = document.getElementById('addRiskBtn');
-            const insertGroup = document.getElementById('riskInsertAfterGroup');
+            const tools = document.getElementById('risksTools');
+            const hint = document.getElementById('risksHint');
 
-            btn.innerHTML = risksEditMode
-                ? '<i class="bi bi-check-lg me-1"></i> Saqlash'
-                : '<i class="bi bi-pencil-square me-1"></i> Tahrirlash';
+            if (btn) {
+                btn.innerHTML = risksEditMode
+                    ? '<i class="bi bi-check-lg me-1"></i> Saqlash'
+                    : '<i class="bi bi-pencil-square me-1"></i> Tahrirlash';
+            }
 
-            if (addBtn) addBtn.style.display = risksEditMode ? 'inline-flex' : 'none';
-            if (insertGroup) insertGroup.style.display = risksEditMode ? 'flex' : 'none';
+            uiToggleEditButton(btn, risksEditMode);
+
+            if (addBtn) addBtn.classList.toggle('d-none', !risksEditMode);
+            if (tools) tools.classList.toggle('active', risksEditMode);
+            if (hint) hint.classList.toggle('active', risksEditMode);
+
+            buildRiskInsertAfterSelect();
 
             if (projectData && projectData.risks) displayRisks(projectData.risks);
         }
 
         function updateRiskField(field, value) {
             if (!projectData || !projectData.risks) return;
+
             projectData.risks[field] = value;
 
             if (field === 'risk_level') {
@@ -1476,88 +1912,64 @@
                     'medium': { text: "O'rta", class: 'status-planned' },
                     'high': { text: 'Yuqori', class: 'status-inactive' }
                 };
-                const riskLevel = riskMap[value] || { text: '-', class: 'status-planned' };
+                const riskMeta = riskMap[value] || { text: '-', class: 'status-inactive' };
                 const riskEl = document.getElementById('riskLevel');
                 if (riskEl) {
-                    riskEl.textContent = riskLevel.text;
-                    riskEl.className = `status-badge ${riskLevel.class}`;
+                    riskEl.textContent = riskMeta.text;
+                    riskEl.className = `status-badge ${riskMeta.class}`;
                 }
             }
         }
 
         function updateRiskItemField(riskId, field, value) {
-            if (!projectData || !projectData.risks || !projectData.risks.risk_items) return;
+            if (!projectData || !projectData.risks || !Array.isArray(projectData.risks.risk_items)) return;
 
-            const items = projectData.risks.risk_items;
-            const riskItem = items.find(r => r.id === riskId);
-            if (!riskItem) return;
+            const item = projectData.risks.risk_items.find(r => String(r.id) === String(riskId));
+            if (!item) return;
 
-            riskItem[field] = value;
+            item[field] = value;
         }
 
         function addNewRisk() {
-            if (!projectData || !projectData.risks || !projectData.risks.risk_items) return;
+            if (!projectData || !projectData.risks) return;
 
-            ensureNextRiskId();
-            normalizeRisks();
+            if (!Array.isArray(projectData.risks.risk_items)) projectData.risks.risk_items = [];
 
-            const afterSelect = document.getElementById('riskInsertAfter');
-            const afterValue = afterSelect ? (afterSelect.value || 'end') : 'end';
+            uiEnsureRiskIds(projectData.risks.risk_items);
+            uiEnsurePriority(projectData.risks.risk_items, 'priority');
 
             const newRisk = {
                 id: nextRiskId++,
                 name: 'Yangi xatar',
-                description: '',
-                priority: 9999
+                description: 'Xatar tavsifini kiriting...',
+                priority: projectData.risks.risk_items.length + 1
             };
 
-            const items = projectData.risks.risk_items;
-
-            if (afterValue === 'start') {
-                items.unshift(newRisk);
-            } else if (afterValue === 'end') {
-                items.push(newRisk);
+            const afterId = riskInsertAfterId;
+            if (afterId) {
+                const idx = projectData.risks.risk_items.findIndex(r => String(r.id) === String(afterId));
+                if (idx === -1) projectData.risks.risk_items.push(newRisk);
+                else projectData.risks.risk_items.splice(idx + 1, 0, newRisk);
             } else {
-                const idx = items.findIndex(r => String(r.id) === String(afterValue));
-                if (idx === -1) items.push(newRisk);
-                else items.splice(idx + 1, 0, newRisk);
+                projectData.risks.risk_items.push(newRisk);
             }
 
-            normalizeRisks();
-            displayRisks(projectData.risks);
-        }
-
-        function moveRisk(riskId, direction) {
-            if (!projectData || !projectData.risks || !projectData.risks.risk_items) return;
-
-            normalizeRisks();
-            const items = projectData.risks.risk_items;
-
-            const idx = items.findIndex(r => r.id === riskId);
-            if (idx === -1) return;
-
-            const target = idx + direction;
-            if (target < 0 || target >= items.length) return;
-
-            const tmp = items[idx];
-            items[idx] = items[target];
-            items[target] = tmp;
-
-            normalizeRisks();
+            uiEnsurePriority(projectData.risks.risk_items, 'priority');
             displayRisks(projectData.risks);
         }
 
         function deleteRisk(riskId) {
-            if (!projectData || !projectData.risks || !projectData.risks.risk_items) return;
+            if (!projectData || !projectData.risks || !Array.isArray(projectData.risks.risk_items)) return;
 
             if (confirm('Bu xatarni o\'chirishni xohlaysizmi?')) {
-                projectData.risks.risk_items = projectData.risks.risk_items.filter(r => r.id !== riskId);
-                normalizeRisks();
+                projectData.risks.risk_items = projectData.risks.risk_items.filter(r => String(r.id) !== String(riskId));
+                uiEnsurePriority(projectData.risks.risk_items, 'priority');
                 displayRisks(projectData.risks);
             }
         }
 
         let documentsEditMode = false;
+
         let nextDocumentId = 6; // Yangi hujjatlar uchun ID
 
         function displayDocuments(documents) {
@@ -1776,21 +2188,6 @@
 
         function formatMoney(amount) {
             return new Intl.NumberFormat('uz-UZ').format(amount) + " so'm";
-        }
-
-        function escapeHtml(value) {
-            const str = String(value ?? '');
-            return str
-                .replaceAll('&', '&amp;')
-                .replaceAll('<', '&lt;')
-                .replaceAll('>', '&gt;')
-                .replaceAll('"', '&quot;')
-                .replaceAll("'", '&#39;');
-        }
-
-        function escapeAttr(value) {
-            // attribute uchun minimal escaping
-            return escapeHtml(value).replaceAll('`', '&#96;');
         }
 
         function enableEdit() {
@@ -2242,19 +2639,30 @@
         }
 
         // =================== MEDIA (IMAGES/VIDEOS) MANAGEMENT ===================
-        function deleteMedia(mediaId, mediaType) {
-            if (!confirm('Ushbu faylni o\'chirmoqchimisiz?')) {
-                return;
-            }
+        function deleteMedia(mediaId, mediaType, mediaSrc) {
+            if (!confirm('Ushbu faylni o\'chirmoqchimisiz?')) return;
 
             // API call would go here
-            console.log('Deleting media:', { mediaId, mediaType });
+            console.log('Deleting media:', { mediaId, mediaType, mediaSrc });
 
-            // Remove from DOM
-            const mediaElement = document.querySelector(`[data-media-id="${mediaId}"]`);
-            if (mediaElement) {
-                mediaElement.remove();
+            // 1) Data’dan olib tashlash (delete bosilgach ochib yuborish muammosi shu yerda yo‘qoladi)
+            if (projectData) {
+                if (mediaType === 'main-image' && Array.isArray(projectData.main_images)) {
+                    projectData.main_images = projectData.main_images.filter(u => String(u) !== String(mediaSrc));
+                    displayMainImages(projectData.main_images);
+                }
+                if (mediaType === 'process-image' && Array.isArray(projectData.process_images)) {
+                    projectData.process_images = projectData.process_images.filter(u => String(u) !== String(mediaSrc));
+                    displayProcessImages(projectData.process_images);
+                }
+                if (mediaType === 'video' && Array.isArray(projectData.videos)) {
+                    projectData.videos = projectData.videos.filter(u => String(u) !== String(mediaSrc));
+                    displayVideos(projectData.videos);
+                }
             }
+
+            // 2) Control’larni qayta qo‘yish
+            setTimeout(addMediaControls, 0);
 
             showToast('Fayl muvaffaqiyatli o\'chirildi', 'success');
         }
@@ -2309,32 +2717,58 @@
             const items = container.querySelectorAll('.gallery-item');
 
             items.forEach((item, index) => {
+                if (item.classList.contains('media-upload-card')) return;
                 if (item.querySelector('.media-controls')) return; // Already has controls
 
+                const mediaSrc = item.getAttribute('data-media-src') || (item.querySelector('img')?.getAttribute('src') ?? '');
                 const mediaId = `${mediaType}-${index}`;
                 item.setAttribute('data-media-id', mediaId);
 
                 const controls = document.createElement('div');
                 controls.className = 'media-controls';
+
+                // delete icon: delete-button.blade.php’dagi SVG path
                 controls.innerHTML = `
-                    <button class="media-delete-btn" onclick="deleteMedia('${mediaId}', '${mediaType}')" title="O'chirish">
-                        <i class="bi bi-x-lg"></i>
+                    <button type="button" class="media-delete-btn" title="O'chirish">
+                        <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
+                            <path fill-rule="evenodd"
+                                d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                                clip-rule="evenodd"></path>
+                        </svg>
                     </button>
                 `;
+
+                // click bubbling to‘xtatish (delete bosilganda modal ochilmasin)
+                const btn = controls.querySelector('button');
+                btn.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    deleteMedia(mediaId, mediaType, mediaSrc);
+                });
+                controls.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                });
 
                 item.appendChild(controls);
             });
 
-            // Add upload button
+            // Add upload button (1 dona)
             if (!container.querySelector('.media-upload-card')) {
                 const uploadCard = document.createElement('div');
                 uploadCard.className = 'gallery-item media-upload-card';
                 uploadCard.innerHTML = `
-                    <div class="media-upload-content" onclick="uploadNewMedia('${mediaType}')">
+                    <div class="media-upload-content">
                         <i class="bi bi-cloud-upload"></i>
                         <span>Yangi yuklash</span>
                     </div>
                 `;
+                uploadCard.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    uploadNewMedia(mediaType);
+                });
+
                 container.appendChild(uploadCard);
             }
         }
