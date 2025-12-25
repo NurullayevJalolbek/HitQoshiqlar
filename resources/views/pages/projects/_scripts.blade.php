@@ -385,10 +385,10 @@
 
             const container = document.getElementById('mainImagesContainer');
             container.innerHTML = images.map((img, index) => `
-                        <div class="gallery-item" onclick="openImageModal('${img}')">
-                            <img src="${img}" alt="Asosiy fon rasmi ${index + 1}" loading="lazy">
-                        </div>
-                    `).join('');
+                            <div class="gallery-item" onclick="openImageModal('${img}')">
+                                <img src="${img}" alt="Asosiy fon rasmi ${index + 1}" loading="lazy">
+                            </div>
+                        `).join('');
         }
 
         function displayVideos(videos) {
@@ -407,13 +407,13 @@
                     '';
 
                 return `
-                            <div class="gallery-item video-item" onclick="openVideoModal('${url}')">
-                                ${thumbnailUrl ? `<img src="${thumbnailUrl}" alt="Video ${index + 1}" loading="lazy">` : ''}
-                                <div class="play-icon">
-                                    <i class="bi bi-play-fill"></i>
+                                <div class="gallery-item video-item" onclick="openVideoModal('${url}')">
+                                    ${thumbnailUrl ? `<img src="${thumbnailUrl}" alt="Video ${index + 1}" loading="lazy">` : ''}
+                                    <div class="play-icon">
+                                        <i class="bi bi-play-fill"></i>
+                                    </div>
                                 </div>
-                            </div>
-                        `;
+                            `;
             }).join('');
         }
 
@@ -426,10 +426,10 @@
             document.getElementById('processImagesCard').style.display = 'block';
             const container = document.getElementById('processImagesContainer');
             container.innerHTML = images.map((img, index) => `
-                                            <div class="gallery-item" onclick="openImageModal('${img}')">
-                                                <img src="${img}" alt="Qurilish jarayoni ${index + 1}" loading="lazy">
-                                            </div>
-                                        `).join('');
+                                                <div class="gallery-item" onclick="openImageModal('${img}')">
+                                                    <img src="${img}" alt="Qurilish jarayoni ${index + 1}" loading="lazy">
+                                                </div>
+                                            `).join('');
         }
 
         function openImageModal(imageUrl) {
@@ -503,62 +503,62 @@
                 if (!stagesEditMode) {
                     // Ko'rish rejimi
                     itemEl.innerHTML = `
-                                <div class="row ps-lg-1 align-items-center">
-                                    <div class="col-auto">
-                                        <div class="${status.badgeClass}">
-                                            <i class="${status.icon}"></i>
-                                            ${status.text}
+                                    <div class="row ps-lg-1 align-items-center">
+                                        <div class="col-auto">
+                                            <div class="${status.badgeClass}">
+                                                <i class="${status.icon}"></i>
+                                                ${status.text}
+                                            </div>
+                                        </div>
+                                        <div class="col ms-n2 mb-2">
+                                            <h3 class="fs-6 fw-bold mb-1">${stage.name}</h3>
+                                            <div class="d-flex align-items-center small text-muted">
+                                                <i class="bi bi-calendar3 me-1"></i>
+                                                <span>${stage.start_date} - ${stage.end_date}</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-auto text-end">
+                                            <span class="badge rounded-pill bg-light text-dark">
+                                                <i class="bi bi-bar-chart-fill me-1 text-primary"></i>${stage.progress}%
+                                            </span>
                                         </div>
                                     </div>
-                                    <div class="col ms-n2 mb-2">
-                                        <h3 class="fs-6 fw-bold mb-1">${stage.name}</h3>
-                                        <div class="d-flex align-items-center small text-muted">
-                                            <i class="bi bi-calendar3 me-1"></i>
-                                            <span>${stage.start_date} - ${stage.end_date}</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-auto text-end">
-                                        <span class="badge rounded-pill bg-light text-dark">
-                                            <i class="bi bi-bar-chart-fill me-1 text-primary"></i>${stage.progress}%
-                                        </span>
-                                    </div>
-                                </div>
-                            `;
+                                `;
                 } else {
                     // Tahrirlash rejimi
                     itemEl.innerHTML = `
-                                <div class="row ps-lg-1 align-items-start gy-2">
-                                    <div class="col-12 col-md-4">
-                                        <label class="form-label small mb-1">Bosqich nomi</label>
-                                        <input type="text" class="form-control form-control-sm" value="${stage.name}"
-                                            onchange="updateStageField(${index}, 'name', this.value)">
+                                    <div class="row ps-lg-1 align-items-start gy-2">
+                                        <div class="col-12 col-md-4">
+                                            <label class="form-label small mb-1">Bosqich nomi</label>
+                                            <input type="text" class="form-control form-control-sm" value="${stage.name}"
+                                                onchange="updateStageField(${index}, 'name', this.value)">
+                                        </div>
+                                        <div class="col-6 col-md-3">
+                                            <label class="form-label small mb-1">Holati</label>
+                                            <select class="form-select form-select-sm"
+                                                onchange="updateStageField(${index}, 'status', this.value)">
+                                                <option value="planned" ${stage.status === 'planned' ? 'selected' : ''}>Rejalashtirilgan</option>
+                                                <option value="in_progress" ${stage.status === 'in_progress' ? 'selected' : ''}>Jarayonda</option>
+                                                <option value="completed" ${stage.status === 'completed' ? 'selected' : ''}>Bajarilgan</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-6 col-md-2">
+                                            <label class="form-label small mb-1">% bajarilgan</label>
+                                            <input type="number" min="0" max="100" class="form-control form-control-sm" value="${stage.progress}"
+                                                onchange="updateStageField(${index}, 'progress', Number(this.value) || 0)">
+                                        </div>
+                                        <div class="col-6 col-md-1">
+                                            <label class="form-label small mb-1">Boshlanish</label>
+                                            <input type="text" class="form-control form-control-sm" value="${stage.start_date}"
+                                                onchange="updateStageField(${index}, 'start_date', this.value)">
+                                        </div>
+                                        <div class="col-6 col-md-1">
+                                            <label class="form-label small mb-1">Yakun</label>
+                                            <input type="text" class="form-control form-control-sm" value="${stage.end_date}"
+                                                onchange="updateStageField(${index}, 'end_date', this.value)">
+                                        </div>
                                     </div>
-                                    <div class="col-6 col-md-3">
-                                        <label class="form-label small mb-1">Holati</label>
-                                        <select class="form-select form-select-sm"
-                                            onchange="updateStageField(${index}, 'status', this.value)">
-                                            <option value="planned" ${stage.status === 'planned' ? 'selected' : ''}>Rejalashtirilgan</option>
-                                            <option value="in_progress" ${stage.status === 'in_progress' ? 'selected' : ''}>Jarayonda</option>
-                                            <option value="completed" ${stage.status === 'completed' ? 'selected' : ''}>Bajarilgan</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-6 col-md-2">
-                                        <label class="form-label small mb-1">% bajarilgan</label>
-                                        <input type="number" min="0" max="100" class="form-control form-control-sm" value="${stage.progress}"
-                                            onchange="updateStageField(${index}, 'progress', Number(this.value) || 0)">
-                                    </div>
-                                    <div class="col-6 col-md-1">
-                                        <label class="form-label small mb-1">Boshlanish</label>
-                                        <input type="text" class="form-control form-control-sm" value="${stage.start_date}"
-                                            onchange="updateStageField(${index}, 'start_date', this.value)">
-                                    </div>
-                                    <div class="col-6 col-md-1">
-                                        <label class="form-label small mb-1">Yakun</label>
-                                        <input type="text" class="form-control form-control-sm" value="${stage.end_date}"
-                                            onchange="updateStageField(${index}, 'end_date', this.value)">
-                                    </div>
-                                </div>
-                            `;
+                                `;
                 }
 
                 timeline.appendChild(itemEl);
@@ -592,65 +592,59 @@
             if (!distributionEditMode) {
                 // Ko'rish rejimi
                 content.innerHTML = `
-                            <div class="info-row">
-                                <span class="info-label">To'liq sherikning investitsion loyihadagi o'ziga tegishli ulushining
-                                    realizatsiyasidan kutilayotgan sof foyda/zarardan oladigan qiymati (foizda)</span>
-                                <span class="info-value" id="fullPartnerOwnShare">${distribution.full_partner_own_share}%</span>
-                            </div>
-                            <div class="info-row">
-                                <span class="info-label">To'liq sherikning investitsion Kommanditchilarning loyihadagi tegishli
-                                    ulushining realizatsiyasidan kutilayotgan sof foyda/zarardan oladigan qiymati (foizda)</span>
-                                <span class="info-value" id="fullPartnerInvestorShare">${distribution.full_partner_investor_share}%</span>
-                            </div>
-                            <div class="info-row">
-                                <span class="info-label">Kommanditchilarning investitsion loyihadagi o'ziga tegishli ulushining
-                                    realizatsiyasidan kutilayotgan sof foyda/zarardan oladigan qiymati (foizda)</span>
-                                <span class="info-value" id="investorsOwnShare">${distribution.investors_own_share}%</span>
-                            </div>
-                        `;
+                                <div class="info-row">
+                                    <span class="info-label">To'liq sherikning investitsion loyihadagi o'ziga tegishli ulushining
+                                        realizatsiyasidan kutilayotgan sof foyda/zarardan oladigan qiymati (foizda)</span>
+                                    <span class="info-value" id="fullPartnerOwnShare">${distribution.full_partner_own_share}%</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="info-label">To'liq sherikning investitsion Kommanditchilarning loyihadagi tegishli
+                                        ulushining realizatsiyasidan kutilayotgan sof foyda/zarardan oladigan qiymati (foizda)</span>
+                                    <span class="info-value" id="fullPartnerInvestorShare">${distribution.full_partner_investor_share}%</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="info-label">Kommanditchilarning investitsion loyihadagi o'ziga tegishli ulushining
+                                        realizatsiyasidan kutilayotgan sof foyda/zarardan oladigan qiymati (foizda)</span>
+                                    <span class="info-value" id="investorsOwnShare">${distribution.investors_own_share}%</span>
+                                </div>
+                            `;
             } else {
-                // Tahrirlash rejimi
+                // Tahrirlash rejimi: faqat full_partner_investor_share tahrirlanadi
                 content.innerHTML = `
-                            <div class="info-row">
-                                <span class="info-label">To'liq sherikning investitsion loyihadagi o'ziga tegishli ulushining
-                                    realizatsiyasidan kutilayotgan sof foyda/zarardan oladigan qiymati (foizda)</span>
-                                <div class="d-flex align-items-center gap-2">
-                                    <input type="number" min="0" max="100" step="0.1" 
-                                        class="form-control form-control-sm" style="max-width: 120px;" 
-                                        value="${distribution.full_partner_own_share}"
-                                        onchange="updateDistributionField('full_partner_own_share', Number(this.value) || 0)"
-                                        id="editFullPartnerOwnShare">
-                                    <span class="text-muted">%</span>
+                                <div class="info-row">
+                                    <span class="info-label">To'liq sherikning investitsion loyihadagi o'ziga tegishli ulushining
+                                        realizatsiyasidan kutilayotgan sof foyda/zarardan oladigan qiymati (foizda)</span>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <input type="number" class="form-control form-control-sm" style="max-width: 120px;"
+                                            value="${distribution.full_partner_own_share}" disabled>
+                                        <span class="text-muted">%</span>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="info-row">
-                                <span class="info-label">To'liq sherikning investitsion Kommanditchilarning loyihadagi tegishli
-                                    ulushining realizatsiyasidan kutilayotgan sof foyda/zarardan oladigan qiymati (foizda)</span>
-                                <div class="d-flex align-items-center gap-2">
-                                    <input type="number" min="0" max="100" step="0.1" 
-                                        class="form-control form-control-sm" style="max-width: 120px;" 
-                                        value="${distribution.full_partner_investor_share}"
-                                        onchange="updateDistributionField('full_partner_investor_share', Number(this.value) || 0)"
-                                        id="editFullPartnerInvestorShare">
-                                    <span class="text-muted">%</span>
+                                <div class="info-row">
+                                    <span class="info-label">To'liq sherikning investitsion Kommanditchilarning loyihadagi tegishli
+                                        ulushining realizatsiyasidan kutilayotgan sof foyda/zarardan oladigan qiymati (foizda)</span>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <input type="number" min="0" max="100" step="0.1"
+                                            class="form-control form-control-sm" style="max-width: 120px;"
+                                            value="${distribution.full_partner_investor_share}"
+                                            onchange="updateDistributionField('full_partner_investor_share', Number(this.value) || 0)"
+                                            id="editFullPartnerInvestorShare">
+                                        <span class="text-muted">%</span>
+                                    </div>
+                                    <div class="small text-muted mt-1">Qolgan qiymatlar avtomatik hisoblanadi</div>
                                 </div>
-                            </div>
-                            <div class="info-row">
-                                <span class="info-label">Kommanditchilarning investitsion loyihadagi o'ziga tegishli ulushining
-                                    realizatsiyasidan kutilayotgan sof foyda/zarardan oladigan qiymati (foizda)</span>
-                                <div class="d-flex align-items-center gap-2">
-                                    <input type="number" min="0" max="100" step="0.1" 
-                                        class="form-control form-control-sm" style="max-width: 120px;" 
-                                        value="${distribution.investors_own_share}"
-                                        onchange="updateDistributionField('investors_own_share', Number(this.value) || 0)"
-                                        id="editInvestorsOwnShare">
-                                    <span class="text-muted">%</span>
+                                <div class="info-row">
+                                    <span class="info-label">Kommanditchilarning investitsion loyihadagi o'ziga tegishli ulushining
+                                        realizatsiyasidan kutilayotgan sof foyda/zarardan oladigan qiymati (foizda)</span>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <input type="number" class="form-control form-control-sm" style="max-width: 120px;"
+                                            value="${distribution.investors_own_share}" disabled id="editInvestorsOwnShare">
+                                        <span class="text-muted">%</span>
+                                    </div>
                                 </div>
-                            </div>
-                        `;
+                            `;
             }
 
-            // Vizual taqsimotni yangilash
             updateDistributionVisual(distribution);
         }
 
@@ -685,148 +679,244 @@
         function updateDistributionField(field, value) {
             if (!projectData || !projectData.distribution) return;
 
+            // faqat full_partner_investor_share tahrirlanadi
+            if (field !== 'full_partner_investor_share') return;
+
             // Qiymatni cheklash
             if (value < 0) value = 0;
             if (value > 100) value = 100;
 
-            projectData.distribution[field] = value;
+            projectData.distribution.full_partner_investor_share = value;
+            projectData.distribution.investors_own_share = 100 - value;
 
-            // Agar full_partner_investor_share o'zgarsa, investors_own_share ni avtomatik hisoblaymiz
-            if (field === 'full_partner_investor_share') {
-                projectData.distribution.investors_own_share = 100 - value;
-                // Input qiymatini yangilaymiz
-                const investorsInput = document.getElementById('editInvestorsOwnShare');
-                if (investorsInput) {
-                    investorsInput.value = projectData.distribution.investors_own_share;
-                }
+            const investorsInput = document.getElementById('editInvestorsOwnShare');
+            if (investorsInput) {
+                investorsInput.value = projectData.distribution.investors_own_share;
             }
 
-            // Agar investors_own_share o'zgarsa, full_partner_investor_share ni avtomatik hisoblaymiz
-            if (field === 'investors_own_share') {
-                projectData.distribution.full_partner_investor_share = 100 - value;
-                // Input qiymatini yangilaymiz
-                const partnerInput = document.getElementById('editFullPartnerInvestorShare');
-                if (partnerInput) {
-                    partnerInput.value = projectData.distribution.full_partner_investor_share;
-                }
-            }
-
-            // Vizual taqsimotni yangilash
             updateDistributionVisual(projectData.distribution);
         }
 
+        // === Raundlar: priority + joylashuv + delete cheklovi ===
         let roundsEditMode = false;
-        let nextRoundId = 4; // Yangi roundlar uchun ID
+        let nextRoundId = null;
+
+        function ensureNextRoundId() {
+            if (nextRoundId !== null) return;
+            const rounds = (projectData && projectData.rounds) ? projectData.rounds : [];
+            const maxId = rounds.reduce((m, r) => Math.max(m, Number(r.id) || 0), 0);
+            nextRoundId = maxId + 1;
+        }
+
+        function normalizeRounds() {
+            if (!projectData || !projectData.rounds) return;
+
+            // priority bo'lmasa berib chiqamiz
+            projectData.rounds.forEach((r, idx) => {
+                if (r.priority === undefined || r.priority === null) r.priority = idx + 1;
+            });
+
+            projectData.rounds.sort((a, b) => (a.priority || 0) - (b.priority || 0));
+            projectData.rounds.forEach((r, idx) => r.priority = idx + 1);
+        }
+
+        function refreshRoundInsertAfterOptions() {
+            const select = document.getElementById('roundInsertAfter');
+            if (!select) return;
+
+            normalizeRounds();
+            const rounds = projectData?.rounds || [];
+
+            const current = select.value || 'end';
+
+            let html = '';
+            html += `<option value="end">Oxiriga (eng pastga)</option>`;
+            html += `<option value="start">Boshiga (eng yuqoriga)</option>`;
+            rounds.forEach(r => {
+                html += `<option value="${r.id}">${escapeHtml(r.name)} dan keyin</option>`;
+            });
+
+            select.innerHTML = html;
+
+            // oldingi tanlovni saqlash
+            const allowed = ['end', 'start', ...rounds.map(r => String(r.id))];
+            select.value = allowed.includes(String(current)) ? current : 'end';
+        }
 
         function displayRounds(rounds) {
             const container = document.getElementById('roundsContainer');
+            const metaEl = document.getElementById('roundsMeta');
+
             const statusMap = {
-                'in_progress': {
-                    text: 'Jarayonda',
-                    class: 'status-inprogress'
-                },
-                'completed': {
-                    text: 'Yakunlangan',
-                    class: 'status-completed'
-                },
-                'inactive': {
-                    text: 'Nofaol',
-                    class: 'status-inactive'
-                }
+                'in_progress': { text: 'Jarayonda', class: 'status-inprogress' },
+                'completed': { text: 'Yakunlangan', class: 'status-completed' },
+                'inactive': { text: 'Nofaol', class: 'status-inactive' }
             };
 
             if (!rounds || rounds.length === 0) {
                 container.innerHTML = '<p class="text-muted text-center py-4">Raundlar mavjud emas</p>';
+                if (metaEl) metaEl.textContent = '';
+                refreshRoundInsertAfterOptions();
                 return;
             }
 
+            normalizeRounds();
+            rounds = projectData.rounds;
+
+            if (metaEl) metaEl.textContent = `Jami: ${rounds.length} • Tartib: priority`;
+
             if (!roundsEditMode) {
-                // Ko'rish rejimi
                 container.innerHTML = rounds.map(round => {
-                    const status = statusMap[round.status];
+                    const status = statusMap[round.status] || statusMap['inactive'];
                     return `
-                                <div class="round-item">
-                                    <div class="round-info">
-                                        <h6>${round.name}</h6>
-                                        <span class="status-badge ${status.class}">${status.text}</span>
+                                    <div class="round-item">
+                                        <div class="d-flex align-items-center gap-3">
+                                            <span class="priority-pill">#${round.priority}</span>
+                                            <div class="round-info">
+                                                <div class="round-name">${escapeHtml(round.name)}</div>
+                                                <div class="d-flex align-items-center gap-2 flex-wrap">
+                                                    <span class="status-badge ${status.class}">${status.text}</span>
+                                                    <span class="round-caption">Minimal ulush</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="round-right text-end">
+                                            <div class="round-amount">${formatMoney(round.min_share)}</div>
+                                            <div class="round-caption">so'm</div>
+                                        </div>
                                     </div>
-                                    <div style="text-align: right;">
-                                        <div class="round-amount">${formatMoney(round.min_share)}</div>
-                                        <div style="font-size: 0.85rem; color: var(--gray-600);">Minimal ulush</div>
-                                    </div>
-                                </div>
-                            `;
+                                `;
                 }).join('');
             } else {
-                // Tahrirlash rejimi
                 container.innerHTML = rounds.map((round, index) => {
-                    const status = statusMap[round.status];
+                    const status = statusMap[round.status] || statusMap['inactive'];
+                    const canDelete = (round.status === 'inactive');
+                    const upDisabled = index === 0 ? 'disabled' : '';
+                    const downDisabled = index === rounds.length - 1 ? 'disabled' : '';
+                    const deleteDisabled = canDelete ? '' : 'disabled';
+
+                    const deleteTitle = canDelete ? "O'chirish" : "Faqat nofaol raund o'chiriladi";
+
                     return `
-                                <div class="round-item" style="flex-direction: column; align-items: stretch; gap: 1rem;">
-                                    <div class="row g-2 align-items-center">
-                                        <div class="col-12 col-md-4">
-                                            <label class="form-label small mb-1">Raund nomi</label>
-                                            <input type="text" class="form-control form-control-sm" value="${round.name}"
-                                                onchange="updateRoundField(${round.id}, 'name', this.value)"
-                                                id="roundName_${round.id}">
+                                    <div class="round-editor">
+                                        <div class="round-editor-top">
+                                            <div class="d-flex align-items-center gap-2 flex-wrap">
+                                                <span class="priority-pill">#${round.priority}</span>
+                                                <span class="status-badge ${status.class}">${status.text}</span>
+                                                <span class="text-muted small">Priority bo'yicha tartib</span>
+                                            </div>
+                                            <div class="d-flex align-items-center gap-1">
+                                                <button type="button" class="btn btn-light btn-sm icon-btn" ${upDisabled}
+                                                    onclick="moveRound(${round.id}, -1)" title="Yuqoriga">
+                                                    <i class="bi bi-arrow-up"></i>
+                                                </button>
+                                                <button type="button" class="btn btn-light btn-sm icon-btn" ${downDisabled}
+                                                    onclick="moveRound(${round.id}, 1)" title="Pastga">
+                                                    <i class="bi bi-arrow-down"></i>
+                                                </button>
+                                                <button type="button" class="btn btn-outline-danger btn-sm icon-btn" ${deleteDisabled}
+                                                    onclick="deleteRound(${round.id})" title="${deleteTitle}">
+                                                    <i class="bi bi-trash"></i>
+                                                </button>
+                                            </div>
                                         </div>
-                                        <div class="col-6 col-md-3">
-                                            <label class="form-label small mb-1">Holati</label>
-                                            <select class="form-select form-select-sm"
-                                                onchange="updateRoundField(${round.id}, 'status', this.value)"
-                                                id="roundStatus_${round.id}">
-                                                <option value="inactive" ${round.status === 'inactive' ? 'selected' : ''}>Nofaol</option>
-                                                <option value="in_progress" ${round.status === 'in_progress' ? 'selected' : ''}>Jarayonda</option>
-                                                <option value="completed" ${round.status === 'completed' ? 'selected' : ''}>Yakunlangan</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-6 col-md-3">
-                                            <label class="form-label small mb-1">Minimal ulush (so'm)</label>
-                                            <input type="number" min="0" step="1000" class="form-control form-control-sm" 
-                                                value="${round.min_share}"
-                                                onchange="updateRoundField(${round.id}, 'min_share', Number(this.value) || 0)"
-                                                id="roundMinShare_${round.id}">
-                                        </div>
-                                        <div class="col-12 col-md-2 d-flex align-items-end">
-                                            <button type="button" class="btn btn-danger btn-sm w-100" 
-                                                onclick="deleteRound(${round.id})">
-                                                <i class="bi bi-trash"></i> O'chirish
-                                            </button>
+
+                                        <div class="row g-2 align-items-end">
+                                            <div class="col-12 col-md-5">
+                                                <label class="form-label small mb-1">Raund nomi</label>
+                                                <input type="text" class="form-control form-control-sm"
+                                                    value="${escapeAttr(round.name)}"
+                                                    onchange="updateRoundField(${round.id}, 'name', this.value)">
+                                            </div>
+                                            <div class="col-6 col-md-3">
+                                                <label class="form-label small mb-1">Holati</label>
+                                                <select class="form-select form-select-sm"
+                                                    onchange="updateRoundField(${round.id}, 'status', this.value)">
+                                                    <option value="inactive" ${round.status === 'inactive' ? 'selected' : ''}>Nofaol</option>
+                                                    <option value="in_progress" ${round.status === 'in_progress' ? 'selected' : ''}>Jarayonda</option>
+                                                    <option value="completed" ${round.status === 'completed' ? 'selected' : ''}>Yakunlangan</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-6 col-md-4">
+                                                <label class="form-label small mb-1">Minimal ulush (so'm)</label>
+                                                <input type="number" min="0" step="1000" class="form-control form-control-sm"
+                                                    value="${Number(round.min_share) || 0}"
+                                                    onchange="updateRoundField(${round.id}, 'min_share', Number(this.value) || 0)">
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            `;
+                                `;
                 }).join('');
             }
+
+            refreshRoundInsertAfterOptions();
         }
 
         function toggleRoundsEdit() {
             roundsEditMode = !roundsEditMode;
             const btn = document.getElementById('toggleRoundsEditBtn');
             const addBtn = document.getElementById('addRoundBtn');
+            const insertGroup = document.getElementById('roundInsertAfterGroup');
 
-            btn.innerHTML = roundsEditMode ?
-                '<i class="bi bi-check-lg me-1"></i> Saqlash' :
-                '<i class="bi bi-pencil-square me-1"></i> Tahrirlash';
+            btn.innerHTML = roundsEditMode
+                ? '<i class="bi bi-check-lg me-1"></i> Saqlash'
+                : '<i class="bi bi-pencil-square me-1"></i> Tahrirlash';
 
-            addBtn.style.display = roundsEditMode ? 'inline-flex' : 'none';
+            if (addBtn) addBtn.style.display = roundsEditMode ? 'inline-flex' : 'none';
+            if (insertGroup) insertGroup.style.display = roundsEditMode ? 'flex' : 'none';
 
-            if (projectData && projectData.rounds) {
-                displayRounds(projectData.rounds);
-            }
+            if (projectData && projectData.rounds) displayRounds(projectData.rounds);
         }
 
         function addNewRound() {
             if (!projectData || !projectData.rounds) return;
 
+            ensureNextRoundId();
+            normalizeRounds();
+
+            const afterSelect = document.getElementById('roundInsertAfter');
+            const afterValue = afterSelect ? (afterSelect.value || 'end') : 'end';
+
             const newRound = {
                 id: nextRoundId++,
-                name: `Yangi raund ${nextRoundId - 3}`,
+                name: `Yangi raund`,
                 status: 'inactive',
-                min_share: 0
+                min_share: 0,
+                priority: 9999
             };
 
-            projectData.rounds.push(newRound);
+            // insert
+            const rounds = projectData.rounds;
+            if (afterValue === 'start') {
+                rounds.unshift(newRound);
+            } else if (afterValue === 'end') {
+                rounds.push(newRound);
+            } else {
+                const idx = rounds.findIndex(r => String(r.id) === String(afterValue));
+                if (idx === -1) rounds.push(newRound);
+                else rounds.splice(idx + 1, 0, newRound);
+            }
+
+            normalizeRounds();
+            displayRounds(projectData.rounds);
+        }
+
+        function moveRound(roundId, direction) {
+            if (!projectData || !projectData.rounds) return;
+            normalizeRounds();
+
+            const rounds = projectData.rounds;
+            const idx = rounds.findIndex(r => r.id === roundId);
+            if (idx === -1) return;
+
+            const target = idx + direction;
+            if (target < 0 || target >= rounds.length) return;
+
+            const tmp = rounds[idx];
+            rounds[idx] = rounds[target];
+            rounds[target] = tmp;
+
+            normalizeRounds();
             displayRounds(projectData.rounds);
         }
 
@@ -837,18 +927,20 @@
             if (!round) return;
 
             round[field] = value;
-
-            // Agar edit rejimida bo'lsa, ko'rinishni yangilaymiz
-            if (roundsEditMode) {
-                displayRounds(projectData.rounds);
-            }
         }
 
         function deleteRound(roundId) {
             if (!projectData || !projectData.rounds) return;
 
+            const round = projectData.rounds.find(r => r.id === roundId);
+            if (!round) return;
+
+            // faqat nofaol raund o'chiriladi
+            if (round.status !== 'inactive') return;
+
             if (confirm('Bu raundni o\'chirishni xohlaysizmi?')) {
                 projectData.rounds = projectData.rounds.filter(r => r.id !== roundId);
+                normalizeRounds();
                 displayRounds(projectData.rounds);
             }
         }
@@ -873,11 +965,11 @@
         function displayDividendHistory(dividendHistory) {
             if (!dividendHistory || dividendHistory.length === 0) {
                 document.getElementById('dividendHistory').innerHTML = `
-                            <div class="text-center py-4 text-muted">
-                                <i class="bi bi-inbox" style="font-size: 2rem; display: block; margin-bottom: 0.5rem;"></i>
-                                <p>Dividendlar tarixi mavjud emas</p>
-                            </div>
-                        `;
+                                <div class="text-center py-4 text-muted">
+                                    <i class="bi bi-inbox" style="font-size: 2rem; display: block; margin-bottom: 0.5rem;"></i>
+                                    <p>Dividendlar tarixi mavjud emas</p>
+                                </div>
+                            `;
                 const paginationEl = document.getElementById('dividendPagination');
                 const summaryEl = document.getElementById('dividendSummary');
                 if (paginationEl) paginationEl.innerHTML = '';
@@ -901,50 +993,50 @@
 
             const historyContainer = document.getElementById('dividendHistory');
             historyContainer.innerHTML = `
-                        <table class="table user-table table-bordered table-hover table-striped align-items-center">
-                            <thead class="table-dark">
-                                <tr>
-                                    <th>
-                                        <i class="bi bi-calendar3 me-1"></i>
-                                        Sana
-                                    </th>
-                                    <th>
-                                        <i class="bi bi-percent me-1"></i>
-                                        Dividend foizi
-                                    </th>
-                                    <th>
-                                        <i class="bi bi-check-circle me-1"></i>
-                                        Holati
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                ${paginatedItems.map(item => {
+                            <table class="table user-table table-bordered table-hover table-striped align-items-center">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th>
+                                            <i class="bi bi-calendar3 me-1"></i>
+                                            Sana
+                                        </th>
+                                        <th>
+                                            <i class="bi bi-percent me-1"></i>
+                                            Dividend foizi
+                                        </th>
+                                        <th>
+                                            <i class="bi bi-check-circle me-1"></i>
+                                            Holati
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${paginatedItems.map(item => {
                 const statusClass = item.status === 'To\'langan' ? 'status-badge-paid' : 'status-badge-pending';
                 const statusIcon = item.status === 'To\'langan' ? 'bi-check-circle-fill' : 'bi-clock';
                 return `
-                                        <tr>
-                                            <td>
-                                                <i class="bi bi-calendar-event me-1 text-muted"></i>
-                                                <strong>${item.date}</strong>
-                                            </td>
-                                            <td>
-                                                <span style="font-size: 1.1rem; font-weight: 600; color: var(--success-color);">
-                                                    ${item.amount}%
-                                                </span>
-                                            </td>
-                                            <td>
-                                                <span class="${statusClass}">
-                                                    <i class="bi ${statusIcon}"></i>
-                                                    ${item.status}
-                                                </span>
-                                            </td>
-                                        </tr>
-                                    `;
+                                            <tr>
+                                                <td>
+                                                    <i class="bi bi-calendar-event me-1 text-muted"></i>
+                                                    <strong>${item.date}</strong>
+                                                </td>
+                                                <td>
+                                                    <span style="font-size: 1.1rem; font-weight: 600; color: var(--success-color);">
+                                                        ${item.amount}%
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    <span class="${statusClass}">
+                                                        <i class="bi ${statusIcon}"></i>
+                                                        ${item.status}
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        `;
             }).join('')}
-                            </tbody>
-                        </table>
-                    `;
+                                </tbody>
+                            </table>
+                        `;
 
             // Pagination
             if (totalPages > 1) {
@@ -960,32 +1052,32 @@
 
             // Previous
             paginationHTML += `
-                        <li class="page-item ${currentDividendPage === 1 ? 'disabled' : ''}">
-                            <a class="page-link" href="javascript:void(0)" onclick="changeDividendPage(${currentDividendPage - 1})">
-                                <i class="fa-solid fa-angle-left"></i>
-                            </a>
-                        </li>
-                    `;
+                            <li class="page-item ${currentDividendPage === 1 ? 'disabled' : ''}">
+                                <a class="page-link" href="javascript:void(0)" onclick="changeDividendPage(${currentDividendPage - 1})">
+                                    <i class="fa-solid fa-angle-left"></i>
+                                </a>
+                            </li>
+                        `;
 
             // Page numbers (simple version: all pages, with active state)
             for (let i = 1; i <= totalPages; i++) {
                 paginationHTML += `
-                            <li class="page-item ${i === currentDividendPage ? 'active' : ''}">
-                                <a class="page-link" href="javascript:void(0)" onclick="changeDividendPage(${i})">
-                                    ${i}
-                                </a>
-                            </li>
-                        `;
+                                <li class="page-item ${i === currentDividendPage ? 'active' : ''}">
+                                    <a class="page-link" href="javascript:void(0)" onclick="changeDividendPage(${i})">
+                                        ${i}
+                                    </a>
+                                </li>
+                            `;
             }
 
             // Next
             paginationHTML += `
-                        <li class="page-item ${currentDividendPage === totalPages ? 'disabled' : ''}">
-                            <a class="page-link" href="javascript:void(0)" onclick="changeDividendPage(${currentDividendPage + 1})">
-                                <i class="fa-solid fa-angle-right"></i>
-                            </a>
-                        </li>
-                    `;
+                            <li class="page-item ${currentDividendPage === totalPages ? 'disabled' : ''}">
+                                <a class="page-link" href="javascript:void(0)" onclick="changeDividendPage(${currentDividendPage + 1})">
+                                    <i class="fa-solid fa-angle-right"></i>
+                                </a>
+                            </li>
+                        `;
 
             paginationHTML += '</ul>';
             paginationContainer.innerHTML = paginationHTML;
@@ -1010,344 +1102,385 @@
         function displayPartners(partners) {
             const container = document.getElementById('partnersContainer');
             container.innerHTML = partners.map(partner => `
-                                            <div class="partner-card" style="margin-bottom: 1.5rem;">
-                                                <div class="partner-header">
-                                                    <i class="bi bi-building me-2"></i>
-                                                    ${partner.company_name}
-                                                </div>
-                                                <div class="info-grid">
-                                                    <div class="info-row">
-                                                        <span class="info-label">
-                                                            <i class="bi bi-hash me-1 text-muted"></i>
-                                                            To'liq sherikning identifikatori (ID)
-                                                        </span>
-                                                        <span class="info-value">${partner.id}</span>
+                                                <div class="partner-card" style="margin-bottom: 1.5rem;">
+                                                    <div class="partner-header">
+                                                        <i class="bi bi-building me-2"></i>
+                                                        ${partner.company_name}
                                                     </div>
-                                                    <div class="info-row">
-                                                        <span class="info-label">
-                                                            <i class="bi bi-building me-1 text-muted"></i>
-                                                            Korxona to'liq nomi
-                                                        </span>
-                                                        <span class="info-value">${partner.company_name}</span>
-                                                    </div>
-                                                    <div class="info-row">
-                                                        <span class="info-label">
-                                                            <i class="bi bi-card-text me-1 text-muted"></i>
-                                                            INN
-                                                        </span>
-                                                        <span class="info-value">${partner.inn}</span>
-                                                    </div>
-                                                    <div class="info-row">
-                                                        <span class="info-label">
-                                                            <i class="bi bi-upc-scan me-1 text-muted"></i>
-                                                            IFUT kodi
-                                                        </span>
-                                                        <span class="info-value">${partner.ifut}</span>
-                                                    </div>
-                                                    <div class="info-row">
-                                                        <span class="info-label">
-                                                            <i class="bi bi-briefcase me-1 text-muted"></i>
-                                                            Faoliyat turi
-                                                        </span>
-                                                        <span class="info-value">${partner.type}</span>
-                                                    </div>
-                                                    <div class="info-row">
-                                                        <span class="info-label">
-                                                            <i class="bi bi-geo-alt me-1 text-muted"></i>
-                                                            Manzil
-                                                        </span>
-                                                        <span class="info-value">${partner.address}</span>
-                                                    </div>
-                                                    <div class="info-row">
-                                                        <span class="info-label">
-                                                            <i class="bi bi-person-badge me-1 text-muted"></i>
-                                                            Direktor F.I.O.
-                                                        </span>
-                                                        <span class="info-value">${partner.director}</span>
-                                                    </div>
-                                                    <div class="info-row">
-                                                        <span class="info-label">
-                                                            <i class="bi bi-telephone me-1 text-muted"></i>
-                                                            Bog'lanish uchun telefon raqami
-                                                        </span>
-                                                        <span class="info-value">${partner.phone}</span>
-                                                    </div>
-                                                    <div class="info-row">
-                                                        <span class="info-label">
-                                                            <i class="bi bi-envelope me-1 text-muted"></i>
-                                                            Email
-                                                        </span>
-                                                        <span class="info-value">${partner.email}</span>
-                                                    </div>
-                                                    <div class="info-row">
-                                                        <span class="info-label">
-                                                            <i class="bi bi-calendar-check me-1 text-muted"></i>
-                                                            Ro'yxatdan o'tkazilgan sana
-                                                        </span>
-                                                        <span class="info-value">${partner.registration_date}</span>
-                                                    </div>
-                                                    <div class="info-row">
-                                                        <span class="info-label">
-                                                            <i class="bi bi-file-earmark-text me-1 text-muted"></i>
-                                                            Ro'yxatdan o'tkazish raqami
-                                                        </span>
-                                                        <span class="info-value">${partner.registration_number}</span>
-                                                    </div>
-                                                    <div class="info-row">
-                                                        <span class="info-label">
-                                                            <i class="bi bi-building-check me-1 text-muted"></i>
-                                                            Ro'yxatdan o'tkazuvchi davlat tashkiloti nomi
-                                                        </span>
-                                                        <span class="info-value">${partner.registration_org}</span>
-                                                    </div>
-                                                    ${partner.type === 'YaTT' ? `
-                                                    <div class="info-row">
-                                                        <span class="info-label">
-                                                            <i class="bi bi-person-vcard me-1 text-muted"></i>
-                                                            Pasport ma'lumoti
-                                                        </span>
-                                                        <span class="info-value">${partner.passport_data}</span>
-                                                    </div>
-                                                    <div class="info-row">
-                                                        <span class="info-label">
-                                                            <i class="bi bi-fingerprint me-1 text-muted"></i>
-                                                            JSHSHIR
-                                                        </span>
-                                                        <span class="info-value">${partner.pinfl}</span>
-                                                    </div>
-                                                    ` : ''}
-                                                    <div class="info-row">
-                                                        <span class="info-label">
-                                                            <i class="bi bi-toggle-on me-1 text-muted"></i>
-                                                            Akkount holati
-                                                        </span>
-                                                        <span class="info-value">
-                                                            ${partner.account_status === 'active'
+                                                    <div class="info-grid">
+                                                        <div class="info-row">
+                                                            <span class="info-label">
+                                                                <i class="bi bi-hash me-1 text-muted"></i>
+                                                                To'liq sherikning identifikatori (ID)
+                                                            </span>
+                                                            <span class="info-value">${partner.id}</span>
+                                                        </div>
+                                                        <div class="info-row">
+                                                            <span class="info-label">
+                                                                <i class="bi bi-building me-1 text-muted"></i>
+                                                                Korxona to'liq nomi
+                                                            </span>
+                                                            <span class="info-value">${partner.company_name}</span>
+                                                        </div>
+                                                        <div class="info-row">
+                                                            <span class="info-label">
+                                                                <i class="bi bi-card-text me-1 text-muted"></i>
+                                                                INN
+                                                            </span>
+                                                            <span class="info-value">${partner.inn}</span>
+                                                        </div>
+                                                        <div class="info-row">
+                                                            <span class="info-label">
+                                                                <i class="bi bi-upc-scan me-1 text-muted"></i>
+                                                                IFUT kodi
+                                                            </span>
+                                                            <span class="info-value">${partner.ifut}</span>
+                                                        </div>
+                                                        <div class="info-row">
+                                                            <span class="info-label">
+                                                                <i class="bi bi-briefcase me-1 text-muted"></i>
+                                                                Faoliyat turi
+                                                            </span>
+                                                            <span class="info-value">${partner.type}</span>
+                                                        </div>
+                                                        <div class="info-row">
+                                                            <span class="info-label">
+                                                                <i class="bi bi-geo-alt me-1 text-muted"></i>
+                                                                Manzil
+                                                            </span>
+                                                            <span class="info-value">${partner.address}</span>
+                                                        </div>
+                                                        <div class="info-row">
+                                                            <span class="info-label">
+                                                                <i class="bi bi-person-badge me-1 text-muted"></i>
+                                                                Direktor F.I.O.
+                                                            </span>
+                                                            <span class="info-value">${partner.director}</span>
+                                                        </div>
+                                                        <div class="info-row">
+                                                            <span class="info-label">
+                                                                <i class="bi bi-telephone me-1 text-muted"></i>
+                                                                Bog'lanish uchun telefon raqami
+                                                            </span>
+                                                            <span class="info-value">${partner.phone}</span>
+                                                        </div>
+                                                        <div class="info-row">
+                                                            <span class="info-label">
+                                                                <i class="bi bi-envelope me-1 text-muted"></i>
+                                                                Email
+                                                            </span>
+                                                            <span class="info-value">${partner.email}</span>
+                                                        </div>
+                                                        <div class="info-row">
+                                                            <span class="info-label">
+                                                                <i class="bi bi-calendar-check me-1 text-muted"></i>
+                                                                Ro'yxatdan o'tkazilgan sana
+                                                            </span>
+                                                            <span class="info-value">${partner.registration_date}</span>
+                                                        </div>
+                                                        <div class="info-row">
+                                                            <span class="info-label">
+                                                                <i class="bi bi-file-earmark-text me-1 text-muted"></i>
+                                                                Ro'yxatdan o'tkazish raqami
+                                                            </span>
+                                                            <span class="info-value">${partner.registration_number}</span>
+                                                        </div>
+                                                        <div class="info-row">
+                                                            <span class="info-label">
+                                                                <i class="bi bi-building-check me-1 text-muted"></i>
+                                                                Ro'yxatdan o'tkazuvchi davlat tashkiloti nomi
+                                                            </span>
+                                                            <span class="info-value">${partner.registration_org}</span>
+                                                        </div>
+                                                        ${partner.type === 'YaTT' ? `
+                                                        <div class="info-row">
+                                                            <span class="info-label">
+                                                                <i class="bi bi-person-vcard me-1 text-muted"></i>
+                                                                Pasport ma'lumoti
+                                                            </span>
+                                                            <span class="info-value">${partner.passport_data}</span>
+                                                        </div>
+                                                        <div class="info-row">
+                                                            <span class="info-label">
+                                                                <i class="bi bi-fingerprint me-1 text-muted"></i>
+                                                                JSHSHIR
+                                                            </span>
+                                                            <span class="info-value">${partner.pinfl}</span>
+                                                        </div>
+                                                        ` : ''}
+                                                        <div class="info-row">
+                                                            <span class="info-label">
+                                                                <i class="bi bi-toggle-on me-1 text-muted"></i>
+                                                                Akkount holati
+                                                            </span>
+                                                            <span class="info-value">
+                                                                ${partner.account_status === 'active'
                     ? '<span class="status-badge status-active"><i class="bi bi-check-circle me-1"></i>Faol</span>'
                     : '<span class="status-badge status-inactive"><i class="bi bi-x-circle me-1"></i>Bloklangan</span>'}
-                                                        </span>
-                                                    </div>
-                                                    <div class="info-row">
-                                                        <span class="info-label">
-                                                            <i class="bi bi-handshake me-1 text-muted"></i>
-                                                            To'liq sheriklik holati sanasi
-                                                        </span>
-                                                        <span class="info-value">${partner.partnership_date}</span>
-                                                    </div>
-                                                    <div class="info-row">
-                                                        <span class="info-label">
-                                                            <i class="bi bi-file-earmark-pdf me-1 text-muted"></i>
-                                                            Investorlik sertifikati fayli
-                                                        </span>
-                                                        <span class="info-value">${partner.investor_certificate}</span>
-                                                    </div>
-                                                    <div class="info-row">
-                                                        <span class="info-label">
-                                                            <i class="bi bi-cash-stack me-1 text-muted"></i>
-                                                            Loyihadagi jami ulushi (summada)
-                                                        </span>
-                                                        <span class="info-value">${formatMoney(partner.share_amount)}</span>
-                                                    </div>
-                                                    <div class="info-row">
-                                                        <span class="info-label">
-                                                            <i class="bi bi-percent me-1 text-muted"></i>
-                                                            Loyihadagi jami ulushi (foizda)
-                                                        </span>
-                                                        <span class="info-value">${partner.share_percent}%</span>
+                                                            </span>
+                                                        </div>
+                                                        <div class="info-row">
+                                                            <span class="info-label">
+                                                                <i class="bi bi-handshake me-1 text-muted"></i>
+                                                                To'liq sheriklik holati sanasi
+                                                            </span>
+                                                            <span class="info-value">${partner.partnership_date}</span>
+                                                        </div>
+                                                        <div class="info-row">
+                                                            <span class="info-label">
+                                                                <i class="bi bi-file-earmark-pdf me-1 text-muted"></i>
+                                                                Investorlik sertifikati fayli
+                                                            </span>
+                                                            <span class="info-value">${partner.investor_certificate}</span>
+                                                        </div>
+                                                        <div class="info-row">
+                                                            <span class="info-label">
+                                                                <i class="bi bi-cash-stack me-1 text-muted"></i>
+                                                                Loyihadagi jami ulushi (summada)
+                                                            </span>
+                                                            <span class="info-value">${formatMoney(partner.share_amount)}</span>
+                                                        </div>
+                                                        <div class="info-row">
+                                                            <span class="info-label">
+                                                                <i class="bi bi-percent me-1 text-muted"></i>
+                                                                Loyihadagi jami ulushi (foizda)
+                                                            </span>
+                                                            <span class="info-value">${partner.share_percent}%</span>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        `).join('');
+                                            `).join('');
         }
 
+        // === Risklar: priority + joylashuv ===
         let risksEditMode = false;
-        let nextRiskId = 5; // Yangi risklar uchun ID
+        let nextRiskId = null;
+
+        function ensureNextRiskId() {
+            if (nextRiskId !== null) return;
+            const items = (projectData && projectData.risks && projectData.risks.risk_items) ? projectData.risks.risk_items : [];
+            const maxId = items.reduce((m, r) => Math.max(m, Number(r.id) || 0), 0);
+            nextRiskId = maxId + 1;
+        }
+
+        function normalizeRisks() {
+            if (!projectData || !projectData.risks || !projectData.risks.risk_items) return;
+
+            const items = projectData.risks.risk_items;
+
+            items.forEach((r, idx) => {
+                if (r.priority === undefined || r.priority === null) r.priority = idx + 1;
+            });
+
+            items.sort((a, b) => (a.priority || 0) - (b.priority || 0));
+            items.forEach((r, idx) => r.priority = idx + 1);
+        }
+
+        function refreshRiskInsertAfterOptions() {
+            const select = document.getElementById('riskInsertAfter');
+            if (!select) return;
+
+            normalizeRisks();
+            const items = projectData?.risks?.risk_items || [];
+            const current = select.value || 'end';
+
+            let html = '';
+            html += `<option value="end">Oxiriga (eng pastga)</option>`;
+            html += `<option value="start">Boshiga (eng yuqoriga)</option>`;
+            items.forEach(r => {
+                html += `<option value="${r.id}">${escapeHtml(r.name)} dan keyin</option>`;
+            });
+
+            select.innerHTML = html;
+
+            const allowed = ['end', 'start', ...items.map(r => String(r.id))];
+            select.value = allowed.includes(String(current)) ? current : 'end';
+        }
 
         function displayRisks(risks) {
             const infoContent = document.getElementById('risksInfoContent');
 
             if (!risksEditMode) {
-                // Ko'rish rejimi
                 infoContent.innerHTML = `
-                            <div class="info-row">
-                                <span class="info-label">
-                                    <i class="bi bi-diagram-3 me-1 text-muted"></i>
-                                    Loyihaning boshqarilish modeli nomi
-                                </span>
-                                <span class="info-value" id="managementModel">${risks.management_model || '-'}</span>
-                            </div>
-                            <div class="info-row">
-                                <span class="info-label">
-                                    <i class="bi bi-file-text me-1 text-muted"></i>
-                                    Loyihaning boshqarilish modeli to'liq tavsifi
-                                </span>
-                                <span class="info-value" id="managementDescription">${risks.management_description || risks.management_info || '-'}</span>
-                            </div>
-                            <div class="info-row">
-                                <span class="info-label">
-                                    <i class="bi bi-shield-exclamation me-1 text-muted"></i>
-                                    Loyihaning xatar darajasi
-                                </span>
-                                <span class="info-value">
-                                    <span class="status-badge" id="riskLevel">-</span>
-                                </span>
-                            </div>
-                        `;
+                                <div class="info-row">
+                                    <span class="info-label">
+                                        <i class="bi bi-diagram-3 me-1 text-muted"></i>
+                                        Loyihaning boshqarilish modeli nomi
+                                    </span>
+                                    <span class="info-value" id="managementModel">${escapeHtml(risks.management_model || '-')}</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="info-label">
+                                        <i class="bi bi-file-text me-1 text-muted"></i>
+                                        Loyihaning boshqarilish modeli to'liq tavsifi
+                                    </span>
+                                    <span class="info-value" id="managementDescription">${escapeHtml(risks.management_description || risks.management_info || '-')}</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="info-label">
+                                        <i class="bi bi-shield-exclamation me-1 text-muted"></i>
+                                        Loyihaning xatar darajasi
+                                    </span>
+                                    <span class="info-value">
+                                        <span class="status-badge" id="riskLevel">-</span>
+                                    </span>
+                                </div>
+                            `;
             } else {
-                // Tahrirlash rejimi
                 infoContent.innerHTML = `
-                            <div class="info-row">
-                                <span class="info-label">
-                                    <i class="bi bi-diagram-3 me-1 text-muted"></i>
-                                    Loyihaning boshqarilish modeli nomi
-                                </span>
-                                <input type="text" class="form-control" value="${risks.management_model || ''}"
-                                    onchange="updateRiskField('management_model', this.value)"
-                                    id="editManagementModel">
-                            </div>
-                            <div class="info-row">
-                                <span class="info-label">
-                                    <i class="bi bi-file-text me-1 text-muted"></i>
-                                    Loyihaning boshqarilish modeli to'liq tavsifi
-                                </span>
-                                <textarea class="form-control" rows="4" 
-                                    onchange="updateRiskField('management_description', this.value)"
-                                    id="editManagementDescription">${risks.management_description || risks.management_info || ''}</textarea>
-                            </div>
-                            <div class="info-row">
-                                <span class="info-label">
-                                    <i class="bi bi-shield-exclamation me-1 text-muted"></i>
-                                    Loyihaning xatar darajasi
-                                </span>
-                                <select class="form-select" style="max-width: 200px;"
-                                    onchange="updateRiskField('risk_level', this.value)"
-                                    id="editRiskLevel">
-                                    <option value="low" ${risks.risk_level === 'low' ? 'selected' : ''}>Past</option>
-                                    <option value="medium" ${risks.risk_level === 'medium' ? 'selected' : ''}>O'rta</option>
-                                    <option value="high" ${risks.risk_level === 'high' ? 'selected' : ''}>Yuqori</option>
-                                </select>
-                            </div>
-                        `;
+                                <div class="info-row">
+                                    <span class="info-label">
+                                        <i class="bi bi-diagram-3 me-1 text-muted"></i>
+                                        Loyihaning boshqarilish modeli nomi
+                                    </span>
+                                    <input type="text" class="form-control" value="${escapeAttr(risks.management_model || '')}"
+                                        onchange="updateRiskField('management_model', this.value)" id="editManagementModel">
+                                </div>
+                                <div class="info-row">
+                                    <span class="info-label">
+                                        <i class="bi bi-file-text me-1 text-muted"></i>
+                                        Loyihaning boshqarilish modeli to'liq tavsifi
+                                    </span>
+                                    <textarea class="form-control" rows="4"
+                                        onchange="updateRiskField('management_description', this.value)"
+                                        id="editManagementDescription">${escapeHtml(risks.management_description || risks.management_info || '')}</textarea>
+                                </div>
+                                <div class="info-row">
+                                    <span class="info-label">
+                                        <i class="bi bi-shield-exclamation me-1 text-muted"></i>
+                                        Loyihaning xatar darajasi
+                                    </span>
+                                    <select class="form-select" style="max-width: 200px;"
+                                        onchange="updateRiskField('risk_level', this.value)" id="editRiskLevel">
+                                        <option value="low" ${risks.risk_level === 'low' ? 'selected' : ''}>Past</option>
+                                        <option value="medium" ${risks.risk_level === 'medium' ? 'selected' : ''}>O'rta</option>
+                                        <option value="high" ${risks.risk_level === 'high' ? 'selected' : ''}>Yuqori</option>
+                                    </select>
+                                </div>
+                            `;
             }
 
             const riskMap = {
-                'low': {
-                    text: 'Past',
-                    class: 'status-active'
-                },
-                'medium': {
-                    text: "O'rta",
-                    class: 'status-planned'
-                },
-                'high': {
-                    text: 'Yuqori',
-                    class: 'status-inactive'
-                }
+                'low': { text: 'Past', class: 'status-active' },
+                'medium': { text: "O'rta", class: 'status-planned' },
+                'high': { text: 'Yuqori', class: 'status-inactive' }
             };
 
-            const risk = riskMap[risks.risk_level];
+            const riskLevel = riskMap[risks.risk_level] || { text: '-', class: 'status-planned' };
             const riskEl = document.getElementById('riskLevel');
             if (riskEl) {
-                riskEl.textContent = risk.text;
-                riskEl.className = `status-badge ${risk.class}`;
+                riskEl.textContent = riskLevel.text;
+                riskEl.className = `status-badge ${riskLevel.class}`;
             }
 
-            // Risk items
             const container = document.getElementById('risksContainer');
+            const metaEl = document.getElementById('risksMeta');
             if (!risks.risk_items || risks.risk_items.length === 0) {
                 container.innerHTML = '<p class="text-muted text-center py-4">Xatarlar mavjud emas</p>';
+                refreshRiskInsertAfterOptions();
                 return;
             }
 
+            normalizeRisks();
+            const items = projectData.risks.risk_items;
+            if (metaEl) metaEl.textContent = `Jami: ${items.length} • Tartib: priority`;
+
             if (!risksEditMode) {
-                // Ko'rish rejimi
-                container.innerHTML = risks.risk_items.map(item => `
-                            <div class="risk-item">
-                                <div class="risk-title">
-                                    <i class="bi bi-exclamation-triangle"></i>
-                                    ${item.name}
+                container.innerHTML = items.map(item => `
+                                <div class="risk-item">
+                                    <div class="risk-title">
+                                        <span class="priority-pill me-2">#${item.priority}</span>
+                                        <i class="bi bi-exclamation-triangle"></i>
+                                        ${escapeHtml(item.name)}
+                                    </div>
+                                    <p class="risk-description">${escapeHtml(item.description || '')}</p>
                                 </div>
-                                <p class="risk-description">${item.description}</p>
-                            </div>
-                        `).join('');
+                            `).join('');
             } else {
-                // Tahrirlash rejimi
-                container.innerHTML = risks.risk_items.map((item, index) => `
-                            <div class="risk-item" style="border: 1px solid var(--gray-200); padding: 1.5rem;">
-                                <div class="row g-3">
-                                    <div class="col-12">
-                                        <label class="form-label small mb-1">
-                                            <i class="bi bi-exclamation-triangle me-1 text-warning"></i>
-                                            Xatar nomi
-                                        </label>
-                                        <input type="text" class="form-control form-control-sm" value="${item.name}"
-                                            onchange="updateRiskItemField(${item.id || index}, 'name', this.value)"
-                                            id="riskName_${item.id || index}">
+                container.innerHTML = items.map((item, index) => {
+                    const upDisabled = index === 0 ? 'disabled' : '';
+                    const downDisabled = index === items.length - 1 ? 'disabled' : '';
+
+                    return `
+                                <div class="risk-item risk-item-edit">
+                                    <div class="risk-editor-top">
+                                        <div class="d-flex align-items-center gap-2 flex-wrap">
+                                            <span class="priority-pill">#${item.priority}</span>
+                                            <span class="text-muted small">Priority bo'yicha tartib</span>
+                                        </div>
+                                        <div class="d-flex align-items-center gap-1">
+                                            <button type="button" class="btn btn-light btn-sm icon-btn" ${upDisabled}
+                                                onclick="moveRisk(${item.id}, -1)" title="Yuqoriga">
+                                                <i class="bi bi-arrow-up"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-light btn-sm icon-btn" ${downDisabled}
+                                                onclick="moveRisk(${item.id}, 1)" title="Pastga">
+                                                <i class="bi bi-arrow-down"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-outline-danger btn-sm icon-btn"
+                                                onclick="deleteRisk(${item.id})" title="O'chirish">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        </div>
                                     </div>
-                                    <div class="col-12">
-                                        <label class="form-label small mb-1">
-                                            <i class="bi bi-file-text me-1 text-muted"></i>
-                                            Xatar tavsifi
-                                        </label>
-                                        <textarea class="form-control form-control-sm" rows="3"
-                                            onchange="updateRiskItemField(${item.id || index}, 'description', this.value)"
-                                            id="riskDesc_${item.id || index}">${item.description}</textarea>
-                                    </div>
-                                    <div class="col-12">
-                                        <button type="button" class="btn btn-danger btn-sm" 
-                                            onclick="deleteRisk(${item.id || index})">
-                                            <i class="bi bi-trash me-1"></i>
-                                            O'chirish
-                                        </button>
+
+                                    <div class="row g-2">
+                                        <div class="col-12">
+                                            <label class="form-label small mb-1">
+                                                <i class="bi bi-exclamation-triangle me-1 text-warning"></i>
+                                                Xatar nomi
+                                            </label>
+                                            <input type="text" class="form-control form-control-sm" value="${escapeAttr(item.name || '')}"
+                                                onchange="updateRiskItemField(${item.id}, 'name', this.value)">
+                                        </div>
+                                        <div class="col-12">
+                                            <label class="form-label small mb-1">
+                                                <i class="bi bi-file-text me-1 text-muted"></i>
+                                                Xatar tavsifi
+                                            </label>
+                                            <textarea class="form-control form-control-sm" rows="3"
+                                                onchange="updateRiskItemField(${item.id}, 'description', this.value)">${escapeHtml(item.description || '')}</textarea>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        `).join('');
+                            `;
+                }).join('');
             }
+
+            refreshRiskInsertAfterOptions();
         }
 
         function toggleRisksEdit() {
             risksEditMode = !risksEditMode;
             const btn = document.getElementById('toggleRisksEditBtn');
             const addBtn = document.getElementById('addRiskBtn');
+            const insertGroup = document.getElementById('riskInsertAfterGroup');
 
-            btn.innerHTML = risksEditMode ?
-                '<i class="bi bi-check-lg me-1"></i> Saqlash' :
-                '<i class="bi bi-pencil-square me-1"></i> Tahrirlash';
+            btn.innerHTML = risksEditMode
+                ? '<i class="bi bi-check-lg me-1"></i> Saqlash'
+                : '<i class="bi bi-pencil-square me-1"></i> Tahrirlash';
 
-            addBtn.style.display = risksEditMode ? 'inline-flex' : 'none';
+            if (addBtn) addBtn.style.display = risksEditMode ? 'inline-flex' : 'none';
+            if (insertGroup) insertGroup.style.display = risksEditMode ? 'flex' : 'none';
 
-            if (projectData && projectData.risks) {
-                displayRisks(projectData.risks);
-            }
+            if (projectData && projectData.risks) displayRisks(projectData.risks);
         }
 
         function updateRiskField(field, value) {
             if (!projectData || !projectData.risks) return;
-
             projectData.risks[field] = value;
 
-            // Agar risk_level o'zgarsa, ko'rinishni yangilaymiz
             if (field === 'risk_level') {
                 const riskMap = {
-                    'low': {
-                        text: 'Past',
-                        class: 'status-active'
-                    },
-                    'medium': {
-                        text: "O'rta",
-                        class: 'status-planned'
-                    },
-                    'high': {
-                        text: 'Yuqori',
-                        class: 'status-inactive'
-                    }
+                    'low': { text: 'Past', class: 'status-active' },
+                    'medium': { text: "O'rta", class: 'status-planned' },
+                    'high': { text: 'Yuqori', class: 'status-inactive' }
                 };
-                const risk = riskMap[value];
+                const riskLevel = riskMap[value] || { text: '-', class: 'status-planned' };
                 const riskEl = document.getElementById('riskLevel');
                 if (riskEl) {
-                    riskEl.textContent = risk.text;
-                    riskEl.className = `status-badge ${risk.class}`;
+                    riskEl.textContent = riskLevel.text;
+                    riskEl.className = `status-badge ${riskLevel.class}`;
                 }
             }
         }
@@ -1355,8 +1488,8 @@
         function updateRiskItemField(riskId, field, value) {
             if (!projectData || !projectData.risks || !projectData.risks.risk_items) return;
 
-            const riskItem = projectData.risks.risk_items.find(r => r.id === riskId) ||
-                projectData.risks.risk_items[riskId];
+            const items = projectData.risks.risk_items;
+            const riskItem = items.find(r => r.id === riskId);
             if (!riskItem) return;
 
             riskItem[field] = value;
@@ -1365,13 +1498,52 @@
         function addNewRisk() {
             if (!projectData || !projectData.risks || !projectData.risks.risk_items) return;
 
+            ensureNextRiskId();
+            normalizeRisks();
+
+            const afterSelect = document.getElementById('riskInsertAfter');
+            const afterValue = afterSelect ? (afterSelect.value || 'end') : 'end';
+
             const newRisk = {
                 id: nextRiskId++,
                 name: 'Yangi xatar',
-                description: 'Xatar tavsifini kiriting...'
+                description: '',
+                priority: 9999
             };
 
-            projectData.risks.risk_items.push(newRisk);
+            const items = projectData.risks.risk_items;
+
+            if (afterValue === 'start') {
+                items.unshift(newRisk);
+            } else if (afterValue === 'end') {
+                items.push(newRisk);
+            } else {
+                const idx = items.findIndex(r => String(r.id) === String(afterValue));
+                if (idx === -1) items.push(newRisk);
+                else items.splice(idx + 1, 0, newRisk);
+            }
+
+            normalizeRisks();
+            displayRisks(projectData.risks);
+        }
+
+        function moveRisk(riskId, direction) {
+            if (!projectData || !projectData.risks || !projectData.risks.risk_items) return;
+
+            normalizeRisks();
+            const items = projectData.risks.risk_items;
+
+            const idx = items.findIndex(r => r.id === riskId);
+            if (idx === -1) return;
+
+            const target = idx + direction;
+            if (target < 0 || target >= items.length) return;
+
+            const tmp = items[idx];
+            items[idx] = items[target];
+            items[target] = tmp;
+
+            normalizeRisks();
             displayRisks(projectData.risks);
         }
 
@@ -1380,6 +1552,7 @@
 
             if (confirm('Bu xatarni o\'chirishni xohlaysizmi?')) {
                 projectData.risks.risk_items = projectData.risks.risk_items.filter(r => r.id !== riskId);
+                normalizeRisks();
                 displayRisks(projectData.risks);
             }
         }
@@ -1398,73 +1571,73 @@
             if (!documentsEditMode) {
                 // Ko'rish rejimi
                 container.innerHTML = documents.map(doc => `
-                            <div class="document-item">
-                                <div class="document-info">
-                                    <div class="document-icon">
-                                        <i class="bi bi-file-earmark-pdf"></i>
-                                    </div>
-                                    <div>
-                                        <div style="font-weight: 600; color: var(--gray-900);">${doc.name}</div>
-                                        <div style="font-size: 0.85rem; color: var(--gray-600);">
-                                            <i class="bi bi-file-earmark me-1"></i>
-                                            ${doc.file}
+                                <div class="document-item">
+                                    <div class="document-info">
+                                        <div class="document-icon">
+                                            <i class="bi bi-file-earmark-pdf"></i>
+                                        </div>
+                                        <div>
+                                            <div style="font-weight: 600; color: var(--gray-900);">${doc.name}</div>
+                                            <div style="font-size: 0.85rem; color: var(--gray-600);">
+                                                <i class="bi bi-file-earmark me-1"></i>
+                                                ${doc.file}
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <button class="btn btn-outline-primary btn-sm d-inline-flex align-items-center gap-1"
-                                    onclick="downloadDocument('${doc.file}')">
-                                    <i class="bi bi-download"></i> Yuklash
-                                </button>
-                            </div>
-                        `).join('');
-            } else {
-                // Tahrirlash rejimi
-                container.innerHTML = documents.map((doc, index) => `
-                            <div class="document-item" style="flex-direction: column; align-items: stretch; gap: 1rem; padding: 1.5rem;">
-                                <div class="row g-3 align-items-end">
-                                    <div class="col-12 col-md-5">
-                                        <label class="form-label small mb-1">
-                                            <i class="bi bi-file-text me-1 text-muted"></i>
-                                            Hujjat nomi
-                                        </label>
-                                        <input type="text" class="form-control form-control-sm" value="${doc.name}"
-                                            onchange="updateDocumentField(${doc.id || index}, 'name', this.value)"
-                                            id="docName_${doc.id || index}">
-                                    </div>
-                                    <div class="col-12 col-md-4">
-                                        <label class="form-label small mb-1">
-                                            <i class="bi bi-file-earmark me-1 text-muted"></i>
-                                            Hozirgi fayl
-                                        </label>
-                                        <div class="form-control form-control-sm" style="background: var(--gray-50); padding: 0.5rem;">
-                                            <i class="bi bi-file-earmark-pdf me-1"></i>
-                                            <span style="font-size: 0.875rem;">${doc.file}</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-md-3">
-                                        <label class="form-label small mb-1">
-                                            <i class="bi bi-upload me-1 text-muted"></i>
-                                            Yangi fayl yuklash
-                                        </label>
-                                        <input type="file" class="form-control form-control-sm" 
-                                            accept=".pdf,.doc,.docx,.xls,.xlsx,.jpg,.jpeg,.png"
-                                            onchange="handleFileUpload(${doc.id || index}, this)"
-                                            id="docFile_${doc.id || index}">
-                                    </div>
-                                </div>
-                                <div class="d-flex gap-2 justify-content-end">
                                     <button class="btn btn-outline-primary btn-sm d-inline-flex align-items-center gap-1"
                                         onclick="downloadDocument('${doc.file}')">
                                         <i class="bi bi-download"></i> Yuklash
                                     </button>
-                                    <button type="button" class="btn btn-danger btn-sm" 
-                                        onclick="deleteDocument(${doc.id || index})">
-                                        <i class="bi bi-trash me-1"></i>
-                                        O'chirish
-                                    </button>
                                 </div>
-                            </div>
-                        `).join('');
+                            `).join('');
+            } else {
+                // Tahrirlash rejimi
+                container.innerHTML = documents.map((doc, index) => `
+                                <div class="document-item" style="flex-direction: column; align-items: stretch; gap: 1rem; padding: 1.5rem;">
+                                    <div class="row g-3 align-items-end">
+                                        <div class="col-12 col-md-5">
+                                            <label class="form-label small mb-1">
+                                                <i class="bi bi-file-text me-1 text-muted"></i>
+                                                Hujjat nomi
+                                            </label>
+                                            <input type="text" class="form-control form-control-sm" value="${doc.name}"
+                                                onchange="updateDocumentField(${doc.id || index}, 'name', this.value)"
+                                                id="docName_${doc.id || index}">
+                                        </div>
+                                        <div class="col-12 col-md-4">
+                                            <label class="form-label small mb-1">
+                                                <i class="bi bi-file-earmark me-1 text-muted"></i>
+                                                Hozirgi fayl
+                                            </label>
+                                            <div class="form-control form-control-sm" style="background: var(--gray-50); padding: 0.5rem;">
+                                                <i class="bi bi-file-earmark-pdf me-1"></i>
+                                                <span style="font-size: 0.875rem;">${doc.file}</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-md-3">
+                                            <label class="form-label small mb-1">
+                                                <i class="bi bi-upload me-1 text-muted"></i>
+                                                Yangi fayl yuklash
+                                            </label>
+                                            <input type="file" class="form-control form-control-sm" 
+                                                accept=".pdf,.doc,.docx,.xls,.xlsx,.jpg,.jpeg,.png"
+                                                onchange="handleFileUpload(${doc.id || index}, this)"
+                                                id="docFile_${doc.id || index}">
+                                        </div>
+                                    </div>
+                                    <div class="d-flex gap-2 justify-content-end">
+                                        <button class="btn btn-outline-primary btn-sm d-inline-flex align-items-center gap-1"
+                                            onclick="downloadDocument('${doc.file}')">
+                                            <i class="bi bi-download"></i> Yuklash
+                                        </button>
+                                        <button type="button" class="btn btn-danger btn-sm" 
+                                            onclick="deleteDocument(${doc.id || index})">
+                                            <i class="bi bi-trash me-1"></i>
+                                            O'chirish
+                                        </button>
+                                    </div>
+                                </div>
+                            `).join('');
             }
         }
 
@@ -1605,6 +1778,21 @@
             return new Intl.NumberFormat('uz-UZ').format(amount) + " so'm";
         }
 
+        function escapeHtml(value) {
+            const str = String(value ?? '');
+            return str
+                .replaceAll('&', '&amp;')
+                .replaceAll('<', '&lt;')
+                .replaceAll('>', '&gt;')
+                .replaceAll('"', '&quot;')
+                .replaceAll("'", '&#39;');
+        }
+
+        function escapeAttr(value) {
+            // attribute uchun minimal escaping
+            return escapeHtml(value).replaceAll('`', '&#96;');
+        }
+
         function enableEdit() {
             alert('Tahrirlash rejimi yoqildi');
             document.getElementById('saveBtn').style.display = 'inline-flex';
@@ -1621,52 +1809,124 @@
 
         document.addEventListener('DOMContentLoaded', loadProjectData);
 
-    let editModes = {
-    basicInfo: false,
-        location: false,
-        manager: false,
-        construction: false
-    };
+        let editModes = {
+            basicInfo: false,
+            location: false,
+            manager: false,
+            construction: false
+        };
 
-    let originalData = {
-        basicInfo: {},
-        location: {},
-        manager: {},
-        construction: {}
-    };
+        let originalData = {
+            basicInfo: {},
+            location: {},
+            manager: {},
+            construction: {}
+        };
 
-    // =================== ASOSIY MA'LUMOTLAR EDIT ===================
-    function toggleBasicInfoEdit() {
-        editModes.basicInfo = !editModes.basicInfo;
-        const btn = document.getElementById('toggleBasicInfoBtn');
+        // =================== ASOSIY MA'LUMOTLAR EDIT ===================
+        function toggleBasicInfoEdit() {
+            editModes.basicInfo = !editModes.basicInfo;
+            const btn = document.getElementById('toggleBasicInfoBtn');
 
-        if (editModes.basicInfo) {
-            btn.innerHTML = '<i class="bi bi-check-lg me-1"></i>Saqlash';
-            btn.classList.remove('btn-outline-secondary');
-            btn.classList.add('btn-success');
+            if (editModes.basicInfo) {
+                btn.innerHTML = '<i class="bi bi-check-lg me-1"></i>Saqlash';
+                btn.classList.remove('btn-outline-secondary');
+                btn.classList.add('btn-success');
 
-            originalData.basicInfo = {
-                projectId: document.getElementById('projectId').textContent,
-                name: document.getElementById('name').textContent,
-                shortDesc: document.getElementById('shortDesc').textContent,
-                purpose: document.getElementById('purpose').textContent,
-                category: document.getElementById('category').textContent,
-                status: document.getElementById('status').textContent
-            };
+                originalData.basicInfo = {
+                    projectId: document.getElementById('projectId').textContent,
+                    name: document.getElementById('name').textContent,
+                    shortDesc: document.getElementById('shortDesc').textContent,
+                    purpose: document.getElementById('purpose').textContent,
+                    category: document.getElementById('category').textContent,
+                    status: document.getElementById('status').textContent
+                };
 
-            convertBasicInfoToInputs();
+                convertBasicInfoToInputs();
 
-            const cancelBtn = document.createElement('button');
-            cancelBtn.type = 'button';
-            cancelBtn.className = 'btn btn-outline-danger btn-sm';
-            cancelBtn.id = 'cancelBasicInfoBtn';
-            cancelBtn.innerHTML = '<i class="bi bi-x-lg me-1"></i>Bekor qilish';
-            cancelBtn.onclick = cancelBasicInfoEdit;
-            btn.parentElement.insertBefore(cancelBtn, btn);
+                const cancelBtn = document.createElement('button');
+                cancelBtn.type = 'button';
+                cancelBtn.className = 'btn btn-outline-danger btn-sm';
+                cancelBtn.id = 'cancelBasicInfoBtn';
+                cancelBtn.innerHTML = '<i class="bi bi-x-lg me-1"></i>Bekor qilish';
+                cancelBtn.onclick = cancelBasicInfoEdit;
+                btn.parentElement.insertBefore(cancelBtn, btn);
 
-        } else {
-            saveBasicInfoChanges();
+            } else {
+                saveBasicInfoChanges();
 
+                btn.innerHTML = '<i class="bi bi-pencil-square me-1"></i>Tahrirlash';
+                btn.classList.remove('btn-success');
+                btn.classList.add('btn-outline-secondary');
+
+                const cancelBtn = document.getElementById('cancelBasicInfoBtn');
+                if (cancelBtn) cancelBtn.remove();
+
+                convertBasicInfoToText();
+            }
+        }
+
+        function convertBasicInfoToInputs() {
+            const fields = [
+                { id: 'projectId', type: 'text', readonly: true },
+                { id: 'name', type: 'text' },
+                { id: 'shortDesc', type: 'textarea' },
+                { id: 'purpose', type: 'textarea' },
+                { id: 'category', type: 'text' },
+                { id: 'status', type: 'text' }
+            ];
+
+            fields.forEach(field => {
+                const element = document.getElementById(field.id);
+                const value = element.textContent;
+
+                if (field.type === 'textarea') {
+                    element.innerHTML = `<textarea class="form-control" rows="3" style="font-weight: 600; color: var(--gray-900);">${value}</textarea>`;
+                } else {
+                    element.innerHTML = `<input type="text" class="form-control" value="${value}" ${field.readonly ? 'readonly' : ''} style="font-weight: 600; color: var(--gray-900);">`;
+                }
+            });
+        }
+
+        function convertBasicInfoToText() {
+            const fields = ['projectId', 'name', 'shortDesc', 'purpose', 'category', 'status'];
+
+            fields.forEach(fieldId => {
+                const element = document.getElementById(fieldId);
+                const input = element.querySelector('input, textarea');
+                if (input) {
+                    element.textContent = input.value;
+                }
+            });
+        }
+
+        function saveBasicInfoChanges() {
+            const fields = ['projectId', 'name', 'shortDesc', 'purpose', 'category', 'status'];
+            const newData = {};
+
+            fields.forEach(fieldId => {
+                const element = document.getElementById(fieldId);
+                const input = element.querySelector('input, textarea');
+                if (input) {
+                    newData[fieldId] = input.value;
+                }
+            });
+
+            console.log('Asosiy ma\'lumotlar saqlandi:', newData);
+            showToast('Asosiy ma\'lumotlar muvaffaqiyatli saqlandi', 'success');
+        }
+
+        function cancelBasicInfoEdit() {
+            editModes.basicInfo = false;
+
+            Object.keys(originalData.basicInfo).forEach(key => {
+                const element = document.getElementById(key);
+                if (element) {
+                    element.textContent = originalData.basicInfo[key];
+                }
+            });
+
+            const btn = document.getElementById('toggleBasicInfoBtn');
             btn.innerHTML = '<i class="bi bi-pencil-square me-1"></i>Tahrirlash';
             btn.classList.remove('btn-success');
             btn.classList.add('btn-outline-secondary');
@@ -1674,111 +1934,99 @@
             const cancelBtn = document.getElementById('cancelBasicInfoBtn');
             if (cancelBtn) cancelBtn.remove();
 
-            convertBasicInfoToText();
+            showToast('O\'zgarishlar bekor qilindi', 'info');
         }
-    }
 
-    function convertBasicInfoToInputs() {
-        const fields = [
-            { id: 'projectId', type: 'text', readonly: true },
-            { id: 'name', type: 'text' },
-            { id: 'shortDesc', type: 'textarea' },
-            { id: 'purpose', type: 'textarea' },
-            { id: 'category', type: 'text' },
-            { id: 'status', type: 'text' }
-        ];
+        // =================== JOYLASHUV MA'LUMOTLARI EDIT ===================
+        function toggleLocationEdit() {
+            editModes.location = !editModes.location;
+            const btn = document.getElementById('toggleLocationBtn');
 
-        fields.forEach(field => {
-            const element = document.getElementById(field.id);
-            const value = element.textContent;
+            if (editModes.location) {
+                btn.innerHTML = '<i class="bi bi-check-lg me-1"></i>Saqlash';
+                btn.classList.remove('btn-outline-secondary');
+                btn.classList.add('btn-success');
 
-            if (field.type === 'textarea') {
-                element.innerHTML = `<textarea class="form-control" rows="3" style="font-weight: 600; color: var(--gray-900);">${value}</textarea>`;
+                originalData.location = {
+                    city: document.getElementById('city').textContent,
+                    district: document.getElementById('district').textContent,
+                    street: document.getElementById('street').textContent,
+                    house: document.getElementById('house').textContent
+                };
+
+                convertLocationToInputs();
+
+                const cancelBtn = document.createElement('button');
+                cancelBtn.type = 'button';
+                cancelBtn.className = 'btn btn-outline-danger btn-sm';
+                cancelBtn.id = 'cancelLocationBtn';
+                cancelBtn.innerHTML = '<i class="bi bi-x-lg me-1"></i>Bekor qilish';
+                cancelBtn.onclick = cancelLocationEdit;
+                btn.parentElement.insertBefore(cancelBtn, btn);
+
             } else {
-                element.innerHTML = `<input type="text" class="form-control" value="${value}" ${field.readonly ? 'readonly' : ''} style="font-weight: 600; color: var(--gray-900);">`;
+                saveLocationChanges();
+
+                btn.innerHTML = '<i class="bi bi-pencil-square me-1"></i>Tahrirlash';
+                btn.classList.remove('btn-success');
+                btn.classList.add('btn-outline-secondary');
+
+                const cancelBtn = document.getElementById('cancelLocationBtn');
+                if (cancelBtn) cancelBtn.remove();
+
+                convertLocationToText();
             }
-        });
-    }
+        }
 
-    function convertBasicInfoToText() {
-        const fields = ['projectId', 'name', 'shortDesc', 'purpose', 'category', 'status'];
+        function convertLocationToInputs() {
+            const fields = ['city', 'district', 'street', 'house'];
 
-        fields.forEach(fieldId => {
-            const element = document.getElementById(fieldId);
-            const input = element.querySelector('input, textarea');
-            if (input) {
-                element.textContent = input.value;
-            }
-        });
-    }
+            fields.forEach(fieldId => {
+                const element = document.getElementById(fieldId);
+                const value = element.textContent;
+                element.innerHTML = `<input type="text" class="form-control" value="${value}" style="font-weight: 600; color: var(--gray-900);">`;
+            });
+        }
 
-    function saveBasicInfoChanges() {
-        const fields = ['projectId', 'name', 'shortDesc', 'purpose', 'category', 'status'];
-        const newData = {};
+        function convertLocationToText() {
+            const fields = ['city', 'district', 'street', 'house'];
 
-        fields.forEach(fieldId => {
-            const element = document.getElementById(fieldId);
-            const input = element.querySelector('input, textarea');
-            if (input) {
-                newData[fieldId] = input.value;
-            }
-        });
+            fields.forEach(fieldId => {
+                const element = document.getElementById(fieldId);
+                const input = element.querySelector('input');
+                if (input) {
+                    element.textContent = input.value;
+                }
+            });
+        }
 
-        console.log('Asosiy ma\'lumotlar saqlandi:', newData);
-        showToast('Asosiy ma\'lumotlar muvaffaqiyatli saqlandi', 'success');
-    }
+        function saveLocationChanges() {
+            const fields = ['city', 'district', 'street', 'house'];
+            const newData = {};
 
-    function cancelBasicInfoEdit() {
-        editModes.basicInfo = false;
+            fields.forEach(fieldId => {
+                const element = document.getElementById(fieldId);
+                const input = element.querySelector('input');
+                if (input) {
+                    newData[fieldId] = input.value;
+                }
+            });
 
-        Object.keys(originalData.basicInfo).forEach(key => {
-            const element = document.getElementById(key);
-            if (element) {
-                element.textContent = originalData.basicInfo[key];
-            }
-        });
+            console.log('Joylashuv ma\'lumotlari saqlandi:', newData);
+            showToast('Joylashuv ma\'lumotlari muvaffaqiyatli saqlandi', 'success');
+        }
 
-        const btn = document.getElementById('toggleBasicInfoBtn');
-        btn.innerHTML = '<i class="bi bi-pencil-square me-1"></i>Tahrirlash';
-        btn.classList.remove('btn-success');
-        btn.classList.add('btn-outline-secondary');
+        function cancelLocationEdit() {
+            editModes.location = false;
 
-        const cancelBtn = document.getElementById('cancelBasicInfoBtn');
-        if (cancelBtn) cancelBtn.remove();
+            Object.keys(originalData.location).forEach(key => {
+                const element = document.getElementById(key);
+                if (element) {
+                    element.textContent = originalData.location[key];
+                }
+            });
 
-        showToast('O\'zgarishlar bekor qilindi', 'info');
-    }
-
-    // =================== JOYLASHUV MA'LUMOTLARI EDIT ===================
-    function toggleLocationEdit() {
-        editModes.location = !editModes.location;
-        const btn = document.getElementById('toggleLocationBtn');
-
-        if (editModes.location) {
-            btn.innerHTML = '<i class="bi bi-check-lg me-1"></i>Saqlash';
-            btn.classList.remove('btn-outline-secondary');
-            btn.classList.add('btn-success');
-
-            originalData.location = {
-                city: document.getElementById('city').textContent,
-                district: document.getElementById('district').textContent,
-                street: document.getElementById('street').textContent,
-                house: document.getElementById('house').textContent
-            };
-
-            convertLocationToInputs();
-
-            const cancelBtn = document.createElement('button');
-            cancelBtn.type = 'button';
-            cancelBtn.className = 'btn btn-outline-danger btn-sm';
-            cancelBtn.id = 'cancelLocationBtn';
-            cancelBtn.innerHTML = '<i class="bi bi-x-lg me-1"></i>Bekor qilish';
-            cancelBtn.onclick = cancelLocationEdit;
-            btn.parentElement.insertBefore(cancelBtn, btn);
-
-        } else {
-            saveLocationChanges();
-
+            const btn = document.getElementById('toggleLocationBtn');
             btn.innerHTML = '<i class="bi bi-pencil-square me-1"></i>Tahrirlash';
             btn.classList.remove('btn-success');
             btn.classList.add('btn-outline-secondary');
@@ -1786,97 +2034,97 @@
             const cancelBtn = document.getElementById('cancelLocationBtn');
             if (cancelBtn) cancelBtn.remove();
 
-            convertLocationToText();
+            showToast('O\'zgarishlar bekor qilindi', 'info');
         }
-    }
 
-    function convertLocationToInputs() {
-        const fields = ['city', 'district', 'street', 'house'];
+        // =================== LOYIHA BOSHQARUVCHISI EDIT ===================
+        function toggleManagerEdit() {
+            editModes.manager = !editModes.manager;
+            const btn = document.getElementById('toggleManagerBtn');
 
-        fields.forEach(fieldId => {
-            const element = document.getElementById(fieldId);
-            const value = element.textContent;
-            element.innerHTML = `<input type="text" class="form-control" value="${value}" style="font-weight: 600; color: var(--gray-900);">`;
-        });
-    }
+            if (editModes.manager) {
+                btn.innerHTML = '<i class="bi bi-check-lg me-1"></i>Saqlash';
+                btn.classList.remove('btn-outline-secondary');
+                btn.classList.add('btn-success');
 
-    function convertLocationToText() {
-        const fields = ['city', 'district', 'street', 'house'];
+                originalData.manager = {
+                    managerOrg: document.getElementById('managerOrg').textContent,
+                    licenseNumber: document.getElementById('licenseNumber').textContent
+                };
 
-        fields.forEach(fieldId => {
-            const element = document.getElementById(fieldId);
-            const input = element.querySelector('input');
-            if (input) {
-                element.textContent = input.value;
+                convertManagerToInputs();
+
+                const cancelBtn = document.createElement('button');
+                cancelBtn.type = 'button';
+                cancelBtn.className = 'btn btn-outline-danger btn-sm';
+                cancelBtn.id = 'cancelManagerBtn';
+                cancelBtn.innerHTML = '<i class="bi bi-x-lg me-1"></i>Bekor qilish';
+                cancelBtn.onclick = cancelManagerEdit;
+                btn.parentElement.insertBefore(cancelBtn, btn);
+
+            } else {
+                saveManagerChanges();
+
+                btn.innerHTML = '<i class="bi bi-pencil-square me-1"></i>Tahrirlash';
+                btn.classList.remove('btn-success');
+                btn.classList.add('btn-outline-secondary');
+
+                const cancelBtn = document.getElementById('cancelManagerBtn');
+                if (cancelBtn) cancelBtn.remove();
+
+                convertManagerToText();
             }
-        });
-    }
+        }
 
-    function saveLocationChanges() {
-        const fields = ['city', 'district', 'street', 'house'];
-        const newData = {};
+        function convertManagerToInputs() {
+            const fields = ['managerOrg', 'licenseNumber'];
 
-        fields.forEach(fieldId => {
-            const element = document.getElementById(fieldId);
-            const input = element.querySelector('input');
-            if (input) {
-                newData[fieldId] = input.value;
-            }
-        });
+            fields.forEach(fieldId => {
+                const element = document.getElementById(fieldId);
+                const value = element.textContent;
+                element.innerHTML = `<input type="text" class="form-control" value="${value}" style="font-weight: 600; color: var(--gray-900);">`;
+            });
+        }
 
-        console.log('Joylashuv ma\'lumotlari saqlandi:', newData);
-        showToast('Joylashuv ma\'lumotlari muvaffaqiyatli saqlandi', 'success');
-    }
+        function convertManagerToText() {
+            const fields = ['managerOrg', 'licenseNumber'];
 
-    function cancelLocationEdit() {
-        editModes.location = false;
+            fields.forEach(fieldId => {
+                const element = document.getElementById(fieldId);
+                const input = element.querySelector('input');
+                if (input) {
+                    element.textContent = input.value;
+                }
+            });
+        }
 
-        Object.keys(originalData.location).forEach(key => {
-            const element = document.getElementById(key);
-            if (element) {
-                element.textContent = originalData.location[key];
-            }
-        });
+        function saveManagerChanges() {
+            const fields = ['managerOrg', 'licenseNumber'];
+            const newData = {};
 
-        const btn = document.getElementById('toggleLocationBtn');
-        btn.innerHTML = '<i class="bi bi-pencil-square me-1"></i>Tahrirlash';
-        btn.classList.remove('btn-success');
-        btn.classList.add('btn-outline-secondary');
+            fields.forEach(fieldId => {
+                const element = document.getElementById(fieldId);
+                const input = element.querySelector('input');
+                if (input) {
+                    newData[fieldId] = input.value;
+                }
+            });
 
-        const cancelBtn = document.getElementById('cancelLocationBtn');
-        if (cancelBtn) cancelBtn.remove();
+            console.log('Loyiha boshqaruvchisi ma\'lumotlari saqlandi:', newData);
+            showToast('Loyiha boshqaruvchisi ma\'lumotlari muvaffaqiyatli saqlandi', 'success');
+        }
 
-        showToast('O\'zgarishlar bekor qilindi', 'info');
-    }
+        function cancelManagerEdit() {
+            editModes.manager = false;
 
-    // =================== LOYIHA BOSHQARUVCHISI EDIT ===================
-    function toggleManagerEdit() {
-        editModes.manager = !editModes.manager;
-        const btn = document.getElementById('toggleManagerBtn');
+            Object.keys(originalData.manager).forEach(key => {
+                const element = document.getElementById(key);
+                if (element) {
+                    element.textContent = originalData.manager[key];
+                }
+            });
 
-        if (editModes.manager) {
-            btn.innerHTML = '<i class="bi bi-check-lg me-1"></i>Saqlash';
-            btn.classList.remove('btn-outline-secondary');
-            btn.classList.add('btn-success');
-
-            originalData.manager = {
-                managerOrg: document.getElementById('managerOrg').textContent,
-                licenseNumber: document.getElementById('licenseNumber').textContent
-            };
-
-            convertManagerToInputs();
-
-            const cancelBtn = document.createElement('button');
-            cancelBtn.type = 'button';
-            cancelBtn.className = 'btn btn-outline-danger btn-sm';
-            cancelBtn.id = 'cancelManagerBtn';
-            cancelBtn.innerHTML = '<i class="bi bi-x-lg me-1"></i>Bekor qilish';
-            cancelBtn.onclick = cancelManagerEdit;
-            btn.parentElement.insertBefore(cancelBtn, btn);
-
-        } else {
-            saveManagerChanges();
-
+            const btn = document.getElementById('toggleManagerBtn');
             btn.innerHTML = '<i class="bi bi-pencil-square me-1"></i>Tahrirlash';
             btn.classList.remove('btn-success');
             btn.classList.add('btn-outline-secondary');
@@ -1884,97 +2132,105 @@
             const cancelBtn = document.getElementById('cancelManagerBtn');
             if (cancelBtn) cancelBtn.remove();
 
-            convertManagerToText();
+            showToast('O\'zgarishlar bekor qilindi', 'info');
         }
-    }
 
-    function convertManagerToInputs() {
-        const fields = ['managerOrg', 'licenseNumber'];
+        // =================== QURILISH TASHKILOTI EDIT ===================
+        function toggleConstructionEdit() {
+            editModes.construction = !editModes.construction;
+            const btn = document.getElementById('toggleConstructionBtn');
 
-        fields.forEach(fieldId => {
-            const element = document.getElementById(fieldId);
-            const value = element.textContent;
-            element.innerHTML = `<input type="text" class="form-control" value="${value}" style="font-weight: 600; color: var(--gray-900);">`;
-        });
-    }
+            if (editModes.construction) {
+                btn.innerHTML = '<i class="bi bi-check-lg me-1"></i>Saqlash';
+                btn.classList.remove('btn-outline-secondary');
+                btn.classList.add('btn-success');
 
-    function convertManagerToText() {
-        const fields = ['managerOrg', 'licenseNumber'];
+                originalData.construction = {
+                    constructionName: document.getElementById('constructionName').textContent,
+                    constructionDesc: document.getElementById('constructionDesc').textContent
+                };
 
-        fields.forEach(fieldId => {
-            const element = document.getElementById(fieldId);
-            const input = element.querySelector('input');
-            if (input) {
-                element.textContent = input.value;
+                convertConstructionToInputs();
+
+                const cancelBtn = document.createElement('button');
+                cancelBtn.type = 'button';
+                cancelBtn.className = 'btn btn-outline-danger btn-sm';
+                cancelBtn.id = 'cancelConstructionBtn';
+                cancelBtn.innerHTML = '<i class="bi bi-x-lg me-1"></i>Bekor qilish';
+                cancelBtn.onclick = cancelConstructionEdit;
+                btn.parentElement.insertBefore(cancelBtn, btn);
+
+            } else {
+                saveConstructionChanges();
+
+                btn.innerHTML = '<i class="bi bi-pencil-square me-1"></i>Tahrirlash';
+                btn.classList.remove('btn-success');
+                btn.classList.add('btn-outline-secondary');
+
+                const cancelBtn = document.getElementById('cancelConstructionBtn');
+                if (cancelBtn) cancelBtn.remove();
+
+                convertConstructionToText();
             }
-        });
-    }
+        }
 
-    function saveManagerChanges() {
-        const fields = ['managerOrg', 'licenseNumber'];
-        const newData = {};
+        function convertConstructionToInputs() {
+            const fields = [
+                { id: 'constructionName', type: 'text' },
+                { id: 'constructionDesc', type: 'textarea' }
+            ];
 
-        fields.forEach(fieldId => {
-            const element = document.getElementById(fieldId);
-            const input = element.querySelector('input');
-            if (input) {
-                newData[fieldId] = input.value;
-            }
-        });
+            fields.forEach(field => {
+                const element = document.getElementById(field.id);
+                const value = element.textContent;
 
-        console.log('Loyiha boshqaruvchisi ma\'lumotlari saqlandi:', newData);
-        showToast('Loyiha boshqaruvchisi ma\'lumotlari muvaffaqiyatli saqlandi', 'success');
-    }
+                if (field.type === 'textarea') {
+                    element.innerHTML = `<textarea class="form-control" rows="3" style="font-weight: 600; color: var(--gray-900);">${value}</textarea>`;
+                } else {
+                    element.innerHTML = `<input type="text" class="form-control" value="${value}" style="font-weight: 600; color: var(--gray-900);">`;
+                }
+            });
+        }
 
-    function cancelManagerEdit() {
-        editModes.manager = false;
+        function convertConstructionToText() {
+            const fields = ['constructionName', 'constructionDesc'];
 
-        Object.keys(originalData.manager).forEach(key => {
-            const element = document.getElementById(key);
-            if (element) {
-                element.textContent = originalData.manager[key];
-            }
-        });
+            fields.forEach(fieldId => {
+                const element = document.getElementById(fieldId);
+                const input = element.querySelector('input, textarea');
+                if (input) {
+                    element.textContent = input.value;
+                }
+            });
+        }
 
-        const btn = document.getElementById('toggleManagerBtn');
-        btn.innerHTML = '<i class="bi bi-pencil-square me-1"></i>Tahrirlash';
-        btn.classList.remove('btn-success');
-        btn.classList.add('btn-outline-secondary');
+        function saveConstructionChanges() {
+            const fields = ['constructionName', 'constructionDesc'];
+            const newData = {};
 
-        const cancelBtn = document.getElementById('cancelManagerBtn');
-        if (cancelBtn) cancelBtn.remove();
+            fields.forEach(fieldId => {
+                const element = document.getElementById(fieldId);
+                const input = element.querySelector('input, textarea');
+                if (input) {
+                    newData[fieldId] = input.value;
+                }
+            });
 
-        showToast('O\'zgarishlar bekor qilindi', 'info');
-    }
+            console.log('Qurilish tashkiloti ma\'lumotlari saqlandi:', newData);
+            showToast('Qurilish tashkiloti ma\'lumotlari muvaffaqiyatli saqlandi', 'success');
+        }
 
-    // =================== QURILISH TASHKILOTI EDIT ===================
-    function toggleConstructionEdit() {
-        editModes.construction = !editModes.construction;
-        const btn = document.getElementById('toggleConstructionBtn');
+        function cancelConstructionEdit() {
+            editModes.construction = false;
 
-        if (editModes.construction) {
-            btn.innerHTML = '<i class="bi bi-check-lg me-1"></i>Saqlash';
-            btn.classList.remove('btn-outline-secondary');
-            btn.classList.add('btn-success');
+            Object.keys(originalData.construction).forEach(key => {
+                const element = document.getElementById(key);
+                if (element) {
+                    element.textContent = originalData.construction[key];
+                }
+            });
 
-            originalData.construction = {
-                constructionName: document.getElementById('constructionName').textContent,
-                constructionDesc: document.getElementById('constructionDesc').textContent
-            };
-
-            convertConstructionToInputs();
-
-            const cancelBtn = document.createElement('button');
-            cancelBtn.type = 'button';
-            cancelBtn.className = 'btn btn-outline-danger btn-sm';
-            cancelBtn.id = 'cancelConstructionBtn';
-            cancelBtn.innerHTML = '<i class="bi bi-x-lg me-1"></i>Bekor qilish';
-            cancelBtn.onclick = cancelConstructionEdit;
-            btn.parentElement.insertBefore(cancelBtn, btn);
-
-        } else {
-            saveConstructionChanges();
-
+            const btn = document.getElementById('toggleConstructionBtn');
             btn.innerHTML = '<i class="bi bi-pencil-square me-1"></i>Tahrirlash';
             btn.classList.remove('btn-success');
             btn.classList.add('btn-outline-secondary');
@@ -1982,297 +2238,229 @@
             const cancelBtn = document.getElementById('cancelConstructionBtn');
             if (cancelBtn) cancelBtn.remove();
 
-            convertConstructionToText();
-        }
-    }
-
-    function convertConstructionToInputs() {
-        const fields = [
-            { id: 'constructionName', type: 'text' },
-            { id: 'constructionDesc', type: 'textarea' }
-        ];
-
-        fields.forEach(field => {
-            const element = document.getElementById(field.id);
-            const value = element.textContent;
-
-            if (field.type === 'textarea') {
-                element.innerHTML = `<textarea class="form-control" rows="3" style="font-weight: 600; color: var(--gray-900);">${value}</textarea>`;
-            } else {
-                element.innerHTML = `<input type="text" class="form-control" value="${value}" style="font-weight: 600; color: var(--gray-900);">`;
-            }
-        });
-    }
-
-    function convertConstructionToText() {
-        const fields = ['constructionName', 'constructionDesc'];
-
-        fields.forEach(fieldId => {
-            const element = document.getElementById(fieldId);
-            const input = element.querySelector('input, textarea');
-            if (input) {
-                element.textContent = input.value;
-            }
-        });
-    }
-
-    function saveConstructionChanges() {
-        const fields = ['constructionName', 'constructionDesc'];
-        const newData = {};
-
-        fields.forEach(fieldId => {
-            const element = document.getElementById(fieldId);
-            const input = element.querySelector('input, textarea');
-            if (input) {
-                newData[fieldId] = input.value;
-            }
-        });
-
-        console.log('Qurilish tashkiloti ma\'lumotlari saqlandi:', newData);
-        showToast('Qurilish tashkiloti ma\'lumotlari muvaffaqiyatli saqlandi', 'success');
-    }
-
-    function cancelConstructionEdit() {
-        editModes.construction = false;
-
-        Object.keys(originalData.construction).forEach(key => {
-            const element = document.getElementById(key);
-            if (element) {
-                element.textContent = originalData.construction[key];
-            }
-        });
-
-        const btn = document.getElementById('toggleConstructionBtn');
-        btn.innerHTML = '<i class="bi bi-pencil-square me-1"></i>Tahrirlash';
-        btn.classList.remove('btn-success');
-        btn.classList.add('btn-outline-secondary');
-
-        const cancelBtn = document.getElementById('cancelConstructionBtn');
-        if (cancelBtn) cancelBtn.remove();
-
-        showToast('O\'zgarishlar bekor qilindi', 'info');
-    }
-
-    // =================== MEDIA (IMAGES/VIDEOS) MANAGEMENT ===================
-    function deleteMedia(mediaId, mediaType) {
-        if (!confirm('Ushbu faylni o\'chirmoqchimisiz?')) {
-            return;
+            showToast('O\'zgarishlar bekor qilindi', 'info');
         }
 
-        // API call would go here
-        console.log('Deleting media:', { mediaId, mediaType });
-
-        // Remove from DOM
-        const mediaElement = document.querySelector(`[data-media-id="${mediaId}"]`);
-        if (mediaElement) {
-            mediaElement.remove();
-        }
-
-        showToast('Fayl muvaffaqiyatli o\'chirildi', 'success');
-    }
-
-    function uploadNewMedia(mediaType) {
-        // Create file input
-        const input = document.createElement('input');
-        input.type = 'file';
-        input.accept = mediaType === 'video' ? 'video/*' : 'image/*';
-        input.multiple = true;
-
-        input.onchange = function(e) {
-            const files = e.target.files;
-            if (files.length === 0) return;
+        // =================== MEDIA (IMAGES/VIDEOS) MANAGEMENT ===================
+        function deleteMedia(mediaId, mediaType) {
+            if (!confirm('Ushbu faylni o\'chirmoqchimisiz?')) {
+                return;
+            }
 
             // API call would go here
-            console.log('Uploading files:', files);
+            console.log('Deleting media:', { mediaId, mediaType });
 
-            // Simulate upload
-            Array.from(files).forEach((file, index) => {
-                setTimeout(() => {
-                    showToast(`${file.name} yuklandi`, 'success');
-                }, index * 500);
+            // Remove from DOM
+            const mediaElement = document.querySelector(`[data-media-id="${mediaId}"]`);
+            if (mediaElement) {
+                mediaElement.remove();
+            }
+
+            showToast('Fayl muvaffaqiyatli o\'chirildi', 'success');
+        }
+
+        function uploadNewMedia(mediaType) {
+            // Create file input
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = mediaType === 'video' ? 'video/*' : 'image/*';
+            input.multiple = true;
+
+            input.onchange = function (e) {
+                const files = e.target.files;
+                if (files.length === 0) return;
+
+                // API call would go here
+                console.log('Uploading files:', files);
+
+                // Simulate upload
+                Array.from(files).forEach((file, index) => {
+                    setTimeout(() => {
+                        showToast(`${file.name} yuklandi`, 'success');
+                    }, index * 500);
+                });
+            };
+
+            input.click();
+        }
+
+        // Add delete and upload buttons to media items
+        function addMediaControls() {
+            // Main Images
+            const mainImagesContainer = document.getElementById('mainImagesContainer');
+            if (mainImagesContainer) {
+                addControlsToContainer(mainImagesContainer, 'main-image');
+            }
+
+            // Process Images
+            const processImagesContainer = document.getElementById('processImagesContainer');
+            if (processImagesContainer) {
+                addControlsToContainer(processImagesContainer, 'process-image');
+            }
+
+            // Videos
+            const videosContainer = document.getElementById('videosContainer');
+            if (videosContainer) {
+                addControlsToContainer(videosContainer, 'video');
+            }
+        }
+
+        function addControlsToContainer(container, mediaType) {
+            const items = container.querySelectorAll('.gallery-item');
+
+            items.forEach((item, index) => {
+                if (item.querySelector('.media-controls')) return; // Already has controls
+
+                const mediaId = `${mediaType}-${index}`;
+                item.setAttribute('data-media-id', mediaId);
+
+                const controls = document.createElement('div');
+                controls.className = 'media-controls';
+                controls.innerHTML = `
+                    <button class="media-delete-btn" onclick="deleteMedia('${mediaId}', '${mediaType}')" title="O'chirish">
+                        <i class="bi bi-x-lg"></i>
+                    </button>
+                `;
+
+                item.appendChild(controls);
             });
-        };
 
-        input.click();
-    }
-
-    // Add delete and upload buttons to media items
-    function addMediaControls() {
-        // Main Images
-        const mainImagesContainer = document.getElementById('mainImagesContainer');
-        if (mainImagesContainer) {
-            addControlsToContainer(mainImagesContainer, 'main-image');
+            // Add upload button
+            if (!container.querySelector('.media-upload-card')) {
+                const uploadCard = document.createElement('div');
+                uploadCard.className = 'gallery-item media-upload-card';
+                uploadCard.innerHTML = `
+                    <div class="media-upload-content" onclick="uploadNewMedia('${mediaType}')">
+                        <i class="bi bi-cloud-upload"></i>
+                        <span>Yangi yuklash</span>
+                    </div>
+                `;
+                container.appendChild(uploadCard);
+            }
         }
 
-        // Process Images
-        const processImagesContainer = document.getElementById('processImagesContainer');
-        if (processImagesContainer) {
-            addControlsToContainer(processImagesContainer, 'process-image');
-        }
-
-        // Videos
-        const videosContainer = document.getElementById('videosContainer');
-        if (videosContainer) {
-            addControlsToContainer(videosContainer, 'video');
-        }
-    }
-
-    function addControlsToContainer(container, mediaType) {
-        const items = container.querySelectorAll('.gallery-item');
-
-        items.forEach((item, index) => {
-            if (item.querySelector('.media-controls')) return; // Already has controls
-
-            const mediaId = `${mediaType}-${index}`;
-            item.setAttribute('data-media-id', mediaId);
-
-            const controls = document.createElement('div');
-            controls.className = 'media-controls';
-            controls.innerHTML = `
-                <button class="media-delete-btn" onclick="deleteMedia('${mediaId}', '${mediaType}')" title="O'chirish">
-                    <i class="bi bi-x-lg"></i>
-                </button>
-            `;
-
-            item.appendChild(controls);
+        // Call this function after page loads or when data is loaded
+        document.addEventListener('DOMContentLoaded', function () {
+            // Initialize media controls after a short delay (when images are loaded)
+            setTimeout(addMediaControls, 1000);
         });
 
-        // Add upload button
-        if (!container.querySelector('.media-upload-card')) {
-            const uploadCard = document.createElement('div');
-            uploadCard.className = 'gallery-item media-upload-card';
-            uploadCard.innerHTML = `
-                <div class="media-upload-content" onclick="uploadNewMedia('${mediaType}')">
-                    <i class="bi bi-cloud-upload"></i>
-                    <span>Yangi yuklash</span>
-                </div>
+        // =================== TOAST NOTIFICATION ===================
+        function showToast(message, type = 'info') {
+            const existingToast = document.querySelector('.custom-toast');
+            if (existingToast) {
+                existingToast.remove();
+            }
+
+            const toast = document.createElement('div');
+            toast.className = `custom-toast toast-${type}`;
+            toast.textContent = message;
+
+            const styles = `
+                .custom-toast {
+                    position: fixed;
+                    top: 20px;
+                    right: 20px;
+                    padding: 1rem 1.5rem;
+                    background: white;
+                    border-radius: 0.5rem;
+                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                    z-index: 9999;
+                    animation: slideIn 0.3s ease;
+                    border-left: 4px solid;
+                    font-weight: 500;
+                }
+                .toast-success { border-left-color: #16a34a; color: #166534; }
+                .toast-info { border-left-color: #2563eb; color: #1e40af; }
+                .toast-danger { border-left-color: #dc2626; color: #991b1b; }
+                @keyframes slideIn {
+                    from { transform: translateX(400px); opacity: 0; }
+                    to { transform: translateX(0); opacity: 1; }
+                }
+
+                /* Media Controls Styles */
+                .media-controls {
+                    position: absolute;
+                    top: 0.5rem;
+                    right: 0.5rem;
+                    display: flex;
+                    gap: 0.5rem;
+                    z-index: 10;
+                    opacity: 0;
+                    transition: opacity 0.3s;
+                }
+
+                .gallery-item:hover .media-controls {
+                    opacity: 1;
+                }
+
+                .media-delete-btn {
+                    width: 32px;
+                    height: 32px;
+                    border-radius: 50%;
+                    border: none;
+                    background: rgba(220, 38, 38, 0.9);
+                    color: white;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    cursor: pointer;
+                    transition: all 0.3s;
+                    font-size: 0.875rem;
+                }
+
+                .media-delete-btn:hover {
+                    background: rgba(220, 38, 38, 1);
+                    transform: scale(1.1);
+                }
+
+                .media-upload-card {
+                    border: 2px dashed var(--gray-300);
+                    background: var(--gray-50);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    cursor: pointer;
+                    transition: all 0.3s;
+                }
+
+                .media-upload-card:hover {
+                    border-color: var(--primary-color);
+                    background: var(--gray-100);
+                    transform: translateY(0);
+                }
+
+                .media-upload-content {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    gap: 0.5rem;
+                    color: var(--gray-600);
+                }
+
+                .media-upload-content i {
+                    font-size: 2rem;
+                }
+
+                .media-upload-content span {
+                    font-weight: 500;
+                    font-size: 0.875rem;
+                }
             `;
-            container.appendChild(uploadCard);
+
+            if (!document.getElementById('toast-styles')) {
+                const styleSheet = document.createElement('style');
+                styleSheet.id = 'toast-styles';
+                styleSheet.textContent = styles;
+                document.head.appendChild(styleSheet);
+            }
+
+            document.body.appendChild(toast);
+
+            setTimeout(() => {
+                toast.style.animation = 'slideIn 0.3s ease reverse';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
         }
-    }
-
-    // Call this function after page loads or when data is loaded
-    document.addEventListener('DOMContentLoaded', function() {
-        // Initialize media controls after a short delay (when images are loaded)
-        setTimeout(addMediaControls, 1000);
-    });
-
-    // =================== TOAST NOTIFICATION ===================
-    function showToast(message, type = 'info') {
-        const existingToast = document.querySelector('.custom-toast');
-        if (existingToast) {
-            existingToast.remove();
-        }
-
-        const toast = document.createElement('div');
-        toast.className = `custom-toast toast-${type}`;
-        toast.textContent = message;
-
-        const styles = `
-            .custom-toast {
-                position: fixed;
-                top: 20px;
-                right: 20px;
-                padding: 1rem 1.5rem;
-                background: white;
-                border-radius: 0.5rem;
-                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-                z-index: 9999;
-                animation: slideIn 0.3s ease;
-                border-left: 4px solid;
-                font-weight: 500;
-            }
-            .toast-success { border-left-color: #16a34a; color: #166534; }
-            .toast-info { border-left-color: #2563eb; color: #1e40af; }
-            .toast-danger { border-left-color: #dc2626; color: #991b1b; }
-            @keyframes slideIn {
-                from { transform: translateX(400px); opacity: 0; }
-                to { transform: translateX(0); opacity: 1; }
-            }
-
-            /* Media Controls Styles */
-            .media-controls {
-                position: absolute;
-                top: 0.5rem;
-                right: 0.5rem;
-                display: flex;
-                gap: 0.5rem;
-                z-index: 10;
-                opacity: 0;
-                transition: opacity 0.3s;
-            }
-
-            .gallery-item:hover .media-controls {
-                opacity: 1;
-            }
-
-            .media-delete-btn {
-                width: 32px;
-                height: 32px;
-                border-radius: 50%;
-                border: none;
-                background: rgba(220, 38, 38, 0.9);
-                color: white;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                cursor: pointer;
-                transition: all 0.3s;
-                font-size: 0.875rem;
-            }
-
-            .media-delete-btn:hover {
-                background: rgba(220, 38, 38, 1);
-                transform: scale(1.1);
-            }
-
-            .media-upload-card {
-                border: 2px dashed var(--gray-300);
-                background: var(--gray-50);
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                cursor: pointer;
-                transition: all 0.3s;
-            }
-
-            .media-upload-card:hover {
-                border-color: var(--primary-color);
-                background: var(--gray-100);
-                transform: translateY(0);
-            }
-
-            .media-upload-content {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                gap: 0.5rem;
-                color: var(--gray-600);
-            }
-
-            .media-upload-content i {
-                font-size: 2rem;
-            }
-
-            .media-upload-content span {
-                font-weight: 500;
-                font-size: 0.875rem;
-            }
-        `;
-
-        if (!document.getElementById('toast-styles')) {
-            const styleSheet = document.createElement('style');
-            styleSheet.id = 'toast-styles';
-            styleSheet.textContent = styles;
-            document.head.appendChild(styleSheet);
-        }
-
-        document.body.appendChild(toast);
-
-        setTimeout(() => {
-            toast.style.animation = 'slideIn 0.3s ease reverse';
-            setTimeout(() => toast.remove(), 300);
-        }, 3000);
-    }
-        </script>
+    </script>
 @endpush

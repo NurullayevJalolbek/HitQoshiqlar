@@ -11,6 +11,7 @@
             --gray-100: #f3f4f6;
             --gray-200: #e5e7eb;
             --gray-300: #d1d5db;
+            --gray-400: #9ca3af;
             --gray-600: #4b5563;
             --gray-700: #374151;
             --gray-900: #111827;
@@ -242,7 +243,7 @@
             border: 1px solid var(--gray-200);
         }
 
-        ..info-card-title {
+        .info-card-title {
             font-size: 1.125rem;
             font-weight: 600;
             color: var(--gray-900);
@@ -987,7 +988,189 @@
         .info-card .btn {
             white-space: nowrap;
         }
-    </style>
+    
+        /* ===== Qo'shimcha UI yaxshilashlar (Moliyaviy / Raund / Risk) ===== */
+        #financial .progress {
+            background: var(--gray-100);
+            border-radius: 999px;
+            overflow: hidden;
+        }
+        #financial .progress-bar {
+            background: var(--primary-color);
+        }
+        .dividend-table thead th {
+            position: sticky;
+            top: 0;
+            z-index: 1;
+        }
+
+        .round-view-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.25rem;
+            background: white;
+            border: 1px solid var(--gray-200);
+            border-radius: var(--border-radius);
+            margin-bottom: 0.75rem;
+        }
+        .round-title {
+            font-weight: 600;
+            color: var(--gray-900);
+        }
+        .round-subtitle {
+            font-size: 0.875rem;
+            color: var(--gray-600);
+        }
+        .round-edit-card {
+            display: grid;
+            grid-template-columns: 44px 1fr;
+            gap: 0.75rem;
+            padding: 1rem;
+            background: white;
+            border: 1px solid var(--gray-200);
+            border-radius: var(--border-radius);
+            margin-bottom: 0.75rem;
+        }
+        .round-reorder {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            align-items: stretch;
+        }
+        .round-reorder .btn {
+            padding: 0.25rem 0.35rem;
+        }
+
+        .risk-edit-card {
+            display: grid;
+            grid-template-columns: 44px 1fr;
+            gap: 0.75rem;
+            padding: 1rem;
+            background: white;
+            border: 1px solid var(--gray-200);
+            border-radius: var(--border-radius);
+            margin-bottom: 0.75rem;
+        }
+        .risk-reorder {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        .risk-reorder .btn {
+            padding: 0.25rem 0.35rem;
+        }
+
+
+        /* === UI: toolbar + priority === */
+        .tab-section-header{
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            gap:0.75rem;
+            flex-wrap:wrap;
+        }
+        .tab-section-title{
+            display:flex;
+            align-items:center;
+            gap:0.75rem;
+            flex-wrap:wrap;
+        }
+        .tab-toolbar{
+            display:flex;
+            align-items:center;
+            gap:0.5rem;
+            flex-wrap:wrap;
+        }
+        .tab-insert-group{
+            min-width:260px;
+        }
+        .priority-pill{
+            display:inline-flex;
+            align-items:center;
+            justify-content:center;
+            padding:0.2rem 0.55rem;
+            border-radius:999px;
+            font-weight:700;
+            font-size:0.8rem;
+            background:rgba(13,110,253,0.10);
+            color:var(--primary-color);
+            border:1px solid rgba(13,110,253,0.18);
+            line-height:1;
+            white-space:nowrap;
+        }
+        .icon-btn{
+            width:34px;
+            height:34px;
+            padding:0;
+            display:inline-flex;
+            align-items:center;
+            justify-content:center;
+        }
+        .round-item:hover{
+            background:#fff;
+            box-shadow:0 6px 18px rgba(0,0,0,0.06);
+        }
+        .round-name{
+            font-weight:600;
+            color:var(--gray-900);
+            line-height:1.2;
+            margin-bottom:0.15rem;
+        }
+        .round-right .round-amount{
+            font-size:1.15rem;
+        }
+        .round-caption{
+            font-size:0.85rem;
+            color:var(--gray-600);
+        }
+        .round-editor{
+            background:#fff;
+            border:1px solid var(--gray-200);
+            border-radius:var(--border-radius);
+            padding:1rem;
+            margin-bottom:0.75rem;
+            box-shadow:0 2px 10px rgba(0,0,0,0.04);
+        }
+        .round-editor-top{
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            gap:0.5rem;
+            flex-wrap:wrap;
+            padding-bottom:0.5rem;
+            margin-bottom:0.75rem;
+            border-bottom:1px dashed var(--gray-200);
+        }
+        .risk-item-edit{
+            background:#fff;
+            border:1px solid var(--gray-200);
+            border-left:4px solid var(--warning-color);
+            box-shadow:0 2px 10px rgba(0,0,0,0.04);
+        }
+        .risk-editor-top{
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            gap:0.5rem;
+            flex-wrap:wrap;
+            margin-bottom:0.75rem;
+            padding-bottom:0.5rem;
+            border-bottom:1px dashed var(--gray-200);
+        }
+
+
+        .section-subtitle{
+            margin-top:2rem;
+            margin-bottom:1rem;
+            font-weight:600;
+            display:flex;
+            align-items:center;
+            gap:0.5rem;
+            color:var(--gray-900);
+        }
+
+</style>
 @endpush
 
 @section('breadcrumb')
@@ -1374,25 +1557,35 @@
 
         <div id="rounds" class="tab-content">
             <div class="info-card">
-                <div class="d-flex justify-content-between align-items-center">
-                    <h5 class="info-card-title mb-0">
-                        <i class="bi bi-arrow-repeat"></i>
-                        Loyiha raundlari
-                    </h5>
-                    <div class="d-flex align-items-center gap-2">
-                        <button type="button" class="btn btn-success btn-sm" id="addRoundBtn" onclick="addNewRound()"
-                            style="display: none;">
-                            <i class="bi bi-plus-lg me-1"></i>
-                            Yangi raund qo'shish
-                        </button>
-                        <button type="button" class="btn btn-outline-secondary btn-sm" id="toggleRoundsEditBtn"
-                            onclick="toggleRoundsEdit()">
-                            <i class="bi bi-pencil-square me-1"></i>
-                            Tahrirlash
-                        </button>
+                                <div class="tab-section-header">
+                    <div class="tab-section-title">
+                        <h5 class="info-card-title mb-0">
+                            <i class="bi bi-arrow-repeat"></i>
+                            Loyiha raundlari
+                        </h5>
+                        <span class="text-muted small" id="roundsMeta"></span>
+                    </div>
+
+                    <div class="tab-toolbar">
+                        <div class="input-group input-group-sm tab-insert-group" id="roundInsertAfterGroup" style="display:none;">
+                            <span class="input-group-text"><i class="bi bi-list-ol"></i></span>
+                            <select id="roundInsertAfter" class="form-select"></select>
+                        </div>
+
+                        <div class="btn-group btn-group-sm" role="group" aria-label="Raund amallari">
+                            <button type="button" class="btn btn-success" id="addRoundBtn" onclick="addNewRound()" style="display:none;">
+                                <i class="bi bi-plus-circle me-1"></i>
+                                Yangi raund
+                            </button>
+                            <button type="button" class="btn btn-outline-secondary" id="toggleRoundsEditBtn"
+                                onclick="toggleRoundsEdit()">
+                                <i class="bi bi-pencil-square me-1"></i>
+                                Tahrirlash
+                            </button>
+                        </div>
                     </div>
                 </div>
-                <div id="roundsContainer"></div>
+<div id="roundsContainer"></div>
             </div>
         </div>
 
@@ -1429,6 +1622,9 @@
                             <i class="bi bi-pie-chart-fill"></i>
                         </div>
                         <div class="stat-value" id="fundingStatus">0%</div>
+                        <div class="progress mt-2" style="height: 6px;">
+                            <div class="progress-bar" id="fundingProgressBar" role="progressbar" style="width: 0%;" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></div>
+                        </div>
                         <div class="stat-label">Moliyalashtirilganlik holati ko'rsatkichi</div>
                     </div>
                     <div class="stat-card">
@@ -1472,8 +1668,7 @@
                     </div>
                 </div>
 
-                <h6
-                    style="margin-top: 2rem; margin-bottom: 1rem; font-weight: 600; display: flex; align-items: center; gap: 0.5rem;">
+                <h6 class="section-subtitle">
                     <i class="bi bi-clock-history"></i>
                     Loyiha doirasida taqsimlangan dividendlar tarixi
                 </h6>
@@ -1497,25 +1692,35 @@
 
         <div id="risks" class="tab-content">
             <div class="info-card">
-                <div class="d-flex justify-content-between align-items-center">
-                    <h5 class="info-card-title mb-0">
-                        <i class="bi bi-exclamation-triangle"></i>
-                        Xatarlar (Risklar)
-                    </h5>
-                    <div class="d-flex align-items-center gap-2">
-                        <button type="button" class="btn btn-success btn-sm" id="addRiskBtn" onclick="addNewRisk()"
-                            style="display: none;">
-                            <i class="bi bi-plus-lg me-1"></i>
-                            Yangi xatar qo'shish
-                        </button>
-                        <button type="button" class="btn btn-outline-secondary btn-sm" id="toggleRisksEditBtn"
-                            onclick="toggleRisksEdit()">
-                            <i class="bi bi-pencil-square me-1"></i>
-                            Tahrirlash
-                        </button>
+                                <div class="tab-section-header">
+                    <div class="tab-section-title">
+                        <h5 class="info-card-title mb-0">
+                            <i class="bi bi-exclamation-triangle"></i>
+                            Xatarlar (Risklar)
+                        </h5>
+                        <span class="text-muted small" id="risksMeta"></span>
+                    </div>
+
+                    <div class="tab-toolbar">
+                        <div class="input-group input-group-sm tab-insert-group" id="riskInsertAfterGroup" style="display:none;">
+                            <span class="input-group-text"><i class="bi bi-list-ol"></i></span>
+                            <select id="riskInsertAfter" class="form-select"></select>
+                        </div>
+
+                        <div class="btn-group btn-group-sm" role="group" aria-label="Risk amallari">
+                            <button type="button" class="btn btn-success" id="addRiskBtn" onclick="addNewRisk()" style="display:none;">
+                                <i class="bi bi-plus-circle me-1"></i>
+                                Yangi xatar
+                            </button>
+                            <button type="button" class="btn btn-outline-secondary" id="toggleRisksEditBtn"
+                                onclick="toggleRisksEdit()">
+                                <i class="bi bi-pencil-square me-1"></i>
+                                Tahrirlash
+                            </button>
+                        </div>
                     </div>
                 </div>
-                <div class="info-grid" id="risksInfoContent">
+<div class="info-grid" id="risksInfoContent">
                     <div class="info-row">
                         <span class="info-label">
                             <i class="bi bi-diagram-3 me-1 text-muted"></i>
@@ -1541,8 +1746,7 @@
                     </div>
                 </div>
 
-                <h6
-                    style="margin-top: 2rem; margin-bottom: 1rem; font-weight: 600; display: flex; align-items: center; gap: 0.5rem;">
+                <h6 class="section-subtitle">
                     <i class="bi bi-exclamation-circle"></i>
                     Mumkin bo'lgan xatarlar
                 </h6>

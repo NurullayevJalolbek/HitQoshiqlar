@@ -912,5 +912,3 @@
         });
     </script>
 @endpush
-
-
