@@ -1,670 +1,749 @@
-<script>
-(function() {
-    'use strict';
+@extends('layouts.app')
 
-    /* ============================
-       TRANSLATION CONSTANTS
-    ============================ */
-    const TRANSLATIONS = {
-        identified: "{{ __('Аниқланган') }}",
-        unidentified: "{{ __('Аниқланмаган') }}",
-        needs_clarify: "{{ __('Аниқлик киритиладиган') }}",
-        total_records: "{{ __('Жами ёзувлар') }}",
-        confirm_delete: "{{ __('Ҳақиқатан ҳам ўчирмоқчимисиз?') }}",
-        success_deleted: "{{ __('Муваффақиятли ўчирилди') }}",
-        error_occurred: "{{ __('Хатолик юз берди') }}",
-        import_success: "{{ __('Импорт тугади. Ёзувлар сони:') }}",
-        import_error: "{{ __('Импортда хато:') }}",
-        select_file: "{{ __('Файл танланг') }}",
-        transaction_id: "{{ __('Транзакция ID') }}",
-        period: "{{ __('Давр') }}",
-        account: "{{ __('Ҳисоб') }}",
-        amount: "{{ __('Сумма') }}",
-        payer: "{{ __('Тўловчи') }}",
-        details: "{{ __('Тафсилотлар') }}",
-        project_hint: "{{ __('Лойиҳа маълумоти') }}",
-        matched_project: "{{ __('Мослаштирилган лойиҳа') }}",
-        type: "{{ __('Тури') }}",
-        uploaded_by: "{{ __('Юклаган') }}",
-        updated_at: "{{ __('Янгиланган') }}",
-        status_changed: "{{ __('Ҳолат ўзгарди') }}",
-        assigned_to: "{{ __('Бириктирилди:') }}",
-        assigned_multiple: "{{ __('Бир неччага бириктирилди:') }}",
-        moved_to_other: "{{ __('Ўтказилди → Бошқа даромад') }}",
-        imported_via_csv: "{{ __('CSV орқали импорт қилинди') }}",
-        enter_project_name: "{{ __('Лойиҳанинг номини ёки ID киритинг:') }}",
-        enter_multiple_projects: "{{ __('Бир нечта лойиҳа, вергул билан ажратинг:') }}"
-    };
-
-    /* ============================
-       UTILITY FUNCTIONS
-    ============================ */
-    const uid = () => Math.floor(Math.random() * 900000) + 100000;
-
-    const STATUS = {
-        identified: { 
-            label: TRANSLATIONS.identified, 
-            cls: 'badge-identified', 
-            emoji: '☑' 
-        },
-        unidentified: { 
-            label: TRANSLATIONS.unidentified, 
-            cls: 'badge-unidentified', 
-            emoji: '⚠️' 
-        },
-        needs_clarify: { 
-            label: TRANSLATIONS.needs_clarify, 
-            cls: 'badge-needs-clarify', 
-            emoji: '✖' 
-        }
-    };
-
-    function formatDateNow() {
-        const now = new Date();
-        const date = now.toISOString().split('T')[0];
-        const time = now.toTimeString().split(' ')[0];
-        return `${date} ${time}`;
-    }
-
-    function formatDate(dateString) {
-    if (!dateString) return '<span class="text-muted">-</span>';
-
-    const d = new Date(dateString);
-    if (isNaN(d)) return '<span class="text-muted">-</span>';
-
-    const day = String(d.getDate()).padStart(2, '0');
-    const month = String(d.getMonth() + 1).padStart(2, '0');
-    const year = String(d.getFullYear()).slice(-2);
-
-    return `${day}.${month}.${year}`;
-}
-
-
-    function escapeHtml(text) {
-        if (!text) return '';
-        const map = {
-            '&': '&amp;',
-            '<': '&lt;',
-            '>': '&gt;',
-            '"': '&quot;',
-            "'": '&#039;'
-        };
-        return String(text).replace(/[&<>"']/g, m => map[m]);
-    }
-
-    /* ============================
-       DEFAULT DATA
-    ============================ */
-    const DEFAULT_REVENUES = [
-        {
-            id: uid(),
-            transaction_id: 'TX-50001',
-            period: '2025-11',
-            account: 'ACC-998877',
-            amount: 5000000,
-            currency: 'UZS',
-            payer: 'Kom. bank A',
-            details: 'Payment for project ABC (proj-abc)',
-            project_hint: 'proj-abc',
-            type: 'identified',
-            matched_project: 'Project ABC',
-            uploaded_by: 'Muhammad Auditor',
-            updated_at: formatDateNow(),
-            history: []
-        },
-        {
-            id: uid(),
-            transaction_id: 'TX-50002',
-            period: '2025-11',
-            account: 'ACC-884422',
-            amount: 1200000,
-            currency: 'USD',
-            payer: 'Unknown payer',
-            details: 'No project details',
-            project_hint: '',
-            type: 'unidentified',
-            matched_project: null,
-            uploaded_by: 'Muhammad Auditor',
-            updated_at: formatDateNow(),
-            history: []
-        },
-        {
-            id: uid(),
-            transaction_id: 'TX-50003',
-            period: '2025-10',
-            account: 'ACC-223344',
-            amount: 800000,
-            currency: 'UZS',
-            payer: 'Kom. bank B',
-            details: 'Transfer maybe for rent project',
-            project_hint: 'rent',
-            type: 'needs_clarify',
-            matched_project: null,
-            uploaded_by: 'Operator',
-            updated_at: formatDateNow(),
-            history: []
-        }
-    ];
-
-    /* ============================
-       DATA MANAGEMENT
-       ESLATMA: Server-side bilan ishlash uchun tayyor
-    ============================ */
-    let revenues = [...DEFAULT_REVENUES];
-    
-    // Agar server-side ma'lumotlar mavjud bo'lsa:
-    @if(isset($revenues) && count($revenues) > 0)
-        revenues = @json($revenues);
-    @endif
-
-    // Simulated platform project identifiers
-    let knownProjects = ['proj-abc', 'rent', 'land-01'];
-
-    const CSRF_TOKEN = "{{ csrf_token() }}";
-    const API_BASE = "{{ route('admin.revenues.index') }}";
-
-    /* ============================
-       SUMMARY RENDER
-    ============================ */
-    function renderSummary() {
-        const total = revenues.length;
-        const identified = revenues.filter(r => r.type === 'identified').length;
-        const unidentified = revenues.filter(r => r.type === 'unidentified').length;
-        const needs = revenues.filter(r => r.type === 'needs_clarify').length;
-        const sumTotal = revenues.reduce((acc, r) => acc + (Number(r.amount) || 0), 0);
-
-        const summaryRow = document.getElementById('summaryRow');
-        if (!summaryRow) return;
-
-        summaryRow.innerHTML = `
-            <div class="col-md-3">
-                <div class="card p-3 summary-card">
-                    <div class="small-muted">${TRANSLATIONS.total_records}</div>
-                    <div class="h5 mb-0">${total}</div>
-                    <div class="small-muted mono mt-2">${sumTotal.toLocaleString()}</div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card p-3 summary-card identified">
-                    <div class="small-muted">${TRANSLATIONS.identified}</div>
-                    <div class="h5 mb-0">${identified} 
-                        <span class="small-muted">(${total > 0 ? ((identified/total)*100).toFixed(0) : 0}%)</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card p-3 summary-card unidentified">
-                    <div class="small-muted">${TRANSLATIONS.unidentified}</div>
-                    <div class="h5 mb-0">${unidentified}</div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card p-3 summary-card needs-clarify">
-                    <div class="small-muted">${TRANSLATIONS.needs_clarify}</div>
-                    <div class="h5 mb-0">${needs}</div>
-                </div>
-            </div>
-        `;
-    }
-
-    /* ============================
-       TABLE RENDER
-    ============================ */
-    function countByType(record, type) {
-        return record.type === type ? 1 : 0;
-    }
-
-    function renderTable(list = revenues) {
-        renderSummary();
-        
-        const tbody = document.getElementById('revenuesTableBody');
-        const emptyState = document.getElementById('emptyState');
-        
-        if (!tbody) return;
-
-        tbody.innerHTML = '';
-
-        if (list.length === 0) {
-            if (emptyState) emptyState.style.display = 'block';
-            return;
+@push('customCss')
+    <style>
+        .filter-card {
+            background: #ffffff;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            border-radius: 0.75rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
         }
 
-        if (emptyState) emptyState.style.display = 'none';
-
-        list.forEach((r, idx) => {
-            const status = STATUS[r.type] || STATUS.unidentified;
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>${idx + 1}</td>
-                <td class="mono">${escapeHtml(r.transaction_id)}</td>
-                <td>${escapeHtml(r.period)}</td>
-                <td>${escapeHtml(r.account)}</td>
-                <td><strong>${Number(r.amount).toLocaleString()}</strong> ${escapeHtml(r.currency)}</td>
-                <td>${countByType(r, 'identified')}</td>
-                <td>${countByType(r, 'unidentified')}</td>
-                <td>${countByType(r, 'needs_clarify')}</td>
-                <td>${escapeHtml(r.currency)}</td>
-                <td>${escapeHtml(r.uploaded_by)}</td>
-                <td>${formatDate(r.updated_at)}</td>
-                <td><span class="${status.cls} badge">${status.emoji} ${status.label}</span></td>
-                <td>
-                    <button class="btn btn-sm btn-outline-primary action-btn" onclick="openDetail('${r.id}')">
-                        <i class="fas fa-eye"></i>
-                    </button>
-                    <button class="btn btn-sm btn-outline-success action-btn" onclick="markAsIdentified('${r.id}')">
-                        <i class="fas fa-check"></i>
-                    </button>
-                    <button class="btn btn-sm btn-outline-warning action-btn" onclick="moveToClarify('${r.id}')">
-                        <i class="fas fa-question"></i>
-                    </button>
-                </td>
-            `;
-            tbody.appendChild(row);
-        });
-    }
-
-    /* ============================
-       DETAIL MODAL
-    ============================ */
-    window.openDetail = function(id) {
-        const item = revenues.find(r => r.id == id);
-        if (!item) return;
-
-        // Top section
-        const detailTop = document.getElementById('detailTop');
-        if (detailTop) {
-            detailTop.innerHTML = `
-                <div class="d-flex justify-content-between align-items-start">
-                    <div>
-                        <h5>${escapeHtml(item.transaction_id)} 
-                            <small class="small-muted">(${escapeHtml(item.period)})</small>
-                        </h5>
-                        <div class="small-muted">${escapeHtml(item.account)} • ${escapeHtml(item.payer)}</div>
-                    </div>
-                    <div class="text-end">
-                        <div class="h5">${Number(item.amount).toLocaleString()} ${escapeHtml(item.currency)}</div>
-                        <div class="small-muted">${formatDate(item.updated_at)}</div>
-                    </div>
-                </div>
-            `;
+        .exit-table {
+            font-size: 0.875rem;
+            margin-bottom: 0;
         }
 
-        // Info tab
-        const detailInfo = document.getElementById('detailInfo');
-        if (detailInfo) {
-            detailInfo.innerHTML = `
-                <table class="table table-sm">
-                    <tr><td><strong>${TRANSLATIONS.transaction_id}</strong></td><td class="mono">${escapeHtml(item.transaction_id)}</td></tr>
-                    <tr><td><strong>${TRANSLATIONS.period}</strong></td><td>${escapeHtml(item.period)}</td></tr>
-                    <tr><td><strong>${TRANSLATIONS.account}</strong></td><td>${escapeHtml(item.account)}</td></tr>
-                    <tr><td><strong>${TRANSLATIONS.amount}</strong></td><td>${Number(item.amount).toLocaleString()} ${escapeHtml(item.currency)}</td></tr>
-                    <tr><td><strong>${TRANSLATIONS.payer}</strong></td><td>${escapeHtml(item.payer)}</td></tr>
-                    <tr><td><strong>${TRANSLATIONS.details}</strong></td><td>${escapeHtml(item.details)}</td></tr>
-                    <tr><td><strong>${TRANSLATIONS.project_hint}</strong></td><td>${escapeHtml(item.project_hint || '-')}</td></tr>
-                    <tr><td><strong>${TRANSLATIONS.matched_project}</strong></td><td>${escapeHtml(item.matched_project || '-')}</td></tr>
-                    <tr><td><strong>${TRANSLATIONS.type}</strong></td><td><span class="badge ${STATUS[item.type].cls}">${STATUS[item.type].label}</span></td></tr>
-                    <tr><td><strong>${TRANSLATIONS.uploaded_by}</strong></td><td>${escapeHtml(item.uploaded_by)}</td></tr>
-                </table>
-            `;
+        .exit-table thead th {
+            background: #1f2937;
+            color: white;
+            font-weight: 600;
+            padding: 0.875rem 0.75rem;
+            font-size: 0.8125rem;
+            white-space: nowrap;
+            border: none;
+            vertical-align: middle;
         }
 
-        // History tab
-        const histEl = document.getElementById('detailHistory');
-        if (histEl) {
-            histEl.innerHTML = '';
-            const history = item.history || [];
-            if (history.length === 0) {
-                histEl.innerHTML = '<li class="list-group-item text-muted">{{ __("Тарих мавжуд эмас") }}</li>';
-            } else {
-                history.slice().reverse().forEach(h => {
-                    const li = document.createElement('li');
-                    li.className = 'list-group-item';
-                    li.innerHTML = `
-                        <div class="small-muted">${formatDate(h.date)}</div>
-                        <div>${escapeHtml(h.text)}</div>
-                    `;
-                    histEl.appendChild(li);
-                });
+        .exit-table tbody td {
+            padding: 0.875rem 0.75rem;
+            vertical-align: middle;
+            border-color: #e5e7eb;
+        }
+
+        .exit-table tbody tr {
+            transition: background-color 0.15s ease;
+        }
+
+        .exit-table tbody tr:hover {
+            background-color: #f9fafb;
+        }
+
+        .badge-custom {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 500;
+            backdrop-filter: blur(6px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            white-space: nowrap;
+        }
+
+        .badge-status-processing {
+            background: rgba(255, 193, 7, 0.15);
+            color: #c99a00;
+        }
+
+        .badge-status-accepted {
+            background: rgba(0, 200, 83, 0.15);
+            color: #0f9d58;
+        }
+
+        .badge-status-rejected {
+            background: rgba(255, 0, 0, 0.15);
+            color: #d93025;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 0.375rem;
+            justify-content: center;
+        }
+
+        .btn-action {
+            width: 32px;
+            height: 32px;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0.375rem;
+            border: 1px solid #e5e7eb;
+            background: white;
+            transition: all 0.2s ease;
+        }
+
+        .btn-action:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+        }
+
+        .btn-accept {
+            color: #10b981;
+        }
+
+        .btn-reject {
+            color: #ef4444;
+        }
+
+        .value-primary {
+            font-weight: 600;
+            color: #1f2937;
+            font-size: 0.875rem;
+        }
+
+        .value-secondary {
+            font-size: 0.75rem;
+            color: #6b7280;
+            margin-top: 0.125rem;
+            line-height: 1.2;
+            word-break: break-word;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: #9ca3af;
+        }
+
+        .empty-state i {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        @media (max-width: 1400px) {
+            .exit-table {
+                font-size: 0.8125rem;
             }
         }
 
-        // Actions tab
-        const actionsEl = document.getElementById('detailActions');
-        if (actionsEl) {
-            actionsEl.innerHTML = `
-                <button class="btn btn-success" onclick="assignToProject('${item.id}')">
-                    <i class="fas fa-link"></i> {{ __('Биткирмиш (битта лойиҳа)') }}
-                </button>
-                <button class="btn btn-secondary" onclick="assignToMultiple('${item.id}')">
-                    <i class="fas fa-layer-group"></i> {{ __('Бир неччага биркитириш') }}
-                </button>
-                <button class="btn btn-warning" onclick="moveToClarify('${item.id}')">
-                    <i class="fas fa-question-circle"></i> {{ __('Аниқликга ўтказиш') }}
-                </button>
-                <button class="btn btn-danger" onclick="moveToOtherIncome('${item.id}')">
-                    <i class="fas fa-exchange-alt"></i> {{ __('Бошқа даромадга ўтказиш') }}
-                </button>
-            `;
+        .table-responsive {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
         }
 
-        // Show modal
-        const detailModal = new bootstrap.Modal(document.getElementById('detailModal'));
-        detailModal.show();
-    };
-
-    /* ============================
-       ACTIONS
-    ============================ */
-    function addHistory(item, text) {
-        item.history = item.history || [];
-        item.history.push({ date: formatDateNow(), text });
-        item.updated_at = formatDateNow();
-    }
-
-    window.markAsIdentified = function(id) {
-        const it = revenues.find(r => r.id == id);
-        if (!it) return;
-
-        let matched = null;
-        if (it.project_hint) {
-            const hint = it.project_hint.toLowerCase();
-            matched = knownProjects.find(p => hint.includes(p));
+        .table-responsive::-webkit-scrollbar {
+            height: 8px;
         }
 
-        it.type = 'identified';
-        it.matched_project = matched || it.matched_project || null;
-        addHistory(it, `${TRANSLATIONS.status_changed} → ${TRANSLATIONS.identified}. ${TRANSLATIONS.matched_project}: ${it.matched_project || '—'}`);
-        
-        renderTable();
-        showAlert('success', TRANSLATIONS.status_changed);
-    };
-
-    window.moveToClarify = function(id) {
-        const it = revenues.find(r => r.id == id);
-        if (!it) return;
-
-        it.type = 'needs_clarify';
-        addHistory(it, `${TRANSLATIONS.status_changed} → ${TRANSLATIONS.needs_clarify}`);
-        
-        renderTable();
-        showAlert('info', TRANSLATIONS.status_changed);
-    };
-
-    window.moveToOtherIncome = function(id) {
-        const it = revenues.find(r => r.id == id);
-        if (!it) return;
-
-        it.type = 'needs_clarify';
-        addHistory(it, TRANSLATIONS.moved_to_other);
-        
-        renderTable();
-        showAlert('info', TRANSLATIONS.moved_to_other);
-    };
-
-    window.assignToProject = function(id) {
-        const it = revenues.find(r => r.id == id);
-        if (!it) return;
-
-        const project = prompt(TRANSLATIONS.enter_project_name);
-        if (!project) return;
-
-        it.matched_project = project;
-        it.type = 'identified';
-        addHistory(it, `${TRANSLATIONS.assigned_to} ${project}`);
-        
-        renderTable();
-        bootstrap.Modal.getInstance(document.getElementById('detailModal'))?.hide();
-        showAlert('success', `${TRANSLATIONS.assigned_to} ${project}`);
-    };
-
-    window.assignToMultiple = function(id) {
-        const it = revenues.find(r => r.id == id);
-        if (!it) return;
-
-        const projects = prompt(TRANSLATIONS.enter_multiple_projects);
-        if (!projects) return;
-
-        it.matched_project = projects;
-        it.type = 'identified';
-        addHistory(it, `${TRANSLATIONS.assigned_multiple} ${projects}`);
-        
-        renderTable();
-        bootstrap.Modal.getInstance(document.getElementById('detailModal'))?.hide();
-        showAlert('success', `${TRANSLATIONS.assigned_multiple} ${projects}`);
-    };
-
-    /* ============================
-       FILTER & SEARCH
-    ============================ */
-    function applyFilter() {
-        const searchInput = document.getElementById('searchInput');
-        const filterType = document.getElementById('filterType');
-        
-        if (!searchInput || !filterType) return;
-
-        const q = (searchInput.value || '').toLowerCase().trim();
-        const type = filterType.value;
-
-        const filtered = revenues.filter(r => {
-            const matchesSearch = !q || 
-                (r.transaction_id || '').toLowerCase().includes(q) ||
-                (r.account || '').toLowerCase().includes(q) ||
-                (r.details || '').toLowerCase().includes(q) ||
-                (r.matched_project || '').toLowerCase().includes(q) ||
-                (r.payer || '').toLowerCase().includes(q);
-
-            const matchesType = !type || r.type === type;
-
-            return matchesSearch && matchesType;
-        });
-
-        renderTable(filtered);
-    }
-
-    /* ============================
-       CSV PARSING
-    ============================ */
-    function parseCSV(text) {
-        const lines = text.split(/\r?\n/).map(l => l.trim()).filter(l => l.length);
-        const rows = [];
-        const headers = lines[0].split(',').map(h => h.trim());
-        
-        for (let i = 1; i < lines.length; i++) {
-            const cols = lines[i].split(',').map(c => c.trim());
-            const obj = {};
-            headers.forEach((h, idx) => obj[h] = cols[idx] ?? '');
-            rows.push(obj);
+        .table-responsive::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 4px;
         }
-        
-        return rows;
-    }
 
-    /* ============================
-       IMPORT
-    ============================ */
-    const importForm = document.getElementById('importForm');
-    if (importForm) {
-        importForm.addEventListener('submit', function(e) {
-            e.preventDefault();
+        .table-responsive::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+
+        .table-responsive::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        .modal-header {
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .modal-header.bg-success {
+            background: #10b981 !important;
+        }
+
+        .modal-header.bg-danger {
+            background: #ef4444 !important;
+        }
+
+        .modal-title {
+            color: #212529;
+            font-weight: 600;
+        }
+
+        .modal-header.bg-success .modal-title,
+        .modal-header.bg-danger .modal-title {
+            color: white !important;
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+        }
+
+        /* QISQARTIRISH: Telefon va Login ustunlarini yashirish */
+        .exit-table th.col-phone,
+        .exit-table td.col-phone,
+        .exit-table th.col-login,
+        .exit-table td.col-login {
+            display: none;
+        }
+    </style>
+@endpush
+
+@section('breadcrumb')
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-3 breadcrumb-block px-3 mt-3 mb-2"
+         style="border: 1px solid rgba(0,0,0,0.05); border-radius: 0.5rem; background-color: #ffffff; height: 60px">
+        <div class="d-block mb-2 mb-md-0">
+            <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
+                <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent mb-0">
+                    <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ __('admin.project_exit_requests') }}</li>
+                </ol>
+            </nav>
+        </div>
+
+        <div class="d-flex gap-2 align-items-center flex-wrap">
+            <button class="btn btn-sm p-2 d-flex align-items-center justify-content-center" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#projectExitRequestFilterContent" aria-expanded="true"
+                    aria-controls="projectExitRequestFilterContent">
+                <i class="bi bi-sliders2" style="font-size: 1.3rem;"></i>
+            </button>
+        </div>
+    </div>
+@endsection
+
+@section('content')
+    @php
+        $statuses = [
+            'processing' => __('admin.status_processing'),
+            'accepted' => __('admin.status_accepted'),
+            'rejected' => __('admin.status_rejected'),
+        ];
+    @endphp
+
+    <div class="filter-card mt-3 collapse show" id="projectExitRequestFilterContent">
+        <div class="p-3">
+            <div class="row g-3 align-items-end">
+
+                <div class="col-md-3">
+                    <label for="searchInput" class="form-label">{{ __('admin.search') }}</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-white border-end-0">
+                            <i class="fas fa-search text-muted"></i>
+                        </span>
+                        <input type="text" id="searchInput" class="form-control border-start-0"
+                               placeholder="{{ __('admin.full_name') }}, {{ __('admin.login') }}, {{ __('admin.phone') }}...">
+                    </div>
+                </div>
+
+                <x-select-with-search name="filter_exit_status" label="{{ __('admin.application_status') }}" :datas="$statuses"
+                                     colMd="2" placeholder="{{ __('admin.all') }}" :selected="request()->get('filter_exit_status', '')"
+                                     :selectSearch=false />
+
+                <div class="col-md-3 d-flex gap-2">
+                    <button id="acceptSelectedBtn" class="btn btn-success btn-sm flex-fill">
+                        <i class="bi bi-check2-circle"></i> {{ __('admin.accept') }}
+                    </button>
+
+                    <button id="rejectSelectedBtn" class="btn btn-danger btn-sm flex-fill">
+                        <i class="bi bi-x-circle"></i> {{ __('admin.reject') }}
+                    </button>
+                </div>
+
+                <x-filter-buttons />
+            </div>
+        </div>
+    </div>
+
+    <div class="card card-body py-3 px-3 shadow border-0 table-wrapper table-responsive mt-3">
+        <table class="table exit-table table-bordered table-hover table-striped align-items-center mb-0">
+            <thead class="table-dark">
+            <tr>
+                <th style="width: 40px;"><input type="checkbox" id="checkAll" class="form-check-input"></th>
+                <th style="width: 50px;">№</th>
+                <th>{{ __('admin.exit_id') }}</th>
+                <th style="width: 150px;">{{ __('admin.application_status') }}</th>
+                <th>{{ __('admin.application_comment') }}</th>
+                <th style="width: 140px;">{{ __('admin.review_deadline') }}</th>
+                <th style="min-width: 200px;">{{ __('admin.investor_name') }}</th>
+
+                <!-- Phone va Login: data bor, lekin ko'rinmaydi -->
+                <th class="col-phone">{{ __('admin.phone') }}</th>
+                <th class="col-login">{{ __('admin.login') }}</th>
+            </tr>
+            </thead>
+
+            <tbody id="exit-request-body">
+            <tr class="loading-row">
+                <td colspan="9" class="text-center py-4 text-muted">
+                    <i class="fas fa-spinner fa-spin me-2"></i>{{ __('admin.loading') }}
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div id="emptyState" class="empty-state" style="display:none;">
+            <i class="fas fa-folder-open"></i>
+            <div class="mt-2">
+                <h5>{{ __('admin.no_data') }}</h5>
+                <p class="text-muted">{{ __('admin.no_exit_requests') }}</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Accept Modal -->
+    <div class="modal fade" id="acceptModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+
+                <div class="modal-header bg-success">
+                    <h5 class="modal-title text-white">
+                        <i class="bi bi-check-circle me-2"></i>{{ __('admin.accept_exit_requests') }}
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="alert alert-info d-flex align-items-start">
+                        <i class="bi bi-info-circle-fill me-2 mt-1"></i>
+                        <div>
+                            <strong>{{ __('admin.attention') }}</strong>
+                            <span id="acceptCount" class="badge bg-primary">0</span>
+                            {{ __('admin.accept_exit_info') }}
+                        </div>
+                    </div>
+
+                    <div class="alert alert-warning d-flex align-items-start">
+                        <i class="bi bi-exclamation-triangle-fill me-2 mt-1"></i>
+                        <div>
+                            <small>{{ __('admin.accept_exit_warning') }}</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        <i class="bi bi-x-circle me-1"></i>{{ __('admin.cancel') }}
+                    </button>
+
+                    <button type="button" class="btn btn-success" id="confirmAcceptBtn">
+                        <i class="bi bi-check-circle me-1"></i>{{ __('admin.accept') }}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reject Modal -->
+    <div class="modal fade" id="rejectModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+
+                <div class="modal-header bg-danger">
+                    <h5 class="modal-title text-white">
+                        <i class="bi bi-x-circle me-2"></i>{{ __('admin.reject_exit_requests') }}
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="alert alert-warning d-flex align-items-start">
+                        <i class="bi bi-exclamation-triangle-fill me-2 mt-1"></i>
+                        <div>
+                            <strong>{{ __('admin.warning') }}</strong>
+                            <span id="rejectCount" class="badge bg-danger">0</span>
+                            {{ __('admin.reject_exit_info') }}
+                        </div>
+                    </div>
+
+                    <form id="rejectForm">
+                        <div class="mb-3">
+                            <label for="rejectionReason" class="form-label">
+                                <i class="bi bi-chat-left-text me-1"></i>{{ __('admin.rejection_reason') }} *
+                            </label>
+                            <textarea class="form-control" id="rejectionReason" rows="4" required
+                                placeholder="{{ __('admin.enter_rejection_reason') }}"></textarea>
+                            <div class="form-text">{{ __('admin.rejection_reason_hint') }}</div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        <i class="bi bi-x-circle me-1"></i>{{ __('admin.cancel') }}
+                    </button>
+                    <button type="button" class="btn btn-danger" id="confirmRejectBtn">
+                        <i class="bi bi-x-circle me-1"></i>{{ __('admin.reject') }}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
+
+
+@push('customJs')
+    <script>
+        // ========================================
+        //        IN-MEMORY STORAGE
+        // ========================================
+
+        let exitRequests = JSON.parse(localStorage.getItem('exitRequests') || '[]');
+        
+        if (!exitRequests.length) {
+            exitRequests = [
+                {
+                    id: 1,
+                    exit_id: "EXIT-20001",
+                    status: "processing",
+                    status_comment: "",
+                    deadline: "2025-12-15",
+                    full_name: "Rasulov Islom Akmalovich",
+                    phone: "+998 90 122 33 44",
+                    login: "islom_dev",
+                },
+                {
+                    id: 2,
+                    exit_id: "EXIT-20002",
+                    status: "accepted",
+                    status_comment: "Ariza qabul qilindi. Yangi raund e'lon qilindi.",
+                    deadline: "2025-12-10",
+                    full_name: "Sobirova Farangiz Rustamovna",
+                    phone: "+998 90 777 88 99",
+                    login: "farangiz_s",
+                },
+                {
+                    id: 3,
+                    exit_id: "EXIT-20003",
+                    status: "processing",
+                    status_comment: "",
+                    deadline: "2025-12-18",
+                    full_name: "Karimov Aziz Sharipovich",
+                    phone: "+998 90 111 22 33",
+                    login: "aziz_k",
+                },
+                {
+                    id: 4,
+                    exit_id: "EXIT-20004",
+                    status: "rejected",
+                    status_comment: "Investitsiya davri hali yakunlanmagan. Minimal investitsiya muddati 6 oy.",
+                    deadline: "2025-12-12",
+                    full_name: "Toshmatova Dilnoza Akbarovna",
+                    phone: "+998 90 555 66 77",
+                    login: "dilnoza_t",
+                },
+                {
+                    id: 5,
+                    exit_id: "EXIT-20005",
+                    status: "processing",
+                    status_comment: "",
+                    deadline: "2025-12-20",
+                    full_name: "Alimov Sardor Murodovich",
+                    phone: "+998 93 444 55 66",
+                    login: "sardor_alimov",
+                },
+                {
+                    id: 6,
+                    exit_id: "EXIT-20006",
+                    status: "processing",
+                    status_comment: "",
+                    deadline: "2025-12-22",
+                    full_name: "Nazarova Malika Olimovna",
+                    phone: "+998 97 888 99 00",
+                    login: "malika_n",
+                }
+            ];
             
-            const fileInput = document.getElementById('importFile');
-            if (!fileInput.files || !fileInput.files[0]) {
-                alert(TRANSLATIONS.select_file);
+            localStorage.setItem('exitRequests', JSON.stringify(exitRequests));
+        }
+
+        let defaultRequests = [...exitRequests];
+        let currentActionId = null;
+
+        const tbody = document.getElementById('exit-request-body');
+        const emptyState = document.getElementById('emptyState');
+        const searchInput = document.getElementById('searchInput');
+        const filterStatus = document.getElementById('filter_exit_status');
+        const acceptSelectedBtn = document.getElementById('acceptSelectedBtn');
+        const rejectSelectedBtn = document.getElementById('rejectSelectedBtn');
+        const filterBtn = document.getElementById('filterBtn');
+        const clearBtn = document.getElementById('clearBtn');
+        const checkAll = document.getElementById('checkAll');
+
+        // ========================================
+        //           HELPER FUNCTIONS
+        // ========================================
+
+        function escapeHtml(text) {
+            if (text === null || text === undefined || text === '') return '—';
+            const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' };
+            return String(text).replace(/[&<>"']/g, m => map[m]);
+        }
+
+        function getStatusBadge(status) {
+            const statusMap = {
+                'processing': '<span class="badge badge-custom badge-status-processing">Jarayonda</span>',
+                'accepted': '<span class="badge badge-custom badge-status-accepted">Qabul qilingan</span>',
+                'rejected': '<span class="badge badge-custom badge-status-rejected">Rad etilgan</span>'
+            };
+            return statusMap[status] || status;
+        }
+
+        // ========================================
+        //           RENDER TABLE
+        // ========================================
+
+        function renderExitRequests(list = exitRequests) {
+            if (!tbody) return;
+
+            if (!list.length) {
+                tbody.innerHTML = '';
+                if (emptyState) emptyState.style.display = 'block';
+                return;
+            }
+            
+            if (emptyState) emptyState.style.display = 'none';
+
+            let rows = '';
+            list.forEach((item, index) => {
+                const canCheck = item.status === 'processing';
+                const phone = item.phone ? escapeHtml(item.phone) : '—';
+                const login = item.login ? escapeHtml(item.login) : '—';
+
+                rows += `
+                    <tr>
+                        <td>
+                            ${canCheck ? `<input type="checkbox" class="row-check form-check-input" value="${item.id}">` : ''}
+                        </td>
+                        <td>${index + 1}</td>
+                        <td><div class="value-primary">${escapeHtml(item.exit_id)}</div></td>
+                        <td>${getStatusBadge(item.status)}</td>
+                        <td>${item.status_comment ? escapeHtml(item.status_comment) : '—'}</td>
+                        <td class="text-center">${escapeHtml(item.deadline)}</td>
+
+                        <!-- Investor F.I.O ichiga Tel + Login jamlanadi -->
+                        <td>
+                            <div class="value-primary">${escapeHtml(item.full_name)}</div>
+                            <div class="value-secondary"><span class="text-muted">Tel:</span> ${phone}</div>
+                            <div class="value-secondary"><span class="text-muted">Login:</span> <code>${login}</code></div>
+                        </td>
+
+                        <!-- Telefon/Login: data bor, lekin ko'rinmaydi -->
+                        <td class="col-phone">${phone}</td>
+                        <td class="col-login"><code>${login}</code></td>
+                    </tr>
+                `;
+            });
+
+            tbody.innerHTML = rows;
+        }
+
+        // ========================================
+        //           CHECKBOX HANDLING
+        // ========================================
+
+        if (checkAll) {
+            checkAll.onclick = function () {
+                document.querySelectorAll('.row-check').forEach(cb => cb.checked = this.checked);
+            };
+        }
+
+        const getSelectedIds = () => [...document.querySelectorAll('.row-check:checked')].map(cb => +cb.value);
+
+        // ========================================
+        //           MODAL FUNCTIONS
+        // ========================================
+
+        function showAcceptModal() {
+            const ids = getSelectedIds();
+            if (!ids.length) {
+                alert("⚠ Qabul qilish uchun kamida bitta arizani tanlang!");
                 return;
             }
 
-            const period = document.getElementById('importPeriod').value;
-            const loadingOverlay = document.getElementById('loadingOverlay');
-            if (loadingOverlay) loadingOverlay.classList.add('active');
+            const processingCount = ids.filter(id => {
+                const item = exitRequests.find(x => x.id === id);
+                return item && item.status === 'processing';
+            }).length;
 
-            const reader = new FileReader();
-            reader.onload = function(ev) {
-                try {
-                    const rows = parseCSV(ev.target.result);
-                    
-                    rows.forEach(r => {
-                        const hint = (r.project_hint || r.details || '').toLowerCase();
-                        const matched = knownProjects.find(p => hint.includes(p));
-                        const type = matched ? 'identified' : 'unidentified';
-                        
-                        const rev = {
-                            id: uid(),
-                            transaction_id: r.transaction_id || ('TX-' + uid()),
-                            period: period || r.period || new Date().toISOString().slice(0, 7),
-                            account: r.account || r.account_number || '',
-                            amount: Number((r.amount || 0).toString().replace(/\s/g, '')) || 0,
-                            currency: r.currency || 'UZS',
-                            payer: r.payer || r.payer_name || '',
-                            details: r.details || '',
-                            project_hint: r.project_hint || '',
-                            type,
-                            matched_project: matched || null,
-                            uploaded_by: 'Importer',
-                            updated_at: formatDateNow(),
-                            history: [{ date: formatDateNow(), text: TRANSLATIONS.imported_via_csv }]
-                        };
-                        revenues.push(rev);
-                    });
+            if (processingCount === 0) {
+                alert("⚠ Faqat 'Jarayonda' holatidagi arizalarni qabul qilish mumkin!");
+                return;
+            }
 
-                    renderTable();
-                    bootstrap.Modal.getInstance(document.getElementById('importModal'))?.hide();
-                    showAlert('success', `${TRANSLATIONS.import_success} ${rows.length}`);
-                } catch (err) {
-                    console.error('Import error:', err);
-                    showAlert('danger', `${TRANSLATIONS.import_error} ${err.message}`);
-                } finally {
-                    if (loadingOverlay) loadingOverlay.classList.remove('active');
+            document.getElementById('acceptCount').textContent = processingCount;
+
+            const modal = new bootstrap.Modal(document.getElementById('acceptModal'));
+            modal.show();
+        }
+
+        function showRejectModal() {
+            const ids = getSelectedIds();
+            if (!ids.length) {
+                alert("⚠ Rad etish uchun kamida bitta arizani tanlang!");
+                return;
+            }
+
+            const processingCount = ids.filter(id => {
+                const item = exitRequests.find(x => x.id === id);
+                return item && item.status === 'processing';
+            }).length;
+
+            if (processingCount === 0) {
+                alert("⚠ Faqat 'Jarayonda' holatidagi arizalarni rad etish mumkin!");
+                return;
+            }
+
+            document.getElementById('rejectCount').textContent = processingCount;
+            document.getElementById('rejectionReason').value = '';
+
+            const modal = new bootstrap.Modal(document.getElementById('rejectModal'));
+            modal.show();
+        }
+
+        // ========================================
+        //           ACCEPT ACTION
+        // ========================================
+
+        function confirmAcceptAction() {
+            const ids = getSelectedIds();
+            let acceptedCount = 0;
+
+            ids.forEach(id => {
+                const item = exitRequests.find(x => x.id === id && x.status === 'processing');
+                if (item) {
+                    item.status = 'accepted';
+                    item.status_comment = 'Ariza qabul qilindi. Yangi raund e\'lon qilindi.';
+                    acceptedCount++;
                 }
-            };
-            
-            reader.readAsText(fileInput.files[0], 'utf-8');
+            });
+
+            localStorage.setItem('exitRequests', JSON.stringify(exitRequests));
+            defaultRequests = [...exitRequests];
+
+            const modal = bootstrap.Modal.getInstance(document.getElementById('acceptModal'));
+            modal.hide();
+
+            applyFilters();
+
+            if (checkAll) checkAll.checked = false;
+
+            alert(`✅ ${acceptedCount} ta ariza muvaffaqiyatli qabul qilindi!\n\nInvestitsion loyiha doirasida yangi raund e'lon qilinib, sotuv jarayoni boshlanishi kerak.`);
+        }
+
+        // ========================================
+        //           REJECT ACTION
+        // ========================================
+
+        function confirmRejectAction() {
+            const reason = document.getElementById('rejectionReason').value.trim();
+
+            if (!reason) {
+                alert("⚠ Rad etish sababini kiritish majburiy!");
+                return;
+            }
+
+            const ids = getSelectedIds();
+            let rejectedCount = 0;
+
+            ids.forEach(id => {
+                const item = exitRequests.find(x => x.id === id && x.status === 'processing');
+                if (item) {
+                    item.status = 'rejected';
+                    item.status_comment = reason;
+                    rejectedCount++;
+                }
+            });
+
+            localStorage.setItem('exitRequests', JSON.stringify(exitRequests));
+            defaultRequests = [...exitRequests];
+
+            const modal = bootstrap.Modal.getInstance(document.getElementById('rejectModal'));
+            modal.hide();
+
+            applyFilters();
+
+            if (checkAll) checkAll.checked = false;
+
+            alert(`✅ ${rejectedCount} ta ariza rad etildi!\n\nRad etish sababi mobil ilova orqali investorlarga yuborildi.`);
+        }
+
+        // ========================================
+        //           FILTERS
+        // ========================================
+
+        function applyFilters() {
+            const search = (searchInput?.value || '').toLowerCase().trim();
+            const status = filterStatus?.value || '';
+
+            const filtered = defaultRequests.filter(i => {
+                const matchSearch = !search ||
+                    (i.full_name && i.full_name.toLowerCase().includes(search)) ||
+                    (i.phone && i.phone.toLowerCase().includes(search)) ||
+                    (i.login && i.login.toLowerCase().includes(search)) ||
+                    (i.exit_id && i.exit_id.toLowerCase().includes(search));
+
+                const matchStatus = !status || i.status === status;
+
+                return matchSearch && matchStatus;
+            });
+
+            renderExitRequests(filtered);
+        }
+
+        function resetFilters() {
+            if (searchInput) searchInput.value = '';
+            if (filterStatus) filterStatus.value = '';
+            renderExitRequests(defaultRequests);
+        }
+
+        // ========================================
+        //           EVENT LISTENERS
+        // ========================================
+
+        document.addEventListener('DOMContentLoaded', function () {
+            renderExitRequests(defaultRequests);
+
+            if (acceptSelectedBtn) acceptSelectedBtn.addEventListener('click', showAcceptModal);
+            if (rejectSelectedBtn) rejectSelectedBtn.addEventListener('click', showRejectModal);
+
+            const confirmAcceptBtn = document.getElementById('confirmAcceptBtn');
+            const confirmRejectBtn = document.getElementById('confirmRejectBtn');
+
+            if (confirmAcceptBtn) confirmAcceptBtn.addEventListener('click', confirmAcceptAction);
+            if (confirmRejectBtn) confirmRejectBtn.addEventListener('click', confirmRejectAction);
+
+            if (filterBtn) filterBtn.addEventListener('click', applyFilters);
+            if (clearBtn) clearBtn.addEventListener('click', resetFilters);
+
+            if (searchInput) {
+                let timeout;
+                searchInput.addEventListener('input', function () {
+                    clearTimeout(timeout);
+                    timeout = setTimeout(applyFilters, 300);
+                });
+                searchInput.addEventListener('keyup', function (e) {
+                    if (e.key === 'Enter') applyFilters();
+                });
+            }
+
+            if (filterStatus) filterStatus.addEventListener('change', applyFilters);
         });
-    }
 
-    /* ============================
-       EXPORT
-    ============================ */
-    function exportCSV() {
-        const rows = [
-            ['id', 'transaction_id', 'period', 'account', 'amount', 'currency', 'payer', 'details', 'project_hint', 'type', 'matched_project', 'uploaded_by', 'updated_at']
-        ];
-        
-        revenues.forEach(r => {
-            rows.push([
-                r.id,
-                r.transaction_id,
-                r.period,
-                r.account,
-                r.amount,
-                r.currency,
-                r.payer,
-                (r.details || '').replace(/,/g, ' '),
-                r.project_hint,
-                r.type,
-                r.matched_project || '',
-                r.uploaded_by,
-                r.updated_at
-            ]);
-        });
-
-        const csv = rows.map(r => r.map(c => `"${String(c).replace(/"/g, '""')}"`).join(',')).join('\n');
-        const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `revenues_export_${new Date().toISOString().slice(0, 10)}.csv`;
-        a.click();
-        URL.revokeObjectURL(url);
-    }
-
-    /* ============================
-       TEMPLATE DOWNLOAD
-    ============================ */
-    function downloadTemplate() {
-        const example = 'transaction_id,period,account,amount,currency,payer,details,project_hint\n' +
-            'TX-90000,2025-11,ACC-111,1000000,UZS,XYZ Bank,Payment for proj-abc,proj-abc\n' +
-            'TX-90001,2025-11,ACC-222,500000,USD,ABC Corp,Rent payment,rent\n';
-        
-        const blob = new Blob([example], { type: 'text/csv' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'revenues_template.csv';
-        a.click();
-        URL.revokeObjectURL(url);
-    }
-
-    /* ============================
-       ALERT HELPER
-    ============================ */
-    function showAlert(type, message) {
-        const alertHtml = `
-            <div class="alert alert-${type} alert-dismissible fade show" role="alert">
-                ${escapeHtml(message)}
-                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-            </div>
-        `;
-        
-        const container = document.querySelector('.breadcrumb-block');
-        if (container) {
-            container.insertAdjacentHTML('afterend', alertHtml);
-            
-            setTimeout(() => {
-                const alert = document.querySelector('.alert');
-                if (alert) {
-                    const bsAlert = new bootstrap.Alert(alert);
-                    bsAlert.close();
-                }
-            }, 5000);
-        }
-    }
-
-    /* ============================
-       EVENT LISTENERS
-    ============================ */
-    document.addEventListener('DOMContentLoaded', function() {
-        // Filter button
-        const applyFilterBtn = document.getElementById('applyFilter');
-        if (applyFilterBtn) {
-            applyFilterBtn.addEventListener('click', applyFilter);
-        }
-
-        // Search on Enter
-        const searchInput = document.getElementById('searchInput');
-        if (searchInput) {
-            searchInput.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    applyFilter();
-                }
-            });
-        }
-
-        // Export button
-        const exportBtn = document.getElementById('exportBtn');
-        if (exportBtn) {
-            exportBtn.addEventListener('click', exportCSV);
-        }
-
-        // Template downloads
-        const downloadTemplateBtn = document.getElementById('downloadTemplate');
-        if (downloadTemplateBtn) {
-            downloadTemplateBtn.addEventListener('click', function(e) {
-                e.preventDefault();
-                downloadTemplate();
-            });
-        }
-
-        const exampleDownload = document.getElementById('exampleDownload');
-        if (exampleDownload) {
-            exampleDownload.addEventListener('click', function(e) {
-                e.preventDefault();
-                downloadTemplate();
-            });
-        }
-
-        // Initial render
-        renderTable();
-    });
-
-})();
-</script>
+        // Global functions
+        window.showAcceptModal = showAcceptModal;
+        window.showRejectModal = showRejectModal;
+        window.confirmAcceptAction = confirmAcceptAction;
+        window.confirmRejectAction = confirmRejectAction;
+        window.applyFilters = applyFilters;
+        window.resetFilters = resetFilters;
+    </script>
+@endpush

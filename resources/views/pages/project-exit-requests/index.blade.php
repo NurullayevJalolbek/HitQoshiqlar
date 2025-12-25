@@ -2,12 +2,44 @@
 
 @push('customCss')
     <style>
-        .table td,
-        .table th {
+        .filter-card {
+            background: #fff;
+            border: 1px solid rgba(0, 0, 0, .05);
+            border-radius: .75rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, .06);
+        }
+
+        .exit-table {
+            font-size: .875rem;
+            margin-bottom: 0;
+        }
+
+        .exit-table thead th {
+            background: #1f2937;
+            color: #fff;
+            font-weight: 600;
+            padding: .875rem .75rem;
+            font-size: .8125rem;
+            white-space: nowrap;
+            border: none;
             vertical-align: middle;
         }
 
-        .status-badge {
+        .exit-table tbody td {
+            padding: .875rem .75rem;
+            vertical-align: middle;
+            border-color: #e5e7eb;
+        }
+
+        .exit-table tbody tr {
+            transition: background-color .15s ease;
+        }
+
+        .exit-table tbody tr:hover {
+            background-color: #f9fafb;
+        }
+
+        .badge-custom {
             display: inline-flex;
             align-items: center;
             gap: 4px;
@@ -16,63 +48,121 @@
             font-size: 13px;
             font-weight: 500;
             backdrop-filter: blur(6px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, .2);
+            white-space: nowrap;
         }
 
-        .status-processing {
-            background: rgba(255, 193, 7, 0.15);
+        .badge-status-processing {
+            background: rgba(255, 193, 7, .15);
             color: #c99a00;
         }
 
-        .status-accepted {
-            background: rgba(0, 200, 83, 0.15);
+        .badge-status-accepted {
+            background: rgba(0, 200, 83, .15);
             color: #0f9d58;
         }
 
-        .status-rejected {
-            background: rgba(255, 0, 0, 0.15);
+        .badge-status-rejected {
+            background: rgba(255, 0, 0, .15);
             color: #d93025;
         }
 
-        .action-buttons {
-            display: flex;
-            gap: 0.25rem;
+        .value-primary {
+            font-weight: 600;
+            color: #1f2937;
+            font-size: .875rem;
         }
 
-        .action-buttons .btn {
-            padding: 0.25rem 0.5rem;
-            min-width: 32px;
+        .value-secondary {
+            font-size: .75rem;
+            color: #6b7280;
+            margin-top: .125rem;
+            line-height: 1.2;
+            word-break: break-word;
         }
 
-        /* ====== QISQARTIRISH: Telefon + Login ustunlari ko‘rinmaydi (data saqlanadi) ====== */
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: #9ca3af;
+        }
+
+        .empty-state i {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            opacity: .5;
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .table-responsive::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .table-responsive::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 4px;
+        }
+
+        .table-responsive::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+
+        .table-responsive::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        .modal-header {
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .modal-header.bg-success {
+            background: #10b981 !important;
+        }
+
+        .modal-header.bg-danger {
+            background: #ef4444 !important;
+        }
+
+        .modal-title {
+            color: #212529;
+            font-weight: 600;
+        }
+
+        .modal-header.bg-success .modal-title,
+        .modal-header.bg-danger .modal-title {
+            color: #fff !important;
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: .5rem;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 .2rem rgba(102, 126, 234, .25);
+        }
+
+        /* Telefon va Login ustunlarini yashirish */
         .exit-table th.col-phone,
         .exit-table td.col-phone,
         .exit-table th.col-login,
         .exit-table td.col-login {
             display: none;
         }
-
-        .value-primary {
-            font-weight: 600;
-            color: #111827;
-            font-size: 0.875rem;
-            line-height: 1.2;
-        }
-
-        .value-secondary {
-            font-size: 0.75rem;
-            color: #6b7280;
-            margin-top: 0.15rem;
-            line-height: 1.2;
-            word-break: break-word;
-        }
     </style>
 @endpush
 
 @section('breadcrumb')
-    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-3 breadcrumb-block px-3 mt-3"
-        style="border: 1px solid rgba(0,0,0,0.05); border-radius: 0.5rem; background-color: #ffffff; height: 60px">
-        <!-- Breadcrumb -->
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-3 breadcrumb-block px-3 mt-3 mb-2"
+        style="border:1px solid rgba(0,0,0,0.05); border-radius:.5rem; background-color:#fff; height:60px">
         <div class="d-block mb-2 mb-md-0">
             <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
                 <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent mb-0">
@@ -82,157 +172,211 @@
             </nav>
         </div>
 
-        <!-- Tugmalar guruhi -->
         <div class="d-flex gap-2 align-items-center flex-wrap">
             <button class="btn btn-sm p-2 d-flex align-items-center justify-content-center" type="button"
                 data-bs-toggle="collapse" data-bs-target="#projectExitRequestFilterContent" aria-expanded="true"
                 aria-controls="projectExitRequestFilterContent">
-                <i class="fa-solid fa-list" style="font-size: 1.3rem;"></i>
+                <i class="bi bi-sliders2" style="font-size:1.3rem;"></i>
             </button>
         </div>
     </div>
 @endsection
 
 @section('content')
+    @php
+        $statuses = [
+            'processing' => __('admin.status_processing'),
+            'accepted' => __('admin.status_accepted'),
+            'rejected' => __('admin.status_rejected'),
+        ];
+    @endphp
 
-    <div class="filter-card mb-3 mt-2 collapse show" id="projectExitRequestFilterContent"
-        style="transition: all 0.3s ease;">
-        <div class="border rounded p-3" style="border-color: rgba(0,0,0,0.05); background-color: #fff;">
+    <div class="filter-card mt-3 collapse show" id="projectExitRequestFilterContent">
+        <div class="p-3">
             <div class="row g-3 align-items-end">
-                <!-- Qidiruv -->
-                <div class="col-md-4">
-                    <label for="searchInput">{{ __('admin.search') }}</label>
+                <div class="col-md-3">
+                    <label for="searchInput" class="form-label">{{ __('admin.search') }}</label>
                     <div class="input-group">
-                        <span class="input-group-text bg-white"><i class="fas fa-search text-muted"></i></span>
-                        <input type="text" id="searchInput" class="form-control"
+                        <span class="input-group-text bg-white border-end-0">
+                            <i class="fas fa-search text-muted"></i>
+                        </span>
+                        <input type="text" id="searchInput" class="form-control border-start-0"
                             placeholder="{{ __('admin.full_name') }}, {{ __('admin.login') }}, {{ __('admin.phone') }}...">
                     </div>
                 </div>
 
-                <div class="col-md-3">
-                    <label>Ariza holati</label>
-                    <select id="filter_exit_status" class="form-control">
-                        <option value="">— Barchasi —</option>
-                        <option value="processing">Jarayonda</option>
-                        <option value="accepted">Qabul qilingan</option>
-                        <option value="rejected">Rad etilgan</option>
-                    </select>
+                <x-select-with-search name="filter_exit_status" label="{{ __('admin.application_status') }}"
+                    :datas="$statuses" colMd="2" placeholder="{{ __('admin.all') }}"
+                    :selected="request()->get('filter_exit_status', '')" :selectSearch=false />
+
+                <div class="col-md-3 d-flex gap-2">
+                    <button id="acceptSelectedBtn" class="btn btn-success btn-sm flex-fill">
+                        <i class="bi bi-check2-circle"></i> {{ __('admin.accept') }}
+                    </button>
+                    <button id="rejectSelectedBtn" class="btn btn-danger btn-sm flex-fill">
+                        <i class="bi bi-x-circle"></i> {{ __('admin.reject') }}
+                    </button>
                 </div>
 
-                <!-- Filter tugmalari -->
-                <div class="col-md-2 d-flex gap-2">
-                    <button id="filterBtn" class="btn btn-primary w-50">
-                        <i class="fas fa-filter"></i> {{ __('admin.search') }}
-                    </button>
-                    <button id="clearBtn" class="btn btn-warning w-50">
-                        {{ __('admin.clear') }}
-                    </button>
-                </div>
+                <x-filter-buttons />
             </div>
         </div>
     </div>
 
-    {{-- TABLE CARD --}}
     <div class="card card-body py-3 px-3 shadow border-0 table-wrapper table-responsive mt-3">
-        <table class="table exit-table table-bordered table-hover table-striped align-items-center">
+        <table class="table exit-table table-bordered table-hover table-striped align-items-center mb-0">
             <thead class="table-dark">
                 <tr>
-                    <th style="width: 40px;">№</th>
-                    <th>Ulashdan chiqish ID</th>
-                    <th style="width: 150px;">Ariza holati</th>
-                    <th>Izoh</th>
-                    <th style="width: 140px;">Ko'rib chiqish muddati</th>
-
-                    <!-- Investor FIO ichiga telefon + login jamlanadi -->
-                    <th style="min-width: 200px;">Invest F.I.O</th>
-
-                    <!-- Ustunlar o‘chirilmaydi, faqat ko‘rinmaydi -->
-                    <th class="col-phone">Telefon</th>
-                    <th class="col-login">Login</th>
-
-                    <th style="width: 200px;">Amallar</th>
+                    <th style="width:40px;"><input type="checkbox" id="checkAll" class="form-check-input"></th>
+                    <th style="width:50px;">№</th>
+                    <th>{{ __('admin.exit_id') }}</th>
+                    <th style="width:150px;">{{ __('admin.application_status') }}</th>
+                    <th>{{ __('admin.application_comment') }}</th>
+                    <th style="width:140px;">{{ __('admin.review_deadline') }}</th>
+                    <th style="min-width:200px;">{{ __('admin.investor_name') }}</th>
+                    <th class="col-phone">{{ __('admin.phone') }}</th>
+                    <th class="col-login">{{ __('admin.login') }}</th>
                 </tr>
             </thead>
-            <tbody id="exit-request-body"></tbody>
+
+            <tbody id="exit-request-body">
+                <tr class="loading-row">
+                    <td colspan="9" class="text-center py-4 text-muted">
+                        <i class="fas fa-spinner fa-spin me-2"></i>{{ __('admin.loading') }}
+                    </td>
+                </tr>
+            </tbody>
         </table>
-    </div>
 
-    <!-- Modal: Qabul qilish -->
-    <div class="modal fade" id="acceptModal" tabindex="-1" aria-labelledby="acceptModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header bg-success text-white">
-                    <h5 class="modal-title" id="acceptModalLabel">Arizani qabul qilish</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
-                        aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p>Ushbu arizani qabul qilmoqchimisiz?</p>
-                    <p class="text-muted small">Ariza qabul qilingandan so'ng, Inestitsion loyiha doirasida yangi raund
-                        e'lon qilinib, sotuv jarayoni boshlanishi kerak.</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Bekor qilish</button>
-                    <button type="button" class="btn btn-success" id="confirmAcceptBtn">Qabul qilish</button>
-                </div>
+        <div id="emptyState" class="empty-state" style="display:none;">
+            <i class="fas fa-folder-open"></i>
+            <div class="mt-2">
+                <h5>{{ __('admin.no_data') }}</h5>
+                <p class="text-muted">{{ __('admin.no_exit_requests') }}</p>
             </div>
         </div>
     </div>
 
-    <!-- Modal: Rad etish -->
-    <div class="modal fade" id="rejectModal" tabindex="-1" aria-labelledby="rejectModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+    <!-- Accept Modal -->
+    <div class="modal fade" id="acceptModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-                <div class="modal-header bg-danger text-white">
-                    <h5 class="modal-title" id="rejectModalLabel">Arizani rad etish</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
-                        aria-label="Close"></button>
+                <div class="modal-header bg-success">
+                    <h5 class="modal-title text-white">
+                        <i class="bi bi-check-circle me-2"></i>{{ __('admin.accept_exit_requests') }}
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
+
                 <div class="modal-body">
-                    <div class="mb-3">
-                        <label for="rejectReason" class="form-label">Rad etish sababi <span
-                                class="text-danger">*</span></label>
-                        <textarea class="form-control" id="rejectReason" rows="4"
-                            placeholder="Ariza rad etilish sababini kiriting..." required></textarea>
-                        <div class="invalid-feedback">Rad etish sababini kiritish majburiy!</div>
+                    <div class="alert alert-info d-flex align-items-start">
+                        <i class="bi bi-info-circle-fill me-2 mt-1"></i>
+                        <div>
+                            <strong>{{ __('admin.attention') }}!</strong>
+                            <span id="acceptCount" class="badge bg-primary ms-1">0</span> ta ariza tanlandi.
+                        </div>
                     </div>
-                    <p class="text-muted small">Kiritilgan sabab mobil ilova orqali Investorga ko'rsatiladi.</p>
+
+                    <div class="alert alert-warning d-flex align-items-start">
+                        <i class="bi bi-exclamation-triangle-fill me-2 mt-1"></i>
+                        <div>
+                            <small>Ariza qabul qilingandan so'ng, Investitsion loyiha doirasida <strong>yangi raund e'lon
+                                    qilinib, sotuv jarayoni boshlanishi</strong> kerak.</small>
+                        </div>
+                    </div>
                 </div>
+
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Bekor qilish</button>
-                    <button type="button" class="btn btn-danger" id="confirmRejectBtn">Rad etish</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        <i class="bi bi-x-circle me-1"></i>{{ __('admin.cancel') }}
+                    </button>
+                    <button type="button" class="btn btn-success" id="confirmAcceptBtn">
+                        <i class="bi bi-check-circle me-1"></i>{{ __('admin.accept') }}
+                    </button>
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- Reject Modal -->
+    <div class="modal fade" id="rejectModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-danger">
+                    <h5 class="modal-title text-white">
+                        <i class="bi bi-x-circle me-2"></i>{{ __('admin.reject_exit_requests') }}
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="alert alert-warning d-flex align-items-start">
+                        <i class="bi bi-exclamation-triangle-fill me-2 mt-1"></i>
+                        <div>
+                            <strong>{{ __('admin.warning') }}!</strong>
+                            <span id="rejectCount" class="badge bg-danger ms-1">0</span> ta ariza rad etiladi.
+                        </div>
+                    </div>
+
+                    <form id="rejectForm">
+                        <div class="mb-3">
+                            <label for="rejectionReason" class="form-label">
+                                <i class="bi bi-chat-left-text me-1"></i>{{ __('admin.rejection_reason') }} *
+                            </label>
+                            <textarea class="form-control" id="rejectionReason" rows="4" required
+                                placeholder="Ariza rad etilish sababini kiriting..."></textarea>
+                            <div class="form-text">Kiritilgan sabab mobil ilova orqali Investorga ko'rsatiladi.</div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        <i class="bi bi-x-circle me-1"></i>{{ __('admin.cancel') }}
+                    </button>
+                    <button type="button" class="btn btn-danger" id="confirmRejectBtn">
+                        <i class="bi bi-x-circle me-1"></i>{{ __('admin.reject') }}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
+
 
 @push('customJs')
     <script>
         // ========================================
-        //            IN-MEMORY STORAGE
+        //  STORAGE + SEED MERGE (Hamma 6 ta chiqadi)
         // ========================================
 
-        let exitRequests = [
+        const STORAGE_KEY = 'exitRequests';
+
+        const SEED = [
             {
                 id: 1,
                 exit_id: "EXIT-20001",
                 status: "processing",
                 status_comment: "",
                 deadline: "2025-12-15",
-                full_name: "Rasulov Islom",
-                phone: "+998901223344",
+                submitted_at: "2025-12-01",
+                requested_amount: 150000000,
+                investor_type: "Jismoniy shaxs",
+                full_name: "Rasulov Islom Akmalovich",
+                phone: "+998 90 122 33 44",
                 login: "islom_dev",
             },
             {
                 id: 2,
                 exit_id: "EXIT-20002",
                 status: "accepted",
-                status_comment: "Ariza qabul qilindi",
+                status_comment: "Ariza qabul qilindi. Yangi raund e'lon qilindi.",
                 deadline: "2025-12-10",
-                full_name: "Sobirova Farangiz",
-                phone: "+998907778899",
+                submitted_at: "2025-11-28",
+                requested_amount: 200000000,
+                investor_type: "Yuridik shaxs",
+                full_name: "Sobirova Farangiz Rustamovna",
+                phone: "+998 90 777 88 99",
                 login: "farangiz_s",
             },
             {
@@ -241,243 +385,348 @@
                 status: "processing",
                 status_comment: "",
                 deadline: "2025-12-18",
-                full_name: "Karimov Aziz",
-                phone: "+998901112233",
+                submitted_at: "2025-12-03",
+                requested_amount: 90000000,
+                investor_type: "Jismoniy shaxs",
+                full_name: "Karimov Aziz Sharipovich",
+                phone: "+998 90 111 22 33",
                 login: "aziz_k",
             },
             {
                 id: 4,
                 exit_id: "EXIT-20004",
                 status: "rejected",
-                status_comment: "Investitsiya davri hali yakunlanmagan",
+                status_comment: "Investitsiya davri hali yakunlanmagan. Minimal investitsiya muddati 6 oy.",
                 deadline: "2025-12-12",
-                full_name: "Toshmatova Dilnoza",
-                phone: "+998905556677",
+                submitted_at: "2025-11-25",
+                requested_amount: 120000000,
+                investor_type: "Jismoniy shaxs",
+                full_name: "Toshmatova Dilnoza Akbarovna",
+                phone: "+998 90 555 66 77",
                 login: "dilnoza_t",
+            },
+            {
+                id: 5,
+                exit_id: "EXIT-20005",
+                status: "processing",
+                status_comment: "",
+                deadline: "2025-12-20",
+                submitted_at: "2025-12-05",
+                requested_amount: 175000000,
+                investor_type: "Yuridik shaxs",
+                full_name: "Alimov Sardor Murodovich",
+                phone: "+998 93 444 55 66",
+                login: "sardor_alimov",
+            },
+            {
+                id: 6,
+                exit_id: "EXIT-20006",
+                status: "processing",
+                status_comment: "",
+                deadline: "2025-12-22",
+                submitted_at: "2025-12-07",
+                requested_amount: 65000000,
+                investor_type: "Jismoniy shaxs",
+                full_name: "Nazarova Malika Olimovna",
+                phone: "+998 97 888 99 00",
+                login: "malika_n",
             }
         ];
 
-        let currentActionId = null;
+        function safeJsonParse(v, fallback) {
+            try { return JSON.parse(v); } catch (e) { return fallback; }
+        }
+
+        function saveStorage(list) {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
+        }
+
+        // localStorage o‘qish
+        let exitRequests = safeJsonParse(localStorage.getItem(STORAGE_KEY), []);
+        if (!Array.isArray(exitRequests)) exitRequests = [];
+
+        // SEED MERGE: localStorage’da kam bo‘lsa hammasini to‘ldiradi
+        // Bor id lar saqlanadi, yo‘qlari qo‘shiladi.
+        const map = new Map();
+        exitRequests.forEach(i => {
+            if (i && typeof i === 'object' && i.id != null) map.set(Number(i.id), i);
+        });
+
+        SEED.forEach(s => {
+            const id = Number(s.id);
+            if (!map.has(id)) {
+                map.set(id, s);
+            } else {
+                // MIGRATION: bor yozuvda yangi fieldlar yo‘q bo‘lsa qo‘shib qo‘yadi
+                const cur = map.get(id);
+                if (!cur.submitted_at) cur.submitted_at = s.submitted_at || cur.deadline || '—';
+                if (typeof cur.requested_amount !== 'number') cur.requested_amount = 0;
+                if (!cur.investor_type) cur.investor_type = '—';
+                if (!cur.exit_id) cur.exit_id = s.exit_id;
+                if (!cur.full_name) cur.full_name = s.full_name;
+                if (!cur.deadline) cur.deadline = s.deadline;
+                map.set(id, cur);
+            }
+        });
+
+        exitRequests = Array.from(map.values()).sort((a, b) => Number(a.id) - Number(b.id));
+        saveStorage(exitRequests);
+
+        let defaultRequests = [...exitRequests];
+
+        const tbody = document.getElementById('exit-request-body');
+        const emptyState = document.getElementById('emptyState');
+        const searchInput = document.getElementById('searchInput');
+        const filterStatus = document.getElementById('filter_exit_status');
+        const acceptSelectedBtn = document.getElementById('acceptSelectedBtn');
+        const rejectSelectedBtn = document.getElementById('rejectSelectedBtn');
+        const filterBtn = document.getElementById('filterBtn');
+        const clearBtn = document.getElementById('clearBtn');
+        const checkAll = document.getElementById('checkAll');
 
         // ========================================
-        //              RENDER TABLE
+        // helpers
         // ========================================
-
         function escapeHtml(text) {
-            if (text === null || text === undefined) return '';
+            if (text === null || text === undefined || text === '') return '—';
             const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' };
             return String(text).replace(/[&<>"']/g, m => map[m]);
         }
 
         function getStatusBadge(status) {
             const statusMap = {
-                'processing': '<span class="status-badge status-processing">Jarayonda</span>',
-                'accepted': '<span class="status-badge status-accepted">Qabul qilingan</span>',
-                'rejected': '<span class="status-badge status-rejected">Rad etilgan</span>'
+                'processing': '<span class="badge badge-custom badge-status-processing">Jarayonda</span>',
+                'accepted': '<span class="badge badge-custom badge-status-accepted">Qabul qilingan</span>',
+                'rejected': '<span class="badge badge-custom badge-status-rejected">Rad etilgan</span>'
             };
-            return statusMap[status] || status;
+            return statusMap[status] || `<span class="badge badge-custom">${escapeHtml(status)}</span>`;
         }
 
-        function renderExitRequests(list = exitRequests) {
-            let tbody = document.getElementById('exit-request-body');
-            tbody.innerHTML = "";
+        function formatMoney(n) {
+            if (!n || typeof n !== 'number') return '—';
+            return new Intl.NumberFormat('uz-UZ').format(n) + ' so‘m';
+        }
 
-            if (list.length === 0) {
-                tbody.innerHTML = `
-                    <tr>
-                        <td colspan="9" class="text-center text-muted py-4">
-                            <i class="fas fa-inbox fa-3x mb-3 d-block"></i>
-                            Ma'lumotlar topilmadi
-                        </td>
-                    </tr>
-                `;
+        function daysLeft(deadline) {
+            if (!deadline) return '—';
+            const d = new Date(deadline + 'T00:00:00');
+            const now = new Date();
+            return Math.ceil((d.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
+        }
+
+        // ========================================
+        // render
+        // ========================================
+        function renderExitRequests(list = exitRequests) {
+            if (!tbody) return;
+
+            if (!Array.isArray(list) || list.length === 0) {
+                tbody.innerHTML = '';
+                if (emptyState) emptyState.style.display = 'block';
                 return;
             }
 
+            if (emptyState) emptyState.style.display = 'none';
+
+            let rows = '';
             list.forEach((item, index) => {
-                const isProcessing = item.status === 'processing';
+                const canCheck = item.status === 'processing';
+                const phone = item.phone ? escapeHtml(item.phone) : '—';
+                const login = item.login ? escapeHtml(item.login) : '—';
 
-                const actionButtons = isProcessing ? `
-                    <div class="action-buttons">
-                        <a href="javascript:void(0);" class="btn btn-sm p-0"
-                           style="background:none; width: 28px; height: 28px;"
-                           data-bs-toggle="tooltip" data-bs-placement="top" title="{{ __('admin.accept') }}"
-                           onclick="openAcceptModal(${item.id})">
-                            <i class="fa-solid fa-circle-check"></i>
-                        </a>
+                const extraProcessingInfo = item.status === 'processing' ? `
+                    <div class="value-secondary"><span class="text-muted">Topshirildi:</span> ${escapeHtml(item.submitted_at)}</div>
+                    <div class="value-secondary"><span class="text-muted">Qolgan kun:</span> ${daysLeft(item.deadline)} kun</div>
+                    <div class="value-secondary"><span class="text-muted">Investor turi:</span> ${escapeHtml(item.investor_type)}</div>
+                    <div class="value-secondary"><span class="text-muted">So‘ralgan summa:</span> <strong>${formatMoney(item.requested_amount)}</strong></div>
+                ` : '';
 
-                        <a href="javascript:void(0);"
-                           class="btn btn-sm p-0"
-                           style="background: none; color: #bd2130;"
-                           data-bs-toggle="tooltip"
-                           data-bs-placement="top"
-                           title="Delete"
-                           onclick='infoModel(@json(__("admin.warning")), @json(__("admin.role_delete_warning")));'>
-                            <svg class="icon icon-xs text-danger status-blocked" title="Delete" data-bs-toggle="tooltip" fill="currentColor"
-                                viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd"
-                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
-                                    clip-rule="evenodd"></path>
-                            </svg>
-                        </a>
-                    </div>
-                ` : `<span class="text-muted small">—</span>`;
-
-                tbody.innerHTML += `
+                rows += `
                     <tr>
+                        <td>
+                            ${canCheck ? `<input type="checkbox" class="row-check form-check-input" value="${item.id}">` : ''}
+                        </td>
                         <td>${index + 1}</td>
-                        <td><strong>${escapeHtml(item.exit_id)}</strong></td>
+                        <td><div class="value-primary">${escapeHtml(item.exit_id)}</div></td>
                         <td>${getStatusBadge(item.status)}</td>
                         <td>${item.status_comment ? escapeHtml(item.status_comment) : '—'}</td>
-                        <td>${escapeHtml(item.deadline)}</td>
-
-                        <!-- Investor FIO ichiga Tel + Login jamlandi -->
+                        <td class="text-center">${escapeHtml(item.deadline)}</td>
                         <td>
                             <div class="value-primary">${escapeHtml(item.full_name)}</div>
-                            <div class="value-secondary"><span class="text-muted">Tel:</span> ${escapeHtml(item.phone || '—')}</div>
-                            <div class="value-secondary"><span class="text-muted">Login:</span> <code>${escapeHtml(item.login || '—')}</code></div>
+                            <div class="value-secondary"><span class="text-muted">Tel:</span> ${phone}</div>
+                            <div class="value-secondary"><span class="text-muted">Login:</span> <code>${login}</code></div>
+                            ${extraProcessingInfo}
                         </td>
-
-                        <!-- Telefon/Login: data bor, lekin ko‘rinmaydi -->
-                        <td class="col-phone">${escapeHtml(item.phone || '—')}</td>
-                        <td class="col-login"><code>${escapeHtml(item.login || '—')}</code></td>
-
-                        <td>${actionButtons}</td>
+                        <td class="col-phone">${phone}</td>
+                        <td class="col-login"><code>${login}</code></td>
                     </tr>
                 `;
             });
+
+            tbody.innerHTML = rows;
         }
 
         // ========================================
-        //           MODAL FUNCTIONS
+        // checkbox
         // ========================================
+        if (checkAll) {
+            checkAll.onclick = function () {
+                document.querySelectorAll('.row-check').forEach(cb => cb.checked = this.checked);
+            };
+        }
+        const getSelectedIds = () => [...document.querySelectorAll('.row-check:checked')].map(cb => +cb.value);
 
-        function openAcceptModal(id) {
-            currentActionId = id;
-            const modal = new bootstrap.Modal(document.getElementById('acceptModal'));
-            modal.show();
+        // ========================================
+        // modals
+        // ========================================
+        function showAcceptModal() {
+            const ids = getSelectedIds();
+            if (!ids.length) { alert("⚠ Qabul qilish uchun kamida bitta arizani tanlang!"); return; }
+
+            const processingCount = ids.filter(id => {
+                const item = exitRequests.find(x => x.id === id);
+                return item && item.status === 'processing';
+            }).length;
+
+            if (processingCount === 0) { alert("⚠ Faqat 'Jarayonda' holatidagi arizalarni qabul qilish mumkin!"); return; }
+
+            document.getElementById('acceptCount').textContent = processingCount;
+            new bootstrap.Modal(document.getElementById('acceptModal')).show();
         }
 
-        function openRejectModal(id) {
-            currentActionId = id;
-            document.getElementById('rejectReason').value = '';
-            document.getElementById('rejectReason').classList.remove('is-invalid');
-            const modal = new bootstrap.Modal(document.getElementById('rejectModal'));
-            modal.show();
+        function showRejectModal() {
+            const ids = getSelectedIds();
+            if (!ids.length) { alert("⚠ Rad etish uchun kamida bitta arizani tanlang!"); return; }
+
+            const processingCount = ids.filter(id => {
+                const item = exitRequests.find(x => x.id === id);
+                return item && item.status === 'processing';
+            }).length;
+
+            if (processingCount === 0) { alert("⚠ Faqat 'Jarayonda' holatidagi arizalarni rad etish mumkin!"); return; }
+
+            document.getElementById('rejectCount').textContent = processingCount;
+            document.getElementById('rejectionReason').value = '';
+            new bootstrap.Modal(document.getElementById('rejectModal')).show();
         }
 
         // ========================================
-        //           ACCEPT EXIT REQUEST
+        // actions
         // ========================================
+        function confirmAcceptAction() {
+            const ids = getSelectedIds();
+            let acceptedCount = 0;
 
-        document.getElementById('confirmAcceptBtn').addEventListener('click', function () {
-            if (!currentActionId) return;
+            ids.forEach(id => {
+                const item = exitRequests.find(x => x.id === id && x.status === 'processing');
+                if (item) {
+                    item.status = 'accepted';
+                    item.status_comment = "Ariza qabul qilindi. Yangi raund e'lon qilindi.";
+                    acceptedCount++;
+                }
+            });
 
-            let item = exitRequests.find(i => i.id === currentActionId);
-            if (!item) return;
+            saveStorage(exitRequests);
+            defaultRequests = [...exitRequests];
 
-            item.status = "accepted";
-            item.status_comment = "Ariza qabul qilindi";
+            bootstrap.Modal.getInstance(document.getElementById('acceptModal')).hide();
+            applyFilters();
+            if (checkAll) checkAll.checked = false;
 
-            renderExitRequests();
+            alert(`✅ ${acceptedCount} ta ariza muvaffaqiyatli qabul qilindi!\n\nInvestitsion loyiha doirasida yangi raund e'lon qilinib, sotuv jarayoni boshlanishi kerak.`);
+        }
 
-            const modal = bootstrap.Modal.getInstance(document.getElementById('acceptModal'));
-            modal.hide();
+        function confirmRejectAction() {
+            const reason = document.getElementById('rejectionReason').value.trim();
+            if (!reason) { alert("⚠ Rad etish sababini kiritish majburiy!"); return; }
 
-            showAlert('success', 'Ariza muvaffaqiyatli qabul qilindi. Yangi raund ochilishi kerak.');
+            const ids = getSelectedIds();
+            let rejectedCount = 0;
 
-            currentActionId = null;
-        });
+            ids.forEach(id => {
+                const item = exitRequests.find(x => x.id === id && x.status === 'processing');
+                if (item) {
+                    item.status = 'rejected';
+                    item.status_comment = reason;
+                    rejectedCount++;
+                }
+            });
 
-        // ========================================
-        //           REJECT EXIT REQUEST
-        // ========================================
+            saveStorage(exitRequests);
+            defaultRequests = [...exitRequests];
 
-        document.getElementById('confirmRejectBtn').addEventListener('click', function () {
-            if (!currentActionId) return;
+            bootstrap.Modal.getInstance(document.getElementById('rejectModal')).hide();
+            applyFilters();
+            if (checkAll) checkAll.checked = false;
 
-            const reasonInput = document.getElementById('rejectReason');
-            const reason = reasonInput.value.trim();
-
-            if (!reason) {
-                reasonInput.classList.add('is-invalid');
-                return;
-            }
-
-            let item = exitRequests.find(i => i.id === currentActionId);
-            if (!item) return;
-
-            item.status = "rejected";
-            item.status_comment = reason;
-
-            renderExitRequests();
-
-            const modal = bootstrap.Modal.getInstance(document.getElementById('rejectModal'));
-            modal.hide();
-
-            showAlert('danger', 'Ariza rad etildi. Sabab Investorga yuborildi.');
-
-            currentActionId = null;
-        });
+            alert(`✅ ${rejectedCount} ta ariza rad etildi!\n\nRad etish sababi mobil ilova orqali investorlarga yuborildi.`);
+        }
 
         // ========================================
-        //                FILTERS
+        // filters
         // ========================================
+        function applyFilters() {
+            const search = (searchInput?.value || '').toLowerCase().trim();
+            const status = (filterStatus?.value || '').trim();
 
-        function applyExitFilters() {
-            let search = document.getElementById('searchInput').value.toLowerCase();
-            let status = document.getElementById('filter_exit_status').value;
-
-            let filtered = exitRequests.filter(i => {
+            const filtered = defaultRequests.filter(i => {
                 const matchSearch = !search ||
-                    i.full_name.toLowerCase().includes(search) ||
-                    i.phone.includes(search) ||
-                    i.login.toLowerCase().includes(search) ||
-                    i.exit_id.toLowerCase().includes(search);
+                    (i.full_name && i.full_name.toLowerCase().includes(search)) ||
+                    (i.phone && i.phone.toLowerCase().includes(search)) ||
+                    (i.login && i.login.toLowerCase().includes(search)) ||
+                    (i.exit_id && i.exit_id.toLowerCase().includes(search));
 
                 const matchStatus = !status || i.status === status;
-
                 return matchSearch && matchStatus;
             });
 
             renderExitRequests(filtered);
         }
 
-        function clearFilters() {
-            document.getElementById('searchInput').value = '';
-            document.getElementById('filter_exit_status').value = '';
-            renderExitRequests();
+        function resetFilters() {
+            if (searchInput) searchInput.value = '';
+            if (filterStatus) filterStatus.value = '';
+            renderExitRequests(defaultRequests);
         }
 
-        document.getElementById('filterBtn').addEventListener('click', applyExitFilters);
-        document.getElementById('clearBtn').addEventListener('click', clearFilters);
+        // ========================================
+        // init
+        // ========================================
+        document.addEventListener('DOMContentLoaded', function () {
+            // doim hammasini chiqaradi
+            renderExitRequests(defaultRequests);
 
-        document.getElementById('searchInput').addEventListener('keypress', function (e) {
-            if (e.key === 'Enter') {
-                applyExitFilters();
+            if (acceptSelectedBtn) acceptSelectedBtn.addEventListener('click', showAcceptModal);
+            if (rejectSelectedBtn) rejectSelectedBtn.addEventListener('click', showRejectModal);
+
+            const confirmAcceptBtn = document.getElementById('confirmAcceptBtn');
+            const confirmRejectBtn = document.getElementById('confirmRejectBtn');
+
+            if (confirmAcceptBtn) confirmAcceptBtn.addEventListener('click', confirmAcceptAction);
+            if (confirmRejectBtn) confirmRejectBtn.addEventListener('click', confirmRejectAction);
+
+            if (filterBtn) filterBtn.addEventListener('click', applyFilters);
+            if (clearBtn) clearBtn.addEventListener('click', resetFilters);
+
+            if (searchInput) {
+                let t;
+                searchInput.addEventListener('input', function () {
+                    clearTimeout(t);
+                    t = setTimeout(applyFilters, 300);
+                });
+                searchInput.addEventListener('keyup', function (e) {
+                    if (e.key === 'Enter') applyFilters();
+                });
             }
+
+            if (filterStatus) filterStatus.addEventListener('change', applyFilters);
         });
 
-        // ========================================
-        //           ALERT FUNCTION
-        // ========================================
-
-        function showAlert(type, message) {
-            const alertDiv = document.createElement('div');
-            alertDiv.className = `alert alert-${type} alert-dismissible fade show position-fixed`;
-            alertDiv.style.cssText = 'top: 20px; right: 20px; z-index: 9999; min-width: 300px;';
-            alertDiv.innerHTML = `
-                ${message}
-                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-            `;
-            document.body.appendChild(alertDiv);
-
-            setTimeout(() => {
-                alertDiv.remove();
-            }, 5000);
-        }
-
-        // Initial render
-        renderExitRequests();
+        window.showAcceptModal = showAcceptModal;
+        window.showRejectModal = showRejectModal;
+        window.confirmAcceptAction = confirmAcceptAction;
+        window.confirmRejectAction = confirmRejectAction;
+        window.applyFilters = applyFilters;
+        window.resetFilters = resetFilters;
     </script>
 @endpush
