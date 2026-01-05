@@ -14,9 +14,9 @@ class IntegrationSettingController extends Controller
 
     public function edit($id)
     {
-        $data = getIntegrationSettings($id);
+        $integration = getIntegrationSettings($id);
 
 
-        return view('pages.integration-settings.edit', compact('data'));
+        return view('pages.integration-settings.edit', compact('integration'));
     }
 }

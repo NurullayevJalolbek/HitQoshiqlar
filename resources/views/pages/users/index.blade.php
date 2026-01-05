@@ -2,15 +2,6 @@
 
 @push('customCss')
 <style>
-    .status-active {
-        color: #1e7e34;
-        font-weight: bold;
-    }
-
-    .status-blocked {
-        color: #bd2130;
-        font-weight: bold;
-    }
 
     /* Yangi rol badge rangi (1F2937) */
     .role-badge {

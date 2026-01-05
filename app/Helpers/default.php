@@ -1554,109 +1554,550 @@ function getStaticPages($id = null)
     return $datas;
 }
 
-
 function getIntegrationSettings($id = null)
 {
     $integrations = collect([
+        // 1. SMS Xizmati (Eskiz)
         [
             'id' => 1,
             'name' => 'SMS Xizmati (Eskiz)',
             'status' => true,
-            'api' => 'https://api.eskiz.uz',
-            'token' => 'your_eskiz_token',
-            'secret_key' => null,
-            'password' => 'your_sms_password',
-            'description' => 'Automatik OTP va bildirishnomalar yuborish uchun SMS provayder integratsiyasi.'
+            'category' => 'sms',
+            'icon' => 'fas fa-sms',
+            'required_fields' => ['api', 'token', 'password'],
+            'fields_config' => [
+                'api' => [
+                    'type' => 'url',
+                    'required' => true,
+                    'label' => 'API URL',
+                    'placeholder' => 'https://api.eskiz.uz',
+                    'icon' => 'fas fa-link'
+                ],
+                'token' => [
+                    'type' => 'text',
+                    'required' => true,
+                    'label' => 'API Token',
+                    'placeholder' => 'Eskiz token kaliti',
+                    'icon' => 'fas fa-key'
+                ],
+                'password' => [
+                    'type' => 'password',
+                    'required' => true,
+                    'label' => 'SMS Paroli',
+                    'placeholder' => 'SMS xizmat paroli',
+                    'icon' => 'fas fa-lock'
+                ],
+                'sender' => [
+                    'type' => 'text',
+                    'required' => false,
+                    'label' => 'Jo\'natuvchi Raqam/Nomi',
+                    'placeholder' => 'Masalan: 1234 yoki UzCard',
+                    'icon' => 'fas fa-user'
+                ],
+                'description' => [
+                    'type' => 'textarea',
+                    'required' => false,
+                    'label' => 'Tavsif',
+                    'placeholder' => 'SMS xizmati haqida qisqacha izoh...',
+                    'icon' => 'fas fa-align-left'
+                ]
+            ]
         ],
+
+        // 2. Payme To'lov Tizimi
         [
             'id' => 2,
-            'name' => 'Payme To‘lov Tizimi',
+            'name' => 'Payme To\'lov Tizimi',
             'status' => false,
-            'api' => 'https://api.payme.uz',
-            'token' => null,
-            'secret_key' => 'payme_secret_key',
-            'password' => null,
-            'description' => 'Internet orqali to‘lovlarni amalga oshirish uchun Payme integratsiyasi.'
+            'category' => 'payment',
+            'icon' => 'fas fa-credit-card',
+            'required_fields' => ['api', 'secret_key', 'merchant_id'],
+            'fields_config' => [
+                'api' => [
+                    'type' => 'url',
+                    'required' => true,
+                    'label' => 'API URL',
+                    'placeholder' => 'https://api.payme.uz',
+                    'icon' => 'fas fa-link'
+                ],
+                'merchant_id' => [
+                    'type' => 'text',
+                    'required' => true,
+                    'label' => 'Merchant ID',
+                    'placeholder' => 'Payme merchant identifikatori',
+                    'icon' => 'fas fa-id-badge'
+                ],
+                'secret_key' => [
+                    'type' => 'text',
+                    'required' => true,
+                    'label' => 'Secret Key',
+                    'placeholder' => 'Payme maxfiy kaliti',
+                    'icon' => 'fas fa-key'
+                ],
+                'checkout_url' => [
+                    'type' => 'url',
+                    'required' => true,
+                    'label' => 'Checkout URL',
+                    'placeholder' => 'https://checkout.payme.uz',
+                    'icon' => 'fas fa-shopping-cart'
+                ],
+                'callback_url' => [
+                    'type' => 'url',
+                    'required' => false,
+                    'label' => 'Callback URL',
+                    'placeholder' => 'https://sizning-saytingiz.uz/payme/callback',
+                    'icon' => 'fas fa-redo'
+                ],
+                'description' => [
+                    'type' => 'textarea',
+                    'required' => false,
+                    'label' => 'Tavsif',
+                    'icon' => 'fas fa-align-left'
+                ]
+            ]
         ],
+
+        // 3. Click To'lov Tizimi
         [
             'id' => 3,
-            'name' => 'Click To‘lov Tizimi',
+            'name' => 'Click To\'lov Tizimi',
             'status' => true,
-            'api' => 'https://api.click.uz',
-            'token' => null,
-            'secret_key' => 'click_secret_key',
-            'password' => null,
-            'description' => 'Click to‘lov tizimi bilan integratsiya.'
+            'category' => 'payment',
+            'icon' => 'fas fa-money-check-alt',
+            'required_fields' => ['api', 'secret_key', 'service_id', 'merchant_id'],
+            'fields_config' => [
+                'api' => [
+                    'type' => 'url',
+                    'required' => true,
+                    'label' => 'API URL',
+                    'placeholder' => 'https://api.click.uz',
+                    'icon' => 'fas fa-link'
+                ],
+                'service_id' => [
+                    'type' => 'number',
+                    'required' => true,
+                    'label' => 'Service ID',
+                    'placeholder' => 'Click service ID',
+                    'icon' => 'fas fa-hashtag'
+                ],
+                'merchant_id' => [
+                    'type' => 'number',
+                    'required' => true,
+                    'label' => 'Merchant ID',
+                    'placeholder' => 'Click merchant ID',
+                    'icon' => 'fas fa-store'
+                ],
+                'secret_key' => [
+                    'type' => 'text',
+                    'required' => true,
+                    'label' => 'Secret Key',
+                    'placeholder' => 'Click maxfiy kaliti',
+                    'icon' => 'fas fa-key'
+                ],
+                'user_id' => [
+                    'type' => 'number',
+                    'required' => false,
+                    'label' => 'User ID',
+                    'placeholder' => 'Foydalanuvchi ID',
+                    'icon' => 'fas fa-user'
+                ],
+                'description' => [
+                    'type' => 'textarea',
+                    'required' => false,
+                    'label' => 'Tavsif',
+                    'icon' => 'fas fa-align-left'
+                ]
+            ]
         ],
+
+        // 4. Visa Online Payments
         [
             'id' => 4,
             'name' => 'Visa Online Payments',
             'status' => false,
-            'api' => 'https://api.visa.com',
-            'token' => null,
-            'secret_key' => 'visa_secret_key',
-            'password' => null,
-            'description' => 'Visa kartalari orqali onlayn to‘lovlar.'
+            'category' => 'payment',
+            'icon' => 'fab fa-cc-visa',
+            'required_fields' => ['api', 'secret_key', 'merchant_id'],
+            'fields_config' => [
+                'api' => [
+                    'type' => 'url',
+                    'required' => true,
+                    'label' => 'API URL',
+                    'placeholder' => 'https://api.visa.com',
+                    'icon' => 'fas fa-link'
+                ],
+                'merchant_id' => [
+                    'type' => 'text',
+                    'required' => true,
+                    'label' => 'Merchant ID',
+                    'placeholder' => 'VISA merchant identifikatori',
+                    'icon' => 'fas fa-id-badge'
+                ],
+                'secret_key' => [
+                    'type' => 'text',
+                    'required' => true,
+                    'label' => 'Secret Key',
+                    'placeholder' => 'VISA maxfiy kaliti',
+                    'icon' => 'fas fa-key'
+                ],
+                'public_key' => [
+                    'type' => 'text',
+                    'required' => true,
+                    'label' => 'Public Key',
+                    'placeholder' => 'VISA ochiq kaliti',
+                    'icon' => 'fas fa-key'
+                ],
+                'currency' => [
+                    'type' => 'select',
+                    'required' => true,
+                    'label' => 'Valyuta',
+                    'options' => ['USD' => 'USD', 'UZS' => 'UZS', 'EUR' => 'EUR'],
+                    'icon' => 'fas fa-money-bill-wave'
+                ],
+                'description' => [
+                    'type' => 'textarea',
+                    'required' => false,
+                    'label' => 'Tavsif',
+                    'icon' => 'fas fa-align-left'
+                ]
+            ]
         ],
+
+        // 5. Mastercard Online Payments
         [
             'id' => 5,
             'name' => 'Mastercard Online Payments',
             'status' => false,
-            'api' => 'https://api.mastercard.com',
-            'token' => null,
-            'secret_key' => 'mastercard_secret_key',
-            'password' => null,
-            'description' => 'Mastercard kartalari orqali onlayn to‘lovlar.'
+            'category' => 'payment',
+            'icon' => 'fab fa-cc-mastercard',
+            'required_fields' => ['api', 'secret_key', 'merchant_id'],
+            'fields_config' => [
+                'api' => [
+                    'type' => 'url',
+                    'required' => true,
+                    'label' => 'API URL',
+                    'placeholder' => 'https://api.mastercard.com',
+                    'icon' => 'fas fa-link'
+                ],
+                'merchant_id' => [
+                    'type' => 'text',
+                    'required' => true,
+                    'label' => 'Merchant ID',
+                    'placeholder' => 'Mastercard merchant identifikatori',
+                    'icon' => 'fas fa-id-badge'
+                ],
+                'secret_key' => [
+                    'type' => 'text',
+                    'required' => true,
+                    'label' => 'Secret Key',
+                    'placeholder' => 'Mastercard maxfiy kaliti',
+                    'icon' => 'fas fa-key'
+                ],
+                'public_key' => [
+                    'type' => 'text',
+                    'required' => true,
+                    'label' => 'Public Key',
+                    'placeholder' => 'Mastercard ochiq kaliti',
+                    'icon' => 'fas fa-key'
+                ],
+                'currency' => [
+                    'type' => 'select',
+                    'required' => true,
+                    'label' => 'Valyuta',
+                    'options' => ['USD' => 'USD', 'UZS' => 'UZS', 'EUR' => 'EUR'],
+                    'icon' => 'fas fa-money-bill-wave'
+                ],
+                'description' => [
+                    'type' => 'textarea',
+                    'required' => false,
+                    'label' => 'Tavsif',
+                    'icon' => 'fas fa-align-left'
+                ]
+            ]
         ],
+
+        // 6. Email SMTP (Gmail)
         [
             'id' => 6,
             'name' => 'Email SMTP (Gmail)',
             'status' => true,
-            'api' => 'smtp.gmail.com',
-            'token' => null,
-            'secret_key' => null,
-            'password' => 'email_password',
-            'description' => 'Tizimdan avtomatik email yuborish uchun Gmail SMTP integratsiyasi.'
+            'category' => 'email',
+            'icon' => 'fas fa-envelope',
+            'required_fields' => ['host', 'port', 'username', 'password'],
+            'fields_config' => [
+                'host' => [
+                    'type' => 'text',
+                    'required' => true,
+                    'label' => 'SMTP Server',
+                    'placeholder' => 'smtp.gmail.com',
+                    'icon' => 'fas fa-server'
+                ],
+                'port' => [
+                    'type' => 'number',
+                    'required' => true,
+                    'label' => 'Port',
+                    'placeholder' => '587',
+                    'icon' => 'fas fa-plug'
+                ],
+                'username' => [
+                    'type' => 'email',
+                    'required' => true,
+                    'label' => 'Email Manzil',
+                    'placeholder' => 'example@gmail.com',
+                    'icon' => 'fas fa-envelope'
+                ],
+                'password' => [
+                    'type' => 'password',
+                    'required' => true,
+                    'label' => 'App Password',
+                    'placeholder' => 'Google app paroli',
+                    'icon' => 'fas fa-lock'
+                ],
+                'encryption' => [
+                    'type' => 'select',
+                    'required' => false,
+                    'label' => 'Shifrlash',
+                    'options' => ['tls' => 'TLS', 'ssl' => 'SSL', 'none' => 'Yo\'q'],
+                    'icon' => 'fas fa-shield-alt'
+                ],
+                'from_address' => [
+                    'type' => 'email',
+                    'required' => true,
+                    'label' => 'Jo\'natuvchi Email',
+                    'placeholder' => 'noreply@sizning-saytingiz.uz',
+                    'icon' => 'fas fa-paper-plane'
+                ],
+                'from_name' => [
+                    'type' => 'text',
+                    'required' => false,
+                    'label' => 'Jo\'natuvchi Nomi',
+                    'placeholder' => 'Sizning Kompaniya Nomi',
+                    'icon' => 'fas fa-user'
+                ],
+                'description' => [
+                    'type' => 'textarea',
+                    'required' => false,
+                    'label' => 'Tavsif',
+                    'icon' => 'fas fa-align-left'
+                ]
+            ]
         ],
+
+        // 7. Firebase Push Notification
         [
             'id' => 7,
             'name' => 'Firebase Push Notification',
             'status' => false,
-            'api' => 'https://firebase.google.com',
-            'token' => 'firebase_server_token',
-            'secret_key' => null,
-            'password' => null,
-            'description' => 'Push-xabarlar yuborish uchun Firebase integratsiyasi.'
+            'category' => 'notification',
+            'icon' => 'fab fa-firebase',
+            'required_fields' => ['api_key', 'project_id'],
+            'fields_config' => [
+                'project_id' => [
+                    'type' => 'text',
+                    'required' => true,
+                    'label' => 'Project ID',
+                    'placeholder' => 'Firebase loyiha ID',
+                    'icon' => 'fas fa-project-diagram'
+                ],
+                'api_key' => [
+                    'type' => 'text',
+                    'required' => true,
+                    'label' => 'Server API Key',
+                    'placeholder' => 'Firebase server API kaliti',
+                    'icon' => 'fas fa-key'
+                ],
+                'sender_id' => [
+                    'type' => 'text',
+                    'required' => false,
+                    'label' => 'Sender ID',
+                    'placeholder' => 'FCM sender ID',
+                    'icon' => 'fas fa-id-card'
+                ],
+                'app_id' => [
+                    'type' => 'text',
+                    'required' => false,
+                    'label' => 'App ID',
+                    'placeholder' => 'Firebase app ID',
+                    'icon' => 'fas fa-mobile-alt'
+                ],
+                'database_url' => [
+                    'type' => 'url',
+                    'required' => false,
+                    'label' => 'Database URL',
+                    'placeholder' => 'https://your-project.firebaseio.com',
+                    'icon' => 'fas fa-database'
+                ],
+                'description' => [
+                    'type' => 'textarea',
+                    'required' => false,
+                    'label' => 'Tavsif',
+                    'icon' => 'fas fa-align-left'
+                ]
+            ]
         ],
+
+        // 8. Google Maps API
         [
             'id' => 8,
             'name' => 'Google Maps API',
             'status' => true,
-            'api' => 'https://maps.googleapis.com/maps/api',
-            'token' => 'google_maps_api_key',
-            'secret_key' => null,
-            'password' => null,
-            'description' => 'Geolokatsiya va xarita xizmatlari uchun Google Maps API integratsiyasi.'
+            'category' => 'maps',
+            'icon' => 'fas fa-map-marked-alt',
+            'required_fields' => ['api_key'],
+            'fields_config' => [
+                'api_key' => [
+                    'type' => 'text',
+                    'required' => true,
+                    'label' => 'API Key',
+                    'placeholder' => 'Google Maps API kaliti',
+                    'icon' => 'fas fa-key'
+                ],
+                'api_url' => [
+                    'type' => 'url',
+                    'required' => false,
+                    'label' => 'API URL',
+                    'placeholder' => 'https://maps.googleapis.com/maps/api',
+                    'icon' => 'fas fa-link'
+                ],
+                'default_lat' => [
+                    'type' => 'number',
+                    'required' => false,
+                    'label' => 'Standart Latitude',
+                    'placeholder' => '41.311081',
+                    'step' => '0.000001',
+                    'icon' => 'fas fa-globe-asia'
+                ],
+                'default_lng' => [
+                    'type' => 'number',
+                    'required' => false,
+                    'label' => 'Standart Longitude',
+                    'placeholder' => '69.240562',
+                    'step' => '0.000001',
+                    'icon' => 'fas fa-globe-americas'
+                ],
+                'zoom_level' => [
+                    'type' => 'number',
+                    'required' => false,
+                    'label' => 'Standart Zoom Darajasi',
+                    'placeholder' => '12',
+                    'min' => 1,
+                    'max' => 20,
+                    'icon' => 'fas fa-search-plus'
+                ],
+                'description' => [
+                    'type' => 'textarea',
+                    'required' => false,
+                    'label' => 'Tavsif',
+                    'icon' => 'fas fa-align-left'
+                ]
+            ]
         ],
+
+        // 9. Google Analytics
         [
             'id' => 9,
             'name' => 'Google Analytics',
             'status' => true,
-            'api' => 'https://www.google-analytics.com',
-            'token' => 'tracking_id',
-            'secret_key' => null,
-            'password' => null,
-            'description' => 'Veb-analitika va foydalanuvchi kuzatish uchun Google Analytics.'
+            'category' => 'analytics',
+            'icon' => 'fas fa-chart-line',
+            'required_fields' => ['tracking_id'],
+            'fields_config' => [
+                'tracking_id' => [
+                    'type' => 'text',
+                    'required' => true,
+                    'label' => 'Tracking ID',
+                    'placeholder' => 'UA-XXXXXXXXX-X yoki G-XXXXXXXXXX',
+                    'icon' => 'fas fa-barcode'
+                ],
+                'measurement_id' => [
+                    'type' => 'text',
+                    'required' => false,
+                    'label' => 'Measurement ID',
+                    'placeholder' => 'G-XXXXXXXXXX',
+                    'icon' => 'fas fa-ruler'
+                ],
+                'property_id' => [
+                    'type' => 'text',
+                    'required' => false,
+                    'label' => 'Property ID',
+                    'placeholder' => 'GA4 property ID',
+                    'icon' => 'fas fa-building'
+                ],
+                'api_secret' => [
+                    'type' => 'text',
+                    'required' => false,
+                    'label' => 'API Secret',
+                    'placeholder' => 'Measurement Protocol API secret',
+                    'icon' => 'fas fa-key'
+                ],
+                'view_id' => [
+                    'type' => 'text',
+                    'required' => false,
+                    'label' => 'View ID (UA)',
+                    'placeholder' => 'Universal Analytics view ID',
+                    'icon' => 'fas fa-eye'
+                ],
+                'description' => [
+                    'type' => 'textarea',
+                    'required' => false,
+                    'label' => 'Tavsif',
+                    'icon' => 'fas fa-align-left'
+                ]
+            ]
         ],
+
+        // 10. MyId Tizimi
         [
             'id' => 10,
-            'name' => 'OAuth Service (Facebook/Telegram)',
+            'name' => 'MyId Tizimi',
             'status' => true,
-            'api' => 'https://oauth.example.com',
-            'token' => 'oauth_token',
-            'secret_key' => 'oauth_secret_key',
-            'password' => null,
-            'description' => 'Ijtimoiy tarmoqlar orqali tizimga kirish uchun OAuth integratsiyasi.'
+            'category' => 'auth',
+            'icon' => 'fas fa-id-card-alt',
+            'required_fields' => ['api', 'client_id', 'secret_key', 'redirect_uri'],
+            'fields_config' => [
+                'api' => [
+                    'type' => 'url',
+                    'required' => true,
+                    'label' => 'API URL',
+                    'placeholder' => 'https://api.myid.uz',
+                    'icon' => 'fas fa-link'
+                ],
+                'client_id' => [
+                    'type' => 'text',
+                    'required' => true,
+                    'label' => 'Client ID',
+                    'placeholder' => 'MyId client identifikatori',
+                    'icon' => 'fas fa-id-card'
+                ],
+                'secret_key' => [
+                    'type' => 'text',
+                    'required' => true,
+                    'label' => 'Client Secret',
+                    'placeholder' => 'MyId maxfiy kaliti',
+                    'icon' => 'fas fa-key'
+                ],
+                'redirect_uri' => [
+                    'type' => 'url',
+                    'required' => true,
+                    'label' => 'Redirect URI',
+                    'placeholder' => 'https://sizning-saytingiz.uz/auth/myid/callback',
+                    'icon' => 'fas fa-redo'
+                ],
+                'scope' => [
+                    'type' => 'text',
+                    'required' => false,
+                    'label' => 'Scope',
+                    'default' => 'openid profile phone email',
+                    'placeholder' => 'openid profile phone email',
+                    'icon' => 'fas fa-list'
+                ],
+                'description' => [
+                    'type' => 'textarea',
+                    'required' => false,
+                    'label' => 'Tavsif',
+                    'icon' => 'fas fa-align-left'
+                ]
+            ]
         ],
     ]);
 
