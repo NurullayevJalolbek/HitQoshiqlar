@@ -174,7 +174,7 @@
                         <ul class="flex-column nav">
                             <li class="nav-item {{ isActiveRoute('admin.references.*') }}">
                                 <a class="nav-link" href="{{ route('admin.references.index') }}">
-                                    <span class="sidebar-text">{{ __('admin.documents') }}</span>
+                                    <span class="sidebar-text">{{ __('admin.documents') }}*</span>
                                 </a>
                             </li>
                             <li class="nav-item {{ isActiveRoute(['admin.general-settings.*', 'admin.seo-settings.*', 'admin.localization.*']) }}">
