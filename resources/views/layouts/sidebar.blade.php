@@ -206,6 +206,7 @@
                             'admin.permissions.*',
                             'admin.login-histories.*',
                             'admin.system-logs.*',
+                            'admin.role-permissions.*'
                         ], 'show');
                     @endphp
 
@@ -237,7 +238,7 @@
                                     <span class="sidebar-text">{{ __('admin.investors') }}</span>
                                 </a>
                             </li>
-                            <li class="nav-item {{ isActiveRoute('admin.roles.*') }}">
+                            <li class="nav-item {{ isActiveRoute(['admin.roles.*', 'admin.role-permissions.*'   ]) }}">
                                 <a class="nav-link" href="{{ route('admin.roles.index') }}">
                                     <span class="sidebar-text">{{ __('admin.roles') }}</span>
                                 </a>

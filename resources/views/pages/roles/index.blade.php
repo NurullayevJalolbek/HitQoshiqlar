@@ -90,15 +90,8 @@ $end = $pagination['end'];
             </div>
 
             <!-- Tugmalar -->
-            <div class="col-md-2 d-flex gap-2">
-                <button id="filterBtn" class="btn btn-primary flex-grow-1 d-flex align-items-center justify-content-center gap-1">
-                    <i class="fas fa-filter"></i> {{ __('admin.search') }}
-                </button>
+            <x-filter-buttons :search-text="__('admin.search')" :clear-text="__('admin.clear')" />
 
-                <button id="clearBtn" class="btn btn-warning flex-grow-1 d-flex align-items-center justify-content-center gap-1">
-                    <i class="fas fa-times"></i> {{ __('admin.clear') }}
-                </button>
-            </div>
 
         </div>
     </div>
