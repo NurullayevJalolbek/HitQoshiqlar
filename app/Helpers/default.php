@@ -1672,52 +1672,76 @@ function getSEOSettings($page = null)
 {
     $seoSettings = collect([
         'general' => [
+            'name'=> 'Umumiy SEO Sozlamalari',
             'title' => 'Envast - Investitsiya Platformasi',
             'keywords' => 'Envast, investitsiya, ko\'chmas mulk, Islom moliyasi, ulushli moliyalashtirish, halol investitsiya, raqamli platforma, onlayn investitsiya, Shariat moliyasi',
             'description' => 'Envast - ko\'chmas mulkka halol va ulushli investitsiyalarni amalga oshirish uchun yaratilgan raqamli platforma. Investorlar investitsiya jarayonini onlayn nazorat qilish imkoniyatiga ega.',
-            'type' => 'general'
+            'type' => 'general',
+            'key'=>'general',
+            'icon'=> 'fa-globe'
         ],
         'home' => [
+            'name'=> 'Asosiy Sahifa SEO Sozlamalari',
             'title' => 'Envast | Investitsiya Platformasi',
             'keywords' => 'asosiy sahifa, investitsiya platformasi, investor paneli, onlayn investitsiya, ko\'chmas mulk, foyda kuzatuv tizimi',
             'description' => 'Asosiy sahifada investitsiya loyihalari, moliyalashtirish va foyda kuzatuv tizimi mavjud. Envast - ko\'chmas mulk investitsiyalari uchun yetakchi raqamli platforma.',
-            'type' => 'page'
+            'type' => 'page',
+            'key'=> 'home',
+            'icon'=>'fa-home'
         ],
         'about' => [
+            'name'=> 'Biz Haqimizda Sahifasi SEO',
             'title' => 'Envast Haqida | Bizning Maqsad va Qadriyatlar',
             'keywords' => 'Envast haqida, kompaniya tarixi, missiyasi, vision, jamoamiz, investorlar uchun platforma, Islom moliyasi prinsiplari',
             'description' => 'Envast - ko\'chmas mulkka halol va ulushli investitsiyalarni amalga oshirish uchun yaratilgan raqamli platforma. Bizning maqsadimiz - investorlar uchun ishonchli va Shariatga muvofiq investitsiya imkoniyatlarini yaratish.',
-            'type' => 'page'
+            'type' => 'page',
+            'key'=> 'about',
+            'icon'=> 'fa-info-circle'
         ],
         'projects' => [
+            'name'=> 'Investitsion Loyihalar Sahifasi SEO',
             'title' => 'Envast Loyiha Katalogi | Ko\'chmas Mulk Investitsiyalari',
             'keywords' => 'investitsion loyihalar, ko\'chmas mulk loyihalari, investitsiya ob\'yektlari, ulushli moliyalashtirish, aktivlarni tanlash, daromadli loyihalar, loyiha katalogi',
             'description' => 'Investitsion loyihalar katalogi. Investorlar uchun turli ko\'chmas mulk loyihalari, ulushli moliyalashtirish va daromad kuzatuvi. Turli xil investitsiya ob\'yektlari va ularning rentabelligi.',
-            'type' => 'page'
+            'type' => 'page',
+            'key'=> 'projects',
+            'icon'=> 'fa-building'
         ],
         'shariah' => [
+            'name'=> 'Shariatga Muvofiqligi Sahifasi SEO',
             'title' => 'Shariatga Muvofiqligi | Halol Investitsiya - Envast',
             'keywords' => 'Shariatga muvofiqligi, halol investitsiya, Islom moliyasi, Shariat qoidalari, mudoraba, musharaka, g\'arar va maisir, halol daromad',
             'description' => 'Envast platformasidagi barcha investitsiyalar Shariat qoidalariga qat\'iy rioya qilinadi. Mudoraba, Musharaka kabi halol moliyaviy modellar orqali investitsiya qilish imkoniyati.',
-            'type' => 'page'
+            'type' => 'page',
+            'key'=> 'shariah',
+            'icon'=> 'fa-star-and-crescent'
         ],
         'media' => [
+            'name'=> 'Media Sahifasi SEO',
             'title' => 'Media | Yangiliklar va Fotogalereya - Envast',
             'keywords' => 'media, yangiliklar, fotogalereya, videolar, tadbirlar, investor uchrashuvlari, loyiha yangiliklari, press-relizlar',
             'description' => 'Envast media markazi - platformamizdagi yangi loyihalar, investor uchrashuvlari, fotogalereya va videolar. Bizning faoliyatimiz haqida eng so\'nggi yangiliklar.',
-            'type' => 'page'
+            'type' => 'page',
+            'key'=> 'media',
+            'icon'=> 'fa-photo-video'
         ],
         'contact' => [
+            'name'=> 'Aloqa Sahifasi SEO',
             'title' => 'Bog\'lanish | Envast Investorlar Uchun Qo\'llab-quvvatlash',
             'keywords' => 'bog\'lanish, aloqa, mijozlar uchun qo\'llab-quvvatlash, texnik yordam, investor munosabatlari, ofis manzili, telefon raqamlari, elektron pochta',
             'description' => 'Envast bilan bog\'lanish uchun aloqa ma\'lumotlari. Investorlar uchun qo\'llab-quvvatlash xizmati, texnik yordam va maslahat olish imkoniyati. Biz bilan aloqaga chiqing.',
-            'type' => 'page'
+            'type' => 'page',
+            'key'=> 'contact',
+            'icon'=> 'fa-phone-alt'
         ],
         'og' => [
+            'name'=> 'Open Graph (Social Media) Sozlamalari',
             'title' => 'Envast - Investitsiya Platformasi',
             'description' => 'Ko\'chmas mulk investitsiyalari va ulushli moliyalashtirish imkoniyatlari. Halol va Shariatga muvofiq investitsiya platformasi.',
             'image' => 'https://envast.uz/images/og-image.jpg',
-            'type' => 'social'
+            'type' => 'social',
+            'key'=> 'og',
+            'icon'=> 'fa-facebook'
         ]
     ]);
 

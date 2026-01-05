@@ -132,7 +132,26 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'l
     });
 
 
-    Route::resource('/seo-settings', SEOController::class);
+    Route::prefix('/seo-settings')->name('seo-settings.')->group(function () {
+
+        // READ – barcha yozuvlarni ko‘rsatish
+        Route::get('/', [SEOController::class, 'index'])->name('index');
+
+        // CREATE – yangi yozuv yaratish formasi
+        Route::get('/create', [SEOController::class, 'create'])->name('create');
+        Route::post('/', [SEOController::class, 'store'])->name('store');
+
+        // SHOW – bitta yozuvni ko‘rsatish
+        Route::get('/{id}', [SEOController::class, 'show'])->name('show');
+
+        // EDIT – bitta yozuvni tahrirlash formasi
+        Route::get('/{key}/edit', [SEOController::class, 'edit'])->name('edit');
+        Route::put('/{key}', [SEOController::class, 'update'])->name('update');
+
+        // DELETE – bitta yozuvni o‘chirish
+        Route::delete('/{id}', [SEOController::class, 'destroy'])->name('destroy');
+    });
+
 
     Route::resource('/localization', LocalizationController::class);
 

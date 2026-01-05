@@ -14,10 +14,12 @@ class SEOController extends Controller
 
 
 
-    public function edit(Request $request)
+    public function edit(Request $request, $key)
     {
-        $model = getSEOSettings();
 
+        $model = getSEOSettings($key);
+
+        // dd($model);
         return view("pages.seo-settings.edit", compact('model'));
     }
 }
