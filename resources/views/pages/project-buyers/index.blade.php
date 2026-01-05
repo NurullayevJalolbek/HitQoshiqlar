@@ -326,7 +326,7 @@
                         @csrf
                         <input type="hidden" id="buyerId" name="id">
 
-                        <!-- Йўналиш -->
+                        {-- __('Йўналиш') --}
                         <div class="mb-3">
                             <label for="direction" class="form-label">{{ __('Йўналиш') }} <span
                                     class="text-danger">*</span></label>
@@ -338,7 +338,7 @@
                             </select>
                         </div>
 
-                        <!-- Корхона маълумотлари -->
+                        {-- __('Корхона маълумотлари') --}
                         <h6 class="mb-3 text-primary">{{ __('Корхона маълумотлари') }}</h6>
 
                         <div class="mb-3">
@@ -380,7 +380,7 @@
                             </div>
                         </div>
 
-                        <!-- ЯТТ учун қўшимча майдонлар -->
+                        {-- __('ЯТТ учун қўшимча майдонлар') --}
                         <div id="individualFields" style="display: none;">
                             <div class="row">
                                 <div class="col-md-6 mb-3">
@@ -395,7 +395,7 @@
                             </div>
                         </div>
 
-                        <!-- Шартнома маълумотлари -->
+                        {-- __('Шартнома маълумотлари') --}
                         <h6 class="mb-3 text-primary mt-4">{{ __('Шартнома маълумотлари') }}</h6>
 
                         <div class="mb-3">

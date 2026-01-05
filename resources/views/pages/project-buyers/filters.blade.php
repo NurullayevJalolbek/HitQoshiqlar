@@ -1,4 +1,3 @@
-
 @php
     $directions = [
         'yer' => __('Yer'),
@@ -22,15 +21,17 @@
                 <div class="input-group">
                     <span class="input-group-text bg-white"><i class="fas fa-search text-muted"></i></span>
                     <input type="text" id="searchInput" class="form-control"
-                           placeholder="{{ __('admin.enterprise_name') }}, {{ __('admin.director_name') }}, {{ __('admin.inn') }}...">
+                        placeholder="{{ __('admin.enterprise_name') }}, {{ __('admin.director_name') }}, {{ __('admin.inn') }}...">
                 </div>
             </div>
 
             <x-select-with-search name="filter_direction" label="{{ __('Йўналиш') }}" :datas="$directions" colMd="3"
-                placeholder="{{ __('Barchasi') }}" :selected="request()->get('filter_direction', '')" :selectSearch=false icon="fa-layer-group text-primary" />
+                placeholder="{{ __('Barchasi') }}" :selected="request()->get('filter_direction', '')"
+                :selectSearch=false icon="fa-layer-group text-primary" />
 
-            <x-select-with-search name="filter_activity" label="{{ __('Фаолият тури') }}" :datas="$activityTypes" colMd="3"
-                placeholder="{{ __('Barchasi') }}" :selected="request()->get('filter_activity', '')" :selectSearch=false />
+            <x-select-with-search name="filter_activity" label="{{ __('Фаолият тури') }}" :datas="$activityTypes"
+                colMd="3" placeholder="{{ __('Barchasi') }}" :selected="request()->get('filter_activity', '')"
+                :selectSearch=false />
 
             <!-- Filter tugmalari -->
             <x-filter-buttons />

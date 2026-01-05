@@ -157,17 +157,17 @@
     }
 
     function formatDate(dateString) {
-    if (!dateString) return '<span class="text-muted">-</span>';
+        if (!dateString) return '<span class="text-muted">-</span>';
 
-    const d = new Date(dateString);
-    if (isNaN(d)) return '<span class="text-muted">-</span>';
+        const d = new Date(dateString);
+        if (isNaN(d)) return '<span class="text-muted">-</span>';
 
-    const day = String(d.getDate()).padStart(2, '0');
-    const month = String(d.getMonth() + 1).padStart(2, '0');
-    const year = String(d.getFullYear()).slice(-2);
+        const day = String(d.getDate()).padStart(2, '0');
+        const month = String(d.getMonth() + 1).padStart(2, '0');
+        const year = String(d.getFullYear()).slice(-2);
 
-    return `${day}.${month}.${year}`;
-}
+        return `${day}.${month}.${year}`;
+    }
 
 
 
@@ -199,7 +199,7 @@
                         <div class="empty-state">
                             <i class="fas fa-folder-open"></i>
                             <div class="mt-2">
-                                <h5>Харидорлар топилмади</h5>
+                                <h5>{{ __('Харидорлар топилмади') }}</h5>
                                 <p class="text-muted">Filter sozlamalarini o'zgartiring yoki yangi xaridor qo'shing</p>
                             </div>
                         </div>

@@ -230,7 +230,7 @@
             <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
                 <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent mb-0">
                     <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Улушга кириш сўровлари</li>
+                    <li class="breadcrumb-item active" aria-current="page">Kirish so'rovlari</li>
                 </ol>
             </nav>
         </div>

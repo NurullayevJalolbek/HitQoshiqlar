@@ -214,7 +214,7 @@
                         </a>
                     </li>
                     <li class="breadcrumb-item active" aria-current="page">
-                        {{ __('admin.revenue_card') ?? 'Tushum kartochkasi' }}
+                    {{ "Tushum kartochkasi" }}
                     </li>
                 </ol>
             </nav>

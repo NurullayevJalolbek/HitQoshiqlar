@@ -167,7 +167,7 @@
             <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
                 <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent mb-0">
                     <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
-                    <li class="breadcrumb-item active" aria-current="page">{{ __('admin.project_exit_requests') }}</li>
+                    <li class="breadcrumb-item active" aria-current="page">Chiqish so'rovlari</li>
                 </ol>
             </nav>
         </div>
