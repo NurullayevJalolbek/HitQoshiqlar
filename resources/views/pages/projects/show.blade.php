@@ -1757,69 +1757,47 @@
         </div>
 
         <div id="risks" class="tab-content">
+
+            {{-- === RISKS INFO CARD === --}}
             <div class="info-card">
                 <div class="d-flex justify-content-between align-items-center">
                     <h5 class="info-card-title mb-0">
-                        <i class="bi bi-exclamation-triangle"></i>
-                        Xatarlar (Risklar)
+                        <i class="bi bi-diagram-3"></i>
+                        Loyihaning boshqarilish modeli va xatar darajasi
                     </h5>
-
                     <div class="tab-header-actions">
-                        <div class="input-group input-group-sm w-auto tab-tools" id="risksTools">
-                            <span class="input-group-text"><i class="bi bi-node-plus"></i></span>
-                            <select class="form-select form-select-sm" id="riskInsertAfterSelect"
-                                onchange="setRiskInsertAfter(this.value)">
-                                <option value="">Oxiriga qo‘shish</option>
-                            </select>
-                        </div>
-                        <span class="drop-hint" id="risksHint">
-                            <i class="bi bi-grip-vertical"></i>
-                            Ushlab tortib joyini o‘zgartiring
-                        </span>
-                        <button type="button" class="btn btn-primary btn-sm d-none" id="addRiskBtn" onclick="addNewRisk()">
-                            <i class="bi bi-plus-lg me-1"></i>
-                            Yangi xatar qo'shish
-                        </button>
-                        <button type="button" class="btn btn-outline-secondary btn-sm" id="toggleRisksEditBtn"
-                            onclick="toggleRisksEdit()">
+                        <button type="button" class="btn btn-outline-secondary btn-sm" id="toggleRisksInfoEditBtn"
+                            onclick="toggleRisksInfoEdit()">
                             <i class="bi bi-pencil-square me-1"></i>
                             Tahrirlash
                         </button>
                     </div>
                 </div>
+
                 <div class="info-grid" id="risksInfoContent">
-                    <div class="info-row">
-                        <span class="info-label">
-                            <i class="bi bi-diagram-3 me-1 text-muted"></i>
-                            Loyihaning boshqarilish modeli nomi
-                        </span>
-                        <span class="info-value" id="managementModel">-</span>
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">
-                            <i class="bi bi-file-text me-1 text-muted"></i>
-                            Loyihaning boshqarilish modeli to'liq tavsifi
-                        </span>
-                        <span class="info-value" id="managementDescription">-</span>
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">
-                            <i class="bi bi-shield-exclamation me-1 text-muted"></i>
-                            Loyihaning xatar darajasi
-                        </span>
-                        <span class="info-value">
-                            <span class="status-badge" id="riskLevel">-</span>
-                        </span>
+                    {{-- JS orqali to‘ldiriladi --}}
+                </div>
+            </div>
+
+            {{-- === RISKS LIST CARD === --}}
+            <div class="info-card mt-4">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h5 class="info-card-title mb-0">
+                        <i class="bi bi-exclamation-triangle"></i>
+                        Loyihadagi asosiy xatarlar
+                    </h5>
+                    <div class="tab-header-actions">
+                        <button type="button" class="btn btn-outline-secondary btn-sm" id="toggleRisksListEditBtn"
+                            onclick="toggleRisksListEdit()">
+                            <i class="bi bi-pencil-square me-1"></i>
+                            Tahrirlash
+                        </button>
                     </div>
                 </div>
 
-                <h6
-                    style="margin-top: 2rem; margin-bottom: 1rem; font-weight: 600; display: flex; align-items: center; gap: 0.5rem;">
-                    <i class="bi bi-exclamation-circle"></i>
-                    Mumkin bo'lgan xatarlar
-                </h6>
                 <div id="risksContainer"></div>
             </div>
+
         </div>
 
         <div id="documents" class="tab-content">
