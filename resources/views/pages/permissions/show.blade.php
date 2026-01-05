@@ -232,8 +232,19 @@
     <div class="d-block mb-2 mb-md-0">
         <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
             <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent mb-0">
-                <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
-                <li class="breadcrumb-item active" aria-current="page">{{ __('admin.permissions') }}</li>
+                <li class="breadcrumb-item">
+                    <a href="{{ route('admin.dashboard') }}">
+                        <i class="fas fa-home"></i>
+                    </a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="{{ route('admin.roles.index') }}">
+                        {{ __('admin.roles') }}
+                    </a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">
+                    Ruxsatlar
+                </li>
             </ol>
         </nav>
     </div>
@@ -449,6 +460,14 @@ $tabs = [
         @php $isFirst = false; @endphp
         @endforeach
     </div>
+
+    <div class="d-flex justify-content-end mt-3 gap-2">
+
+        <button class="btn btn-primary" type="submit">
+            <i class="fas fa-save me-1"></i>
+            Saqlash
+        </button>
+    </div>
 </div>
 
 <!-- Saqlash tugmasi -->
@@ -458,13 +477,6 @@ $tabs = [
     </button>
 </div> -->
 
-<div class="d-flex justify-content-end mt-3 gap-2">
-
-    <button class="btn btn-primary" type="submit">
-        <i class="fas fa-save me-1"></i>
-        Saqlash
-    </button>
-</div>
 
 @endsection
 
@@ -548,7 +560,7 @@ $tabs = [
         }
     }
 
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function() {
         const navTabs = document.getElementById('permissionTabs');
         if (navTabs) {
             checkPermissionScrollButtons();

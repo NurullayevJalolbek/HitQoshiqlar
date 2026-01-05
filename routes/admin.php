@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\IslamicFinanceController;
 use App\Http\Controllers\Admin\AdministrationController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\CompanyDetailController;
+use App\Http\Controllers\Admin\SecuritySupportController;
 use App\Http\Controllers\Admin\SEOController;
 use App\Http\Controllers\Admin\StaticPageController;
 use App\Http\Controllers\Admin\SystemTranslationController;
@@ -151,6 +152,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'l
         // DELETE – bitta yozuvni o‘chirish
         Route::delete('/{id}', [SEOController::class, 'destroy'])->name('destroy');
     });
+
+
+    Route::resource('/security-support', SecuritySupportController::class);
 
 
     Route::resource('/localization', LocalizationController::class);
