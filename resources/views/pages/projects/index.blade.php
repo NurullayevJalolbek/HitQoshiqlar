@@ -747,7 +747,6 @@
 
             const routes = {
                 show: "{{ route('admin.projects.show', ':id') }}",
-                edit: "{{ route('admin.projects.edit', ':id') }}",
                 delete: "{{ route('admin.project.destroy', ':id') }}"
             };
             const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
@@ -755,7 +754,6 @@
             let html = '';
             list.forEach(p => {
                 const showUrl = routes.show.replace(':id', p.id);
-                const editUrl = routes.edit.replace(':id', p.id);
                 const destroyUrl = routes.delete.replace(':id', p.id);
 
                 // FIX 2: Progress bar rangi
@@ -803,7 +801,6 @@
                             <td>
                                 <div class="action-buttons">
                                     <x-show-button href=${showUrl}/>
-                                    <x-edit-button href=${editUrl}/>
                                     <x-delete-button href=${destroyUrl}/>
                                 </div>
                             </td>

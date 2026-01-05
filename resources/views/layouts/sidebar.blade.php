@@ -105,7 +105,7 @@
                 <li class="nav-item {{ isActiveRoute('admin.expenses.*') }}">
                     <a href="{{ route('admin.expenses.index') }}" class="nav-link d-flex align-items-center gap-2">
                         <i class="bi bi-cash-stack"></i>
-                        <span class="sidebar-text ms-2">{{ __('admin.expenses') }}</span>
+                        <span class="sidebar-text ms-2">{{ __('admin.expenses') . '*' }}</span>
                     </a>
                 </li>
 
@@ -113,7 +113,7 @@
                 <li class="nav-item {{ isActiveRoute('admin.distributions.*') }}">
                     <a href="{{ route('admin.distributions.index') }}" class="nav-link d-flex align-items-center gap-2">
                         <i class="bi bi-diagram-3"></i>
-                        <span class="sidebar-text ms-2">{{ __('admin.distributions') }}</span>
+                        <span class="sidebar-text ms-2">{{ __('admin.distributions') . '*' }}</span>
                     </a>
                 </li>
 
@@ -121,7 +121,7 @@
                 <li class="nav-item {{ isActiveRoute('admin.investment-contracts.*') }}">
                     <a href="{{ route('admin.investment-contracts.index') }}" class="nav-link d-flex align-items-center gap-2">
                         <i class="bi bi-file-earmark-text"></i>
-                        <span class="sidebar-text ms-2">{{ __('admin.investment-contracts') }}</span>
+                        <span class="sidebar-text ms-2">{{ __('admin.investment-contracts') . '*' }}</span>
                     </a>
                 </li>
 
@@ -129,7 +129,7 @@
                 <li class="nav-item {{ isActiveRoute('admin.reports.*') }}">
                     <a href="{{ route('admin.reports.index') }}" class="nav-link d-flex align-items-center gap-2">
                         <i class="bi bi-bar-chart-line"></i>
-                        <span class="sidebar-text ms-2">{{ __('admin.reports') }}</span>
+                        <span class="sidebar-text ms-2">{{ __('admin.reports') . '*' }}</span>
                     </a>
                 </li>
 
@@ -137,7 +137,7 @@
                 <li class="nav-item {{ isActiveRoute('admin.islamic-finance.*') }}">
                     <a href="{{ route('admin.islamic-finance.index') }}" class="nav-link d-flex align-items-center gap-2">
                         <i class="bi bi-shield-check"></i>
-                        <span class="sidebar-text ms-2">{{ __('admin.islamic-finance') }}</span>
+                        <span class="sidebar-text ms-2">{{ __('admin.islamic-finance') . '*' }}</span>
                     </a>
                 </li>
 
