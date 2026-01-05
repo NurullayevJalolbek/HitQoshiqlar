@@ -149,7 +149,7 @@
                     </a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">
-                    {{ __('admin.incomes') ?? 'Daromadlar' }}
+                    {{ 'Daromadlar' }}
                 </li>
             </ol>
         </nav>
@@ -246,15 +246,15 @@
         <thead class="table-dark">
             <tr>
                 <th>ID</th>
-                <th>{{ __('admin.project') ?? 'Loyiha' }}</th>
-                <th>{{ __('admin.category') ?? 'Kategoriya' }}</th>
-                <th>{{ __('admin.incomes.total_income') ?? 'Jami daromad' }}</th>
-                <th>{{ __('admin.incomes.rent_income') ?? 'Ijara daromadi' }}</th>
-                <th>{{ __('admin.incomes.construction_income') ?? 'Qurilishdan' }}</th>
-                <th>{{ __('admin.incomes.land_income') ?? 'Yerdan' }}</th>
-                <th>{{ __('admin.incomes.full_partner_share') ?? 'Tўliq sherik ulushi (30%)' }}</th>
-                <th>{{ __('admin.payment_status') ?? 'To‘lov holati' }}</th>
-                <th>{{ __('admin.next_distribution_date') ?? 'Keyingi taqsimot' }}</th>
+                <th>{{ 'Loyiha' }}</th>
+                <th>{{ 'Kategoriya' }}</th>
+                <th>{{ 'Jami daromad' }}</th>
+                <th>{{ 'Ijara daromadi' }}</th>
+                <th>{{ 'Qurilishdan' }}</th>
+                <th>{{ 'Yerdan' }}</th>
+                <th>{{ 'Tўliq sherik ulushi (30%)' }}</th>
+                <th>{{ 'To‘lov holati' }}</th>
+                <th>{{ 'Keyingi taqsimot' }}</th>
                 <th class="text-center">{{ __('admin.actions') }}</th>
             </tr>
         </thead>

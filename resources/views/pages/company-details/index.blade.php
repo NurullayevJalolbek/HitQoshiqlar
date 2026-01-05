@@ -137,7 +137,7 @@
                         </a>
                     </li>
                     <li class="breadcrumb-item active" aria-current="page">
-                        {{ __('admin.company_details') ?? 'Rekvizitlar' }}
+                        {{ __('Rekvizitlar') ?? 'Rekvizitlar' }}
                     </li>
                 </ol>
             </nav>
@@ -175,7 +175,7 @@
                 {{-- Korxona kategoriyasi --}}
                 <x-select-with-search
                     name="companyCategoryFilter"
-                    label="{{ __('admin.company_category') ?? 'Korxona kategoriyasi' }}"
+                    label="Korxona kategoriyasi"
                     :datas="[
                         'full_partner' => 'To‘liq sherik',
                         'subsidiary' => 'Shu\'ba korxona',
@@ -208,17 +208,17 @@
             <thead class="table-dark">
                 <tr>
                     <th>ID</th>
-                    <th>{{ __('admin.company_name') ?? 'Korxona to‘liq nomi' }}</th>
-                    <th>{{ __('admin.company_category') ?? 'Korxona kategoriyasi' }}</th>
+                    <th>{{ 'Korxona to‘liq nomi' }}</th>
+                    <th>{{ 'Korxona kategoriyasi' }}</th>
 
                     {{-- INN ustuni kodda bor, lekin ko‘rinmaydi --}}
-                    <th class="col-inn">{{ __('admin.inn') ?? 'INN' }}</th>
+                    <th class="col-inn">{{ 'INN' }}</th>
 
-                    <th>{{ __('admin.ifut_code') ?? 'IFUT kodi' }}</th>
-                    <th>{{ __('admin.activity_type') ?? 'Faoliyat turi' }}</th>
-                    <th>{{ __('admin.address') ?? 'Manzili' }}</th>
+                    <th>{{ 'IFUT kodi' }}</th>
+                    <th>{{ 'Faoliyat turi' }}</th>
+                    <th>{{ 'Manzili' }}</th>
 
-                    <th>{{ __('admin.director_fio') ?? 'Direktor F.I.O.' }}</th>
+                    <th>{{ 'Direktor F.I.O.' }}</th>
 
                     {{-- Telefon ustuni kodda bor, lekin ko‘rinmaydi --}}
                     <th class="col-phone">{{ __('admin.phone') ?? 'Telefon' }}</th>
@@ -231,7 +231,7 @@
                     <th class="col-regnum">{{ __('admin.registration_number') ?? 'Ro‘yxat raqami' }}</th>
                     <th class="col-regorg">{{ __('admin.registration_org') ?? 'Ro‘yxatdan o‘tkazgan tashkilot' }}</th>
 
-                    <th>{{ __('admin.passport') ?? 'Pasport (YaTT)' }}</th>
+                    <th>{{ 'Pasport (YaTT)' }}</th>
 
                     {{-- JSHSHIR ustuni kodda bor, lekin ko‘rinmaydi --}}
                     <th class="col-jshshir">{{ __('admin.jshshir') ?? 'JSHSHIR (YaTT)' }}</th>

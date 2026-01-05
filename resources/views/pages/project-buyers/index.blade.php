@@ -228,8 +228,8 @@
         }
 
         /* ====== KENGAYTIRILGAN QISQARTIRISH (USTUNLARNI YASHIRISH) ======
-           Ustunlar o‘chirilmaydi, faqat ko‘rinishi yopiladi.
-        */
+               Ustunlar o‘chirilmaydi, faqat ko‘rinishi yopiladi.
+            */
         .buyer-table th.col-inn,
         .buyer-table td.col-inn,
         .buyer-table th.col-phone,
@@ -244,25 +244,26 @@
 @section('breadcrumb')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-3 breadcrumb-block px-3 mt-3"
         style="border: 1px solid rgba(0,0,0,0.05); border-radius: 0.5rem; background-color: #ffffff; height: 60px">
-        <!-- Breadcrumb -->
         <div class="d-block mb-2 mb-md-0">
             <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
                 <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent mb-0">
                     <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
-                    <li class="breadcrumb-item active" aria-current="page">{{ __('admin.project_buyers') }}</li>
+                    <li class="breadcrumb-item active" aria-current="page">
+                        {{ __('admin.project_buyers') }}
+                    </li>
                 </ol>
             </nav>
         </div>
-        <!-- Tugmalar guruhi -->
+
         <div class="d-flex gap-2 align-items-center flex-wrap">
             <button class="btn btn-primary btn-sm d-flex align-items-center gap-2" data-bs-toggle="modal"
                 data-bs-target="#createBuyerModal">
                 <i class="fas fa-plus"></i>
-                <span class="d-none d-sm-inline">{{ __('Қўшиш') }}</span>
+                <span class="d-none d-sm-inline">{{ __('Qo\'shish') }}</span>
             </button>
+
             <button class="btn btn-sm p-2 d-flex align-items-center justify-content-center" type="button"
-                data-bs-toggle="collapse" data-bs-target="#projectBuyerFilterContent" aria-expanded="true"
-                aria-controls="projectBuyerFilterContent">
+                data-bs-toggle="collapse" data-bs-target="#projectBuyerFilterContent">
                 <i class="fa-solid fa-list" style="font-size: 1.3rem;"></i>
             </button>
         </div>
@@ -270,25 +271,23 @@
 @endsection
 
 @section('content')
-    <!-- Success/Error Messages -->
+
     @if (session('success'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <div class="alert alert-success alert-dismissible fade show">
             <i class="fas fa-check-circle me-2"></i>{{ session('success') }}
             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
         </div>
     @endif
 
     @if (session('error'))
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <div class="alert alert-danger alert-dismissible fade show">
             <i class="fas fa-exclamation-circle me-2"></i>{{ session('error') }}
             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
         </div>
     @endif
 
-    <!-- Filters -->
     @include('pages.project-buyers.filters')
 
-    <!-- Main Table -->
     <div class="card card-body py-3 px-3 shadow-sm border-0 mt-3">
         <div class="table-responsive">
             <table class="table buyer-table table-bordered table-hover table-striped align-items-center mb-0">
@@ -298,162 +297,144 @@
                 <tbody id="buyerTableBody">
                     <tr class="loading-row">
                         <td colspan="14" class="text-center py-4 text-muted">
-                            <i class="fas fa-spinner fa-spin me-2"></i>{{ __('Юкланмоқда...') }}
+                            <i class="fas fa-spinner fa-spin me-2"></i>{{ __('yuklanmoqda') }}
                         </td>
                     </tr>
                 </tbody>
             </table>
         </div>
 
-        <!-- Empty State -->
         <div id="emptyState" class="empty-state text-center" style="display: none;">
             <i class="fas fa-inbox"></i>
-            <h5 class="mt-3 mb-2 text-muted">{{ __('Маълумотлар топилмади') }}</h5>
-            <p class="text-muted mb-0">{{ __('Ҳали ҳеч қандай маълумот қўшилмаган') }}</p>
+            <h5 class="mt-3 mb-2 text-muted">{{ __('malumotlar_topilmadi') }}</h5>
+            <p class="text-muted mb-0">{{ __('hali_malumot_qoshilmagan') }}</p>
         </div>
     </div>
 
-    <!-- Create/Edit Modal -->
-    <div class="modal fade" id="createBuyerModal" tabindex="-1" aria-labelledby="createBuyerModalLabel" aria-hidden="true">
+    {{-- Create / Edit modal --}}
+    <div class="modal fade" id="createBuyerModal" tabindex="-1">
         <div class="modal-dialog modal-lg modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="createBuyerModalLabel">{{ __('Харидор қўшиш') }}</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h5 class="modal-title">{{ __('xaridor_qoshish') }}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
+
                 <div class="modal-body">
                     <form id="buyerForm">
                         @csrf
                         <input type="hidden" id="buyerId" name="id">
 
-                        {-- __('Йўналиш') --}
                         <div class="mb-3">
-                            <label for="direction" class="form-label">{{ __('Йўналиш') }} <span
-                                    class="text-danger">*</span></label>
-                            <select class="form-select" id="direction" name="direction" required>
-                                <option value="">{{ __('Танланг') }}</option>
-                                <option value="land">{{ __('Ер участкаси') }}</option>
-                                <option value="construction">{{ __('Қурилиш') }}</option>
-                                <option value="rent">{{ __('Ижара') }}</option>
+                            <label class="form-label">
+                                {{ __('yonalish') }} <span class="text-danger">*</span>
+                            </label>
+                            <select class="form-select" name="direction" required>
+                                <option value="">{{ __('tanlang') }}</option>
+                                <option value="land">{{ __('yer_uchastkasi') }}</option>
+                                <option value="construction">{{ __('qurilish') }}</option>
+                                <option value="rent">{{ __('ijara') }}</option>
                             </select>
                         </div>
 
-                        {-- __('Корхона маълумотлари') --}
-                        <h6 class="mb-3 text-primary">{{ __('Корхона маълумотлари') }}</h6>
+                        <h6 class="mb-3 text-primary">{{ __('korxona_malumotlari') }}</h6>
 
                         <div class="mb-3">
-                            <label for="company_name" class="form-label">{{ __('Корхона тўлиқ номи') }} <span
-                                    class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="company_name" name="company_name" required>
+                            <label class="form-label">
+                                {{ __('korxona_toliq_nomi') }} <span class="text-danger">*</span>
+                            </label>
+                            <input type="text" class="form-control" name="company_name" required>
                         </div>
 
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                <label for="inn" class="form-label">{{ __('ИНН') }} <span
-                                        class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="inn" name="inn" required>
+                                <label class="form-label">{{ __('inn') }} *</label>
+                                <input type="text" class="form-control" name="inn" required>
                             </div>
+
                             <div class="col-md-6 mb-3">
-                                <label for="activity_type" class="form-label">{{ __('Фаолият тури') }} <span
-                                        class="text-danger">*</span></label>
-                                <select class="form-select" id="activity_type" name="activity_type" required>
-                                    <option value="">{{ __('Танланг') }}</option>
-                                    <option value="llc">{{ __('МЧЖ') }}</option>
-                                    <option value="jsc">{{ __('АЖ') }}</option>
-                                    <option value="individual">{{ __('ЯТТ') }}</option>
+                                <label class="form-label">{{ __('faoliyat_turi') }} *</label>
+                                <select class="form-select" name="activity_type" required>
+                                    <option value="">{{ __('tanlang') }}</option>
+                                    <option value="llc">{{ __('mchj') }}</option>
+                                    <option value="jsc">{{ __('aj') }}</option>
+                                    <option value="individual">{{ __('yatt') }}</option>
                                 </select>
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                <label for="director_name" class="form-label">{{ __('Директор Ф.И.О.') }} <span
-                                        class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="director_name" name="director_name"
-                                    required>
+                                <label class="form-label">{{ __('direktor_fio') }} *</label>
+                                <input type="text" class="form-control" name="director_name" required>
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label for="phone" class="form-label">{{ __('Телефон рақами') }} <span
-                                        class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="phone" name="phone"
-                                    placeholder="+998" required>
+                                <label class="form-label">{{ __('telefon_raqami') }} *</label>
+                                <input type="text" class="form-control" name="phone" placeholder="+998" required>
                             </div>
                         </div>
 
-                        {-- __('ЯТТ учун қўшимча майдонлар') --}
-                        <div id="individualFields" style="display: none;">
-                            <div class="row">
-                                <div class="col-md-6 mb-3">
-                                    <label for="passport" class="form-label">{{ __('Паспорт маълумоти') }}</label>
-                                    <input type="text" class="form-control" id="passport" name="passport">
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label for="pinfl" class="form-label">{{ __('ЖШШИР') }}</label>
-                                    <input type="text" class="form-control" id="pinfl" name="pinfl"
-                                        maxlength="14">
-                                </div>
-                            </div>
-                        </div>
-
-                        {-- __('Шартнома маълумотлари') --}
-                        <h6 class="mb-3 text-primary mt-4">{{ __('Шартнома маълумотлари') }}</h6>
+                        <h6 class="mb-3 text-primary mt-4">{{ __('shartnoma_malumotlari') }}</h6>
 
                         <div class="mb-3">
-                            <label for="contract_file" class="form-label">{{ __('Шартнома файли') }}</label>
-                            <input type="file" class="form-control" id="contract_file" name="contract_file"
-                                accept=".pdf,.doc,.docx">
-                            <small class="text-muted">{{ __('PDF, DOC, DOCX форматида') }}</small>
+                            <label class="form-label">{{ __('shartnoma_fayli') }}</label>
+                            <input type="file" class="form-control" name="contract_file">
+                            <small class="text-muted">{{ __('pdf_doc_docx_format') }}</small>
                         </div>
 
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                <label for="contract_number" class="form-label">{{ __('Шартнома рақами') }} <span
-                                        class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="contract_number" name="contract_number"
-                                    required>
+                                <label class="form-label">{{ __('shartnoma_raqami') }} *</label>
+                                <input type="text" class="form-control" name="contract_number" required>
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label for="contract_date" class="form-label">{{ __('Шартнома санаси') }} <span
-                                        class="text-danger">*</span></label>
-                                <input type="date" class="form-control" id="contract_date" name="contract_date"
-                                    required>
+                                <label class="form-label">{{ __('shartnoma_sanasi') }} *</label>
+                                <input type="date" class="form-control" name="contract_date" required>
                             </div>
                         </div>
 
                         <div class="mb-3">
-                            <label for="payment_terms" class="form-label">{{ __('Тўлов шартлари') }}</label>
-                            <textarea class="form-control" id="payment_terms" name="payment_terms" rows="3"></textarea>
+                            <label class="form-label">{{ __('tolov_shartlari') }}</label>
+                            <textarea class="form-control" name="payment_terms"></textarea>
                         </div>
                     </form>
                 </div>
+
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary"
-                        data-bs-dismiss="modal">{{ __('Бекор қилиш') }}</button>
-                    <button type="button" class="btn btn-primary" id="saveBuyerBtn">{{ __('Сақлаш') }}</button>
+                    <button class="btn btn-secondary" data-bs-dismiss="modal">
+                        {{ __('bekor_qilish') }}
+                    </button>
+                    <button class="btn btn-primary" id="saveBuyerBtn">
+                        {{ __('saqlash') }}
+                    </button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Delete Confirmation Modal -->
-    <div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true">
+    {{-- Delete modal --}}
+    <div class="modal fade" id="deleteModal" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">{{ __('Ўчиришни тасдиқлаш') }}</h5>
+                    <h5 class="modal-title">{{ __('ochirishni_tasdiqlash') }}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
-                    <p>{{ __('Ҳақиқатан ҳам ушбу маълумотни ўчирмоқчимисиз?') }}</p>
+                    {{ __('rostdan_ham_ochirmoqchimisiz') }}
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary"
-                        data-bs-dismiss="modal">{{ __('Йўқ') }}</button>
-                    <button type="button" class="btn btn-danger" id="confirmDeleteBtn">{{ __('Ҳа, ўчириш') }}</button>
+                    <button class="btn btn-secondary" data-bs-dismiss="modal">
+                        {{ __('yoq') }}
+                    </button>
+                    <button class="btn btn-danger" id="confirmDeleteBtn">
+                        {{ __('ha_ochirish') }}
+                    </button>
                 </div>
             </div>
         </div>
     </div>
+
 @endsection
 
 @push('customJs')
