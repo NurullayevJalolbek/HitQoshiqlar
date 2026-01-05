@@ -63,23 +63,36 @@
 @endpush
 
 @section('breadcrumb')
+
+
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-3 breadcrumb-block px-3 mt-3"
     style="border:1px solid rgba(0,0,0,0.05);border-radius:0.5rem;background:#fff;height:60px">
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb breadcrumb-transparent mb-0">
-            <li class="breadcrumb-item">
-                <a href="{{ route('admin.dashboard') }}"><i class="fas fa-home"></i></a>
-            </li>
-            <li class="breadcrumb-item active" aria-current="page">
-                Umumiy sozlamalar
-            </li>
-            <li class="breadcrumb-item">
-                <a href="{{ route('admin.seo-settings.index') }}">SEO Sozlamalari</a>
-            </li>
-            <li class="breadcrumb-item active">Tahrirlash</li>
-        </ol>
-    </nav>
+
+    <div class="d-block mb-2 mb-md-0">
+
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb breadcrumb-transparent mb-0">
+                <li class="breadcrumb-item">
+                    <a href="{{ route('admin.dashboard') }}"><i class="fas fa-home"></i></a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">
+                    Umumiy sozlamalar
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="{{ route('admin.seo-settings.index') }}">SEO Sozlamalari</a>
+                </li>
+                <li class="breadcrumb-item active">Tahrirlash</li>
+            </ol>
+        </nav>
+    </div>
+
+
+    <div class="d-flex gap-2 align-items-center flex-wrap">
+
+       <x-go-back url="{{ route('admin.seo-settings.index') }}" />
+    </div>
 </div>
+
 @endsection
 
 @section('content')

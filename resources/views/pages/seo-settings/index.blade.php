@@ -381,12 +381,10 @@ $model = getSEOSettings();
         </nav>
     </div>
 
-    <!-- <div class="d-flex gap-2 align-items-center flex-wrap">
-            <a href="{{ route('admin.seo-settings.edit', 1) }}" class="btn btn-primary btn-sm px-3 py-1"
-                style="min-width: 90px;">
-                <i class="fa-jelly-duo fa-solid fa-pencil" style="font-size: 0.85rem;"></i> Tahrirlash
-            </a>
-        </div> -->
+    <div class="d-flex gap-2 align-items-center flex-wrap">
+
+        <x-go-back url="{{ route('admin.general-settings.index') }}" />
+    </div>
 
 
 
