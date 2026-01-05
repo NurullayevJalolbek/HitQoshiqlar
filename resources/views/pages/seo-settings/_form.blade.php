@@ -70,8 +70,11 @@
             <li class="breadcrumb-item">
                 <a href="{{ route('admin.dashboard') }}"><i class="fas fa-home"></i></a>
             </li>
+            <li class="breadcrumb-item active" aria-current="page">
+                Umumiy sozlamalar
+            </li>
             <li class="breadcrumb-item">
-                <a href="{{ route('admin.seo-settings.index') }}">SEO</a>
+                <a href="{{ route('admin.seo-settings.index') }}">SEO Sozlamalari</a>
             </li>
             <li class="breadcrumb-item active">Tahrirlash</li>
         </ol>
@@ -133,7 +136,7 @@
 
                         <button class="btn btn-primary" type="submit">
                             <i class="fas fa-save me-1"></i>
-                             Yangilash 
+                            Yangilash
                         </button>
                     </div>
 
