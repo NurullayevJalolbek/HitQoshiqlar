@@ -1780,6 +1780,7 @@
             </div>
 
             {{-- === RISKS LIST CARD === --}}
+            {{-- === RISKS LIST CARD === --}}
             <div class="info-card mt-4">
                 <div class="d-flex justify-content-between align-items-center">
                     <h5 class="info-card-title mb-0">
@@ -1795,8 +1796,9 @@
                     </div>
                 </div>
 
-                <div id="risksContainer"></div>
+                <div id="risksContainer" class="sortable-risks-list"></div>
             </div>
+
 
         </div>
 
