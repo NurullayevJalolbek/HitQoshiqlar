@@ -243,7 +243,7 @@
                     </a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">
-                   Ruxsatlar
+                    Ruxsatlar
                 </li>
             </ol>
         </nav>
@@ -460,6 +460,14 @@ $tabs = [
         @php $isFirst = false; @endphp
         @endforeach
     </div>
+
+    <div class="d-flex justify-content-end mt-3 gap-2">
+
+        <button class="btn btn-primary" type="submit">
+            <i class="fas fa-save me-1"></i>
+            Saqlash
+        </button>
+    </div>
 </div>
 
 <!-- Saqlash tugmasi -->
@@ -469,13 +477,6 @@ $tabs = [
     </button>
 </div> -->
 
-<div class="d-flex justify-content-end mt-3 gap-2">
-
-    <button class="btn btn-primary" type="submit">
-        <i class="fas fa-save me-1"></i>
-        Saqlash
-    </button>
-</div>
 
 @endsection
 

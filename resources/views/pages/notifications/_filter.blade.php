@@ -44,15 +44,8 @@ $statuses = ['unread' => 'O‘qilmagan', 'read' => 'O‘qilgan'];
 
 
             {{-- Tugmalar --}}
-            <div class="col-md-2 d-flex gap-2">
-                <button id="filterBtn" class="btn btn-primary w-50">
-                    <i class="fas fa-filter"></i> {{__('admin.search')}}
-                </button>
+            <x-filter-buttons :search-text="__('admin.search')" :clear-text="__('admin.clear')" />
 
-                <button id="clearBtn" class="btn btn-warning w-50">
-                    {{__('admin.clear')}}
-                </button>
-            </div>
         </div>
     </div>
 </div>
