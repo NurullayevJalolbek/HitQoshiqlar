@@ -1734,10 +1734,24 @@
 
         <div id="partners" class="tab-content">
             <div class="info-card">
-                <h5 class="info-card-title">
-                    <i class="bi bi-people"></i>
-                    To'liq sheriklar rekvizit ma'lumotlari
-                </h5>
+                <div class="d-flex justify-content-between align-items-center">
+                    <h5 class="info-card-title mb-0">
+                        <i class="bi bi-people"></i>
+                        To'liq sheriklar rekvizit ma'lumotlari
+                    </h5>
+                    <div class="d-flex align-items-center gap-2">
+                        <button type="button" class="btn btn-primary btn-sm" id="addPartnerBtn" onclick="addNewPartner()"
+                            style="display: none;">
+                            <i class="bi bi-plus-lg me-1"></i>
+                            Yangi sherik qo'shish
+                        </button>
+                        <button type="button" class="btn btn-outline-secondary btn-sm" id="togglePartnersEditBtn"
+                            onclick="togglePartnersEdit()">
+                            <i class="bi bi-pencil-square me-1"></i>
+                            Tahrirlash
+                        </button>
+                    </div>
+                </div>
                 <div id="partnersContainer"></div>
             </div>
         </div>
