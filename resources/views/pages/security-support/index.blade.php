@@ -18,7 +18,26 @@
         margin-bottom: 1.5rem;
         transition: all 0.3s ease;
         background-color: #ffffff;
+
+        position: relative;
+        /* Bu qatorni qo'shing */
+        overflow: hidden;
+        /* Chiqib ketmasligi uchun */
     }
+
+    .setting-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 4px;
+        height: 100%;
+        background: #1F2937;
+        /* O'zgartirildi */
+        border-radius: 16px 0 0 16px;
+        z-index: 1;
+    }
+
 
     .setting-card:hover {
         box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.1);
