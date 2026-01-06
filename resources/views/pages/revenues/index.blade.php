@@ -95,7 +95,7 @@
                         </a>
                     </li>
                     <li class="breadcrumb-item active" aria-current="page">
-                        {{ __('admin.revenues') ?? 'Tushumlar' }}
+                        {{ 'Tushumlar' }}
                     </li>
                 </ol>
             </nav>
@@ -110,7 +110,7 @@
 
             {{-- Import modalini ochish tugmasi --}}
             <button class="btn btn-primary btn-sm px-3 py-2" data-bs-toggle="modal" data-bs-target="#importModal">
-                <i class="fas fa-file-import me-1"></i> {{ __('admin.import') ?? 'Import' }}
+                <i class="fas fa-file-import me-1"></i> {{ 'Import' }}
             </button>
 
             {{-- Filter toggle --}}
@@ -130,21 +130,21 @@
             <div class="row g-3 align-items-end">
                 {{-- Qidiruv --}}
                 <div class="col-md-3">
-                    <label for="searchInput" class="form-label mb-2">{{ __('admin.search') ?? 'Qidiruv' }}</label>
+                    <label for="searchInput" class="form-label mb-2">{{ 'Qidiruv' }}</label>
                     <div class="input-group">
                         <span class="input-group-text bg-white border-end-0">
                             <i class="fas fa-search text-muted"></i>
                         </span>
                         <input type="text" id="searchInput" class="form-control border-start-0"
-                            placeholder="{{ __('admin.search') ?? 'Davr, hisob raqami, foydalanuvchi...' }}">
+                            placeholder="{{ 'Davr, hisob raqami, foydalanuvchi...' }}">
                     </div>
                 </div>
 
                 {{-- Davr (oy) --}}
                 <div class="col-md-3">
-                    <label for="periodFilter" class="form-label mb-2">{{ __('admin.period') ?? 'Davr' }}</label>
+                    <label for="periodFilter" class="form-label mb-2">{{ 'Davr' }}</label>
                     <select id="periodFilter" class="form-select">
-                        <option value="">{{ __('admin.all') ?? 'Barchasi' }}</option>
+                        <option value="">{{ 'Barchasi' }}</option>
                         <option value="2025-01">2025-Yanvar</option>
                         <option value="2025-02">2025-Fevral</option>
                         <option value="2025-03">2025-Mart</option>
@@ -153,9 +153,9 @@
 
                 {{-- Valyuta --}}
                 <div class="col-md-2">
-                    <label for="currencyFilter" class="form-label mb-2">{{ __('admin.currency') ?? 'Valyuta' }}</label>
+                    <label for="currencyFilter" class="form-label mb-2">{{ 'Valyuta' }}</label>
                     <select id="currencyFilter" class="form-select">
-                        <option value="">{{ __('admin.all') ?? 'Barchasi' }}</option>
+                        <option value="">{{ 'Barchasi' }}</option>
                         <option value="UZS">UZS</option>
                         <option value="USD">USD</option>
                     </select>
@@ -163,9 +163,9 @@
 
                 {{-- Holat bo‘yicha rangli filterlar (aniqlangan / aniqlanmagan / aniqlik kiritiladigan) --}}
                 <div class="col-md-2">
-                    <label for="statusFilter" class="form-label mb-2">{{ __('admin.status') ?? 'Turi' }}</label>
+                    <label for="statusFilter" class="form-label mb-2">{{ 'Turi' }}</label>
                     <select id="statusFilter" class="form-select">
-                        <option value="">{{ __('admin.all') ?? 'Barchasi' }}</option>
+                        <option value="">{{ 'Barchasi' }}</option>
                         <option value="detected">Aniqlangan</option>
                         <option value="undetected">Aniqlanmagan</option>
                         <option value="clarify">Aniqlik kiritiladigan</option>
@@ -184,15 +184,15 @@
             <thead class="table-dark">
                 <tr>
                     <th>ID</th>
-                    <th>{{ __('admin.period') ?? 'Tushum davri' }}</th>
-                    <th>{{ __('admin.account_number') ?? 'Hisob raqami' }}</th>
-                    <th>{{ __('admin.total_amount') ?? 'Umumiy tushum' }}</th>
-                    <th>{{ __('admin.detected_count') ?? 'Aniqlanganlar' }}</th>
-                    <th>{{ __('admin.undetected_count') ?? 'Aniqlanmaganlar' }}</th>
-                    <th>{{ __('admin.clarify_count') ?? 'Aniqlik kiritiladiganlar' }}</th>
-                    <th>{{ __('admin.currency') ?? 'Valyuta' }}</th>
-                    <th>{{ __('admin.created_by') ?? 'Yaratgan foydalanuvchi' }}</th>
-                    <th>{{ __('admin.updated_at') ?? 'Oxirgi yangilanish' }}</th>
+                    <th>{{ 'Tushum davri' }}</th>
+                    <th>{{ 'Hisob raqami' }}</th>
+                    <th>{{ 'Umumiy tushum' }}</th>
+                    <th>{{ 'Aniqlanganlar' }}</th>
+                    <th>{{ 'Aniqlanmaganlar' }}</th>
+                    <th>{{ 'Aniqlik kiritiladiganlar' }}</th>
+                    <th>{{ 'Valyuta' }}</th>
+                    <th>{{ 'Yaratgan foydalanuvchi' }}</th>
+                    <th>{{ 'Oxirgi yangilanish' }}</th>
                     <th class="text-center">{{ __('admin.actions') }}</th>
                 </tr>
             </thead>
