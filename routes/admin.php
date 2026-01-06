@@ -34,6 +34,7 @@ use App\Http\Controllers\Admin\IncomeController;
 use App\Http\Controllers\Admin\LocalizationController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\WorkActivityController;
 use Illuminate\Support\Facades\Route;
 use PhpParser\Node\Expr\AssignOp\Mul;
 
@@ -155,6 +156,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'l
 
 
     Route::resource('/security-support', SecuritySupportController::class);
+
+    Route::resource('/performance', WorkActivityController::class);
 
 
     Route::resource('/localization', LocalizationController::class);
