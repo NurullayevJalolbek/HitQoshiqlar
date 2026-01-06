@@ -20,6 +20,52 @@
             --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
         }
 
+        .info-grid.risks-grid {
+            display: grid;
+            gap: 0.75rem;
+        }
+
+        .info-item {
+            display: grid;
+            grid-template-columns: minmax(220px, 1fr) 2fr;
+            gap: 0.75rem;
+            padding: 0.9rem 1rem;
+            border: 1px solid var(--gray-200);
+            border-radius: 0.75rem;
+            background: var(--gray-50);
+        }
+
+        @media (max-width: 768px) {
+            .info-item {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .info-item .info-label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--gray-600);
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .info-item .info-value {
+            color: var(--gray-900);
+            font-weight: 600;
+            line-height: 1.45;
+            word-break: break-word;
+        }
+
+        .info-value .form-control,
+        .info-value .form-select {
+            border-radius: 0.65rem;
+        }
+
+        .info-value textarea.form-control {
+            min-height: 96px;
+        }
+
         /* === RISKS INFO (model + level) nicer UI === */
         #risksInfoContent.info-grid {
             gap: 12px;
