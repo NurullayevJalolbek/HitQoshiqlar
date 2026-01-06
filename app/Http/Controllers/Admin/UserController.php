@@ -12,24 +12,38 @@ class UserController extends Controller
         return view('pages.users.index');
     }
 
-    public function create()
+    public function create(Request $request)
     {
+        $go_back = $request->go_back;
+
+
         $user = null;
-        return view('pages.users.create', compact('user'));
+        return view('pages.users.create', compact('user', 'go_back'));
     }
 
-    public function show($id)
+    public function show(Request $request, $id)
     {
+        $go_back = $request->go_back;
+
         $model = getUsersData($id)[0];
 
-        return view('pages.users.show', compact('model'));
+        return view('pages.users.show', [
+            'model'=> $model,
+            'go_back'=> $go_back
+        ]);
     }
 
 
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
+        $go_back = $request->go_back;
+
+
         $user = getUsersData($id)[0];
 
-        return view('pages.users.edit', compact('user'));
+        return view('pages.users.edit', [
+            'user'=>$user,
+            'go_back'=>$go_back
+        ]);
     }
 }

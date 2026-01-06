@@ -12,16 +12,21 @@ class RoleController extends Controller
         return view('pages.roles.index');
     }
 
-    public function create()
+    public function create(Request $request)
     {
-        return view('pages.roles.create');
+        $go_back = $request->go_back;
+
+        return view('pages.roles.create', [
+            'go_back'=> $go_back
+        ]);
     }
 
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
+        $go_back = $request->go_back;
         $role = getRolesData($id)[0];
 
 
-        return view('pages.roles.edit', compact('role'));
+        return view('pages.roles.edit', compact('role', 'go_back'));
     }
 }

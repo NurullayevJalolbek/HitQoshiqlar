@@ -85,7 +85,7 @@
 
     {{-- 2. SEO sozlamalari --}}
     <div class="col-12 col-md-6 col-lg-4 mb-4">
-        <a href="{{ route('admin.seo-settings.index') }}" class="card directory-card">
+        <a href="{{ route('admin.seo-settings.index', ['go_back' => url()->current()]) }}" class="card directory-card">
             <div class="card-body">
                 <i class="fas fa-search directory-icon"></i>
                 <h5 class="directory-title">SEO sozlamalari</h5>

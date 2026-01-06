@@ -89,6 +89,10 @@
             </ol>
         </nav>
     </div>
+    <div class="d-flex gap-2 align-items-center flex-wrap">
+
+        <x-go-back url="{{ $go_back }}" />
+    </div>
 </div>
 @endsection
 
@@ -247,9 +251,9 @@ $statuses = [
 
                         {{-- Buttons --}}
                         <div class="d-flex justify-content-end mt-3 gap-2">
-                            <a href="{{ route('admin.users.index') }}" class="btn btn-secondary">
+                            <!-- <a href="{{ route('admin.users.index') }}" class="btn btn-secondary">
                                 <i class="fas fa-times me-1"></i> Bekor qilish
-                            </a>
+                            </a> -->
 
                             <button class="btn btn-primary" type="submit">
                                 <i class="fas fa-save me-1"></i>

@@ -2,7 +2,6 @@
 
 @push('customCss')
 <style>
-
     /* Yangi rol badge rangi (1F2937) */
     .role-badge {
         background: #1F2937 !important;
@@ -83,7 +82,7 @@
 
 
         <!-- Yangi foydalanuvchi qo'shish -->
-        <a href="{{ route('admin.users.create') }}" class="btn btn-primary btn-sm px-3 py-1" id="addUserBtn"
+        <a href="{{ route('admin.users.create', ['go_back' => url()->full()]) }}" class="btn btn-primary btn-sm px-3 py-1" id="addUserBtn"
             style="min-width: 90px;">
             <i class="fas fa-plus me-1" style="font-size: 0.85rem;"></i> {{ __('admin.create') }}
         </a>
@@ -228,8 +227,8 @@ $end = $pagination['end'];
 
                 <td class="text-center  justify-content-center gap-1">
 
-                    <x-show-button href="{{ route('admin.users.show', $user['id']) }}" />
-                    <x-edit-button href="{{ route('admin.users.edit', $user['id']) }}" />
+                    <x-show-button href="{{ route('admin.users.show', [$user['id'], 'go_back' => url()->full()]) }}" />
+                    <x-edit-button href="{{ route('admin.users.edit', [$user['id'], 'go_back' => url()->full()]) }}" />
                     <x-delete-button />
 
 

@@ -32,11 +32,13 @@
 
     <!-- Tugmalar guruhi -->
     <div class="d-flex gap-2 align-items-center flex-wrap">
-        <div class="d-flex gap-4">
-            <a href="{{ route('admin.user-interface.language-management.create') }}" class="btn btn-primary btn-sm">
-                {{__('admin.create')}}
-            </a>
-        </div>
+
+        <a href="    {{ route('admin.user-interface.language-management.create', ['go_back' => url()->full()]) }}" class="btn btn-primary btn-sm px-3 py-1" id="addUserBtn"
+            style="min-width: 90px;">
+            <i class="fas fa-plus me-1" style="font-size: 0.85rem;"></i> {{ __('admin.create') }}
+        </a>
+
+
     </div>
 </div>
 @endsection
@@ -99,8 +101,8 @@ $datas = getLanguagesData();
 
 
                 <td class="text-center  justify-content-center gap-1">
-                    <x-edit-button href="{{ route('admin.user-interface.language-management.edit', $data['id']) }}" />
-                    <x-delete-button class="disabled"/>
+                    <x-edit-button href="{{ route('admin.user-interface.language-management.edit', [$data['id'], 'go_back' => url()->full()]) }}" />
+                    <x-delete-button class="disabled" />
                 </td>
             </tr>
             @endforeach

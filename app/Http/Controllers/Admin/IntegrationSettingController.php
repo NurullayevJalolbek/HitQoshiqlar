@@ -12,11 +12,13 @@ class IntegrationSettingController extends Controller
         return view('pages.integration-settings.index');
     }
 
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
+        $go_back = $request->go_back;
+
         $integration = getIntegrationSettings($id);
 
 
-        return view('pages.integration-settings.edit', compact('integration'));
+        return view('pages.integration-settings.edit', compact('integration', 'go_back'));
     }
 }

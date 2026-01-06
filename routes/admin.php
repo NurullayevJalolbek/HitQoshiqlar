@@ -32,6 +32,7 @@ use App\Http\Controllers\Admin\ExpenseController;
 use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Admin\IncomeController;
 use App\Http\Controllers\Admin\LocalizationController;
+use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\WorkActivityController;
@@ -177,9 +178,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'l
     Route::resource('roles', RoleController::class);
 
     //Permissions
-    Route::get('role-permissions', function () {
-        return view('pages.permissions.show'); // statik ruxsatlar sahifasi
-    })->name('role-permissions.index');
+    Route::get('role-permissions', [PermissionController::class, 'index'])->name('role-permissions.index');
 
 
     //Login histori

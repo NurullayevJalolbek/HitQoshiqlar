@@ -9,7 +9,11 @@ class SEOController extends Controller
 {
     public function index(Request $request)
     {
-        return view('pages.seo-settings.index');
+        $go_back = $request->go_back;
+
+        return view('pages.seo-settings.index', [
+            'go_back' => $go_back
+        ]);
     }
 
 

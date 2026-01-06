@@ -28,7 +28,7 @@
     <!-- Tugmalar guruhi -->
     <div class="d-flex gap-2 align-items-center flex-wrap">
         <!-- Yangi foydalanuvchi qo'shish -->
-        <a href="{{ route('admin.roles.create') }}" class="btn btn-primary btn-sm px-3 py-1" id="addUserBtn"
+        <a href="{{ route('admin.roles.create', [ 'go_back' => url()->full()]) }}" class="btn btn-primary btn-sm px-3 py-1" id="addUserBtn"
             style="min-width: 90px;">
             <i class="fas fa-plus me-1" style="font-size: 0.85rem;"></i> {{ __('admin.create') }}
         </a>
@@ -142,7 +142,7 @@ $end = $pagination['end'];
 
 
                         <!-- Ruxsatlar (kalit) -->
-                        <a href="{{ route('admin.role-permissions.index', ['role_id' => $role['id']]) }}"
+                        <a href="{{ route('admin.role-permissions.index', ['role_id' => $role['id'], 'go_back' => url()->full()]) }}"
                             class="btn btn-sm p-1 {{ $role['is_deletable'] ?? true ? '' : 'disabled' }}"
                             style="background: none; border: none; color: #1F2937;"
                             title="{{ __('admin.permissions') }}">
@@ -151,7 +151,7 @@ $end = $pagination['end'];
 
 
                         <!-- Tahrirlash (qalam) -->
-                        <x-edit-button href="{{ route('admin.roles.edit', $role['id']) }}" />
+                        <x-edit-button href="{{ route('admin.roles.edit', [$role['id'], 'go_back' => url()->full()]) }}" />
 
 
 

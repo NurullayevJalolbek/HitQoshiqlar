@@ -9,7 +9,9 @@ class PermissionController extends Controller
 {
     public function index(Request $request)
     {
-        return view('pages.permissions.index');
+        $go_back = $request->go_back;
+
+        return view('pages.permissions.show', compact('go_back'));
     }
 
     public function show(Request $request)

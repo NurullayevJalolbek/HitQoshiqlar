@@ -103,7 +103,7 @@ $datas = getIntegrationSettings();
                 </td>
 
                 <td class="text-center">
-                    <a href="{{ route('admin.integration-settings.edit', $item['id']) }}" class="btn btn-sm p-1" style="background:none;color:#f0bc74;"><i
+                    <a href="{{ route('admin.integration-settings.edit', [$item['id'],  'go_back' => url()->full()]) }}" class="btn btn-sm p-1" style="background:none;color:#f0bc74;"><i
                             class="bi bi-pencil-fill"></i></a>
 
                 </td>

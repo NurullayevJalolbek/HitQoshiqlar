@@ -67,6 +67,11 @@
             </ol>
         </nav>
     </div>
+
+    <div class="d-flex gap-2 align-items-center flex-wrap">
+
+        <x-go-back url="{{ $go_back }}" />
+    </div>
 </div>
 @endsection
 
@@ -135,9 +140,9 @@
 
                     {{-- Tugmalar --}}
                     <div class="d-flex justify-content-end mt-3 gap-2">
-                        <a href="{{ route('admin.users.index') }}" class="btn btn-secondary">
+                        <!-- <a href="{{ route('admin.users.index') }}" class="btn btn-secondary">
                             <i class="fas fa-arrow-left me-1"></i> Orqaga
-                        </a>
+                        </a> -->
                         <a href="{{ route('admin.users.edit', $model['id']) }}" class="btn btn-primary">
                             <i class="fas fa-edit me-1"></i> Tahrirlash
                         </a>

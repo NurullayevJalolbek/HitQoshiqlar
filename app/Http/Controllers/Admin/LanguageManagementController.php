@@ -15,15 +15,20 @@ class LanguageManagementController extends Controller
 
 
 
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
+        $go_back = $request->go_back;
+
         $model = getLanguagesData($id);
-        return view('pages.language-management.edit', compact('model'));
+        return view('pages.language-management.edit', compact('model', 'go_back'));
     }
 
-    public function create()
+    public function create(Request $request)
     {
-        return view('pages.language-management.create');
+        $go_back = $request->go_back;
+        return view('pages.language-management.create', [
+            'go_back' => $go_back,
+        ]);
     }
 
 }
