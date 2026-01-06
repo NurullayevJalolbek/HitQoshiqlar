@@ -159,7 +159,7 @@
 
         <div class="info-badge">
             <i class="fas fa-info-circle"></i>
-            Bu sahifada platformangizning xavfsizlik va xizmat ko'rsatish sozlamalarini boshqarishingiz mumkin.
+            «Envast» investitsiya platformasining xavfsizlik va xizmat ko'rsatish sozlamalarini boshqarishingiz mumkin. Platforma Ҳалол инвестицияlar asosida ko'chmas mulk loyihalarini moliyalashtirishga qaratilgan.
         </div>
 
         <!-- User Session Management -->
@@ -168,21 +168,32 @@
                 <i class="fas fa-user-clock"></i>Foydalanuvchi Sessiyasi Boshqaruvi
             </h3>
             <p class="setting-description">
-                Foydalanuvchi sessiyasining amal qilish muddatini sozlang. Sessiya muddati o'tgach, foydalanuvchi qayta tizimga kiritilishi talab qilinadi.
+                Investor va administratorlar sessiyasining amal qilish muddatini sozlang. Sessiya muddati o'tgach, foydalanuvchi qayta tizimga kiritilishi talab qilinadi.
             </p>
+
+            @php
+            $session_duration = [
+            '15' => '15 daqiqa',
+            '30' => '30 daqiqa',
+            '60' => '1 soat',
+            '120' => '2 soat',
+            '240' => '4 soat',
+            '480' => '8 soat',
+            '1440' => '1 kun (24 soat)',
+            ];
+            @endphp
 
             <div class="row mb-3">
                 <div class="col-md-6">
-                    <label for="sessionDuration" class="form-label">Sessiya muddati (daqiqa)</label>
-                    <select class="form-select" id="sessionDuration">
-                        <option value="15">15 daqiqa</option>
-                        <option value="30" selected>30 daqiqa</option>
-                        <option value="60">1 soat</option>
-                        <option value="120">2 soat</option>
-                        <option value="240">4 soat</option>
-                        <option value="480">8 soat</option>
-                        <option value="1440">1 kun (24 soat)</option>
-                    </select>
+                    <x-select-with-search
+                        name="sessionDurationFilter"
+                        label="Sessiya muddati (daqiqa)"
+                        :datas="$session_duration"
+                        colMd="12"
+                        placeholder="Barchasi"
+                        :selected="request()->get('sessionDurationFilter', '')"
+                        :selectSearch=false />
+
                     <div class="form-text">
                         Hozirgi holat: <span class="status-indicator status-active">Faol (30 daqiqa)</span>
                     </div>
@@ -197,7 +208,7 @@
                         </label>
                     </div>
                     <div class="form-text">
-                        Agar yoqilgan bo'lsa, foydalanuvchi faol bo'lgan vaqt davomida sessiya muddati avtomatik ravishda uzaytiriladi.
+                        Agar yoqilgan bo'lsa, investor yoki administrator faol bo'lgan vaqt davomida sessiya muddati avtomatik ravishda uzaytiriladi.
                     </div>
                 </div>
             </div>
@@ -209,7 +220,7 @@
                 <i class="fas fa-sign-in-alt"></i>Kirish Xavfsizligi
             </h3>
             <p class="setting-description">
-                Platformaga kirish uchun xavfsizlik cheklovlarini sozlang. Bu sizga noto'g'ri urinishlardan himoya qilishga yordam beradi.
+                Platformaga investor va administratorlar kirishi uchun xavfsizlik cheklovlarini sozlang. Bu sizga noto'g'ri urinishlardan himoya qilishga yordam beradi.
             </p>
 
             <div class="row mb-3">
@@ -240,7 +251,7 @@
                         </label>
                     </div>
                     <div class="form-text">
-                        Agar yoqilgan bo'lsa, bir IP manzildan ma'lum vaqt oralig'ida maksimal kirish urinishlari soni cheklanadi.
+                        Xavfsizlikni oshirish uchun bir IP manzildan ma'lum vaqt oralig'ida maksimal kirish urinishlari soni cheklanadi.
                     </div>
                 </div>
 
@@ -260,17 +271,28 @@
                 <i class="fas fa-database"></i>Ma'lumotlar Zaxirasi (Backup)
             </h3>
             <p class="setting-description">
-                Ma'lumotlaringizning avtomatik zaxiralanishi parametrlarini sozlang. Zaxiralash ma'lumotlaringizni xavfsiz saqlash uchun juda muhimdir.
+                Investor ma'lumotlari, shartnomalar va moliyaviy hisobotlarning avtomatik zaxiralanishi parametrlarini sozlang. Zaxiralash ma'lumotlaringizni xavfsiz saqlash uchun juda muhimdir.
             </p>
+
+            @php
+            $backup_frequency = [
+            'daily' => 'Kunlik',
+            'weekly' => 'Haftalik',
+            'monthly' => 'Oylik',
+            ];
+            @endphp
 
             <div class="row mb-3">
                 <div class="col-md-6">
-                    <label for="backupFrequency" class="form-label">Zaxiralash chastotasi</label>
-                    <select class="form-select" id="backupFrequency">
-                        <option value="daily">Kunlik</option>
-                        <option value="weekly" selected>Haftalik</option>
-                        <option value="monthly">Oylik</option>
-                    </select>
+                    <x-select-with-search
+                        name="backupFrequencyFilter"
+                        label="Zaxiralash chastotasi"
+                        :datas="$backup_frequency"
+                        colMd="12"
+                        placeholder="Barchasi"
+                        :selected="request()->get('backupFrequency', '')"
+                        :selectSearch=false />
+
                     <div class="form-text">
                         Hozirgi holat: <span class="status-indicator status-active">Haftalik zaxiralash faol</span>
                     </div>
@@ -280,35 +302,55 @@
                     <label for="backupTime" class="form-label">Zaxiralash vaqti</label>
                     <input type="time" class="form-control" id="backupTime" value="02:00">
                     <div class="form-text">
-                        Zaxiralash jarayoni boshlanadigan vaqt (server vaqti bilan).
+                        Zaxiralash jarayoni boshlanadigan vaqt (server vaqti bilan). Tanlangan vaqt platforma foydalanuvchilari uchun minimal faollik davrida bo'lishi tavsiya etiladi.
                     </div>
                 </div>
             </div>
 
             <div class="row mb-3">
+                @php
+                $stockpiling = [
+                '7' => '7 kun',
+                '14' => '14 kun',
+                '30' => '30 kun',
+                '90' => '90 kun',
+                '180' => '180 kun',
+                ];
+                @endphp
+
                 <div class="col-md-6">
-                    <label for="backupRetention" class="form-label">Zaxiralarni saqlash muddati (kun)</label>
-                    <select class="form-select" id="backupRetention">
-                        <option value="7">7 kun</option>
-                        <option value="14">14 kun</option>
-                        <option value="30" selected>30 kun</option>
-                        <option value="90">90 kun</option>
-                        <option value="180">180 kun</option>
-                    </select>
+                    <x-select-with-search
+                        name="stockpilingFilter"
+                        label="Zaxiralarni saqlash muddati (kun)"
+                        :datas="$stockpiling"
+                        colMd="12"
+                        placeholder="Barchasi"
+                        :selected="request()->get('stockpiling', '')"
+                        :selectSearch=false />
                     <div class="form-text">
-                        Eski zaxiralar avtomatik ravishda o'chiriladi.
+                        Eski zaxiralar avtomatik ravishda o'chiriladi. Investitsiya shartnomalari va moliyaviy hisobotlar uchun 90 kun saqlash tavsiya etiladi.
                     </div>
                 </div>
 
                 <div class="col-md-6">
-                    <label for="backupLocation" class="form-label">Zaxira joylashuvi</label>
-                    <select class="form-select" id="backupLocation">
-                        <option value="local" selected>Serverda (mahalliy)</option>
-                        <option value="cloud">Bulut xizmati (Cloud)</option>
-                        <option value="both">Ikkala joyda ham</option>
-                    </select>
+                    @php
+                    $backup_location = [
+                    'local' => 'Mahalliy',
+                    'cloud' => 'Bulut xizmati',
+                    'both' => 'Ikkala joyda ham',
+                    ];
+                    @endphp
+
+                    <x-select-with-search
+                        name="backupLocationFilter"
+                        label="Zaxira joylashuvi"
+                        :datas="$backup_location"
+                        colMd="12"
+                        placeholder="Barchasi"
+                        :selected="request()->get('backupLocation', '')"
+                        :selectSearch=false />
                     <div class="form-text">
-                        Zaxiralangan ma'lumotlarning saqlanish joyi.
+                        Investor ma'lumotlari, shartnomalar va moliyaviy hisobotlarning saqlanish joyi.
                     </div>
                 </div>
             </div>
@@ -329,7 +371,7 @@
                 <button type="button" class="btn btn-outline-primary me-2" id="manualBackupBtn">
                     <i class="fas fa-play-circle me-1"></i>Zaxirani hozir yaratish
                 </button>
-                <button type="button" class="btn btn-outline-secondary">
+                <button type="button" class="btn btn-outline-primary me-2">
                     <i class="fas fa-history me-1"></i>Zaxira tarixini ko'rish
                 </button>
             </div>
@@ -341,7 +383,7 @@
                 <i class="fas fa-lock"></i>Tizim Xavfsizligi
             </h3>
             <p class="setting-description">
-                Platforma umumiy xavfsizligi uchun qo'shimcha parametrlarni sozlang.
+                «Envast» platformasining umumiy xavfsizligi va investorlar ma'lumotlarini himoya qilish uchun qo'shimcha parametrlarni sozlang.
             </p>
 
             <div class="row mb-3">
@@ -354,21 +396,32 @@
                         </label>
                     </div>
                     <div class="form-text">
-                        Kuchli parol kamida 8 ta belgidan iborat bo'lib, katta-kichik harflar, raqamlar va maxsus belgilarni o'z ichiga olishi kerak.
+                        Investor va administratorlar uchun kuchli parol talab qilinadi (kamida 8 ta belgi, katta-kichik harflar, raqamlar va maxsus belgilar).
                     </div>
                 </div>
 
                 <div class="col-md-6">
-                    <label for="passwordExpiry" class="form-label">Parol amal qilish muddati (kun)</label>
-                    <select class="form-select" id="passwordExpiry">
-                        <option value="0">Cheklanmagan</option>
-                        <option value="30">30 kun</option>
-                        <option value="60">60 kun</option>
-                        <option value="90" selected>90 kun</option>
-                        <option value="180">180 kun</option>
-                    </select>
+                    @php
+                    $password_expiration_date = [
+                    '0' => 'Cheklanmagan',
+                    '30' => '30 kun',
+                    '60' => '60 kun',
+                    '90' => '90 kun',
+                    '180' => '180 kun',
+                    ];
+                    @endphp
+
+                    <x-select-with-search
+                        name="passwordExpiryFilter"
+                        label="Parol amal qilish muddati (kun)"
+                        :datas="$password_expiration_date"
+                        colMd="12"
+                        placeholder="Barchasi"
+                        :selected="request()->get('passwordExpiry', '')"
+                        :selectSearch=false />
+
                     <div class="form-text">
-                        Parol amal qilish muddati o'tgach, foydalanuvchi parolini yangilashi talab qilinadi.
+                        Administratorlar uchun parol amal qilish muddati o'tgach, parolni yangilashi talab qilinadi.
                     </div>
                 </div>
             </div>
@@ -387,7 +440,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-6">
+                <!-- <div class="col-md-6">
                     <label for="httpsEnforcement" class="form-label">HTTPS majburiyligi</label>
                     <div class="form-check form-switch mt-2">
                         <input class="form-check-input" type="checkbox" id="httpsEnforcement" checked>
@@ -396,9 +449,9 @@
                         </label>
                     </div>
                     <div class="form-text">
-                        Agar yoqilgan bo'lsa, barcha HTTP so'rovlar HTTPS ga yo'naltiriladi.
+                        Investorlar ma'lumotlari va moliyaviy transaktsiyalarni himoya qilish uchun barcha trafik HTTPS orqali amalga oshiriladi.
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
 
@@ -408,12 +461,12 @@
                 <i class="fas fa-tools"></i>Xizmat Ko'rsatish Rejimi
             </h3>
             <p class="setting-description">
-                Tizimni texnik xizmat ko'rsatish rejimiga o'tkazish parametrlari. Ushbu rejimda oddiy foydalanuvchilar tizimga kirish olmaydi.
+                «Envast» platformasida texnik ishlar, yangilanishlar yoki tizimni yaxshilash jarayonlarida investorlar uchun kirishni vaqtincha cheklash sozlamalari.
             </p>
 
             <div class="row mb-3">
                 <div class="col-md-6">
-                    <label for="maintenanceMode" class="form-label">Xizmat ko'rsatish rejimi</label>
+                    <label class="form-label">Rejim holati</label>
                     <div class="form-check form-switch mt-2">
                         <input class="form-check-input" type="checkbox" id="maintenanceMode">
                         <label class="form-check-label" for="maintenanceMode">
@@ -421,53 +474,57 @@
                         </label>
                     </div>
                     <div class="form-text">
-                        Hozirgi holat: <span id="maintenanceStatus" class="status-indicator status-inactive">Xizmat ko'rsatish rejimi o'chirilgan</span>
+                        Hozirgi holat:
+                        <span id="maintenanceStatus" class="status-indicator status-inactive">O'chirilgan</span>
                     </div>
                 </div>
 
                 <div class="col-md-6">
-                    <label for="maintenanceMessage" class="form-label">Xabar matni</label>
-                    <textarea class="form-control" id="maintenanceMessage" rows="2" placeholder="Tizimda texnik ishlar olib borilmoqda. Iltimos, keyinroq qayta urinib ko'ring."></textarea>
+                    <label for="maintenanceMessage" class="form-label">Investorlar uchun xabar</label>
+                    <textarea class="form-control" id="maintenanceMessage" rows="3" placeholder="«Envast» investitsiya platformasida texnik ishlar olib borilmoqda. Iltimos, keyinroq qayta urinib ko'ring. Biz sizning qulayligingiz uchun doim ishlamoqdamiz."></textarea>
                     <div class="form-text">
-                        Xizmat ko'rsatish rejimida foydalanuvchilarga ko'rsatiladigan xabar.
+                        Ushbu xabar mobile ilova va veb sahifada investorlarga ko'rsatiladi.
                     </div>
                 </div>
             </div>
 
             <div class="mb-3">
-                <label for="adminAccess" class="form-label">Administratorlarga ruxsat</label>
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" id="adminAccess" checked>
                     <label class="form-check-label" for="adminAccess">
-                        Xizmat ko'rsatish rejimida administratorlarga kirishga ruxsat berish
+                        Administratorlarga ruxsat berish
                     </label>
                 </div>
                 <div class="form-text">
-                    Agar yoqilgan bo'lsa, administratorlar xizmat ko'rsatish rejimida ham tizimga kirishlari mumkin.
+                    Administratorlar xizmat ko'rsatish rejimida ham tizimga kira oladi va investor ma'lumotlarini ko'ra oladi.
                 </div>
             </div>
         </div>
 
-        <!-- Action Buttons -->
         <div class="d-flex justify-content-between align-items-center mt-4 pt-3 border-top">
+
             <div class="form-text">
                 Oxirgi o'zgarish: 2023-yil 15-oktabr, 14:30
             </div>
+
             <div>
-                <button type="button" class="btn btn-outline-secondary me-2" id="cancelBtn">
-                    <i class="fas fa-times me-1"></i>Bekor qilish
-                </button>
-                <button type="button" class="btn save-btn" id="saveSettingsBtn">
+                <a href="{{ route('admin.general-settings.index') }}" class="btn btn-secondary">
+                    <i class="fas fa-times me-1"></i> Bekor qilish
+                </a>
+
+                <button type="button" class="btn btn-primary" id="saveSettingsBtn">
                     <i class="fas fa-save me-1"></i>Sazlamalarni saqlash
                 </button>
             </div>
         </div>
-
-        <div class="footer-info mt-4 pt-3 border-top" style="color: #6c757d; font-size: 0.875rem;">
-            <i class="fas fa-lightbulb me-1"></i>
-            Maslahat: Xavfsizlik sozlamalarini o'zgartirishdan oldin, ularning tizim ishlashiga ta'sirini yaxshilab o'ylab ko'ring.
-        </div>
     </div>
+
+
+    <div class="footer-info mt-4 pt-3 border-top" style="color: #6c757d; font-size: 0.875rem;">
+        <i class="fas fa-lightbulb me-1"></i>
+        Maslahat: Xavfsizlik sozlamalarini o'zgartirishdan oldin, ularning «Envast» platformasidagi investorlar tajribasiga ta'sirini yaxshilab o'ylab ko'ring.
+    </div>
+</div>
 </div>
 @endsection
 
@@ -515,6 +572,9 @@
                 saveBtn.classList.remove('save-btn');
                 saveBtn.classList.add('btn-success');
 
+                // Show success message
+                showToast('Muvaffaqiyatli', '«Envast» platformasining xavfsizlik sozlamalari saqlandi', 'success');
+
                 // Reset button after 2 seconds
                 setTimeout(function() {
                     saveBtn.innerHTML = originalText;
@@ -539,7 +599,7 @@
                 manualBackupBtn.classList.add('btn-outline-success');
 
                 // Show success alert
-                showToast('Muvaffaqiyat', 'Zaxira muvaffaqiyatli yaratildi', 'success');
+                showToast('Muvaffaqiyat', 'Investor ma\'lumotlari zaxirasi muvaffaqiyatli yaratildi', 'success');
 
                 // Reset button after 2 seconds
                 setTimeout(function() {
@@ -580,7 +640,7 @@
             maintenanceStatus.classList.remove('status-active');
             maintenanceStatus.classList.add('status-inactive');
 
-            showToast('Bekor qilindi', 'Barcha o\'zgarishlar bekor qilindi', 'info');
+            showToast('Bekor qilindi', '«Envast» platformasi sozlamalari asl holatiga qaytarildi', 'info');
         });
 
         // Toast notification function
