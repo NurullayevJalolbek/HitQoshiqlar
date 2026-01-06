@@ -164,7 +164,8 @@
     </div>
 
     <div class="d-flex gap-2 align-items-center flex-wrap">
-        <x-go-back url="{{ route('admin.general-settings.index') }}" />
+
+        <x-go-back url="{{ $go_back }}" />
     </div>
 </div>
 @endsection

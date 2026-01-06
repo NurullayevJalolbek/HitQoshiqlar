@@ -342,7 +342,7 @@ $model = getSEOSettings();
                 <h3 class="seo-card-title">Umumiy SEO Sozlamalari</h3>
 
                 <x-edit-button-border
-                    :url="route('admin.seo-settings.edit', $model['general']['key'])"
+                    :url="route('admin.seo-settings.edit', [$model['general']['key'], 'go_back' => url()->full()])"
                     text="Tahrirlash" />
             </div>
 
@@ -396,7 +396,7 @@ $model = getSEOSettings();
                 <h3 class="seo-card-title">Asosiy Sahifa SEO Sozlamalari</h3>
 
                 <x-edit-button-border
-                    :url="route('admin.seo-settings.edit', $model['home']['key'])"
+                    :url="route('admin.seo-settings.edit', [$model['home']['key'], 'go_back' => url()->full()])"
                     text="Tahrirlash" />
             </div>
 
@@ -446,7 +446,7 @@ $model = getSEOSettings();
 
 
                 <x-edit-button-border
-                    :url="route('admin.seo-settings.edit', $model['about']['key'])"
+                    :url="route('admin.seo-settings.edit', [$model['about']['key'], 'go_back' => url()->full()])"
                     text="Tahrirlash" />
             </div>
 
@@ -495,7 +495,7 @@ $model = getSEOSettings();
 
 
                 <x-edit-button-border
-                    :url="route('admin.seo-settings.edit', $model['projects']['key'])"
+                    :url="route('admin.seo-settings.edit', [$model['projects']['key'], 'go_back' => url()->full()])"
                     text="Tahrirlash" />
             </div>
 
@@ -544,7 +544,7 @@ $model = getSEOSettings();
 
 
                 <x-edit-button-border
-                    :url="route('admin.seo-settings.edit', $model['shariah']['key'])"
+                    :url="route('admin.seo-settings.edit', [$model['shariah']['key'], 'go_back' => url()->full()])"
                     text="Tahrirlash" />
             </div>
 
@@ -593,7 +593,7 @@ $model = getSEOSettings();
 
 
                 <x-edit-button-border
-                    :url="route('admin.seo-settings.edit', $model['media']['key'])"
+                    :url="route('admin.seo-settings.edit', [$model['media']['key'], 'go_back' => url()->full()])"
                     text="Tahrirlash" />
             </div>
 
@@ -642,7 +642,7 @@ $model = getSEOSettings();
 
 
                 <x-edit-button-border
-                    :url="route('admin.seo-settings.edit', $model['contact']['key'])"
+                    :url="route('admin.seo-settings.edit', [$model['contact']['key'], 'go_back' => url()->full()])"
                     text="Tahrirlash" />
             </div>
 
@@ -691,7 +691,7 @@ $model = getSEOSettings();
 
 
                 <x-edit-button-border
-                    :url="route('admin.seo-settings.edit', $model['og']['key'])"
+                    :url="route('admin.seo-settings.edit', [$model['og']['key'], 'go_back' => url()->full()])"
                     text="Tahrirlash" />
             </div>
 
