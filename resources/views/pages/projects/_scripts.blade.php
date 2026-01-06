@@ -402,10 +402,10 @@
 
             const container = document.getElementById('mainImagesContainer');
             container.innerHTML = images.map((img, index) => `
-                                                                                                                                    <div class="gallery-item" data-media-src="${img}" onclick="openImageModal('${img}')">
-                                                                                                                                        <img src="${img}" alt="Asosiy fon rasmi ${index + 1}" loading="lazy">
-                                                                                                                                    </div>
-                                                                                                                                `).join('');
+                                                                                                                                                    <div class="gallery-item" data-media-src="${img}" onclick="openImageModal('${img}')">
+                                                                                                                                                        <img src="${img}" alt="Asosiy fon rasmi ${index + 1}" loading="lazy">
+                                                                                                                                                    </div>
+                                                                                                                                                `).join('');
         }
 
         function displayVideos(videos) {
@@ -424,13 +424,13 @@
                     '';
 
                 return `
-                                                                                                                                        <div class="gallery-item video-item" data-media-src="${url}" onclick="openVideoModal('${url}')">
-                                                                                                                                            ${thumbnailUrl ? `<img src="${thumbnailUrl}" alt="Video ${index + 1}" loading="lazy">` : ''}
-                                                                                                                                            <div class="play-icon">
-                                                                                                                                                <i class="bi bi-play-fill"></i>
-                                                                                                                                            </div>
-                                                                                                                                        </div>
-                                                                                                                                    `;
+                                                                                                                                                        <div class="gallery-item video-item" data-media-src="${url}" onclick="openVideoModal('${url}')">
+                                                                                                                                                            ${thumbnailUrl ? `<img src="${thumbnailUrl}" alt="Video ${index + 1}" loading="lazy">` : ''}
+                                                                                                                                                            <div class="play-icon">
+                                                                                                                                                                <i class="bi bi-play-fill"></i>
+                                                                                                                                                            </div>
+                                                                                                                                                        </div>
+                                                                                                                                                    `;
             }).join('');
         }
 
@@ -443,10 +443,10 @@
             document.getElementById('processImagesCard').style.display = 'block';
             const container = document.getElementById('processImagesContainer');
             container.innerHTML = images.map((img, index) => `
-                                                                                                                                                        <div class="gallery-item" data-media-src="${img}" onclick="openImageModal('${img}')">
-                                                                                                                                                            <img src="${img}" alt="Qurilish jarayoni ${index + 1}" loading="lazy">
-                                                                                                                                                        </div>
-                                                                                                                                                    `).join('');
+                                                                                                                                                                        <div class="gallery-item" data-media-src="${img}" onclick="openImageModal('${img}')">
+                                                                                                                                                                            <img src="${img}" alt="Qurilish jarayoni ${index + 1}" loading="lazy">
+                                                                                                                                                                        </div>
+                                                                                                                                                                    `).join('');
         }
 
         function openImageModal(imageUrl) {
@@ -989,8 +989,8 @@
                 );
 
             return `<select class="form-select form-select-sm" onchange="moveStageToAfter(${stageId}, this.value)">
-                                                                                                                                    ${options.join('')}
-                                                                                                                                </select>`;
+                                                                                                                                                    ${options.join('')}
+                                                                                                                                                </select>`;
         }
 
         function moveStageToAfter(stageId, afterId) {
@@ -1125,25 +1125,25 @@
 
                 if (!stagesEditMode) {
                     itemEl.innerHTML = `
-                                                                                                                                            <div class="row ps-lg-1 align-items-center">
-                                                                                                                                                <div class="col-auto">
-                                                                                                                                                    <div class="${status.badgeClass}">
-                                                                                                                                                        <i class="${status.icon}"></i>
-                                                                                                                                                        ${status.text}
-                                                                                                                                                    </div>
-                                                                                                                                                </div>
-                                                                                                                                                <div class="col ms-n2 mb-2">
-                                                                                                                                                    <h3 class="fs-6 fw-bold mb-1">${stage.name}</h3>
-                                                                                                                                                    <div class="d-flex align-items-center small text-muted">
-                                                                                                                                                        <i class="bi bi-calendar3 me-1"></i>
-                                                                                                                                                        <span>${stage.start_date} - ${stage.end_date}</span>
-                                                                                                                                                    </div>
-                                                                                                                                                </div>
-                                                                                                                                                <div class="col-auto">
-                                                                                                                                                    <span class="badge bg-white text-dark">${Number(stage.progress) || 0}%</span>
-                                                                                                                                                </div>
-                                                                                                                                            </div>
-                                                                                                                                        `;
+                                                                                                                                                            <div class="row ps-lg-1 align-items-center">
+                                                                                                                                                                <div class="col-auto">
+                                                                                                                                                                    <div class="${status.badgeClass}">
+                                                                                                                                                                        <i class="${status.icon}"></i>
+                                                                                                                                                                        ${status.text}
+                                                                                                                                                                    </div>
+                                                                                                                                                                </div>
+                                                                                                                                                                <div class="col ms-n2 mb-2">
+                                                                                                                                                                    <h3 class="fs-6 fw-bold mb-1">${stage.name}</h3>
+                                                                                                                                                                    <div class="d-flex align-items-center small text-muted">
+                                                                                                                                                                        <i class="bi bi-calendar3 me-1"></i>
+                                                                                                                                                                        <span>${stage.start_date} - ${stage.end_date}</span>
+                                                                                                                                                                    </div>
+                                                                                                                                                                </div>
+                                                                                                                                                                <div class="col-auto">
+                                                                                                                                                                    <span class="badge bg-white text-dark">${Number(stage.progress) || 0}%</span>
+                                                                                                                                                                </div>
+                                                                                                                                                            </div>
+                                                                                                                                                        `;
                 } else {
                     itemEl.setAttribute('draggable', 'true');
                     itemEl.setAttribute('ondragstart', `onStageDragStart(event, ${stage.id})`);
@@ -1152,51 +1152,51 @@
                     itemEl.setAttribute('ondrop', `onStageDrop(event, ${stage.id})`);
 
                     itemEl.innerHTML = `
-                                                                                                                                            <div class="row ps-lg-1 align-items-start gy-2">
-                                                                                                                                                <div class="col-auto">
-                                                                                                                                                    <div class="drag-handle" title="Joyini o‘zgartirish">
-                                                                                                                                                        <i class="bi bi-grip-vertical"></i>
-                                                                                                                                                    </div>
-                                                                                                                                                </div>
-                                                                                                                                                <div class="col-auto">
-                                                                                                                                                    <span class="priority-pill">#${stage.order}</span>
-                                                                                                                                                </div>
+                                                                                                                                                            <div class="row ps-lg-1 align-items-start gy-2">
+                                                                                                                                                                <div class="col-auto">
+                                                                                                                                                                    <div class="drag-handle" title="Joyini o‘zgartirish">
+                                                                                                                                                                        <i class="bi bi-grip-vertical"></i>
+                                                                                                                                                                    </div>
+                                                                                                                                                                </div>
+                                                                                                                                                                <div class="col-auto">
+                                                                                                                                                                    <span class="priority-pill">#${stage.order}</span>
+                                                                                                                                                                </div>
 
-                                                                                                                                                <div class="col-12 col-md-4">
-                                                                                                                                                    <label class="form-label small mb-1">Bosqich nomi</label>
-                                                                                                                                                    <input type="text" class="form-control form-control-sm" value="${uiEscapeHtml(stage.name)}"
-                                                                                                                                                        onchange="updateStageField(${stage.id}, 'name', this.value)">
-                                                                                                                                                </div>
-                                                                                                                                                <div class="col-6 col-md-3">
-                                                                                                                                                    <label class="form-label small mb-1">Holati</label>
-                                                                                                                                                    <select class="form-select form-select-sm"
-                                                                                                                                                        onchange="updateStageField(${stage.id}, 'status', this.value)">
-                                                                                                                                                        <option value="planned" ${stage.status === 'planned' ? 'selected' : ''}>Rejalashtirilgan</option>
-                                                                                                                                                        <option value="in_progress" ${stage.status === 'in_progress' ? 'selected' : ''}>Jarayonda</option>
-                                                                                                                                                        <option value="completed" ${stage.status === 'completed' ? 'selected' : ''}>Bajarildi</option>
-                                                                                                                                                    </select>
-                                                                                                                                                </div>
-                                                                                                                                                <div class="col-6 col-md-2">
-                                                                                                                                                    <label class="form-label small mb-1">% bajarilgan</label>
-                                                                                                                                                    <input type="number" min="0" max="100" class="form-control form-control-sm" value="${Number(stage.progress) || 0}"
-                                                                                                                                                        onchange="updateStageField(${stage.id}, 'progress', Number(this.value) || 0)">
-                                                                                                                                                </div>
-                                                                                                                                                <div class="col-6 col-md-1">
-                                                                                                                                                    <label class="form-label small mb-1">Boshlanish</label>
-                                                                                                                                                    <input type="text" class="form-control form-control-sm" value="${uiEscapeHtml(stage.start_date || '')}"
-                                                                                                                                                        onchange="updateStageField(${stage.id}, 'start_date', this.value)">
-                                                                                                                                                </div>
-                                                                                                                                                <div class="col-6 col-md-1">
-                                                                                                                                                    <label class="form-label small mb-1">Yakun</label>
-                                                                                                                                                    <input type="text" class="form-control form-control-sm" value="${uiEscapeHtml(stage.end_date || '')}"
-                                                                                                                                                        onchange="updateStageField(${stage.id}, 'end_date', this.value)">
-                                                                                                                                                </div>
-                                                                                                                                                <div class="col-12 col-md-2">
-                                                                                                                                                    <label class="form-label small mb-1">Joylashuvi</label>
-                                                                                                                                                    ${buildStageMoveAfterSelect(stage.id)}
-                                                                                                                                                </div>
-                                                                                                                                            </div>
-                                                                                                                                        `;
+                                                                                                                                                                <div class="col-12 col-md-4">
+                                                                                                                                                                    <label class="form-label small mb-1">Bosqich nomi</label>
+                                                                                                                                                                    <input type="text" class="form-control form-control-sm" value="${uiEscapeHtml(stage.name)}"
+                                                                                                                                                                        onchange="updateStageField(${stage.id}, 'name', this.value)">
+                                                                                                                                                                </div>
+                                                                                                                                                                <div class="col-6 col-md-3">
+                                                                                                                                                                    <label class="form-label small mb-1">Holati</label>
+                                                                                                                                                                    <select class="form-select form-select-sm"
+                                                                                                                                                                        onchange="updateStageField(${stage.id}, 'status', this.value)">
+                                                                                                                                                                        <option value="planned" ${stage.status === 'planned' ? 'selected' : ''}>Rejalashtirilgan</option>
+                                                                                                                                                                        <option value="in_progress" ${stage.status === 'in_progress' ? 'selected' : ''}>Jarayonda</option>
+                                                                                                                                                                        <option value="completed" ${stage.status === 'completed' ? 'selected' : ''}>Bajarildi</option>
+                                                                                                                                                                    </select>
+                                                                                                                                                                </div>
+                                                                                                                                                                <div class="col-6 col-md-2">
+                                                                                                                                                                    <label class="form-label small mb-1">% bajarilgan</label>
+                                                                                                                                                                    <input type="number" min="0" max="100" class="form-control form-control-sm" value="${Number(stage.progress) || 0}"
+                                                                                                                                                                        onchange="updateStageField(${stage.id}, 'progress', Number(this.value) || 0)">
+                                                                                                                                                                </div>
+                                                                                                                                                                <div class="col-6 col-md-1">
+                                                                                                                                                                    <label class="form-label small mb-1">Boshlanish</label>
+                                                                                                                                                                    <input type="text" class="form-control form-control-sm" value="${uiEscapeHtml(stage.start_date || '')}"
+                                                                                                                                                                        onchange="updateStageField(${stage.id}, 'start_date', this.value)">
+                                                                                                                                                                </div>
+                                                                                                                                                                <div class="col-6 col-md-1">
+                                                                                                                                                                    <label class="form-label small mb-1">Yakun</label>
+                                                                                                                                                                    <input type="text" class="form-control form-control-sm" value="${uiEscapeHtml(stage.end_date || '')}"
+                                                                                                                                                                        onchange="updateStageField(${stage.id}, 'end_date', this.value)">
+                                                                                                                                                                </div>
+                                                                                                                                                                <div class="col-12 col-md-2">
+                                                                                                                                                                    <label class="form-label small mb-1">Joylashuvi</label>
+                                                                                                                                                                    ${buildStageMoveAfterSelect(stage.id)}
+                                                                                                                                                                </div>
+                                                                                                                                                            </div>
+                                                                                                                                                        `;
                 }
 
                 timeline.appendChild(itemEl);
@@ -1248,62 +1248,62 @@
             if (!distributionEditMode) {
                 // Ko'rish rejimi
                 content.innerHTML = `
-                                                                                                                                        <div class="info-row">
-                                                                                                                                            <span class="info-label">To'liq sherikning investitsion loyihadagi o'ziga tegishli ulushining
-                                                                                                                                                realizatsiyasidan kutilayotgan sof foyda/zarardan oladigan qiymati (foizda)</span>
-                                                                                                                                            <span class="info-value" id="fullPartnerOwnShare">${distribution.full_partner_own_share}%</span>
-                                                                                                                                        </div>
-                                                                                                                                        <div class="info-row">
-                                                                                                                                            <span class="info-label">To'liq sherikning investitsion Kommanditchilarning loyihadagi tegishli
-                                                                                                                                                ulushining realizatsiyasidan kutilayotgan sof foyda/zarardan oladigan qiymati (foizda)</span>
-                                                                                                                                            <span class="info-value" id="fullPartnerInvestorShare">${distribution.full_partner_investor_share}%</span>
-                                                                                                                                        </div>
-                                                                                                                                        <div class="info-row">
-                                                                                                                                            <span class="info-label">Kommanditchilarning investitsion loyihadagi o'ziga tegishli ulushining
-                                                                                                                                                realizatsiyasidan kutilayotgan sof foyda/zarardan oladigan qiymati (foizda)</span>
-                                                                                                                                            <span class="info-value" id="investorsOwnShare">${distribution.investors_own_share}%</span>
-                                                                                                                                        </div>
-                                                                                                                                    `;
+                                                                                                                                                        <div class="info-row">
+                                                                                                                                                            <span class="info-label">To'liq sherikning investitsion loyihadagi o'ziga tegishli ulushining
+                                                                                                                                                                realizatsiyasidan kutilayotgan sof foyda/zarardan oladigan qiymati (foizda)</span>
+                                                                                                                                                            <span class="info-value" id="fullPartnerOwnShare">${distribution.full_partner_own_share}%</span>
+                                                                                                                                                        </div>
+                                                                                                                                                        <div class="info-row">
+                                                                                                                                                            <span class="info-label">To'liq sherikning investitsion Kommanditchilarning loyihadagi tegishli
+                                                                                                                                                                ulushining realizatsiyasidan kutilayotgan sof foyda/zarardan oladigan qiymati (foizda)</span>
+                                                                                                                                                            <span class="info-value" id="fullPartnerInvestorShare">${distribution.full_partner_investor_share}%</span>
+                                                                                                                                                        </div>
+                                                                                                                                                        <div class="info-row">
+                                                                                                                                                            <span class="info-label">Kommanditchilarning investitsion loyihadagi o'ziga tegishli ulushining
+                                                                                                                                                                realizatsiyasidan kutilayotgan sof foyda/zarardan oladigan qiymati (foizda)</span>
+                                                                                                                                                            <span class="info-value" id="investorsOwnShare">${distribution.investors_own_share}%</span>
+                                                                                                                                                        </div>
+                                                                                                                                                    `;
             } else {
                 // Tahrirlash rejimi
                 content.innerHTML = `
-                                                                                                                                        <div class="info-row">
-                                                                                                                                            <span class="info-label">To'liq sherikning investitsion loyihadagi o'ziga tegishli ulushining
-                                                                                                                                                realizatsiyasidan kutilayotgan sof foyda/zarardan oladigan qiymati (foizda)</span>
-                                                                                                                                            <div class="d-flex align-items-center gap-2">
-                                                                                                                                                <input type="number" min="0" max="100" step="0.1" 
-                                                                                                                                                    class="form-control form-control-sm" style="max-width: 120px;" 
-                                                                                                                                                    value="${distribution.full_partner_own_share}"
-                                                                                                                                                    disabled
-                                                                                                                                                    id="editFullPartnerOwnShare">
-                                                                                                                                                <span class="text-muted">%</span>
-                                                                                                                                            </div>
-                                                                                                                                        </div>
-                                                                                                                                        <div class="info-row">
-                                                                                                                                            <span class="info-label">To'liq sherikning investitsion Kommanditchilarning loyihadagi tegishli
-                                                                                                                                                ulushining realizatsiyasidan kutilayotgan sof foyda/zarardan oladigan qiymati (foizda)</span>
-                                                                                                                                            <div class="d-flex align-items-center gap-2">
-                                                                                                                                                <input type="number" min="0" max="100" step="0.1" 
-                                                                                                                                                    class="form-control form-control-sm" style="max-width: 120px;" 
-                                                                                                                                                    value="${distribution.full_partner_investor_share}"
-                                                                                                                                                    onchange="updateDistributionField('full_partner_investor_share', Number(this.value) || 0)"
-                                                                                                                                                    id="editFullPartnerInvestorShare">
-                                                                                                                                                <span class="text-muted">%</span>
-                                                                                                                                            </div>
-                                                                                                                                        </div>
-                                                                                                                                        <div class="info-row">
-                                                                                                                                            <span class="info-label">Kommanditchilarning investitsion loyihadagi o'ziga tegishli ulushining
-                                                                                                                                                realizatsiyasidan kutilayotgan sof foyda/zarardan oladigan qiymati (foizda)</span>
-                                                                                                                                            <div class="d-flex align-items-center gap-2">
-                                                                                                                                                <input type="number" min="0" max="100" step="0.1" 
-                                                                                                                                                    class="form-control form-control-sm" style="max-width: 120px;" 
-                                                                                                                                                    value="${distribution.investors_own_share}"
-                                                                                                                                                    disabled
-                                                                                                                                                    id="editInvestorsOwnShare">
-                                                                                                                                                <span class="text-muted">%</span>
-                                                                                                                                            </div>
-                                                                                                                                        </div>
-                                                                                                                                    `;
+                                                                                                                                                        <div class="info-row">
+                                                                                                                                                            <span class="info-label">To'liq sherikning investitsion loyihadagi o'ziga tegishli ulushining
+                                                                                                                                                                realizatsiyasidan kutilayotgan sof foyda/zarardan oladigan qiymati (foizda)</span>
+                                                                                                                                                            <div class="d-flex align-items-center gap-2">
+                                                                                                                                                                <input type="number" min="0" max="100" step="0.1" 
+                                                                                                                                                                    class="form-control form-control-sm" style="max-width: 120px;" 
+                                                                                                                                                                    value="${distribution.full_partner_own_share}"
+                                                                                                                                                                    disabled
+                                                                                                                                                                    id="editFullPartnerOwnShare">
+                                                                                                                                                                <span class="text-muted">%</span>
+                                                                                                                                                            </div>
+                                                                                                                                                        </div>
+                                                                                                                                                        <div class="info-row">
+                                                                                                                                                            <span class="info-label">To'liq sherikning investitsion Kommanditchilarning loyihadagi tegishli
+                                                                                                                                                                ulushining realizatsiyasidan kutilayotgan sof foyda/zarardan oladigan qiymati (foizda)</span>
+                                                                                                                                                            <div class="d-flex align-items-center gap-2">
+                                                                                                                                                                <input type="number" min="0" max="100" step="0.1" 
+                                                                                                                                                                    class="form-control form-control-sm" style="max-width: 120px;" 
+                                                                                                                                                                    value="${distribution.full_partner_investor_share}"
+                                                                                                                                                                    onchange="updateDistributionField('full_partner_investor_share', Number(this.value) || 0)"
+                                                                                                                                                                    id="editFullPartnerInvestorShare">
+                                                                                                                                                                <span class="text-muted">%</span>
+                                                                                                                                                            </div>
+                                                                                                                                                        </div>
+                                                                                                                                                        <div class="info-row">
+                                                                                                                                                            <span class="info-label">Kommanditchilarning investitsion loyihadagi o'ziga tegishli ulushining
+                                                                                                                                                                realizatsiyasidan kutilayotgan sof foyda/zarardan oladigan qiymati (foizda)</span>
+                                                                                                                                                            <div class="d-flex align-items-center gap-2">
+                                                                                                                                                                <input type="number" min="0" max="100" step="0.1" 
+                                                                                                                                                                    class="form-control form-control-sm" style="max-width: 120px;" 
+                                                                                                                                                                    value="${distribution.investors_own_share}"
+                                                                                                                                                                    disabled
+                                                                                                                                                                    id="editInvestorsOwnShare">
+                                                                                                                                                                <span class="text-muted">%</span>
+                                                                                                                                                            </div>
+                                                                                                                                                        </div>
+                                                                                                                                                    `;
             }
 
             // Vizual taqsimotni yangilash
@@ -1437,8 +1437,8 @@
             ];
 
             return `<select class="form-select form-select-sm" onchange="moveRoundToAfter(${roundId}, this.value)">
-                                                                                                                                    ${options.join('')}
-                                                                                                                                </select>`;
+                                                                                                                                                    ${options.join('')}
+                                                                                                                                                </select>`;
         }
 
         function moveRoundToAfter(roundId, afterId) {
@@ -1550,20 +1550,20 @@
                 container.innerHTML = rounds.map(round => {
                     const status = statusMap[round.status] || statusMap['inactive'];
                     return `
-                                                                                                                                    <div class="round-item">
-                                                                                                                                        <div class="round-info">
-                                                                                                                                            <div class="d-flex align-items-center gap-2 mb-1">
-                                                                                                                                                <span class="priority-pill">#${round.priority}</span>
-                                                                                                                                                <h6 class="mb-0">${uiEscapeHtml(round.name)}</h6>
-                                                                                                                                            </div>
-                                                                                                                                            <span class="status-badge ${status.class}">${status.text}</span>
-                                                                                                                                        </div>
-                                                                                                                                        <div style="text-align: right;">
-                                                                                                                                            <div class="round-amount">${formatMoney(round.min_share)}</div>
-                                                                                                                                            <div style="font-size: 0.85rem; color: var(--gray-600);">Minimal ulush</div>
-                                                                                                                                        </div>
-                                                                                                                                    </div>
-                                                                                                                                `;
+                                                                                                                                                    <div class="round-item">
+                                                                                                                                                        <div class="round-info">
+                                                                                                                                                            <div class="d-flex align-items-center gap-2 mb-1">
+                                                                                                                                                                <span class="priority-pill">#${round.priority}</span>
+                                                                                                                                                                <h6 class="mb-0">${uiEscapeHtml(round.name)}</h6>
+                                                                                                                                                            </div>
+                                                                                                                                                            <span class="status-badge ${status.class}">${status.text}</span>
+                                                                                                                                                        </div>
+                                                                                                                                                        <div style="text-align: right;">
+                                                                                                                                                            <div class="round-amount">${formatMoney(round.min_share)}</div>
+                                                                                                                                                            <div style="font-size: 0.85rem; color: var(--gray-600);">Minimal ulush</div>
+                                                                                                                                                        </div>
+                                                                                                                                                    </div>
+                                                                                                                                                `;
                 }).join('');
             } else {
                 container.innerHTML = rounds.map(round => {
@@ -1571,62 +1571,62 @@
                     const canDelete = String(round.status) === 'inactive';
 
                     return `
-                                                                                                                                    <div class="round-item" data-round-id="${round.id}"
-                                                                                                                                         ondragover="onRoundDragOver(event, ${round.id})"
-                                                                                                                                         ondragleave="onRoundDragLeave(event, ${round.id})"
-                                                                                                                                         ondrop="onRoundDrop(event, ${round.id})"
-                                                                                                                                         style="flex-direction: column; align-items: stretch; gap: 1rem;">
-                                                                                                                                        <div class="row g-2 align-items-end">
-                                                                                                                                            <div class="col-12 col-md-2">
-                                                                                                                                                <label class="form-label small mb-1">Tartib</label>
-                                                                                                                                                <div class="d-flex align-items-center gap-2">
-                                                                                                                                                    <div class="drag-handle" draggable="true"
-                                                                                                                                                         ondragstart="onRoundDragStart(event, ${round.id})"
-                                                                                                                                                         title="Ushlab torting">
-                                                                                                                                                        <i class="bi bi-grip-vertical"></i>
+                                                                                                                                                    <div class="round-item" data-round-id="${round.id}"
+                                                                                                                                                         ondragover="onRoundDragOver(event, ${round.id})"
+                                                                                                                                                         ondragleave="onRoundDragLeave(event, ${round.id})"
+                                                                                                                                                         ondrop="onRoundDrop(event, ${round.id})"
+                                                                                                                                                         style="flex-direction: column; align-items: stretch; gap: 1rem;">
+                                                                                                                                                        <div class="row g-2 align-items-end">
+                                                                                                                                                            <div class="col-12 col-md-2">
+                                                                                                                                                                <label class="form-label small mb-1">Tartib</label>
+                                                                                                                                                                <div class="d-flex align-items-center gap-2">
+                                                                                                                                                                    <div class="drag-handle" draggable="true"
+                                                                                                                                                                         ondragstart="onRoundDragStart(event, ${round.id})"
+                                                                                                                                                                         title="Ushlab torting">
+                                                                                                                                                                        <i class="bi bi-grip-vertical"></i>
+                                                                                                                                                                    </div>
+                                                                                                                                                                    <span class="priority-pill">#${round.priority}</span>
+                                                                                                                                                                </div>
+                                                                                                                                                            </div>
+                                                                                                                                                            <div class="col-12 col-md-3">
+                                                                                                                                                                <label class="form-label small mb-1">Raund nomi</label>
+                                                                                                                                                                <input type="text" class="form-control form-control-sm" value="${uiEscapeHtml(round.name)}"
+                                                                                                                                                                    onchange="updateRoundField(${round.id}, 'name', this.value)"
+                                                                                                                                                                    id="roundName_${round.id}">
+                                                                                                                                                            </div>
+                                                                                                                                                            <div class="col-6 col-md-2">
+                                                                                                                                                                <label class="form-label small mb-1">Holati</label>
+                                                                                                                                                                <select class="form-select form-select-sm"
+                                                                                                                                                                    onchange="updateRoundField(${round.id}, 'status', this.value)"
+                                                                                                                                                                    id="roundStatus_${round.id}">
+                                                                                                                                                                    <option value="inactive" ${round.status === 'inactive' ? 'selected' : ''}>Nofaol</option>
+                                                                                                                                                                    <option value="in_progress" ${round.status === 'in_progress' ? 'selected' : ''}>Jarayonda</option>
+                                                                                                                                                                    <option value="completed" ${round.status === 'completed' ? 'selected' : ''}>Yakunlangan</option>
+                                                                                                                                                                </select>
+                                                                                                                                                            </div>
+                                                                                                                                                            <div class="col-6 col-md-2">
+                                                                                                                                                                <label class="form-label small mb-1">Minimal ulush (so'm)</label>
+                                                                                                                                                                <input type="number" min="0" step="1000" class="form-control form-control-sm"
+                                                                                                                                                                    value="${Number(round.min_share) || 0}"
+                                                                                                                                                                    onchange="updateRoundField(${round.id}, 'min_share', Number(this.value) || 0)"
+                                                                                                                                                                    id="roundMinShare_${round.id}">
+                                                                                                                                                            </div>
+                                                                                                                                                            <div class="col-12 col-md-2">
+                                                                                                                                                                <label class="form-label small mb-1">Joylashuvi</label>
+                                                                                                                                                                ${buildRoundMoveAfterSelect(round.id)}
+                                                                                                                                                            </div>
+                                                                                                                                                            <div class="col-12 col-md-1 d-flex justify-content-end">
+                                                                                                                                                                <button type="button" class="btn btn-danger btn-sm w-100"
+                                                                                                                                                                    ${canDelete ? '' : 'disabled'}
+                                                                                                                                                                    title="${canDelete ? ' ' : 'Faqat nofaol raundni o‘chirish mumkin'}"
+                                                                                                                                                                    onclick="deleteRound(${round.id})">
+                                                                                                                                                                    <i class="bi bi-trash"></i>
+                                                                                                                                                                    {{ __("admin.delete") }}
+                                                                                                                                                                </button>
+                                                                                                                                                            </div>
+                                                                                                                                                        </div>
                                                                                                                                                     </div>
-                                                                                                                                                    <span class="priority-pill">#${round.priority}</span>
-                                                                                                                                                </div>
-                                                                                                                                            </div>
-                                                                                                                                            <div class="col-12 col-md-3">
-                                                                                                                                                <label class="form-label small mb-1">Raund nomi</label>
-                                                                                                                                                <input type="text" class="form-control form-control-sm" value="${uiEscapeHtml(round.name)}"
-                                                                                                                                                    onchange="updateRoundField(${round.id}, 'name', this.value)"
-                                                                                                                                                    id="roundName_${round.id}">
-                                                                                                                                            </div>
-                                                                                                                                            <div class="col-6 col-md-2">
-                                                                                                                                                <label class="form-label small mb-1">Holati</label>
-                                                                                                                                                <select class="form-select form-select-sm"
-                                                                                                                                                    onchange="updateRoundField(${round.id}, 'status', this.value)"
-                                                                                                                                                    id="roundStatus_${round.id}">
-                                                                                                                                                    <option value="inactive" ${round.status === 'inactive' ? 'selected' : ''}>Nofaol</option>
-                                                                                                                                                    <option value="in_progress" ${round.status === 'in_progress' ? 'selected' : ''}>Jarayonda</option>
-                                                                                                                                                    <option value="completed" ${round.status === 'completed' ? 'selected' : ''}>Yakunlangan</option>
-                                                                                                                                                </select>
-                                                                                                                                            </div>
-                                                                                                                                            <div class="col-6 col-md-2">
-                                                                                                                                                <label class="form-label small mb-1">Minimal ulush (so'm)</label>
-                                                                                                                                                <input type="number" min="0" step="1000" class="form-control form-control-sm"
-                                                                                                                                                    value="${Number(round.min_share) || 0}"
-                                                                                                                                                    onchange="updateRoundField(${round.id}, 'min_share', Number(this.value) || 0)"
-                                                                                                                                                    id="roundMinShare_${round.id}">
-                                                                                                                                            </div>
-                                                                                                                                            <div class="col-12 col-md-2">
-                                                                                                                                                <label class="form-label small mb-1">Joylashuvi</label>
-                                                                                                                                                ${buildRoundMoveAfterSelect(round.id)}
-                                                                                                                                            </div>
-                                                                                                                                            <div class="col-12 col-md-1 d-flex justify-content-end">
-                                                                                                                                                <button type="button" class="btn btn-danger btn-sm w-100"
-                                                                                                                                                    ${canDelete ? '' : 'disabled'}
-                                                                                                                                                    title="${canDelete ? ' ' : 'Faqat nofaol raundni o‘chirish mumkin'}"
-                                                                                                                                                    onclick="deleteRound(${round.id})">
-                                                                                                                                                    <i class="bi bi-trash"></i>
-                                                                                                                                                    {{ __("admin.delete") }}
-                                                                                                                                                </button>
-                                                                                                                                            </div>
-                                                                                                                                        </div>
-                                                                                                                                    </div>
-                                                                                                                                `;
+                                                                                                                                                `;
                 }).join('');
             }
 
@@ -1735,11 +1735,11 @@
         function displayDividendHistory(dividendHistory) {
             if (!dividendHistory || dividendHistory.length === 0) {
                 document.getElementById('dividendHistory').innerHTML = `
-                                                                                                                                        <div class="text-center py-4 text-muted">
-                                                                                                                                            <i class="bi bi-inbox" style="font-size: 2rem; display: block; margin-bottom: 0.5rem;"></i>
-                                                                                                                                            <p>Dividendlar tarixi mavjud emas</p>
-                                                                                                                                        </div>
-                                                                                                                                    `;
+                                                                                                                                                        <div class="text-center py-4 text-muted">
+                                                                                                                                                            <i class="bi bi-inbox" style="font-size: 2rem; display: block; margin-bottom: 0.5rem;"></i>
+                                                                                                                                                            <p>Dividendlar tarixi mavjud emas</p>
+                                                                                                                                                        </div>
+                                                                                                                                                    `;
                 const paginationEl = document.getElementById('dividendPagination');
                 const summaryEl = document.getElementById('dividendSummary');
                 if (paginationEl) paginationEl.innerHTML = '';
@@ -1763,50 +1763,50 @@
 
             const historyContainer = document.getElementById('dividendHistory');
             historyContainer.innerHTML = `
-                                                                                                                                    <table class="table user-table table-bordered table-hover table-striped align-items-center">
-                                                                                                                                        <thead class="table-dark">
-                                                                                                                                            <tr>
-                                                                                                                                                <th>
-                                                                                                                                                    <i class="bi bi-calendar3 me-1"></i>
-                                                                                                                                                    Sana
-                                                                                                                                                </th>
-                                                                                                                                                <th>
-                                                                                                                                                    <i class="bi bi-percent me-1"></i>
-                                                                                                                                                    Dividend foizi
-                                                                                                                                                </th>
-                                                                                                                                                <th>
-                                                                                                                                                    <i class="bi bi-check-circle me-1"></i>
-                                                                                                                                                    Holati
-                                                                                                                                                </th>
-                                                                                                                                            </tr>
-                                                                                                                                        </thead>
-                                                                                                                                        <tbody>
-                                                                                                                                            ${paginatedItems.map(item => {
+                                                                                                                                                    <table class="table user-table table-bordered table-hover table-striped align-items-center">
+                                                                                                                                                        <thead class="table-dark">
+                                                                                                                                                            <tr>
+                                                                                                                                                                <th>
+                                                                                                                                                                    <i class="bi bi-calendar3 me-1"></i>
+                                                                                                                                                                    Sana
+                                                                                                                                                                </th>
+                                                                                                                                                                <th>
+                                                                                                                                                                    <i class="bi bi-percent me-1"></i>
+                                                                                                                                                                    Dividend foizi
+                                                                                                                                                                </th>
+                                                                                                                                                                <th>
+                                                                                                                                                                    <i class="bi bi-check-circle me-1"></i>
+                                                                                                                                                                    Holati
+                                                                                                                                                                </th>
+                                                                                                                                                            </tr>
+                                                                                                                                                        </thead>
+                                                                                                                                                        <tbody>
+                                                                                                                                                            ${paginatedItems.map(item => {
                 const statusClass = item.status === 'To\'langan' ? 'status-badge-paid' : 'status-badge-pending';
                 const statusIcon = item.status === 'To\'langan' ? 'bi-check-circle-fill' : 'bi-clock';
                 return `
-                                                                                                                                                    <tr>
-                                                                                                                                                        <td>
-                                                                                                                                                            <i class="bi bi-calendar-event me-1 text-muted"></i>
-                                                                                                                                                            <strong>${item.date}</strong>
-                                                                                                                                                        </td>
-                                                                                                                                                        <td>
-                                                                                                                                                            <span style="font-size: 1.1rem; font-weight: 600; color: var(--success-color);">
-                                                                                                                                                                ${item.amount}%
-                                                                                                                                                            </span>
-                                                                                                                                                        </td>
-                                                                                                                                                        <td>
-                                                                                                                                                            <span class="${statusClass}">
-                                                                                                                                                                <i class="bi ${statusIcon}"></i>
-                                                                                                                                                                ${item.status}
-                                                                                                                                                            </span>
-                                                                                                                                                        </td>
-                                                                                                                                                    </tr>
-                                                                                                                                                `;
+                                                                                                                                                                    <tr>
+                                                                                                                                                                        <td>
+                                                                                                                                                                            <i class="bi bi-calendar-event me-1 text-muted"></i>
+                                                                                                                                                                            <strong>${item.date}</strong>
+                                                                                                                                                                        </td>
+                                                                                                                                                                        <td>
+                                                                                                                                                                            <span style="font-size: 1.1rem; font-weight: 600; color: var(--success-color);">
+                                                                                                                                                                                ${item.amount}%
+                                                                                                                                                                            </span>
+                                                                                                                                                                        </td>
+                                                                                                                                                                        <td>
+                                                                                                                                                                            <span class="${statusClass}">
+                                                                                                                                                                                <i class="bi ${statusIcon}"></i>
+                                                                                                                                                                                ${item.status}
+                                                                                                                                                                            </span>
+                                                                                                                                                                        </td>
+                                                                                                                                                                    </tr>
+                                                                                                                                                                `;
             }).join('')}
-                                                                                                                                        </tbody>
-                                                                                                                                    </table>
-                                                                                                                                `;
+                                                                                                                                                        </tbody>
+                                                                                                                                                    </table>
+                                                                                                                                                `;
 
             // Pagination
             if (totalPages > 1) {
@@ -1822,32 +1822,32 @@
 
             // Previous
             paginationHTML += `
-                                                                                                                                    <li class="page-item ${currentDividendPage === 1 ? 'disabled' : ''}">
-                                                                                                                                        <a class="page-link" href="javascript:void(0)" onclick="changeDividendPage(${currentDividendPage - 1})">
-                                                                                                                                            <i class="fa-solid fa-angle-left"></i>
-                                                                                                                                        </a>
-                                                                                                                                    </li>
-                                                                                                                                `;
+                                                                                                                                                    <li class="page-item ${currentDividendPage === 1 ? 'disabled' : ''}">
+                                                                                                                                                        <a class="page-link" href="javascript:void(0)" onclick="changeDividendPage(${currentDividendPage - 1})">
+                                                                                                                                                            <i class="fa-solid fa-angle-left"></i>
+                                                                                                                                                        </a>
+                                                                                                                                                    </li>
+                                                                                                                                                `;
 
             // Page numbers (simple version: all pages, with active state)
             for (let i = 1; i <= totalPages; i++) {
                 paginationHTML += `
-                                                                                                                                        <li class="page-item ${i === currentDividendPage ? 'active' : ''}">
-                                                                                                                                            <a class="page-link" href="javascript:void(0)" onclick="changeDividendPage(${i})">
-                                                                                                                                                ${i}
-                                                                                                                                            </a>
-                                                                                                                                        </li>
-                                                                                                                                    `;
+                                                                                                                                                        <li class="page-item ${i === currentDividendPage ? 'active' : ''}">
+                                                                                                                                                            <a class="page-link" href="javascript:void(0)" onclick="changeDividendPage(${i})">
+                                                                                                                                                                ${i}
+                                                                                                                                                            </a>
+                                                                                                                                                        </li>
+                                                                                                                                                    `;
             }
 
             // Next
             paginationHTML += `
-                                                                                                                                    <li class="page-item ${currentDividendPage === totalPages ? 'disabled' : ''}">
-                                                                                                                                        <a class="page-link" href="javascript:void(0)" onclick="changeDividendPage(${currentDividendPage + 1})">
-                                                                                                                                            <i class="fa-solid fa-angle-right"></i>
-                                                                                                                                        </a>
-                                                                                                                                    </li>
-                                                                                                                                `;
+                                                                                                                                                    <li class="page-item ${currentDividendPage === totalPages ? 'disabled' : ''}">
+                                                                                                                                                        <a class="page-link" href="javascript:void(0)" onclick="changeDividendPage(${currentDividendPage + 1})">
+                                                                                                                                                            <i class="fa-solid fa-angle-right"></i>
+                                                                                                                                                        </a>
+                                                                                                                                                    </li>
+                                                                                                                                                `;
 
             paginationHTML += '</ul>';
             paginationContainer.innerHTML = paginationHTML;
@@ -1880,332 +1880,332 @@
             if (!partnersEditMode) {
                 // Ko'rish rejimi
                 container.innerHTML = partners.map(partner => `
-                                                                                                            <div class="partner-card" style="margin-bottom: 1.5rem;">
-                                                                                                                <div class="partner-header">
-                                                                                                                    <i class="bi bi-building me-2"></i>
-                                                                                                                    ${uiEscapeHtml(partner.company_name)}
-                                                                                                                </div>
-                                                                                                                <div class="info-grid">
-                                                                                                                    <div class="info-row">
-                                                                                                                        <span class="info-label">
-                                                                                                                            <i class="bi bi-hash me-1 text-muted"></i>
-                                                                                                                            To'liq sherikning identifikatori (ID)
-                                                                                                                        </span>
-                                                                                                                        <span class="info-value">${partner.id}</span>
-                                                                                                                    </div>
-                                                                                                                    <div class="info-row">
-                                                                                                                        <span class="info-label">
-                                                                                                                            <i class="bi bi-building me-1 text-muted"></i>
-                                                                                                                            Korxona to'liq nomi
-                                                                                                                        </span>
-                                                                                                                        <span class="info-value">${uiEscapeHtml(partner.company_name)}</span>
-                                                                                                                    </div>
-                                                                                                                    <div class="info-row">
-                                                                                                                        <span class="info-label">
-                                                                                                                            <i class="bi bi-card-text me-1 text-muted"></i>
-                                                                                                                            INN
-                                                                                                                        </span>
-                                                                                                                        <span class="info-value">${uiEscapeHtml(partner.inn)}</span>
-                                                                                                                    </div>
-                                                                                                                    <div class="info-row">
-                                                                                                                        <span class="info-label">
-                                                                                                                            <i class="bi bi-upc-scan me-1 text-muted"></i>
-                                                                                                                            IFUT kodi
-                                                                                                                        </span>
-                                                                                                                        <span class="info-value">${uiEscapeHtml(partner.ifut)}</span>
-                                                                                                                    </div>
-                                                                                                                    <div class="info-row">
-                                                                                                                        <span class="info-label">
-                                                                                                                            <i class="bi bi-briefcase me-1 text-muted"></i>
-                                                                                                                            Faoliyat turi
-                                                                                                                        </span>
-                                                                                                                        <span class="info-value">${uiEscapeHtml(partner.type)}</span>
-                                                                                                                    </div>
-                                                                                                                    <div class="info-row">
-                                                                                                                        <span class="info-label">
-                                                                                                                            <i class="bi bi-geo-alt me-1 text-muted"></i>
-                                                                                                                            Manzil
-                                                                                                                        </span>
-                                                                                                                        <span class="info-value">${uiEscapeHtml(partner.address)}</span>
-                                                                                                                    </div>
-                                                                                                                    <div class="info-row">
-                                                                                                                        <span class="info-label">
-                                                                                                                            <i class="bi bi-person-badge me-1 text-muted"></i>
-                                                                                                                            Direktor F.I.O.
-                                                                                                                        </span>
-                                                                                                                        <span class="info-value">${uiEscapeHtml(partner.director)}</span>
-                                                                                                                    </div>
-                                                                                                                    <div class="info-row">
-                                                                                                                        <span class="info-label">
-                                                                                                                            <i class="bi bi-telephone me-1 text-muted"></i>
-                                                                                                                            Bog'lanish uchun telefon raqami
-                                                                                                                        </span>
-                                                                                                                        <span class="info-value">${uiEscapeHtml(partner.phone)}</span>
-                                                                                                                    </div>
-                                                                                                                    <div class="info-row">
-                                                                                                                        <span class="info-label">
-                                                                                                                            <i class="bi bi-envelope me-1 text-muted"></i>
-                                                                                                                            Email
-                                                                                                                        </span>
-                                                                                                                        <span class="info-value">${uiEscapeHtml(partner.email)}</span>
-                                                                                                                    </div>
-                                                                                                                    <div class="info-row">
-                                                                                                                        <span class="info-label">
-                                                                                                                            <i class="bi bi-calendar-check me-1 text-muted"></i>
-                                                                                                                            Ro'yxatdan o'tkazilgan sana
-                                                                                                                        </span>
-                                                                                                                        <span class="info-value">${uiEscapeHtml(partner.registration_date)}</span>
-                                                                                                                    </div>
-                                                                                                                    <div class="info-row">
-                                                                                                                        <span class="info-label">
-                                                                                                                            <i class="bi bi-file-earmark-text me-1 text-muted"></i>
-                                                                                                                            Ro'yxatdan o'tkazish raqami
-                                                                                                                        </span>
-                                                                                                                        <span class="info-value">${uiEscapeHtml(partner.registration_number)}</span>
-                                                                                                                    </div>
-                                                                                                                    <div class="info-row">
-                                                                                                                        <span class="info-label">
-                                                                                                                            <i class="bi bi-building-check me-1 text-muted"></i>
-                                                                                                                            Ro'yxatdan o'tkazuvchi davlat tashkiloti nomi
-                                                                                                                        </span>
-                                                                                                                        <span class="info-value">${uiEscapeHtml(partner.registration_org)}</span>
-                                                                                                                    </div>
-                                                                                                                    ${partner.type === 'YaTT' ? `
-                                                                                                                    <div class="info-row">
-                                                                                                                        <span class="info-label">
-                                                                                                                            <i class="bi bi-person-vcard me-1 text-muted"></i>
-                                                                                                                            Pasport ma'lumoti
-                                                                                                                        </span>
-                                                                                                                        <span class="info-value">${uiEscapeHtml(partner.passport_data)}</span>
-                                                                                                                    </div>
-                                                                                                                    <div class="info-row">
-                                                                                                                        <span class="info-label">
-                                                                                                                            <i class="bi bi-fingerprint me-1 text-muted"></i>
-                                                                                                                            JSHSHIR
-                                                                                                                        </span>
-                                                                                                                        <span class="info-value">${uiEscapeHtml(partner.pinfl)}</span>
-                                                                                                                    </div>
-                                                                                                                    ` : ''}
-                                                                                                                    <div class="info-row">
-                                                                                                                        <span class="info-label">
-                                                                                                                            <i class="bi bi-toggle-on me-1 text-muted"></i>
-                                                                                                                            Akkount holati
-                                                                                                                        </span>
-                                                                                                                        <span class="info-value">
-                                                                                                                            ${partner.account_status === 'active'
+                                                                                                                            <div class="partner-card" style="margin-bottom: 1.5rem;">
+                                                                                                                                <div class="partner-header">
+                                                                                                                                    <i class="bi bi-building me-2"></i>
+                                                                                                                                    ${uiEscapeHtml(partner.company_name)}
+                                                                                                                                </div>
+                                                                                                                                <div class="info-grid">
+                                                                                                                                    <div class="info-row">
+                                                                                                                                        <span class="info-label">
+                                                                                                                                            <i class="bi bi-hash me-1 text-muted"></i>
+                                                                                                                                            To'liq sherikning identifikatori (ID)
+                                                                                                                                        </span>
+                                                                                                                                        <span class="info-value">${partner.id}</span>
+                                                                                                                                    </div>
+                                                                                                                                    <div class="info-row">
+                                                                                                                                        <span class="info-label">
+                                                                                                                                            <i class="bi bi-building me-1 text-muted"></i>
+                                                                                                                                            Korxona to'liq nomi
+                                                                                                                                        </span>
+                                                                                                                                        <span class="info-value">${uiEscapeHtml(partner.company_name)}</span>
+                                                                                                                                    </div>
+                                                                                                                                    <div class="info-row">
+                                                                                                                                        <span class="info-label">
+                                                                                                                                            <i class="bi bi-card-text me-1 text-muted"></i>
+                                                                                                                                            INN
+                                                                                                                                        </span>
+                                                                                                                                        <span class="info-value">${uiEscapeHtml(partner.inn)}</span>
+                                                                                                                                    </div>
+                                                                                                                                    <div class="info-row">
+                                                                                                                                        <span class="info-label">
+                                                                                                                                            <i class="bi bi-upc-scan me-1 text-muted"></i>
+                                                                                                                                            IFUT kodi
+                                                                                                                                        </span>
+                                                                                                                                        <span class="info-value">${uiEscapeHtml(partner.ifut)}</span>
+                                                                                                                                    </div>
+                                                                                                                                    <div class="info-row">
+                                                                                                                                        <span class="info-label">
+                                                                                                                                            <i class="bi bi-briefcase me-1 text-muted"></i>
+                                                                                                                                            Faoliyat turi
+                                                                                                                                        </span>
+                                                                                                                                        <span class="info-value">${uiEscapeHtml(partner.type)}</span>
+                                                                                                                                    </div>
+                                                                                                                                    <div class="info-row">
+                                                                                                                                        <span class="info-label">
+                                                                                                                                            <i class="bi bi-geo-alt me-1 text-muted"></i>
+                                                                                                                                            Manzil
+                                                                                                                                        </span>
+                                                                                                                                        <span class="info-value">${uiEscapeHtml(partner.address)}</span>
+                                                                                                                                    </div>
+                                                                                                                                    <div class="info-row">
+                                                                                                                                        <span class="info-label">
+                                                                                                                                            <i class="bi bi-person-badge me-1 text-muted"></i>
+                                                                                                                                            Direktor F.I.O.
+                                                                                                                                        </span>
+                                                                                                                                        <span class="info-value">${uiEscapeHtml(partner.director)}</span>
+                                                                                                                                    </div>
+                                                                                                                                    <div class="info-row">
+                                                                                                                                        <span class="info-label">
+                                                                                                                                            <i class="bi bi-telephone me-1 text-muted"></i>
+                                                                                                                                            Bog'lanish uchun telefon raqami
+                                                                                                                                        </span>
+                                                                                                                                        <span class="info-value">${uiEscapeHtml(partner.phone)}</span>
+                                                                                                                                    </div>
+                                                                                                                                    <div class="info-row">
+                                                                                                                                        <span class="info-label">
+                                                                                                                                            <i class="bi bi-envelope me-1 text-muted"></i>
+                                                                                                                                            Email
+                                                                                                                                        </span>
+                                                                                                                                        <span class="info-value">${uiEscapeHtml(partner.email)}</span>
+                                                                                                                                    </div>
+                                                                                                                                    <div class="info-row">
+                                                                                                                                        <span class="info-label">
+                                                                                                                                            <i class="bi bi-calendar-check me-1 text-muted"></i>
+                                                                                                                                            Ro'yxatdan o'tkazilgan sana
+                                                                                                                                        </span>
+                                                                                                                                        <span class="info-value">${uiEscapeHtml(partner.registration_date)}</span>
+                                                                                                                                    </div>
+                                                                                                                                    <div class="info-row">
+                                                                                                                                        <span class="info-label">
+                                                                                                                                            <i class="bi bi-file-earmark-text me-1 text-muted"></i>
+                                                                                                                                            Ro'yxatdan o'tkazish raqami
+                                                                                                                                        </span>
+                                                                                                                                        <span class="info-value">${uiEscapeHtml(partner.registration_number)}</span>
+                                                                                                                                    </div>
+                                                                                                                                    <div class="info-row">
+                                                                                                                                        <span class="info-label">
+                                                                                                                                            <i class="bi bi-building-check me-1 text-muted"></i>
+                                                                                                                                            Ro'yxatdan o'tkazuvchi davlat tashkiloti nomi
+                                                                                                                                        </span>
+                                                                                                                                        <span class="info-value">${uiEscapeHtml(partner.registration_org)}</span>
+                                                                                                                                    </div>
+                                                                                                                                    ${partner.type === 'YaTT' ? `
+                                                                                                                                    <div class="info-row">
+                                                                                                                                        <span class="info-label">
+                                                                                                                                            <i class="bi bi-person-vcard me-1 text-muted"></i>
+                                                                                                                                            Pasport ma'lumoti
+                                                                                                                                        </span>
+                                                                                                                                        <span class="info-value">${uiEscapeHtml(partner.passport_data)}</span>
+                                                                                                                                    </div>
+                                                                                                                                    <div class="info-row">
+                                                                                                                                        <span class="info-label">
+                                                                                                                                            <i class="bi bi-fingerprint me-1 text-muted"></i>
+                                                                                                                                            JSHSHIR
+                                                                                                                                        </span>
+                                                                                                                                        <span class="info-value">${uiEscapeHtml(partner.pinfl)}</span>
+                                                                                                                                    </div>
+                                                                                                                                    ` : ''}
+                                                                                                                                    <div class="info-row">
+                                                                                                                                        <span class="info-label">
+                                                                                                                                            <i class="bi bi-toggle-on me-1 text-muted"></i>
+                                                                                                                                            Akkount holati
+                                                                                                                                        </span>
+                                                                                                                                        <span class="info-value">
+                                                                                                                                            ${partner.account_status === 'active'
                         ? '<span class="status-badge status-active"><i class="bi bi-check-circle me-1"></i>Faol</span>'
                         : '<span class="status-badge status-inactive"><i class="bi bi-x-circle me-1"></i>Bloklangan</span>'}
-                                                                                                                        </span>
-                                                                                                                    </div>
-                                                                                                                    <div class="info-row">
-                                                                                                                        <span class="info-label">
-                                                                                                                            <i class="bi bi-handshake me-1 text-muted"></i>
-                                                                                                                            To'liq sheriklik holati sanasi
-                                                                                                                        </span>
-                                                                                                                        <span class="info-value">${uiEscapeHtml(partner.partnership_date)}</span>
-                                                                                                                    </div>
-                                                                                                                    <div class="info-row">
-                                                                                                                        <span class="info-label">
-                                                                                                                            <i class="bi bi-file-earmark-pdf me-1 text-muted"></i>
-                                                                                                                            Investorlik sertifikati fayli
-                                                                                                                        </span>
-                                                                                                                        <span class="info-value">${uiEscapeHtml(partner.investor_certificate)}</span>
-                                                                                                                    </div>
-                                                                                                                    <div class="info-row">
-                                                                                                                        <span class="info-label">
-                                                                                                                            <i class="bi bi-cash-stack me-1 text-muted"></i>
-                                                                                                                            Loyihadagi jami ulushi (summada)
-                                                                                                                        </span>
-                                                                                                                        <span class="info-value">${formatMoney(partner.share_amount)}</span>
-                                                                                                                    </div>
-                                                                                                                    <div class="info-row">
-                                                                                                                        <span class="info-label">
-                                                                                                                            <i class="bi bi-percent me-1 text-muted"></i>
-                                                                                                                            Loyihadagi jami ulushi (foizda)
-                                                                                                                        </span>
-                                                                                                                        <span class="info-value">${partner.share_percent}%</span>
-                                                                                                                    </div>
-                                                                                                                </div>
-                                                                                                            </div>
-                                                                                                        `).join('');
+                                                                                                                                        </span>
+                                                                                                                                    </div>
+                                                                                                                                    <div class="info-row">
+                                                                                                                                        <span class="info-label">
+                                                                                                                                            <i class="bi bi-handshake me-1 text-muted"></i>
+                                                                                                                                            To'liq sheriklik holati sanasi
+                                                                                                                                        </span>
+                                                                                                                                        <span class="info-value">${uiEscapeHtml(partner.partnership_date)}</span>
+                                                                                                                                    </div>
+                                                                                                                                    <div class="info-row">
+                                                                                                                                        <span class="info-label">
+                                                                                                                                            <i class="bi bi-file-earmark-pdf me-1 text-muted"></i>
+                                                                                                                                            Investorlik sertifikati fayli
+                                                                                                                                        </span>
+                                                                                                                                        <span class="info-value">${uiEscapeHtml(partner.investor_certificate)}</span>
+                                                                                                                                    </div>
+                                                                                                                                    <div class="info-row">
+                                                                                                                                        <span class="info-label">
+                                                                                                                                            <i class="bi bi-cash-stack me-1 text-muted"></i>
+                                                                                                                                            Loyihadagi jami ulushi (summada)
+                                                                                                                                        </span>
+                                                                                                                                        <span class="info-value">${formatMoney(partner.share_amount)}</span>
+                                                                                                                                    </div>
+                                                                                                                                    <div class="info-row">
+                                                                                                                                        <span class="info-label">
+                                                                                                                                            <i class="bi bi-percent me-1 text-muted"></i>
+                                                                                                                                            Loyihadagi jami ulushi (foizda)
+                                                                                                                                        </span>
+                                                                                                                                        <span class="info-value">${partner.share_percent}%</span>
+                                                                                                                                    </div>
+                                                                                                                                </div>
+                                                                                                                            </div>
+                                                                                                                        `).join('');
             } else {
                 // Tahrirlash rejimi
                 container.innerHTML = partners.map((partner, index) => `
-                                                                                                            <div class="partner-card" style="margin-bottom: 1.5rem; border: 2px solid var(--gray-200);">
-                                                                                                                <div class="d-flex justify-content-between align-items-center mb-3">
-                                                                                                                    <div class="partner-header mb-0">
-                                                                                                                        <i class="bi bi-building me-2"></i>
-                                                                                                                        Sherik #${index + 1}
-                                                                                                                    </div>
-                                                                                                                    <button type="button" class="btn btn-danger btn-sm" onclick="deletePartner(${partner.id})">
-                                                                                                                        <i class="bi bi-trash me-1"></i>
-                                                                                                                        O'chirish
-                                                                                                                    </button>
-                                                                                                                </div>
+                                                                                                                            <div class="partner-card" style="margin-bottom: 1.5rem; border: 2px solid var(--gray-200);">
+                                                                                                                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                                                                                                                    <div class="partner-header mb-0">
+                                                                                                                                        <i class="bi bi-building me-2"></i>
+                                                                                                                                        Sherik #${index + 1}
+                                                                                                                                    </div>
+                                                                                                                                    <button type="button" class="btn btn-danger btn-sm" onclick="deletePartner(${partner.id})">
+                                                                                                                                        <i class="bi bi-trash me-1"></i>
+                                                                                                                                        O'chirish
+                                                                                                                                    </button>
+                                                                                                                                </div>
 
-                                                                                                                <div class="info-grid">
-                                                                                                                    <div class="info-row">
-                                                                                                                        <span class="info-label">
-                                                                                                                            <i class="bi bi-building me-1 text-muted"></i>
-                                                                                                                            Korxona to'liq nomi
-                                                                                                                        </span>
-                                                                                                                        <input type="text" class="form-control form-control-sm" value="${uiEscapeHtml(partner.company_name)}"
-                                                                                                                            onchange="updatePartnerField(${partner.id}, 'company_name', this.value)">
-                                                                                                                    </div>
+                                                                                                                                <div class="info-grid">
+                                                                                                                                    <div class="info-row">
+                                                                                                                                        <span class="info-label">
+                                                                                                                                            <i class="bi bi-building me-1 text-muted"></i>
+                                                                                                                                            Korxona to'liq nomi
+                                                                                                                                        </span>
+                                                                                                                                        <input type="text" class="form-control form-control-sm" value="${uiEscapeHtml(partner.company_name)}"
+                                                                                                                                            onchange="updatePartnerField(${partner.id}, 'company_name', this.value)">
+                                                                                                                                    </div>
 
-                                                                                                                    <div class="info-row">
-                                                                                                                        <span class="info-label">
-                                                                                                                            <i class="bi bi-card-text me-1 text-muted"></i>
-                                                                                                                            INN
-                                                                                                                        </span>
-                                                                                                                        <input type="text" class="form-control form-control-sm" value="${uiEscapeHtml(partner.inn)}"
-                                                                                                                            onchange="updatePartnerField(${partner.id}, 'inn', this.value)">
-                                                                                                                    </div>
+                                                                                                                                    <div class="info-row">
+                                                                                                                                        <span class="info-label">
+                                                                                                                                            <i class="bi bi-card-text me-1 text-muted"></i>
+                                                                                                                                            INN
+                                                                                                                                        </span>
+                                                                                                                                        <input type="text" class="form-control form-control-sm" value="${uiEscapeHtml(partner.inn)}"
+                                                                                                                                            onchange="updatePartnerField(${partner.id}, 'inn', this.value)">
+                                                                                                                                    </div>
 
-                                                                                                                    <div class="info-row">
-                                                                                                                        <span class="info-label">
-                                                                                                                            <i class="bi bi-upc-scan me-1 text-muted"></i>
-                                                                                                                            IFUT kodi
-                                                                                                                        </span>
-                                                                                                                        <input type="text" class="form-control form-control-sm" value="${uiEscapeHtml(partner.ifut)}"
-                                                                                                                            onchange="updatePartnerField(${partner.id}, 'ifut', this.value)">
-                                                                                                                    </div>
+                                                                                                                                    <div class="info-row">
+                                                                                                                                        <span class="info-label">
+                                                                                                                                            <i class="bi bi-upc-scan me-1 text-muted"></i>
+                                                                                                                                            IFUT kodi
+                                                                                                                                        </span>
+                                                                                                                                        <input type="text" class="form-control form-control-sm" value="${uiEscapeHtml(partner.ifut)}"
+                                                                                                                                            onchange="updatePartnerField(${partner.id}, 'ifut', this.value)">
+                                                                                                                                    </div>
 
-                                                                                                                    <div class="info-row">
-                                                                                                                        <span class="info-label">
-                                                                                                                            <i class="bi bi-briefcase me-1 text-muted"></i>
-                                                                                                                            Faoliyat turi
-                                                                                                                        </span>
-                                                                                                                        <select class="form-select form-select-sm" onchange="updatePartnerField(${partner.id}, 'type', this.value)">
-                                                                                                                            <option value="MChJ" ${partner.type === 'MChJ' ? 'selected' : ''}>MChJ</option>
-                                                                                                                            <option value="YaTT" ${partner.type === 'YaTT' ? 'selected' : ''}>YaTT</option>
-                                                                                                                            <option value="QMJ" ${partner.type === 'QMJ' ? 'selected' : ''}>QMJ</option>
-                                                                                                                            <option value="OAJ" ${partner.type === 'OAJ' ? 'selected' : ''}>OAJ</option>
-                                                                                                                        </select>
-                                                                                                                    </div>
+                                                                                                                                    <div class="info-row">
+                                                                                                                                        <span class="info-label">
+                                                                                                                                            <i class="bi bi-briefcase me-1 text-muted"></i>
+                                                                                                                                            Faoliyat turi
+                                                                                                                                        </span>
+                                                                                                                                        <select class="form-select form-select-sm" onchange="updatePartnerField(${partner.id}, 'type', this.value)">
+                                                                                                                                            <option value="MChJ" ${partner.type === 'MChJ' ? 'selected' : ''}>MChJ</option>
+                                                                                                                                            <option value="YaTT" ${partner.type === 'YaTT' ? 'selected' : ''}>YaTT</option>
+                                                                                                                                            <option value="QMJ" ${partner.type === 'QMJ' ? 'selected' : ''}>QMJ</option>
+                                                                                                                                            <option value="OAJ" ${partner.type === 'OAJ' ? 'selected' : ''}>OAJ</option>
+                                                                                                                                        </select>
+                                                                                                                                    </div>
 
-                                                                                                                    <div class="info-row">
-                                                                                                                        <span class="info-label">
-                                                                                                                            <i class="bi bi-geo-alt me-1 text-muted"></i>
-                                                                                                                            Manzil
-                                                                                                                        </span>
-                                                                                                                        <textarea class="form-control form-control-sm" rows="2"
-                                                                                                                            onchange="updatePartnerField(${partner.id}, 'address', this.value)">${uiEscapeHtml(partner.address)}</textarea>
-                                                                                                                    </div>
+                                                                                                                                    <div class="info-row">
+                                                                                                                                        <span class="info-label">
+                                                                                                                                            <i class="bi bi-geo-alt me-1 text-muted"></i>
+                                                                                                                                            Manzil
+                                                                                                                                        </span>
+                                                                                                                                        <textarea class="form-control form-control-sm" rows="2"
+                                                                                                                                            onchange="updatePartnerField(${partner.id}, 'address', this.value)">${uiEscapeHtml(partner.address)}</textarea>
+                                                                                                                                    </div>
 
-                                                                                                                    <div class="info-row">
-                                                                                                                        <span class="info-label">
-                                                                                                                            <i class="bi bi-person-badge me-1 text-muted"></i>
-                                                                                                                            Direktor F.I.O.
-                                                                                                                        </span>
-                                                                                                                        <input type="text" class="form-control form-control-sm" value="${uiEscapeHtml(partner.director)}"
-                                                                                                                            onchange="updatePartnerField(${partner.id}, 'director', this.value)">
-                                                                                                                    </div>
+                                                                                                                                    <div class="info-row">
+                                                                                                                                        <span class="info-label">
+                                                                                                                                            <i class="bi bi-person-badge me-1 text-muted"></i>
+                                                                                                                                            Direktor F.I.O.
+                                                                                                                                        </span>
+                                                                                                                                        <input type="text" class="form-control form-control-sm" value="${uiEscapeHtml(partner.director)}"
+                                                                                                                                            onchange="updatePartnerField(${partner.id}, 'director', this.value)">
+                                                                                                                                    </div>
 
-                                                                                                                    <div class="info-row">
-                                                                                                                        <span class="info-label">
-                                                                                                                            <i class="bi bi-telephone me-1 text-muted"></i>
-                                                                                                                            Telefon raqami
-                                                                                                                        </span>
-                                                                                                                        <input type="text" class="form-control form-control-sm" value="${uiEscapeHtml(partner.phone)}"
-                                                                                                                            onchange="updatePartnerField(${partner.id}, 'phone', this.value)">
-                                                                                                                    </div>
+                                                                                                                                    <div class="info-row">
+                                                                                                                                        <span class="info-label">
+                                                                                                                                            <i class="bi bi-telephone me-1 text-muted"></i>
+                                                                                                                                            Telefon raqami
+                                                                                                                                        </span>
+                                                                                                                                        <input type="text" class="form-control form-control-sm" value="${uiEscapeHtml(partner.phone)}"
+                                                                                                                                            onchange="updatePartnerField(${partner.id}, 'phone', this.value)">
+                                                                                                                                    </div>
 
-                                                                                                                    <div class="info-row">
-                                                                                                                        <span class="info-label">
-                                                                                                                            <i class="bi bi-envelope me-1 text-muted"></i>
-                                                                                                                            Email
-                                                                                                                        </span>
-                                                                                                                        <input type="email" class="form-control form-control-sm" value="${uiEscapeHtml(partner.email)}"
-                                                                                                                            onchange="updatePartnerField(${partner.id}, 'email', this.value)">
-                                                                                                                    </div>
+                                                                                                                                    <div class="info-row">
+                                                                                                                                        <span class="info-label">
+                                                                                                                                            <i class="bi bi-envelope me-1 text-muted"></i>
+                                                                                                                                            Email
+                                                                                                                                        </span>
+                                                                                                                                        <input type="email" class="form-control form-control-sm" value="${uiEscapeHtml(partner.email)}"
+                                                                                                                                            onchange="updatePartnerField(${partner.id}, 'email', this.value)">
+                                                                                                                                    </div>
 
-                                                                                                                    <div class="info-row">
-                                                                                                                        <span class="info-label">
-                                                                                                                            <i class="bi bi-calendar-check me-1 text-muted"></i>
-                                                                                                                            Ro'yxatdan o'tkazilgan sana
-                                                                                                                        </span>
-                                                                                                                        <input type="text" class="form-control form-control-sm" value="${uiEscapeHtml(partner.registration_date)}"
-                                                                                                                            onchange="updatePartnerField(${partner.id}, 'registration_date', this.value)">
-                                                                                                                    </div>
+                                                                                                                                    <div class="info-row">
+                                                                                                                                        <span class="info-label">
+                                                                                                                                            <i class="bi bi-calendar-check me-1 text-muted"></i>
+                                                                                                                                            Ro'yxatdan o'tkazilgan sana
+                                                                                                                                        </span>
+                                                                                                                                        <input type="text" class="form-control form-control-sm" value="${uiEscapeHtml(partner.registration_date)}"
+                                                                                                                                            onchange="updatePartnerField(${partner.id}, 'registration_date', this.value)">
+                                                                                                                                    </div>
 
-                                                                                                                    <div class="info-row">
-                                                                                                                        <span class="info-label">
-                                                                                                                            <i class="bi bi-file-earmark-text me-1 text-muted"></i>
-                                                                                                                            Ro'yxatdan o'tkazish raqami
-                                                                                                                        </span>
-                                                                                                                        <input type="text" class="form-control form-control-sm" value="${uiEscapeHtml(partner.registration_number)}"
-                                                                                                                            onchange="updatePartnerField(${partner.id}, 'registration_number', this.value)">
-                                                                                                                    </div>
+                                                                                                                                    <div class="info-row">
+                                                                                                                                        <span class="info-label">
+                                                                                                                                            <i class="bi bi-file-earmark-text me-1 text-muted"></i>
+                                                                                                                                            Ro'yxatdan o'tkazish raqami
+                                                                                                                                        </span>
+                                                                                                                                        <input type="text" class="form-control form-control-sm" value="${uiEscapeHtml(partner.registration_number)}"
+                                                                                                                                            onchange="updatePartnerField(${partner.id}, 'registration_number', this.value)">
+                                                                                                                                    </div>
 
-                                                                                                                    <div class="info-row">
-                                                                                                                        <span class="info-label">
-                                                                                                                            <i class="bi bi-building-check me-1 text-muted"></i>
-                                                                                                                            Ro'yxatdan o'tkazuvchi tashkilot
-                                                                                                                        </span>
-                                                                                                                        <input type="text" class="form-control form-control-sm" value="${uiEscapeHtml(partner.registration_org)}"
-                                                                                                                            onchange="updatePartnerField(${partner.id}, 'registration_org', this.value)">
-                                                                                                                    </div>
+                                                                                                                                    <div class="info-row">
+                                                                                                                                        <span class="info-label">
+                                                                                                                                            <i class="bi bi-building-check me-1 text-muted"></i>
+                                                                                                                                            Ro'yxatdan o'tkazuvchi tashkilot
+                                                                                                                                        </span>
+                                                                                                                                        <input type="text" class="form-control form-control-sm" value="${uiEscapeHtml(partner.registration_org)}"
+                                                                                                                                            onchange="updatePartnerField(${partner.id}, 'registration_org', this.value)">
+                                                                                                                                    </div>
 
-                                                                                                                    <div class="info-row" id="partnerPassportRow_${partner.id}" style="display: ${partner.type === 'YaTT' ? 'grid' : 'none'}">
-                                                                                                                        <span class="info-label">
-                                                                                                                            <i class="bi bi-person-vcard me-1 text-muted"></i>
-                                                                                                                            Pasport ma'lumoti
-                                                                                                                        </span>
-                                                                                                                        <input type="text" class="form-control form-control-sm" value="${uiEscapeHtml(partner.passport_data || '')}"
-                                                                                                                            onchange="updatePartnerField(${partner.id}, 'passport_data', this.value)">
-                                                                                                                    </div>
+                                                                                                                                    <div class="info-row" id="partnerPassportRow_${partner.id}" style="display: ${partner.type === 'YaTT' ? 'grid' : 'none'}">
+                                                                                                                                        <span class="info-label">
+                                                                                                                                            <i class="bi bi-person-vcard me-1 text-muted"></i>
+                                                                                                                                            Pasport ma'lumoti
+                                                                                                                                        </span>
+                                                                                                                                        <input type="text" class="form-control form-control-sm" value="${uiEscapeHtml(partner.passport_data || '')}"
+                                                                                                                                            onchange="updatePartnerField(${partner.id}, 'passport_data', this.value)">
+                                                                                                                                    </div>
 
-                                                                                                                    <div class="info-row" id="partnerPinflRow_${partner.id}" style="display: ${partner.type === 'YaTT' ? 'grid' : 'none'}">
-                                                                                                                        <span class="info-label">
-                                                                                                                            <i class="bi bi-fingerprint me-1 text-muted"></i>
-                                                                                                                            JSHSHIR
-                                                                                                                        </span>
-                                                                                                                        <input type="text" class="form-control form-control-sm" value="${uiEscapeHtml(partner.pinfl || '')}"
-                                                                                                                            onchange="updatePartnerField(${partner.id}, 'pinfl', this.value)">
-                                                                                                                    </div>
+                                                                                                                                    <div class="info-row" id="partnerPinflRow_${partner.id}" style="display: ${partner.type === 'YaTT' ? 'grid' : 'none'}">
+                                                                                                                                        <span class="info-label">
+                                                                                                                                            <i class="bi bi-fingerprint me-1 text-muted"></i>
+                                                                                                                                            JSHSHIR
+                                                                                                                                        </span>
+                                                                                                                                        <input type="text" class="form-control form-control-sm" value="${uiEscapeHtml(partner.pinfl || '')}"
+                                                                                                                                            onchange="updatePartnerField(${partner.id}, 'pinfl', this.value)">
+                                                                                                                                    </div>
 
-                                                                                                                    <div class="info-row">
-                                                                                                                        <span class="info-label">
-                                                                                                                            <i class="bi bi-toggle-on me-1 text-muted"></i>
-                                                                                                                            Akkount holati
-                                                                                                                        </span>
-                                                                                                                        <select class="form-select form-select-sm" onchange="updatePartnerField(${partner.id}, 'account_status', this.value)">
-                                                                                                                            <option value="active" ${partner.account_status === 'active' ? 'selected' : ''}>Faol</option>
-                                                                                                                            <option value="blocked" ${partner.account_status === 'blocked' ? 'selected' : ''}>Bloklangan</option>
-                                                                                                                        </select>
-                                                                                                                    </div>
+                                                                                                                                    <div class="info-row">
+                                                                                                                                        <span class="info-label">
+                                                                                                                                            <i class="bi bi-toggle-on me-1 text-muted"></i>
+                                                                                                                                            Akkount holati
+                                                                                                                                        </span>
+                                                                                                                                        <select class="form-select form-select-sm" onchange="updatePartnerField(${partner.id}, 'account_status', this.value)">
+                                                                                                                                            <option value="active" ${partner.account_status === 'active' ? 'selected' : ''}>Faol</option>
+                                                                                                                                            <option value="blocked" ${partner.account_status === 'blocked' ? 'selected' : ''}>Bloklangan</option>
+                                                                                                                                        </select>
+                                                                                                                                    </div>
 
-                                                                                                                    <div class="info-row">
-                                                                                                                        <span class="info-label">
-                                                                                                                            <i class="bi bi-handshake me-1 text-muted"></i>
-                                                                                                                            To'liq sheriklik holati sanasi
-                                                                                                                        </span>
-                                                                                                                        <input type="text" class="form-control form-control-sm" value="${uiEscapeHtml(partner.partnership_date)}"
-                                                                                                                            onchange="updatePartnerField(${partner.id}, 'partnership_date', this.value)">
-                                                                                                                    </div>
+                                                                                                                                    <div class="info-row">
+                                                                                                                                        <span class="info-label">
+                                                                                                                                            <i class="bi bi-handshake me-1 text-muted"></i>
+                                                                                                                                            To'liq sheriklik holati sanasi
+                                                                                                                                        </span>
+                                                                                                                                        <input type="text" class="form-control form-control-sm" value="${uiEscapeHtml(partner.partnership_date)}"
+                                                                                                                                            onchange="updatePartnerField(${partner.id}, 'partnership_date', this.value)">
+                                                                                                                                    </div>
 
-                                                                                                                    <div class="info-row">
-                                                                                                                        <span class="info-label">
-                                                                                                                            <i class="bi bi-cash-stack me-1 text-muted"></i>
-                                                                                                                            Loyihadagi jami ulushi (summada)
-                                                                                                                        </span>
-                                                                                                                        <input type="number" class="form-control form-control-sm" value="${partner.share_amount}"
-                                                                                                                            onchange="updatePartnerField(${partner.id}, 'share_amount', Number(this.value))">
-                                                                                                                    </div>
+                                                                                                                                    <div class="info-row">
+                                                                                                                                        <span class="info-label">
+                                                                                                                                            <i class="bi bi-cash-stack me-1 text-muted"></i>
+                                                                                                                                            Loyihadagi jami ulushi (summada)
+                                                                                                                                        </span>
+                                                                                                                                        <input type="number" class="form-control form-control-sm" value="${partner.share_amount}"
+                                                                                                                                            onchange="updatePartnerField(${partner.id}, 'share_amount', Number(this.value))">
+                                                                                                                                    </div>
 
-                                                                                                                    <div class="info-row">
-                                                                                                                        <span class="info-label">
-                                                                                                                            <i class="bi bi-percent me-1 text-muted"></i>
-                                                                                                                            Loyihadagi jami ulushi (foizda)
-                                                                                                                        </span>
-                                                                                                                        <input type="number" class="form-control form-control-sm" value="${partner.share_percent}"
-                                                                                                                            min="0" max="100" step="0.1"
-                                                                                                                            onchange="updatePartnerField(${partner.id}, 'share_percent', Number(this.value))">
-                                                                                                                    </div>
-                                                                                                                </div>
-                                                                                                            </div>
-                                                                                                        `).join('');
+                                                                                                                                    <div class="info-row">
+                                                                                                                                        <span class="info-label">
+                                                                                                                                            <i class="bi bi-percent me-1 text-muted"></i>
+                                                                                                                                            Loyihadagi jami ulushi (foizda)
+                                                                                                                                        </span>
+                                                                                                                                        <input type="number" class="form-control form-control-sm" value="${partner.share_percent}"
+                                                                                                                                            min="0" max="100" step="0.1"
+                                                                                                                                            onchange="updatePartnerField(${partner.id}, 'share_percent', Number(this.value))">
+                                                                                                                                    </div>
+                                                                                                                                </div>
+                                                                                                                            </div>
+                                                                                                                        `).join('');
             }
         }
 
@@ -2266,8 +2266,8 @@
             ];
 
             return `<select class="form-select form-select-sm" onchange="moveRiskToAfter(${riskId}, this.value)">
-                                                                                                                                    ${options.join('')}
-                                                                                                                                </select>`;
+                                                                                                                                                    ${options.join('')}
+                                                                                                                                                </select>`;
         }
 
         function moveRiskToAfter(riskId, afterId) {
@@ -2335,27 +2335,61 @@
         function displayRisks(risks) {
             if (!risks) return;
 
-            // Risk info ni ko'rsatish
-            const riskMap = {
-                'low': { text: 'Past', class: 'status-active' },
-                'medium': { text: "O'rta", class: 'status-planned' },
-                'high': { text: 'Yuqori', class: 'status-inactive' }
-            };
+            // 1) Info grid markupni DOMga qo'yish (IDlar shu yerda yaratiladi)
+            const infoGrid = document.getElementById('risksInfoContent');
+            if (infoGrid) {
+                infoGrid.innerHTML = `
+                  <div class="info-item">
+                    <div class="info-label">Boshqarilish modeli nomi</div>
+                    <div class="info-value" id="risk_management_model">-</div>
+                  </div>
 
+                  <div class="info-item">
+                    <div class="info-label">Boshqarilish modeli qisqacha tavsifi</div>
+                    <div class="info-value" id="risk_management_description">-</div>
+                  </div>
+
+                  <div class="info-item">
+                    <div class="info-label">Boshqarilish modeli haqida ma’lumot</div>
+                    <div class="info-value" id="risk_management_info">-</div>
+                  </div>
+
+                  <div class="info-item">
+                    <div class="info-label">Xatar darajasi</div>
+                    <div class="info-value" id="risk_level">
+                      <span class="status-badge status-inactive">-</span>
+                    </div>
+                  </div>
+                `;
+            }
+
+            // 2) Risk level badge
+            const riskMap = {
+                low: { text: 'Past', class: 'status-active' },
+                medium: { text: "O'rta", class: 'status-planned' },
+                high: { text: 'Yuqori', class: 'status-inactive' }
+            };
             const riskMeta = riskMap[risks.risk_level] || { text: '-', class: 'status-inactive' };
 
-            // Risk info elementlarini yangilash
+            // 3) Elementlar va qiymatlar (key mismatch uchun fallback)
             const modelEl = document.getElementById('risk_management_model');
             const descEl = document.getElementById('risk_management_description');
+            const infoEl = document.getElementById('risk_management_info');
             const levelEl = document.getElementById('risk_level');
 
-            if (modelEl) modelEl.textContent = risks.management_model || '-';
-            if (descEl) descEl.textContent = risks.management_description || '-';
+            const modelVal = risks.management_model ?? '-';
+            const descVal = risks.management_desc ?? risks.management_description ?? '-';
+            const infoVal = risks.management_info ?? '-';
+
+            if (modelEl) modelEl.textContent = modelVal;
+            if (descEl) descEl.textContent = descVal;
+            if (infoEl) infoEl.textContent = infoVal;
+
             if (levelEl) {
                 levelEl.innerHTML = `<span class="status-badge ${riskMeta.class}">${riskMeta.text}</span>`;
             }
 
-            // Risk items ni ko'rsatish
+            // 4) Risk items (sizdagi kod o'zgarishsiz qoladi)
             const container = document.getElementById('risksContainer');
             if (!container) return;
 
@@ -2368,61 +2402,59 @@
             uiEnsurePriority(risks.risk_items, 'priority');
 
             if (!risksEditMode) {
-                // Ko'rish rejimi
                 container.innerHTML = risks.risk_items.map(item => `
-                                                                                        <div class="risk-item">
-                                                                                            <div class="risk-title" style="display:flex; align-items:center; gap:0.5rem;">
-                                                                                                <span class="priority-pill">#${item.priority}</span>
-                                                                                                <i class="bi bi-exclamation-triangle"></i>
-                                                                                                ${uiEscapeHtml(item.name)}
-                                                                                            </div>
-                                                                                            <p class="risk-description">${uiEscapeHtml(item.description)}</p>
-                                                                                        </div>
-                                                                                    `).join('');
+                  <div class="risk-item">
+                    <div class="risk-title" style="display:flex; align-items:center; gap:0.5rem;">
+                      <span class="priority-pill">#${item.priority}</span>
+                      <i class="bi bi-exclamation-triangle"></i>
+                      ${uiEscapeHtml(item.name)}
+                    </div>
+                    <p class="risk-description">${uiEscapeHtml(item.description)}</p>
+                  </div>
+                `).join('');
             } else {
-                // Tahrirlash rejimi
                 container.innerHTML = risks.risk_items.map(item => `
-                                                                                        <div class="risk-item" data-risk-id="${item.id}"
-                                                                                             ondragover="onRiskDragOver(event, ${item.id})"
-                                                                                             ondragleave="onRiskDragLeave(event, ${item.id})"
-                                                                                             ondrop="onRiskDrop(event, ${item.id})"
-                                                                                             style="border: 1px solid var(--gray-200); padding: 1.25rem;">
-                                                                                            <div class="row g-3 align-items-end">
-                                                                                                <div class="col-12 col-md-2">
-                                                                                                    <label class="form-label small mb-1">Tartib</label>
-                                                                                                    <div class="d-flex align-items-center gap-2">
-                                                                                                        <div class="drag-handle" draggable="true"
-                                                                                                             ondragstart="onRiskDragStart(event, ${item.id})"
-                                                                                                             title="Ushlab torting">
-                                                                                                            <i class="bi bi-grip-vertical"></i>
-                                                                                                        </div>
-                                                                                                        <span class="priority-pill">#${item.priority}</span>
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                                <div class="col-12 col-md-4">
-                                                                                                    <label class="form-label small mb-1">Xatar nomi</label>
-                                                                                                    <input type="text" class="form-control form-control-sm" value="${uiEscapeHtml(item.name)}"
-                                                                                                        onchange="updateRiskItemField(${item.id}, 'name', this.value)">
-                                                                                                </div>
-                                                                                                <div class="col-12 col-md-4">
-                                                                                                    <label class="form-label small mb-1">Joylashuvi</label>
-                                                                                                    ${buildRiskMoveAfterSelect(item.id)}
-                                                                                                </div>
-                                                                                                <div class="col-12 col-md-2">
-                                                                                                    <button type="button" class="btn btn-danger btn-sm w-100"
-                                                                                                        onclick="deleteRisk(${item.id})">
-                                                                                                        <i class="bi bi-trash me-1"></i>
-                                                                                                        O'chirish
-                                                                                                    </button>
-                                                                                                </div>
-                                                                                                <div class="col-12">
-                                                                                                    <label class="form-label small mb-1">Xatar tavsifi</label>
-                                                                                                    <textarea class="form-control form-control-sm" rows="3"
-                                                                                                        onchange="updateRiskItemField(${item.id}, 'description', this.value)">${uiEscapeHtml(item.description)}</textarea>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    `).join('');
+                  <div class="risk-item" data-risk-id="${item.id}"
+                       ondragover="onRiskDragOver(event, ${item.id})"
+                       ondragleave="onRiskDragLeave(event, ${item.id})"
+                       ondrop="onRiskDrop(event, ${item.id})"
+                       style="border: 1px solid var(--gray-200); padding: 1.25rem;">
+                    <div class="row g-3 align-items-end">
+                      <div class="col-12 col-md-2">
+                        <label class="form-label small mb-1">Tartib</label>
+                        <div class="d-flex align-items-center gap-2">
+                          <div class="drag-handle" draggable="true"
+                               ondragstart="onRiskDragStart(event, ${item.id})"
+                               title="Ushlab torting">
+                            <i class="bi bi-grip-vertical"></i>
+                          </div>
+                          <span class="priority-pill">#${item.priority}</span>
+                        </div>
+                      </div>
+                      <div class="col-12 col-md-4">
+                        <label class="form-label small mb-1">Xatar nomi</label>
+                        <input type="text" class="form-control form-control-sm" value="${uiEscapeHtml(item.name)}"
+                          onchange="updateRiskItemField(${item.id}, 'name', this.value)">
+                      </div>
+                      <div class="col-12 col-md-4">
+                        <label class="form-label small mb-1">Joylashuvi</label>
+                        ${buildRiskMoveAfterSelect(item.id)}
+                      </div>
+                      <div class="col-12 col-md-2">
+                        <button type="button" class="btn btn-danger btn-sm w-100"
+                          onclick="deleteRisk(${item.id})">
+                          <i class="bi bi-trash me-1"></i>
+                          O'chirish
+                        </button>
+                      </div>
+                      <div class="col-12">
+                        <label class="form-label small mb-1">Xatar tavsifi</label>
+                        <textarea class="form-control form-control-sm" rows="3"
+                          onchange="updateRiskItemField(${item.id}, 'description', this.value)">${uiEscapeHtml(item.description)}</textarea>
+                      </div>
+                    </div>
+                  </div>
+                `).join('');
             }
 
             buildRiskInsertAfterSelect();
@@ -2490,11 +2522,11 @@
             }
 
             container.innerHTML = r.risk_items.map(item => `
-                                                                                    <div class="risk-item">
-                                                                                        <div class="risk-title">${uiEscapeHtml(item.name)}</div>
-                                                                                        <p class="risk-description">${uiEscapeHtml(item.description)}</p>
-                                                                                    </div>
-                                                                                `).join('');
+                                                                                                    <div class="risk-item">
+                                                                                                        <div class="risk-title">${uiEscapeHtml(item.name)}</div>
+                                                                                                        <p class="risk-description">${uiEscapeHtml(item.description)}</p>
+                                                                                                    </div>
+                                                                                                `).join('');
         }
 
         function convertRisksToInputs() {
@@ -2502,32 +2534,32 @@
 
             document.getElementById('risk_management_model').innerHTML =
                 `<input class="form-control"
-                                                                                        value="${uiEscapeHtml(r.management_model || '')}">`;
+                                                                                                        value="${uiEscapeHtml(r.management_model || '')}">`;
 
             document.getElementById('risk_management_description').innerHTML =
                 `<textarea class="form-control" rows="3">${uiEscapeHtml(r.management_description || '')}</textarea>`;
 
             document.getElementById('risk_level').innerHTML =
                 `<select class="form-select">
-                                                                                    <option value="low" ${r.risk_level === 'low' ? 'selected' : ''}>Past</option>
-                                                                                    <option value="medium" ${r.risk_level === 'medium' ? 'selected' : ''}>O‘rta</option>
-                                                                                    <option value="high" ${r.risk_level === 'high' ? 'selected' : ''}>Yuqori</option>
-                                                                                </select>`;
+                                                                                                    <option value="low" ${r.risk_level === 'low' ? 'selected' : ''}>Past</option>
+                                                                                                    <option value="medium" ${r.risk_level === 'medium' ? 'selected' : ''}>O‘rta</option>
+                                                                                                    <option value="high" ${r.risk_level === 'high' ? 'selected' : ''}>Yuqori</option>
+                                                                                                </select>`;
 
             const container = document.getElementById('risksContainer');
 
             container.innerHTML = r.risk_items.map((item, i) => `
-                                                                                <div class="risk-item">
-                                                                                    <input class="form-control mb-2"
-                                                                                           data-index="${i}"
-                                                                                           data-field="name"
-                                                                                           value="${uiEscapeHtml(item.name)}">
+                                                                                                <div class="risk-item">
+                                                                                                    <input class="form-control mb-2"
+                                                                                                           data-index="${i}"
+                                                                                                           data-field="name"
+                                                                                                           value="${uiEscapeHtml(item.name)}">
 
-                                                                                    <textarea class="form-control"
-                                                                                              data-index="${i}"
-                                                                                              data-field="description">${uiEscapeHtml(item.description)}</textarea>
-                                                                                </div>
-                                                                            `).join('');
+                                                                                                    <textarea class="form-control"
+                                                                                                              data-index="${i}"
+                                                                                                              data-field="description">${uiEscapeHtml(item.description)}</textarea>
+                                                                                                </div>
+                                                                                            `).join('');
         }
 
         /* ================= SAVE ================= */
@@ -2642,73 +2674,73 @@
             if (!documentsEditMode) {
                 // Ko'rish rejimi
                 container.innerHTML = documents.map(doc => `
-                                                                                                                                        <div class="document-item">
-                                                                                                                                            <div class="document-info">
-                                                                                                                                                <div class="document-icon">
-                                                                                                                                                    <i class="bi bi-file-earmark-pdf"></i>
-                                                                                                                                                </div>
-                                                                                                                                                <div>
-                                                                                                                                                    <div style="font-weight: 600; color: var(--gray-900);">${doc.name}</div>
-                                                                                                                                                    <div style="font-size: 0.85rem; color: var(--gray-600);">
-                                                                                                                                                        <i class="bi bi-file-earmark me-1"></i>
-                                                                                                                                                        ${doc.file}
-                                                                                                                                                    </div>
-                                                                                                                                                </div>
-                                                                                                                                            </div>
-                                                                                                                                            <button class="btn btn-outline-primary btn-sm d-inline-flex align-items-center gap-1"
-                                                                                                                                                onclick="downloadDocument('${doc.file}')">
-                                                                                                                                                <i class="bi bi-download"></i> Yuklash
-                                                                                                                                            </button>
-                                                                                                                                        </div>
-                                                                                                                                    `).join('');
+                                                                                                                                                        <div class="document-item">
+                                                                                                                                                            <div class="document-info">
+                                                                                                                                                                <div class="document-icon">
+                                                                                                                                                                    <i class="bi bi-file-earmark-pdf"></i>
+                                                                                                                                                                </div>
+                                                                                                                                                                <div>
+                                                                                                                                                                    <div style="font-weight: 600; color: var(--gray-900);">${doc.name}</div>
+                                                                                                                                                                    <div style="font-size: 0.85rem; color: var(--gray-600);">
+                                                                                                                                                                        <i class="bi bi-file-earmark me-1"></i>
+                                                                                                                                                                        ${doc.file}
+                                                                                                                                                                    </div>
+                                                                                                                                                                </div>
+                                                                                                                                                            </div>
+                                                                                                                                                            <button class="btn btn-outline-primary btn-sm d-inline-flex align-items-center gap-1"
+                                                                                                                                                                onclick="downloadDocument('${doc.file}')">
+                                                                                                                                                                <i class="bi bi-download"></i> Yuklash
+                                                                                                                                                            </button>
+                                                                                                                                                        </div>
+                                                                                                                                                    `).join('');
             } else {
                 // Tahrirlash rejimi
                 container.innerHTML = documents.map((doc, index) => `
-                                                                                                                                        <div class="document-item" style="flex-direction: column; align-items: stretch; gap: 1rem; padding: 1.5rem;">
-                                                                                                                                            <div class="row g-3 align-items-end">
-                                                                                                                                                <div class="col-12 col-md-5">
-                                                                                                                                                    <label class="form-label small mb-1">
-                                                                                                                                                        <i class="bi bi-file-text me-1 text-muted"></i>
-                                                                                                                                                        Hujjat nomi
-                                                                                                                                                    </label>
-                                                                                                                                                    <input type="text" class="form-control form-control-sm" value="${doc.name}"
-                                                                                                                                                        onchange="updateDocumentField(${doc.id || index}, 'name', this.value)"
-                                                                                                                                                        id="docName_${doc.id || index}">
-                                                                                                                                                </div>
-                                                                                                                                                <div class="col-12 col-md-4">
-                                                                                                                                                    <label class="form-label small mb-1">
-                                                                                                                                                        <i class="bi bi-file-earmark me-1 text-muted"></i>
-                                                                                                                                                        Hozirgi fayl
-                                                                                                                                                    </label>
-                                                                                                                                                    <div class="form-control form-control-sm" style="background: var(--gray-50); padding: 0.5rem;">
-                                                                                                                                                        <i class="bi bi-file-earmark-pdf me-1"></i>
-                                                                                                                                                        <span style="font-size: 0.875rem;">${doc.file}</span>
-                                                                                                                                                    </div>
-                                                                                                                                                </div>
-                                                                                                                                                <div class="col-12 col-md-3">
-                                                                                                                                                    <label class="form-label small mb-1">
-                                                                                                                                                        <i class="bi bi-upload me-1 text-muted"></i>
-                                                                                                                                                        Yangi fayl yuklash
-                                                                                                                                                    </label>
-                                                                                                                                                    <input type="file" class="form-control form-control-sm" 
-                                                                                                                                                        accept=".pdf,.doc,.docx,.xls,.xlsx,.jpg,.jpeg,.png"
-                                                                                                                                                        onchange="handleFileUpload(${doc.id || index}, this)"
-                                                                                                                                                        id="docFile_${doc.id || index}">
-                                                                                                                                                </div>
-                                                                                                                                            </div>
-                                                                                                                                            <div class="d-flex gap-2 justify-content-end">
-                                                                                                                                                <button class="btn btn-outline-primary btn-sm d-inline-flex align-items-center gap-1"
-                                                                                                                                                    onclick="downloadDocument('${doc.file}')">
-                                                                                                                                                    <i class="bi bi-download"></i> Yuklash
-                                                                                                                                                </button>
-                                                                                                                                                <button type="button" class="btn btn-danger btn-sm" 
-                                                                                                                                                    onclick="deleteDocument(${doc.id || index})">
-                                                                                                                                                    <i class="bi bi-trash me-1"></i>
-                                                                                                                                                    O'chirish
-                                                                                                                                                </button>
-                                                                                                                                            </div>
-                                                                                                                                        </div>
-                                                                                                                                    `).join('');
+                                                                                                                                                        <div class="document-item" style="flex-direction: column; align-items: stretch; gap: 1rem; padding: 1.5rem;">
+                                                                                                                                                            <div class="row g-3 align-items-end">
+                                                                                                                                                                <div class="col-12 col-md-5">
+                                                                                                                                                                    <label class="form-label small mb-1">
+                                                                                                                                                                        <i class="bi bi-file-text me-1 text-muted"></i>
+                                                                                                                                                                        Hujjat nomi
+                                                                                                                                                                    </label>
+                                                                                                                                                                    <input type="text" class="form-control form-control-sm" value="${doc.name}"
+                                                                                                                                                                        onchange="updateDocumentField(${doc.id || index}, 'name', this.value)"
+                                                                                                                                                                        id="docName_${doc.id || index}">
+                                                                                                                                                                </div>
+                                                                                                                                                                <div class="col-12 col-md-4">
+                                                                                                                                                                    <label class="form-label small mb-1">
+                                                                                                                                                                        <i class="bi bi-file-earmark me-1 text-muted"></i>
+                                                                                                                                                                        Hozirgi fayl
+                                                                                                                                                                    </label>
+                                                                                                                                                                    <div class="form-control form-control-sm" style="background: var(--gray-50); padding: 0.5rem;">
+                                                                                                                                                                        <i class="bi bi-file-earmark-pdf me-1"></i>
+                                                                                                                                                                        <span style="font-size: 0.875rem;">${doc.file}</span>
+                                                                                                                                                                    </div>
+                                                                                                                                                                </div>
+                                                                                                                                                                <div class="col-12 col-md-3">
+                                                                                                                                                                    <label class="form-label small mb-1">
+                                                                                                                                                                        <i class="bi bi-upload me-1 text-muted"></i>
+                                                                                                                                                                        Yangi fayl yuklash
+                                                                                                                                                                    </label>
+                                                                                                                                                                    <input type="file" class="form-control form-control-sm" 
+                                                                                                                                                                        accept=".pdf,.doc,.docx,.xls,.xlsx,.jpg,.jpeg,.png"
+                                                                                                                                                                        onchange="handleFileUpload(${doc.id || index}, this)"
+                                                                                                                                                                        id="docFile_${doc.id || index}">
+                                                                                                                                                                </div>
+                                                                                                                                                            </div>
+                                                                                                                                                            <div class="d-flex gap-2 justify-content-end">
+                                                                                                                                                                <button class="btn btn-outline-primary btn-sm d-inline-flex align-items-center gap-1"
+                                                                                                                                                                    onclick="downloadDocument('${doc.file}')">
+                                                                                                                                                                    <i class="bi bi-download"></i> Yuklash
+                                                                                                                                                                </button>
+                                                                                                                                                                <button type="button" class="btn btn-danger btn-sm" 
+                                                                                                                                                                    onclick="deleteDocument(${doc.id || index})">
+                                                                                                                                                                    <i class="bi bi-trash me-1"></i>
+                                                                                                                                                                    O'chirish
+                                                                                                                                                                </button>
+                                                                                                                                                            </div>
+                                                                                                                                                        </div>
+                                                                                                                                                    `).join('');
             }
         }
 
@@ -3442,14 +3474,14 @@
 
                 // delete icon: delete-button.blade.php’dagi SVG path
                 controls.innerHTML = `
-                                                                                                                            <button type="button" class="media-delete-btn" title="O'chirish">
-                                                                                                                                <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
-                                                                                                                                    <path fill-rule="evenodd"
-                                                                                                                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
-                                                                                                                                        clip-rule="evenodd"></path>
-                                                                                                                                </svg>
-                                                                                                                            </button>
-                                                                                                                        `;
+                                                                                                                                            <button type="button" class="media-delete-btn" title="O'chirish">
+                                                                                                                                                <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
+                                                                                                                                                    <path fill-rule="evenodd"
+                                                                                                                                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                                                                                                                                                        clip-rule="evenodd"></path>
+                                                                                                                                                </svg>
+                                                                                                                                            </button>
+                                                                                                                                        `;
 
                 // click bubbling to‘xtatish (delete bosilganda modal ochilmasin)
                 const btn = controls.querySelector('button');
@@ -3471,11 +3503,11 @@
                 const uploadCard = document.createElement('div');
                 uploadCard.className = 'gallery-item media-upload-card';
                 uploadCard.innerHTML = `
-                                                                                                                            <div class="media-upload-content">
-                                                                                                                                <i class="bi bi-cloud-upload"></i>
-                                                                                                                                <span>Yangi yuklash</span>
-                                                                                                                            </div>
-                                                                                                                        `;
+                                                                                                                                            <div class="media-upload-content">
+                                                                                                                                                <i class="bi bi-cloud-upload"></i>
+                                                                                                                                                <span>Yangi yuklash</span>
+                                                                                                                                            </div>
+                                                                                                                                        `;
                 uploadCard.addEventListener('click', function (e) {
                     e.preventDefault();
                     e.stopPropagation();
@@ -3504,96 +3536,96 @@
             toast.textContent = message;
 
             const styles = `
-                                                                                                                        .custom-toast {
-                                                                                                                            position: fixed;
-                                                                                                                            top: 20px;
-                                                                                                                            right: 20px;
-                                                                                                                            padding: 1rem 1.5rem;
-                                                                                                                            background: white;
-                                                                                                                            border-radius: 0.5rem;
-                                                                                                                            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-                                                                                                                            z-index: 9999;
-                                                                                                                            animation: slideIn 0.3s ease;
-                                                                                                                            border-left: 4px solid;
-                                                                                                                            font-weight: 500;
-                                                                                                                        }
-                                                                                                                        .toast-success { border-left-color: #16a34a; color: #166534; }
-                                                                                                                        .toast-info { border-left-color: #2563eb; color: #1e40af; }
-                                                                                                                        .toast-danger { border-left-color: #dc2626; color: #991b1b; }
-                                                                                                                        @keyframes slideIn {
-                                                                                                                            from { transform: translateX(400px); opacity: 0; }
-                                                                                                                            to { transform: translateX(0); opacity: 1; }
-                                                                                                                        }
+                                                                                                                                        .custom-toast {
+                                                                                                                                            position: fixed;
+                                                                                                                                            top: 20px;
+                                                                                                                                            right: 20px;
+                                                                                                                                            padding: 1rem 1.5rem;
+                                                                                                                                            background: white;
+                                                                                                                                            border-radius: 0.5rem;
+                                                                                                                                            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                                                                                                                                            z-index: 9999;
+                                                                                                                                            animation: slideIn 0.3s ease;
+                                                                                                                                            border-left: 4px solid;
+                                                                                                                                            font-weight: 500;
+                                                                                                                                        }
+                                                                                                                                        .toast-success { border-left-color: #16a34a; color: #166534; }
+                                                                                                                                        .toast-info { border-left-color: #2563eb; color: #1e40af; }
+                                                                                                                                        .toast-danger { border-left-color: #dc2626; color: #991b1b; }
+                                                                                                                                        @keyframes slideIn {
+                                                                                                                                            from { transform: translateX(400px); opacity: 0; }
+                                                                                                                                            to { transform: translateX(0); opacity: 1; }
+                                                                                                                                        }
 
-                                                                                                                        /* Media Controls Styles */
-                                                                                                                        .media-controls {
-                                                                                                                            position: absolute;
-                                                                                                                            top: 0.5rem;
-                                                                                                                            right: 0.5rem;
-                                                                                                                            display: flex;
-                                                                                                                            gap: 0.5rem;
-                                                                                                                            z-index: 10;
-                                                                                                                            opacity: 0;
-                                                                                                                            transition: opacity 0.3s;
-                                                                                                                        }
+                                                                                                                                        /* Media Controls Styles */
+                                                                                                                                        .media-controls {
+                                                                                                                                            position: absolute;
+                                                                                                                                            top: 0.5rem;
+                                                                                                                                            right: 0.5rem;
+                                                                                                                                            display: flex;
+                                                                                                                                            gap: 0.5rem;
+                                                                                                                                            z-index: 10;
+                                                                                                                                            opacity: 0;
+                                                                                                                                            transition: opacity 0.3s;
+                                                                                                                                        }
 
-                                                                                                                        .gallery-item:hover .media-controls {
-                                                                                                                            opacity: 1;
-                                                                                                                        }
+                                                                                                                                        .gallery-item:hover .media-controls {
+                                                                                                                                            opacity: 1;
+                                                                                                                                        }
 
-                                                                                                                        .media-delete-btn {
-                                                                                                                            width: 32px;
-                                                                                                                            height: 32px;
-                                                                                                                            border-radius: 50%;
-                                                                                                                            border: none;
-                                                                                                                            background: rgba(220, 38, 38, 0.9);
-                                                                                                                            color: white;
-                                                                                                                            display: flex;
-                                                                                                                            align-items: center;
-                                                                                                                            justify-content: center;
-                                                                                                                            cursor: pointer;
-                                                                                                                            transition: all 0.3s;
-                                                                                                                            font-size: 0.875rem;
-                                                                                                                        }
+                                                                                                                                        .media-delete-btn {
+                                                                                                                                            width: 32px;
+                                                                                                                                            height: 32px;
+                                                                                                                                            border-radius: 50%;
+                                                                                                                                            border: none;
+                                                                                                                                            background: rgba(220, 38, 38, 0.9);
+                                                                                                                                            color: white;
+                                                                                                                                            display: flex;
+                                                                                                                                            align-items: center;
+                                                                                                                                            justify-content: center;
+                                                                                                                                            cursor: pointer;
+                                                                                                                                            transition: all 0.3s;
+                                                                                                                                            font-size: 0.875rem;
+                                                                                                                                        }
 
-                                                                                                                        .media-delete-btn:hover {
-                                                                                                                            background: rgba(220, 38, 38, 1);
-                                                                                                                            transform: scale(1.1);
-                                                                                                                        }
+                                                                                                                                        .media-delete-btn:hover {
+                                                                                                                                            background: rgba(220, 38, 38, 1);
+                                                                                                                                            transform: scale(1.1);
+                                                                                                                                        }
 
-                                                                                                                        .media-upload-card {
-                                                                                                                            border: 2px dashed var(--gray-300);
-                                                                                                                            background: var(--gray-50);
-                                                                                                                            display: flex;
-                                                                                                                            align-items: center;
-                                                                                                                            justify-content: center;
-                                                                                                                            cursor: pointer;
-                                                                                                                            transition: all 0.3s;
-                                                                                                                        }
+                                                                                                                                        .media-upload-card {
+                                                                                                                                            border: 2px dashed var(--gray-300);
+                                                                                                                                            background: var(--gray-50);
+                                                                                                                                            display: flex;
+                                                                                                                                            align-items: center;
+                                                                                                                                            justify-content: center;
+                                                                                                                                            cursor: pointer;
+                                                                                                                                            transition: all 0.3s;
+                                                                                                                                        }
 
-                                                                                                                        .media-upload-card:hover {
-                                                                                                                            border-color: var(--primary-color);
-                                                                                                                            background: var(--gray-100);
-                                                                                                                            transform: translateY(0);
-                                                                                                                        }
+                                                                                                                                        .media-upload-card:hover {
+                                                                                                                                            border-color: var(--primary-color);
+                                                                                                                                            background: var(--gray-100);
+                                                                                                                                            transform: translateY(0);
+                                                                                                                                        }
 
-                                                                                                                        .media-upload-content {
-                                                                                                                            display: flex;
-                                                                                                                            flex-direction: column;
-                                                                                                                            align-items: center;
-                                                                                                                            gap: 0.5rem;
-                                                                                                                            color: var(--gray-600);
-                                                                                                                        }
+                                                                                                                                        .media-upload-content {
+                                                                                                                                            display: flex;
+                                                                                                                                            flex-direction: column;
+                                                                                                                                            align-items: center;
+                                                                                                                                            gap: 0.5rem;
+                                                                                                                                            color: var(--gray-600);
+                                                                                                                                        }
 
-                                                                                                                        .media-upload-content i {
-                                                                                                                            font-size: 2rem;
-                                                                                                                        }
+                                                                                                                                        .media-upload-content i {
+                                                                                                                                            font-size: 2rem;
+                                                                                                                                        }
 
-                                                                                                                        .media-upload-content span {
-                                                                                                                            font-weight: 500;
-                                                                                                                            font-size: 0.875rem;
-                                                                                                                        }
-                                                                                                                    `;
+                                                                                                                                        .media-upload-content span {
+                                                                                                                                            font-weight: 500;
+                                                                                                                                            font-size: 0.875rem;
+                                                                                                                                        }
+                                                                                                                                    `;
 
             if (!document.getElementById('toast-styles')) {
                 const styleSheet = document.createElement('style');
@@ -3642,50 +3674,116 @@
 
         /* ================= DISPLAY ================= */
         function displayRisks(risks) {
-            const list = document.getElementById('risksContainer');
+            if (!risks) return;
 
-            if (!Array.isArray(risks.risk_items) || risks.risk_items.length === 0) {
-                list.innerHTML = '<p class="text-muted text-center py-3">Xatarlar mavjud emas</p>';
+            // 1) INFO GRID markup (IDlar shu yerda yaratiladi)
+            const infoGrid = document.getElementById('risksInfoContent');
+            if (infoGrid) {
+                // ko‘rish rejimi
+                infoGrid.innerHTML = `
+              <div class="info-item">
+                <div class="info-label">Boshqarilish modeli nomi</div>
+                <div class="info-value" id="risk_management_model">-</div>
+              </div>
+
+              <div class="info-item">
+                <div class="info-label">Boshqarilish modeli qisqacha tavsifi</div>
+                <div class="info-value" id="risk_management_description">-</div>
+              </div>
+
+              <div class="info-item">
+                <div class="info-label">Boshqarilish modeli haqida ma’lumot</div>
+                <div class="info-value" id="risk_management_info">-</div>
+              </div>
+
+              <div class="info-item">
+                <div class="info-label">Xatar darajasi</div>
+                <div class="info-value" id="risk_level">
+                  <span class="status-badge status-inactive">-</span>
+                </div>
+              </div>
+            `;
+            }
+
+            // 2) Risk level badge
+            const riskMap = {
+                low: { text: 'Past', class: 'status-active' },
+                medium: { text: "O'rta", class: 'status-planned' },
+                high: { text: 'Yuqori', class: 'status-inactive' },
+            };
+            const riskMeta = riskMap[risks.risk_level] || { text: '-', class: 'status-inactive' };
+
+            // 3) Qiymatlar (key mismatch fallback)
+            const modelEl = document.getElementById('risk_management_model');
+            const descEl = document.getElementById('risk_management_description');
+            const infoEl = document.getElementById('risk_management_info');
+            const levelEl = document.getElementById('risk_level');
+
+            const modelVal = risks.management_model ?? '-';
+            const descVal = risks.management_desc ?? risks.management_description ?? '-';
+            const infoVal = risks.management_info ?? '-';
+
+            if (modelEl) modelEl.textContent = modelVal;
+            if (descEl) descEl.textContent = descVal;
+            if (infoEl) infoEl.textContent = infoVal;
+
+            if (levelEl) {
+                levelEl.innerHTML = `<span class="status-badge ${riskMeta.class}">${riskMeta.text}</span>`;
+            }
+
+            // 4) RISK ITEMS (sizdagi logika)
+            const container = document.getElementById('risksContainer');
+            if (!container) return;
+
+            if (!risks.risk_items || risks.risk_items.length === 0) {
+                container.innerHTML = '<p class="text-muted text-center py-4">Xatarlar mavjud emas</p>';
                 return;
             }
 
+            uiEnsureRiskIds(risks.risk_items);
+            uiEnsurePriority(risks.risk_items, 'priority');
+
             if (!risksListEditMode) {
-                list.innerHTML = risks.risk_items
-                    .sort((a, b) => (a.priority || 0) - (b.priority || 0))
-                    .map(r => `
-                                    <div class="risk-item">
-                                        <div class="risk-title">${uiEscapeHtml(r.name)}</div>
-                                        <p class="risk-description">${uiEscapeHtml(r.description)}</p>
-                                    </div>
-                                `).join('');
+                container.innerHTML = risks.risk_items.map(item => `
+              <div class="risk-item">
+                <div class="risk-title" style="display:flex; align-items:center; gap:0.5rem;">
+                  <span class="priority-pill">#${item.priority}</span>
+                  <i class="bi bi-exclamation-triangle"></i>
+                  ${uiEscapeHtml(item.name)}
+                </div>
+                <p class="risk-description">${uiEscapeHtml(item.description)}</p>
+              </div>
+            `).join('');
             } else {
                 list.innerHTML = risks.risk_items
                     .sort((a, b) => (a.priority || 0) - (b.priority || 0))
                     .map((r, index) => `
-                                    <div class="risk-item draggable-risk"
-                                         draggable="true"
-                                         data-index="${index}"
-                                         ondragstart="onRiskDragStart(event)"
-                                         ondragover="onRiskDragOver(event)"
-                                         ondrop="onRiskDrop(event)">
+                                                    <div class="risk-item draggable-risk"
+                                                         draggable="true"
+                                                         data-index="${index}"
+                                                         ondragstart="onRiskDragStart(event)"
+                                                         ondragover="onRiskDragOver(event)"
+                                                         ondrop="onRiskDrop(event)">
 
-                                        <div class="d-flex align-items-center gap-2 mb-2">
-                                            <i class="bi bi-grip-vertical text-muted"></i>
-                                            <strong>#${index + 1}</strong>
-                                        </div>
+                                                        <div class="d-flex align-items-center gap-2 mb-2">
+                                                            <i class="bi bi-grip-vertical text-muted"></i>
+                                                            <strong>#${index + 1}</strong>
+                                                        </div>
 
-                                        <input class="form-control mb-2"
-                                            value="${uiEscapeHtml(r.name)}"
-                                            onchange="projectData.risks.risk_items[${index}].name = this.value">
+                                                        <input class="form-control mb-2"
+                                                            value="${uiEscapeHtml(r.name)}"
+                                                            onchange="projectData.risks.risk_items[${index}].name = this.value">
 
-                                        <textarea class="form-control"
-                                            rows="3"
-                                            onchange="projectData.risks.risk_items[${index}].description = this.value">
-                    ${uiEscapeHtml(r.description)}</textarea>
-                                    </div>
-                                `).join('');
+                                                        <textarea class="form-control"
+                                                            rows="3"
+                                                            onchange="projectData.risks.risk_items[${index}].description = this.value">
+                                    ${uiEscapeHtml(r.description)}</textarea>
+                                                    </div>
+                                                `).join('');
             }
         }
+        
+        
         /* ================= INIT ================= */
         document.addEventListener('DOMContentLoaded', function () {
             if (projectData && projectData.risks) {

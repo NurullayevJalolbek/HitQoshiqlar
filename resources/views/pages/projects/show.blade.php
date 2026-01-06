@@ -20,6 +20,56 @@
             --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
         }
 
+        /* === RISKS INFO (model + level) nicer UI === */
+        #risksInfoContent.info-grid {
+            gap: 12px;
+        }
+
+        #risksInfoContent .info-item {
+            border: 1px solid var(--gray-200);
+            background: var(--gray-50);
+            border-radius: 12px;
+            padding: 12px 14px;
+            display: grid;
+            gap: 6px;
+        }
+
+        #risksInfoContent .info-label {
+            font-size: 0.82rem;
+            color: var(--gray-600);
+            font-weight: 600;
+            letter-spacing: .2px;
+        }
+
+        #risksInfoContent .info-value {
+            font-size: 0.98rem;
+            color: var(--gray-900);
+            font-weight: 600;
+            line-height: 1.45;
+            word-break: break-word;
+        }
+
+        #risksInfoContent .info-value.muted {
+            color: var(--gray-600);
+            font-weight: 500;
+        }
+
+        #risksInfoContent .form-control,
+        #risksInfoContent .form-select {
+            border-radius: 10px;
+        }
+
+        #risksInfoContent textarea.form-control {
+            min-height: 92px;
+        }
+
+        .risk-actions-row {
+            display: flex;
+            gap: 8px;
+            justify-content: flex-end;
+            margin-top: 10px;
+        }
+
         .project-header {
             background: #ffffff;
             border-radius: var(--border-radius);
@@ -1760,7 +1810,7 @@
 
             {{-- === RISKS INFO CARD === --}}
             <div class="info-card">
-                <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex justify-content-between align-items-center" id="risksListContent">
                     <h5 class="info-card-title mb-0">
                         <i class="bi bi-diagram-3"></i>
                         Loyihaning boshqarilish modeli va xatar darajasi
@@ -1779,7 +1829,6 @@
                 </div>
             </div>
 
-            {{-- === RISKS LIST CARD === --}}
             {{-- === RISKS LIST CARD === --}}
             <div class="info-card mt-4">
                 <div class="d-flex justify-content-between align-items-center">
