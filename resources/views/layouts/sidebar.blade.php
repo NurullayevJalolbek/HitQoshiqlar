@@ -23,14 +23,14 @@
                 <!-- Investment Projects -->
                 <li class="nav-item">
                     @php
-                        $isOpen = isActiveCollapseArray([
-                            'admin.projects.*',
-                            'admin.project-investors.*',
-                            'admin.project-buyers.*',
-                            'admin.project-entry-requests.*',
-                            'admin.project-exit-requests.*',
-                            'admin.company-details.*',
-                        ], 'show');
+                    $isOpen = isActiveCollapseArray([
+                    'admin.projects.*',
+                    'admin.project-investors.*',
+                    'admin.project-buyers.*',
+                    'admin.project-entry-requests.*',
+                    'admin.project-exit-requests.*',
+                    'admin.company-details.*',
+                    ], 'show');
                     @endphp
 
                     <span class="nav-link collapsed d-flex justify-content-between align-items-center"
@@ -144,14 +144,15 @@
                 <!-- Settings -->
                 <li class="nav-item">
                     @php
-                        $isOpen = isActiveCollapseArray([
-                            'admin.references.*',
-                            'admin.general-settings.*',
-                            'admin.integration-settings.*',
-                            'admin.user-interface.*',
-                            'admin.seo-settings.*',
-                            'admin.localization.*'
-                        ], 'show');
+                    $isOpen = isActiveCollapseArray([
+                    'admin.references.*',
+                    'admin.general-settings.*',
+                    'admin.integration-settings.*',
+                    'admin.user-interface.*',
+                    'admin.seo-settings.*',
+                    'admin.localization.*',
+                    'admin.security-support.*',
+                    ], 'show');
                     @endphp
 
                     <span class="nav-link collapsed d-flex justify-content-between align-items-center"
@@ -177,7 +178,7 @@
                                     <span class="sidebar-text">{{ __('admin.documents') }}*</span>
                                 </a>
                             </li>
-                            <li class="nav-item {{ isActiveRoute(['admin.general-settings.*', 'admin.seo-settings.*', 'admin.localization.*']) }}">
+                            <li class="nav-item {{ isActiveRoute(['admin.general-settings.*', 'admin.seo-settings.*', 'admin.localization.*', 'admin.security-support.*']) }}">
                                 <a class="nav-link" href="{{ route('admin.general-settings.index') }}">
                                     <span class="sidebar-text">{{ __('admin.general_settings') }}</span>
                                 </a>
@@ -199,15 +200,15 @@
                 <!-- Administration -->
                 <li class="nav-item">
                     @php
-                        $isOpen = isActiveCollapseArray([
-                            'admin.users.*',
-                            'admin.investors.*',
-                            'admin.roles.*',
-                            'admin.permissions.*',
-                            'admin.login-histories.*',
-                            'admin.system-logs.*',
-                            'admin.role-permissions.*'
-                        ], 'show');
+                    $isOpen = isActiveCollapseArray([
+                    'admin.users.*',
+                    'admin.investors.*',
+                    'admin.roles.*',
+                    'admin.permissions.*',
+                    'admin.login-histories.*',
+                    'admin.system-logs.*',
+                    'admin.role-permissions.*'
+                    ], 'show');
                     @endphp
 
                     <span class="nav-link collapsed d-flex justify-content-between align-items-center"
