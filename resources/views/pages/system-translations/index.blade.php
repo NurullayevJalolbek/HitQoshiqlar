@@ -92,7 +92,7 @@ $end = $pagination['end'];
     <!-- Jadval collapse ichida -->
 
 
-    <div class="card card-body py-3 px-3 shadow border-0 table-wrapper table-responsive mt-3">
+    <!-- <div class="card card-body py-3 px-3 shadow border-0 table-wrapper table-responsive mt-3"> -->
         <table class="table user-table table-bordered table-hover table-striped align-items-center id=" interfaceTable"">
             <thead class="table-dark">
                 <tr>
@@ -146,7 +146,7 @@ $end = $pagination['end'];
             </div>
         </div>
 
-    </div>
+    <!-- </div> -->
 </div>
 
 

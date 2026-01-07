@@ -198,7 +198,7 @@ $categories = [
 ];
 @endphp
 
-<div class="card card-body shadow-sm mb-4 mt-3">
+<div class="border rounded p-3 mt-3" id="footerTabsContent" style="border-color: rgba(0,0,0,0.05); background-color: #fff; padding: 0;">
     <!-- Tabs -->
     <div class="collapse show" id="messageTabsContent">
         <ul class="nav nav-tabs" id="permissionTabs" role="tablist">
