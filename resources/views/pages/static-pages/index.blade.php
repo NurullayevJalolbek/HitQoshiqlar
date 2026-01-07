@@ -300,7 +300,7 @@
 @section('content')
 <!-- <div class="card card-body shadow-sm mb-4 mt-3"> -->
 <!-- Tabs -->
-<div class="border rounded p-2 mt-3" id="footerTabsContent" style="border-color: rgba(0,0,0,0.05); background-color: #fff; padding: 0;">
+<div class="border rounded p-3 mt-3" id="footerTabsContent" style="border-color: rgba(0,0,0,0.05); background-color: #fff; padding: 0;">
 
     <!-- <div class="collapse show" id="footerTabsContent"> -->
     <ul class="nav nav-tabs" id="permissionTabs" role="tablist">

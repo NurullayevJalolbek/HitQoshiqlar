@@ -321,7 +321,7 @@ $tabs = [
     </div>
 </div>
 
-<div class="border rounded p-2 mt-3" style="border-color: rgba(0,0,0,0.05); background-color: #fff; padding: 0;">
+<div class="border rounded p-3 mt-3" style="border-color: rgba(0,0,0,0.05); background-color: #fff; padding: 0;">
 
     <!-- Tab Navigation -->
     <div class="nav-tabs-container">
