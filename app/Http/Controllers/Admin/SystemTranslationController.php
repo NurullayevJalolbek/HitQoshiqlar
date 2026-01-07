@@ -10,8 +10,11 @@ use App\Models\Language;
 class SystemTranslationController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
+
+
+
         $languages = Language::orderBy('id')->get();
 
 
@@ -28,7 +31,7 @@ class SystemTranslationController extends Controller
 
         return view('pages.system-translations.index', [
             'baseKeys' => $baseKeys,
-            'data' => $data
+            'data' => $data,
         ]);
     }
 

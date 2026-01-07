@@ -46,6 +46,9 @@
 
     <!-- Tugmalar guruhi -->
     <div class="d-flex gap-2 align-items-center flex-wrap">
+
+        <x-go-back />
+
         <!-- Yangi foydalanuvchi qo'shish (Edit mode uchun) -->
         <a href="{{ route('admin.user-interface.static-pages.create') }}" type="button" class="btn btn-primary btn-sm px-3 py-1"
             style="min-width: 90px;">

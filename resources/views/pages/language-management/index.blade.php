@@ -33,6 +33,10 @@
     <!-- Tugmalar guruhi -->
     <div class="d-flex gap-2 align-items-center flex-wrap">
 
+
+        <x-go-back />
+
+
         <a href="    {{ route('admin.user-interface.language-management.create', ['go_back' => url()->full()]) }}" class="btn btn-primary btn-sm px-3 py-1" id="addUserBtn"
             style="min-width: 90px;">
             <i class="fas fa-plus me-1" style="font-size: 0.85rem;"></i> {{ __('admin.create') }}

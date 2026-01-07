@@ -174,6 +174,8 @@
 
     <div class="d-flex gap-2 align-items-center flex-wrap">
 
+        <x-go-back />
+
         <!-- Yangi foydalanuvchi qo'shish -->
         <a href="#" class="btn btn-primary btn-sm px-3 py-1" onclick="openCreateModal()"
             style="min-width: 90px;">

@@ -8,9 +8,13 @@ use Illuminate\Http\Request;
 
 class LanguageManagementController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return view('pages.language-management.index');
+        $go_back = $request->go_back;
+
+        return view('pages.language-management.index', [
+            'go_back'=> $go_back
+        ]);
     }
 
 

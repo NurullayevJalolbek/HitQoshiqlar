@@ -11,11 +11,12 @@ class GoBack extends Component
     /**
      * Create a new component instance.
      *
-     * @param string $url
+     * @param string|null $url
      */
-    public function __construct($url)
+    public function __construct($url = null)
     {
-        $this->url = $url;
+        // Agar hech narsa kelmasa, session yoki previous URL ishlat
+        $this->url = $url ?? session('back_url', url()->previous());
     }
 
     /**

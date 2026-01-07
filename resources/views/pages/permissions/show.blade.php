@@ -254,7 +254,7 @@
 
 
 
-        <x-go-back url="{{ $go_back }}" />
+        <x-go-back />
 
 
         <button class="btn btn-sm p-2 d-flex align-items-center justify-content-center"

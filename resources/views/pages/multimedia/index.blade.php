@@ -149,7 +149,12 @@
         </nav>
     </div>
 
+
+
+
     <div class="d-flex gap-2 align-items-center flex-wrap">
+        <x-go-back />
+
         <a href="#" class="btn btn-primary btn-sm px-3 py-1" style="min-width: 90px;" onclick="openCreateModal()">
             <i class="fas fa-plus me-1" style="font-size: 0.85rem;"></i> {{ __('admin.create') }}
         </a>

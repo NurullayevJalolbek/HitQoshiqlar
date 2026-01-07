@@ -50,6 +50,9 @@
 
     <div class="d-flex gap-2 align-items-center flex-wrap">
 
+
+        <x-go-back />
+
         <!-- Filter toggle -->
         <button class="btn btn-sm p-2 d-flex align-items-center justify-content-center" type="button"
             data-bs-toggle="collapse" data-bs-target="#systemTranslationFilterContent" aria-expanded="true"

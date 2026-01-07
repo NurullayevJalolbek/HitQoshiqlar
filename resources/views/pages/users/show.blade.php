@@ -70,7 +70,7 @@
 
     <div class="d-flex gap-2 align-items-center flex-wrap">
 
-        <x-go-back url="{{ $go_back }}" />
+        <x-go-back />
     </div>
 </div>
 @endsection
