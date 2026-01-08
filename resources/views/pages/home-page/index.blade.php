@@ -354,7 +354,7 @@
 
                                 <div class="col-md-6">
                                     <div class="banner-preview">
-                                        <img src="https://via.placeholder.com/100x60" alt="Banner preview">
+                                        <img src="{{ asset('assets/img/default.jpg') }}" alt="Banner preview">
                                         <div class="banner-info">
                                             <h6>Tanlanmagan</h6>
                                             <p>Banner tanlang</p>
@@ -517,7 +517,7 @@
                             <div class="row">
                                 <div class="col-md-3">
                                     <label class="form-label">Icon</label>
-                                    <input type="text" class="form-control" value="fas fa-handshake" placeholder="fas fa-icon">
+                                    <input type="file" class="form-control" value="fas fa-handshake" placeholder="fas fa-icon">
                                 </div>
 
                                 <div class="col-md-4">
@@ -543,7 +543,7 @@
 
                                 <div class="col-md-4">
                                     <label class="form-label">Sarlavha</label>
-                                    <input type="text" class="form-control" value="Haqiqiy ulushlar">
+                                    <input type="file" class="form-control" value="Haqiqiy ulushlar">
                                 </div>
 
                                 <div class="col-md-5">
@@ -577,7 +577,7 @@
                                 <div class="row">
                                     <div class="col-md-3">
                                         <label class="form-label">Icon</label>
-                                        <input type="text" class="form-control" value="fas fa-ban" placeholder="fas fa-icon">
+                                        <input type="file" class="form-control" value="fas fa-ban" placeholder="fas fa-icon">
                                     </div>
 
                                     <div class="col-md-3">
@@ -810,7 +810,7 @@
                                     </select>
 
                                     <div class="banner-preview mt-2">
-                                        <img src="https://via.placeholder.com/100x60" alt="Banner preview">
+                                        <img src="{{ asset('assets/img/default.jpg') }}" alt="Banner preview">
                                         <div class="banner-info">
                                             <h6>Tanlanmagan</h6>
                                             <p>Banner tanlang</p>
@@ -822,7 +822,7 @@
                                     <div class="row">
                                         <div class="col-12 mb-3">
                                             <label class="form-label">Icon</label>
-                                            <input type="text" class="form-control" value="fas fa-clipboard-list" placeholder="fas fa-icon">
+                                            <input type="file" class="form-control" value="fas fa-clipboard-list" placeholder="fas fa-icon">
                                         </div>
 
                                         <div class="col-12 mb-3">
@@ -1206,7 +1206,7 @@
 
             <div class="col-md-6">
                 <div class="banner-preview">
-                    <img src="https://via.placeholder.com/100x60" alt="Banner preview">
+                    <img src="{{ asset('assets/img/default.jpg') }}" alt="Banner preview">
                     <div class="banner-info">
                         <h6>Tanlanmagan</h6>
                         <p>Banner tanlang</p>
@@ -1278,7 +1278,7 @@
                 </select>
 
                 <div class="banner-preview mt-2">
-                    <img src="https://via.placeholder.com/100x60" alt="Banner preview">
+                    <img src="{{ asset('assets/img/default.jpg') }}" alt="Banner preview">
                     <div class="banner-info">
                         <h6>Tanlanmagan</h6>
                         <p>Banner tanlang</p>

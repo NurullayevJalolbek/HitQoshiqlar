@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AboutUsController;
 use App\Http\Controllers\Admin\HomePageController;
 use App\Http\Controllers\Admin\LanguageManagementController;
 use App\Http\Controllers\Admin\MultilingualController;
@@ -137,7 +138,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'l
             Route::get('/', [StaticPageController::class, 'index'])->name('index');
 
             Route::resource('/home-page', HomePageController::class);
+
+            Route::resource('/about-us', AboutUsController::class);
         });
+
 
 
     });
