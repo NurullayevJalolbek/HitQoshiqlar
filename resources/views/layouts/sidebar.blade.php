@@ -25,11 +25,8 @@
                     @php
                     $isOpen = isActiveCollapseArray([
                     'admin.projects.*',
-                    'admin.project-investors.*',
-                    'admin.project-buyers.*',
                     'admin.project-entry-requests.*',
                     'admin.project-exit-requests.*',
-                    'admin.company-details.*',
                     ], 'show');
                     @endphp
 
@@ -56,16 +53,6 @@
                                     <span class="sidebar-text">{{ __('admin.projects') }}</span>
                                 </a>
                             </li>
-                            <li class="nav-item {{ isActiveRoute('admin.project-investors.*') }}">
-                                <a class="nav-link" href="{{ route('admin.project-investors.index') }}">
-                                    <span class="sidebar-text">{{ __('admin.project_investors') }}</span>
-                                </a>
-                            </li>
-                            <li class="nav-item {{ isActiveRoute('admin.project-buyers.*') }}">
-                                <a class="nav-link" href="{{ route('admin.project-buyers.index') }}">
-                                    <span class="sidebar-text">{{ __('admin.project_buyers') }}</span>
-                                </a>
-                            </li>
                             <li class="nav-item {{ isActiveRoute('admin.project-entry-requests.*') }}">
                                 <a class="nav-link" href="{{ route('admin.project-entry-requests.index') }}">
                                     <span class="sidebar-text">{{ __('admin.share_join_requests') }}</span>
@@ -74,11 +61,6 @@
                             <li class="nav-item {{ isActiveRoute('admin.project-exit-requests.*') }}">
                                 <a class="nav-link" href="{{ route('admin.project-exit-requests.index') }}">
                                     <span class="sidebar-text">{{ __('admin.share_exit_requests') }}</span>
-                                </a>
-                            </li>
-                            <li class="nav-item {{ isActiveRoute('admin.company-details.*') }}">
-                                <a class="nav-link" href="{{ route('admin.company-details.index') }}">
-                                    <span class="sidebar-text">{{ __('admin.company_details') }}</span>
                                 </a>
                             </li>
                         </ul>
