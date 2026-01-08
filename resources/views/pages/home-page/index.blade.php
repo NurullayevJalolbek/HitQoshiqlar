@@ -75,8 +75,8 @@
     }
 
     .section-tabs .nav-link.active {
-        color: var(--primary-color);
-        border-bottom-color: var(--primary-color);
+        color: #1F2937;
+        border-bottom-color: #1F2937;
         font-weight: 600;
     }
 
@@ -1177,12 +1177,13 @@
                 Oxirgi o'zgarish: 2023-yil 15-oktabr, 14:30
             </div>
 
-            <div>
-                <button type="button" class="btn btn-primary save-btn">
-                    <i class="fas fa-save me-1"></i>Sozlamalarni saqlash
-                </button>
-            </div>
+
+            <button type="button" class="btn btn-primary" id="saveSettingsBtn">
+                <i class="fas fa-save me-1"></i>Sazlamalarni saqlash
+            </button>
         </div>
+
+
     </div>
 </div>
 
