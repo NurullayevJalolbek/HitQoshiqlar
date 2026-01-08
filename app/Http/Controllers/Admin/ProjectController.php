@@ -14,14 +14,28 @@ class ProjectController extends Controller
         return view('pages.projects.index');
     }
 
-    public function  create()
+    public function create()
     {
         return view('pages.projects.create');
     }
 
     public function show(Request $request)
     {
-        return view('pages.projects.show');
+        $statuses = [
+            'Faol' => 'Faol',
+            'Bloklangan' => 'Bloklangan',
+        ];
+        $activityTypes = [
+            'MChJ' => 'MChJ',
+            'AJ' => 'AJ',
+            'YaTT' => 'YaTT',
+        ];
+        $directions = [
+            'yer' => __('yer'),
+            'qurilish' => __('qurilish'),
+            'ijara' => __('ijara'),
+        ];
+        return view('pages.projects.show', compact('statuses','activityTypes', 'directions'));
     }
 
     public function edit(Request $request, $id)

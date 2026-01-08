@@ -1,206 +1,429 @@
 // =================== STAGES TAB SCRIPT ===================
-// File: resources/views/pages/projects/scripts/stages.blade.php
 
 let stagesEditMode = false;
-let nextStageId = 7;
-let stageInsertAfterId = '';
-let dragStageId = null;
 
-function displayStages(stages) {
-if (!Array.isArray(stages)) stages = [];
-if (projectData && Array.isArray(projectData.stages)) {
-uiEnsurePriority(projectData.stages, 'order');
-stages = projectData.stages;
-} else {
-uiEnsurePriority(stages, 'order');
-}
-
-const totalProgress = stages.reduce((sum, stage) => {
-return sum + (stage.status === 'completed' ? (Number(stage.progress) || 0) : 0);
-}, 0);
-
-const progressBar = document.getElementById('progressBar');
-const progressBarLabel = document.getElementById('progressBarLabel');
-
-const progress = Math.min(100, Math.max(0, totalProgress));
-if (progressBar) progressBar.style.width = progress + '%';
-if (progressBarLabel) progressBarLabel.textContent = progress + '%';
-if (progressBar && !progressBarLabel) progressBar.textContent = progress + '%';
-
-const timeline = document.getElementById('timeline');
-timeline.innerHTML = '';
-
-const statusMap = {
-'completed': { icon: 'bi-check-circle', badgeClass: 'badge-stage-status badge-stage-completed', text: 'Bajarildi' },
-'in_progress': { icon: 'bi-arrow-clockwise', badgeClass: 'badge-stage-status badge-stage-in-progress', text: 'Jarayonda'
-},
-'planned': { icon: 'bi-circle', badgeClass: 'badge-stage-status badge-stage-planned', text: 'Rejalashtirilgan' }
+// 1) SVG ICON PATHS - Har bir bosqich turi uchun fayl manzili
+const STAGE_ICON_PATHS = {
+  land: '/assets/img/icons/progress-bar/permission.svg',
+  build: '/assets/img/icons/progress-bar/brick.svg',
+  karkas: '/assets/img/icons/progress-bar/karkas.svg',
+  docs: '/assets/img/icons/progress-bar/permission.svg',
+  money: '/assets/img/icons/progress-bar/sale.svg',
+  survey: '/assets/img/icons/progress-bar/decoration.svg',
+  keys: '/assets/img/icons/progress-bar/keys.svg',
+  default: '/assets/img/icons/progress-bar/default.svg',
 };
 
-stages.forEach((stage, index) => {
-const status = statusMap[stage.status] || statusMap.planned;
-const itemEl = document.createElement('div');
-itemEl.className = 'list-group-item border-0 stage-item';
-itemEl.setAttribute('data-stage-id', stage.id);
-
-if (!stagesEditMode) {
-itemEl.innerHTML = `
-<div class="row ps-lg-1 align-items-center">
-    <div class="col-auto">
-        <div class="${status.badgeClass}">
-            <i class="${status.icon}"></i>
-            ${status.text}
-        </div>
-    </div>
-    <div class="col ms-n2 mb-2">
-        <h3 class="fs-6 fw-bold mb-1">${stage.name}</h3>
-        <div class="d-flex align-items-center small text-muted">
-            <i class="bi bi-calendar3 me-1"></i>
-            <span>${stage.start_date} - ${stage.end_date}</span>
-        </div>
-    </div>
-    <div class="col-auto">
-        <span class="badge bg-white text-dark">${Number(stage.progress) || 0}%</span>
-    </div>
-</div>
-`;
-} else {
-itemEl.setAttribute('draggable', 'true');
-itemEl.setAttribute('ondragstart', `onStageDragStart(event, ${stage.id})`);
-itemEl.setAttribute('ondragover', `onStageDragOver(event, ${stage.id})`);
-itemEl.setAttribute('ondragleave', `onStageDragLeave(event, ${stage.id})`);
-itemEl.setAttribute('ondrop', `onStageDrop(event, ${stage.id})`);
-
-itemEl.innerHTML = `
-<div class="row ps-lg-1 align-items-start gy-2">
-    <div class="col-auto">
-        <div class="drag-handle" title="Joyini o'zgartirish">
-            <i class="bi bi-grip-vertical"></i>
-        </div>
-    </div>
-    <div class="col-auto">
-        <span class="priority-pill">#${stage.order}</span>
-    </div>
-    <div class="col-12 col-md-4">
-        <label class="form-label small mb-1">Bosqich nomi</label>
-        <input type="text" class="form-control form-control-sm" value="${uiEscapeHtml(stage.name)}"
-            onchange="updateStageField(${stage.id}, 'name', this.value)">
-    </div>
-    <div class="col-6 col-md-3">
-        <label class="form-label small mb-1">Holati</label>
-        <select class="form-select form-select-sm" onchange="updateStageField(${stage.id}, 'status', this.value)">
-            <option value="planned" ${stage.status==='planned' ? 'selected' : '' }>Rejalashtirilgan</option>
-            <option value="in_progress" ${stage.status==='in_progress' ? 'selected' : '' }>Jarayonda</option>
-            <option value="completed" ${stage.status==='completed' ? 'selected' : '' }>Bajarildi</option>
-        </select>
-    </div>
-    <div class="col-6 col-md-2">
-        <label class="form-label small mb-1">% bajarilgan</label>
-        <input type="number" min="0" max="100" class="form-control form-control-sm"
-            value="${Number(stage.progress) || 0}"
-            onchange="updateStageField(${stage.id}, 'progress', Number(this.value) || 0)">
-    </div>
-    <div class="col-6 col-md-1">
-        <label class="form-label small mb-1">Boshlanish</label>
-        <input type="text" class="form-control form-control-sm" value="${uiEscapeHtml(stage.start_date || '')}"
-            onchange="updateStageField(${stage.id}, 'start_date', this.value)">
-    </div>
-    <div class="col-6 col-md-1">
-        <label class="form-label small mb-1">Yakun</label>
-        <input type="text" class="form-control form-control-sm" value="${uiEscapeHtml(stage.end_date || '')}"
-            onchange="updateStageField(${stage.id}, 'end_date', this.value)">
-    </div>
-</div>
-`;
+// SVG iconni IMG tag sifatida qaytarish
+function stageIconImgByKey(key) {
+  const iconPath = STAGE_ICON_PATHS[key] || STAGE_ICON_PATHS.default;
+  return `<img src="${iconPath}" alt="${key}" class="stage-icon-img">`;
 }
 
-timeline.appendChild(itemEl);
-});
+// Stage nomiga qarab icon kalitini aniqlash
+function getIconKeyFromStageName(stageName) {
+  if (!stageName) return 'default';
+  
+  const name = stageName.toLowerCase();
+  
+  // Ruxsatnoma/Hujjatlar bilan bog'liq
+  if (name.includes('ruxsat')  || name.includes('qayd')) {
+    return 'docs';
+  }
+  // Yer/Joy bilan bog'liq
+  if (name.includes('yer') || name.includes('joy') || name.includes('land')) {
+    return 'land';
+  }
+  // Qurilish bilan bog'liq
+  if (name.includes('qurilish') || name.includes('bino') || name.includes('karkas')) {
+    return 'build';
+  }
+  // Pul/To'lov bilan bog'liq
+  if (name.includes('to\'lov') || name.includes('tolov') || name.includes('kredit') || name.includes('bank') || name.includes('sotish')) {
+    return 'money';
+  }
+  // Kalit topshirish
+  if (name.includes('kalit') || name.includes('topshir') || name.includes('keys') || name.includes('foydalanishga topshirish va hujjatlashtirish')) {
+    return 'keys';
+  }
+  // Inspeksiya/Tekshiruv
+  if (name.includes('inspeks') || name.includes('tekshir') || name.includes('nazorat') || name.includes('bezatish')) {
+    return 'survey';
+  }
+  if(name.includes('konstruksiya')){
+    return 'karkas'
+  }
+  return 'default';
 }
+
+// 2) Hozirgi aktiv bosqichni aniqlash
+function getCurrentActiveStage(stages) {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  
+  // Avval tugallanmagan, lekin boshlangan bosqichni topamiz
+  for (let stage of stages) {
+    if (stage.status === 'completed') continue;
+    
+    const startDate = stage.start_date ? new Date(stage.start_date) : null;
+    const endDate = stage.end_date ? new Date(stage.end_date) : null;
+    
+    if (startDate && startDate <= today) {
+      if (!endDate || endDate >= today) {
+        return stage;
+      }
+    }
+  }
+  
+  // Agar topilmasa, birinchi tugallanmagan bosqichni qaytaramiz
+  return stages.find(s => s.status !== 'completed') || stages[stages.length - 1];
+}
+
+// 3) MAIN RENDER
+function displayStages(stages) {
+  if (!Array.isArray(stages)) stages = [];
+
+  // --- Progress hisoblash ---
+  const totalProgress = stages.reduce((sum, s) => {
+    return sum + (s.status === 'completed' ? (Number(s.progress) || 0) : 0);
+  }, 0);
+
+  const progress = Math.min(100, Math.max(0, totalProgress));
+  const progressBar = document.getElementById('progressBar');
+  const progressBarLabel = document.getElementById('progressBarLabel');
+  const progressIconEl = document.getElementById('progressIcon');
+  const progressTextEl = document.getElementById('progressText');
+
+  // Progress bar rangini o'zgartirish
+  if (progressBar) {
+    progressBar.style.width = progress + '%';
+    
+    // Rang o'zgarishi
+    let gradientColor1, gradientColor2, shadowColor;
+    
+    if (progress < 25) {
+      // Qizil
+      gradientColor1 = '#ef4444';
+      gradientColor2 = '#dc2626';
+      shadowColor = 'rgba(239, 68, 68, 0.3)';
+    } else if (progress < 50) {
+      // Sariq
+      gradientColor1 = '#f59e0b';
+      gradientColor2 = '#d97706';
+      shadowColor = 'rgba(245, 158, 11, 0.3)';
+    } else if (progress < 75) {
+      // Ko'k/Havorang
+      gradientColor1 = '#3b82f6';
+      gradientColor2 = '#2563eb';
+      shadowColor = 'rgba(59, 130, 246, 0.3)';
+    } else {
+      // Yashil
+      gradientColor1 = '#10b981';
+      gradientColor2 = '#059669';
+      shadowColor = 'rgba(16, 185, 129, 0.3)';
+    }
+    
+    progressBar.style.background = `linear-gradient(90deg, ${gradientColor1} 0%, ${gradientColor2} 100%)`;
+    progressBar.style.boxShadow = `0 2px 8px ${shadowColor}`;
+  }
+  
+  if (progressTextEl) progressTextEl.textContent = progress + '%';
+  else if (progressBarLabel) progressBarLabel.textContent = progress + '%';
+
+  // Hozirgi aktiv bosqichning iconini ko'rsatish
+  if (progressIconEl) {
+    const activeStage = getCurrentActiveStage(stages);
+    const iconKey = activeStage?.iconKey || getIconKeyFromStageName(activeStage?.name);
+    progressIconEl.innerHTML = stageIconImgByKey(iconKey);
+  }
+
+  // --- Timeline render ---
+  const timeline = document.getElementById('timeline');
+  if (!timeline) return;
+
+  timeline.innerHTML = '';
+  timeline.classList.add('stage-timeline');
+
+  const activeStage = getCurrentActiveStage(stages);
+
+  stages.forEach((stage, index) => {
+    const iconKey = stage.iconKey || getIconKeyFromStageName(stage.name);
+    const iconImg = stageIconImgByKey(iconKey);
+    const isCompleted = stage.status === 'completed';
+    const isActive = activeStage?.id === stage.id;
+    const isLast = index === stages.length - 1;
+
+    // Sana formatlash (oy nomlari)
+    const formatDate = (dateStr) => {
+      if (!dateStr) return '-';
+      const date = new Date(dateStr);
+      const months = ['yan', 'fev', 'mar', 'apr', 'may', 'iyun', 'iyul', 'avg', 'sen', 'okt', 'noy', 'dek'];
+      return `${date.getDate().toString().padStart(2, '0')}-${months[date.getMonth()]}, ${date.getFullYear()}`;
+    };
+
+    // Muddat hisoblash
+    const calculateDuration = () => {
+      if (!stage.start_date || !stage.end_date) return '';
+      const start = new Date(stage.start_date);
+      const end = new Date(stage.end_date);
+      const diffTime = Math.abs(end - start);
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      
+      if (diffDays < 7) return `≈${diffDays} kun`;
+      if (diffDays < 30) return `≈${Math.ceil(diffDays / 7)} hafta`;
+      return `≈${Math.round(diffDays / 30)} oy`;
+    };
+
+    const item = document.createElement('div');
+    item.className = `stage-item ${isCompleted ? 'completed' : ''} ${isActive ? 'active' : ''}`;
+    item.setAttribute('data-stage-id', stage.id);
+
+    item.innerHTML = `
+      <div class="stage-marker-wrap">
+        <div class="stage-marker ${isCompleted ? 'completed' : ''} ${isActive ? 'active' : ''}">
+          ${iconImg}
+        </div>
+        ${!isLast ? '<div class="stage-line"></div>' : ''}
+      </div>
+
+      <div class="stage-content">
+        <div class="stage-title">${uiEscapeHtml(stage.name || '')}</div>
+        <div class="stage-dates">
+          ${formatDate(stage.start_date)} → ${formatDate(stage.end_date)}
+          ${calculateDuration() ? `<span class="stage-duration">(${calculateDuration()})</span>` : ''}
+        </div>
+      </div>
+    `;
+
+    timeline.appendChild(item);
+  });
+}
+
+// Helper function (agar mavjud bo'lmasa)
+function uiEscapeHtml(text) {
+  const map = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#039;'
+  };
+  return String(text).replace(/[&<>"']/g, m => map[m]);
+}
+
+// =================== EDIT MODE FUNCTIONS ===================
 
 function toggleStagesEdit() {
-stagesEditMode = !stagesEditMode;
-
-const btn = document.getElementById('toggleStagesEditBtn');
-const addBtn = document.getElementById('addStageBtn');
-
-if (btn) {
-btn.innerHTML = stagesEditMode
-? '<i class="bi bi-check-lg me-1"></i> Saqlash'
-: '<i class="bi bi-pencil-square me-1"></i> Tahrirlash';
+  stagesEditMode = !stagesEditMode;
+  
+  const toggleBtn = document.getElementById('toggleStagesEditBtn');
+  const addBtn = document.getElementById('addStageBtn');
+  const stagesTools = document.getElementById('stagesTools');
+  const stagesHint = document.getElementById('stagesHint');
+  const timeline = document.getElementById('timeline');
+  
+  if (stagesEditMode) {
+    // Edit mode ochish
+    toggleBtn.innerHTML = '<i class="bi bi-check-lg me-1"></i> Saqlash';
+    toggleBtn.classList.remove('btn-outline-secondary');
+    toggleBtn.classList.add('btn-success');
+    
+    if (addBtn) addBtn.classList.remove('d-none');
+    if (stagesTools) stagesTools.classList.add('show');
+    if (stagesHint) stagesHint.classList.add('show');
+    
+    // Timeline elementlarini draggable qilish
+    makeStagesDraggable();
+    
+    // Edit buttonlarini qo'shish
+    addEditButtonsToStages();
+    
+  } else {
+    // Edit mode yopish va saqlash
+    toggleBtn.innerHTML = '<i class="bi bi-pencil-square me-1"></i> Tahrirlash';
+    toggleBtn.classList.remove('btn-success');
+    toggleBtn.classList.add('btn-outline-secondary');
+    
+    if (addBtn) addBtn.classList.add('d-none');
+    if (stagesTools) stagesTools.classList.remove('show');
+    if (stagesHint) stagesHint.classList.remove('show');
+    
+    // Draggable ni o'chirish
+    removeStagesDraggable();
+    
+    // Edit buttonlarini o'chirish
+    removeEditButtonsFromStages();
+    
+    // Ma'lumotlarni saqlash
+    saveStagesOrder();
+  }
 }
 
-uiToggleEditButton(btn, stagesEditMode);
-if (addBtn) addBtn.classList.toggle('d-none', !stagesEditMode);
-
-displayStages(projectData.stages || []);
+function makeStagesDraggable() {
+  const items = document.querySelectorAll('.stage-item');
+  
+  items.forEach(item => {
+    item.setAttribute('draggable', 'true');
+    item.style.cursor = 'move';
+    
+    item.addEventListener('dragstart', handleDragStart);
+    item.addEventListener('dragover', handleDragOver);
+    item.addEventListener('drop', handleDrop);
+    item.addEventListener('dragend', handleDragEnd);
+  });
 }
 
-function updateStageField(stageId, field, value) {
-if (!projectData || !Array.isArray(projectData.stages)) return;
-const stage = projectData.stages.find(s => String(s.id) === String(stageId));
-if (!stage) return;
+function removeStagesDraggable() {
+  const items = document.querySelectorAll('.stage-item');
+  
+  items.forEach(item => {
+    item.setAttribute('draggable', 'false');
+    item.style.cursor = 'default';
+    
+    item.removeEventListener('dragstart', handleDragStart);
+    item.removeEventListener('dragover', handleDragOver);
+    item.removeEventListener('drop', handleDrop);
+    item.removeEventListener('dragend', handleDragEnd);
+  });
+}
 
-stage[field] = value;
-displayStages(projectData.stages);
+let draggedElement = null;
+
+function handleDragStart(e) {
+  draggedElement = this;
+  this.classList.add('dragging');
+  e.dataTransfer.effectAllowed = 'move';
+}
+
+function handleDragOver(e) {
+  if (e.preventDefault) {
+    e.preventDefault();
+  }
+  e.dataTransfer.dropEffect = 'move';
+  
+  const item = e.currentTarget;
+  if (item !== draggedElement) {
+    item.classList.add('drag-over');
+  }
+  
+  return false;
+}
+
+function handleDrop(e) {
+  if (e.stopPropagation) {
+    e.stopPropagation();
+  }
+  
+  const item = e.currentTarget;
+  item.classList.remove('drag-over');
+  
+  if (draggedElement !== item) {
+    const timeline = document.getElementById('timeline');
+    const allItems = [...timeline.children];
+    const draggedIndex = allItems.indexOf(draggedElement);
+    const targetIndex = allItems.indexOf(item);
+    
+    if (draggedIndex < targetIndex) {
+      item.parentNode.insertBefore(draggedElement, item.nextSibling);
+    } else {
+      item.parentNode.insertBefore(draggedElement, item);
+    }
+  }
+  
+  return false;
+}
+
+function handleDragEnd(e) {
+  this.classList.remove('dragging');
+  
+  const items = document.querySelectorAll('.stage-item');
+  items.forEach(item => {
+    item.classList.remove('drag-over');
+  });
+}
+
+function addEditButtonsToStages() {
+  const items = document.querySelectorAll('.stage-item');
+  
+  items.forEach(item => {
+    const stageId = item.getAttribute('data-stage-id');
+    const content = item.querySelector('.stage-content');
+    
+    if (!content.querySelector('.stage-edit-actions')) {
+      const actions = document.createElement('div');
+      actions.className = 'stage-edit-actions mt-2';
+      actions.innerHTML = `
+        <button class="btn btn-sm btn-outline-primary" onclick="editStage(${stageId})">
+          <i class="bi bi-pencil"></i> O'zgartirish
+        </button>
+        <button class="btn btn-sm btn-outline-danger" onclick="deleteStage(${stageId})">
+          <i class="bi bi-trash"></i> O'chirish
+        </button>
+      `;
+      content.appendChild(actions);
+    }
+  });
+}
+
+function removeEditButtonsFromStages() {
+  const actions = document.querySelectorAll('.stage-edit-actions');
+  actions.forEach(action => action.remove());
+}
+
+function saveStagesOrder() {
+  const items = document.querySelectorAll('.stage-item');
+  const order = [];
+  
+  items.forEach((item, index) => {
+    const stageId = item.getAttribute('data-stage-id');
+    order.push({
+      id: stageId,
+      order: index + 1
+    });
+  });
+  
+  console.log('Saqlash kerak:', order);
+  
+  // Bu yerda AJAX orqali serverga yuborasiz
+  // fetch('/api/stages/reorder', {
+  //   method: 'POST',
+  //   headers: { 'Content-Type': 'application/json' },
+  //   body: JSON.stringify({ order: order })
+  // });
 }
 
 function addNewStage() {
-if (!projectData || !Array.isArray(projectData.stages)) return;
-
-const newStage = {
-id: nextStageId++,
-name: 'Yangi bosqich',
-status: 'planned',
-icon: 'bi-circle',
-order: projectData.stages.length + 1,
-start_date: '',
-end_date: '',
-progress: 0
-};
-
-projectData.stages.push(newStage);
-uiEnsurePriority(projectData.stages, 'order');
-displayStages(projectData.stages);
-showToast('Yangi bosqich qo\'shildi', 'success');
+  // Yangi bosqich qo'shish modal yoki forma
+  console.log('Yangi bosqich qo\'shish');
+  
+  // Modal ochish yoki forma ko'rsatish
+  // Misol uchun:
+  // $('#addStageModal').modal('show');
 }
 
-function onStageDragStart(e, stageId) {
-dragStageId = stageId;
-try { e.dataTransfer.setData('text/plain', String(stageId)); } catch (err) { }
-e.dataTransfer.effectAllowed = 'move';
+function editStage(stageId) {
+  console.log('Bosqichni tahrirlash:', stageId);
+  
+  // Tahrirlash modal ochish
+  // $('#editStageModal').modal('show');
+  // loadStageData(stageId);
 }
 
-function onStageDragOver(e, targetId) {
-e.preventDefault();
-e.dataTransfer.dropEffect = 'move';
-const target = document.querySelector(`.stage-item[data-stage-id="${targetId}"]`);
-if (target) target.classList.add('is-drag-over');
+function deleteStage(stageId) {
+  if (confirm('Haqiqatan ham bu bosqichni o\'chirmoqchimisiz?')) {
+    console.log('Bosqichni o\'chirish:', stageId);
+    
+    // AJAX orqali o'chirish
+    // fetch(`/api/stages/${stageId}`, {
+    //   method: 'DELETE'
+    // }).then(() => {
+    //   // Timeline'ni qayta yuklash
+    //   loadStages();
+    // });
+  }
 }
 
-function onStageDragLeave(e, targetId) {
-const target = document.querySelector(`.stage-item[data-stage-id="${targetId}"]`);
-if (target) target.classList.remove('is-drag-over');
-}
-
-function onStageDrop(e, targetId) {
-e.preventDefault();
-const targetEl = document.querySelector(`.stage-item[data-stage-id="${targetId}"]`);
-if (targetEl) targetEl.classList.remove('is-drag-over');
-
-const draggedId = dragStageId;
-if (!draggedId || String(draggedId) === String(targetId)) return;
-if (!projectData || !Array.isArray(projectData.stages)) return;
-
-const list = projectData.stages.slice();
-const fromIndex = list.findIndex(s => String(s.id) === String(draggedId));
-const toIndex = list.findIndex(s => String(s.id) === String(targetId));
-if (fromIndex === -1 || toIndex === -1) return;
-
-const [dragged] = list.splice(fromIndex, 1);
-list.splice(toIndex, 0, dragged);
-
-projectData.stages = list;
-uiEnsurePriority(projectData.stages, 'order');
-displayStages(projectData.stages);
+function setStageInsertAfter(value) {
+  console.log('Qo\'shish joyi:', value);
+  // Yangi bosqichni qayerga qo'shishni belgilash
 }

@@ -12,5 +12,8 @@
         @include('pages.projects.scripts.partners')
         @include('pages.projects.scripts.risks')
         @include('pages.projects.scripts.documents')
+        @include('pages.projects.scripts.investors')
+        @include('pages.projects.scripts.buyers')
+        @include('pages.projects.scripts.company-details')
     </script>
 @endpush
