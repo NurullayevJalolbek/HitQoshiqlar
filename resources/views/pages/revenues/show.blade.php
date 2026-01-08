@@ -195,12 +195,429 @@
             padding: 0.75rem;
             margin-bottom: 0.5rem;
         }
+
+        /* Optimallashtrilgan CSS */
+        .filter-card {
+            background: #ffffff;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            border-radius: 0.75rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+        }
+
+        .stats-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 0.75rem;
+            padding: 1.25rem;
+            color: white;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
+        }
+
+        .stats-card .stat-value {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .stats-card .stat-label {
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+
+        /* Jadval optimizatsiyasi */
+        .project-table {
+            font-size: 0.875rem;
+            margin-bottom: 0;
+        }
+
+        .project-table thead th {
+            background: #1f2937;
+            color: white;
+            font-weight: 600;
+            padding: 0.875rem 0.75rem;
+            font-size: 0.8125rem;
+            white-space: nowrap;
+            border: none;
+            vertical-align: middle;
+        }
+
+        .project-table tbody td {
+            padding: 0.875rem 0.75rem;
+            vertical-align: middle;
+            border-color: #e5e7eb;
+        }
+
+        .project-table tbody tr {
+            transition: background-color 0.15s ease;
+        }
+
+        .project-table tbody tr:hover {
+            background-color: #f9fafb;
+        }
+
+        /* Rasm optimizatsiyasi */
+        .project-img {
+            width: 56px;
+            height: 56px;
+            object-fit: cover;
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border: 2px solid #fff;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .project-img:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Image Modal Styles */
+        .image-modal .modal-dialog {
+            max-width: 90vw;
+            max-height: 90vh;
+            width: auto;
+            margin: 1.75rem auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .image-modal .modal-content {
+            background: transparent;
+            border: none;
+            width: fit-content;
+            max-width: 90vw;
+            max-height: 90vh;
+            margin: auto;
+        }
+
+        .image-modal .modal-body {
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            width: fit-content;
+            max-width: 90vw;
+            max-height: 90vh;
+            margin: auto;
+        }
+
+        .image-modal img {
+            max-width: 90vw;
+            max-height: 90vh;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            border-radius: 0.5rem;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+            display: block;
+            margin: auto;
+        }
+
+        .image-modal .btn-close {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: rgba(255, 255, 255, 0.95);
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23000'%3e%3cpath d='M.293.293a1 1 0 011.414 0L8 6.586 14.293.293a1 1 0 111.414 1.414L9.414 8l6.293 6.293a1 1 0 01-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 01-1.414-1.414L6.586 8 .293 1.707a1 1 0 010-1.414z'/%3e%3c/svg%3e");
+            background-size: 16px;
+            background-repeat: no-repeat;
+            background-position: center;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            opacity: 1;
+            z-index: 1051;
+            border: 2px solid rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            filter: none;
+        }
+
+        .image-modal .btn-close:hover {
+            background-color: rgba(255, 255, 255, 1);
+            border-color: rgba(0, 0, 0, 0.2);
+        }
+
+        /* Badge'lar - Login-histories va Investors stillari bilan bir xil */
+        .badge-custom {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 500;
+            backdrop-filter: blur(6px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            white-space: nowrap;
+            text-transform: capitalize;
+        }
+
+        .badge-category-yer {
+            background: rgba(5, 101, 70, 0.15);
+            color: #065f46;
+        }
+
+        .badge-category-qurilish {
+            background: rgba(30, 64, 175, 0.15);
+            color: #1e40af;
+        }
+
+        .badge-category-ijara {
+            background: rgba(146, 64, 14, 0.15);
+            color: #92400e;
+        }
+
+        .badge-status-faol {
+            background: rgba(0, 200, 83, 0.15);
+            color: #0f9d58;
+        }
+
+        .badge-status-rejalashtirilgan {
+            background: rgba(30, 64, 175, 0.15);
+            color: #1e40af;
+        }
+
+        .badge-status-yakunlangan {
+            background: rgba(55, 65, 81, 0.15);
+            color: #374151;
+        }
+
+        .badge-status-nofaol {
+            background: rgba(255, 0, 0, 0.15);
+            color: #d93025;
+        }
+
+        /* Progress bar with dynamic colors */
+        .progress-wrapper {
+            min-width: 100px;
+        }
+
+        .progress-custom {
+            height: 6px;
+            background: #e5e7eb;
+            border-radius: 1rem;
+            overflow: hidden;
+            margin-bottom: 0.25rem;
+        }
+
+        .progress-bar-custom {
+            height: 100%;
+            border-radius: 1rem;
+            transition: width 0.3s ease;
+        }
+
+        .progress-bar-danger {
+            background: linear-gradient(90deg, #ef4444 0%, #dc2626 100%);
+        }
+
+        .progress-bar-warning {
+            background: linear-gradient(90deg, #f59e0b 0%, #d97706 100%);
+        }
+
+        .progress-bar-info {
+            background: linear-gradient(90deg, #06b6d4 0%, #0891b2 100%);
+        }
+
+        .progress-bar-success {
+            background: linear-gradient(90deg, #10b981 0%, #059669 100%);
+        }
+
+        .progress-text {
+            font-size: 0.7rem;
+            color: #6b7280;
+            font-weight: 500;
+        }
+
+        /* Raund ko'rsatkichlari - Horizontal */
+        .round-indicators {
+            display: flex;
+            gap: 0.35rem;
+            align-items: center;
+            flex-wrap: nowrap;
+        }
+
+        .round-dot {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.65rem;
+            font-weight: 600;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            flex-shrink: 0;
+        }
+
+        .round-active {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .round-completed {
+            background: #10b981;
+            color: white;
+        }
+
+        .round-pending {
+            background: #f3f4f6;
+            color: #9ca3af;
+            border: 1px solid #e5e7eb;
+        }
+
+        /* Amallar */
+        .action-buttons {
+            display: flex;
+            gap: 0.375rem;
+            justify-content: center;
+        }
+
+        .btn-action {
+            width: 32px;
+            height: 32px;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0.375rem;
+            border: 1px solid #e5e7eb;
+            background: white;
+            transition: all 0.2s ease;
+        }
+
+        .btn-action:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+        }
+
+        .btn-view {
+            color: #3b82f6;
+        }
+
+        .btn-view:hover {
+            background: #eff6ff;
+            border-color: #3b82f6;
+        }
+
+        .btn-edit {
+            color: #f59e0b;
+        }
+
+        .btn-edit:hover {
+            background: #fffbeb;
+            border-color: #f59e0b;
+        }
+
+        .btn-delete {
+            color: #ef4444;
+        }
+
+        .btn-delete:hover {
+            background: #fef2f2;
+            border-color: #ef4444;
+        }
+
+        /* Ma'lumot ko'rinishi */
+        .project-name {
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 0.125rem;
+            font-size: 0.875rem;
+        }
+
+        .project-location {
+            font-size: 0.75rem;
+            color: #6b7280;
+        }
+
+        .value-primary {
+            font-weight: 600;
+            color: #1f2937;
+            font-size: 0.875rem;
+        }
+
+        .value-secondary {
+            font-size: 0.75rem;
+            color: #6b7280;
+            margin-top: 0.125rem;
+        }
+
+        /* Loading state */
+        .loading-row td {
+            text-align: center;
+            padding: 3rem !important;
+            color: #6b7280;
+        }
+
+        .loading-spinner {
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Empty state */
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: #9ca3af;
+        }
+
+        .empty-state i {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        /* Responsive */
+        @media (max-width: 1400px) {
+            .project-table {
+                font-size: 0.8125rem;
+            }
+
+            .project-img {
+                width: 48px;
+                height: 48px;
+            }
+        }
+
+        /* Table scroll */
+        .table-responsive {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .table-responsive::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .table-responsive::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 4px;
+        }
+
+        .table-responsive::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+
+        .table-responsive::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
     </style>
 @endpush
 
 @section('breadcrumb')
-    <div
-        class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-3 breadcrumb-block px-3 mt-3"
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-3 breadcrumb-block px-3 mt-3 mb-2"
         style="border: 1px solid rgba(0,0,0,0.05); border-radius: 0.5rem; background-color: #ffffff; height: 60px">
         <div class="d-block mb-2 mb-md-0">
             <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
@@ -214,41 +631,40 @@
                         </a>
                     </li>
                     <li class="breadcrumb-item active" aria-current="page">
-                    {{ "Tushum kartochkasi" }}
+                        {{ "Tushum kartochkasi" }}
                     </li>
                 </ol>
             </nav>
+        </div>
+        <div class="d-flex gap-2 align-items-center flex-wrap">
+            <button class="btn btn-sm p-2 d-flex align-items-center justify-content-center" type="button"
+                data-bs-toggle="collapse" data-bs-target="#projectsFilterContent" aria-expanded="true"
+                aria-controls="projectsFilterContent">
+                <i class="bi bi-sliders2" style="font-size: 1.3rem;"></i>
+            </button>
         </div>
     </div>
 @endsection
 
 @section('content')
-    <div class="revenue-header">
-        <div class="row align-items-center">
-            <div class="col-md-8">
-                <div class="revenue-title" id="headerPeriod">2025-Yanvar tushumlari</div>
-                <div class="revenue-subtitle" id="headerAccount">
-                    Hisob raqami: 20208000405500001001
+    <div class="filter-card mb-3 collapse show" id="projectsFilterContent">
+        <div class="p-3">
+            <div class="row g-3 align-items-end">
+                <div class="col-md-3">
+                    <label class="form-label mb-1">ID / Bank tranzaksiya ID</label>
+                    <input type="text" class="form-control form-control-sm" id="detectedSearchId"
+                        placeholder="ID bo‘yicha qidirish">
                 </div>
-                <div class="mt-2 d-flex flex-wrap gap-2">
-                    <span class="pill" id="headerCurrency">
-                        <i class="fas fa-coins"></i> UZS
-                    </span>
-                    <span class="pill" id="headerTotal">
-                        <i class="fas fa-sack-dollar"></i>
-                        1 500 000 000 UZS
-                    </span>
+                <div class="col-md-3">
+                    <label class="form-label mb-1">Sana</label>
+                    <input type="date" class="form-control form-control-sm" id="detectedSearchDate">
                 </div>
-            </div>
-            <div class="col-md-4 text-md-end mt-3 mt-md-0">
-                <div class="mb-1">
-                    <span class="status-badge status-detected" id="headerDetectedBadge">Aniqlangan</span>
+                <div class="col-md-3">
+                    <label class="form-label mb-1">Summasi</label>
+                    <input type="text" class="form-control form-control-sm" id="detectedSearchAmount"
+                        placeholder="Summani kiriting">
                 </div>
-                <div class="revenue-subtitle" id="headerCounts">
-                    ☑ <span id="headerDetectedCount">120</span> • ⚠
-                    <span id="headerUndetectedCount">15</span> • ✖
-                    <span id="headerClarifyCount">5</span>
-                </div>
+                <x-filter-buttons :search-text="__('admin.search')" :clear-text="__('admin.clear')" />
             </div>
         </div>
     </div>
@@ -290,34 +706,6 @@
         <div class="tab-content-inner">
             {{-- Aniqlangan --}}
             <div id="tab-detected" class="tab-pane-content active">
-                <div class="filter-row mb-2">
-                    <div class="row g-2 align-items-end">
-                        <div class="col-md-3">
-                            <label class="form-label mb-1">ID / Bank tranzaksiya ID</label>
-                            <input type="text" class="form-control form-control-sm" id="detectedSearchId"
-                                placeholder="ID bo‘yicha qidirish">
-                        </div>
-                        <div class="col-md-3">
-                            <label class="form-label mb-1">Sana</label>
-                            <input type="date" class="form-control form-control-sm" id="detectedSearchDate">
-                        </div>
-                        <div class="col-md-3">
-                            <label class="form-label mb-1">Summasi</label>
-                            <input type="text" class="form-control form-control-sm" id="detectedSearchAmount"
-                                placeholder="Summani kiriting">
-                        </div>
-                        <div class="col-md-3 d-flex gap-2">
-                            <button class="btn btn-primary btn-sm w-100" type="button"
-                                onclick="applyDetectedFilter()">
-                                <i class="fas fa-filter me-1"></i> Filtrlash
-                            </button>
-                            <button class="btn btn-warning btn-sm w-100" type="button"
-                                onclick="resetDetectedFilter()">
-                                <i class="fas fa-times me-1"></i> Tozalash
-                            </button>
-                        </div>
-                    </div>
-                </div>
 
                 <div class="info-card">
                     <h5 class="info-card-title">
@@ -352,30 +740,6 @@
 
             {{-- Aniqlanmagan --}}
             <div id="tab-undetected" class="tab-pane-content" style="display:none;">
-                <div class="filter-row mb-2">
-                    <div class="row g-2 align-items-end">
-                        <div class="col-md-4">
-                            <label class="form-label mb-1">Bank tranzaksiya ID / Hujjat raqami</label>
-                            <input type="text" class="form-control form-control-sm" id="undetectedSearch"
-                                placeholder="Matn bo‘yicha qidirish">
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label mb-1">Sana</label>
-                            <input type="date" class="form-control form-control-sm" id="undetectedSearchDate">
-                        </div>
-                        <div class="col-md-4 d-flex gap-2">
-                            <button class="btn btn-primary btn-sm w-100" type="button"
-                                onclick="applyUndetectedFilter()">
-                                <i class="fas fa-filter me-1"></i> Filtrlash
-                            </button>
-                            <button class="btn btn-warning btn-sm w-100" type="button"
-                                onclick="resetUndetectedFilter()">
-                                <i class="fas fa-times me-1"></i> Tozalash
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
                 <div class="info-card">
                     <h5 class="info-card-title">
                         <i class="fas fa-circle-question"></i>
@@ -404,30 +768,6 @@
 
             {{-- Aniqlik kiritiladigan --}}
             <div id="tab-clarify" class="tab-pane-content" style="display:none;">
-                <div class="filter-row mb-2">
-                    <div class="row g-2 align-items-end">
-                        <div class="col-md-4">
-                            <label class="form-label mb-1">Bank tranzaksiya ID / Hujjat raqami</label>
-                            <input type="text" class="form-control form-control-sm" id="clarifySearch"
-                                placeholder="Matn bo‘yicha qidirish">
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label mb-1">Sana</label>
-                            <input type="date" class="form-control form-control-sm" id="clarifySearchDate">
-                        </div>
-                        <div class="col-md-4 d-flex gap-2">
-                            <button class="btn btn-primary btn-sm w-100" type="button"
-                                onclick="applyClarifyFilter()">
-                                <i class="fas fa-filter me-1"></i> Filtrlash
-                            </button>
-                            <button class="btn btn-warning btn-sm w-100" type="button"
-                                onclick="resetClarifyFilter()">
-                                <i class="fas fa-times me-1"></i> Tozalash
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
                 <div class="info-card">
                     <h5 class="info-card-title">
                         <i class="fas fa-triangle-exclamation"></i>
@@ -542,8 +882,7 @@
                                 </tbody>
                             </table>
                         </div>
-                        <button class="btn btn-outline-primary btn-sm mt-2" type="button"
-                            onclick="addAttachProjectRow()">
+                        <button class="btn btn-outline-primary btn-sm mt-2" type="button" onclick="addAttachProjectRow()">
                             <i class="fas fa-plus me-1"></i>
                             Loyiha qo‘shish
                         </button>
@@ -564,7 +903,9 @@
 
 @push('customJs')
     <script>
-        // Demo ma'lumotlar (keyin backend ma'lumotlari bilan almashtiriladi)
+        // SHOW.BLADE.PHP uchun JavaScript qismi (yaxshilangan)
+
+        // Demo ma'lumotlar
         const detectedPayments = [
             {
                 id: 1,
@@ -574,7 +915,7 @@
                 amount: 15000000,
                 currency: 'UZS',
                 payer: 'OOO "Premium Invest"',
-                details: 'PRJ-2024-001 bo‘yicha to‘lov',
+                details: 'PRJ-2024-001 bo\'yicha to\'lov',
                 project: 'PRJ-2024-001 - Premium Turar-joy',
                 contract: 'CNT-2025-001',
                 user: 'Abdullayev J.M.',
@@ -591,8 +932,8 @@
                 date: '2025-01-07',
                 amount: 25000000,
                 currency: 'UZS',
-                payer: 'Nomaʼlum mijoz',
-                details: 'To‘lov maqsadi: kvartira uchun to‘lov',
+                payer: 'Noma\'lum mijoz',
+                details: 'To\'lov maqsadi: kvartira uchun to\'lov',
             },
         ];
 
@@ -625,10 +966,11 @@
                 action: 'Aniqlangan → Aniqlik kiritiladigan',
                 from: 'Aniqlangan',
                 to: 'Aniqlik kiritiladigan',
-                note: 'To‘lov maqsadida xatolik topildi',
+                note: 'To\'lov maqsadida xatolik topildi',
             },
         ];
 
+        // Helper functions
         function formatMoney(amount, currency) {
             if (amount == null) return '-';
             const formatted = new Intl.NumberFormat('uz-UZ').format(amount);
@@ -647,13 +989,47 @@
             return String(text).replace(/[&<>"']/g, m => map[m]);
         }
 
+        // Tab switching with better UX
+        let currentTab = 'detected';
+
         function switchTab(tabName) {
+            if (currentTab === tabName) return;
+
+            currentTab = tabName;
+
+            // Update active states
             document.querySelectorAll('#revenueTabs .nav-link').forEach(btn => {
                 btn.classList.toggle('active', btn.dataset.tab === tabName);
             });
+
+            // Hide all tabs with fade effect
             document.querySelectorAll('.tab-pane-content').forEach(content => {
-                content.style.display = content.id === `tab-${tabName}` ? 'block' : 'none';
+                content.style.display = 'none';
             });
+
+            // Show selected tab
+            const selectedTab = document.getElementById(`tab-${tabName}`);
+            if (selectedTab) {
+                selectedTab.style.display = 'block';
+            }
+
+            // Update scroll buttons visibility
+            updateScrollButtons();
+        }
+
+        // Scroll buttons management
+        function updateScrollButtons() {
+            const navTabs = document.getElementById('revenueTabs');
+            const scrollLeftBtn = document.getElementById('scrollLeftBtn');
+            const scrollRightBtn = document.getElementById('scrollRightBtn');
+
+            if (!navTabs || !scrollLeftBtn || !scrollRightBtn) return;
+
+            const canScrollLeft = navTabs.scrollLeft > 0;
+            const canScrollRight = navTabs.scrollLeft < (navTabs.scrollWidth - navTabs.clientWidth);
+
+            scrollLeftBtn.classList.toggle('hidden', !canScrollLeft);
+            scrollRightBtn.classList.toggle('hidden', !canScrollRight);
         }
 
         function scrollTabs(direction) {
@@ -663,36 +1039,54 @@
                 left: direction === 'left' ? -scrollAmount : scrollAmount,
                 behavior: 'smooth',
             });
+
+            setTimeout(updateScrollButtons, 300);
         }
 
+        // Render functions with improved HTML structure
         function renderDetected() {
             const tbody = document.getElementById('detectedTableBody');
             if (!tbody) return;
+
+            if (!detectedPayments.length) {
+                tbody.innerHTML = `
+                <tr>
+                    <td colspan="13" class="text-center py-4">
+                        <div class="empty-state">
+                            <i class="fas fa-inbox"></i>
+                            <p class="mt-2 mb-0">Aniqlangan tushumlar yo'q</p>
+                        </div>
+                    </td>
+                </tr>
+            `;
+                return;
+            }
+
             let html = '';
             detectedPayments.forEach(p => {
                 html += `
-                    <tr>
-                        <td class="text-center">${p.id}</td>
-                        <td>${escapeHtml(p.bank_id)}</td>
-                        <td>${escapeHtml(p.doc_number)}</td>
-                        <td>${escapeHtml(p.date)}</td>
-                        <td class="text-end">${formatMoney(p.amount, p.currency)}</td>
-                        <td>${escapeHtml(p.payer)}</td>
-                        <td>${escapeHtml(p.details)}</td>
-                        <td>${escapeHtml(p.project)}</td>
-                        <td>${escapeHtml(p.contract)}</td>
-                        <td>${escapeHtml(p.user)}</td>
-                        <td>${escapeHtml(p.attached_at)}</td>
-                        <td>${escapeHtml(p.comment || '')}</td>
-                        <td class="text-center">
-                            <button class="btn btn-sm btn-outline-warning" type="button"
-                                onclick="moveToClarify(${p.id})">
-                                <i class="fas fa-arrow-right-arrow-left me-1"></i>
-                                Aniqlik kiritiladiganlarga
-                            </button>
-                        </td>
-                    </tr>
-                `;
+                <tr>
+                    <td class="text-center">${p.id}</td>
+                    <td><code class="text-primary">${escapeHtml(p.bank_id)}</code></td>
+                    <td>${escapeHtml(p.doc_number)}</td>
+                    <td><small>${escapeHtml(p.date)}</small></td>
+                    <td class="text-end"><strong>${formatMoney(p.amount, p.currency)}</strong></td>
+                    <td>${escapeHtml(p.payer)}</td>
+                    <td><small>${escapeHtml(p.details)}</small></td>
+                    <td>${escapeHtml(p.project)}</td>
+                    <td>${escapeHtml(p.contract)}</td>
+                    <td>${escapeHtml(p.user)}</td>
+                    <td><small>${escapeHtml(p.attached_at)}</small></td>
+                    <td><small>${escapeHtml(p.comment || '—')}</small></td>
+                    <td class="text-center">
+                        <button class="btn btn-sm btn-outline-warning" type="button"
+                            onclick="moveToClarify(${p.id})">
+                            <i class="fas fa-exchange-alt me-1"></i>
+                            Aniqlik kiritish
+                        </button>
+                    </td>
+                </tr>
+            `;
             });
             tbody.innerHTML = html;
         }
@@ -700,39 +1094,54 @@
         function renderUndetected() {
             const tbody = document.getElementById('undetectedTableBody');
             if (!tbody) return;
+
+            if (!undetectedPayments.length) {
+                tbody.innerHTML = `
+                <tr>
+                    <td colspan="8" class="text-center py-4">
+                        <div class="empty-state">
+                            <i class="fas fa-inbox"></i>
+                            <p class="mt-2 mb-0">Aniqlanmagan tushumlar yo'q</p>
+                        </div>
+                    </td>
+                </tr>
+            `;
+                return;
+            }
+
             let html = '';
             undetectedPayments.forEach(p => {
                 html += `
-                    <tr>
-                        <td class="text-center">${p.id}</td>
-                        <td>${escapeHtml(p.bank_id)}</td>
-                        <td>${escapeHtml(p.doc_number)}</td>
-                        <td>${escapeHtml(p.date)}</td>
-                        <td class="text-end">${formatMoney(p.amount, p.currency)}</td>
-                        <td>${escapeHtml(p.payer)}</td>
-                        <td>${escapeHtml(p.details)}</td>
-                        <td class="text-center">
-                            <div class="d-flex flex-column gap-1">
-                                <button class="btn btn-sm btn-outline-primary" type="button"
-                                    onclick="openAttachModal(${p.id}, 'single')">
-                                    Biriktirish
-                                </button>
-                                <button class="btn btn-sm btn-outline-primary" type="button"
-                                    onclick="openAttachModal(${p.id}, 'multi')">
-                                    Bir nechta loyihaga
-                                </button>
-                                <button class="btn btn-sm btn-outline-warning" type="button"
-                                    onclick="moveToClarify(${p.id})">
-                                    Aniqlik kiritiladiganlarga o‘tkazish
-                                </button>
-                                <button class="btn btn-sm btn-outline-secondary" type="button"
-                                    onclick="moveToOtherIncome(${p.id})">
-                                    Boshqa daromadlarga o‘tkazish
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
-                `;
+                <tr>
+                    <td class="text-center">${p.id}</td>
+                    <td><code class="text-primary">${escapeHtml(p.bank_id)}</code></td>
+                    <td>${escapeHtml(p.doc_number)}</td>
+                    <td><small>${escapeHtml(p.date)}</small></td>
+                    <td class="text-end"><strong>${formatMoney(p.amount, p.currency)}</strong></td>
+                    <td>${escapeHtml(p.payer)}</td>
+                    <td><small>${escapeHtml(p.details)}</small></td>
+                    <td class="text-center">
+                        <div class="d-flex flex-column gap-1">
+                            <button class="btn btn-sm btn-outline-primary" type="button"
+                                onclick="openAttachModal(${p.id}, 'single')">
+                                <i class="fas fa-link me-1"></i> Biriktirish
+                            </button>
+                            <button class="btn btn-sm btn-outline-primary" type="button"
+                                onclick="openAttachModal(${p.id}, 'multi')">
+                                <i class="fas fa-project-diagram me-1"></i> Bir nechta loyihaga
+                            </button>
+                            <button class="btn btn-sm btn-outline-warning" type="button"
+                                onclick="moveToClarify(${p.id})">
+                                <i class="fas fa-question-circle me-1"></i> Aniqlik kiritish
+                            </button>
+                            <button class="btn btn-sm btn-outline-secondary" type="button"
+                                onclick="moveToOtherIncome(${p.id})">
+                                <i class="fas fa-folder-plus me-1"></i> Boshqa daromadlarga
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            `;
             });
             tbody.innerHTML = html;
         }
@@ -740,36 +1149,51 @@
         function renderClarify() {
             const tbody = document.getElementById('clarifyTableBody');
             if (!tbody) return;
+
+            if (!clarifyPayments.length) {
+                tbody.innerHTML = `
+                <tr>
+                    <td colspan="9" class="text-center py-4">
+                        <div class="empty-state">
+                            <i class="fas fa-inbox"></i>
+                            <p class="mt-2 mb-0">Aniqlik kiritiladigan tushumlar yo'q</p>
+                        </div>
+                    </td>
+                </tr>
+            `;
+                return;
+            }
+
             let html = '';
             clarifyPayments.forEach(p => {
                 html += `
-                    <tr>
-                        <td class="text-center">${p.id}</td>
-                        <td>${escapeHtml(p.bank_id)}</td>
-                        <td>${escapeHtml(p.doc_number)}</td>
-                        <td>${escapeHtml(p.date)}</td>
-                        <td class="text-end">${formatMoney(p.amount, p.currency)}</td>
-                        <td>${escapeHtml(p.payer)}</td>
-                        <td>${escapeHtml(p.details)}</td>
-                        <td>${escapeHtml(p.note || '')}</td>
-                        <td class="text-center">
-                            <div class="d-flex flex-column gap-1">
-                                <button class="btn btn-sm btn-outline-primary" type="button"
-                                    onclick="openAttachModal(${p.id}, 'single')">
-                                    Biriktirish
-                                </button>
-                                <button class="btn btn-sm btn-outline-primary" type="button"
-                                    onclick="openAttachModal(${p.id}, 'multi')">
-                                    Bir nechta loyihaga
-                                </button>
-                                <button class="btn btn-sm btn-outline-secondary" type="button"
-                                    onclick="moveToOtherIncome(${p.id})">
-                                    Boshqa daromadlarga o‘tkazish
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
-                `;
+                <tr>
+                    <td class="text-center">${p.id}</td>
+                    <td><code class="text-primary">${escapeHtml(p.bank_id)}</code></td>
+                    <td>${escapeHtml(p.doc_number)}</td>
+                    <td><small>${escapeHtml(p.date)}</small></td>
+                    <td class="text-end"><strong>${formatMoney(p.amount, p.currency)}</strong></td>
+                    <td>${escapeHtml(p.payer)}</td>
+                    <td><small>${escapeHtml(p.details)}</small></td>
+                    <td><small class="text-warning">${escapeHtml(p.note || '—')}</small></td>
+                    <td class="text-center">
+                        <div class="d-flex flex-column gap-1">
+                            <button class="btn btn-sm btn-outline-primary" type="button"
+                                onclick="openAttachModal(${p.id}, 'single')">
+                                <i class="fas fa-link me-1"></i> Biriktirish
+                            </button>
+                            <button class="btn btn-sm btn-outline-primary" type="button"
+                                onclick="openAttachModal(${p.id}, 'multi')">
+                                <i class="fas fa-project-diagram me-1"></i> Bir nechta loyihaga
+                            </button>
+                            <button class="btn btn-sm btn-outline-secondary" type="button"
+                                onclick="moveToOtherIncome(${p.id})">
+                                <i class="fas fa-folder-plus me-1"></i> Boshqa daromadlarga
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            `;
             });
             tbody.innerHTML = html;
         }
@@ -777,70 +1201,99 @@
         function renderHistory() {
             const tbody = document.getElementById('historyTableBody');
             if (!tbody) return;
+
+            if (!historyItems.length) {
+                tbody.innerHTML = `
+                <tr>
+                    <td colspan="6" class="text-center py-4">
+                        <div class="empty-state">
+                            <i class="fas fa-history"></i>
+                            <p class="mt-2 mb-0">O'zgarishlar tarixi yo'q</p>
+                        </div>
+                    </td>
+                </tr>
+            `;
+                return;
+            }
+
             let html = '';
             historyItems.forEach(item => {
                 html += `
-                    <tr>
-                        <td>${escapeHtml(item.datetime)}</td>
-                        <td>${escapeHtml(item.user)}</td>
-                        <td>${escapeHtml(item.action)}</td>
-                        <td>${escapeHtml(item.from)}</td>
-                        <td>${escapeHtml(item.to)}</td>
-                        <td>${escapeHtml(item.note || '')}</td>
-                    </tr>
-                `;
+                <tr>
+                    <td><small><i class="far fa-clock me-1"></i>${escapeHtml(item.datetime)}</small></td>
+                    <td>${escapeHtml(item.user)}</td>
+                    <td><span class="badge bg-info">${escapeHtml(item.action)}</span></td>
+                    <td><span class="badge bg-secondary">${escapeHtml(item.from)}</span></td>
+                    <td><span class="badge bg-success">${escapeHtml(item.to)}</span></td>
+                    <td><small>${escapeHtml(item.note || '—')}</small></td>
+                </tr>
+            `;
             });
             tbody.innerHTML = html;
         }
 
-        // Filtrlar (hozircha faqat UI darajasida, demo uchun)
+        // Filter functions
+        let detectedFilters = { id: '', date: '', amount: '' };
+
         function applyDetectedFilter() {
-            alert('Aniqlangan tushumlar bo‘yicha filtr backend bilan bog‘langandan so‘ng ishlaydi.');
-        }
-        function resetDetectedFilter() {
-            document.getElementById('detectedSearchId').value = '';
-            document.getElementById('detectedSearchDate').value = '';
-            document.getElementById('detectedSearchAmount').value = '';
-        }
-        function applyUndetectedFilter() {
-            alert('Aniqlanmagan tushumlar bo‘yicha filtr backend bilan bog‘langandan so‘ng ishlaydi.');
-        }
-        function resetUndetectedFilter() {
-            document.getElementById('undetectedSearch').value = '';
-            document.getElementById('undetectedSearchDate').value = '';
-        }
-        function applyClarifyFilter() {
-            alert('Aniqlik kiritiladigan tushumlar bo‘yicha filtr backend bilan bog‘langandan so‘ng ishlaydi.');
-        }
-        function resetClarifyFilter() {
-            document.getElementById('clarifySearch').value = '';
-            document.getElementById('clarifySearchDate').value = '';
+            detectedFilters = {
+                id: document.getElementById('detectedSearchId')?.value || '',
+                date: document.getElementById('detectedSearchDate')?.value || '',
+                amount: document.getElementById('detectedSearchAmount')?.value || ''
+            };
+
+            console.log('Applying filters:', detectedFilters);
+            alert('Filter qo\'llanildi (backend bilan bog\'lanadi)');
         }
 
-        // Modallar
+        function resetDetectedFilter() {
+            const idInput = document.getElementById('detectedSearchId');
+            const dateInput = document.getElementById('detectedSearchDate');
+            const amountInput = document.getElementById('detectedSearchAmount');
+
+            if (idInput) idInput.value = '';
+            if (dateInput) dateInput.value = '';
+            if (amountInput) amountInput.value = '';
+
+            detectedFilters = { id: '', date: '', amount: '' };
+            renderDetected();
+        }
+
+        // Modal functions
+        let currentAttachingPayment = null;
+        let attachRowCounter = 0;
+
         function openAttachModal(id, mode) {
             const modalEl = document.getElementById('attachModal');
+            if (!modalEl) return;
+
             const modal = new bootstrap.Modal(modalEl);
 
-            const payment =
-                undetectedPayments.find(p => p.id === id)
-                || clarifyPayments.find(p => p.id === id);
+            const payment = [...undetectedPayments, ...clarifyPayments].find(p => p.id === id);
+            if (!payment) return;
+
+            currentAttachingPayment = payment;
 
             const infoBody = document.getElementById('attachModalPaymentInfo');
-            infoBody.innerHTML = `
+            if (infoBody) {
+                infoBody.innerHTML = `
                 <tr>
-                    <td>${escapeHtml(payment.bank_id)}</td>
+                    <td><code>${escapeHtml(payment.bank_id)}</code></td>
                     <td>${escapeHtml(payment.doc_number)}</td>
                     <td>${escapeHtml(payment.date)}</td>
-                    <td class="text-end">${formatMoney(payment.amount, payment.currency)}</td>
+                    <td class="text-end"><strong>${formatMoney(payment.amount, payment.currency)}</strong></td>
                     <td>${escapeHtml(payment.payer)}</td>
-                    <td>${escapeHtml(payment.details)}</td>
+                    <td><small>${escapeHtml(payment.details)}</small></td>
                 </tr>
             `;
+            }
 
             const projectsBody = document.getElementById('attachProjectsBody');
-            projectsBody.innerHTML = '';
-            addAttachProjectRow();
+            if (projectsBody) {
+                projectsBody.innerHTML = '';
+                attachRowCounter = 0;
+                addAttachProjectRow();
+            }
 
             modal.show();
         }
@@ -848,67 +1301,127 @@
         function addAttachProjectRow() {
             const tbody = document.getElementById('attachProjectsBody');
             if (!tbody) return;
+
+            attachRowCounter++;
             const row = document.createElement('tr');
+            row.dataset.rowId = attachRowCounter;
             row.innerHTML = `
-                <td>
-                    <select class="form-select form-select-sm">
-                        <option value="">Loyihani tanlang</option>
-                        <option value="PRJ-2024-001">PRJ-2024-001 - Premium Turar-joy</option>
-                        <option value="PRJ-2024-002">PRJ-2024-002 - Ofis binosi</option>
-                    </select>
-                </td>
-                <td>
-                    <select class="form-select form-select-sm">
-                        <option value="land">Yer uchastkasi</option>
-                        <option value="construction">Qurilish</option>
-                        <option value="rent">Ijara</option>
-                    </select>
-                </td>
-                <td>
-                    <input type="text" class="form-control form-control-sm" placeholder="Summani kiriting">
-                </td>
-                <td>
-                    <select class="form-select form-select-sm">
-                        <option value="UZS">UZS</option>
-                        <option value="USD">USD</option>
-                    </select>
-                </td>
-                <td class="text-center">
-                    <button class="btn btn-sm btn-outline-danger" type="button"
-                        onclick="this.closest('tr').remove()">
-                        <i class="fas fa-trash"></i>
-                    </button>
-                </td>
-            `;
+            <td>
+                <select class="form-select form-select-sm">
+                    <option value="">Loyihani tanlang</option>
+                    <option value="PRJ-2024-001">PRJ-2024-001 - Premium Turar-joy</option>
+                    <option value="PRJ-2024-002">PRJ-2024-002 - Ofis binosi</option>
+                    <option value="PRJ-2024-003">PRJ-2024-003 - Savdo markazi</option>
+                </select>
+            </td>
+            <td>
+                <select class="form-select form-select-sm">
+                    <option value="land">Yer uchastkasi</option>
+                    <option value="construction">Qurilish</option>
+                    <option value="rent">Ijara</option>
+                </select>
+            </td>
+            <td>
+                <input type="number" class="form-control form-control-sm" 
+                       placeholder="Summani kiriting" min="0" step="1000">
+            </td>
+            <td>
+                <select class="form-select form-select-sm">
+                    <option value="UZS">UZS</option>
+                    <option value="USD">USD</option>
+                </select>
+            </td>
+            <td class="text-center">
+                <button class="btn btn-sm btn-outline-danger" type="button"
+                    onclick="removeAttachProjectRow(${attachRowCounter})">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </td>
+        `;
             tbody.appendChild(row);
         }
 
+        function removeAttachProjectRow(rowId) {
+            const row = document.querySelector(`tr[data-row-id="${rowId}"]`);
+            if (row) row.remove();
+        }
+
         function saveAttachChanges() {
-            alert('Biriktirish natijasini saqlash logikasi backend bilan bog‘langach ishlaydi.');
+            const tbody = document.getElementById('attachProjectsBody');
+            if (!tbody) return;
+
+            const rows = tbody.querySelectorAll('tr');
+            let totalAllocated = 0;
+            let hasErrors = false;
+
+            rows.forEach(row => {
+                const project = row.querySelector('select')?.value;
+                const amount = parseFloat(row.querySelector('input[type="number"]')?.value || 0);
+
+                if (!project || amount <= 0) {
+                    hasErrors = true;
+                }
+
+                totalAllocated += amount;
+            });
+
+            if (hasErrors) {
+                alert('Iltimos, barcha maydonlarni to\'ldiring!');
+                return;
+            }
+
+            if (currentAttachingPayment && totalAllocated > currentAttachingPayment.amount) {
+                alert('Ajratilayotgan jami summa umumiy tushum summasidan oshib ketdi!');
+                return;
+            }
+
+            alert('Biriktirish muvaffaqiyatli saqlandi (backend bilan bog\'lanadi)');
             const modal = bootstrap.Modal.getInstance(document.getElementById('attachModal'));
-            modal.hide();
+            if (modal) modal.hide();
         }
 
         function moveToClarify(id) {
-            alert('Tushumni "Aniqlik kiritiladigan" holatiga o‘tkazish backend orqali amalga oshiriladi.');
+            if (confirm('Ushbu tushumni "Aniqlik kiritiladigan" holatiga o\'tkazmoqchimisiz?')) {
+                alert('Backend bilan bog\'langach o\'tkazish amalga oshiriladi');
+            }
         }
 
         function moveToOtherIncome(id) {
-            alert('Tushumni "Boshqa daromadlar" ga o‘tkazish backend orqali amalga oshiriladi.');
+            if (confirm('Ushbu tushumni "Boshqa daromadlar"ga o\'tkazmoqchimisiz?')) {
+                alert('Backend bilan bog\'langach o\'tkazish amalga oshiriladi');
+            }
         }
 
+        // Initialize
         document.addEventListener('DOMContentLoaded', function () {
-            // Tab switching
+            // Setup tabs
             document.querySelectorAll('#revenueTabs .nav-link').forEach(btn => {
                 btn.addEventListener('click', function () {
                     switchTab(this.dataset.tab);
                 });
             });
 
+            // Setup scroll listener
+            const navTabs = document.getElementById('revenueTabs');
+            if (navTabs) {
+                navTabs.addEventListener('scroll', updateScrollButtons);
+                updateScrollButtons();
+            }
+
+            // Setup filter buttons
+            const filterBtn = document.getElementById('filterBtn');
+            const clearBtn = document.getElementById('clearBtn');
+
+            if (filterBtn) filterBtn.addEventListener('click', applyDetectedFilter);
+            if (clearBtn) clearBtn.addEventListener('click', resetDetectedFilter);
+
+            // Render initial data
             renderDetected();
             renderUndetected();
             renderClarify();
             renderHistory();
+
+            console.log('Revenues show page initialized successfully');
         });
     </script>
 @endpush

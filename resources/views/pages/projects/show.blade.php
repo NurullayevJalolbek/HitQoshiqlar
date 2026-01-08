@@ -20,6 +20,121 @@
             --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
         }
 
+        /* Partners Tab CSS */
+
+        .partner-card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .partner-card:hover {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .partner-header {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #e5e7eb;
+            display: flex;
+            align-items: center;
+        }
+
+        .info-grid {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .info-row {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 1rem;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #f3f4f6;
+            align-items: start;
+        }
+
+        .info-row:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: #6b7280;
+            font-size: 0.875rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .info-value {
+            color: #1f2937;
+            font-weight: 500;
+            word-break: break-word;
+        }
+
+        /* Status badges */
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .status-badge.status-active {
+            background-color: #d1fae5;
+            color: #065f46;
+        }
+
+        .status-badge.status-inactive {
+            background-color: #fee2e2;
+            color: #991b1b;
+        }
+
+        /* Edit mode styles */
+        .partner-card .form-control,
+        .partner-card .form-select,
+        .partner-card textarea {
+            width: 100%;
+        }
+
+        .partner-card .btn-danger {
+            white-space: nowrap;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .info-row {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+            }
+
+            .info-label {
+                font-size: 0.75rem;
+            }
+
+            .partner-header {
+                font-size: 1rem;
+            }
+        }
+
+        /* Icons */
+        .info-label i {
+            font-size: 1rem;
+        }
+
+        .partner-header i {
+            font-size: 1.5rem;
+        }
+
         .info-grid.risks-grid {
             display: grid;
             gap: 0.75rem;

@@ -71,6 +71,7 @@
             display: flex;
             gap: 0.375rem;
             justify-content: center;
+            flex-wrap: wrap;
         }
 
         .btn-action {
@@ -95,8 +96,18 @@
             color: #10b981;
         }
 
+        .btn-accept:hover {
+            background: #dcfce7;
+            border-color: #10b981;
+        }
+
         .btn-reject {
             color: #ef4444;
+        }
+
+        .btn-reject:hover {
+            background: #fee2e2;
+            border-color: #ef4444;
         }
 
         .value-primary {
@@ -128,6 +139,18 @@
         @media (max-width: 1400px) {
             .exit-table {
                 font-size: 0.8125rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .exit-table thead th,
+            .exit-table tbody td {
+                padding: 0.5rem 0.375rem;
+                font-size: 0.75rem;
             }
         }
 
@@ -188,12 +211,41 @@
             box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
         }
 
-        /* QISQARTIRISH: Telefon va Login ustunlarini yashirish */
-        .exit-table th.col-phone,
-        .exit-table td.col-phone,
-        .exit-table th.col-login,
-        .exit-table td.col-login {
+        .col-phone,
+        .col-login {
             display: none;
+        }
+
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.8);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+
+        .loading-overlay.show {
+            display: flex;
+        }
+
+        .btn-bulk-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        @media (max-width: 576px) {
+            .btn-bulk-actions {
+                flex-direction: column;
+            }
+            
+            .btn-bulk-actions button {
+                width: 100%;
+            }
         }
     </style>
 @endpush
@@ -229,10 +281,16 @@
         ];
     @endphp
 
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="text-center">
+            <i class="fas fa-spinner fa-spin fa-3x text-primary mb-3"></i>
+            <p class="text-muted">{{ __('admin.loading') }}</p>
+        </div>
+    </div>
+
     <div class="filter-card mt-3 collapse show" id="projectExitRequestFilterContent">
         <div class="p-3">
             <div class="row g-3 align-items-end">
-
                 <div class="col-md-3">
                     <label for="searchInput" class="form-label">{{ __('admin.search') }}</label>
                     <div class="input-group">
@@ -248,11 +306,10 @@
                                      colMd="2" placeholder="{{ __('admin.all') }}" :selected="request()->get('filter_exit_status', '')"
                                      :selectSearch=false />
 
-                <div class="col-md-3 d-flex gap-2">
+                <div class="col-md-3 btn-bulk-actions">
                     <button id="acceptSelectedBtn" class="btn btn-success btn-sm flex-fill">
                         <i class="bi bi-check2-circle"></i> {{ __('admin.accept') }}
                     </button>
-
                     <button id="rejectSelectedBtn" class="btn btn-danger btn-sm flex-fill">
                         <i class="bi bi-x-circle"></i> {{ __('admin.reject') }}
                     </button>
@@ -274,8 +331,6 @@
                 <th>{{ __('admin.application_comment') }}</th>
                 <th style="width: 140px;">{{ __('admin.review_deadline') }}</th>
                 <th style="min-width: 200px;">{{ __('admin.investor_name') }}</th>
-
-                <!-- Phone va Login: data bor, lekin ko'rinmaydi -->
                 <th class="col-phone">{{ __('admin.phone') }}</th>
                 <th class="col-login">{{ __('admin.login') }}</th>
             </tr>
@@ -303,7 +358,6 @@
     <div class="modal fade" id="acceptModal" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-
                 <div class="modal-header bg-success">
                     <h5 class="modal-title text-white">
                         <i class="bi bi-check-circle me-2"></i>{{ __('admin.accept_exit_requests') }}
@@ -316,7 +370,7 @@
                         <i class="bi bi-info-circle-fill me-2 mt-1"></i>
                         <div>
                             <strong>{{ __('admin.attention') }}</strong>
-                            <span id="acceptCount" class="badge bg-primary">0</span>
+                            <span id="acceptCount" class="badge bg-primary ms-1">0</span>
                             {{ __('admin.accept_exit_info') }}
                         </div>
                     </div>
@@ -333,7 +387,6 @@
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                         <i class="bi bi-x-circle me-1"></i>{{ __('admin.cancel') }}
                     </button>
-
                     <button type="button" class="btn btn-success" id="confirmAcceptBtn">
                         <i class="bi bi-check-circle me-1"></i>{{ __('admin.accept') }}
                     </button>
@@ -346,7 +399,6 @@
     <div class="modal fade" id="rejectModal" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-
                 <div class="modal-header bg-danger">
                     <h5 class="modal-title text-white">
                         <i class="bi bi-x-circle me-2"></i>{{ __('admin.reject_exit_requests') }}
@@ -359,7 +411,7 @@
                         <i class="bi bi-exclamation-triangle-fill me-2 mt-1"></i>
                         <div>
                             <strong>{{ __('admin.warning') }}</strong>
-                            <span id="rejectCount" class="badge bg-danger">0</span>
+                            <span id="rejectCount" class="badge bg-danger ms-1">0</span>
                             {{ __('admin.reject_exit_info') }}
                         </div>
                     </div>
@@ -389,84 +441,77 @@
     </div>
 @endsection
 
-
 @push('customJs')
     <script>
         // ========================================
-        //        IN-MEMORY STORAGE
+        //        IN-MEMORY STORAGE (React state alternative)
         // ========================================
 
-        let exitRequests = JSON.parse(localStorage.getItem('exitRequests') || '[]');
-        
-        if (!exitRequests.length) {
-            exitRequests = [
-                {
-                    id: 1,
-                    exit_id: "EXIT-20001",
-                    status: "processing",
-                    status_comment: "",
-                    deadline: "2025-12-15",
-                    full_name: "Rasulov Islom Akmalovich",
-                    phone: "+998 90 122 33 44",
-                    login: "islom_dev",
-                },
-                {
-                    id: 2,
-                    exit_id: "EXIT-20002",
-                    status: "accepted",
-                    status_comment: "Ariza qabul qilindi. Yangi raund e'lon qilindi.",
-                    deadline: "2025-12-10",
-                    full_name: "Sobirova Farangiz Rustamovna",
-                    phone: "+998 90 777 88 99",
-                    login: "farangiz_s",
-                },
-                {
-                    id: 3,
-                    exit_id: "EXIT-20003",
-                    status: "processing",
-                    status_comment: "",
-                    deadline: "2025-12-18",
-                    full_name: "Karimov Aziz Sharipovich",
-                    phone: "+998 90 111 22 33",
-                    login: "aziz_k",
-                },
-                {
-                    id: 4,
-                    exit_id: "EXIT-20004",
-                    status: "rejected",
-                    status_comment: "Investitsiya davri hali yakunlanmagan. Minimal investitsiya muddati 6 oy.",
-                    deadline: "2025-12-12",
-                    full_name: "Toshmatova Dilnoza Akbarovna",
-                    phone: "+998 90 555 66 77",
-                    login: "dilnoza_t",
-                },
-                {
-                    id: 5,
-                    exit_id: "EXIT-20005",
-                    status: "processing",
-                    status_comment: "",
-                    deadline: "2025-12-20",
-                    full_name: "Alimov Sardor Murodovich",
-                    phone: "+998 93 444 55 66",
-                    login: "sardor_alimov",
-                },
-                {
-                    id: 6,
-                    exit_id: "EXIT-20006",
-                    status: "processing",
-                    status_comment: "",
-                    deadline: "2025-12-22",
-                    full_name: "Nazarova Malika Olimovna",
-                    phone: "+998 97 888 99 00",
-                    login: "malika_n",
-                }
-            ];
-            
-            localStorage.setItem('exitRequests', JSON.stringify(exitRequests));
-        }
+        const DEFAULT_REQUESTS = [
+            {
+                id: 1,
+                exit_id: "EXIT-20001",
+                status: "processing",
+                status_comment: "",
+                deadline: "2025-12-15",
+                full_name: "Rasulov Islom Akmalovich",
+                phone: "+998 90 122 33 44",
+                login: "islom_dev",
+            },
+            {
+                id: 2,
+                exit_id: "EXIT-20002",
+                status: "accepted",
+                status_comment: "Ariza qabul qilindi. Yangi raund e'lon qilindi.",
+                deadline: "2025-12-10",
+                full_name: "Sobirova Farangiz Rustamovna",
+                phone: "+998 90 777 88 99",
+                login: "farangiz_s",
+            },
+            {
+                id: 3,
+                exit_id: "EXIT-20003",
+                status: "processing",
+                status_comment: "",
+                deadline: "2025-12-18",
+                full_name: "Karimov Aziz Sharipovich",
+                phone: "+998 90 111 22 33",
+                login: "aziz_k",
+            },
+            {
+                id: 4,
+                exit_id: "EXIT-20004",
+                status: "rejected",
+                status_comment: "Investitsiya davri hali yakunlanmagan. Minimal investitsiya muddati 6 oy.",
+                deadline: "2025-12-12",
+                full_name: "Toshmatova Dilnoza Akbarovna",
+                phone: "+998 90 555 66 77",
+                login: "dilnoza_t",
+            },
+            {
+                id: 5,
+                exit_id: "EXIT-20005",
+                status: "processing",
+                status_comment: "",
+                deadline: "2025-12-20",
+                full_name: "Alimov Sardor Murodovich",
+                phone: "+998 93 444 55 66",
+                login: "sardor_alimov",
+            },
+            {
+                id: 6,
+                exit_id: "EXIT-20006",
+                status: "processing",
+                status_comment: "",
+                deadline: "2025-12-22",
+                full_name: "Nazarova Malika Olimovna",
+                phone: "+998 97 888 99 00",
+                login: "malika_n",
+            }
+        ];
 
-        let defaultRequests = [...exitRequests];
-        let currentActionId = null;
+        let exitRequests = [...DEFAULT_REQUESTS];
+        let filteredRequests = [...DEFAULT_REQUESTS];
 
         const tbody = document.getElementById('exit-request-body');
         const emptyState = document.getElementById('emptyState');
@@ -477,10 +522,17 @@
         const filterBtn = document.getElementById('filterBtn');
         const clearBtn = document.getElementById('clearBtn');
         const checkAll = document.getElementById('checkAll');
+        const loadingOverlay = document.getElementById('loadingOverlay');
 
         // ========================================
         //           HELPER FUNCTIONS
         // ========================================
+
+        function showLoading(show = true) {
+            if (loadingOverlay) {
+                loadingOverlay.classList.toggle('show', show);
+            }
+        }
 
         function escapeHtml(text) {
             if (text === null || text === undefined || text === '') return '—';
@@ -490,9 +542,9 @@
 
         function getStatusBadge(status) {
             const statusMap = {
-                'processing': '<span class="badge badge-custom badge-status-processing">Jarayonda</span>',
-                'accepted': '<span class="badge badge-custom badge-status-accepted">Qabul qilingan</span>',
-                'rejected': '<span class="badge badge-custom badge-status-rejected">Rad etilgan</span>'
+                'processing': '<span class="badge badge-custom badge-status-processing"><i class="fas fa-clock me-1"></i>Jarayonda</span>',
+                'accepted': '<span class="badge badge-custom badge-status-accepted"><i class="fas fa-check me-1"></i>Qabul qilingan</span>',
+                'rejected': '<span class="badge badge-custom badge-status-rejected"><i class="fas fa-times me-1"></i>Rad etilgan</span>'
             };
             return statusMap[status] || status;
         }
@@ -501,7 +553,7 @@
         //           RENDER TABLE
         // ========================================
 
-        function renderExitRequests(list = exitRequests) {
+        function renderExitRequests(list = filteredRequests) {
             if (!tbody) return;
 
             if (!list.length) {
@@ -520,23 +572,19 @@
 
                 rows += `
                     <tr>
-                        <td>
+                        <td class="text-center">
                             ${canCheck ? `<input type="checkbox" class="row-check form-check-input" value="${item.id}">` : ''}
                         </td>
-                        <td>${index + 1}</td>
+                        <td class="text-center">${index + 1}</td>
                         <td><div class="value-primary">${escapeHtml(item.exit_id)}</div></td>
                         <td>${getStatusBadge(item.status)}</td>
-                        <td>${item.status_comment ? escapeHtml(item.status_comment) : '—'}</td>
-                        <td class="text-center">${escapeHtml(item.deadline)}</td>
-
-                        <!-- Investor F.I.O ichiga Tel + Login jamlanadi -->
+                        <td><small>${item.status_comment ? escapeHtml(item.status_comment) : '—'}</small></td>
+                        <td class="text-center"><small>${escapeHtml(item.deadline)}</small></td>
                         <td>
                             <div class="value-primary">${escapeHtml(item.full_name)}</div>
-                            <div class="value-secondary"><span class="text-muted">Tel:</span> ${phone}</div>
-                            <div class="value-secondary"><span class="text-muted">Login:</span> <code>${login}</code></div>
+                            <div class="value-secondary"><i class="fas fa-phone me-1"></i>${phone}</div>
+                            <div class="value-secondary"><i class="fas fa-user me-1"></i><code>${login}</code></div>
                         </td>
-
-                        <!-- Telefon/Login: data bor, lekin ko'rinmaydi -->
                         <td class="col-phone">${phone}</td>
                         <td class="col-login"><code>${login}</code></td>
                     </tr>
@@ -544,6 +592,8 @@
             });
 
             tbody.innerHTML = rows;
+            
+            if (checkAll) checkAll.checked = false;
         }
 
         // ========================================
@@ -551,10 +601,20 @@
         // ========================================
 
         if (checkAll) {
-            checkAll.onclick = function () {
+            checkAll.addEventListener('click', function () {
                 document.querySelectorAll('.row-check').forEach(cb => cb.checked = this.checked);
-            };
+            });
         }
+
+        tbody?.addEventListener('change', function(e) {
+            if (e.target.classList.contains('row-check')) {
+                const allChecked = document.querySelectorAll('.row-check');
+                const checkedBoxes = document.querySelectorAll('.row-check:checked');
+                if (checkAll) {
+                    checkAll.checked = allChecked.length > 0 && allChecked.length === checkedBoxes.length;
+                }
+            }
+        });
 
         const getSelectedIds = () => [...document.querySelectorAll('.row-check:checked')].map(cb => +cb.value);
 
@@ -580,7 +640,6 @@
             }
 
             document.getElementById('acceptCount').textContent = processingCount;
-
             const modal = new bootstrap.Modal(document.getElementById('acceptModal'));
             modal.show();
         }
@@ -604,7 +663,6 @@
 
             document.getElementById('rejectCount').textContent = processingCount;
             document.getElementById('rejectionReason').value = '';
-
             const modal = new bootstrap.Modal(document.getElementById('rejectModal'));
             modal.show();
         }
@@ -614,29 +672,30 @@
         // ========================================
 
         function confirmAcceptAction() {
-            const ids = getSelectedIds();
-            let acceptedCount = 0;
+            showLoading(true);
+            
+            setTimeout(() => {
+                const ids = getSelectedIds();
+                let acceptedCount = 0;
 
-            ids.forEach(id => {
-                const item = exitRequests.find(x => x.id === id && x.status === 'processing');
-                if (item) {
-                    item.status = 'accepted';
-                    item.status_comment = 'Ariza qabul qilindi. Yangi raund e\'lon qilindi.';
-                    acceptedCount++;
-                }
-            });
+                ids.forEach(id => {
+                    const item = exitRequests.find(x => x.id === id && x.status === 'processing');
+                    if (item) {
+                        item.status = 'accepted';
+                        item.status_comment = 'Ariza qabul qilindi. Yangi raund e\'lon qilindi.';
+                        acceptedCount++;
+                    }
+                });
 
-            localStorage.setItem('exitRequests', JSON.stringify(exitRequests));
-            defaultRequests = [...exitRequests];
+                const modal = bootstrap.Modal.getInstance(document.getElementById('acceptModal'));
+                modal.hide();
 
-            const modal = bootstrap.Modal.getInstance(document.getElementById('acceptModal'));
-            modal.hide();
-
-            applyFilters();
-
-            if (checkAll) checkAll.checked = false;
-
-            alert(`✅ ${acceptedCount} ta ariza muvaffaqiyatli qabul qilindi!\n\nInvestitsion loyiha doirasida yangi raund e'lon qilinib, sotuv jarayoni boshlanishi kerak.`);
+                applyFilters();
+                if (checkAll) checkAll.checked = false;
+                
+                showLoading(false);
+                alert(`✅ ${acceptedCount} ta ariza muvaffaqiyatli qabul qilindi!\n\nInvestitsion loyiha doirasida yangi raund e'lon qilinib, sotuv jarayoni boshlanishi kerak.`);
+            }, 500);
         }
 
         // ========================================
@@ -651,29 +710,30 @@
                 return;
             }
 
-            const ids = getSelectedIds();
-            let rejectedCount = 0;
+            showLoading(true);
 
-            ids.forEach(id => {
-                const item = exitRequests.find(x => x.id === id && x.status === 'processing');
-                if (item) {
-                    item.status = 'rejected';
-                    item.status_comment = reason;
-                    rejectedCount++;
-                }
-            });
+            setTimeout(() => {
+                const ids = getSelectedIds();
+                let rejectedCount = 0;
 
-            localStorage.setItem('exitRequests', JSON.stringify(exitRequests));
-            defaultRequests = [...exitRequests];
+                ids.forEach(id => {
+                    const item = exitRequests.find(x => x.id === id && x.status === 'processing');
+                    if (item) {
+                        item.status = 'rejected';
+                        item.status_comment = reason;
+                        rejectedCount++;
+                    }
+                });
 
-            const modal = bootstrap.Modal.getInstance(document.getElementById('rejectModal'));
-            modal.hide();
+                const modal = bootstrap.Modal.getInstance(document.getElementById('rejectModal'));
+                modal.hide();
 
-            applyFilters();
-
-            if (checkAll) checkAll.checked = false;
-
-            alert(`✅ ${rejectedCount} ta ariza rad etildi!\n\nRad etish sababi mobil ilova orqali investorlarga yuborildi.`);
+                applyFilters();
+                if (checkAll) checkAll.checked = false;
+                
+                showLoading(false);
+                alert(`✅ ${rejectedCount} ta ariza rad etildi!\n\nRad etish sababi mobil ilova orqali investorlarga yuborildi.`);
+            }, 500);
         }
 
         // ========================================
@@ -684,7 +744,7 @@
             const search = (searchInput?.value || '').toLowerCase().trim();
             const status = filterStatus?.value || '';
 
-            const filtered = defaultRequests.filter(i => {
+            filteredRequests = exitRequests.filter(i => {
                 const matchSearch = !search ||
                     (i.full_name && i.full_name.toLowerCase().includes(search)) ||
                     (i.phone && i.phone.toLowerCase().includes(search)) ||
@@ -696,13 +756,14 @@
                 return matchSearch && matchStatus;
             });
 
-            renderExitRequests(filtered);
+            renderExitRequests(filteredRequests);
         }
 
         function resetFilters() {
             if (searchInput) searchInput.value = '';
             if (filterStatus) filterStatus.value = '';
-            renderExitRequests(defaultRequests);
+            filteredRequests = [...exitRequests];
+            renderExitRequests(filteredRequests);
         }
 
         // ========================================
@@ -710,7 +771,7 @@
         // ========================================
 
         document.addEventListener('DOMContentLoaded', function () {
-            renderExitRequests(defaultRequests);
+            renderExitRequests(filteredRequests);
 
             if (acceptSelectedBtn) acceptSelectedBtn.addEventListener('click', showAcceptModal);
             if (rejectSelectedBtn) rejectSelectedBtn.addEventListener('click', showRejectModal);
@@ -737,13 +798,5 @@
 
             if (filterStatus) filterStatus.addEventListener('change', applyFilters);
         });
-
-        // Global functions
-        window.showAcceptModal = showAcceptModal;
-        window.showRejectModal = showRejectModal;
-        window.confirmAcceptAction = confirmAcceptAction;
-        window.confirmRejectAction = confirmRejectAction;
-        window.applyFilters = applyFilters;
-        window.resetFilters = resetFilters;
     </script>
 @endpush
