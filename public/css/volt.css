@@ -21511,7 +21511,7 @@ textarea.form-control-lg {
 
 .section-header {
     position: relative;
-    padding-top: 9rem;
+    /* padding-top: 9rem; */
     padding-bottom: 3rem;
 }
 
@@ -21524,7 +21524,7 @@ textarea.form-control-lg {
 
     .section-header {
         position: relative;
-        padding-top: 8rem;
+        /* padding-top: 8rem; */
         padding-bottom: 8rem;
     }
 
@@ -21558,7 +21558,7 @@ textarea.form-control-lg {
 
     .section-header {
         position: relative;
-        padding-top: 10rem;
+        /* padding-top: 10rem; */
         padding-bottom: 10rem;
     }
 

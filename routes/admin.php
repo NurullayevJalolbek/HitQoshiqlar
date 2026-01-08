@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\HomePageController;
 use App\Http\Controllers\Admin\LanguageManagementController;
 use App\Http\Controllers\Admin\MultilingualController;
 use App\Http\Controllers\Admin\ProjectEntryRequestController;
@@ -131,7 +132,14 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'l
 
         Route::resource('/multimedia', MultilingualController::class);
 
-        Route::resource('/static-pages', StaticPageController::class);
+
+        Route::prefix('static-pages')->name('static-pages.')->group(function (){
+            Route::get('/', [StaticPageController::class, 'index'])->name('index');
+
+            Route::resource('/home-page', HomePageController::class);
+        });
+
+
     });
 
 
