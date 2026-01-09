@@ -2,15 +2,15 @@
 
 /* Progress Section */
 .progress-section {
-  margin: 1.5rem 0;
+  margin: 1rem 0 1.5rem 0;
   padding: 0;
 }
 
 .progress-bar-wrapper {
   position: relative;
-  height: 48px;
+  height: 56px;
   background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-  border-radius: 24px;
+  border-radius: 28px;
   overflow: hidden;
   box-shadow: inset 0 2px 4px rgba(0,0,0,0.06);
 }
@@ -32,9 +32,9 @@
   transform: translate(-50%, -50%);
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.625rem;
   font-weight: 600;
-  font-size: 1rem;
+  font-size: 1.125rem;
   color: #1f2937;
   z-index: 2;
   text-shadow: 0 1px 2px rgba(255,255,255,0.8);
@@ -44,8 +44,8 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 32px;
-  height: 32px;
+  width: 40px;
+  height: 40px;
   background: white;
   border-radius: 50%;
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
@@ -54,29 +54,28 @@
 
 #progressIcon svg,
 #progressIcon img.stage-icon-img {
-  width: 24px;
-  height: 24px;
+  width: 28px;
+  height: 28px;
   object-fit: contain;
 }
 
 /* Timeline Styles */
 .stage-timeline {
-  margin-top: 2rem;
+  margin: 1.5rem 0 0 0;
   padding: 0;
 }
 
 .stage-item {
   display: flex;
-  gap: 1.25rem;
-  padding: 0 0 2rem 0;
-  margin-bottom: 0;
+  gap: 1rem;
+  padding: 0;
+  margin: 0 0 1.5rem 0;
   position: relative;
   transition: all 0.3s ease;
 }
 
 .stage-item:last-child {
   margin-bottom: 0;
-  padding-bottom: 0;
 }
 
 /* Marker Column */
@@ -85,16 +84,16 @@
   flex-direction: column;
   align-items: center;
   flex-shrink: 0;
-  width: 64px;
+  width: 80px;
   position: relative;
 }
 
 .stage-marker {
-  width: 64px;
-  height: 64px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
   background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
-  border: 3px solid #d1d5db;
+  border: 4px solid #d1d5db;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -105,7 +104,6 @@
   box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
-/* Marker uchun background oq bo'lishi kerak */
 .stage-marker::before {
   content: '';
   position: absolute;
@@ -118,8 +116,8 @@
 
 .stage-marker svg,
 .stage-marker img.stage-icon-img {
-  width: 36px;
-  height: 36px;
+  width: 48px;
+  height: 48px;
   object-fit: contain;
   transition: all 0.3s ease;
 }
@@ -153,27 +151,25 @@
 /* Connecting Line */
 .stage-line {
   position: absolute;
-  width: 3px;
-  top: 64px;
-  bottom: -100%;
+  width: 4px;
+  top: 80px;
+  bottom: 0;
   left: 50%;
   transform: translateX(-50%);
   background: #e5e7eb;
   transition: background 0.3s ease;
   z-index: 1;
+  height: calc(100% + 1.5rem);
 }
 
-/* Oxirgi element uchun chiziq yo'q */
 .stage-item:last-child .stage-line {
   display: none;
 }
 
-/* Tugallangan bosqich uchun chiziq rangi */
 .stage-item.completed .stage-line {
   background: #10b981;
 }
 
-/* Aktiv bosqich uchun chiziq rangi */
 .stage-item.active .stage-line {
   background: linear-gradient(to bottom, #10b981 0%, #e5e7eb 100%);
 }
@@ -181,7 +177,7 @@
 /* Content Section */
 .stage-content {
   flex: 1;
-  padding: 0.75rem 0;
+  padding: 0.5rem 0;
   min-height: 80px;
   display: flex;
   flex-direction: column;
@@ -189,11 +185,11 @@
 }
 
 .stage-title {
-  font-size: 1rem;
+  font-size: 1.125rem;
   font-weight: 600;
   color: #1f2937;
-  margin-bottom: 0.5rem;
-  line-height: 1.4;
+  margin: 0 0 0.5rem 0;
+  line-height: 1.5;
 }
 
 .stage-item.active .stage-title {
@@ -205,21 +201,24 @@
 }
 
 .stage-dates {
-  font-size: 0.875rem;
+  font-size: 1rem;
   color: #6b7280;
   display: flex;
   align-items: center;
   gap: 0.5rem;
   flex-wrap: wrap;
+  margin: 0;
+  line-height: 1.6;
 }
 
 .stage-duration {
-  padding: 0.125rem 0.5rem;
+  padding: 0.25rem 0.625rem;
   background: #f3f4f6;
-  border-radius: 12px;
-  font-size: 0.75rem;
+  border-radius: 14px;
+  font-size: 0.875rem;
   font-weight: 500;
   color: #6b7280;
+  margin: 0;
 }
 
 .stage-item.active .stage-duration {
@@ -250,7 +249,7 @@
 .stage-edit-actions {
   display: flex;
   gap: 0.5rem;
-  margin-top: 0.75rem;
+  margin-top: 0.5rem;
 }
 
 .stage-edit-actions .btn {
@@ -258,8 +257,52 @@
   padding: 0.25rem 0.75rem;
 }
 
+/* Tab Header Actions */
+.tab-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
+}
+
+.drop-hint {
+  font-size: 0.875rem;
+  color: #6b7280;
+  display: none;
+  margin: 0;
+}
+
+.drop-hint.show {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+#stagesTools {
+  display: none;
+}
+
+#stagesTools.show {
+  display: flex;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
+  .progress-section {
+    margin: 0.75rem 0 1rem 0;
+  }
+  
+  .stage-timeline {
+    margin: 1rem 0 0 0;
+  }
+  
+  .stage-item {
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+  }
+  
   .stage-marker-wrap {
     width: 48px;
   }
@@ -275,8 +318,19 @@
     height: 30px;
   }
   
+  .stage-line {
+    top: 48px;
+    height: calc(100% + 1.25rem);
+  }
+  
+  .stage-content {
+    min-height: 48px;
+    padding: 0.25rem 0;
+  }
+  
   .stage-title {
     font-size: 0.9375rem;
+    margin-bottom: 0.25rem;
   }
   
   .stage-dates {
@@ -299,30 +353,13 @@
   }
 }
 
-/* Tab Header Actions */
-.tab-header-actions {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  flex-wrap: wrap;
+/* Prevent unwanted margins and paddings */
+.stage-timeline > *:first-child {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
 }
 
-.drop-hint {
-  font-size: 0.875rem;
-  color: #6b7280;
-  display: none;
-}
-
-.drop-hint.show {
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
-}
-
-#stagesTools {
-  display: none;
-}
-
-#stagesTools.show {
-  display: flex;
+.stage-timeline > *:last-child {
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
 }
