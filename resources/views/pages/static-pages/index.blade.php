@@ -195,7 +195,7 @@
 
     {{-- 4. Shariatga muvofiqlik --}}
     <div class="col-12 col-md-6 col-lg-4 mb-4">
-        <a href="#" class="card directory-card">
+        <a href="{{ route('admin.user-interface.static-pages.sharia-compliance.index') }}" class="card directory-card">
             <div class="card-body">
                 <i class="fas fa-scale-balanced directory-icon"></i>
                 <h5 class="directory-title">Shariatga muvofiqlik</h5>
