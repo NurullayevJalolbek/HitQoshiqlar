@@ -323,7 +323,7 @@
     /* ============================
        DISTRIBUTION MODAL
     ============================ */
-    window.openDistribution = function(id) {
+    // window.openDistribution = function(id) {
         const item = distributions.find(e => e.id === id);
         if (!item) return;
 

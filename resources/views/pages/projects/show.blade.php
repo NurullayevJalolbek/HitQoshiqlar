@@ -420,23 +420,6 @@
                         </button>
                     </div>
                 </div>
-                <div class="info-grid" id="distributionContent">
-                    <div class="info-row">
-                        <span class="info-label">To'liq sherikning investitsion loyihadagi o'ziga tegishli ulushining
-                            realizatsiyasidan kutilayotgan sof foyda/zarardan oladigan qiymati (foizda)</span>
-                        <span class="info-value" id="fullPartnerOwnShare">100%</span>
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">To'liq sherikning investitsion Kommanditchilarning loyihadagi tegishli
-                            ulushining realizatsiyasidan kutilayotgan sof foyda/zarardan oladigan qiymati (foizda)</span>
-                        <span class="info-value" id="fullPartnerInvestorShare">30%</span>
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">Kommanditchilarning investitsion loyihadagi o'ziga tegishli ulushining
-                            realizatsiyasidan kutilayotgan sof foyda/zarardan oladigan qiymati (foizda)</span>
-                        <span class="info-value" id="investorsOwnShare">70%</span>
-                    </div>
-                </div>
 
                 <h6 style="margin-top: 2rem; margin-bottom: 1rem; font-weight: 600;">Vizual taqsimot</h6>
                 <div class="distribution-visual" id="distributionVisual">
