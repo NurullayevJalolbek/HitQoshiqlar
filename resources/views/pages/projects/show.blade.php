@@ -3,6 +3,7 @@
     <style>
         @include('pages.projects.css.main-css')
         @include('pages.projects.css.stages')
+        @include('pages.projects.css.distribution')
     </style>
 @endpush
 
@@ -405,33 +406,48 @@
         </div>
     </div>
 
-        <div id="distribution" class="tab-content">
-            <div class="info-card">
-                <div class="d-flex justify-content-between align-items-center">
-                    <h5 class="info-card-title mb-0">
-                        <i class="bi bi-pie-chart"></i>
-                        Taqsimot sozlamalari
-                    </h5>
-                    <div class="d-flex align-items-center gap-2">
-                        <button type="button" class="btn btn-outline-secondary btn-sm" id="toggleDistributionEditBtn"
-                            onclick="toggleDistributionEdit()">
-                            <i class="bi bi-pencil-square me-1"></i>
-                            Tahrirlash
-                        </button>
-                    </div>
+    <div id="distribution" class="tab-content">
+        <div class="info-card">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h5 class="info-card-title mb-0">
+                <i class="bi bi-pie-chart"></i>
+                Taqsimot sozlamalari
+                </h5>
+                <div class="d-flex align-items-center gap-2">
+                    <button type="button" class="btn btn-outline-secondary btn-sm" id="toggleDistributionEditBtn"
+                        onclick="toggleDistributionEdit()">
+                        <i class="bi bi-pencil-square me-1"></i>
+                        Tahrirlash
+                    </button>
                 </div>
-
-                <h6 style="margin-top: 2rem; margin-bottom: 1rem; font-weight: 600;">Vizual taqsimot</h6>
+            </div>
+    
+            <!-- Visual Distribution Bar -->
+            <div class="mb-4">
+                <h6 class="mb-3" style="font-weight: 600; color: #495057;">Vizual taqsimot</h6>
                 <div class="distribution-visual" id="distributionVisual">
-                    <div class="distribution-segment segment-partners" id="partnersSegment" style="width: 30%">
-                        To'liq sheriklar: 30%
+                    <div id="emptyDistribution" class="empty-distribution" style="display: none;">
+                        <i class="bi bi-pie-chart-fill me-2"></i>
+                        Ma'lumot yo'q
                     </div>
-                    <div class="distribution-segment segment-investors" id="investorsSegment" style="width: 70%">
-                        Kommanditchilar: 70%
+                    <div class="distribution-segment segment-partners" id="partnersSegment" style="width: 50%; display: flex;">
+                        Sheriklar: 50%
+                    </div>
+                    <div class="distribution-segment segment-investors" id="investorsSegment" style="width: 45%; display: flex;">
+                        Kommanditchilar: 45%
+                    </div>
+                    <div class="distribution-segment segment-charity" id="charitySegment" style="width: 5%; display: flex;">
+                        5%
                     </div>
                 </div>
             </div>
+    
+            <!-- Distribution Content (View/Edit Mode) -->
+            <div id="distributionContent">
+                <!-- Content will be populated by JavaScript -->
+            </div>
         </div>
+    </div>
 
         <div id="rounds" class="tab-content">
             <div class="info-card">
