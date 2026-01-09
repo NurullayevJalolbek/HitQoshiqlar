@@ -284,6 +284,14 @@
     }
 
     /* Icon input uchun max-width */
+    .icon-input {
+        max-width: 100%;
+    }
+
+    /* Value items uchun responsive */
+    .values-container .row {
+        align-items: flex-start;
+    }
 </style>
 @endpush
 
@@ -400,13 +408,13 @@
                             <button type="button" class="remove-btn" onclick="showRemoveConfirmation(this)">×</button>
 
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-12">
                                     <div class="mb-3">
                                         <label class="form-label">Sarlavha</label>
                                         <input type="text" class="form-control" value="Envast haqida">
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-12">
                                     <div class="mb-3">
                                         <label class="form-label">Tavsif</label>
                                         <textarea class="form-control" rows="3">2015-yildan beri xavfsiz va halol investitsiyalarni taqdim etib kelmoqdamiz</textarea>
@@ -440,7 +448,7 @@
 
                                 <div class="col-md-6">
                                     <div class="banner-preview">
-                                        <img src="https://via.placeholder.com/100x60" alt="Banner preview">
+                                        <img src="{{ asset('assets/img/default.jpg') }}" alt="Banner preview">
                                         <div class="banner-info">
                                             <h6>Не выбрано</h6>
                                             <p>Выберите баннер</p>
@@ -461,13 +469,13 @@
                             <button type="button" class="remove-btn" onclick="showRemoveConfirmation(this)">×</button>
 
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-12">
                                     <div class="mb-3">
                                         <label class="form-label">Заголовок</label>
                                         <input type="text" class="form-control" value="О Envast">
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-12">
                                     <div class="mb-3">
                                         <label class="form-label">Описание</label>
                                         <textarea class="form-control" rows="3">Предоставляем безопасные и халяльные инвестиции с 2015 года</textarea>
@@ -501,7 +509,7 @@
 
                                 <div class="col-md-6">
                                     <div class="banner-preview">
-                                        <img src="https://via.placeholder.com/100x60" alt="Banner preview">
+                                        <img src="{{ asset('assets/img/default.jpg') }}" alt="Banner preview">
                                         <div class="banner-info">
                                             <h6>Not selected</h6>
                                             <p>Select banner</p>
@@ -522,13 +530,13 @@
                             <button type="button" class="remove-btn" onclick="showRemoveConfirmation(this)">×</button>
 
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-12">
                                     <div class="mb-3">
                                         <label class="form-label">Title</label>
                                         <input type="text" class="form-control" value="About Envast">
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-12">
                                     <div class="mb-3">
                                         <label class="form-label">Description</label>
                                         <textarea class="form-control" rows="3">Providing secure and halal investments since 2015</textarea>
@@ -597,7 +605,7 @@
                                         <input type="text" class="form-control" value="Halollik">
                                     </div>
                                 </div>
-                                <div class="col-md-12">
+                                <div class="col-12">
                                     <div class="mb-3">
                                         <label class="form-label">Tavsif</label>
                                         <textarea class="form-control" rows="2">Barcha operatsiyalar Shariat qonunlariga to'liq mos keladi</textarea>
@@ -610,25 +618,25 @@
                             <button type="button" class="remove-btn" onclick="showRemoveConfirmation(this)">×</button>
 
                             <div class="row">
-                                <div class="col-md-2">
+                                <div class="col-md-4">
                                     <div class="mb-3">
                                         <label class="form-label">Icon</label>
                                         <input type="file" class="form-control icon-input" value="fas fa-eye" placeholder="fas fa-icon">
                                     </div>
                                 </div>
-                                <div class="col-md-1">
+                                <div class="col-md-2">
                                     <div class="mb-3">
                                         <label class="form-label">Index</label>
-                                        <input type="number" class="form-control index-input" value="2" min="1">
+                                        <input type="number" class="form-control" value="2" min="1">
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-6">
                                     <div class="mb-3">
                                         <label class="form-label">Sarlavha</label>
                                         <input type="text" class="form-control" value="Shaffoflik">
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-12">
                                     <div class="mb-3">
                                         <label class="form-label">Tavsif</label>
                                         <textarea class="form-control" rows="2">Har bir investitsiya harakatini ochiq va tushunarli qilamiz</textarea>
@@ -670,6 +678,12 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="mb-3">
+                                        <label class="form-label">Должность</label>
+                                        <input type="text" class="form-control" value="Руководитель">
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="mb-3">
                                         <label class="form-label">Описание</label>
                                         <textarea class="form-control" rows="2">Все операции полностью соответствуют законам Шариата</textarea>
                                     </div>
@@ -709,6 +723,12 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Position</label>
+                                        <input type="text" class="form-control" value="Manager">
+                                    </div>
+                                </div>
+                                <div class="col-12">
                                     <div class="mb-3">
                                         <label class="form-label">Description</label>
                                         <textarea class="form-control" rows="2">All operations fully comply with Sharia laws</textarea>
@@ -826,7 +846,7 @@
 
                                 <div class="col-md-6">
                                     <div class="team-member-preview">
-                                        <img src="https://via.placeholder.com/50x50" alt="Team member">
+                                        <img src="{{ asset('assets/img/default.jpg') }}" alt="Team member">
                                         <div class="team-member-info">
                                             <h6>Не выбрано</h6>
                                             <p>Выберите члена</p>
@@ -871,7 +891,7 @@
 
                                 <div class="col-md-6">
                                     <div class="team-member-preview">
-                                        <img src="https://via.placeholder.com/50x50" alt="Team member">
+                                        <img src="{{ asset('assets/img/default.jpg') }}" alt="Team member">
                                         <div class="team-member-info">
                                             <h6>Not selected</h6>
                                             <p>Select member</p>
@@ -895,7 +915,7 @@
                 Oxirgi o'zgarish: 2023-yil 15-oktabr, 14:30
             </div>
 
-            <button type="button" class="btn btn-primary" id="saveSettingsBtn">
+            <button type="button" class="btn btn-primary save-btn" id="saveSettingsBtn">
                 <i class="fas fa-save me-1"></i>Sazlamalarni saqlash
             </button>
         </div>
@@ -920,7 +940,7 @@
 
             <div class="col-md-6">
                 <div class="banner-preview">
-                    <img src="https://via.placeholder.com/100x60" alt="Banner preview">
+                    <img src="{{ asset('assets/img/default.jpg') }}" alt="Banner preview">
                     <div class="banner-info">
                         <h6>Tanlanmagan</h6>
                         <p>Banner tanlang</p>
@@ -936,13 +956,13 @@
         <button type="button" class="remove-btn" onclick="showRemoveConfirmation(this)">×</button>
 
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-12">
                 <div class="mb-3">
                     <label class="form-label">Sarlavha</label>
                     <input type="text" class="form-control" placeholder="Sarlavha">
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-12">
                 <div class="mb-3">
                     <label class="form-label">Tavsif</label>
                     <textarea class="form-control" rows="3" placeholder="Tavsif"></textarea>
@@ -957,25 +977,25 @@
         <button type="button" class="remove-btn" onclick="showRemoveConfirmation(this)">×</button>
 
         <div class="row">
-            <div class="col-md-2">
+            <div class="col-md-4">
                 <div class="mb-3">
                     <label class="form-label">Icon</label>
                     <input type="file" class="form-control icon-input" placeholder="fas fa-icon">
                 </div>
             </div>
-            <div class="col-md-1">
+            <div class="col-md-2">
                 <div class="mb-3">
                     <label class="form-label">Index</label>
-                    <input type="number" class="form-control index-input" value="1" min="1">
+                    <input type="number" class="form-control" value="1" min="1">
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-6">
                 <div class="mb-3">
                     <label class="form-label">Sarlavha</label>
                     <input type="text" class="form-control" placeholder="Qadriyat nomi">
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-12">
                 <div class="mb-3">
                     <label class="form-label">Tavsif</label>
                     <textarea class="form-control" rows="2" placeholder="Qadriyat tavsifi"></textarea>
@@ -1005,7 +1025,7 @@
 
             <div class="col-md-6">
                 <div class="team-member-preview">
-                    <img src="https://via.placeholder.com/50x50" alt="Team member">
+                    <img src="{{ asset('assets/img/default.jpg') }}" alt="Team member">
                     <div class="team-member-info">
                         <h6>Tanlanmagan</h6>
                         <p>A'zo tanlang</p>
