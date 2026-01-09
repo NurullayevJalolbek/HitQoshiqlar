@@ -36,6 +36,7 @@ use App\Http\Controllers\Admin\IncomeController;
 use App\Http\Controllers\Admin\LocalizationController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\ShariaComplianceController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\WorkActivityController;
 use Illuminate\Support\Facades\Route;
@@ -140,6 +141,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'l
             Route::resource('/home-page', HomePageController::class);
 
             Route::resource('/about-us', AboutUsController::class);
+
+            Route::resource('/sharia-compliance', ShariaComplianceController::class);
         });
 
 
