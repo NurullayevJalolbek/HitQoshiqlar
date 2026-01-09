@@ -186,6 +186,43 @@
         color: #6c757d;
     }
 
+    /* Document Select */
+    .document-select-item {
+        background: #f8f9fa;
+        border: 1px solid #e5e7eb;
+        border-radius: 0.5rem;
+        padding: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    /* QR Code Upload */
+    .qr-upload-container {
+        background: #f8f9fa;
+        border: 2px dashed #e5e7eb;
+        border-radius: 0.5rem;
+        padding: 1.5rem;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .qr-upload-container:hover {
+        border-color: var(--primary-color);
+        background: #f0f7ff;
+    }
+
+    .qr-upload-container i {
+        font-size: 2rem;
+        color: #6c757d;
+        margin-bottom: 0.5rem;
+    }
+
+    .qr-upload-container p {
+        margin: 0;
+        color: #6c757d;
+        font-size: 0.875rem;
+    }
+
     /* App Links */
     .app-links-section {
         background: linear-gradient(135deg, #f8f9fa 0%, #e9f7fe 100%);
@@ -242,6 +279,29 @@
         border-color: var(--primary-color);
         box-shadow: 0 0 0 0.2rem rgba(67, 97, 238, 0.25);
     }
+
+    /* Benefit Banner Section */
+    .benefit-banner-section {
+        background: #f8f9fa;
+        border: 1px solid #e5e7eb;
+        border-radius: 0.5rem;
+        padding: 1.25rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .benefit-banner-section h5 {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #2c3e50;
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+    }
+
+    .benefit-banner-section h5 i {
+        margin-right: 0.5rem;
+        color: #1F2937;
+    }
 </style>
 @endpush
 
@@ -275,7 +335,6 @@
 
     <div class="d-flex gap-2 align-items-center flex-wrap">
         <x-go-back />
-
     </div>
 </div>
 @endsection
@@ -365,7 +424,7 @@
                         </div>
                     </div>
 
-                    <button type="button" class="add-new-btn" onclick="addBannerItem('mb-uz')">
+                    <button type="button" class="add-new-btn" onclick="addBannerItem('mb')">
                         <i class="fas fa-plus"></i> Yangi banner qo'shish
                     </button>
                 </div>
@@ -415,7 +474,7 @@
                         </div>
                     </div>
 
-                    <button type="button" class="add-new-btn" onclick="addBannerItem('mb-ru')">
+                    <button type="button" class="add-new-btn" onclick="addBannerItem('mb')">
                         <i class="fas fa-plus"></i> Добавить новый баннер
                     </button>
                 </div>
@@ -465,7 +524,7 @@
                         </div>
                     </div>
 
-                    <button type="button" class="add-new-btn" onclick="addBannerItem('mb-en')">
+                    <button type="button" class="add-new-btn" onclick="addBannerItem('mb')">
                         <i class="fas fa-plus"></i> Add New Banner
                     </button>
                 </div>
@@ -509,25 +568,58 @@
                         </div>
                     </div>
 
+                    <!-- Afzalliklar banneri -->
+                    <div class="benefit-banner-section mb-4">
+                        <h5><i class="fas fa-image me-2"></i>Afzalliklar banneri</h5>
+                        <div class="benefits-banner-container">
+                            <div class="dynamic-item">
+                                <button type="button" class="remove-btn" onclick="showRemoveConfirmation(this)">×</button>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label class="form-label">Banner tanlash</label>
+                                        <select class="form-select banner-select" onchange="updateBannerPreview(this)">
+                                            <option value="" selected>Banner tanlang...</option>
+                                            <option value="8">Afzalliklar banner - 1</option>
+                                            <option value="9">Afzalliklar banner - 2</option>
+                                            <option value="10">Platforma afzalliklari</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="banner-preview">
+                                            <img src="{{ asset('assets/img/default.jpg') }}" alt="Banner preview">
+                                            <div class="banner-info">
+                                                <h6>Tanlanmagan</h6>
+                                                <p>Banner tanlang</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="add-new-btn" onclick="addBenefitBannerItem('bf-uz')">
+                            <i class="fas fa-plus"></i> Yangi afzalliklar banneri qo'shish
+                        </button>
+                    </div>
+
                     <!-- Benefits Items -->
                     <div class="benefits-container">
                         <div class="dynamic-item">
                             <button type="button" class="remove-btn" onclick="showRemoveConfirmation(this)">×</button>
 
                             <div class="row">
-                                <div class="col-md-3">
+                                <div class="col-md-6">
                                     <label class="form-label">Icon</label>
                                     <input type="file" class="form-control" value="fas fa-handshake" placeholder="fas fa-icon">
                                 </div>
 
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <label class="form-label">Sarlavha</label>
                                     <input type="text" class="form-control" value="Halol hamkorlik">
                                 </div>
 
-                                <div class="col-md-5">
+                                <div class="col-md-12 mt-3">
                                     <label class="form-label">Tavsif</label>
-                                    <input type="text" class="form-control" value="Islom olimlari tomonidan tasdiqlangan to'liq Shariatga mos investitsiyalar">
+                                    <textarea class="form-control" placeholder="Afzallik tavsifi" rows="4">Islom olimlari tomonidan tasdiqlangan to'liq Shariatga mos investitsiyalar</textarea>
                                 </div>
                             </div>
                         </div>
@@ -536,19 +628,19 @@
                             <button type="button" class="remove-btn" onclick="showRemoveConfirmation(this)">×</button>
 
                             <div class="row">
-                                <div class="col-md-3">
+                                <div class="col-md-6">
                                     <label class="form-label">Icon</label>
-                                    <input type="text" class="form-control" value="fas fa-building" placeholder="fas fa-icon">
+                                    <input type="file" class="form-control" value="fas fa-building" placeholder="fas fa-icon">
                                 </div>
 
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <label class="form-label">Sarlavha</label>
-                                    <input type="file" class="form-control" value="Haqiqiy ulushlar">
+                                    <input type="text" class="form-control" value="Haqiqiy ulushlar">
                                 </div>
 
-                                <div class="col-md-5">
+                                <div class="col-md-12 mt-3">
                                     <label class="form-label">Tavsif</label>
-                                    <input type="text" class="form-control" value="Binolar va yerlaming haqiqiy ulushlariga ega bo'ling">
+                                    <textarea class="form-control" placeholder="Afzallik tavsifi" rows="4">Binolar va yerlaming haqiqiy ulushlariga ega bo'ling</textarea>
                                 </div>
                             </div>
                         </div>
@@ -575,19 +667,40 @@
                                 <button type="button" class="remove-btn" onclick="showRemoveConfirmation(this)">×</button>
 
                                 <div class="row">
-                                    <div class="col-md-3">
+                                    <div class="col-md-6">
                                         <label class="form-label">Icon</label>
                                         <input type="file" class="form-control" value="fas fa-ban" placeholder="fas fa-icon">
                                     </div>
 
-                                    <div class="col-md-3">
+                                    <div class="col-md-6">
                                         <label class="form-label">Sarlavha</label>
                                         <input type="text" class="form-control" value="Foizsiz (Ribo yo'q)">
                                     </div>
 
-                                    <div class="col-md-6">
+                                    <div class="col-md-12 mt-3">
                                         <label class="form-label">Tavsif</label>
-                                        <input type="text" class="form-control" value="Foydaga sheriklik modeli">
+                                        <textarea class="form-control" placeholder="Tamoyil tavsifi" rows="4">Foydaga sheriklik modeli</textarea>
+                                    </div>
+
+                                    <!-- Document Selects -->
+                                    <div class="col-md-6 mt-3">
+                                        <label class="form-label">1-hujjat tanlash</label>
+                                        <select class="form-select">
+                                            <option value="">Hujjat tanlang...</option>
+                                            <option value="1">Shariat sertifikati</option>
+                                            <option value="2">Audit hisoboti</option>
+                                            <option value="3">Moliyaviy hisobot</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-6 mt-3">
+                                        <label class="form-label">2-hujjat tanlash</label>
+                                        <select class="form-select">
+                                            <option value="">Hujjat tanlang...</option>
+                                            <option value="1">Shariat sertifikati</option>
+                                            <option value="2">Audit hisoboti</option>
+                                            <option value="3">Moliyaviy hisobot</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -608,25 +721,58 @@
                         </div>
                     </div>
 
+                    <!-- Afzalliklar banneri -->
+                    <div class="benefit-banner-section mb-4">
+                        <h5><i class="fas fa-image me-2"></i>Баннер преимуществ</h5>
+                        <div class="benefits-banner-container">
+                            <div class="dynamic-item">
+                                <button type="button" class="remove-btn" onclick="showRemoveConfirmation(this)">×</button>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label class="form-label">Выбор баннера</label>
+                                        <select class="form-select banner-select" onchange="updateBannerPreview(this)">
+                                            <option value="" selected>Выберите баннер...</option>
+                                            <option value="8">Баннер преимуществ - 1</option>
+                                            <option value="9">Баннер преимуществ - 2</option>
+                                            <option value="10">Преимущества платформы</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="banner-preview">
+                                            <img src="https://via.placeholder.com/100x60" alt="Banner preview">
+                                            <div class="banner-info">
+                                                <h6>Не выбрано</h6>
+                                                <p>Выберите баннер</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="add-new-btn" onclick="addBenefitBannerItem('bf-ru')">
+                            <i class="fas fa-plus"></i> Добавить новый баннер преимуществ
+                        </button>
+                    </div>
+
                     <!-- Benefits Items -->
                     <div class="benefits-container">
                         <div class="dynamic-item">
                             <button type="button" class="remove-btn" onclick="showRemoveConfirmation(this)">×</button>
 
                             <div class="row">
-                                <div class="col-md-3">
+                                <div class="col-md-6">
                                     <label class="form-label">Иконка</label>
-                                    <input type="text" class="form-control" value="fas fa-handshake" placeholder="fas fa-icon">
+                                    <input type="file" class="form-control" value="fas fa-handshake" placeholder="fas fa-icon">
                                 </div>
 
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <label class="form-label">Заголовок</label>
                                     <input type="text" class="form-control" value="Халяльное партнерство">
                                 </div>
 
-                                <div class="col-md-5">
+                                <div class="col-md-12 mt-3">
                                     <label class="form-label">Описание</label>
-                                    <input type="text" class="form-control" value="Полностью соответствующие Шариату инвестиции, одобренные исламскими учеными">
+                                    <textarea class="form-control" placeholder="Описание преимущества" rows="4">Полностью соответствующие Шариату инвестиции, одобренные исламскими учеными</textarea>
                                 </div>
                             </div>
                         </div>
@@ -653,19 +799,40 @@
                                 <button type="button" class="remove-btn" onclick="showRemoveConfirmation(this)">×</button>
 
                                 <div class="row">
-                                    <div class="col-md-3">
+                                    <div class="col-md-6">
                                         <label class="form-label">Иконка</label>
-                                        <input type="text" class="form-control" value="fas fa-ban" placeholder="fas fa-icon">
+                                        <input type="file" class="form-control" value="fas fa-ban" placeholder="fas fa-icon">
                                     </div>
 
-                                    <div class="col-md-3">
+                                    <div class="col-md-6">
                                         <label class="form-label">Заголовок</label>
                                         <input type="text" class="form-control" value="Без процентов (Нет риба)">
                                     </div>
 
-                                    <div class="col-md-6">
+                                    <div class="col-md-12 mt-3">
                                         <label class="form-label">Описание</label>
-                                        <input type="text" class="form-control" value="Модель партнерства в прибыли">
+                                        <textarea class="form-control" placeholder="Описание принципа" rows="4">Модель партнерства в прибыли</textarea>
+                                    </div>
+
+                                    <!-- Document Selects -->
+                                    <div class="col-md-6 mt-3">
+                                        <label class="form-label">Выбор документа 1</label>
+                                        <select class="form-select">
+                                            <option value="">Выберите документ...</option>
+                                            <option value="1">Сертификат Шариата</option>
+                                            <option value="2">Аудиторский отчет</option>
+                                            <option value="3">Финансовый отчет</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-6 mt-3">
+                                        <label class="form-label">Выбор документа 2</label>
+                                        <select class="form-select">
+                                            <option value="">Выберите документ...</option>
+                                            <option value="1">Сертификат Шариата</option>
+                                            <option value="2">Аудиторский отчет</option>
+                                            <option value="3">Финансовый отчет</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -686,25 +853,58 @@
                         </div>
                     </div>
 
+                    <!-- Afzalliklar banneri -->
+                    <div class="benefit-banner-section mb-4">
+                        <h5><i class="fas fa-image me-2"></i>Benefits Banner</h5>
+                        <div class="benefits-banner-container">
+                            <div class="dynamic-item">
+                                <button type="button" class="remove-btn" onclick="showRemoveConfirmation(this)">×</button>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label class="form-label">Select Banner</label>
+                                        <select class="form-select banner-select" onchange="updateBannerPreview(this)">
+                                            <option value="" selected>Select banner...</option>
+                                            <option value="8">Benefits banner - 1</option>
+                                            <option value="9">Benefits banner - 2</option>
+                                            <option value="10">Platform benefits</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="banner-preview">
+                                            <img src="https://via.placeholder.com/100x60" alt="Banner preview">
+                                            <div class="banner-info">
+                                                <h6>Not selected</h6>
+                                                <p>Select banner</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="add-new-btn" onclick="addBenefitBannerItem('bf-en')">
+                            <i class="fas fa-plus"></i> Add New Benefits Banner
+                        </button>
+                    </div>
+
                     <!-- Benefits Items -->
                     <div class="benefits-container">
                         <div class="dynamic-item">
                             <button type="button" class="remove-btn" onclick="showRemoveConfirmation(this)">×</button>
 
                             <div class="row">
-                                <div class="col-md-3">
+                                <div class="col-md-6">
                                     <label class="form-label">Icon</label>
-                                    <input type="text" class="form-control" value="fas fa-handshake" placeholder="fas fa-icon">
+                                    <input type="file" class="form-control" value="fas fa-handshake" placeholder="fas fa-icon">
                                 </div>
 
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <label class="form-label">Title</label>
                                     <input type="text" class="form-control" value="Halal Partnership">
                                 </div>
 
-                                <div class="col-md-5">
+                                <div class="col-md-12 mt-3">
                                     <label class="form-label">Description</label>
-                                    <input type="text" class="form-control" value="Fully Sharia-compliant investments approved by Islamic scholars">
+                                    <textarea class="form-control" placeholder="Benefit description" rows="4">Fully Sharia-compliant investments approved by Islamic scholars</textarea>
                                 </div>
                             </div>
                         </div>
@@ -731,19 +931,40 @@
                                 <button type="button" class="remove-btn" onclick="showRemoveConfirmation(this)">×</button>
 
                                 <div class="row">
-                                    <div class="col-md-3">
+                                    <div class="col-md-6">
                                         <label class="form-label">Icon</label>
-                                        <input type="text" class="form-control" value="fas fa-ban" placeholder="fas fa-icon">
+                                        <input type="file" class="form-control" value="fas fa-ban" placeholder="fas fa-icon">
                                     </div>
 
-                                    <div class="col-md-3">
+                                    <div class="col-md-6">
                                         <label class="form-label">Title</label>
                                         <input type="text" class="form-control" value="Interest-free (No Riba)">
                                     </div>
 
-                                    <div class="col-md-6">
+                                    <div class="col-md-12 mt-3">
                                         <label class="form-label">Description</label>
-                                        <input type="text" class="form-control" value="Profit-sharing partnership model">
+                                        <textarea class="form-control" placeholder="Principle description" rows="4">Profit-sharing partnership model</textarea>
+                                    </div>
+
+                                    <!-- Document Selects -->
+                                    <div class="col-md-6 mt-3">
+                                        <label class="form-label">Select Document 1</label>
+                                        <select class="form-select">
+                                            <option value="">Select document...</option>
+                                            <option value="1">Sharia Certificate</option>
+                                            <option value="2">Audit Report</option>
+                                            <option value="3">Financial Report</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-6 mt-3">
+                                        <label class="form-label">Select Document 2</label>
+                                        <select class="form-select">
+                                            <option value="">Select document...</option>
+                                            <option value="1">Sharia Certificate</option>
+                                            <option value="2">Audit Report</option>
+                                            <option value="3">Financial Report</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -882,7 +1103,7 @@
                                     <div class="row">
                                         <div class="col-12 mb-3">
                                             <label class="form-label">Иконка</label>
-                                            <input type="text" class="form-control" value="fas fa-clipboard-list" placeholder="fas fa-icon">
+                                            <input type="file" class="form-control" value="fas fa-clipboard-list" placeholder="fas fa-icon">
                                         </div>
 
                                         <div class="col-12 mb-3">
@@ -942,7 +1163,7 @@
                                     <div class="row">
                                         <div class="col-12 mb-3">
                                             <label class="form-label">Icon</label>
-                                            <input type="text" class="form-control" value="fas fa-clipboard-list" placeholder="fas fa-icon">
+                                            <input type="file" class="form-control" value="fas fa-clipboard-list" placeholder="fas fa-icon">
                                         </div>
 
                                         <div class="col-12 mb-3">
@@ -1021,6 +1242,17 @@
                                     <label class="form-label">Google Play Link</label>
                                     <input type="url" class="form-control" value="https://play.google.com/store/apps/details?id=com.envast">
                                 </div>
+
+                                <!-- QR Code Upload -->
+                                <div class="mt-4">
+                                    <label class="form-label">QR Code yuklash</label>
+                                    <div class="qr-upload-container" onclick="document.getElementById('qr-upload-uz').click()">
+                                        <i class="fas fa-qrcode"></i>
+                                        <p>QR Code yuklash uchun bosing</p>
+                                        <input type="file" id="qr-upload-uz" class="d-none" accept="image/*">
+                                    </div>
+                                    <div class="form-text mt-2">Ilovalarni yuklash uchun QR kod</div>
+                                </div>
                             </div>
                         </div>
 
@@ -1035,7 +1267,7 @@
                                     <div class="row">
                                         <div class="col-md-3">
                                             <label class="form-label">Icon</label>
-                                            <input type="text" class="form-control" value="fas fa-folder-open" placeholder="fas fa-icon">
+                                            <input type="file" class="form-control" value="fas fa-folder-open" placeholder="fas fa-icon">
                                         </div>
 
                                         <div class="col-md-9">
@@ -1079,6 +1311,17 @@
                                     <label class="form-label">Ссылка на Google Play</label>
                                     <input type="url" class="form-control" value="https://play.google.com/store/apps/details?id=com.envast">
                                 </div>
+
+                                <!-- QR Code Upload -->
+                                <div class="mt-4">
+                                    <label class="form-label">Загрузка QR Code</label>
+                                    <div class="qr-upload-container" onclick="document.getElementById('qr-upload-ru').click()">
+                                        <i class="fas fa-qrcode"></i>
+                                        <p>Нажмите для загрузки QR Code</p>
+                                        <input type="file" id="qr-upload-ru" class="d-none" accept="image/*">
+                                    </div>
+                                    <div class="form-text mt-2">QR код для загрузки приложений</div>
+                                </div>
                             </div>
                         </div>
 
@@ -1093,7 +1336,7 @@
                                     <div class="row">
                                         <div class="col-md-3">
                                             <label class="form-label">Иконка</label>
-                                            <input type="text" class="form-control" value="fas fa-folder-open" placeholder="fas fa-icon">
+                                            <input type="file" class="form-control" value="fas fa-folder-open" placeholder="fas fa-icon">
                                         </div>
 
                                         <div class="col-md-9">
@@ -1137,6 +1380,17 @@
                                     <label class="form-label">Google Play Link</label>
                                     <input type="url" class="form-control" value="https://play.google.com/store/apps/details?id=com.envast">
                                 </div>
+
+                                <!-- QR Code Upload -->
+                                <div class="mt-4">
+                                    <label class="form-label">QR Code Upload</label>
+                                    <div class="qr-upload-container" onclick="document.getElementById('qr-upload-en').click()">
+                                        <i class="fas fa-qrcode"></i>
+                                        <p>Click to upload QR Code</p>
+                                        <input type="file" id="qr-upload-en" class="d-none" accept="image/*">
+                                    </div>
+                                    <div class="form-text mt-2">QR code for app downloads</div>
+                                </div>
                             </div>
                         </div>
 
@@ -1151,7 +1405,7 @@
                                     <div class="row">
                                         <div class="col-md-3">
                                             <label class="form-label">Icon</label>
-                                            <input type="text" class="form-control" value="fas fa-folder-open" placeholder="fas fa-icon">
+                                            <input type="file" class="form-control" value="fas fa-folder-open" placeholder="fas fa-icon">
                                         </div>
 
                                         <div class="col-md-9">
@@ -1177,13 +1431,10 @@
                 Oxirgi o'zgarish: 2023-yil 15-oktabr, 14:30
             </div>
 
-
-            <button type="button" class="btn btn-primary" id="saveSettingsBtn">
+            <button type="button" class="btn btn-primary save-btn" id="saveSettingsBtn">
                 <i class="fas fa-save me-1"></i>Sazlamalarni saqlash
             </button>
         </div>
-
-
     </div>
 </div>
 
@@ -1217,24 +1468,50 @@
     </div>
 </template>
 
+<template id="benefit-banner-item-template">
+    <div class="dynamic-item">
+        <button type="button" class="remove-btn" onclick="showRemoveConfirmation(this)">×</button>
+        <div class="row">
+            <div class="col-md-6">
+                <label class="form-label">Banner tanlash</label>
+                <select class="form-select banner-select" onchange="updateBannerPreview(this)">
+                    <option value="" selected>Banner tanlang...</option>
+                    <option value="8">Afzalliklar banner - 1</option>
+                    <option value="9">Afzalliklar banner - 2</option>
+                    <option value="10">Platforma afzalliklari</option>
+                </select>
+            </div>
+            <div class="col-md-6">
+                <div class="banner-preview">
+                    <img src="{{ asset('assets/img/default.jpg') }}" alt="Banner preview">
+                    <div class="banner-info">
+                        <h6>Tanlanmagan</h6>
+                        <p>Banner tanlang</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
 <template id="benefit-item-template">
     <div class="dynamic-item">
         <button type="button" class="remove-btn" onclick="showRemoveConfirmation(this)">×</button>
 
         <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-6">
                 <label class="form-label">Icon</label>
-                <input type="text" class="form-control" placeholder="fas fa-icon">
+                <input type="file" class="form-control" placeholder="fas fa-icon">
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <label class="form-label">Sarlavha</label>
                 <input type="text" class="form-control" placeholder="Afzallik nomi">
             </div>
 
-            <div class="col-md-5">
+            <div class="col-md-12 mt-3">
                 <label class="form-label">Tavsif</label>
-                <input type="text" class="form-control" placeholder="Afzallik tavsifi">
+                <textarea class="form-control" placeholder="Afzallik tavsifi" rows="4"></textarea>
             </div>
         </div>
     </div>
@@ -1245,19 +1522,40 @@
         <button type="button" class="remove-btn" onclick="showRemoveConfirmation(this)">×</button>
 
         <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-6">
                 <label class="form-label">Icon</label>
-                <input type="text" class="form-control" placeholder="fas fa-icon">
+                <input type="file" class="form-control" placeholder="fas fa-icon">
             </div>
 
-            <div class="col-md-3">
+            <div class="col-md-6">
                 <label class="form-label">Sarlavha</label>
                 <input type="text" class="form-control" placeholder="Tamoyil nomi">
             </div>
 
-            <div class="col-md-6">
+            <div class="col-md-12 mt-3">
                 <label class="form-label">Tavsif</label>
-                <input type="text" class="form-control" placeholder="Tamoyil tavsifi">
+                <textarea class="form-control" placeholder="Tamoyil tavsifi" rows="4"></textarea>
+            </div>
+
+            <!-- Document Selects -->
+            <div class="col-md-6 mt-3">
+                <label class="form-label">1-hujjat tanlash</label>
+                <select class="form-select">
+                    <option value="">Hujjat tanlang...</option>
+                    <option value="1">Shariat sertifikati</option>
+                    <option value="2">Audit hisoboti</option>
+                    <option value="3">Moliyaviy hisobot</option>
+                </select>
+            </div>
+
+            <div class="col-md-6 mt-3">
+                <label class="form-label">2-hujjat tanlash</label>
+                <select class="form-select">
+                    <option value="">Hujjat tanlang...</option>
+                    <option value="1">Shariat sertifikati</option>
+                    <option value="2">Audit hisoboti</option>
+                    <option value="3">Moliyaviy hisobot</option>
+                </select>
             </div>
         </div>
     </div>
@@ -1290,7 +1588,7 @@
                 <div class="row">
                     <div class="col-12 mb-3">
                         <label class="form-label">Icon</label>
-                        <input type="text" class="form-control" placeholder="fas fa-icon">
+                        <input type="file" class="form-control" placeholder="fas fa-icon">
                     </div>
 
                     <div class="col-12 mb-3">
@@ -1315,7 +1613,7 @@
         <div class="row">
             <div class="col-md-3">
                 <label class="form-label">Icon</label>
-                <input type="text" class="form-control" placeholder="fas fa-icon">
+                <input type="file" class="form-control" placeholder="fas fa-icon">
             </div>
 
             <div class="col-md-9">
@@ -1393,6 +1691,21 @@
                     img: 'https://via.placeholder.com/100x60/e74c3c/ffffff',
                     title: 'Qadamlar banner',
                     desc: '1920×800 px'
+                },
+                '8': {
+                    img: 'https://via.placeholder.com/100x60/3498db/ffffff',
+                    title: 'Afzalliklar banner - 1',
+                    desc: '1920×800 px'
+                },
+                '9': {
+                    img: 'https://via.placeholder.com/100x60/2ecc71/ffffff',
+                    title: 'Afzalliklar banner - 2',
+                    desc: '1920×800 px'
+                },
+                '10': {
+                    img: 'https://via.placeholder.com/100x60/9b59b6/ffffff',
+                    title: 'Platforma afzalliklari',
+                    desc: '1920×800 px'
                 }
             };
 
@@ -1416,18 +1729,35 @@
             }
         };
 
-        // Add banner item
-        window.addBannerItem = function(tabId) {
+        // Add main banner item
+        window.addBannerItem = function(tabPrefix) {
             const template = document.getElementById('banner-item-template');
+            const clone = template.content.cloneNode(true);
+
+            const tabContent = document.querySelector(`.tab-pane.active`);
+            if (!tabContent) return;
+
+            const addButton = tabContent.querySelector(`[onclick*="addBannerItem"]`);
+            if (addButton) {
+                // Add before the button
+                const container = tabContent.querySelector('.banner-items-container') || tabContent;
+                if (container) {
+                    addButton.before(clone);
+                }
+            }
+        };
+
+        // Add benefit banner item
+        window.addBenefitBannerItem = function(tabId) {
+            const template = document.getElementById('benefit-banner-item-template');
             const clone = template.content.cloneNode(true);
 
             const tabContent = document.getElementById(tabId + '-content');
             if (!tabContent) return;
 
-            const addButton = tabContent.querySelector('.add-new-btn');
+            const addButton = tabContent.querySelector(`[onclick*="addBenefitBannerItem"]`);
             if (addButton) {
-                // Add before the button
-                const container = tabContent.querySelector('.banner-items-container') || tabContent;
+                const container = tabContent.querySelector('.benefits-banner-container');
                 if (container) {
                     addButton.before(clone);
                 }
@@ -1442,7 +1772,7 @@
             const tabContent = document.getElementById(tabId + '-content');
             if (!tabContent) return;
 
-            const addButton = tabContent.querySelector('.add-new-btn');
+            const addButton = tabContent.querySelector(`[onclick*="addBenefitItem"]`);
             if (addButton) {
                 const container = tabContent.querySelector('.benefits-container') || tabContent;
                 if (container) {
@@ -1459,7 +1789,7 @@
             const tabContent = document.getElementById(tabId + '-content');
             if (!tabContent) return;
 
-            const addButton = tabContent.querySelector('[onclick*="addPrincipleItem"]');
+            const addButton = tabContent.querySelector(`[onclick*="addPrincipleItem"]`);
             if (addButton) {
                 const container = tabContent.querySelector('.principles-container') || tabContent;
                 if (container) {
@@ -1476,7 +1806,7 @@
             const tabContent = document.getElementById(tabId + '-content');
             if (!tabContent) return;
 
-            const addButton = tabContent.querySelector('.add-new-btn');
+            const addButton = tabContent.querySelector(`[onclick*="addStepItem"]`);
             if (addButton) {
                 const container = tabContent.querySelector('.steps-container') || tabContent;
                 if (container) {
@@ -1501,7 +1831,7 @@
             const tabContent = document.getElementById(tabId + '-content');
             if (!tabContent) return;
 
-            const addButton = tabContent.querySelector('[onclick*="addFeatureItem"]');
+            const addButton = tabContent.querySelector(`[onclick*="addFeatureItem"]`);
             if (addButton) {
                 const container = tabContent.querySelector('.features-container') || tabContent;
                 if (container) {
@@ -1511,7 +1841,7 @@
         };
 
         // Save button click - just show notification
-        const saveBtn = document.querySelector('.save-btn');
+        const saveBtn = document.getElementById('saveSettingsBtn');
         saveBtn.addEventListener('click', function() {
             const originalText = saveBtn.innerHTML;
             saveBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i>Saqlanmoqda...';
@@ -1539,6 +1869,16 @@
         document.querySelectorAll('.banner-select').forEach(select => {
             select.addEventListener('change', function() {
                 updateBannerPreview(this);
+            });
+        });
+
+        // QR upload click handlers
+        document.querySelectorAll('.qr-upload-container').forEach(container => {
+            container.addEventListener('click', function() {
+                const fileInput = this.querySelector('input[type="file"]');
+                if (fileInput) {
+                    fileInput.click();
+                }
             });
         });
     });
