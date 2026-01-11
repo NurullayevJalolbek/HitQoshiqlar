@@ -176,7 +176,7 @@ return [
     'page_subtitle' => 'Ko\'rsatkichlarni real vaqtda kuzatib boring',
     'refresh' => 'Yangilash',
 
-    'start'=> "
+    'start' => "
            Assalomu alaykum! 👋
 Hit Qo‘shiqlar Bot-ga xush kelibsiz 🤖🎵
 
@@ -206,6 +206,7 @@ AI sizga qo‘shiq nomi va ijrochisini aniqlab, musiqani topib beradi
 
 O‘zingizga qulay bo‘lgan tilni /language komandasi orqali tanlashingiz mumkin.
 
-            "
+            ",
+    "not_found" => "Ming afsus siz izlagan qo'shiq topilmadi "
 
 ];

@@ -185,5 +185,7 @@ AI will identify the song name and artist and help you find the music.
 
 You can choose your preferred language using the /language command.
 
-"
+",
+
+"not_found"=> "Sorry, the song you were looking for was not found "
 ];
