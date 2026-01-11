@@ -19,8 +19,8 @@ return new class extends Migration
             $table->string('fullname')->nullable();
             $table->string('username')->nullable();
             $table->string('locale')->nullable()->default('uz');
+            
             $table->string('status')->default('inactive');
-
             $table->string('registered_by')->nullable();
 
             $table->rememberToken();

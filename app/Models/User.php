@@ -18,21 +18,13 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
+        'chat_id',
+        'is_bot',
+        'fullname',
         'username',
-        'email',
-        'password',
-        'image',
-        'surname',
-        'name',
-        'patronymic',
-        'phone',
-        'birthdate',
-        'passport',
-        'pinfl',
         'locale',
         'registered_by',
         'status',
-        'email_verified_at',
     ];
 
 
