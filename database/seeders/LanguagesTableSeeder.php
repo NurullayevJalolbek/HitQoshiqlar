@@ -35,13 +35,6 @@ class LanguagesTableSeeder extends Seeder
                 'default' => false,
                 'status' => 'active',
             ],
-            [
-                'name' => 'العربية',
-                'url' => 'ar',
-                'icon' => 'https://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_Saudi_Arabia.svg',
-                'default' => false,
-                'status' => 'active',
-            ],
         ]);
 
         $id = DB::table('languages')->orderBy('id', 'desc')->first()?->id;

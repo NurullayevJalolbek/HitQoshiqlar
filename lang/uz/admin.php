@@ -176,212 +176,36 @@ return [
     'page_subtitle' => 'Ko\'rsatkichlarni real vaqtda kuzatib boring',
     'refresh' => 'Yangilash',
 
-    // Export
-    'export' => [
-        'pdf' => 'PDF',
-        'excel' => 'Excel',
-        'csv' => 'CSV',
-    ],
+    'start'=> "
+           Assalomu alaykum! 👋
+Hit Qo‘shiqlar Bot-ga xush kelibsiz 🤖🎵
 
-    // Filtrlar
-    'filters' => [
-        'title' => 'Filtrlar',
-        'start_date' => 'Boshlanish sanasi',
-        'end_date' => 'Tugash sanasi',
-        'project_type' => 'Loyiha turi',
-        'investor_type' => 'Investor turi',
-        'all' => 'Barchasi',
-        'apply' => 'Qo\'llash',
-        'reset' => 'Tozalash',
-    ],
+@HitQoshiqlarBot — bu sun’iy intellekt yordamida qo‘shiqlarni topib beradigan aqlli bot. Bot foydalanuvchilarga tez va oson tarzda musiqa va media fayllarni topish imkonini beradi.
 
-    // Loyiha turlari
-    'project_types' => [
-        'tech' => 'Texnologiya',
-        'real_estate' => 'Ko\'chmas mulk',
-        'agriculture' => 'Qishloq xo\'jaligi',
-        'manufacturing' => 'Ishlab chiqarish',
-        'land' => 'Yer',
-        'rent' => 'Ijara',
-        'construction' => 'Qurilish',
-    ],
+📥🎬 Platformalar orqali media yuklab olish:
+• Instagram — post, story, reels
+• YouTube — video, shorts, audio
+• TikTok — suv belgisiz video
+• Facebook — reels
+• Pinterest — rasm va video
+• Snapchat — rasm va video
+• Likee — rasm va video
+• Threads — rasm va video
 
-    // Investor turlari
-    'investor_types' => [
-        'active' => 'Aktiv',
-        'passive' => 'Passiv',
-    ],
+🎧🎵 AI yordamida qo‘shiq topish:
+• Qo‘shiqdan bir parcha matn yuboring
+• Yoki ovozli xabar (zapis) tashlang
+• Qisqa video yuboring
+AI sizga qo‘shiq nomi va ijrochisini aniqlab, musiqani topib beradi
 
-    // KPI
-    'kpi' => [
-        'total_investors' => 'Jami Investorlar',
-        'total_investment' => 'Umumiy Sarmoya',
-        'active_projects' => 'Faol Loyihalar',
-        'total_revenue' => 'Umumiy Daromad',
-        'active_investors' => 'Aktiv Investorlar',
-        'passive_investors' => 'Passiv Investorlar',
-        'total_dividends' => 'Jami Dividendlar',
-        'net_profit' => 'Sof Foyda',
-        'vs_last_month' => 'O\'tgan oyga nisbatan',
-    ],
+📎 Foydalanish juda oson:
+- Matn, ovoz, video yoki link yuboring
+- Bot qolganini o‘zi aniqlaydi va natijani taqdim etadi
 
-    // Grafiklar
-    'charts' => [
-        'monthly' => 'Oylik',
-        'daily' => 'Kunlik',
-        'last_update' => 'Oxirgi yangilanish',
-        'active_investors' => 'Faol Investorlar',
-        'passive_investors' => 'Passiv Investorlar',
-        'investors_growth' => 'Investorlar Dinamikasi',
-        'investor_income' => 'Investorlar Tushumlari',
-        'exit_payments' => 'Chiqim To\'lovlari',
-        'avg_income' => 'O\'rtacha tushum',
-        'avg_payment' => 'O\'rtacha to\'lov',
-        'contract_revenue' => 'Shartnoma Daromadi',
-        'total_contracts' => 'Jami shartnomalar',
-        'avg_revenue' => 'O\'rtacha daromad',
-        'growth' => 'O\'sish',
-        'dividends_distribution' => 'Dividendlar Taqsimoti',
-        'paid' => 'To\'langan',
-        'pending' => 'Kutilmoqda',
-        'net_profit' => 'Sof Foyda',
-        'avg_profit' => 'O\'rtacha foyda',
-        'realization_contracts' => 'Amalga oshirish Shartnomalar',
-        'total_signed' => 'Jami imzolangan',
-        'contracts' => 'shartnomalar',
-        'documents_growth' => 'Hujjatlar O\'sishi',
-        'revenue_by_project' => 'Loyihalar bo\'yicha Daromad',
-        'revenue_label' => 'Daromad',
-        'profit_label' => 'Foyda',
-        'contracts_label' => 'Shartnomalar',
-        'payments_label' => 'To\'lovlar',
-        'total_projects' => 'Jami loyihalar',
-    ],
-    'projectTypes' => [
-        'land' => 'Yer',
-        'rent' => 'Ijara',
-        'construction' => 'Qurilish',
-    ],
+🚀 Maqsad: barcha musiqiy qidiruvlar va media yuklashlarni bir joyda, tez va oson qilish.
 
-    'months' => [
-        'jan' => 'Yan',
-        'feb' => 'Fev',
-        'mar' => 'Mar',
-        'apr' => 'Apr',
-        'may' => 'May',
-        'jun' => 'Iyun',
-        'jul' => 'Iyul',
-        'aug' => 'Avg',
-        'sep' => 'Sen',
-        'oct' => 'Okt',
-        'nov' => 'Noy',
-        'dec' => 'Dek',
-    ],
+O‘zingizga qulay bo‘lgan tilni /language komandasi orqali tanlashingiz mumkin.
 
-    'messages' => [
-        'loading' => 'Yuklanmoqda...',
-        'success' => 'Muvaffaqiyatli!',
-        'error' => 'Xatolik yuz berdi!',
-        'filter_applied' => 'Filtr qo\'llandi',
-        'export_success' => 'Fayl yuklandi',
-        'no_data' => 'Ma\'lumot yo\'q',
-        'select_date' => 'Sanani tanlang',
-        'invalid_date_range' => 'Sanalar noto‘g‘ri',
-    ],
-    'Back' => 'Ortga',
+            "
 
-
-    'are_you_sure' => "Ishonchingiz komilmi?",
-    'you_wont_be_able_to_revert_this' => "Buni qaytarib bo'lmaydi!",
-    'yes_delete_it' => "Ha, o'chiring!",
-    'confirm' => "Tasdiqlash",
-    'cancel' => "Bekor qilish",
-    'date_from' => "Sanadan",
-    'date_to' => "Sanagacha",
-    'add' => 'Qo\'shish',
-    'picture' => 'Rasm',
-    'value' => 'Qiymat',
-    'progress' => 'Bosqich',
-    'financing' => 'Moliyalashtirish',
-    'rounds' => 'Raundlar',
-    'risk' => 'Xavf',
-    'id' => 'ID',
-    'income' => 'Daromad',
-    'activity_type'   => 'Faoliyat turi',
-    'llc'             => 'MChJ',
-    'jsc'             => 'AJ',
-    'sole_proprietor' => 'YaTT',
-    'blocked'         => 'Bloklangan',
-    'company_name'    => 'Kompaniya nomi',
-    'inn'             => 'INN',
-    'ifut'            => 'IFUT',
-    'director_fullname' => 'Direktor F.I.Sh',
-    'total_share'     => 'Jami ulushi',
-    'close' => 'Yopish',
-    'project_entry_requests'    => 'Loyiha kirish arizalari',
-    'application_status'        => 'Ariza holati',
-    'payment_status'            => 'Toʻlov holati',
-    'status_processing'         => 'Jarayonda',
-    'status_accepted'           => 'Qabul qilingan',
-    'status_rejected'           => 'Rad etilgan',
-    'payment_approved'          => 'Tasdiqlangan',
-    'payment_pending'           => 'Jarayonda',
-    'payment_declined'          => 'Rad etilgan',
-    'accept_selected'           => 'Tanlanganlarni qabul qilish',
-    'reject_selected'           => 'Tanlanganlarni rad etish',
-    'no_rows_selected'          => 'Hech qanday qator tanlanmadi',
-    'enter_reg_date'            => 'Davlat roʻyxatga olingan sanani kiriting',
-    'enter_reg_info'            => 'Roʻyxat raqami va maʼlumotni kiriting',
-    'enter_reject_reason'       => 'Rad etish sababini kiriting',
-    'selected_accepted'         => 'Tanlangan arizalar qabul qilindi',
-    'selected_rejected'         => 'Tanlangan arizalar rad etildi',
-    'txn_id'          => 'Tranzaksiya ID',
-    'comment'         => 'Izoh',
-    'receipt'         => 'Kvitanstsiya',
-    'act'             => 'Akt',
-    'kyc'             => 'KYC',
-    'e_signature'     => 'Elektron imzo',
-    'doc_confirm'     => 'Hujjat tasdiqlash',
-    'contract'        => 'Shartnoma',
-    'agreement'       => 'Kelishuv',
-    'payment_date'    => 'Toʻlov sanasi',
-    'amount'          => 'Summa',
-    'currency'        => 'Valyuta',
-    'payment_method'      => 'Toʻlov usuli',
-    'investor'        => 'Investor',
-    'warning' => "Ogohlantirish",
-    'role_delete_warning' => "Bu roleni o'chirishdan oldin undagi foydalanuvchilarni boshqa rolega o'tkazishingiz kerak?",
-    'enterprise_name' => 'Korxona nomi',
-    'search_placeholder' => 'Transaction ID',
-
-
-    'accept' => 'Qabul qilish',
-    'reject' => 'Rad etish',
-
-    'application_comment' => 'Ariza holatiga izoh',
-    'refund_receipt' => 'Qaytarish kvitantsiya',
-    'rejection_act' => 'Rad etish ba\'yonnoma',
-    'kyc_info' => 'KYC ma\'lumotlari',
-    'digital_signature' => 'Elektron imzo',
-    'document_verification' => 'Hujjatlarini tasdiqlash',
-    'investor_name' => 'Investor F.I.O.',
-    'registered_at' => 'Rozxatdan otgan sana',
-    'registration_info' => 'Rozxatdan otish ma\'lumotlari',
-
-    'loading' => 'Yuklanmoqda...',
-    'no_data' => 'Ma\'lumot topilmadi',
-    'no_entries' => 'Hozircha hech qanday ariza mavjud emas',
-
-    'accept_applications' => 'Ariza larni qabul qilish',
-    'reject_applications' => 'Ariza larni rad etish',
-    'attention' => 'E\'tibor!',
-    'accept_selected_info' => 'Ta arizani qabul qilishiz kerak.',
-    'reject_selected_info' => 'Ta arizani rad etishiz kerak.',
-
-    'registration_date' => 'Rozxatdan otgan sana',
-    'registration_date_hint' => 'Investorlar kommanditschi sifatida royxatga olingan sana ni kiriting',
-
-    'registration_info_hint' => 'Davlat royxatidan otkazish ma\'lumotlari ni kiriting',
-    'rejection_reason' => 'Rad etish sababi',
-    'rejection_reason_hint' => 'Bu ma\'lumot investorga ko\'rsatiladi',
 ];

@@ -40,17 +40,13 @@ function formatCurrency($number, $decimal = 0)
 
 
 
-
-
 if (!function_exists('sendMessage')) {
-    function sendMessage($chat_id, $message)
+    function sendMessage($chat_id, $message, $token,  $message_id = null)
     {
-        // Tokenni config orqali olish — config allaqachon yuklangan bo‘lishi kerak
-        $token = config("services.telegram.bot_token");
-
         Log::warning('sendMessage called', [
             'chat_id' => $chat_id,
             'message' => $message,
+            'message_id' => $message_id,
             'token' => $token
         ]);
 
@@ -59,6 +55,18 @@ if (!function_exists('sendMessage')) {
             return false;
         }
 
+        // Agar $message_id kelgan bo'lsa, avval eski xabarni o'chirish
+        if ($message_id) {
+            Http::withOptions(['verify' => false])->post(
+                "https://api.telegram.org/bot{$token}/deleteMessage",
+                [
+                    'chat_id' => $chat_id,
+                    'message_id' => $message_id
+                ]
+            );
+        }
+
+        // Yangi xabar yuborish
         $url = "https://api.telegram.org/bot{$token}/sendMessage";
 
         Http::withOptions(['verify' => false])->post($url, [
@@ -70,32 +78,15 @@ if (!function_exists('sendMessage')) {
 }
 
 
-if (!function_exists('sendStartWithButtons')) {
-    function sendStartWithButtons($chat_id)
-    {
-        $token = config("services.telegram.bot_token");
 
+if (!function_exists('sendStartWithButtons')) {
+    function sendStartWithButtons($chat_id, $text, $token, $keyboard, $message_id = null)
+    {
         if (!$token) {
             Log::error("Telegram token bo'sh! Check config/services.php and .env");
             return false;
         }
 
-
-        // 2️⃣ Inline keyboard
-        $keyboard = [
-            'inline_keyboard' => [
-                [
-                    ['text' => '🇺🇿 Uzbekcha', 'callback_data' => 'uz'],
-                    ['text' => '🇷🇺 Русский', 'callback_data' => 'ru'],
-                    ['text' => '🇬🇧 English', 'callback_data' => 'en'],
-                ]
-            ]
-        ];
-
-        // 3️⃣ Matn xabari
-        $text = "🎵 Hit Qo‘shiqlar botiga xush kelibsiz!\n\nBotdan o'zingizga qulay tilda foydalanishingiz mumkin.";
-
-        // 4️⃣ Xabarni yuborish
         $payload = [
             'chat_id' => $chat_id,
             'text' => $text,
@@ -103,15 +94,69 @@ if (!function_exists('sendStartWithButtons')) {
             'reply_markup' => json_encode($keyboard)
         ];
 
+        $method = "sendMessage";
+        if (!is_null($message_id)) {
+            $payload['message_id'] = $message_id;
+            $method = "editMessageText";
+        }
+
         Http::withOptions(['verify' => false])->post(
-            "https://api.telegram.org/bot{$token}/sendMessage",
+            "https://api.telegram.org/bot{$token}/{$method}",
             $payload
         );
-
-        Log::warning("sendStartWithButtons called", [
-            'chat_id' => $chat_id,
-            'message' => $text
-        ]);
     }
 }
 
+if (!function_exists('buildLanguageKeyboard')) {
+
+
+
+    function buildLanguageKeyboard($selected)
+    {
+        $languages = [
+            'uz' => '🇺🇿 Uz',
+            'ru' => '🇷🇺 Ру',
+            'en' => '🇬🇧 Eng',
+        ];
+
+        $keyboard = [];
+
+        foreach ($languages as $code => $label) {
+            $text = $label;
+            if ($code === $selected) {
+                $text .= " ✅";
+            }
+
+            $keyboard[] = [
+                'text' => $text,
+                'callback_data' => $code
+            ];
+        }
+
+        return [
+            'inline_keyboard' => [
+                $keyboard
+            ]
+        ];
+    }
+}
+
+
+if (!function_exists('answerTelegramCallback')) {
+    function answerTelegramCallback($callback_id, $text, $token,  $showAlert = false)
+    {
+        if (!$token) {
+            Log::error("Telegram token missing in answerTelegramCallback");
+            return false;
+        }
+
+        return Http::withOptions(['verify' => false])->post(
+            "https://api.telegram.org/bot{$token}/answerCallbackQuery",
+            [
+                'callback_query_id' => $callback_id,
+                'text' => $text,
+                'show_alert' => $showAlert
+            ]
+        );
+    }
+}

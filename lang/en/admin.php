@@ -154,224 +154,36 @@ return [
     'commissioning' => 'Commissioning',
     'photo_video_gallery' => 'Photo/Video Gallery',
     'construction_photo' => 'Construction Photo',
+'start'=> "
+Hello! 👋  
+Welcome to Hit Qo‘shiqlar Bot 🤖🎵  
 
-    // Filters
-    'project_name_or_id' => 'Project Name or ID',
-    'category' => 'Category',
-    'land' => 'Land',
-    'construction' => 'Construction',
-    'rent' => 'Rent',
-    'project-cards' => 'Project Cards',
-    'create' => "Create",
-    'title' => 'Dashboard',
-    'page_title' => 'Investment Dashboard',
-    'page_subtitle' => 'Track all metrics in real-time',
-    'refresh' => 'Refresh',
+@HitQoshiqlarBot is a smart bot powered by artificial intelligence that helps you find songs.  
+It allows users to quickly and easily search for music and media files.
 
-    // Export
-    'export' => [
-        'pdf' => 'PDF',
-        'excel' => 'Excel',
-        'csv' => 'CSV',
-    ],
+📥🎬 Download media from platforms:
+• Instagram — posts, stories, reels  
+• YouTube — videos, shorts, audio  
+• TikTok — videos without watermark  
+• Facebook — reels  
+• Pinterest — images and videos  
+• Snapchat — images and videos  
+• Likee — images and videos  
+• Threads — images and videos  
 
-    // Filters
-    'filters' => [
-        'title' => 'Filters',
-        'start_date' => 'Start Date',
-        'end_date' => 'End Date',
-        'project_type' => 'Project Type',
-        'investor_type' => 'Investor Type',
-        'all' => 'All',
-        'apply' => 'Apply',
-        'reset' => 'Reset',
-    ],
+🎧🎵 AI-powered song recognition:
+• Send a part of the song lyrics  
+• Or send a voice message  
+• Or send a short video  
+AI will identify the song name and artist and help you find the music.
 
-    // Project types
-    'project_types' => [
-        'tech' => 'Technology',
-        'real_estate' => 'Real Estate',
-        'agriculture' => 'Agriculture',
-        'manufacturing' => 'Manufacturing',
-    ],
+📎 It’s very easy to use:
+- Send text, voice, video, or a link  
+- The bot will automatically detect everything and provide the result  
 
-    // Investor types
-    'investor_types' => [
-        'active' => 'Active',
-        'passive' => 'Passive',
-    ],
+🚀 Our goal is to bring all music searching and media downloading into one place — fast and easy.
 
-    // KPI Cards
-    'kpi' => [
-        'total_investors' => 'Total Investors',
-        'total_investment' => 'Total Investment',
-        'active_projects' => 'Active Projects',
-        'total_revenue' => 'Total Revenue',
-        'active_investors' => 'Active Investors',
-        'passive_investors' => 'Passive Investors',
-        'total_dividends' => 'Total Dividends',
-        'net_profit' => 'Net Profit',
-        'vs_last_month' => 'vs last month',
-    ],
+You can choose your preferred language using the /language command.
 
-    // Charts
-    'charts' => [
-        'investors_growth' => 'Investors Growth Dynamics',
-        'projects_distribution' => 'Projects Distribution',
-        'investor_income' => 'Investor Income',
-        'exit_payments' => 'Exit Payments',
-        'contract_revenue' => 'Contract Revenue',
-        'dividends_distribution' => 'Dividends Distribution',
-        'net_profit' => 'Net Profit Dynamics',
-        'realization_contracts' => 'Realization Contracts',
-        'documents_growth' => 'Documents Growth Dynamics',
-        'revenue_by_project' => 'Revenue by Project',
-
-        // Period
-        'month' => 'Month',
-        'year' => 'Year',
-
-        // Statistics
-        'total_projects' => 'Total projects',
-        'avg_income' => 'Average income',
-        'avg_payment' => 'Average payment',
-        'total_contracts' => 'Total contracts',
-        'avg_revenue' => 'Average revenue',
-        'growth' => 'Growth',
-        'paid' => 'Paid',
-        'pending' => 'Pending',
-        'avg_profit' => 'Average profit',
-        'total_signed' => 'Total signed',
-        'contracts' => 'contracts',
-
-        // Chart labels
-        'active_investors' => 'Active Investors',
-        'passive_investors' => 'Passive Investors',
-        'revenue_label' => 'Revenue',
-        'payments_label' => 'Payments',
-        'profit_label' => 'Profit',
-        'contracts_label' => 'Contracts',
-    ],
-
-    // Months
-    'months' => [
-        'jan' => 'Jan',
-        'feb' => 'Feb',
-        'mar' => 'Mar',
-        'apr' => 'Apr',
-        'may' => 'May',
-        'jun' => 'Jun',
-        'jul' => 'Jul',
-        'aug' => 'Aug',
-        'sep' => 'Sep',
-        'oct' => 'Oct',
-        'nov' => 'Nov',
-        'dec' => 'Dec',
-    ],
-
-    // Messages
-    'messages' => [
-        'loading' => 'Loading...',
-        'success' => 'Success!',
-        'error' => 'An error occurred!',
-        'filter_applied' => 'Filters applied',
-        'export_success' => 'File downloaded successfully',
-        'no_data' => 'No data found',
-        'select_date' => 'Please select dates',
-        'invalid_date_range' => 'Start date cannot be greater than end date',
-    ],
-    'project_types' => [
-        'land' => 'Land',
-        'rent' => 'Rent',
-        'construction' => 'Construction',
-    ],
-    'Back' => 'Ortga',
-
-
-    'are_you_sure' => "Are you sure?",
-    'you_wont_be_able_to_revert_this' => "You won't be able to revert this!",
-    'yes_delete_it' => "Yes, delete it!",
-    'confirm' => "Confirm",
-    'cancel' => "Cancel",
-    'date_from' => "From",
-    'date_to' => "To",
-    'add' => 'Add',
-    'picture' => 'Picture',
-    'value' => 'Value',
-    'progress' => 'Progress',
-    'financing' => 'Financing',
-    'rounds' => 'Rounds',
-    'risk' => 'Risk',
-    'id' => 'ID',
-    'income' => 'Income',
-    'activity_type'   => 'Type of activity',
-    'jsc'             => 'JSC',
-    'sole_proprietor' => 'Individual Entrepreneur',
-    'blocked'         => 'Blocked',
-    'company_name'    => 'Company name',
-    'inn'             => 'TIN',
-    'ifut'            => 'IFUT Code',
-    'director_fullname' => 'Director Full Name',
-    'total_share'     => 'Total share',
-    'close' => 'Close',
-    'project_entry_requests'    => 'Project Entry Requests',
-    'application_status'        => 'Application Status',
-    'payment_status'            => 'Payment Status',
-    'status_processing'         => 'Processing',
-    'status_accepted'           => 'Accepted',
-    'status_rejected'           => 'Rejected',
-    'payment_approved'          => 'Approved',
-    'payment_pending'           => 'Pending',
-    'payment_declined'          => 'Declined',
-    'accept_selected'           => 'Accept Selected',
-    'reject_selected'           => 'Reject Selected',
-    'no_rows_selected'          => 'No Rows Selected',
-    'enter_reg_date'            => 'Enter Registration Date',
-    'enter_reg_info'            => 'Enter Registration Number and Info',
-    'enter_reject_reason'       => 'Enter Reject Reason',
-    'selected_accepted'         => 'Selected Applications Accepted',
-    'selected_rejected'         => 'Selected Applications Rejected',
-    'txn_id'          => 'Transaction ID',
-    'comment'         => 'Comment',
-    'receipt'         => 'Receipt',
-    'act'             => 'Act',
-    'kyc'             => 'KYC',
-    'e_signature'     => 'E-Signature',
-    'doc_confirm'     => 'Document Confirmation',
-    'contract'        => 'Contract',
-    'agreement'       => 'Agreement',
-    'payment_date'    => 'Payment Date',
-    'amount'          => 'Amount',
-    'currency'        => 'Currency',
-    'payment_method'  => 'Payment Method',
-    'investor'        => 'Investor',
-
-    'warning' => "Warning",
-    'role_delete_warning' => "Before deleting this role, you need to transfer its users to another role?",
-    'enterprise_name' => 'Company name',
-
-    'accept' => 'Accept',
-    'reject' => 'Reject',
-    'application_comment' => 'Application status comment',
-    'refund_receipt' => 'Refund receipt',
-    'rejection_act' => 'Rejection act',
-    'kyc_info' => 'KYC information',
-    'digital_signature' => 'Digital signature',
-    'document_verification' => 'Document verification',
-    'investor_name' => 'Investor F.I.O.',
-    'registered_at' => 'Registration date',
-    'registration_info' => 'Registration information',
-    'loading' => 'Loading...',
-    'no_data' => 'No data',
-    'no_entries' => 'No entries',
-    'accept_applications' => 'Accept applications',
-    'reject_applications' => 'Reject applications',
-    'attention' => 'Attention!',
-    'accept_selected_info' => 'Accept applications',
-    'reject_selected_info' => 'Reject applications',
-    'registration_date' => 'Registration date',
-    'registration_date_hint' => 'Investors commanditaries registration date enter',
-    'registration_info_hint' => 'Registration information enter',
-    'rejection_reason' => 'Rejection reason',
-    'rejection_reason_hint' => 'This information for investor',
+"
 ];
