@@ -183,7 +183,7 @@ AI will identify the song name and artist and help you find the music.
 
 🚀 Our goal is to bring all music searching and media downloading into one place — fast and easy.
 
-You can choose your preferred language using the /language command.
+You can choose your preferred language using the /lang command.
 
 ",
 

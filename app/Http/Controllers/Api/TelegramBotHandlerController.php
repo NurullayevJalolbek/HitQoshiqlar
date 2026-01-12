@@ -60,40 +60,89 @@ class TelegramBotHandlerController extends Controller
                 $text = "O'zingizga qulay bo‘lgan tilni tanlang";
                 sendStartWithButtons($chat_id, $text, $this->token, $keyboard);
             } else {
-                // ===== Beta qo‘shiq qidiruv =====
-                $response = Http::get("https://api.deezer.com/search", [
-                    'q' => $message,
-                    'limit' => 10
+
+                $query = addslashes($message);
+                $ytdlpPath = '/opt/homebrew/bin/yt-dlp';
+
+                $command = $ytdlpPath .
+                    ' "ytsearch30:' . $query . '"' .
+                    ' --skip-download' .
+                    ' --no-warnings' .
+                    ' --quiet' .
+                    ' --flat-playlist' .
+                    ' --print "%(id)s|%(title)s|%(duration)s" 2>&1';
+
+
+
+
+
+                exec($command, $output);
+
+                Log::warning("Youtubedan qaytgan qidiruv natijasi", [
+                    "OUTPUT" => $output
                 ]);
 
-                $tracks = $response->json()['data'] ?? [];
 
-                Log::warning("Deezerdan topilgan qo'shiqlar", [
-                    "tracks" => $tracks,
+                session([
+                    "yt_results_{$chat_id}" => $output
                 ]);
 
 
-                if (empty($tracks)) {
-                    $locale = User::where('chat_id', $chat_id)->value('locale') ?? 'uz';
-                    App::setLocale($locale);
-
-
-                    $not_found  = __('admin.not_found');
-                    sendMessage($chat_id, $not_found . "😔", $this->token);
-                } else {
-                    $keyboard = ['inline_keyboard' => []];
-
-                    foreach ($tracks as $track) {
-                        $keyboard['inline_keyboard'][] = [
-                            [
-                                'text' => $track['title'] . " - " . $track['artist']['name'],
-                                'callback_data' => "yt|" . $track['title'] . "|" . $track['artist']['name']
-                            ]
-                        ];
-                    }
-
-                    sendStartWithButtons($chat_id, "Topilgan qo‘shiqlar:", $this->token, $keyboard);
+                if (empty($output)) {
+                    sendMessage($chat_id, "Ming afsus, siz izlagan qo‘shiq topilmadi 😔", $this->token);
+                    return;
                 }
+
+                $emojis = ['1️⃣', '2️⃣', '3️⃣', '4️⃣', '5️⃣', '6️⃣', '7️⃣', '8️⃣', '9️⃣', '🔟'];
+
+
+
+                $text = "🎵 <b>Topilgan qo‘shiqlar:</b>\n\n";
+
+                $buttons = [];
+                $videoMap = [];
+
+                foreach ($output as $i => $row) {
+                    if ($i > 9) break;
+
+                    // id|title|duration ni ajratamiz
+                    $parts = explode("|", $row);
+
+                    if (count($parts) < 2) continue;
+
+                    $videoId = trim($parts[0]);
+                    $title   = trim($parts[1]);
+                    $seconds = isset($parts[2]) ? (int) floatval($parts[2]) : 0;
+
+                    $duration = $seconds > 0 ? gmdate("i:s", $seconds) : "—";
+
+                    // Matnga qo‘shamiz
+                    $text .= $emojis[$i] . ". " . htmlspecialchars($title) . " <i>{$duration}</i>\n";
+
+                    // Tugma
+                    $buttons[] = [
+                        'text' => $emojis[$i],
+                        'callback_data' => "yt|" . $videoId
+                    ];
+
+                    // Video map (agar keyin ishlatsang)
+                    $videoMap[$emojis[$i]] = $videoId;
+                }
+
+
+                // 2 qator 5 tadan qilish
+                $keyboard = ['inline_keyboard' => []];
+                $keyboard['inline_keyboard'][] = array_slice($buttons, 0, 5);
+                $keyboard['inline_keyboard'][] = array_slice($buttons, 5, 5);
+
+                // Navigation row
+                $keyboard['inline_keyboard'][] = [
+                    ['text' => '⬅️', 'callback_data' => 'page|prev'],
+                    ['text' => '❌', 'callback_data' => 'clear'],
+                    ['text' => '➡️', 'callback_data' => 'page|next'],
+                ];
+
+                sendStartWithButtons($chat_id, $text, $this->token, $keyboard);
             }
         }
 
@@ -128,103 +177,59 @@ class TelegramBotHandlerController extends Controller
             }
 
             // ===== YouTube mp3 yuklash =====
-            if (str_starts_with($selected, 'yt|')) {
-                [$prefix, $title, $artist] = explode('|', $selected);
-                $searchQuery = "$title $artist"; // yt-dlp qidiruv so‘rovi
+            $maxDisplay = 10;
+            $totalResults = count($output);
 
-                Log::info("=== QO'SHIQ YUKLASH ===", [
-                    'title' => $title,
-                    'artist' => $artist
-                ]);
+            $text = "🎵 <b>Topilgan qo‘shiqlar:</b>\n\n";
+            $buttons = [];
+            $videoMap = [];
 
-                // ===== 1. Fayl nomi va yt-dlp yo‘li =====
-                $fileName = storage_path("app/public/audio_" . md5($title . $artist . time()) . ".mp3");
-                $ytdlpPath = '/opt/homebrew/bin/yt-dlp'; // MacOS misol, serverga mos o‘zgartiring
+            foreach ($output as $i => $row) {
+                if ($i >= $maxDisplay) break;
 
-                // ===== 2. yt-dlp komandasi =====
-                $command = escapeshellcmd($ytdlpPath) .
-                    " \"ytsearch1:" . escapeshellarg($searchQuery) . "\"" .
-                    " -x --audio-format mp3 --audio-quality 320k" .
-                    " --output " . escapeshellarg($fileName) .
-                    " 2>&1";
+                $parts = explode("|", $row);
+                if (count($parts) < 2) continue;
 
-                Log::info("yt-dlp komandasi", ['command' => $command, 'file' => $fileName]);
+                $videoId = trim($parts[0]);
+                $title   = trim($parts[1]);
+                $seconds = isset($parts[2]) ? (int) floatval($parts[2]) : 0;
+                $duration = $seconds > 0 ? gmdate("i:s", $seconds) : "—";
 
-                // ===== 3. Ishga tushirish =====
-                set_time_limit(240); // 4 daqiqa
-                exec($command, $output, $status);
+                $text .= $emojis[$i] . ". " . htmlspecialchars($title) . " <i>{$duration}</i>\n";
 
-                $fileExists = file_exists($fileName);
-                $fileSize = $fileExists ? filesize($fileName) : 0;
-                $success = ($status === 0 && $fileExists && $fileSize > 50000); // 50KB dan katta bo‘lsa
+                $buttons[] = [
+                    'text' => $emojis[$i],
+                    'callback_data' => "yt|" . $videoId
+                ];
 
-                Log::info("yt-dlp natijasi", [
-                    'status' => $status,
-                    'file_exists' => $fileExists,
-                    'file_size' => $fileSize,
-                    'success' => $success,
-                    'output_sample' => implode("\n", array_slice($output, -5))
-                ]);
-
-                // ===== 4. Telegramga yuborish =====
-                if ($success) {
-                    try {
-                        $telegramUrl = "https://api.telegram.org/bot{$this->token}/sendAudio";
-
-                        $response = Http::timeout(120)
-                            ->attach('audio', fopen($fileName, 'r'), 'song.mp3', [
-                                'Content-Type' => 'audio/mpeg'
-                            ])
-                            ->post($telegramUrl, [
-                                'chat_id' => $chat_id,
-                                'title' => mb_substr($title, 0, 64),
-                                'performer' => mb_substr($artist, 0, 64),
-                                'caption' => "🎵 $title\n🎤 $artist\n\n@HitQoshiqlarBot"
-                            ]);
-
-                        if ($response->successful()) {
-                            answerTelegramCallback($callback_id, "✅ Qo'shiq yuborildi!", $this->token);
-                            Log::info("Telegramga muvaffaqiyatli yuklandi");
-                        } else {
-                            $error = $response->json();
-                            sendMessage($chat_id, "❌ Telegram API xatosi", $this->token);
-                            Log::error("Telegram API error", ['error' => $error]);
-                        }
-                    } catch (\Exception $e) {
-                        sendMessage($chat_id, "❌ Yuklashda xato: " . $e->getMessage(), $this->token);
-                        Log::error("Exception", [
-                            'error' => $e->getMessage(),
-                            'trace' => $e->getTraceAsString()
-                        ]);
-                    }
-
-                    // Faylni tozalash
-                    @unlink($fileName);
-                } else {
-                    // Xato xabari
-                    $errorMsg = "❌ MP3 yuklashda xato\n";
-                    $errorMsg .= "Status: $status\n";
-                    $errorMsg .= "Fayl: " . ($fileExists ? "mavjud" : "yo'q") . "\n";
-
-                    if ($fileExists) {
-                        $errorMsg .= "Hajm: " . round($fileSize / 1024) . " KB\n";
-                    }
-
-                    if (!empty($output)) {
-                        $lastLines = array_slice($output, -5);
-                        $errorMsg .= "Xato: " . implode("; ", $lastLines);
-                    }
-
-                    sendMessage($chat_id, $errorMsg, $this->token);
-
-                    if ($fileExists) {
-                        @unlink($fileName);
-                    }
-                }
-
-                // Callback javobi
-                answerTelegramCallback($callback_id, $success ? "✅ Qo'shiq yuborildi!" : "❌ Xato yuz berdi", $this->token);
+                $videoMap[$emojis[$i]] = $videoId;
             }
+
+            // 🔹 Sahifa raqamini matn oxiriga qo‘shamiz, faqat natija > 10 bo‘lsa
+            if ($totalResults > $maxDisplay) {
+                $totalPages = ceil($totalResults / $maxDisplay);
+                $currentPage = 1; // default 1-chi sahifa
+                $text .= "\n📄 $currentPage/$totalPages";
+            }
+
+            // 2 qator 5 tadan tugmalar
+            $keyboard = ['inline_keyboard' => []];
+            $keyboard['inline_keyboard'][] = array_slice($buttons, 0, 5);
+            $keyboard['inline_keyboard'][] = array_slice($buttons, 5, 5);
+
+            // Navigation row
+            $navRow = [
+                ['text' => '⬅️', 'callback_data' => 'page|prev'],
+                ['text' => '❌', 'callback_data' => 'clear'],
+                ['text' => '➡️', 'callback_data' => 'page|next'],
+            ];
+
+            // 🔹 Pagination tugmalarini faqat agar natija > 10 bo‘lsa qo‘shamiz
+            if ($totalResults > $maxDisplay) {
+                $keyboard['inline_keyboard'][] = $navRow;
+            }
+
+            sendStartWithButtons($chat_id, $text, $this->token, $keyboard);
         }
 
         return response()->json(['ok' => true]);

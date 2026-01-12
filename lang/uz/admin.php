@@ -204,7 +204,7 @@ AI sizga qo‘shiq nomi va ijrochisini aniqlab, musiqani topib beradi
 
 🚀 Maqsad: barcha musiqiy qidiruvlar va media yuklashlarni bir joyda, tez va oson qilish.
 
-O‘zingizga qulay bo‘lgan tilni /language komandasi orqali tanlashingiz mumkin.
+O‘zingizga qulay bo‘lgan tilni /lang komandasi orqali tanlashingiz mumkin.
 
             ",
     "not_found" => "Ming afsus siz izlagan qo'shiq topilmadi "
