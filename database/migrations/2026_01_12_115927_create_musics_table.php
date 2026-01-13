@@ -16,6 +16,7 @@ return new class extends Migration
 
             $table->string('yt_id')->nullable();
             $table->string('field_id')->nullable();
+            $table->string('title')->nullable();
             
             $table->timestamps();
         });

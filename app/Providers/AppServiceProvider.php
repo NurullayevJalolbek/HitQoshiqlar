@@ -9,6 +9,9 @@ use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\URL;
 
+use App\Services\Contracts\iTelegramBotService;
+use App\Services\TelegramBotService;
+
 
 
 class AppServiceProvider extends ServiceProvider
@@ -18,7 +21,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->bind(iTelegramBotService::class, TelegramBotService::class);
     }
 
     /**

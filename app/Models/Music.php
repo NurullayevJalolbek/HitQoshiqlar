@@ -23,7 +23,8 @@ class Music extends Model
     protected $table = "musics";
     protected $fillable = [
         "yt_id",
-        "field_id"
+        "field_id",
+        "title"
     ];
 
 
