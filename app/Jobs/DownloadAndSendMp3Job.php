@@ -56,14 +56,32 @@ class DownloadAndSendMp3Job implements ShouldQueue
         $videoUrl = "https://www.youtube.com/watch?v=" . $this->videoId;
         $fileName = storage_path("app/public/{$this->videoId}.mp3");
 
+        // 1) Start
+        $startTime = microtime(true);
+
         $command = escapeshellcmd($ytdlpPath) .
             " " . escapeshellarg($videoUrl) .
-            " -x --audio-format mp3 --audio-quality 5" .
+            " -x --audio-format mp3 --audio-quality 9" .
+            " -N 6" .
             " --no-playlist --no-warnings --quiet" .
+            " --no-check-certificate --no-call-home" .
+            " --postprocessor-args " . escapeshellarg("-threads 8") .
             " -o " . escapeshellarg($fileName) .
             " 2>&1";
 
-        exec($command);
+        // 2) Run
+        $output = [];
+        exec($command, $output);
+
+        // 3) End + time
+        $executionTime = round(microtime(true) - $startTime, 3);
+
+
+        // 5) Log (oxirgi 10 qator)
+
+        Log::info("YTDLP+FFMPEG TIME", [
+            'seconds'    => $executionTime,
+        ]);
 
 
         if (!file_exists($fileName) || filesize($fileName) < 50000) {
