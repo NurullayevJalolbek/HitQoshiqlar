@@ -7,7 +7,8 @@ use App\Jobs\DownloadAndSendMp3Job;
 use App\Jobs\YoutubeSearchJob;
 use App\Models\Music;
 use App\Models\User;
-use App\Services\Contracts\iTelegramBotService;
+use App\Services\TelegramBot\Contracts\iTelegramBotService;
+use App\Services\YoutubeSearch\Contracts\iYoutubeSearchService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Http;
@@ -22,7 +23,7 @@ class TelegramBotHandlerController extends Controller
         $this->token = config("services.telegram.bot_token");
     }
 
-    public function webhook(Request $request, iTelegramBotService $service)
+    public function webhook(Request $request, iTelegramBotService $telegram_service, iYoutubeSearchService $youtube_search_service)
     {
         // 1. ODDY XABARLAR (TEXT)
         if ($request->has("message")) {
@@ -63,7 +64,7 @@ class TelegramBotHandlerController extends Controller
             }
 
             // Qidiruv mantiqi
-            YoutubeSearchJob::dispatch($chat_id, $message);
+            $youtube_search_service->youtubeSearch($chat_id, $message);
         }
 
         // 2. CALLBACK QUERY (Tugmalar bosilganda)
@@ -89,7 +90,7 @@ class TelegramBotHandlerController extends Controller
                 if ($action === "prev") $state['page']--;
 
                 file_put_contents($stateKey, json_encode($state));
-                $service->showSearchResults($chat_id, $state, $this->token, $message_id);
+                $telegram_service->showSearchResults($chat_id, $state, $this->token, $message_id);
                 answerTelegramCallback($callback_id, "", $this->token);
             }
 
@@ -111,7 +112,7 @@ class TelegramBotHandlerController extends Controller
             }
 
             if ($data === "clear") {
-                $service->deleteMessage($chat_id, $message_id, $this->token);
+                $telegram_service->deleteMessage($chat_id, $message_id, $this->token);
             }
         }
 

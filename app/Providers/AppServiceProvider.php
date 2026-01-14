@@ -9,10 +9,10 @@ use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\URL;
 
-use App\Services\Contracts\iTelegramBotService;
-use App\Services\TelegramBotService;
-
-
+use App\Services\TelegramBot\Contracts\iTelegramBotService;
+use App\Services\TelegramBot\TelegramBotService;
+use App\Services\YoutubeSearch\YoutubeSearchService;
+use App\Services\YoutubeSearch\Contracts\iYoutubeSearchService;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -22,6 +22,7 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->bind(iTelegramBotService::class, TelegramBotService::class);
+        $this->app->bind(iYoutubeSearchService::class, YoutubeSearchService::class);
     }
 
     /**

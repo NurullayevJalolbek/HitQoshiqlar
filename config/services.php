@@ -38,5 +38,9 @@ return [
         'bot_token' => env('TELEGRAM_BOT_TOKEN'),
     ],
 
+    'youtube' => [
+        'api_key' => env('YOUTUBE_DATA_API_KEY'),
+    ],
+
 
 ];

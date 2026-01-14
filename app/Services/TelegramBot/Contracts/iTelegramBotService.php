@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Contracts;
+namespace App\Services\TelegramBot\Contracts;
 use App\Models\User;
 
 interface iTelegramBotService

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\TelegramBot;
 
-use App\Services\Contracts\ITelegramBotService;
+use App\Services\TelegramBot\Contracts\iTelegramBotService;
 use Illuminate\Support\Facades\Http;
 
 

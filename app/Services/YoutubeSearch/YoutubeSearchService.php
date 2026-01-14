@@ -1,42 +1,43 @@
 <?php
 
-namespace App\Jobs;
+namespace App\Services\YoutubeSearch;
 
+use App\Services\YoutubeSearch\Contracts\iYoutubeSearchService;
+use Illuminate\Support\Facades\Http;
 use App\Http\Controllers\Api\TelegramBotHandlerController;
 use App\Services\TelegramBot\Contracts\iTelegramBotService;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Http;
 
 
-class YoutubeSearchJob implements ShouldQueue
+class YoutubeSearchService implements iYoutubeSearchService
 {
-    use Queueable;
 
-    public string $chat_id;
-
-    public  string $message;
     protected $token;
 
     protected $youtube_key;
+
+    protected $service;
+
 
 
     /**
      * Create a new job instance.
      */
-    public function __construct($chat_id, $message)
+    public function __construct()
     {
-        $this->chat_id =  $chat_id;
-        $this->message = $message;
         $this->token = config("services.telegram.bot_token");
         $this->youtube_key = config("services.youtube.api_key");
+
+        $this->service = app(iTelegramBotService::class);
     }
 
 
-    public function handle(iTelegramBotService $service): void
+    public function youtubeSearch($chat_id, $message)
     {
+
         $startTime = microtime(true);
 
         // 1) SEARCH: videoId + title
@@ -44,10 +45,10 @@ class YoutubeSearchJob implements ShouldQueue
             'https://www.googleapis.com/youtube/v3/search',
             [
                 'part' => 'snippet',
-                'q' => $this->message,
+                'q' => $message,
                 'type' => 'video',
-                'maxResults' => 10,
-                'key' => $this->youtube_key, // yoki config('services.youtube.api_key')
+                'maxResults' => 30,
+                'key' => $this->youtube_key, 
             ]
         );
 
@@ -55,13 +56,13 @@ class YoutubeSearchJob implements ShouldQueue
 
         if (!$searchRes->ok() || empty($searchData['items'])) {
             Log::warning('YOUTUBE SEARCH FAIL', [
-                'chat_id' => $this->chat_id,
-                'query' => $this->message,
+                'chat_id' => $chat_id,
+                'query' => $message,
                 'status' => $searchRes->status(),
                 'body_head' => mb_substr($searchRes->body(), 0, 200),
             ]);
 
-            sendMessage($this->chat_id, "Ming afsus, hech narsa topilmadi 😔", $this->token);
+            sendMessage($chat_id, "Ming afsus, hech narsa topilmadi 😔", $this->token);
             return;
         }
 
@@ -113,15 +114,15 @@ class YoutubeSearchJob implements ShouldQueue
         }
 
         if (empty($results)) {
-            sendMessage($this->chat_id, "Ming afsus, hech narsa topilmadi 😔", $this->token);
+            sendMessage($chat_id, "Ming afsus, hech narsa topilmadi 😔", $this->token);
             return;
         }
 
         $executionTime = round(microtime(true) - $startTime, 3);
 
         Log::info('YOUTUBE DATA API', [
-            'chat_id' => $this->chat_id,
-            'query' => $this->message,
+            'chat_id' => $chat_id,
+            'query' => $message,
             'results_count' => count($results),
             'time_sec' => $executionTime,
         ]);
@@ -133,10 +134,10 @@ class YoutubeSearchJob implements ShouldQueue
         ];
 
         file_put_contents(
-            storage_path("app/ytsearch_{$this->chat_id}.json"),
+            storage_path("app/ytsearch_{$chat_id}.json"),
             json_encode($state, JSON_UNESCAPED_UNICODE)
         );
 
-        $service->showSearchResults($this->chat_id, $state, $this->token);
+        $this->service->showSearchResults($chat_id, $state, $this->token);
     }
 }
