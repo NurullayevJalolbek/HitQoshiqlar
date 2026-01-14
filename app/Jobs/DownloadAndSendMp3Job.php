@@ -35,15 +35,33 @@ class DownloadAndSendMp3Job implements ShouldQueue
      */
     public function handle(): void
     {
-        $channelId = '-1003397606314';
-        $telegramUrl = "https://api.telegram.org/bot{$this->token}/sendAudio";
+
+        $sendMessageUrl = "https://api.telegram.org/bot{$this->token}/sendMessage";
+        $deleteMessageUrl = "https://api.telegram.org/bot{$this->token}/deleteMessage";
+        $sendAudioUrl = "https://api.telegram.org/bot{$this->token}/sendAudio";
+
         $ytdlpPath = '/opt/homebrew/bin/yt-dlp';
+        $channelId = '-1003397606314';
+
+        $loadingResp = Http::post($sendMessageUrl, [
+            'chat_id' => $this->chat_id,
+            'text'    => "⌛️",
+        ])->json();
+
+
 
         // 1️⃣ DB cache tekshiramiz
         $music = Music::where('yt_id', $this->videoId)->first();
 
         if ($music && $music->field_id) {
-            Http::post($telegramUrl, [
+            if($loadingResp){
+                Http::post($deleteMessageUrl, [
+                    'chat_id'=> $this->chat_id,
+                    'message_id' =>$loadingResp['result']['message_id'] ?? null,
+                ]);
+
+            }
+            Http::post($sendAudioUrl, [
                 'chat_id' => $this->chat_id,
                 'audio' => $music->field_id,
                 'title' => mb_substr($music->title ?? 'Music', 0, 20),
@@ -93,11 +111,18 @@ class DownloadAndSendMp3Job implements ShouldQueue
             $title  = trim(shell_exec("$ytdlpPath --get-title " . escapeshellarg($videoUrl)));
 
 
+            if($loadingResp){
+                Http::post($deleteMessageUrl, [
+                    'chat_id'=> $this->chat_id,
+                    'message_id' =>$loadingResp['result']['message_id'] ?? null,
+                ]);
+            }
+            
 
             // 1️⃣ Avval USERga yuboramiz
             $userResponse = Http::timeout(300)
                 ->attach('audio', $fp, "{$title}.mp3", ['Content-Type' => 'audio/mpeg'])
-                ->post($telegramUrl, [
+                ->post($sendAudioUrl, [
                     'chat_id' => $this->chat_id,
                     'caption' => "@HitQoshiqlarBot"
                 ]);
@@ -108,7 +133,7 @@ class DownloadAndSendMp3Job implements ShouldQueue
             if ($fp2 = fopen($fileName, 'r')) {
                 $channelResponse = Http::timeout(300)
                     ->attach('audio', $fp2, "{$title}.mp3", ['Content-Type' => 'audio/mpeg'])
-                    ->post($telegramUrl, [
+                    ->post($sendAudioUrl, [
                         'chat_id' => $channelId,
                         'caption' => "@HitQoshiqlarBot"
                     ]);

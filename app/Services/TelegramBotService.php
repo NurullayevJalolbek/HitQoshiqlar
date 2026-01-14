@@ -3,6 +3,8 @@
 namespace App\Services;
 
 use App\Services\Contracts\ITelegramBotService;
+use Illuminate\Support\Facades\Http;
+
 
 
 class TelegramBotService implements iTelegramBotService
@@ -49,5 +51,17 @@ class TelegramBotService implements iTelegramBotService
 
         // Agar message_id bo'lsa edit qilamiz, bo'lmasa yangi yuboramiz
         sendStartWithButtons($chat_id, $text, $token, $keyboard, $message_id);
+    }
+
+    public function deleteMessage($chat_id, $message_id, $token)
+    {
+        $url = "https://api.telegram.org/bot{$token}/deleteMessage";
+
+        $response = Http::post($url, [
+            'chat_id'    => $chat_id,
+            'message_id' => $message_id,
+        ]);
+
+        return $response->json();
     }
 }

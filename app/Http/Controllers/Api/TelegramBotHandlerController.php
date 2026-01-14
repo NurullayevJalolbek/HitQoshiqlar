@@ -111,23 +111,10 @@ class TelegramBotHandlerController extends Controller
             }
 
             if ($data === "clear") {
-                $this->deleteMessage($chat_id, $message_id, $this->token);
+                $service->deleteMessage($chat_id, $message_id, $this->token);
             }
         }
 
         return response()->json(['ok' => true]);
-    }
-
-
-    public function deleteMessage($chat_id, $message_id, $token)
-    {
-        $url = "https://api.telegram.org/bot{$token}/deleteMessage";
-
-        $response = Http::post($url, [
-            'chat_id'    => $chat_id,
-            'message_id' => $message_id,
-        ]);
-
-        return $response->json();
     }
 }
