@@ -25,6 +25,9 @@ class TelegramBotHandlerController extends Controller
 
     public function webhook(Request $request, iTelegramBotService $telegram_service, iYoutubeSearchService $youtube_search_service)
     {
+        $sendMessageUrl = "https://api.telegram.org/bot{$this->token}/sendMessage";
+
+
         // 1. ODDY XABARLAR (TEXT)
         if ($request->has("message")) {
             $message = $request->input('message.text');
@@ -105,7 +108,14 @@ class TelegramBotHandlerController extends Controller
                 $videoId = explode('|', $data)[1];
                 answerTelegramCallback($callback_id, "Yuklanmoqda, iltimos kuting...", $this->token);
 
-                DownloadAndSendMp3Job::dispatch($chat_id, $videoId);
+
+                $loadingResp = Http::post($sendMessageUrl, [
+                    'chat_id' => $chat_id,
+                    'text'    => "⌛️",
+                ])->json();
+
+
+                DownloadAndSendMp3Job::dispatch($chat_id, $videoId, $loadingResp);
             }
 
             // Tilni o'zgartirish

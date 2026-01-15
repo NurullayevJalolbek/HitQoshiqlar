@@ -18,16 +18,20 @@ class DownloadAndSendMp3Job implements ShouldQueue
     public string $videoId;
     protected string $token;
 
+    protected $loadingResp;
+
+
 
 
     /**
      * Create a new job instance.
      */
-    public function __construct($chatId, $videoId)
+    public function __construct($chatId, $videoId, $loadingResp)
     {
         $this->chat_id = $chatId;
         $this->videoId = $videoId;
         $this->token = config("services.telegram.bot_token");
+        $this->loadingResp = $loadingResp;
     }
 
     /**
@@ -43,18 +47,11 @@ class DownloadAndSendMp3Job implements ShouldQueue
         $ytdlpPath = '/opt/homebrew/bin/yt-dlp';
         $channelId = '-1003397606314';
 
-        $loadingResp = Http::post($sendMessageUrl, [
-            'chat_id' => $this->chat_id,
-            'text'    => "⌛️",
-        ])->json();
-
-
-
         // 1️⃣ DB cache tekshiramiz
         $music = Music::where('yt_id', $this->videoId)->first();
 
         if ($music && $music->field_id) {
-            if($loadingResp){
+            if($this->loadingResp){
                 Http::post($deleteMessageUrl, [
                     'chat_id'=> $this->chat_id,
                     'message_id' =>$loadingResp['result']['message_id'] ?? null,
@@ -111,7 +108,7 @@ class DownloadAndSendMp3Job implements ShouldQueue
             $title  = trim(shell_exec("$ytdlpPath --get-title " . escapeshellarg($videoUrl)));
 
 
-            if($loadingResp){
+            if($this->loadingResp){
                 Http::post($deleteMessageUrl, [
                     'chat_id'=> $this->chat_id,
                     'message_id' =>$loadingResp['result']['message_id'] ?? null,
