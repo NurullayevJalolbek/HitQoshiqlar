@@ -55,7 +55,7 @@ class YoutubeSearchService implements iYoutubeSearchService
         $searchData = $searchRes->json();
 
 
-        // Fail check
+        // Fail c2heck
         if (!$searchRes->ok() || empty($searchData['items'])) {
             Log::warning('YOUTUBE SEARCH FAIL', [
                 'chat_id'    => $chat_id,
