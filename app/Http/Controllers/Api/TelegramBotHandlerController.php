@@ -52,7 +52,12 @@ class TelegramBotHandlerController extends Controller
             if ($message == '/start') {
                 $locale_selected = User::where('chat_id', $chat_id)->value('locale') ?? 'uz';
                 App::setLocale($locale_selected);
-                sendMessage($chat_id, __("admin.start"), $this->token);
+                $text = __("admin.start");
+
+                // URL EMAS — local fayl yo'li (public ichidan)
+                sendLocalPhotoMessage($chat_id, 'assets/img/hitqoshiqlarbot.png', $text, $this->token);
+
+
                 return response()->json(['ok' => true]);
             }
 

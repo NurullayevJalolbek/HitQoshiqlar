@@ -160,3 +160,51 @@ if (!function_exists('answerTelegramCallback')) {
         );
     }
 }
+
+
+
+if (!function_exists('sendLocalPhotoMessage')) {
+    function sendLocalPhotoMessage($chat_id, $publicPath, $caption, $token, $reply_markup = null)
+    {
+        if (!$token) {
+            Log::error("Telegram token bo'sh!");
+            return false;
+        }
+
+        $absolutePath = public_path($publicPath); // masalan: 'assets/img/hitqoshiqlarbot.png'
+
+        if (!file_exists($absolutePath)) {
+            Log::error("Rasm topilmadi!", ['path' => $absolutePath]);
+            return false;
+        }
+
+        $url = "https://api.telegram.org/bot{$token}/sendPhoto";
+
+        $request = Http::asMultipart()->attach(
+            'photo',
+            file_get_contents($absolutePath),
+            basename($absolutePath)
+        );
+
+        $payload = [
+            'chat_id' => $chat_id,
+            'caption' => $caption,
+            'parse_mode' => 'HTML',
+        ];
+
+        if ($reply_markup) {
+            $payload['reply_markup'] = json_encode($reply_markup, JSON_UNESCAPED_UNICODE);
+        }
+
+        $res = $request->post($url, $payload);
+
+        Log::info("sendLocalPhotoMessage response", [
+            'ok' => $res->ok(),
+            'status' => $res->status(),
+            'body' => $res->json(),
+            'absolutePath' => $absolutePath,
+        ]);
+
+        return $res->ok();
+    }
+}
