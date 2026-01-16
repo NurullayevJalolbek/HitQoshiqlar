@@ -231,3 +231,44 @@ if (!function_exists('isSocialMediaUrl')) {
         return false;
     }
 }
+
+
+function isInstagram(string $host): bool
+{
+    return str_ends_with($host, 'instagram.com');
+}
+
+function isYoutube(string $host): bool
+{
+    return in_array($host, [
+        'youtube.com',
+        'www.youtube.com',
+        'm.youtube.com',
+        'youtu.be'
+    ]);
+}
+
+function isTikTok(string $host): bool
+{
+    return str_ends_with($host, 'tiktok.com');
+}
+
+function isFacebook(string $host): bool
+{
+    return in_array($host, [
+        'facebook.com',
+        'www.facebook.com',
+        'm.facebook.com',
+        'fb.watch'
+    ]);
+}
+
+function isSnapchat(string $host): bool
+{
+    return str_ends_with($host, 'snapchat.com');
+}
+
+function isLikee(string $host): bool
+{
+    return str_ends_with($host, 'likee.video');
+}

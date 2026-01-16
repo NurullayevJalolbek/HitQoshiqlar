@@ -2,10 +2,10 @@
 
 namespace App\Services\TelegramBot;
 
+use App\Jobs\InstagramDownloadJob;
 use App\Services\TelegramBot\Contracts\iTelegramBotService;
 use Illuminate\Support\Facades\Http;
-
-
+use Illuminate\Support\Facades\Log;
 
 class TelegramBotService implements iTelegramBotService
 {
@@ -72,49 +72,29 @@ class TelegramBotService implements iTelegramBotService
 
     public function sociolMedia($chat_id, $message_id, $url, $token)
     {
-        $saveDir = storage_path('app/instagram');
+        $host = parse_url($url, PHP_URL_HOST);
+        $host = strtolower($host);
 
-        if (!is_dir($saveDir)) {
-            mkdir($saveDir, 0755, true);
+        Log::info('URL HOST', ['host' => $host]);
+
+        // PLATFORM ANIQLASH
+        if (isInstagram($host)) {
+            InstagramDownloadJob::dispatch($chat_id, $message_id, $url);
+        } elseif (isYoutube($host)) {
+            Log::info('Bu YouTube', ['url' => $url]);
+        } elseif (isTikTok($host)) {
+            Log::info('Bu TikTok', ['url' => $url]);
+        } elseif (isFacebook($host)) {
+            Log::info('Bu Facebook', ['url' => $url]);
+        } elseif (isSnapchat($host)) {
+            Log::info('Bu Snapchat', ['url' => $url]);
+        } elseif (isLikee($host)) {
+            Log::info('Bu Likee', ['url' => $url]);
+        } else {
+            Log::warning('Nomaʼlum ijtimoiy tarmoq', [
+                'host' => $host,
+                'url'  => $url
+            ]);
         }
-
-        $fileName = $saveDir . '/' . uniqid('insta_') . '.mp4';
-        $format = 'bv*[height<=1080]+ba/b';
-
-        $command = escapeshellcmd($this->ytdlpPath) . ' '
-            . '-f ' . escapeshellarg($format) . ' '
-            . '--merge-output-format mp4 '
-            . '--no-playlist --no-warnings --quiet '
-            . '-o ' . escapeshellarg($fileName) . ' '
-            . escapeshellarg($url)
-            . ' 2>&1';
-
-        exec($command, $output, $status);
-
-
-        if ($status !== 0 || !file_exists($fileName) || filesize($fileName) < 50 * 1024) {
-            sendMessage(
-                $chat_id,
-                "❌ Video yuklab bo‘lmadi.\nInstagram vaqtincha ruxsat bermayapti 😕",
-                $token,
-                null,
-                $message_id
-            );
-            return;
-        }
-
-        // ✅ Telegramga video yuboramiz
-        $res = Http::attach(
-            'video',
-            fopen($fileName, 'r'),
-            basename($fileName)
-        )->post("https://api.telegram.org/bot{$token}/sendVideo", [
-            'chat_id' => $chat_id,
-            'reply_to_message_id' => $message_id,
-            'caption' => '📥 @HitQoshiqlarBot orqali yuklab olindi',
-            // xohlasang: 'supports_streaming' => true,
-        ]);
-
-        @unlink($fileName);
     }
 }
