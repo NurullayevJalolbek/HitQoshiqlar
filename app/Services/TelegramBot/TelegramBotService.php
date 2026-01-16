@@ -9,6 +9,11 @@ use Illuminate\Support\Facades\Http;
 
 class TelegramBotService implements iTelegramBotService
 {
+    protected $ytdlpPath;
+    public function __construct()
+    {
+        $this->ytdlpPath = '/opt/homebrew/bin/yt-dlp';
+    }
     public function showSearchResults($chat_id, $state, $token,  $message_id = null): void
     {
         $page     = $state['page'];
@@ -63,5 +68,53 @@ class TelegramBotService implements iTelegramBotService
         ]);
 
         return $response->json();
+    }
+
+    public function sociolMedia($chat_id, $message_id, $url, $token)
+    {
+        $saveDir = storage_path('app/instagram');
+
+        if (!is_dir($saveDir)) {
+            mkdir($saveDir, 0755, true);
+        }
+
+        $fileName = $saveDir . '/' . uniqid('insta_') . '.mp4';
+        $format = 'bv*[height<=1080]+ba/b';
+
+        $command = escapeshellcmd($this->ytdlpPath) . ' '
+            . '-f ' . escapeshellarg($format) . ' '
+            . '--merge-output-format mp4 '
+            . '--no-playlist --no-warnings --quiet '
+            . '-o ' . escapeshellarg($fileName) . ' '
+            . escapeshellarg($url)
+            . ' 2>&1';
+
+        exec($command, $output, $status);
+
+
+        if ($status !== 0 || !file_exists($fileName) || filesize($fileName) < 50 * 1024) {
+            sendMessage(
+                $chat_id,
+                "❌ Video yuklab bo‘lmadi.\nInstagram vaqtincha ruxsat bermayapti 😕",
+                $token,
+                null,
+                $message_id
+            );
+            return;
+        }
+
+        // ✅ Telegramga video yuboramiz
+        $res = Http::attach(
+            'video',
+            fopen($fileName, 'r'),
+            basename($fileName)
+        )->post("https://api.telegram.org/bot{$token}/sendVideo", [
+            'chat_id' => $chat_id,
+            'reply_to_message_id' => $message_id,
+            'caption' => '📥 @HitQoshiqlarBot orqali yuklab olindi',
+            // xohlasang: 'supports_streaming' => true,
+        ]);
+
+        @unlink($fileName);
     }
 }

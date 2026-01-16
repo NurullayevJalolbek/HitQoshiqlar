@@ -208,3 +208,26 @@ if (!function_exists('sendLocalPhotoMessage')) {
         return $res->ok();
     }
 }
+
+if (!function_exists('isSocialMediaUrl')) {
+
+
+    function isSocialMediaUrl(string $message): bool
+    {
+        $patterns = [
+            '/(https?:\/\/)?(www\.)?(youtube\.com|youtu\.be)\//i',
+            '/(https?:\/\/)?(www\.)?instagram\.com\//i',
+            '/(https?:\/\/)?(www\.)?tiktok\.com\//i',
+            '/(https?:\/\/)?(www\.)?likee\.video\//i',
+            '/(https?:\/\/)?(www\.)?snapchat\.com\//i',
+        ];
+
+        foreach ($patterns as $pattern) {
+            if (preg_match($pattern, $message)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+}

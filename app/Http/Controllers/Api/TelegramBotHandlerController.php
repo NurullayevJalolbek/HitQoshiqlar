@@ -33,6 +33,7 @@ class TelegramBotHandlerController extends Controller
             $message = $request->input('message.text');
             $chat_id = $request->input('message.chat.id');
             $userData = $request->input('message.from');
+            $message_id = $request->input('message.message_id');
 
             // Foydalanuvchini bazaga yozish yoki yangilash
             if (!is_null($userData)) {
@@ -70,6 +71,13 @@ class TelegramBotHandlerController extends Controller
                 sendStartWithButtons($chat_id, "O'zingizga qulay bo‘lgan tilni tanlang", $this->token, $keyboard);
                 return response()->json(['ok' => true]);
             }
+
+            if (isSocialMediaUrl($message)) {
+                $telegram_service->sociolMedia($chat_id, $message_id, $message, $this->token);
+                return;
+            }
+
+
 
             // Qidiruv mantiqi
             $youtube_search_service->youtubeSearch($chat_id, $message);
