@@ -41,6 +41,8 @@ return [
     'youtube' => [
         'api_key' => env('YOUTUBE_DATA_API_KEY'),
     ],
+    'tiktok_proxy' => env('TIKTOK_PROXY'),
+
 
 
 ];

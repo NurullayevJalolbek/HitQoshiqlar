@@ -76,9 +76,6 @@ class TelegramBotHandlerController extends Controller
                 $telegram_service->sociolMedia($chat_id, $message_id, $message, $this->token);
                 return;
             }
-
-
-
             // Qidiruv mantiqi
             $youtube_search_service->youtubeSearch($chat_id, $message);
         }
@@ -138,7 +135,6 @@ class TelegramBotHandlerController extends Controller
                 $telegram_service->deleteMessage($chat_id, $message_id, $this->token);
             }
         }
-
         return response()->json(['ok' => true]);
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Services\TelegramBot;
 
 use App\Jobs\InstagramDownloadJob;
+use App\Jobs\TikTokDownloadJob;
 use App\Services\TelegramBot\Contracts\iTelegramBotService;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
@@ -83,7 +84,7 @@ class TelegramBotService implements iTelegramBotService
         } elseif (isYoutube($host)) {
             Log::info('Bu YouTube', ['url' => $url]);
         } elseif (isTikTok($host)) {
-            Log::info('Bu TikTok', ['url' => $url]);
+            TikTokDownloadJob::dispatch($chat_id, $message_id, $url);
         } elseif (isFacebook($host)) {
             Log::info('Bu Facebook', ['url' => $url]);
         } elseif (isSnapchat($host)) {

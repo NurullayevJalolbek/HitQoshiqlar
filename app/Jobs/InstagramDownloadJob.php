@@ -41,7 +41,7 @@ class InstagramDownloadJob implements ShouldQueue
         }
 
         $fileName = $saveDir . '/' . uniqid('insta_') . '.mp4';
-        $format = 'bv*[height<=1080]+ba/b';
+        $format = 'bv*[height<=1080]+ba/b[ext=mp4]/b[ext=mp4]/b';
 
         $command = escapeshellcmd($this->ytdlpPath) . ' '
             . '-f ' . escapeshellarg($format) . ' '
