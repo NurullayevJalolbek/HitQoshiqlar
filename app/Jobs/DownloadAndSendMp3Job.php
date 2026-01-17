@@ -17,6 +17,7 @@ class DownloadAndSendMp3Job implements ShouldQueue
     public string $chat_id;
     public string $videoId;
     protected string $token;
+    protected string $message_id;
 
     protected $loadingResp;
 
@@ -26,12 +27,13 @@ class DownloadAndSendMp3Job implements ShouldQueue
     /**
      * Create a new job instance.
      */
-    public function __construct($chatId, $videoId, $loadingResp)
+    public function __construct($chatId, $videoId, $message_id, $loadingResp)
     {
         $this->chat_id = $chatId;
         $this->videoId = $videoId;
         $this->token = config("services.telegram.bot_token");
         $this->loadingResp = $loadingResp;
+        $this->message_id = $message_id;
     }
 
     /**
@@ -50,20 +52,37 @@ class DownloadAndSendMp3Job implements ShouldQueue
         // 1️⃣ DB cache tekshiramiz
         $music = Music::where('yt_id', $this->videoId)->first();
 
-        if ($music && $music->field_id) {
-            if($this->loadingResp){
-                Http::post($deleteMessageUrl, [
-                    'chat_id'=> $this->chat_id,
-                    'message_id' =>$loadingResp['result']['message_id'] ?? null,
-                ]);
+        $keyboard = [
+            'inline_keyboard' => [
+                [
+                    [
+                        'text' => '❌',
+                        'callback_data' => 'clear'
+                    ]
+                ]
+            ]
+        ];
 
+        if ($music && $music->field_id) {
+            if ($this->loadingResp) {
+                Http::post($deleteMessageUrl, [
+                    'chat_id' => $this->chat_id,
+                    'message_id' => $loadingResp['result']['message_id'] ?? null,
+                ]);
             }
+
+
+
             Http::post($sendAudioUrl, [
                 'chat_id' => $this->chat_id,
+                'reply_to_message_id' => (int) $this->message_id,
                 'audio' => $music->field_id,
-                'title' => mb_substr($music->title ?? 'Music', 0, 20),
+                'reply_markup' => json_encode($keyboard),
+                'title' => mb_substr($music->title ?? 'Music', 0, 64),
+                'performer' => mb_substr($music->artist ?? 'Unknown', 0, 64),
                 'caption' => "@HitQoshiqlarBot"
             ]);
+
             return;
         }
 
@@ -107,22 +126,32 @@ class DownloadAndSendMp3Job implements ShouldQueue
 
             $title  = trim(shell_exec("$ytdlpPath --get-title " . escapeshellarg($videoUrl)));
 
+            [$artist, $trackTitle] = $this->splitArtistTitle($title);
 
-            if($this->loadingResp){
+
+            if ($this->loadingResp) {
                 Http::post($deleteMessageUrl, [
-                    'chat_id'=> $this->chat_id,
-                    'message_id' =>$loadingResp['result']['message_id'] ?? null,
+                    'chat_id' => $this->chat_id,
+                    'message_id' => $loadingResp['result']['message_id'] ?? null,
                 ]);
             }
-            
+
 
             // 1️⃣ Avval USERga yuboramiz
+            Log::info("Message Id", [
+                "message_id" => $this->message_id,
+            ]);
             $userResponse = Http::timeout(300)
                 ->attach('audio', $fp, "{$title}.mp3", ['Content-Type' => 'audio/mpeg'])
                 ->post($sendAudioUrl, [
                     'chat_id' => $this->chat_id,
+                    'reply_to_message_id' => (int) $this->message_id,
+                    'reply_markup' => json_encode($keyboard),
+                    'title' => mb_substr($trackTitle, 0, 64),
+                    'performer' => mb_substr($artist, 0, 64),
                     'caption' => "@HitQoshiqlarBot"
                 ]);
+
 
             fclose($fp);
 
@@ -132,8 +161,11 @@ class DownloadAndSendMp3Job implements ShouldQueue
                     ->attach('audio', $fp2, "{$title}.mp3", ['Content-Type' => 'audio/mpeg'])
                     ->post($sendAudioUrl, [
                         'chat_id' => $channelId,
+                        'title' => mb_substr($trackTitle, 0, 64),
+                        'performer' => mb_substr($artist, 0, 64),
                         'caption' => "@HitQoshiqlarBot"
                     ]);
+
                 fclose($fp2);
 
                 // 3️⃣ file_id ni kanal javobidan olamiz (doim ishonchli)
@@ -145,7 +177,8 @@ class DownloadAndSendMp3Job implements ShouldQueue
                     Music::create([
                         'yt_id' => $this->videoId,
                         'field_id' => $file_id,
-                        'title' => $title
+                        'title' => $trackTitle,
+                        'artist' => $artist,
                     ]);
                 }
             }
@@ -154,5 +187,18 @@ class DownloadAndSendMp3Job implements ShouldQueue
 
         // 6️⃣ Serverdan o‘chiramiz
         @unlink($fileName);
+    }
+
+    private function splitArtistTitle(string $raw): array
+    {
+        $raw = trim(preg_replace('/\s+/', ' ', $raw));
+
+        // Ummon - Xiyonat  (dashlarni ham ushlaymiz)
+        if (preg_match('/^(.+?)\s*[-–—]\s*(.+)$/u', $raw, $m)) {
+            return [trim($m[1]), trim($m[2])];
+        }
+
+        // topolmasa, hammasini title qilib yuboramiz
+        return ['Unknown', $raw];
     }
 }

@@ -29,15 +29,17 @@ class TelegramBotService implements iTelegramBotService
         $start = $page * $per_page;
         $end   = min($start + $per_page, $total);
         $emojis = ['1️⃣', '2️⃣', '3️⃣', '4️⃣', '5️⃣', '6️⃣', '7️⃣', '8️⃣', '9️⃣', '🔟'];
+        $numbers= ['1','2', '3', '4','5','6','7','8','9','10'];
 
-        $text = "🎵 <b>Topilgan qo‘shiqlar:</b> sahifa " . ($page + 1) . "/" . ($max_page + 1) . "\n\n";
+
+        $text = "\n";
         $buttons = [];
 
         for ($i = $start; $i < $end; $i++) {
             $num = $i - $start;
-            $text .= $emojis[$num] . ". " . htmlspecialchars($results[$i]['title']) . " [{$results[$i]['duration']}]\n";
+            $text .= $emojis[$num] . ". " . htmlspecialchars($results[$i]['title']. "\n");
             $buttons[] = [
-                'text' => $emojis[$num],
+                'text' => $numbers[$num],
                 'callback_data' => "yt|{$results[$i]['id']}"
             ];
         }
@@ -49,9 +51,9 @@ class TelegramBotService implements iTelegramBotService
         }
 
         $nav = [];
-        if ($page > 0) $nav[] = ['text' => '⬅️', 'callback_data' => "page|prev"];
+        if ($page > 0) $nav[] = ['text' => '《', 'callback_data' => "page|prev"];
         $nav[] = ['text' => '❌', 'callback_data' => "clear"];
-        if ($page < $max_page) $nav[] = ['text' => '➡️', 'callback_data' => "page|next"];
+        if ($page < $max_page) $nav[] = ['text' => '》', 'callback_data' => "page|next"];
 
         $keyboard['inline_keyboard'][] = $nav;
 

@@ -46,7 +46,7 @@ class YoutubeSearchService implements iYoutubeSearchService
                 'q' => trim($message) . ' audio',
                 'type' => 'video',
                 'videoCategoryId' => 10,
-                'maxResults' => 10,
+                'maxResults' => 30,
                 'order' => 'relevance',
                 'key' => $this->youtube_key,
             ]
@@ -64,7 +64,7 @@ class YoutubeSearchService implements iYoutubeSearchService
                 'body_head'  => mb_substr($searchRes->body(), 0, 200),
             ]);
 
-            sendMessage($chat_id, "Ming afsus, hech narsa topilmadi 😔", $this->token);
+            sendMessage($chat_id, "⚠️ Ming afsus, musiqani topib bo'lmadi !", $this->token);
             return;
         }
 
@@ -76,7 +76,6 @@ class YoutubeSearchService implements iYoutubeSearchService
                 return [
                     'id'       => $id,
                     'title'    => $item['snippet']['title'] ?? '',
-                    'duration' => '', 
                 ];
             })
             ->filter()
@@ -84,7 +83,7 @@ class YoutubeSearchService implements iYoutubeSearchService
             ->all();
 
         if (empty($results)) {
-            sendMessage($chat_id, "Ming afsus, hech narsa topilmadi 😔", $this->token);
+            sendMessage($chat_id, "⚠️ Ming afsus, musiqani topib bo'lmadi !", $this->token);
             return;
         }
 

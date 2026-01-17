@@ -63,7 +63,12 @@ class TelegramBotHandlerController extends Controller
                 $text = __("admin.start");
 
                 // URL EMAS — local fayl yo'li (public ichidan)
-                sendLocalPhotoMessage($chat_id, 'assets/img/hitqoshiqlarbot.png', $text, $this->token);
+                sendPhotoMessage(
+                    $chat_id,
+                    'AgACAgIAAxkBAAFA0a5pa2yQg42PW1nvRP1-i46L8zqIXAACrQ1rG3h1WEvYML6-0iHQ2AEAAwIAA3gAAzgE',
+                    $text,
+                    $this->token
+                );
 
 
                 return response()->json(['ok' => true]);
@@ -120,7 +125,7 @@ class TelegramBotHandlerController extends Controller
 
                 file_put_contents($stateKey, json_encode($state));
                 $telegram_service->showSearchResults($chat_id, $state, $this->token, $message_id);
-                answerTelegramCallback($callback_id, "", $this->token);
+                // answerTelegramCallback($callback_id, "", $this->token);
             }
 
             // MP3 Yuklash
@@ -130,135 +135,135 @@ class TelegramBotHandlerController extends Controller
                 answerTelegramCallback($callback_id, "Yuklanmoqda, iltimos kuting...", $this->token);
 
 
-                $loadingResp = Http::post($sendMessageUrl, [
+                $loadingResp = Http::post("https://api.telegram.org/bot{$this->token}/sendSticker", [
                     'chat_id' => $chat_id,
-                    'text'    => "⌛️",
+                    'sticker' => 'CAACAgIAAxkBAAFA0aRpa2vWmXn4LAH4SqpWHtUD4opzDwACH4oAAnh1WEs-8AcZvvu0VDgE',
                 ])->json();
 
 
-                DownloadAndSendMp3Job::dispatch($chat_id, $videoId, $loadingResp);
+                DownloadAndSendMp3Job::dispatch($chat_id, $videoId, $message_id, $loadingResp);
             }
 
-            if (str_starts_with($data, 'acr|')) {
+            //         if (str_starts_with($data, 'acr|')) {
 
-                [$action, $platform, $messageId] = explode('|', $data);
+            //             [$action, $platform, $messageId] = explode('|', $data);
 
-                $msg = UserMessage::where('chat_id', $chat_id)
-                    ->where('message_id', $messageId)
-                    ->first();
+            //             $msg = UserMessage::where('chat_id', $chat_id)
+            //                 ->where('message_id', $messageId)
+            //                 ->first();
 
-                if (!$msg) {
-                    Log::warning('ACR: message topilmadi', compact('chat_id', 'messageId'));
-                    return;
-                }
+            //             if (!$msg) {
+            //                 Log::warning('ACR: message topilmadi', compact('chat_id', 'messageId'));
+            //                 return;
+            //             }
 
-                $url = $msg->message;
-                Log::info("ACR ORIGINAL URL", ['url' => $url]);
+            //             $url = $msg->message;
+            //             Log::info("ACR ORIGINAL URL", ['url' => $url]);
 
-                /* =========================
-     * 1️⃣ VIDEO YUKLAB OLAMIZ
-     * ========================= */
-                $saveDir = storage_path('app/acr');
-                if (!is_dir($saveDir)) {
-                    mkdir($saveDir, 0755, true);
-                }
+            //             /* =========================
+            //  * 1️⃣ VIDEO YUKLAB OLAMIZ
+            //  * ========================= */
+            //             $saveDir = storage_path('app/acr');
+            //             if (!is_dir($saveDir)) {
+            //                 mkdir($saveDir, 0755, true);
+            //             }
 
-                $videoFile = $saveDir . '/' . uniqid('video_') . '.mp4';
+            //             $videoFile = $saveDir . '/' . uniqid('video_') . '.mp4';
 
-                $ytCmd = escapeshellcmd($this->ytdlpPath) . ' '
-                    . '--no-playlist --no-warnings --quiet '
-                    . '--merge-output-format mp4 '
-                    . '-o ' . escapeshellarg($videoFile) . ' '
-                    . escapeshellarg($url)
-                    . ' 2>&1';
+            //             $ytCmd = escapeshellcmd($this->ytdlpPath) . ' '
+            //                 . '--no-playlist --no-warnings --quiet '
+            //                 . '--merge-output-format mp4 '
+            //                 . '-o ' . escapeshellarg($videoFile) . ' '
+            //                 . escapeshellarg($url)
+            //                 . ' 2>&1';
 
-                exec($ytCmd, $ytOut, $ytStatus);
+            //             exec($ytCmd, $ytOut, $ytStatus);
 
-                if ($ytStatus !== 0 || !file_exists($videoFile)) {
-                    Log::error('ACR YT-DLP FAIL', ['out' => $ytOut]);
-                    return;
-                }
+            //             if ($ytStatus !== 0 || !file_exists($videoFile)) {
+            //                 Log::error('ACR YT-DLP FAIL', ['out' => $ytOut]);
+            //                 return;
+            //             }
 
-                /* =========================
-     * 2️⃣ 15 SEKUND AUDIO KESAMIZ
-     * ========================= */
-                $audioFile = $saveDir . '/' . uniqid('acr_') . '.mp3';
+            //             /* =========================
+            //  * 2️⃣ 15 SEKUND AUDIO KESAMIZ
+            //  * ========================= */
+            //             $audioFile = $saveDir . '/' . uniqid('acr_') . '.mp3';
 
-                $ffCmd = 'ffmpeg -y -ss 3 -i ' . escapeshellarg($videoFile)
-                    . ' -t 12 -vn -ac 1 -ar 44100 -b:a 128k '
-                    . escapeshellarg($audioFile)
-                    . ' 2>&1';
+            //             $ffCmd = 'ffmpeg -y -ss 3 -i ' . escapeshellarg($videoFile)
+            //                 . ' -t 12 -vn -ac 1 -ar 44100 -b:a 128k '
+            //                 . escapeshellarg($audioFile)
+            //                 . ' 2>&1';
 
-                exec($ffCmd, $ffOut, $ffStatus);
+            //             exec($ffCmd, $ffOut, $ffStatus);
 
-                if ($ffStatus !== 0 || !file_exists($audioFile)) {
-                    Log::error('ACR FFMPEG FAIL', ['out' => $ffOut]);
-                    return;
-                }
+            //             if ($ffStatus !== 0 || !file_exists($audioFile)) {
+            //                 Log::error('ACR FFMPEG FAIL', ['out' => $ffOut]);
+            //                 return;
+            //             }
 
-                /* =========================
-     * 3️⃣ ACRCLOUD SIGNATURE
-     * ========================= */
-                $accessKey = config('services.acrcloud.access_key');
-                $accessSecret = config('services.acrcloud.access_secret');
-                $host = config('services.acrcloud.host');
+            //             /* =========================
+            //  * 3️⃣ ACRCLOUD SIGNATURE
+            //  * ========================= */
+            //             $accessKey = config('services.acrcloud.access_key');
+            //             $accessSecret = config('services.acrcloud.access_secret');
+            //             $host = config('services.acrcloud.host');
 
-                $httpMethod = 'POST';
-                $httpUri = '/v1/identify';
-                $dataType = 'audio';
-                $signatureVersion = '1';
-                $timestamp = time();
+            //             $httpMethod = 'POST';
+            //             $httpUri = '/v1/identify';
+            //             $dataType = 'audio';
+            //             $signatureVersion = '1';
+            //             $timestamp = time();
 
-                $stringToSign = $httpMethod . "\n"
-                    . $httpUri . "\n"
-                    . $accessKey . "\n"
-                    . $dataType . "\n"
-                    . $signatureVersion . "\n"
-                    . $timestamp;
+            //             $stringToSign = $httpMethod . "\n"
+            //                 . $httpUri . "\n"
+            //                 . $accessKey . "\n"
+            //                 . $dataType . "\n"
+            //                 . $signatureVersion . "\n"
+            //                 . $timestamp;
 
-                $signature = base64_encode(
-                    hash_hmac('sha1', $stringToSign, $accessSecret, true)
-                );
+            //             $signature = base64_encode(
+            //                 hash_hmac('sha1', $stringToSign, $accessSecret, true)
+            //             );
 
-                /* =========================
-     * 4️⃣ ACRCLOUD’GA YUBORAMIZ
-     * ========================= */
-                $acrRes = Http::timeout(25)
-                    ->attach('sample', fopen($audioFile, 'r'), basename($audioFile))
-                    ->post("https://{$host}/v1/identify", [
-                        'access_key' => $accessKey,
-                        'sample_bytes' => filesize($audioFile),
-                        'timestamp' => $timestamp,
-                        'signature' => $signature,
-                        'data_type' => $dataType,
-                        'signature_version' => $signatureVersion,
-                    ]);
+            //             /* =========================
+            //  * 4️⃣ ACRCLOUD’GA YUBORAMIZ
+            //  * ========================= */
+            //             $acrRes = Http::timeout(25)
+            //                 ->attach('sample', fopen($audioFile, 'r'), basename($audioFile))
+            //                 ->post("https://{$host}/v1/identify", [
+            //                     'access_key' => $accessKey,
+            //                     'sample_bytes' => filesize($audioFile),
+            //                     'timestamp' => $timestamp,
+            //                     'signature' => $signature,
+            //                     'data_type' => $dataType,
+            //                     'signature_version' => $signatureVersion,
+            //                 ]);
 
-                $acrData = $acrRes->json();
+            //             $acrData = $acrRes->json();
 
-                $music = $acrData['metadata']['music'][0] ?? null;
+            //             $music = $acrData['metadata']['music'][0] ?? null;
 
-                $title  = trim($music['title'] ?? '');
-                $artist = trim($music['artists'][0]['name'] ?? '');
+            //             $title  = trim($music['title'] ?? '');
+            //             $artist = trim($music['artists'][0]['name'] ?? '');
 
-                $query = trim($artist . ' ' . $title);
+            //             $query = trim($artist . ' ' . $title);
 
-                $youtube_search_service->youtubeSearch($chat_id, $query);
+            //             $youtube_search_service->youtubeSearch($chat_id, $query);
 
 
 
-                /* =========================
-     * 5️⃣ NATIJANI LOG QILAMIZ
-     * ========================= */
-                Log::info('ACR RESPONSE', [
-                    'status' => $acrRes->status(),
-                    'body' => $acrData,
-                ]);
+            //             /* =========================
+            //  * 5️⃣ NATIJANI LOG QILAMIZ
+            //  * ========================= */
+            //             Log::info('ACR RESPONSE', [
+            //                 'status' => $acrRes->status(),
+            //                 'body' => $acrData,
+            //             ]);
 
-                // ixtiyoriy: tozalash
-                @unlink($videoFile);
-                @unlink($audioFile);
-            }
+            //             // ixtiyoriy: tozalash
+            //             @unlink($videoFile);
+            //             @unlink($audioFile);
+            //         }
 
 
 

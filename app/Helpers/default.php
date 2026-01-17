@@ -160,54 +160,69 @@ if (!function_exists('answerTelegramCallback')) {
         );
     }
 }
-
-
-
-if (!function_exists('sendLocalPhotoMessage')) {
-    function sendLocalPhotoMessage($chat_id, $publicPath, $caption, $token, $reply_markup = null)
+if (!function_exists('sendPhotoMessage')) {
+    function sendPhotoMessage($chat_id, $photo, $caption, $token, $reply_markup = null)
     {
         if (!$token) {
             Log::error("Telegram token bo'sh!");
             return false;
         }
 
-        $absolutePath = public_path($publicPath); // masalan: 'assets/img/hitqoshiqlarbot.png'
-
-        if (!file_exists($absolutePath)) {
-            Log::error("Rasm topilmadi!", ['path' => $absolutePath]);
-            return false;
-        }
-
         $url = "https://api.telegram.org/bot{$token}/sendPhoto";
 
-        $request = Http::asMultipart()->attach(
-            'photo',
-            file_get_contents($absolutePath),
-            basename($absolutePath)
-        );
+        // Agar file_id bo‘lsa (Telegram ID)
+        if (is_string($photo) && !str_contains($photo, '/')) {
+            $payload = [
+                'chat_id' => $chat_id,
+                'photo' => $photo, // 👈 file_id
+                'caption' => $caption,
+                'parse_mode' => 'HTML',
+            ];
 
-        $payload = [
-            'chat_id' => $chat_id,
-            'caption' => $caption,
-            'parse_mode' => 'HTML',
-        ];
+            if ($reply_markup) {
+                $payload['reply_markup'] = json_encode($reply_markup, JSON_UNESCAPED_UNICODE);
+            }
 
-        if ($reply_markup) {
-            $payload['reply_markup'] = json_encode($reply_markup, JSON_UNESCAPED_UNICODE);
+            $res = Http::post($url, $payload);
+        }
+        // Aks holda local file deb hisoblaymiz
+        else {
+            $absolutePath = public_path($photo);
+
+            if (!file_exists($absolutePath)) {
+                Log::error("Rasm topilmadi!", ['path' => $absolutePath]);
+                return false;
+            }
+
+            $request = Http::asMultipart()->attach(
+                'photo',
+                file_get_contents($absolutePath),
+                basename($absolutePath)
+            );
+
+            $payload = [
+                'chat_id' => $chat_id,
+                'caption' => $caption,
+                'parse_mode' => 'HTML',
+            ];
+
+            if ($reply_markup) {
+                $payload['reply_markup'] = json_encode($reply_markup, JSON_UNESCAPED_UNICODE);
+            }
+
+            $res = $request->post($url, $payload);
         }
 
-        $res = $request->post($url, $payload);
-
-        Log::info("sendLocalPhotoMessage response", [
+        Log::info("sendPhotoMessage response", [
             'ok' => $res->ok(),
             'status' => $res->status(),
             'body' => $res->json(),
-            'absolutePath' => $absolutePath,
         ]);
 
         return $res->ok();
     }
 }
+
 
 if (!function_exists('isSocialMediaUrl')) {
 
