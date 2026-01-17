@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
 
             $table->string('yt_id')->nullable();
-            $table->string('field_id')->nullable();
+            $table->string('file_id')->nullable();
             $table->string('title')->nullable();
             $table->string('artist')->nullable();
             

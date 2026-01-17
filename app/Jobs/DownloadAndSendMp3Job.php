@@ -50,7 +50,7 @@ class DownloadAndSendMp3Job implements ShouldQueue
         $channelId = '-1003397606314';
 
         // 1️⃣ DB cache tekshiramiz
-        $music = Music::where('yt_id', $this->videoId)->first();
+        // $music = Music::where('yt_id', $this->videoId)->first();
 
         $keyboard = [
             'inline_keyboard' => [
@@ -63,28 +63,7 @@ class DownloadAndSendMp3Job implements ShouldQueue
             ]
         ];
 
-        if ($music && $music->field_id) {
-            if ($this->loadingResp) {
-                Http::post($deleteMessageUrl, [
-                    'chat_id' => $this->chat_id,
-                    'message_id' => $loadingResp['result']['message_id'] ?? null,
-                ]);
-            }
 
-
-
-            Http::post($sendAudioUrl, [
-                'chat_id' => $this->chat_id,
-                'reply_to_message_id' => (int) $this->message_id,
-                'audio' => $music->field_id,
-                'reply_markup' => json_encode($keyboard),
-                'title' => mb_substr($music->title ?? 'Music', 0, 64),
-                'performer' => mb_substr($music->artist ?? 'Unknown', 0, 64),
-                'caption' => "@HitQoshiqlarBot"
-            ]);
-
-            return;
-        }
 
         // 2️⃣ YouTube’dan yuklaymiz
         $videoUrl = "https://www.youtube.com/watch?v=" . $this->videoId;
@@ -95,7 +74,7 @@ class DownloadAndSendMp3Job implements ShouldQueue
 
         $command = escapeshellcmd($ytdlpPath) .
             " " . escapeshellarg($videoUrl) .
-            " -x --audio-format mp3 --audio-quality 9" .
+            " -x --audio-format mp3 --audio-quality 5" .
             " -N 6" .
             " --no-playlist --no-warnings --quiet" .
             " --no-check-certificate --no-call-home" .
@@ -132,15 +111,12 @@ class DownloadAndSendMp3Job implements ShouldQueue
             if ($this->loadingResp) {
                 Http::post($deleteMessageUrl, [
                     'chat_id' => $this->chat_id,
-                    'message_id' => $loadingResp['result']['message_id'] ?? null,
+                    'message_id' => (int) $this->loadingResp['result']['message_id']
                 ]);
             }
 
 
             // 1️⃣ Avval USERga yuboramiz
-            Log::info("Message Id", [
-                "message_id" => $this->message_id,
-            ]);
             $userResponse = Http::timeout(300)
                 ->attach('audio', $fp, "{$title}.mp3", ['Content-Type' => 'audio/mpeg'])
                 ->post($sendAudioUrl, [
@@ -176,7 +152,7 @@ class DownloadAndSendMp3Job implements ShouldQueue
                 if ($file_id) {
                     Music::create([
                         'yt_id' => $this->videoId,
-                        'field_id' => $file_id,
+                        'file_id' => $file_id,
                         'title' => $trackTitle,
                         'artist' => $artist,
                     ]);
