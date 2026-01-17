@@ -44,5 +44,10 @@ return [
     'tiktok_proxy' => env('TIKTOK_PROXY'),
 
 
+    'acrcloud' => [
+        'host' => env('ACRCLOUD_HOST'),
+        'access_key' => env('ACRCLOUD_ACCESS_KEY'),
+        'access_secret' => env('ACRCLOUD_ACCESS_SECRET'),
+    ],
 
 ];

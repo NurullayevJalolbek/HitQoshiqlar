@@ -65,6 +65,28 @@ class InstagramDownloadJob implements ShouldQueue
             return;
         }
 
+        preg_match('~/reel/([^/]+)/~', $this->url, $m);
+        $reelCode = $m[1] ?? null; // DSXTl28DGte
+
+
+        $keyboard = [
+            'inline_keyboard' => [
+                [
+                    [
+                        'text' => '❌',
+                        'callback_data' => "clear"
+                    ],
+                    [
+                        'text' => '🎵',
+                        'callback_data' => 'acr|instagram|' . $this->message_id,
+                    ]
+                ]
+            ]
+        ];
+
+
+
+
         // Telegramga video yuboramiz
         $res = Http::attach(
             'video',
@@ -75,6 +97,7 @@ class InstagramDownloadJob implements ShouldQueue
             'reply_to_message_id' => $this->message_id,
             'caption' => '📥 @HitQoshiqlarBot orqali yuklab olindi',
             'supports_streaming' => true,
+            'reply_markup' => json_encode($keyboard),
         ]);
 
         @unlink($fileName);

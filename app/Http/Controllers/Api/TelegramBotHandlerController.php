@@ -7,6 +7,7 @@ use App\Jobs\DownloadAndSendMp3Job;
 use App\Jobs\YoutubeSearchJob;
 use App\Models\Music;
 use App\Models\User;
+use App\Models\UserMessage;
 use App\Services\TelegramBot\Contracts\iTelegramBotService;
 use App\Services\YoutubeSearch\Contracts\iYoutubeSearchService;
 use Illuminate\Http\Request;
@@ -17,10 +18,13 @@ use Illuminate\Support\Facades\App;
 class TelegramBotHandlerController extends Controller
 {
     protected $token;
+    protected string $ytdlpPath;
+
 
     public function __construct()
     {
         $this->token = config("services.telegram.bot_token");
+        $this->ytdlpPath = '/opt/homebrew/bin/yt-dlp';
     }
 
     public function webhook(Request $request, iTelegramBotService $telegram_service, iYoutubeSearchService $youtube_search_service)
@@ -72,6 +76,18 @@ class TelegramBotHandlerController extends Controller
                 return response()->json(['ok' => true]);
             }
 
+            $user = User::where('chat_id', $chat_id)->first();
+
+            $user_message = UserMessage::create([
+                'user_id' => $user->id,
+                'chat_id' => $chat_id,
+                'message_id' => $message_id,
+                'message' => $message,
+                'meta' => null,
+            ]);
+
+
+
             if (isSocialMediaUrl($message)) {
                 $telegram_service->sociolMedia($chat_id, $message_id, $message, $this->token);
                 return;
@@ -122,6 +138,129 @@ class TelegramBotHandlerController extends Controller
 
                 DownloadAndSendMp3Job::dispatch($chat_id, $videoId, $loadingResp);
             }
+
+            if (str_starts_with($data, 'acr|')) {
+
+                [$action, $platform, $messageId] = explode('|', $data);
+
+                $msg = UserMessage::where('chat_id', $chat_id)
+                    ->where('message_id', $messageId)
+                    ->first();
+
+                if (!$msg) {
+                    Log::warning('ACR: message topilmadi', compact('chat_id', 'messageId'));
+                    return;
+                }
+
+                $url = $msg->message;
+                Log::info("ACR ORIGINAL URL", ['url' => $url]);
+
+                /* =========================
+     * 1️⃣ VIDEO YUKLAB OLAMIZ
+     * ========================= */
+                $saveDir = storage_path('app/acr');
+                if (!is_dir($saveDir)) {
+                    mkdir($saveDir, 0755, true);
+                }
+
+                $videoFile = $saveDir . '/' . uniqid('video_') . '.mp4';
+
+                $ytCmd = escapeshellcmd($this->ytdlpPath) . ' '
+                    . '--no-playlist --no-warnings --quiet '
+                    . '--merge-output-format mp4 '
+                    . '-o ' . escapeshellarg($videoFile) . ' '
+                    . escapeshellarg($url)
+                    . ' 2>&1';
+
+                exec($ytCmd, $ytOut, $ytStatus);
+
+                if ($ytStatus !== 0 || !file_exists($videoFile)) {
+                    Log::error('ACR YT-DLP FAIL', ['out' => $ytOut]);
+                    return;
+                }
+
+                /* =========================
+     * 2️⃣ 15 SEKUND AUDIO KESAMIZ
+     * ========================= */
+                $audioFile = $saveDir . '/' . uniqid('acr_') . '.mp3';
+
+                $ffCmd = 'ffmpeg -y -ss 3 -i ' . escapeshellarg($videoFile)
+                    . ' -t 12 -vn -ac 1 -ar 44100 -b:a 128k '
+                    . escapeshellarg($audioFile)
+                    . ' 2>&1';
+
+                exec($ffCmd, $ffOut, $ffStatus);
+
+                if ($ffStatus !== 0 || !file_exists($audioFile)) {
+                    Log::error('ACR FFMPEG FAIL', ['out' => $ffOut]);
+                    return;
+                }
+
+                /* =========================
+     * 3️⃣ ACRCLOUD SIGNATURE
+     * ========================= */
+                $accessKey = config('services.acrcloud.access_key');
+                $accessSecret = config('services.acrcloud.access_secret');
+                $host = config('services.acrcloud.host');
+
+                $httpMethod = 'POST';
+                $httpUri = '/v1/identify';
+                $dataType = 'audio';
+                $signatureVersion = '1';
+                $timestamp = time();
+
+                $stringToSign = $httpMethod . "\n"
+                    . $httpUri . "\n"
+                    . $accessKey . "\n"
+                    . $dataType . "\n"
+                    . $signatureVersion . "\n"
+                    . $timestamp;
+
+                $signature = base64_encode(
+                    hash_hmac('sha1', $stringToSign, $accessSecret, true)
+                );
+
+                /* =========================
+     * 4️⃣ ACRCLOUD’GA YUBORAMIZ
+     * ========================= */
+                $acrRes = Http::timeout(25)
+                    ->attach('sample', fopen($audioFile, 'r'), basename($audioFile))
+                    ->post("https://{$host}/v1/identify", [
+                        'access_key' => $accessKey,
+                        'sample_bytes' => filesize($audioFile),
+                        'timestamp' => $timestamp,
+                        'signature' => $signature,
+                        'data_type' => $dataType,
+                        'signature_version' => $signatureVersion,
+                    ]);
+
+                $acrData = $acrRes->json();
+
+                $music = $acrData['metadata']['music'][0] ?? null;
+
+                $title  = trim($music['title'] ?? '');
+                $artist = trim($music['artists'][0]['name'] ?? '');
+
+                $query = trim($artist . ' ' . $title);
+
+                $youtube_search_service->youtubeSearch($chat_id, $query);
+
+
+
+                /* =========================
+     * 5️⃣ NATIJANI LOG QILAMIZ
+     * ========================= */
+                Log::info('ACR RESPONSE', [
+                    'status' => $acrRes->status(),
+                    'body' => $acrData,
+                ]);
+
+                // ixtiyoriy: tozalash
+                @unlink($videoFile);
+                @unlink($audioFile);
+            }
+
+
 
             // Tilni o'zgartirish
             if (in_array($data, ['uz', 'ru', 'en'])) {
