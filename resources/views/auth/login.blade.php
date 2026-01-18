@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>Envast | Login</title>
+    <title>Hit Qo'shiqlar Bot | Admin Panel</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('assets/img/favicon.png') }}">
@@ -23,31 +23,33 @@
 
     <style>
         :root {
-            /* 🎨 Rasmga mos "neon blue/cyan" palitra */
-            --accent: #4cc9f0;
-            /* ikonka/outline */
-            --accent2: #72e6ff;
-            /* hover/focus */
-            --accentGlow: rgba(76, 201, 240, .28);
+            /* ✅ ORQA FONGA MOS (NEON CYAN/BLUE) */
+            --accent: #5ad7ff;
+            /* asosiy cyan */
+            --accent2: #a7f1ff;
+            /* light cyan */
+            --accentGlow: rgba(90, 215, 255, .28);
 
+            /* glass */
             --cardBg: rgba(255, 255, 255, .10);
             --cardBorder: rgba(255, 255, 255, .22);
 
+            /* input */
             --inputBg: rgba(255, 255, 255, .16);
             --inputBorder: rgba(255, 255, 255, .22);
             --textWhite: rgba(255, 255, 255, .92);
 
-            --btnBg: rgba(8, 15, 30, .80);
-            --btnBgHover: rgba(8, 15, 30, .95);
+            /* button */
+            --btnBg: rgba(5, 14, 32, .78);
+            --btnBgHover: rgba(5, 14, 32, .92);
         }
 
-        /* ✅ Orqa fon: to‘liq rasm + overlay */
         body {
             min-height: 100vh;
             margin: 0;
-            background: radial-gradient(circle at 30% 20%, rgba(76, 201, 240, .18), transparent 45%),
-            radial-gradient(circle at 70% 60%, rgba(114, 230, 255, .12), transparent 50%),
-            linear-gradient(rgba(3, 10, 25, .55), rgba(3, 10, 25, .70)),
+            background: radial-gradient(circle at 30% 20%, rgba(90, 215, 255, .18), transparent 45%),
+            radial-gradient(circle at 70% 60%, rgba(167, 241, 255, .12), transparent 50%),
+            linear-gradient(rgba(3, 10, 25, .55), rgba(3, 10, 25, .72)),
             url("{{ asset('assets/img/hitqoshiqlarbot.png') }}");
             background-size: cover;
             background-position: center;
@@ -61,108 +63,145 @@
             align-items: center;
         }
 
-        /* ✅ Card: glass */
+        /* ✅ Glass card */
         .login-card {
             border-radius: 18px;
             border: 1px solid var(--cardBorder);
             background: var(--cardBg);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
             box-shadow:
-                0 18px 50px rgba(0, 0, 0, .38),
-                0 0 0 1px rgba(76, 201, 240, .10) inset;
+                0 18px 55px rgba(0, 0, 0, .42),
+                0 0 0 1px rgba(90, 215, 255, .10) inset;
             position: relative;
             overflow: hidden;
+            padding: 2rem;
         }
 
-        /* card ichida yumshoq glow */
         .login-card::before {
             content: "";
             position: absolute;
-            inset: -80px -80px auto -80px;
-            height: 220px;
-            background: radial-gradient(circle, rgba(76, 201, 240, .20), transparent 60%);
+            inset: -90px -90px auto -90px;
+            height: 240px;
+            background: radial-gradient(circle, rgba(90, 215, 255, .22), transparent 62%);
             pointer-events: none;
         }
 
-        .envast-label {
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: var(--textWhite);
-            letter-spacing: 0.2px;
+        /* ✅ TITLE (FONGA MOS) */
+        .login-title {
+            font-size: 1.55rem;
+            font-weight: 900;
+            letter-spacing: 1.2px;
+            margin: 0 0 6px 0;
+            text-align: center;
+
+            /* cyan gradient text */
+            background: linear-gradient(90deg, var(--accent), var(--accent2), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+
+            text-shadow:
+                0 0 12px rgba(90, 215, 255, .45),
+                0 0 28px rgba(90, 215, 255, .22);
         }
 
-        /* ✅ Inputlar */
+        .login-subtitle {
+            text-align: center;
+            font-size: .78rem;
+            font-weight: 700;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, .78);
+            display: block;
+            margin-bottom: 18px;
+            position: relative;
+        }
+
+        .login-subtitle::after {
+            content: "";
+            display: block;
+            width: 120px;
+            height: 1px;
+            margin: 10px auto 0;
+            background: linear-gradient(90deg, transparent, rgba(90, 215, 255, .95), transparent);
+        }
+
+        .envast-label {
+            font-size: .92rem;
+            font-weight: 650;
+            color: var(--textWhite);
+        }
+
         .form-control {
+            height: 44px;
             border-radius: 999px;
             background: var(--inputBg);
             border: 1px solid var(--inputBorder);
             color: #fff;
-            height: 44px;
         }
 
         .form-control::placeholder {
-            color: rgba(255, 255, 255, .70);
+            color: rgba(255, 255, 255, .72);
         }
 
         .form-control:focus {
-            background: rgba(255, 255, 255, .18);
-            color: #fff;
-            border-color: rgba(76, 201, 240, .85);
+            background: rgba(255, 255, 255, .19);
+            border-color: rgba(90, 215, 255, .90);
             box-shadow: 0 0 0 .22rem var(--accentGlow);
+            color: #fff;
         }
 
-        /* ✅ Input-group */
         .input-group-text {
             border-radius: 999px;
             background: rgba(255, 255, 255, .14);
             border: 1px solid var(--inputBorder);
         }
 
-        /* ✅ Ikonkalar rangi + glow */
+        /* ✅ ICONS (FONGA MOS) */
         .envast-icon {
             color: var(--accent);
             font-size: 18px;
-            filter: drop-shadow(0 0 6px rgba(76, 201, 240, .28));
+            filter: drop-shadow(0 0 8px rgba(90, 215, 255, .35));
         }
 
-        /* eye button hover */
         #togglePassword:hover .envast-icon {
             color: var(--accent2);
-            filter: drop-shadow(0 0 10px rgba(114, 230, 255, .35));
+            filter: drop-shadow(0 0 12px rgba(167, 241, 255, .40));
         }
 
         /* ✅ Button */
         .btn-envast {
+            height: 46px;
+            border-radius: 999px;
             background: var(--btnBg);
             border: 1px solid rgba(255, 255, 255, .18);
-            color: #ffffff;
-            border-radius: 999px;
-            font-weight: 700;
-            letter-spacing: 0.3px;
-            height: 46px;
+            color: #fff;
+            font-weight: 800;
+            letter-spacing: .3px;
             box-shadow:
-                0 10px 22px rgba(0, 0, 0, .35),
-                0 0 0 1px rgba(76, 201, 240, .08) inset;
+                0 12px 26px rgba(0, 0, 0, .38),
+                0 0 0 1px rgba(90, 215, 255, .08) inset;
         }
 
         .btn-envast:hover {
             background: var(--btnBgHover);
-            border-color: rgba(76, 201, 240, .45);
+            border-color: rgba(90, 215, 255, .55);
             box-shadow:
-                0 12px 26px rgba(0, 0, 0, .40),
-                0 0 18px rgba(76, 201, 240, .18);
+                0 14px 30px rgba(0, 0, 0, .44),
+                0 0 18px rgba(90, 215, 255, .20);
         }
 
-        /* invalid feedback agar qorong‘ida bilinmay qolsa */
         .invalid-feedback {
             color: #ffb4b4;
         }
 
-        /* Mobile */
         @media (max-width: 576px) {
             .login-card {
-                padding: 1.75rem !important;
+                padding: 1.65rem !important;
+            }
+
+            .login-title {
+                font-size: 1.35rem;
             }
         }
     </style>
@@ -174,7 +213,14 @@
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-11 col-sm-9 col-md-7 col-lg-5">
-                        <div class="login-card p-4 p-lg-5">
+
+                        <div class="login-card">
+
+                            <!-- ✅ Sarlavha (fonga mos rangda) -->
+                            <div class="mb-3">
+                                <h1 class="login-title">Hit Qo'shiqlar Bot</h1>
+                                <span class="login-subtitle">Admin Panel</span>
+                            </div>
 
                             <form id="formAuthentication" action="{{ route('login.post') }}" method="POST">
                                 @csrf
@@ -183,7 +229,7 @@
                                 <div class="alert alert-danger mt-2">{{ $message }}</div>
                                 @enderror
 
-                                <!-- ✅ Username -->
+                                <!-- Username -->
                                 <div class="mb-3">
                                     <label for="username" class="envast-label mb-1">Username</label>
                                     <div class="input-group">
@@ -204,7 +250,7 @@
                                     </div>
                                 </div>
 
-                                <!-- ✅ Password -->
+                                <!-- Password -->
                                 <div class="mb-4">
                                     <label for="password" class="envast-label mb-1">Parol</label>
                                     <div class="input-group">
@@ -239,6 +285,7 @@
                             </form>
 
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -253,9 +300,7 @@
 
             if (btn && password && icon) {
                 btn.addEventListener('click', function() {
-                    const type = password.type === "password" ? "text" : "password";
-                    password.type = type;
-
+                    password.type = (password.type === "password") ? "text" : "password";
                     icon.classList.toggle('bi-eye');
                     icon.classList.toggle('bi-eye-slash');
                 });
@@ -263,4 +308,5 @@
         })();
     </script>
 </body>
+
 </html>
