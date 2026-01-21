@@ -48,13 +48,6 @@ function formatCurrency($number, $decimal = 0)
 if (!function_exists('sendMessage')) {
     function sendMessage($chat_id, $message, $token,  $message_id = null)
     {
-        Log::warning('sendMessage called', [
-            'chat_id' => $chat_id,
-            'message' => $message,
-            'message_id' => $message_id,
-            'token' => $token
-        ]);
-
         if (!$token) {
             Log::error("Telegram token bo'sh! Check config/services.php and .env");
             return false;
