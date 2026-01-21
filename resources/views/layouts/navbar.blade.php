@@ -210,7 +210,29 @@
                         </a>
                     </li>
 
-                    @include('layouts.language')
+                    <li class="nav-item">
+                        <a
+                            href="javascript:void(0)"
+                            id="openPreviewsBtn"
+                            onclick="openPreviewsModal()"
+                            title="Previews"
+                            style="
+            width:40px;
+            height:40px;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            border-radius:10px;
+            transition:all .25s ease;
+        "
+                            onmouseenter="this.style.transform='translateY(-2px) scale(1.05)'"
+                            onmouseleave="this.style.transform='none'">
+                            <img src="{{ asset('assets/img/icons/videos.png') }}" alt="Previews" style="width:18px;height:18px;object-fit:contain;">
+                        </a>
+                    </li>
+
+
+
 
                     <li class="nav-item dropdown ms-lg-3">
                         <a class="nav-link dropdown-toggle pt-1 ps-2" href="#" role="button" data-bs-toggle="dropdown"
@@ -258,6 +280,11 @@
         </div>
     </div>
 </nav>
+
+<x-media.preview-modal
+    id="mediaPreviewModal"
+    :endpoint="route('admin.messages.preview')" />
+
 
 <script>
     // Currency rates with smooth animation
@@ -389,5 +416,176 @@
         searchInput2.addEventListener('input', function(e) {
             const searchTerm = e.target.value;
         });
+    }
+
+    function openPreviewsModal() {
+        const modalEl = document.getElementById('previewsModal');
+        const modal = new bootstrap.Modal(modalEl);
+
+        const loadingEl = document.getElementById('previewsLoading');
+        const emptyEl = document.getElementById('previewsEmpty');
+        const listEl = document.getElementById('previewsList');
+
+        // UI reset
+        loadingEl.classList.remove('d-none');
+        emptyEl.classList.add('d-none');
+        listEl.classList.add('d-none');
+        listEl.innerHTML = '';
+
+        modal.show();
+
+        axios.get("{{ route('admin.messages.previews.list') }}")
+            .then((res) => {
+                const files = res.data?.files || [];
+
+                loadingEl.classList.add('d-none');
+
+                if (!files.length) {
+                    emptyEl.classList.remove('d-none');
+                    return;
+                }
+
+                listEl.classList.remove('d-none');
+
+                files.forEach((name) => {
+                    const li = document.createElement('li');
+
+                    li.style.cssText = `
+                    display:flex;
+                    align-items:center;
+                    justify-content:space-between;
+                    gap:10px;
+                    padding:10px 12px;
+                    border:1px solid rgba(15,23,42,.08);
+                    border-radius:10px;
+                    margin-bottom:8px;
+                    background:#fff;
+                `;
+
+                    const safeName = String(name).replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+
+                    li.innerHTML = `
+<div style="
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+">
+
+    <!-- 📄 Nomi -->
+    <div style="
+        min-width:0;
+        font-size:14px;
+        color:#0f172a;
+        white-space:nowrap;
+        overflow:hidden;
+        text-overflow:ellipsis;
+        flex:1;
+    ">
+        ${name}
+    </div>
+
+    <!-- 🎬 Actions -->
+    <div style="
+        display:flex;
+        align-items:center;
+        gap:8px;
+        flex-shrink:0;
+    ">
+        <!-- Preview -->
+        <button type="button"
+            class="preview-btn"
+            title="Ko‘rish"
+            data-bs-toggle="modal"
+            data-bs-target="#mediaPreviewModal"
+onclick="openMediaPreview('${safeName}', 'fileName')"
+            style="
+                width:34px;
+                height:34px;
+                border-radius:10px;
+                border:1px solid rgba(59,130,246,.25);
+                background:rgba(59,130,246,.08);
+                color:#3b82f6;
+                display:flex;
+                align-items:center;
+                justify-content:center;
+                cursor:pointer;
+            ">
+            <i class="fa-solid fa-circle-play"></i>
+        </button>
+
+        <!-- Delete -->
+        <button type="button"
+            data-action="delete"
+            data-name="${safeName}"
+            title="O‘chirish"
+onclick="deletePreview('${safeName}')"
+            style="
+                width:34px;
+                height:34px;
+                border-radius:10px;
+                border:1px solid rgba(239,68,68,.25);
+                background:rgba(239,68,68,.08);
+                color:#ef4444;
+                display:flex;
+                align-items:center;
+                justify-content:center;
+                cursor:pointer;
+            ">
+            <i class="fa-regular fa-trash-can"></i>
+        </button>
+    </div>
+</div>
+`;
+
+
+
+                    listEl.appendChild(li);
+                });
+            })
+            .catch((err) => {
+                console.error(err);
+                loadingEl.classList.add('d-none');
+                emptyEl.classList.remove('d-none');
+                emptyEl.textContent = 'Xatolik: ro‘yxatni olib bo‘lmadi.';
+            });
+    }
+
+    // hozircha delete bosilsa faqat console (keyin API qilamiz)
+    document.getElementById('previewsList')?.addEventListener('click', (e) => {
+        const btn = e.target.closest('button[data-action="delete"]');
+        if (!btn) return;
+
+        console.log('Delete bosildi:', btn.dataset.name);
+    });
+
+    async function deletePreview(fileName) {
+        const ok = confirm("Rostdan ham o‘chirasanmi?");
+        if (!ok) return;
+
+        try {
+            const key = String(fileName).replace(/\.mp4$/i, ''); // "abc.mp4" -> "abc"
+
+            const url = "{{ route('admin.messages.previews.delete', ['key' => '__KEY__']) }}"
+                .replace('__KEY__', encodeURIComponent(key));
+
+            const res = await axios.delete(url, {
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    'Accept': 'application/json'
+                }
+            });
+
+            if (res.data?.ok) {
+                alert("✅ O‘chirildi");
+                // Hozircha sahifani refresh qilamiz (keyin listni qayta yuklaymiz)
+                location.reload();
+            } else {
+                alert("❌ O‘chmadi");
+            }
+        } catch (e) {
+            console.error(e);
+            alert("❌ Xatolik: delete ishlamadi");
+        }
     }
 </script>

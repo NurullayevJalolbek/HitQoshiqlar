@@ -75,6 +75,14 @@
                     </a>
                 </li>
 
+                <li class="nav-item {{ isActiveRoute('admin.users.*') }}">
+                    <a href="{{ route('admin.users.index') }}" class="nav-link d-flex align-items-center gap-2">
+                        <i class="bi bi-people"></i>
+                        <span class="sidebar-text">{{ __('admin.users') }}</span>
+                    </a>
+                </li>
+
+
                 <!-- Daromadlar -->
                 <li class="nav-item {{ isActiveRoute('admin.incomes.*') }}">
                     <a href="{{ route('admin.incomes.index') }}" class="nav-link d-flex align-items-center gap-2">

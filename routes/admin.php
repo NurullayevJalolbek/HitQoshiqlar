@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AboutUsController;
+use App\Http\Controllers\Admin\AdminMessageController;
 use App\Http\Controllers\Admin\HomePageController;
 use App\Http\Controllers\Admin\LanguageManagementController;
 use App\Http\Controllers\Admin\MultilingualController;
@@ -51,6 +52,21 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'l
 
     // Dashboard route – faqat index
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
+
+
+    Route::group(['prefix' => "messages", 'as' => 'messages.'], function () {
+
+
+        Route::get('/preview', [AdminMessageController::class, 'preview'])->name('preview');
+        Route::delete('/previews/{key}', [AdminMessageController::class, 'deletePreview'])->name('previews.delete');
+        // video serve (signed)
+        Route::get('/preview-video/{key}', [AdminMessageController::class, 'previewVideo'])
+            ->name('previewVideo')
+            ->middleware('signed');
+        
+        Route::get("/previews/list/list", [AdminMessageController::class,"previewList"])->name("previews.list");
+        Route::get('/{user_id}', [AdminMessageController::class, 'index'])->name('index');
+    });
 
 
     /*
@@ -128,14 +144,14 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'l
 
         Route::resource('/language-management', LanguageManagementController::class);
 
-        Route::resource('/system-translations',SystemTranslationController::class);
+        Route::resource('/system-translations', SystemTranslationController::class);
 
         Route::resource('/template-messages', TemplateMessageController::class);
 
         Route::resource('/multimedia', MultilingualController::class);
 
 
-        Route::prefix('static-pages')->name('static-pages.')->group(function (){
+        Route::prefix('static-pages')->name('static-pages.')->group(function () {
             Route::get('/', [StaticPageController::class, 'index'])->name('index');
 
             Route::resource('/home-page', HomePageController::class);
@@ -144,9 +160,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'l
 
             Route::resource('/sharia-compliance', ShariaComplianceController::class);
         });
-
-
-
     });
 
 

@@ -40,9 +40,35 @@
             @yield('breadcrumb')
 
             @yield('content')
+            <div class="modal fade" id="previewsModal" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-md">
+                    <div class="modal-content" style="border-radius:14px; overflow:hidden;">
+                        <div class="modal-header" style="background:#0f172a; color:#fff;">
+                            <h5 class="modal-title" style="margin:0;">Previews</h5>
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        </div>
+
+                        <div class="modal-body" style="padding:14px;">
+                            <div id="previewsLoading" style="font-size:14px; color:#64748b;">
+                                Yuklanmoqda...
+                            </div>
+
+                            <div id="previewsEmpty" class="d-none"
+                                style="padding:10px; border-radius:10px; background:#f1f5f9; color:#334155;">
+                                Hozircha preview yo‘q.
+                            </div>
+
+                            <ul id="previewsList" class="list-unstyled d-none" style="margin:0;"></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
         </div>
 
-{{--         @include('layouts.footer')--}}
+        {{-- @include('layouts.footer')--}}
     </main>
 
     @include('layouts.js')
