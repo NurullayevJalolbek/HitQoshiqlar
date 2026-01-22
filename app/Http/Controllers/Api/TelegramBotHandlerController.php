@@ -136,10 +136,12 @@ class TelegramBotHandlerController extends Controller
                 $videoId = explode('|', $data)[1];
 
                 $loadingResp =  sendCachedMusicOrLoading($chat_id,$message_id, $videoId, $sendAudioUrl, $this->token);
+                if ($loadingResp == false) return;
 
 
                 answerTelegramCallback($callback_id, "Yuklanmoqda, iltimos kuting...", $this->token);
                 DownloadAndSendMp3Job::dispatch($chat_id, $videoId, $message_id, $loadingResp);
+                return;
             }
             //Videoni audiosini yuklash
             if (str_starts_with($data, "acr|youtube|")) {
@@ -147,8 +149,11 @@ class TelegramBotHandlerController extends Controller
 
                 $loadingResp =  sendCachedMusicOrLoading($chat_id, $message_id, $videoId, $sendAudioUrl, $this->token);
 
+                if ($loadingResp == false) return;
+
                 answerTelegramCallback($callback_id, "Yuklanmoqda, iltimos kuting...", $this->token);
                 DownloadAndSendMp3Job::dispatch($chat_id, $videoId, $message_id, $loadingResp);
+                return;
             }
 
             //         if (str_starts_with($data, 'acr|')) {
