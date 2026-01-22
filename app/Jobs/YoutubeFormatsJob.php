@@ -64,7 +64,7 @@ class YoutubeFormatsJob implements ShouldQueue
         foreach ($choices as $c) {
             $row[] = [
                 'text' => $c['label'],
-                'callback_data' => "yt|{$this->message_id}|{$c['label']}",
+                'callback_data' => "yt|p|{$this->message_id}|{$c['label']}",
             ];
 
             if (count($row) === 2) {
@@ -113,11 +113,6 @@ class YoutubeFormatsJob implements ShouldQueue
         $formats = json_decode($formatsJson, true);
         if (!is_array($formats)) return null;
 
-        Log::info("Natijalar", [
-            'title' => $title,
-            'videoId' => $videoId,
-            'formats' => $formats,
-        ]);
 
         return [
             'title' => $title,

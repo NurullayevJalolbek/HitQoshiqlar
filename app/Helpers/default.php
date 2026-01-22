@@ -103,7 +103,7 @@ if (!function_exists('sendCachedMusicOrLoading')) {
                 'performer' => mb_substr($music->artist ?? 'Unknown', 0, 64),
                 'caption' => "@HitQoshiqlarBot"
             ]);
-            return false;
+            return true;
         }
 
         return  Http::post("https://api.telegram.org/bot{$token}/sendSticker", [

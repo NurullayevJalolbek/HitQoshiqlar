@@ -86,7 +86,7 @@ class TelegramBotHandlerController extends Controller
 
             $user = User::where('chat_id', $chat_id)->first();
 
-             UserMessage::create([
+            UserMessage::create([
                 'user_id' => $user->id,
                 'chat_id' => $chat_id,
                 'message_id' => $message_id,
@@ -98,6 +98,7 @@ class TelegramBotHandlerController extends Controller
                 $telegram_service->sociolMedia($chat_id, $message_id, $message, $this->token);
                 return;
             }
+
             // Qidiruv mantiqi,  User yozgan qoshiqni qidirish  
             $youtube_search_service->youtubeSearch($chat_id, $message);
         }
@@ -130,19 +131,27 @@ class TelegramBotHandlerController extends Controller
                 $telegram_service->showSearchResults($chat_id, $state, $this->token, $message_id);
             }
 
+            Log::info("DATA", ["data"=>$data]);
+
+            if (str_starts_with($data, "yt|p|")) {
+                Log::info("videoni yuklash", ["data" => $data]);
+            }
+
             // MP3 Yuklash
             if (str_starts_with($data, 'yt|')) {
 
                 $videoId = explode('|', $data)[1];
 
                 $loadingResp =  sendCachedMusicOrLoading($chat_id,$message_id, $videoId, $sendAudioUrl, $this->token);
-                if ($loadingResp == false) return;
+                if ($loadingResp == true) return;
 
 
                 answerTelegramCallback($callback_id, "Yuklanmoqda, iltimos kuting...", $this->token);
                 DownloadAndSendMp3Job::dispatch($chat_id, $videoId, $message_id, $loadingResp);
                 return;
             }
+
+           
             //Videoni audiosini yuklash
             if (str_starts_with($data, "acr|youtube|")) {
 
@@ -150,7 +159,7 @@ class TelegramBotHandlerController extends Controller
 
                 $loadingResp =  sendCachedMusicOrLoading($chat_id, $message_id, $videoId, $sendAudioUrl, $this->token);
 
-                if ($loadingResp == false) return;
+                if ($loadingResp == true) return;
 
                 answerTelegramCallback($callback_id, "Yuklanmoqda, iltimos kuting...", $this->token);
                 DownloadAndSendMp3Job::dispatch($chat_id, $videoId, $message_id, $loadingResp);
