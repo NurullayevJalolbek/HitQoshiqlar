@@ -135,41 +135,17 @@ class TelegramBotHandlerController extends Controller
 
                 $videoId = explode('|', $data)[1];
 
-                $keyboardM = [
-                    'inline_keyboard' => [
-                        [
-                            [
-                                'text' => '❌',
-                                'callback_data' => 'clear'
-                            ]
-                        ]
-                    ]
-                ];
+                $loadingResp =  sendCachedMusicOrLoading($chat_id,$message_id, $videoId, $sendAudioUrl, $this->token);
 
-                $music = Music::where('yt_id', $videoId)->first();
 
-                if ($music && $music->file_id) {
+                answerTelegramCallback($callback_id, "Yuklanmoqda, iltimos kuting...", $this->token);
+                DownloadAndSendMp3Job::dispatch($chat_id, $videoId, $message_id, $loadingResp);
+            }
+            //Videoni audiosini yuklash
+            if (str_starts_with($data, "acr|youtube|")) {
+                $videoId = explode('|', $data)[2];
 
-                    Http::post($sendAudioUrl, [
-                        'chat_id' => $chat_id,
-                        'reply_to_message_id' => (int) $message_id,
-                        'audio' => $music->file_id,
-                        'reply_markup' => json_encode($keyboardM),
-                        'title' => mb_substr($music->title ?? 'Music', 0, 64),
-                        'performer' => mb_substr($music->artist ?? 'Unknown', 0, 64),
-                        'caption' => "@HitQoshiqlarBot"
-                    ]);
-                    return;
-                }
-
-                $loadingResp = Http::post("https://api.telegram.org/bot{$this->token}/sendSticker", [
-                    'chat_id' => $chat_id,
-                    'sticker' => 'CAACAgIAAxkBAAFA0aRpa2vWmXn4LAH4SqpWHtUD4opzDwACH4oAAnh1WEs-8AcZvvu0VDgE',
-                ])->json();
-
-                Log::info("LoadingResponse", [
-                    'message_id' => $loadingResp['result']['message_id']
-                ]);
+                $loadingResp =  sendCachedMusicOrLoading($chat_id, $message_id, $videoId, $sendAudioUrl, $this->token);
 
                 answerTelegramCallback($callback_id, "Yuklanmoqda, iltimos kuting...", $this->token);
                 DownloadAndSendMp3Job::dispatch($chat_id, $videoId, $message_id, $loadingResp);

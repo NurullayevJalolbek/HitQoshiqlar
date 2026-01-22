@@ -34,28 +34,27 @@ class YoutubeFormatsJob implements ShouldQueue
 
     public function handle(): void
     {
-        if (empty($this->token)) {
-            Log::error("Telegram token is empty. Check .env and config/services.php");
-            return;
-        }
 
         $data = $this->runYtDlpFast($this->url);
 
         if (!$data || empty($data['formats']) || !is_array($data['formats'])) {
             Log::warning("YT-DLP FAST: no formats", ['url' => $this->url, 'data_ok' => (bool)$data]);
-            $this->tgSendMessage("❌ YouTube formatlarini olib bo‘lmadi 😕");
+            sendMessage($this->chat_id, "❌ YouTube formatlarini olib bo‘lmadi 😕", $this->token);
             return;
         }
 
         $title   = $data['title'] ?? 'YouTube video';
-        $videoId = $data['id'] ?? '';
+        $videoId = $data['videoId'] ?? '';
         $formats = $data['formats'];
 
-        // 1) Formatlarni (height bo‘yicha eng yaxshilarini) ajratamiz
         $choices = $this->buildHeightChoices($formats);
 
         if (empty($choices)) {
-            $this->tgSendMessage("❌ Mos format topilmadi 😕");
+            sendMessage(
+                $this->chat_id,
+                "❌ Mos format topilmadi 😕",
+                $this->token
+            );
             return;
         }
 
@@ -65,7 +64,7 @@ class YoutubeFormatsJob implements ShouldQueue
         foreach ($choices as $c) {
             $row[] = [
                 'text' => $c['label'],
-                'callback_data' => "yt|{$c['label']}",
+                'callback_data' => "yt|{$this->message_id}|{$c['label']}",
             ];
 
             if (count($row) === 2) {
@@ -77,7 +76,7 @@ class YoutubeFormatsJob implements ShouldQueue
 
         $rows[] = [
             ['text' => '❌', 'callback_data' => "clear"],
-            ['text' => '🔉', 'callback_data' => 'acr|youtube|' . (string)($this->message_id ?? 0)],
+            ['text' => '🔉', 'callback_data' => 'acr|youtube|' . (string)($videoId ?? 0)],
         ];
 
         $keyboard = ['inline_keyboard' => $rows];
@@ -106,17 +105,23 @@ class YoutubeFormatsJob implements ShouldQueue
         if ($status !== 0 || empty($output)) return null;
 
         $title = trim($output[0] ?? '');
-        $id    = trim($output[1] ?? '');
+        $videoId    = trim($output[1] ?? '');
         $formatsJson = $output[2] ?? '';
 
-        if ($title === '' || $id === '' || trim($formatsJson) === '') return null;
+        if ($title === '' || $videoId === '' || trim($formatsJson) === '') return null;
 
         $formats = json_decode($formatsJson, true);
         if (!is_array($formats)) return null;
 
+        Log::info("Natijalar", [
+            'title' => $title,
+            'videoId' => $videoId,
+            'formats' => $formats,
+        ]);
+
         return [
             'title' => $title,
-            'id' => $id,
+            'videoId' => $videoId,
             'formats' => $formats,
         ];
     }
