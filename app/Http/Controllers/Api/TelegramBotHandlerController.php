@@ -131,7 +131,7 @@ class TelegramBotHandlerController extends Controller
                 $telegram_service->showSearchResults($chat_id, $state, $this->token, $message_id);
             }
 
-            Log::info("DATA", ["data"=>$data]);
+            Log::info("DATA", ["data" => $data]);
 
             if (str_starts_with($data, "yt|p|")) {
                 Log::info("videoni yuklash", ["data" => $data]);
@@ -142,27 +142,40 @@ class TelegramBotHandlerController extends Controller
 
                 $videoId = explode('|', $data)[1];
 
-                $loadingResp =  sendCachedMusicOrLoading($chat_id,$message_id, $videoId, $sendAudioUrl, $this->token);
-                if ($loadingResp == true) return;
+                $result = sendCachedMusicOrLoading(
+                    $chat_id,
+                    $message_id,
+                    $videoId,
+                    $sendAudioUrl,
+                    $this->token
+                );
+                if ($result['cached'] == true) return;
 
 
                 answerTelegramCallback($callback_id, "Yuklanmoqda, iltimos kuting...", $this->token);
-                DownloadAndSendMp3Job::dispatch($chat_id, $videoId, $message_id, $loadingResp);
+                DownloadAndSendMp3Job::dispatch($chat_id, $videoId, $message_id, $result['response']);
                 return;
             }
 
-           
+
             //Videoni audiosini yuklash
             if (str_starts_with($data, "acr|youtube|")) {
 
                 $videoId = explode('|', $data)[2];
 
-                $loadingResp =  sendCachedMusicOrLoading($chat_id, $message_id, $videoId, $sendAudioUrl, $this->token);
 
-                if ($loadingResp == true) return;
+                $result = sendCachedMusicOrLoading(
+                    $chat_id,
+                    $message_id,
+                    $videoId,
+                    $sendAudioUrl,
+                    $this->token
+                );
+
+                if ($result['cached'] == true) return;
 
                 answerTelegramCallback($callback_id, "Yuklanmoqda, iltimos kuting...", $this->token);
-                DownloadAndSendMp3Job::dispatch($chat_id, $videoId, $message_id, $loadingResp);
+                DownloadAndSendMp3Job::dispatch($chat_id, $videoId, $message_id, $result['response']);
                 return;
             }
 

@@ -94,7 +94,7 @@ if (!function_exists('sendCachedMusicOrLoading')) {
 
         if ($music && $music->file_id) {
 
-            Http::post($sendAudioUrl, [
+            $resp = Http::post($sendAudioUrl, [
                 'chat_id' => $chat_id,
                 'reply_to_message_id' => (int) $message_id,
                 'audio' => $music->file_id,
@@ -103,13 +103,62 @@ if (!function_exists('sendCachedMusicOrLoading')) {
                 'performer' => mb_substr($music->artist ?? 'Unknown', 0, 64),
                 'caption' => "@HitQoshiqlarBot"
             ]);
-            return true;
+            return [
+                'cached' => true,
+                'response' => $resp,
+            ];
         }
 
-        return  Http::post("https://api.telegram.org/bot{$token}/sendSticker", [
+        $resp = Http::post("https://api.telegram.org/bot{$token}/sendSticker", [
             'chat_id' => $chat_id,
             'sticker' => 'CAACAgIAAxkBAAFA0aRpa2vWmXn4LAH4SqpWHtUD4opzDwACH4oAAnh1WEs-8AcZvvu0VDgE',
         ])->json();
+
+
+
+        return [
+            'cached' => false,
+            'response' => $resp,
+        ];
+    }
+}
+
+
+if (!function_exists('buildHeightChoices')) {
+
+
+    function buildHeightChoices(array $formats): array
+    {
+        $best = [];
+
+        foreach ($formats as $f) {
+            if (($f['vcodec'] ?? 'none') === 'none') continue;
+
+            $h = (int)($f['height'] ?? 0);
+            if ($h <= 0) continue;
+
+            $id = (string)($f['format_id'] ?? '');
+            if ($id === '') continue;
+
+            $score = (float)($f['tbr'] ?? 0);
+
+            if (!isset($best[$h]) || $score > $best[$h]['score']) {
+                $best[$h] = [
+                    'id' => $id,
+                    'label' => "{$h}p",
+                    'score' => $score,
+                ];
+            }
+        }
+
+        ksort($best); // 144p → 2160p
+
+        return array_values(array_map(static function ($x) {
+            return [
+                'id' => $x['id'],
+                'label' => $x['label'],
+            ];
+        }, $best));
     }
 }
 

@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Models\YoutubeVideo;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Support\Facades\Cache;
@@ -47,7 +48,18 @@ class YoutubeFormatsJob implements ShouldQueue
         $videoId = $data['videoId'] ?? '';
         $formats = $data['formats'];
 
-        $choices = $this->buildHeightChoices($formats);
+        if ($videoId !== '') {
+            YoutubeVideo::updateOrCreate(
+                ['video_id' => $videoId],
+                [
+                    'url' => $this->url,
+                    'title' => $title,
+                    'formats' => $formats,
+                ]
+            );
+        }
+
+        $choices = buildHeightChoices($formats);
 
         if (empty($choices)) {
             sendMessage(
@@ -119,41 +131,5 @@ class YoutubeFormatsJob implements ShouldQueue
             'videoId' => $videoId,
             'formats' => $formats,
         ];
-    }
-
-
-    // 144p → 2160p eng yaxshilarini tanlaydi
-    private function buildHeightChoices(array $formats): array
-    {
-        $best = [];
-
-        foreach ($formats as $f) {
-            if (($f['vcodec'] ?? 'none') === 'none') continue;
-
-            $h = (int)($f['height'] ?? 0);
-            if ($h <= 0) continue;
-
-            $id = (string)($f['format_id'] ?? '');
-            if ($id === '') continue;
-
-            $score = (float)($f['tbr'] ?? 0);
-
-            if (!isset($best[$h]) || $score > $best[$h]['score']) {
-                $best[$h] = [
-                    'id' => $id,
-                    'label' => "{$h}p",
-                    'score' => $score,
-                ];
-            }
-        }
-
-        ksort($best); // 144p → 2160p
-
-        return array_values(array_map(static function ($x) {
-            return [
-                'id' => $x['id'],
-                'label' => $x['label'],
-            ];
-        }, $best));
     }
 }
