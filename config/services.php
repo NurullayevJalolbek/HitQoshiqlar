@@ -49,5 +49,13 @@ return [
         'access_key' => env('ACRCLOUD_ACCESS_KEY'),
         'access_secret' => env('ACRCLOUD_ACCESS_SECRET'),
     ],
+    'groq'=>[
+        'groq_api_key'=>env('GROQ_API_KEY')
+    ],
+    'gemini' => [
+        'gemini_api_key' => env('GEMINI_API_KEY'),
+    ],
+
+
 
 ];

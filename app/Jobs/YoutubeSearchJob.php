@@ -47,7 +47,7 @@ class YoutubeSearchJob implements ShouldQueue
                 'q' => $this->message,
                 'type' => 'video',
                 'maxResults' => 10,
-                'key' => $this->youtube_key, // yoki config('services.youtube.api_key')
+                'key' => $this->youtube_key,
             ]
         );
 
@@ -56,8 +56,8 @@ class YoutubeSearchJob implements ShouldQueue
         if (!$searchRes->ok() || empty($searchData['items'])) {
             Log::warning('YOUTUBE SEARCH FAIL', [
                 'chat_id' => $this->chat_id,
-                'query' => $this->message,
-                'status' => $searchRes->status(),
+                'query'   => $this->message,
+                'status'  => $searchRes->status(),
                 'body_head' => mb_substr($searchRes->body(), 0, 200),
             ]);
 
@@ -65,50 +65,15 @@ class YoutubeSearchJob implements ShouldQueue
             return;
         }
 
-        $videoIds = collect($searchData['items'])
-            ->pluck('id.videoId')
-            ->filter()
-            ->values()
-            ->implode(',');
-
-        // 2) VIDEOS: duration (ISO 8601)
-        $videosRes = Http::timeout(2)->get(
-            'https://www.googleapis.com/youtube/v3/videos',
-            [
-                'part' => 'contentDetails',
-                'id' => $videoIds,
-                'key' => $this->youtube_key,
-            ]
-        );
-
-        $videosData = $videosRes->json();
-
-        // ISO 8601 -> seconds
-        $isoToSeconds = function (?string $iso): int {
-            if (!$iso) return 0;
-            preg_match('/PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/', $iso, $m);
-            $h = isset($m[1]) ? (int)$m[1] : 0;
-            $min = isset($m[2]) ? (int)$m[2] : 0;
-            $s = isset($m[3]) ? (int)$m[3] : 0;
-            return $h * 3600 + $min * 60 + $s;
-        };
-
-        $durationMap = collect($videosData['items'] ?? [])->mapWithKeys(function ($v) use ($isoToSeconds) {
-            $id = $v['id'] ?? null;
-            $iso = $v['contentDetails']['duration'] ?? null;
-            return $id ? [$id => $isoToSeconds($iso)] : [];
-        });
-
-        // 3) Final results: id|title|duration(seconds)
+        // 2) Final results: id|title
         $results = [];
         foreach ($searchData['items'] as $item) {
             $id = $item['id']['videoId'] ?? null;
             if (!$id) continue;
 
             $results[] = [
-                'id'       => $id,
-                'title'    => $item['snippet']['title'] ?? '',
-                'duration' => (string)($durationMap[$id] ?? 0),
+                'id'    => $id,
+                'title' => $item['snippet']['title'] ?? '',
             ];
         }
 
@@ -119,17 +84,17 @@ class YoutubeSearchJob implements ShouldQueue
 
         $executionTime = round(microtime(true) - $startTime, 3);
 
-        Log::info('YOUTUBE DATA API', [
-            'chat_id' => $this->chat_id,
-            'query' => $this->message,
+        Log::info('YOUTUBE DATA API (SEARCH ONLY)', [
+            'chat_id'       => $this->chat_id,
+            'query'         => $this->message,
             'results_count' => count($results),
-            'time_sec' => $executionTime,
+            'time_sec'      => $executionTime,
         ]);
 
         $state = [
             'results'  => $results,
             'page'     => 0,
-            'per_page' => 10
+            'per_page' => 10,
         ];
 
         file_put_contents(

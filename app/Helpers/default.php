@@ -123,6 +123,20 @@ if (!function_exists('sendCachedMusicOrLoading')) {
     }
 }
 
+if (!function_exists('normalizeQuery')) {
+
+    function normalizeQuery(string $q): string
+    {
+        $q = mb_strtolower($q, 'UTF-8');
+        $q = str_replace(["’", "‘", "`", "´", "ʻ", "ʼ", "′"], "'", $q);
+        $q = str_replace("'", "", $q);
+        $q = preg_replace('/[^\p{L}\p{N}\s]+/u', ' ', $q);
+        $q = preg_replace('/\s+/u', ' ', $q);
+
+        return trim($q);
+    }
+}
+
 
 if (!function_exists('buildHeightChoices')) {
 
@@ -268,33 +282,6 @@ if (!function_exists('sendPhotoMessage')) {
             }
 
             $res = Http::post($url, $payload);
-        }
-        // Aks holda local file deb hisoblaymiz
-        else {
-            $absolutePath = public_path($photo);
-
-            if (!file_exists($absolutePath)) {
-                Log::error("Rasm topilmadi!", ['path' => $absolutePath]);
-                return false;
-            }
-
-            $request = Http::asMultipart()->attach(
-                'photo',
-                file_get_contents($absolutePath),
-                basename($absolutePath)
-            );
-
-            $payload = [
-                'chat_id' => $chat_id,
-                'caption' => $caption,
-                'parse_mode' => 'HTML',
-            ];
-
-            if ($reply_markup) {
-                $payload['reply_markup'] = json_encode($reply_markup, JSON_UNESCAPED_UNICODE);
-            }
-
-            $res = $request->post($url, $payload);
         }
 
         Log::info("sendPhotoMessage response", [

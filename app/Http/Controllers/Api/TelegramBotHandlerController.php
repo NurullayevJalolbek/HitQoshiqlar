@@ -64,7 +64,6 @@ class TelegramBotHandlerController extends Controller
                 App::setLocale($locale_selected);
                 $text = __("admin.start");
 
-                // URL EMAS — local fayl yo'li (public ichidan)
                 sendPhotoMessage(
                     $chat_id,
                     'AgACAgIAAxkBAAFA0a5pa2yQg42PW1nvRP1-i46L8zqIXAACrQ1rG3h1WEvYML6-0iHQ2AEAAwIAA3gAAzgE',
